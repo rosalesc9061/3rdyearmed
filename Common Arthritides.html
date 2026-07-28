@@ -1,0 +1,2540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Arthritides — Interactive Philippine Medical Board Reviewer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --primary-light: #e0f2fe;
+            --secondary: #0f766e;
+            --secondary-light: #ccfbf1;
+            --accent: #4f46e5;
+            --accent-light: #e0e7ff;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-hover: #f1f5f9;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+            
+            --must-know: #0284c7;
+            --must-know-bg: #f0f9ff;
+            --pitfall: #e11d48;
+            --pitfall-bg: #fff1f2;
+            --pearl: #0d9488;
+            --pearl-bg: #f0fdfa;
+            --exam-tip: #d97706;
+            --exam-tip-bg: #fffbeb;
+
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface-hover: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --primary-light: #1e3a8a;
+            --secondary-light: #134e4a;
+            --accent-light: #312e81;
+            --must-know-bg: #0c4a6e;
+            --pitfall-bg: #881337;
+            --pearl-bg: #134e4a;
+            --exam-tip-bg: #78350f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+            padding-top: 70px;
+        }
+
+        /* Fixed Navigation */
+        .header-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .brand-badge {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 0.25rem 0;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.6rem 1rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            background: var(--surface-hover);
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 0.4rem 1rem 0.4rem 2.2rem;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            outline: none;
+            width: 180px;
+            transition: width 0.3s;
+        }
+
+        .search-input:focus {
+            width: 240px;
+            border-color: var(--primary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .icon-btn {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: var(--surface-hover);
+        }
+
+        /* Container & Layout */
+        .main-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography & Headings */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+        }
+
+        h1 { font-size: 2rem; font-weight: 800; }
+        h2 { font-size: 1.5rem; font-weight: 700; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-top: 1.5rem; }
+        h3 { font-size: 1.2rem; font-weight: 600; margin-top: 1rem; }
+
+        p { margin-bottom: 1rem; color: var(--text-main); }
+
+        /* Card Component */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-accent-primary { border-left: 5px solid var(--primary); }
+        .card-accent-secondary { border-left: 5px solid var(--secondary); }
+        .card-accent-accent { border-left: 5px solid var(--accent); }
+        .card-accent-warning { border-left: 5px solid var(--exam-tip); }
+
+        /* Callout Boxes */
+        .callout {
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            font-size: 0.95rem;
+        }
+
+        .callout-icon {
+            font-size: 1.3rem;
+            line-height: 1;
+        }
+
+        .callout-must-know {
+            background: var(--must-know-bg);
+            border-left: 4px solid var(--must-know);
+            color: var(--text-main);
+        }
+
+        .callout-pitfall {
+            background: var(--pitfall-bg);
+            border-left: 4px solid var(--pitfall);
+            color: var(--text-main);
+        }
+
+        .callout-pearl {
+            background: var(--pearl-bg);
+            border-left: 4px solid var(--pearl);
+            color: var(--text-main);
+        }
+
+        .callout-exam-tip {
+            background: var(--exam-tip-bg);
+            border-left: 4px solid var(--exam-tip);
+            color: var(--text-main);
+        }
+
+        /* High-Yield Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .table-header-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--surface-hover);
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .btn-copy {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-copy:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--surface-hover);
+            color: var(--text-main);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid var(--border);
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.015);
+        }
+
+        tr:hover {
+            background-color: var(--surface-hover);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+        }
+
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+        .badge-red { background: #ffe4e6; color: #9f1239; }
+        .badge-green { background: #dcfce7; color: #166534; }
+        .badge-amber { background: #fef3c7; color: #92400e; }
+        .badge-purple { background: #f3e8ff; color: #6b21a8; }
+
+        /* Accordion / Expandable Cards */
+        .accordion {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            background: var(--surface);
+        }
+
+        .accordion-header {
+            padding: 1rem 1.25rem;
+            background: var(--surface);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.05rem;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .accordion-header:hover {
+            background: var(--surface-hover);
+        }
+
+        .accordion-content {
+            padding: 1.25rem;
+            border-top: 1px solid var(--border);
+            display: none;
+        }
+
+        .accordion.open .accordion-content {
+            display: block;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s;
+        }
+
+        .accordion.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Custom Flowcharts / Diagrams using HTML/CSS */
+        .diagram-box {
+            background: var(--surface-hover);
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .flow-node {
+            background: var(--surface);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 0.8rem 1.2rem;
+            width: 100%;
+            max-width: 450px;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .flow-node-decision {
+            border-color: var(--accent);
+            background: var(--accent-light);
+            border-radius: 20px;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            width: 100%;
+        }
+
+        /* Flashcards Styling */
+        .flashcard-container {
+            max-width: 650px;
+            margin: 2rem auto;
+            perspective: 1000px;
+        }
+
+        .flashcard {
+            width: 100%;
+            min-height: 320px;
+            background: var(--surface);
+            border-radius: 16px;
+            border: 2px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            box-sizing: border-radius;
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background: var(--surface-hover);
+            border-radius: 14px;
+        }
+
+        .fc-tag {
+            position: absolute;
+            top: 1.25rem;
+            left: 1.25rem;
+        }
+
+        .fc-prompt {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-family: var(--font-mono);
+        }
+
+        .fc-question {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .fc-answer {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .fc-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .fc-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-body);
+        }
+
+        .fc-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .fc-progress {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* MCQ Quiz System */
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .quiz-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .quiz-num {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .quiz-question {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            color: var(--text-main);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .quiz-option {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .quiz-option:hover {
+            background: var(--surface-hover);
+            border-color: var(--primary);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .quiz-option.correct-choice {
+            border-color: #10b981;
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .quiz-option.incorrect-choice {
+            border-color: #f43f5e;
+            background: #ffe4e6;
+            color: #881337;
+        }
+
+        .quiz-opt-letter {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .quiz-explanation {
+            margin-top: 1.25rem;
+            padding: 1rem;
+            background: var(--surface-hover);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-stats-bar {
+            position: sticky;
+            top: 70px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        /* Cram Sheet Styling */
+        .buzzword-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .buzzword-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .buzz-trigger {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .buzz-target {
+            font-weight: 700;
+            color: var(--text-main);
+            font-size: 1.05rem;
+        }
+
+        /* Sub-nav filters */
+        .filter-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Utility Floating Controls */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            border: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 900;
+        }
+
+        .scroll-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 768px) {
+            .header-nav { padding: 0 0.75rem; }
+            .brand-title { display: none; }
+            .search-input { width: 120px; }
+            .search-input:focus { width: 160px; }
+            .main-container { padding: 1rem 0.75rem; }
+            .quiz-stats-bar { flex-direction: column; gap: 0.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header-nav">
+        <div class="brand">
+            <span>🩺</span>
+            <span class="brand-title">ARTHRITIDES</span>
+            <span class="brand-badge">PLE v2026</span>
+        </div>
+
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('overview')">1. Overview</button>
+            <button class="tab-btn" onclick="switchTab('core-topics')">2–8. Core Topics</button>
+            <button class="tab-btn" onclick="switchTab('comparisons')">9. Comparisons</button>
+            <button class="tab-btn" onclick="switchTab('flashcards')">10. Flashcards (50)</button>
+            <button class="tab-btn" onclick="switchTab('quiz')">11. Self-Assessment (50)</button>
+            <button class="tab-btn" onclick="switchTab('cram-sheet')">⚡ Cram Sheet</button>
+        </nav>
+
+        <div class="nav-actions">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="global-search" class="search-input" placeholder="Search topics..." onkeyup="handleGlobalSearch()">
+            </div>
+            <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">🌙</button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-container">
+
+        <!-- ========================================== -->
+        <!-- TAB 1: OVERVIEW -->
+        <!-- ========================================== -->
+        <section id="tab-overview" class="tab-content active">
+            <div class="card card-accent-primary">
+                <h1>Common Arthritides — High-Yield Executive Summary</h1>
+                <p>Welcome, Philippine Medical Student & PLE Reviewee! This board-exam-quality interactive reviewer is strictly constructed from the <strong>UERMED Department of Medicine (2025/2026) Common Arthritides lectures</strong> by Dr. Nympha Ribargoso and Dr. Therese Eileen L. Natividad. It covers the full spectrum of non-inflammatory, inflammatory, crystal-induced, axial, autoimmune, and infectious arthritides.</p>
+            </div>
+
+            <div class="card">
+                <h2>🎯 Core Learning Objectives</h2>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li><strong>Diagnostic Differentiation:</strong> Systematically evaluate musculoskeletal complaints using four pivotal questions: (1) Is it articular? (2) Is it acute (&lt;6 wks) or chronic (≥6 wks)? (3) Is inflammation present? (4) How many and which joints are involved?</li>
+                    <li><strong>Pathology Recognition:</strong> Master the specific anatomic primary targets: Cartilage loss/Subchondral bone failure in OA vs. Persistent Inflammatory Synovitis/Pannus in RA vs. Microcrystalline deposition in Gout/CPPD vs. Axial Enthesitis/Sacroiliitis in AS vs. Hematogenous Synovial Microvascular Bacterial Invasion in Septic Arthritis.</li>
+                    <li><strong>Arthrocentesis Mastery:</strong> Accurately interpret Synovial Fluid WBC counts, PMN percentages, and Polarized Light Microscopy crystal characteristics (e.g., needle-shaped strongly negative birefringent MSU vs. rhomboid weakly positive birefringent CPPD).</li>
+                    <li><strong>Evidence-Based Pharmacology:</strong> Formulate safe treatment regimens including csDMARDs (Methotrexate, Leflunomide, Sulfasalazine, Hydroxychloroquine), bDMARDs/tsDMARDs, Urate-Lowering Therapies (Allopurinol, Febuxostat), Acute Gout agents (Colchicine, NSAIDs, Steroids), and Antimicrobial coverage.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>🪜 Algorithmic Evaluation of Musculoskeletal Complaints</h2>
+                <p>The cardinal clinical decision tree utilized in Philippine Board Examinations (PLE) to approach any patient presenting with joint pain:</p>
+                
+                <div class="diagram-box">
+                    <div class="flowchart">
+                        <div class="flow-node flow-node-decision">1. IS IT ARTICULAR OR NON-ARTICULAR?</div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Articular: Pain on active/passive ROM, diffuse tenderness, swelling, crepitus.<br>Non-articular: Pain on active ROM only, focal tenderness (e.g., bursitis, tendinitis, fibromyalgia).</div>
+                        <div class="flow-arrow">↓ Articular</div>
+
+                        <div class="flow-node flow-node-decision">2. IS IT ACUTE OR CHRONIC? (&lt;6 WEEKS vs ≥6 WEEKS)</div>
+                        <div class="flow-arrow">↓ Chronic (≥ 6 Weeks)</div>
+
+                        <div class="flow-node flow-node-decision">3. IS INFLAMMATION PRESENT?</div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Signs: Prolonged morning stiffness (&gt;1 hr), soft tissue swelling, systemic symptoms, elevated ESR/CRP.</div>
+
+                        <div style="display: flex; gap: 1rem; width: 100%; margin-top: 0.5rem;">
+                            <div style="flex: 1;" class="flow-node" style="border-color: #10b981;">
+                                <strong>NO (Non-Inflammatory)</strong><br>
+                                Morning stiffness &lt;30 mins (gel phenomenon), pain with use, no systemic signs.<br>
+                                <em>DIP, PIP, 1st CMC, Hip, Knee involved?</em> → <strong>OSTEOARTHRITIS</strong>
+                            </div>
+                            <div style="flex: 1;" class="flow-node" style="border-color: #e11d48;">
+                                <strong>YES (Inflammatory)</strong><br>
+                                Morning stiffness &gt;1 hr, warmth, swelling, elevated ESR/CRP.<br>
+                                <em>Check Joint Count & Symmetry...</em>
+                            </div>
+                        </div>
+
+                        <div class="flow-arrow">↓ Inflammatory Branch</div>
+
+                        <div class="flow-grid">
+                            <div class="flow-node">
+                                <strong>Mono/Oligoarthritis (1–3 Joints)</strong><br>
+                                • Asymmetric → Psoriatic, Reactive, Enteropathic, TB/Fungal
+                            </div>
+                            <div class="flow-node" style="border-color: var(--accent);">
+                                <strong>Polyarthritis (&gt;3 Joints)</strong><br>
+                                • Symmetric + MCP, PIP, Wrist → <strong>RHEUMATOID ARTHRITIS</strong><br>
+                                • Asymmetric → Psoriatic, SLE
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📚 Master High-Yield Overview Table</h2>
+                <div class="table-wrapper">
+                    <div class="table-header-action">
+                        <span class="table-title">Core Comparative Summary of the Arthritides</span>
+                        <button class="btn-copy" onclick="copyTable('master-overview-table')">📋 Copy Table</button>
+                    </div>
+                    <table id="master-overview-table">
+                        <thead>
+                            <tr>
+                                <th>Condition</th>
+                                <th>Primary Pathology</th>
+                                <th>Key Joint Distribution</th>
+                                <th>Morning Stiffness</th>
+                                <th>Synovial Fluid WBC</th>
+                                <th>Pathognomonic / Hallmark Feature</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Osteoarthritis (OA)</strong></td>
+                                <td>Hyaline Cartilage Degeneration & Subchondral Bone Sclerosis</td>
+                                <td>Weight-bearing (Knees, Hips), DIP, PIP, 1st CMC, 1st MTP</td>
+                                <td>&lt;30 mins (&lt;5 min "Gel Phenomenon")</td>
+                                <td>&lt;2,000 /µL (Non-inflammatory)</td>
+                                <td>Heberden's (DIP) & Bouchard's (PIP) nodes, Osteophytes, Varus deformity</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rheumatoid Arthritis (RA)</strong></td>
+                                <td>Persistent Inflammatory Synovitis & Pannus Formation</td>
+                                <td>Symmetric: MCPs, PIPs, Wrists, MTPs (Spares DIPs & 1st CMC)</td>
+                                <td>&gt;1 hour (eases with activity)</td>
+                                <td>5,000 – 50,000 /µL (&gt;50-75% PMNs)</td>
+                                <td>Anti-CCP (95% specific), Subchondral erosions, Boutonniere & Swan-neck deformities</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gouty Arthritis</strong></td>
+                                <td>Monosodium Urate (MSU) Crystal Microtissue Deposition</td>
+                                <td>1st MTP (Podagra), Ankle, Knee (Initial Monoarticular)</td>
+                                <td>Variable (Acute nocturnal onset)</td>
+                                <td>2,000 – 60,000 /µL</td>
+                                <td>Needle-shaped, Strongly Negatively Birefringent MSU crystals, Tophi</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pseudogout (CPPD)</strong></td>
+                                <td>Calcium Pyrophosphate Crystal Deposition in Cartilage</td>
+                                <td>Knees, Wrists, Fibrocartilage, Shoulders</td>
+                                <td>Variable (Acute/subacute)</td>
+                                <td>2,000 – 50,000 /µL</td>
+                                <td>Rhomboid/rod, Weakly Positively Birefringent crystals, Chondrocalcinosis</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ankylosing Spondylitis</strong></td>
+                                <td>Axial Enthesitis & Sacroiliac Granulation/Ossification</td>
+                                <td>Sacroiliac Joints, Axial Spine, Ascending Progression</td>
+                                <td>&gt;1 hour (Low back stiffness)</td>
+                                <td>Inflammatory (if peripheral)</td>
+                                <td>HLA-B27 (&gt;90%), Syndesmophytes, "Bamboo Spine", Anterior Uveitis</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Acute Rheumatic Fever</strong></td>
+                                <td>Post-GAS Autoimmune Cross-reactivity (Molecular Mimicry)</td>
+                                <td>Migratory Polyarthritis of Large Joints (Knees, Ankles)</td>
+                                <td>Transient</td>
+                                <td>Inflammatory</td>
+                                <td>Revised Jones Criteria (2 Major or 1 Major + 2 Minor + GAS proof), Carditis</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Septic Arthritis (Non-Gonococcal)</strong></td>
+                                <td>Direct Synovial Hematogenous Bacterial Invasion</td>
+                                <td>Monoarticular (Knee &gt;50%), Axial in IV drug users</td>
+                                <td>Constant severe pain</td>
+                                <td><strong>&gt;50,000 /µL</strong> (&gt;90% PMNs)</td>
+                                <td>Purulent fluid, <em>S. aureus</em> (#1 overall), rapid cartilage destruction in 48h</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 2–8: CORE TOPICS -->
+        <!-- ========================================== -->
+        <section id="tab-core-topics" class="tab-content">
+            <div class="card card-accent-secondary">
+                <h1>Core Lecture Topics — Deep-Dives & Pathophysiology</h1>
+                <p>Expand each section below to review the comprehensive disease breakdowns, pathophysiology, diagnostic algorithms, treatment paradigms, and high-yield board callouts.</p>
+            </div>
+
+            <!-- SECTION 1: OSTEOARTHRITIS -->
+            <div class="accordion open" id="topic-oa">
+                <div class="accordion-header" onclick="toggleAccordion('topic-oa')">
+                    <span>1. OSTEOARTHRITIS (OA) — DEGENERATIVE JOINT DISEASE</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <h3>A. Pathophysiology & Pathology</h3>
+                    <p>Osteoarthritis is a mechanically-driven organ failure of the diarthrodial joint. The <strong>pathology of OA is primarily IN the hyaline cartilage</strong> (non-uniform loss of cartilage), accompanied by subchondral bone sclerosis, cyst formation, and marginal osteophyte (bone spur) formation—which represents bone's repair response to lost cartilage.</p>
+                    
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>Cartilage Breakdown:</strong> Lysosomal enzymes, plasmin, cathepsins, and <strong>Matrix Metalloproteinases (MMPs)</strong> degrade matrix proteoglycans and collagen. Cartilage initially undergoes fibrillation and surface irregularity, followed by focal erosions.</li>
+                        <li><strong>Joint Protective Mechanisms Failure:</strong> Normal joints are protected by joint capsules/ligaments (limit excursion), synovial fluid (lubrication via <em>hyaluronic acid</em> and <em>lubricin</em> secreted by synovial fibroblasts), mechanoreceptors (anticipate joint loading), bridging muscles/tendons (decelerate joint impact), and cartilage compressibility. Failure of these protectors accelerates OA (e.g., Charcot's arthropathy in peripheral neuropathy; rapidly developing OA after sensory nerve sectioning or meniscectomy).</li>
+                        <li><strong>Load Allocation & Compartments:</strong> In the knee, the <strong>medial compartment degenerates first</strong>. Thinning of medial joint space leads to frontal plane malalignment resulting in <strong>varus deformity ("bow-leggedness")</strong>. Lateral compartment loss leads to <strong>valgus deformity ("knock-knees")</strong>. 3 to 6 times body weight is transmitted across the knee during single-leg stance.</li>
+                    </ul>
+
+                    <div class="callout callout-must-know">
+                        <span class="callout-icon">⭐</span>
+                        <div>
+                            <strong>MUST KNOW: Sources of Pain in OA</strong><br>
+                            Healthy articular hyaline cartilage is <strong>Aneural and Avascular</strong>. Cartilage loss alone does NOT cause pain! Pain in OA originates from extra-cartilaginous innervated structures: <strong>synovial inflammation/synovitis, joint effusion (capsular stretch), bone marrow edema</strong> (from subchondral stress), periarticular bursitis (anserine bursitis, IT-band syndrome), and peripheral/central sensitization. Adipokines from obesity also enhance pain sensitivity.
+                        </div>
+                    </div>
+
+                    <h3>B. Etiology & Risk Factors</h3>
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>Systemic Factors:</strong> <strong>Age (most potent risk factor overall)</strong>; Female gender (more prone, earlier onset); Genetic susceptibility (GDF5 gene mutation; hand/hip heritability ~50%, knee ~30%); Race/ethnicity.</li>
+                        <li><strong>Local / Joint Vulnerability:</strong> History of trauma, prior meniscectomy or ligamentous tears; intrinsic muscle weakness; developmental hip abnormalities in utero/childhood (<em>Congenital Dysplasia, Legg-Calvé-Perthes disease, Slipped Capital Femoral Epiphysis [SCFE]</em>); Avascular Necrosis (AVN).</li>
+                        <li><strong>Use / Loading Factors:</strong> Obesity (strongest modifiable factor for knees/hips/hands); high-impact athletic pursuits; occupations requiring prolonged standing/heavy lifting (teachers, security guards, salespeople, farmers).</li>
+                    </ul>
+
+                    <h3>C. Clinical Manifestations & Physical Exam</h3>
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>Pain Pattern:</strong> Mechanical pain—worsened by joint use/weight-bearing (e.g., walking down stairs, standing up after sitting), relieved by rest. Advanced disease causes rest and nocturnal pain.</li>
+                        <li><strong>Morning Stiffness:</strong> Brief stiffness lasting <strong>&lt;30 minutes</strong> (often &lt;5 minutes), termed the <strong>"gel phenomenon"</strong>.</li>
+                        <li><strong>Joint Involvement:</strong> Cervical and lower lumbar spine, Hips, Knees, 1st CMC (thumb base), 1st MTP (bunions), PIPs, and DIPs. <strong>Spares the wrist, elbow, and ankle</strong> (unless secondary to major trauma/AVN).</li>
+                        <li><strong>Physical Findings:</strong> Bony enlargement, quadriceps atrophy, limping ("penguin walk"), varus/valgus deformity, limited ROM, and <strong>coarse joint crepitus</strong>.
+                            <br>• <strong>Heberden's Nodes:</strong> Bony enlargement of Distal Interphalangeal (DIP) joints.
+                            <br>• <strong>Bouchard's Nodes:</strong> Bony enlargement of Proximal Interphalangeal (PIP) joints.
+                        </li>
+                    </ul>
+
+                    <div class="callout callout-pitfall">
+                        <span class="callout-icon">⚠️</span>
+                        <div>
+                            <strong>COMMON PITFALL: Radiograph vs. Pain Severity</strong><br>
+                            The severity of radiographic changes in OA (joint space narrowing, osteophytes, subchondral sclerosis) <strong>does NOT correlate well with the presence or severity of pain</strong>! Routine X-rays or MRIs are NOT indicated for uncomplicated OA presenting with classic symptoms.
+                        </div>
+                    </div>
+
+                    <h3>D. Diagnostic & Therapeutic Management</h3>
+                    <div class="table-wrapper">
+                        <div class="table-header-action">
+                            <span class="table-title">Management Paradigm for Osteoarthritis</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Intervention</th>
+                                    <th>High-Yield Clinical Pearls / Guidelines</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Non-Pharmacologic</strong> (Mainstay)</td>
+                                    <td>Weight reduction, Low-impact exercise, Assistive devices</td>
+                                    <td>Isometric quadriceps strengthening, swimming, stationary cycling. Avoid running/jumping. 1 lb weight loss = 3-6 lbs load reduction on knees! Unload joint with canes or knee braces for varus malalignment.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Topical Therapy</strong></td>
+                                    <td>Topical Diclofenac 1% gel, Capsaicin cream</td>
+                                    <td>First-line for knee and hand OA in elderly; high local efficacy with minimal systemic GI/renal toxicity. Capsaicin depletes Substance P (causes initial local irritation).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Oral NSAIDs & COX-2 Inhibitors</strong></td>
+                                    <td>Naproxen, Celecoxib, Ibuprofen</td>
+                                    <td><strong>Naproxen and low-dose Celecoxib</strong> are the safest from a CV perspective. High GI risk patients require PPI co-prescription. <strong>Avoid oral NSAIDs in chronic renal insufficiency</strong>. Acetaminophen has limited efficacy.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Intra-Articular Therapy</strong></td>
+                                    <td>IA Steroids, IA Hyaluronate (Hyaluronic acid)</td>
+                                    <td>IA Steroids provide acute relief for inflammatory flares (no systemic oral steroids in OA!). IA Hyaluronate restores synovial fluid viscosity (3-5 weekly injections).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Surgical Management</strong></td>
+                                    <td>Total Knee Arthroplasty (TKA), Total Hip Arthroplasty (THA)</td>
+                                    <td>Indicated for refractory severe pain and severe functional disability interfering with daily activities.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: RHEUMATOID ARTHRITIS -->
+            <div class="accordion" id="topic-ra">
+                <div class="accordion-header" onclick="toggleAccordion('topic-ra')">
+                    <span>2. RHEUMATOID ARTHRITIS (RA) — SYSTEMIC AUTOIMMUNE DISEASE</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <h3>A. Pathophysiology & Pathogenesis</h3>
+                    <p>Rheumatoid Arthritis is a chronic, systemic autoimmune inflammatory arthritis characterized by <strong>persistent inflammatory synovitis</strong>. Pathology resides primarily in the <strong>synovium</strong> (unlike OA which is in cartilage).</p>
+
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>Synovial Pathology:</strong> Microvascular injury, B/T cell infiltration, and synovial lining cell hyperplasia form an invasive, hypervascularized, proliferative tissue called <strong>Pannus</strong>. Pannus erodes underlying articular cartilage and subchondral bone.</li>
+                        <li><strong>Cytokine Cascade:</strong> Driven by TNF-α, IL-1, IL-6, and IL-8. TNF-α activates synovial macrophages. B cells produce autoantibodies (RF and anti-CCP) and secrete pro-inflammatory cytokines.</li>
+                        <li><strong>Environment & Citrullination:</strong> <strong>Cigarette smoking</strong> is the strongest known environmental risk factor (1.5–3.5x risk). Periodontal disease caused by <strong>Porphyromonas gingivalis</strong> plays a unique role: <em>P. gingivalis</em> harbors peptidyl arginine deiminase (PAD) enzyme, which citrullinates arginine residues, breaking self-tolerance and inducing Anti-Citrullinated Protein Antibodies (ACPA / Anti-CCP).</li>
+                    </ul>
+
+                    <div class="callout callout-pearl">
+                        <span class="callout-icon">💡</span>
+                        <div>
+                            <strong>CLINICAL PEARL: Anti-CCP vs. Rheumatoid Factor (RF)</strong><br>
+                            <strong>RF</strong> (IgM antibody against Fc portion of IgG) is positive in 75–80% of RA cases but is non-specific (positive in Sjögren's, SLE, Endocarditis, Hepatitis). <strong>Anti-CCP (ACPA)</strong> has equivalent sensitivity (~75%) but superior specificity (<strong>~95%</strong>). Positive Anti-CCP in early arthritis strongly predicts rapid disease progression, severe joint erosions, and extra-articular manifestations!
+                        </div>
+                    </div>
+
+                    <h3>B. Clinical Features & Characteristic Deformities</h3>
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>Symmetrical Polyarthritis:</strong> Involves small peripheral joints: <strong>MCPs, PIPs, Wrists (uniform feature), and MTPs</strong>. <em>Spares DIP joints, 1st CMC, and axial skeleton (except C1-C2)</em>.</li>
+                        <li><strong>Morning Stiffness:</strong> Severe, lasting <strong>&gt;1 hour</strong> (often all morning), easing with physical movement.</li>
+                        <li><strong>Irreversible Chronic Deformities:</strong>
+                            <br>• <strong>Boutonnière Deformity:</strong> Hyperflexion of PIP joint with hyperextension of DIP joint.
+                            <br>• <strong>Swan-Neck Deformity:</strong> Hyperextension of PIP joint with hyperflexion of DIP joint.
+                            <br>• <strong>Z-Deformity of Thumb:</strong> Subluxation of 1st MCP joint with hyperextension of 1st IP joint.
+                            <br>• <strong>Ulnar Deviation:</strong> Subluxation of MCP joints causing fingers to pull ulnar-ward.
+                            <br>• <strong>Piano-Key Sign:</strong> Dorsal subluxation of the ulnar styloid.
+                            <br>• <strong>Pes Planovalgus:</strong> Flat feet secondary to midtarsal/ankle chronic inflammation.
+                            <br>• <strong>Atlantoaxial (C1–C2) Subluxation:</strong> Cervical spine involvement occurring in &lt;10% of cases. Crucial risk during endotracheal intubation for general anesthesia!
+                        </li>
+                    </ul>
+
+                    <h3>C. Systemic & Extra-Articular Manifestations</h3>
+                    <p>RA affects ~0.5–1% of adults (Female-to-Male ratio in PH = 9:1; onset 4th–5th decades). Overall mortality is 2x higher than general population, with <strong>Ischemic Heart Disease / Cardiovascular Disease being the #1 cause of death</strong> (2–4x increased risk of MI and stroke).</p>
+
+                    <div class="table-wrapper">
+                        <div class="table-header-action">
+                            <span class="table-title">Extra-Articular Spectrum of RA</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Organ System</th>
+                                    <th>Manifestations & High-Yield Features</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Cardiovascular</strong> (#1 Mortality)</td>
+                                    <td>Accelerated atherosclerosis, MI, Stroke, Pericarditis, Myocarditis, Mitral Regurgitation.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Hematologic</strong></td>
+                                    <td>Anemia of chronic disease; <strong>Felty's Syndrome</strong> (Triad: Neutropenia, Splenomegaly, Nodular RA).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cutaneous & Nodules</strong></td>
+                                    <td><strong>Rheumatoid Nodules</strong> (30–40% of patients; firm, non-tender at extensor/trauma sites like forearm, sacrum); <strong>Rheumatoid Vasculitis</strong> (petechiae, digital infarcts, leg ulcers).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ocular & Oral</strong></td>
+                                    <td><strong>Secondary Sjögren's Syndrome</strong> (10% of RA; Keratoconjunctivitis sicca, Xerostomia, severe dental caries); Episcleritis, Scleritis.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pulmonary</strong></td>
+                                    <td>Pleural effusion (characteristically extremely low glucose), Interstitial Lung Disease (ILD), Pulmonary nodules.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Malignancy & Skeletal</strong></td>
+                                    <td>2–4x risk of <strong>Lymphoma</strong> (most commonly Diffuse Large B-Cell Lymphoma [DLBCL]); Generalized Osteoporosis.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>D. 2010 ACR-EULAR Classification Criteria for RA</h3>
+                    <p>A score of <strong>≥6 / 10</strong> classifies definite RA (in patients with ≥1 joint with definite clinical synovitis not explained by another disease):</p>
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>Joint Involvement:</strong> 1 large joint (0); 2–10 large joints (1); 1–3 small joints (2); 4–10 small joints (3); &gt;10 joints with ≥1 small joint (5).</li>
+                        <li><strong>Serology:</strong> Negative RF & ACPA (0); Low-positive RF or ACPA [≤3x ULN] (2); High-positive RF or ACPA [&gt;3x ULN] (3).</li>
+                        <li><strong>Acute-Phase Reactants:</strong> Normal CRP & ESR (0); Abnormal CRP or ESR (1).</li>
+                        <li><strong>Duration of Symptoms:</strong> &lt;6 weeks (0); <strong>≥6 weeks (1)</strong>.</li>
+                    </ul>
+
+                    <h3>E. DMARD Management Paradigm</h3>
+                    <div class="table-wrapper">
+                        <div class="table-header-action">
+                            <span class="table-title">Disease-Modifying Anti-Rheumatic Drugs (DMARDs) Summary</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Drug Class / Name</th>
+                                    <th>Dosage</th>
+                                    <th>Serious Toxicities & Adverse Effects</th>
+                                    <th>Baseline & Regular Monitoring</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Methotrexate (MTX)</strong><br><em>(Anchor csDMARD of choice)</em></td>
+                                    <td>10–25 mg / week (Oral/SQ) + Folic acid 1 mg/day</td>
+                                    <td><strong>Hepatotoxicity, Myelosuppression, Interstitial Pneumonitis</strong>, mouth ulcers, stomatitis, alopecia. Teratogenic (Category X).</td>
+                                    <td>Baseline CBC, LFTs, CXR, Viral Hepatitis panel. Monitor CBC, Creatinine, LFTs q2-3 months.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Leflunomide</strong></td>
+                                    <td>10–20 mg / day (Oral)</td>
+                                    <td><strong>Hepatotoxicity, Myelosuppression</strong>, alopecia, diarrhea. Teratogenic (Category X).</td>
+                                    <td>Baseline CBC, LFTs, Hepatitis panel. Monitor CBC & LFTs q2-3 months.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Sulfasalazine</strong></td>
+                                    <td>500 mg BID to 1–1.5 g BID</td>
+                                    <td><strong>Granulocytopenia, Hemolytic Anemia</strong> (in G6PD deficiency), nausea, rash.</td>
+                                    <td>G6PD level baseline; CBC q2-4 wks for 3 mos, then q3 mos. LFTs.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Hydroxychloroquine</strong></td>
+                                    <td>200–400 mg / day (≤5 mg/kg)</td>
+                                    <td><strong>Irreversible Retinal Toxicity</strong>, cardiotoxicity, skin hyperpigmentation. Minimal RA efficacy alone.</td>
+                                    <td>Baseline eye exam (&gt;40 yo/prior disease). Annual Optical Coherence Tomography (OCT) & Visual Fields.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Anti-TNF-α Biologics</strong><br><em>(Infliximab, Etanercept, Adalimumab, Golimumab, Certolizumab)</em></td>
+                                    <td>Varies (IV/SQ)</td>
+                                    <td><strong>Reactivation of Latent Tuberculosis (TB)</strong>, severe bacterial/fungal infections, infusion/injection reactions, lymphoma risk, drug-induced lupus.</td>
+                                    <td>Mandatory baseline <strong>PPD / IGRA screening and Chest X-ray</strong>. CBC and LFTs periodically.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Other Biologics & tsDMARDs</strong></td>
+                                    <td>Rituximab (Anti-CD20), Tocilizumab (Anti-IL-6), Abatacept, Tofacitinib (JAKi)</td>
+                                    <td>Severe infections, Hepatitis B reactivation (Rituximab), dyslipidemia & GI perforation (Tocilizumab/JAKi).</td>
+                                    <td>Premedicate Rituximab with methylprednisolone. TB screening, Lipid panel, CBC, LFTs.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: GOUT -->
+            <div class="accordion" id="topic-gout">
+                <div class="accordion-header" onclick="toggleAccordion('topic-gout')">
+                    <span>3. GOUTY ARTHRITIS & HYPERURICEMIA</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <h3>A. Etiology & Pathogenesis</h3>
+                    <p>Gout is a metabolic disease characterized by monosodium urate (MSU) crystal deposition in articular and periarticular tissues due to chronic hyperuricemia (serum urate saturation threshold &gt;6.85 mg/dL). Humans develop gout because we lack <strong>uricase</strong>, an enzyme present in other mammals that converts urate into soluble allantoin.</p>
+
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>Urate Kinetics:</strong> <strong>Renal Underexcretion accounts for ~90% of gout patients</strong>; Overproduction accounts for ~10%.</li>
+                        <li><strong>Risk Factors:</strong> Male sex (men &gt;&gt; postmenopausal women; premenopausal women rarely develop gout); Obesity and insulin resistance; Chronic kidney disease; Hypertension; Dyslipidemia.</li>
+                        <li><strong>Medication Triggers:</strong> Thiazide and loop diuretics, low-dose aspirin, pyrazinamide, cyclosporine.</li>
+                        <li><strong>Dietary Triggers:</strong> Alcohol (beer, hard liquor, wine), red meats, organ meats, seafood, high-fructose corn syrup beverages. (Note: Vegetables, legumes, nuts, plant oils are unrestricted!).</li>
+                    </ul>
+
+                    <h3>B. Clinical Stages & Features</h3>
+                    <ol style="margin-left: 1.5rem;">
+                        <li><strong>Asymptomatic Hyperuricemia:</strong> High urate without joint attacks (Guidelines state DO NOT treat unless SUA &gt;9 mg/dL or high risk).</li>
+                        <li><strong>Acute Gouty Arthritis:</strong> Excruciating, sudden-onset monoarthritis peaking within 24 hours. Erythema, swelling, and extreme warmth mimicking cellulitis.
+                            <br>• <strong>Podagra:</strong> Involvement of the 1st Metatarsophalangeal (MTP) joint—the most common initial site (&gt;50%). Other common sites: ankle, knee, tarsal joints.
+                        </li>
+                        <li><strong>Intercritical Gout:</strong> Symptom-free intervals between acute attacks.</li>
+                        <li><strong>Chronic Tophaceous Gout:</strong> Develops 10+ years after uncontrolled hyperuricemia. Tophi are firm, yellow-white nodular MSU deposits discharging chalky material. Locations: helix of ear, olecranon bursa, Achilles tendon, prepatellar bursa, hands/feet.</li>
+                        <li><strong>Renal Complications:</strong> Urolithiasis (uric acid kidney stones) and Uric Acid Nephropathy / Chronic Interstitial Nephritis.</li>
+                    </ol>
+
+                    <div class="callout callout-must-know">
+                        <span class="callout-icon">⭐</span>
+                        <div>
+                            <strong>MUST KNOW: Gold Standard Diagnosis of Gout</strong><br>
+                            Gold Standard = Arthrocentesis and Synovial Fluid Analysis demonstrating <strong>Intracellular & Extracellular Needle-Shaped Monosodium Urate (MSU) Crystals</strong> showing <strong>Strong Negative Birefringence</strong> under polarized light microscopy (crystals appear bright yellow when parallel to the slow-wave axis of the red compensator).<br>
+                            <em>Note:</em> Serum uric acid levels can be <strong>normal or falsely low during an acute flare</strong> (due to inflammatory cytokine-induced uricosuria). Always recheck serum urate 2–4 weeks after the flare resolves!
+                        </div>
+                    </div>
+
+                    <h3>C. Pharmacotherapy & Treatment Guidelines</h3>
+                    <div class="table-wrapper">
+                        <div class="table-header-action">
+                            <span class="table-title">Management Paradigm for Gout</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Phase of Disease</th>
+                                    <th>Recommended Agents</th>
+                                    <th>Dosing & Crucial Clinical Rules</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Acute Flare Treatment</strong></td>
+                                    <td>Oral NSAIDs, Colchicine, Glucocorticoids</td>
+                                    <td>
+                                        • <strong>Colchicine Regimen:</strong> 1.2 mg at flare onset, followed by 0.6 mg 1 hour later (or 0.5 mg q8h). Discontinue at first sign of diarrhea/LBM! Watch for CYP3A4/P-gp interactions.<br>
+                                        • <strong>Glucocorticoids:</strong> Oral Prednisone or Intra-Articular injection if monoarticular or renal failure.<br>
+                                        • <strong>CARDINAL RULE:</strong> <strong>DO NOT START or STOP Urate-Lowering Therapy (ULT) during an acute attack!</strong> (If already on ULT, continue same dose. If not on ULT, resolve flare first, then initiate ULT 2–3 weeks later).
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Anti-Inflammatory Prophylaxis</strong></td>
+                                    <td>Low-dose Colchicine (0.5–0.6 mg daily/BID) or low-dose NSAID</td>
+                                    <td>Must be co-prescribed whenever starting ULT to prevent mobilization flares! Continue for 3–6 months or as long as tophi persist.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Urate-Lowering Therapy (ULT)</strong><br><em>(Target SUA &lt;6.0 mg/dL or &lt;5.0 if tophi)</em></td>
+                                    <td>Allopurinol, Febuxostat, Probenecid</td>
+                                    <td>
+                                        • <strong>Indications:</strong> ≥2 flares/yr, tophi, radiographic rat-bite erosions, kidney stones, CKD, SUA &gt;9 mg/dL.<br>
+                                        • <strong>Allopurinol:</strong> 1st-line Xanthine Oxidase Inhibitor (XOI). Titrate 100 mg to 800 mg/day. <strong>Screen for HLA-B*58:01 allele in Southeast Asians</strong> (High risk for Allopurinol Hypersensitivity Syndrome / TEN / SJS!).<br>
+                                        • <strong>Febuxostat:</strong> Alternative XOI; no dose adjustment in mild-mod CKD. Use caution in patients with severe CV disease.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: CPPD / PSEUDOGOUT -->
+            <div class="accordion" id="topic-cppd">
+                <div class="accordion-header" onclick="toggleAccordion('topic-cppd')">
+                    <span>4. PSEUDOGOUT / CALCIUM PYROPHOSPHATE DEPOSITION (CPPD)</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <h3>A. Clinical & Pathologic Features</h3>
+                    <p>CPPD is a microcrystalline arthritis predominantly affecting the elderly (prevalence doubles each decade &gt;60 years). It results from elevated inorganic pyrophosphate in the cartilage matrix, leading to calcium pyrophosphate dihydrate crystal formation and release into the joint space, triggering inflammasome activation in macrophages.</p>
+
+                    <div class="callout callout-exam-tip">
+                        <span class="callout-icon">🧠</span>
+                        <div>
+                            <strong>EXAM TIP: CPPD Under Age 50</strong><br>
+                            If a patient presents with CPPD / Pseudogout under 50 years of age, you MUST search for underlying metabolic disorders: <strong>Primary Hyperparathyroidism, Hemochromatosis ("Bronze Diabetes"), Hypomagnesemia, Hypophosphatasia, or Gitelman's Syndrome</strong>!
+                        </div>
+                    </div>
+
+                    <h3>B. Diagnostic Characteristics</h3>
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>Synovial Fluid Microscopy:</strong> Demonstrates <strong>Rhomboid or Rod-shaped Calcium Pyrophosphate Crystals</strong> displaying <strong>Weak Positive Birefringence</strong> (appear blue when parallel to slow wave axis) under polarized light.</li>
+                        <li><strong>Radiographic Hallmark:</strong> <strong>Chondrocalcinosis</strong>—punctate and linear radiodense deposits within fibrocartilage (menisci of knee, triangular fibrocartilage of wrist) or hyaline articular cartilage.</li>
+                        <li><strong>Common Joint Sites:</strong> Knee (#1), Wrist, Shoulder, Elbow, Ankle. Acute attacks mimic gout flares and can be precipitated by trauma, severe illness, or surgery (e.g., parathyroidectomy rapid serum Ca/Mg shift).</li>
+                        <li><strong>Treatment:</strong> Aspiration, IA glucocorticoids, oral NSAIDs, or Colchicine. <em>Note: There are NO disease-modifying maintenance drugs to dissolve CPP cartilage deposits!</em></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECTION 5: ANKYLOSING SPONDYLITIS -->
+            <div class="accordion" id="topic-as">
+                <div class="accordion-header" onclick="toggleAccordion('topic-as')">
+                    <span>5. ANKYLOSING SPONDYLITIS (AS) & AXIAL SPONDYLOARTHRITIS</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <h3>A. Pathophysiology & Clinical Features</h3>
+                    <p>Ankylosing Spondylitis is a chronic inflammatory disorder affecting the axial skeleton. Predominantly affects young males (Male:Female ratio = 3:1; onset in 2nd to 3rd decades [age 20–30]). Highly associated with <strong>HLA-B27 (&gt;90% of cases)</strong>.</p>
+
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>Primary Lesion:</strong> Starts as <strong>Sacroiliitis</strong> (inflammatory destruction of sacroiliac joints). In the spine, inflammatory granulation tissue at the junction of the annulus fibrosus cartilage and vertebral bone erodes bone, forming bony excrescences called <strong>Syndesmophytes</strong>. Ascending progression leads to complete spinal fusion—the <strong>"Bamboo Spine"</strong>.</li>
+                        <li><strong>Inflammatory Back Pain Criteria:</strong> Insidious onset of dull lower back/gluteal pain, age at onset &lt;45 years, duration &gt;3 months, <strong>worse in the morning or after rest, IMPROVES WITH EXERCISE/ACTIVITY</strong>, accompanied by several hours of morning stiffness. Alternating deep gluteal pain.</li>
+                        <li><strong>Extra-Articular Manifestations:</strong>
+                            <br>• <strong>Anterior Uveitis / Iritis:</strong> Most common extra-articular feature (unilateral, painful red eye, photophobia).
+                            <br>• <strong>Enthesitis:</strong> Inflammation at tendon/ligament insertion sites on bone (e.g., Achilles tendinitis, plantar fasciitis).
+                            <br>• Apical Pulmonary Fibrosis, Aortic Insufficiency, Secondary Amyloidosis.
+                        </li>
+                    </ul>
+
+                    <div class="callout callout-must-know">
+                        <span class="callout-icon">⭐</span>
+                        <div>
+                            <strong>MUST KNOW: Therapeutic Modalities in AS</strong><br>
+                            • <strong>Physical Therapy & Daily Exercise:</strong> Essential non-pharmacologic intervention to maintain spinal extension and chest expansion!<br>
+                            • <strong>NSAIDs:</strong> 1st-line pharmacotherapy for back pain and stiffness.<br>
+                            • <strong>Biologic Therapies (Anti-TNF-α & Anti-IL-17A):</strong> The <strong>ONLY agents proven to slow axial disease progression and prevent spinal fusion!</strong><br>
+                            • <strong>Pitfall:</strong> Conventional DMARDs (Methotrexate, Sulfasalazine) only benefit peripheral joint involvement and have NO efficacy for axial spinal disease. <strong>Systemic Corticosteroids have NO ROLE in AS!</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 6: ACUTE RHEUMATIC FEVER -->
+            <div class="accordion" id="topic-arf">
+                <div class="accordion-header" onclick="toggleAccordion('topic-arf')">
+                    <span>6. ACUTE RHEUMATIC FEVER (ARF) & RHEUMATIC HEART DISEASE</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <h3>A. Etiology & Diagnosis</h3>
+                    <p>ARF is a non-suppurative autoimmune sequela occurring 2–3 weeks after Group A Beta-Hemolytic Streptococcal (GAS) pharyngitis. Predominantly affects children aged 5–14 years. Pathology is driven by molecular mimicry between GAS M-protein antigens and human tissue cardiac myosin/valvular proteins.</p>
+
+                    <div class="table-wrapper">
+                        <div class="table-header-action">
+                            <span class="table-title">2002–2003 WHO / Revised Jones Diagnostic Criteria</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Major Manifestations</th>
+                                    <th>Minor Manifestations</th>
+                                    <th>Required Supporting Proof</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        • <strong>Carditis</strong> (Endocarditis, Myocarditis, Pericarditis; Mitral valve #1)<br>
+                                        • <strong>Polyarthritis</strong> (Migratory, asymmetrical, large joints)<br>
+                                        • <strong>Sydenham's Chorea</strong> ("St. Vitus' Dance")<br>
+                                        • <strong>Erythema Marginatum</strong> (Serpigenous rash with central clearing)<br>
+                                        • <strong>Subcutaneous Nodules</strong> (Painless, over extensor surfaces)
+                                    </td>
+                                    <td>
+                                        • <strong>Clinical:</strong> Fever, Polyarthralgia<br>
+                                        • <strong>Laboratory:</strong> Elevated ESR or CRP, Leukocytosis<br>
+                                        • <strong>ECG:</strong> Prolonged PR interval
+                                    </td>
+                                    <td>
+                                        Evidence of preceding GAS infection within 45 days:<br>
+                                        • Elevated/rising ASO or anti-DNase B titers<br>
+                                        • Positive Rapid Antigen Test or Throat Swab Culture<br>
+                                        • Recent Scarlet Fever
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p><em>Diagnostic Requirement:</em> <strong>2 Major</strong> OR <strong>1 Major + 2 Minor</strong> manifestations PLUS supporting proof of GAS infection. (Exceptions: Chorea or insidious carditis alone can diagnose ARF!).</p>
+
+                    <div class="callout callout-pearl">
+                        <span class="callout-icon">💡</span>
+                        <div>
+                            <strong>CLINICAL PEARL: Arthritis in ARF vs. RA</strong><br>
+                            In <strong>RA</strong>, joint involvement is <em>Symmetrical, Additive, and Persistent Polyarthritis</em> of small joints.<br>
+                            In <strong>ARF</strong>, joint involvement is a <strong>Migratory Polyarthritis</strong>—it "jumps" from one large joint (knee) to another (ankle) as the initial joint improves. At physical exam, only 1 or 2 joints are inflamed at a time!
+                        </div>
+                    </div>
+
+                    <h3>B. Secondary Antibiotic Prophylaxis Duration</h3>
+                    <p>Secondary prophylaxis prevents GAS reinfection and worsening Rheumatic Heart Disease (RHD). Regimen: <strong>Depot Benzathine Penicillin G 1.2 Million Units IM every 21 days</strong> (or 3-4 weeks):</p>
+
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>ARF WITHOUT Carditis:</strong> Prophylaxis for <strong>5 years</strong> after last attack OR until <strong>age 21</strong> (whichever is longer).</li>
+                        <li><strong>ARF WITH Carditis but NO residual valvular disease:</strong> Prophylaxis for <strong>10 years</strong> OR until <strong>age 21</strong> (whichever is longer).</li>
+                        <li><strong>ARF WITH Carditis AND Persistent Valvular Disease (RHD):</strong> Prophylaxis for <strong>10 years</strong> OR until <strong>age 40</strong> (sometimes lifelong!).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECTION 7: SEPTIC ARTHRITIS -->
+            <div class="accordion" id="topic-septic">
+                <div class="accordion-header" onclick="toggleAccordion('topic-septic')">
+                    <span>7. ACUTE BACTERIAL / SEPTIC ARTHRITIS</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <h3>A. Pathogenesis & Microbiology</h3>
+                    <p>Septic arthritis is a rheumatologic emergency! Bacteria enter the joint primarily via <strong>Hematogenous spread</strong> (synovial capillaries lack a basement membrane, allowing rapid bacterial escape). Cartilage destruction begins within <strong>48 hours</strong> due to bacterial toxins, chondrocyte proteases, and increased intra-articular pressure.</p>
+
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>Staphylococcus aureus:</strong> The <strong>#1 overall cause of non-gonococcal septic arthritis across all age groups</strong> and adults. Also #1 in RA patients and diabetics.</li>
+                        <li><strong>Neisseria gonorrhoeae:</strong> The most common cause in sexually active young adults (&lt;40 years; females 2-3x &gt; males, especially during menses or pregnancy).</li>
+                        <li><strong>Group B Streptococci / Gram-negative Bacilli:</strong> Neonates, elderly, IV drug users, immunocompromised.</li>
+                    </ul>
+
+                    <h3>B. Clinical Subtypes & Comparison</h3>
+                    <div class="table-wrapper">
+                        <div class="table-header-action">
+                            <span class="table-title">Non-Gonococcal vs. Gonococcal Septic Arthritis</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Non-Gonococcal Septic Arthritis</th>
+                                    <th>Gonococcal Arthritis (DGI vs Septic)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Primary Etiology</strong></td>
+                                    <td><em>Staphylococcus aureus</em> (&gt;80%), Streptococci</td>
+                                    <td><em>Neisseria gonorrhoeae</em></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Presentation</strong></td>
+                                    <td>Monoarticular (&gt;90%; <strong>Knee #1 site</strong>). Severe pain, swelling, fever, loss of ROM. (Axial joints in IVDU).</td>
+                                    <td><strong>1. DGI Triad:</strong> Fever, Tenosynovitis (wrists/ankles), Dermatitis (petechial/pustular rash) + Migratory polyarthralgias.<br><strong>2. True Septic:</strong> Purulent monoarthritis following DGI.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Synovial Fluid WBC</strong></td>
+                                    <td><strong>&gt;50,000 /µL</strong> (often 25,000–250,000) with <strong>&gt;90% PMNs</strong></td>
+                                    <td>20,000 – 50,000 /µL (in DGI); &gt;50,000 in true septic phase</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Culture Yields</strong></td>
+                                    <td>Synovial Culture (+) in &gt;60–90%; Blood CS (+) in 50–70%</td>
+                                    <td>DGI Blood CS (+) &lt;45%, Synovial CS (-). True Septic Synovial CS (+) &lt;40%. <strong>Must culture mucosal sites (cervix, urethra, pharynx) on Thayer-Martin medium!</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Management</strong></td>
+                                    <td>Prompt IV Antibiotics for 2–4 weeks + <strong>Joint Drainage</strong> (repeated needle aspiration, arthroscopy, or open arthrotomy).<br>• Gram (+) → IV Vancomycin.<br>• Gram (-) → IV 3rd Gen Cephalosporin.</td>
+                                    <td>IV Ceftriaxone 1g Q24h for 7 days (switch to oral Cipro when improving). <strong>Empiric Co-treatment for Chlamydia:</strong> Single dose Azithromycin 1g oral. Treat sexual partners!</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 9: COMPARISONS -->
+        <!-- ========================================== -->
+        <section id="tab-comparisons" class="tab-content">
+            <div class="card card-accent-accent">
+                <h1>Head-to-Head Comparative Tables</h1>
+                <p>Direct side-by-side comparisons of commonly confused rheumatologic conditions for board examination mastery.</p>
+            </div>
+
+            <!-- TABLE 1: OA vs RA -->
+            <div class="card">
+                <h3>1. Osteoarthritis (OA) vs. Rheumatoid Arthritis (RA)</h3>
+                <div class="table-wrapper">
+                    <div class="table-header-action">
+                        <span class="table-title">OA vs RA Core Comparison</span>
+                        <button class="btn-copy" onclick="copyTable('oa-ra-table')">📋 Copy Table</button>
+                    </div>
+                    <table id="oa-ra-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Osteoarthritis (OA)</th>
+                                <th>Rheumatoid Arthritis (RA)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Disease Nature</strong></td>
+                                <td>Degenerative / Mechanical wear-and-tear</td>
+                                <td>Chronic Systemic Autoimmune Inflammatory</td>
+                                </tr>
+                            <tr>
+                                <td><strong>Primary Site of Pathology</strong></td>
+                                <td><strong>Hyaline Cartilage Degeneration</strong></td>
+                                <td><strong>Persistent Inflammatory Synovium (Pannus)</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Joint Distribution</strong></td>
+                                <td>Asymmetric; Weight-bearing (Knees, Hips), DIP, PIP, 1st CMC, 1st MTP</td>
+                                <td>Symmetric; Small joints (MCP, PIP, Wrist, MTP). Spares DIP & 1st CMC</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Morning Stiffness</strong></td>
+                                <td>Brief (&lt;30 mins; "Gel phenomenon")</td>
+                                <td>Prolonged (<strong>&gt;1 hour</strong>; eases with activity)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Physical Exam Nodes</strong></td>
+                                <td>Heberden's (DIP) & Bouchard's (PIP) nodes (Bony)</td>
+                                <td>Rheumatoid Nodules (Subcutaneous soft tissue over extensors)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Systemic Manifestations</strong></td>
+                                <td>ABSENT (No fever, weight loss, or fatigue)</td>
+                                <td>PRESENT (Fatigue, fever, anemia, CVS disease, Sjögren's, nodules)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Synovial Fluid WBC</strong></td>
+                                <td>&lt;2,000 /µL (Clear, viscous, non-inflammatory)</td>
+                                <td>5,000 – 50,000 /µL (Cloudy, non-viscous, &gt;50-75% PMNs)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Radiographic Features</strong></td>
+                                <td>Asymmetric joint space narrowing, <strong>Subchondral Sclerosis, Osteophytes, Cysts</strong></td>
+                                <td>Symmetric joint space loss, <strong>Periarticular Osteopenia, Marginal Erosions</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>First-Line Disease Therapy</strong></td>
+                                <td>Non-pharm, Topical/Oral NSAIDs, IA Steroids (Flares)</td>
+                                <td><strong>Methotrexate (csDMARD)</strong> + Bridge Steroids/NSAIDs</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TABLE 2: GOUT vs PSEUDOGOUT -->
+            <div class="card">
+                <h3>2. Gout vs. Pseudogout (CPPD) Crystal Comparison</h3>
+                <div class="table-wrapper">
+                    <div class="table-header-action">
+                        <span class="table-title">Gout vs Pseudogout Diagnostics</span>
+                        <button class="btn-copy" onclick="copyTable('gout-cppd-table')">📋 Copy Table</button>
+                    </div>
+                    <table id="gout-cppd-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Gouty Arthritis</th>
+                                <th>Pseudogout (CPPD Disease)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Crystal Type</strong></td>
+                                <td>Monosodium Urate (MSU)</td>
+                                <td>Calcium Pyrophosphate Dihydrate (CPP)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Crystal Morphology</strong></td>
+                                <td><strong>Needle-shaped / Elongated</strong></td>
+                                <td><strong>Rhomboid / Rod-like</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Birefringence (Polarized Light)</strong></td>
+                                <td><strong>Strong NEGATIVE Birefringence</strong> (Yellow parallel)</td>
+                                <td><strong>Weak POSITIVE Birefringence</strong> (Blue parallel)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Predilection Joints</strong></td>
+                                <td>1st MTP (Podagra &gt;50%), Ankle, Knee</td>
+                                <td>Knee (#1), Wrist, Shoulder, Fibrocartilage</td>
+                            </tr>
+                            <tr>
+                                <td><strong>X-Ray Findings</strong></td>
+                                <td>Punched-out "Rat-bite" erosions with overhanging edges</td>
+                                <td><strong>Chondrocalcinosis</strong> (linear/punctate calcifications)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Underlying Metabolic Causes</strong></td>
+                                <td>Renal underexcretion, purine diet, alcohol, diuretics</td>
+                                <td>Aging, Hyperparathyroidism, Hemochromatosis, Hypomagnesemia</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TABLE 3: SYNOVIAL FLUID BREAKDOWN -->
+            <div class="card">
+                <h3>3. Master Synovial Fluid Differential Breakdown</h3>
+                <div class="table-wrapper">
+                    <div class="table-header-action">
+                        <span class="table-title">Synovial Fluid Analysis Classification</span>
+                        <button class="btn-copy" onclick="copyTable('synovial-fluid-table')">📋 Copy Table</button>
+                    </div>
+                    <table id="synovial-fluid-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>WBC Count (/µL)</th>
+                                <th>% Neutrophils (PMNs)</th>
+                                <th>Clarity & Viscosity</th>
+                                <th>Primary Conditions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Normal</strong></td>
+                                <td>&lt;200 /µL</td>
+                                <td>&lt;25%</td>
+                                <td>Clear, Transparent, High Viscosity</td>
+                                <td>Normal healthy joint</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Group I: Non-Inflammatory</strong></td>
+                                <td><strong>&lt;2,000 /µL</strong></td>
+                                <td>&lt;25%</td>
+                                <td>Clear to Straw-yellow, High Viscosity</td>
+                                <td>Osteoarthritis, Trauma, Charcot Arthropathy</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Group II: Inflammatory</strong></td>
+                                <td><strong>2,000 – 50,000 /µL</strong></td>
+                                <td>&gt;50% – 75%</td>
+                                <td>Translucent to Cloudy, Low Viscosity</td>
+                                <td>Rheumatoid Arthritis, Gout, Pseudogout, AS, Reactive Arthritis</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Group III: Septic / Infectious</strong></td>
+                                <td><strong>&gt;50,000 /µL</strong> (Up to 250,000)</td>
+                                <td><strong>&gt;75% – 90%</strong></td>
+                                <td>Opaque, Purulent, Oozing, Very Low Viscosity</td>
+                                <td>Acute Bacterial Septic Arthritis (<em>S. aureus</em>), Fungal/TB</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Group IV: Hemorrhagic</strong></td>
+                                <td>Variable (RBCs present)</td>
+                                <td>Variable</td>
+                                <td>Red / Bloody, Opaque</td>
+                                <td>Trauma, Coagulopathy, Hemophilia, Charcot Joint</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 10: FLASHCARDS (50 Active Recall) -->
+        <!-- ========================================== -->
+        <section id="tab-flashcards" class="tab-content">
+            <div class="card card-accent-warning">
+                <h1>Interactive Flashcard Engine (50 Active-Recall Cards)</h1>
+                <p>Click the card to flip it and reveal the answer. Use the controls or keyboard shortcuts (<strong>Spacebar</strong> to flip, <strong>Left/Right Arrows</strong> to navigate) to review.</p>
+                
+                <div class="filter-bar">
+                    <button class="filter-btn active" onclick="filterFlashcards('ALL')">All Categories (50)</button>
+                    <button class="filter-btn" onclick="filterFlashcards('OA')">Osteoarthritis</button>
+                    <button class="filter-btn" onclick="filterFlashcards('RA')">Rheumatoid Arthritis</button>
+                    <button class="filter-btn" onclick="filterFlashcards('GOUT')">Gout & CPPD</button>
+                    <button class="filter-btn" onclick="filterFlashcards('AS')">Ankylosing Spondylitis</button>
+                    <button class="filter-btn" onclick="filterFlashcards('ARF')">Acute Rheumatic Fever</button>
+                    <button class="filter-btn" onclick="filterFlashcards('SEPTIC')">Septic Arthritis</button>
+                </div>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard" id="flashcard-element" onclick="flipFlashcard()">
+                    <div class="flashcard-front">
+                        <span class="badge badge-blue fc-tag" id="fc-category">CATEGORY</span>
+                        <div class="fc-prompt">QUESTION</div>
+                        <div class="fc-question" id="fc-question-text">Loading question...</div>
+                    </div>
+                    <div class="flashcard-back">
+                        <div class="fc-prompt">ANSWER & EXPLANATION</div>
+                        <div class="fc-answer" id="fc-answer-text">Loading answer...</div>
+                    </div>
+                </div>
+
+                <div class="fc-controls">
+                    <button class="fc-btn" onclick="prevFlashcard()">← Previous</button>
+                    <button class="fc-btn" onclick="shuffleFlashcards()">🔀 Shuffle</button>
+                    <button class="fc-btn" onclick="nextFlashcard()">Next →</button>
+                </div>
+                <div class="fc-progress" id="fc-progress-text">Card 1 of 50</div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 11: SELF-ASSESSMENT (50 MCQs) -->
+        <!-- ========================================== -->
+        <section id="tab-quiz" class="tab-content">
+            <div class="quiz-stats-bar">
+                <div>
+                    <span style="font-family: var(--font-heading); font-weight:700;">Board Self-Assessment Quiz</span>
+                    <span style="font-size:0.85rem; color:var(--text-muted); margin-left: 0.5rem;">(50 High-Yield PLE MCQs)</span>
+                </div>
+                <div style="display:flex; gap:1.5rem; align-items:center;">
+                    <div>Score: <strong id="quiz-score" style="color:var(--primary);">0</strong> / <span id="quiz-total-answered">0</span></div>
+                    <button class="btn-copy" onclick="resetQuiz()">🔄 Reset Quiz</button>
+                </div>
+            </div>
+
+            <div class="quiz-container" id="quiz-container-element">
+                <!-- MCQ Cards rendered dynamically by JS -->
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 12: CRAM SHEET (<10 MIN REVIEW) -->
+        <!-- ========================================== -->
+        <section id="tab-cram-sheet" class="tab-content">
+            <div class="card card-accent-primary" style="background: linear-gradient(135deg, var(--surface) 0%, var(--primary-light) 100%);">
+                <h1>⚡ Ultra-Condensed Cram Sheet (&lt;10 Minute Last-Minute Reviewer)</h1>
+                <p>Designed for rapid scanning right before long examinations and the Philippine Physician Licensure Examination (PLE). Features pathognomonic buzzwords, high-yield diagnostic triggers, and immediate clinical associations.</p>
+            </div>
+
+            <div class="card">
+                <h2>🎯 "If You See X → Think Y" Buzzword Matrix</h2>
+                <div class="buzzword-grid" style="margin-top: 1rem;">
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Heberden's (DIP) & Bouchard's (PIP) bony nodes + pain down stairs</div>
+                        <div class="buzz-target">THINK: OSTEOARTHRITIS (OA)</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Knee varus malalignment ("bow-legged penguin walk")</div>
+                        <div class="buzz-target">THINK: Medial compartment cartilage loss in OA</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Symmetric small joint arthritis + Morning stiffness &gt;1 hour + Anti-CCP</div>
+                        <div class="buzz-target">THINK: RHEUMATOID ARTHRITIS (RA)</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Boutonniere, Swan-neck, Ulnar deviation, Piano-key sign</div>
+                        <div class="buzz-target">THINK: Chronic irreversible RA deformities</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Triad of Neutropenia, Splenomegaly, and Nodular RA</div>
+                        <div class="buzz-target">THINK: FELTY'S SYNDROME</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Cigarette smoking + Porphyromonas gingivalis periodontitis</div>
+                        <div class="buzz-target">THINK: PAD enzyme → Citrullination → ACPA/Anti-CCP induction in RA</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Acute excruciating 1st MTP pain after beer binge / thiazide intake</div>
+                        <div class="buzz-target">THINK: PODAGRA (ACUTE GOUT)</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Needle-shaped strongly negative birefringent crystals</div>
+                        <div class="buzz-target">THINK: MONOSODIUM URATE (MSU) / GOUT</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Rhomboid weakly positive birefringent crystals + Chondrocalcinosis</div>
+                        <div class="buzz-target">THINK: PSEUDOGOUT (CPPD DISEASE)</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: CPPD / Pseudogout in a patient under 50 years old</div>
+                        <div class="buzz-target">THINK: Hemochromatosis, Hyperparathyroidism, or Hypomagnesemia</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Young male + Inflammatory lower back pain improving with exercise + HLA-B27</div>
+                        <div class="buzz-target">THINK: ANKYLOSING SPONDYLITIS (AS)</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Ascending spinal syndesmophytes on X-ray</div>
+                        <div class="buzz-target">THINK: BAMBOO SPINE in Ankylosing Spondylitis</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Migratory polyarthritis in child + Carditis + Elevated ASO titer</div>
+                        <div class="buzz-target">THINK: ACUTE RHEUMATIC FEVER (ARF)</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Acute purulent monoarthritis (knee) + Synovial WBC &gt;50,000 /µL</div>
+                        <div class="buzz-target">THINK: SEPTIC ARTHRITIS (<em>S. aureus</em> #1)</div>
+                    </div>
+                    <div class="buzzword-card">
+                        <div class="buzz-trigger">IF YOU SEE: Triad of Tenosynovitis, Dermatitis, and Migratory Polyarthralgia in female</div>
+                        <div class="buzz-target">THINK: DISSEMINATED GONOCOCCAL INFECTION (DGI)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>💊 Rapid High-Yield Drug Monitoring & Safety Rules</h2>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Methotrexate (MTX):</strong> Anchor csDMARD. Co-prescribe <strong>Folic acid 1 mg/day</strong>. Watch for Hepatotoxicity, Myelosuppression, and Interstitial Pneumonitis. Monitor CBC & LFTs q2-3 months. Teratogenic (Category X).</li>
+                    <li><strong>Hydroxychloroquine:</strong> Not a true DMARD alone. Watch for <strong>Irreversible Retinal Toxicity</strong>. Mandates annual OCT eye exams!</li>
+                    <li><strong>Allopurinol:</strong> 1st-line ULT. Titrate dose. Mandatory screening for <strong>HLA-B*58:01</strong> in Southeast Asians (prevents Toxic Epidermal Necrolysis!).</li>
+                    <li><strong>Acute Gout Flare Rules:</strong> Colchicine (1.2 mg then 0.6 mg 1h later; stop at diarrhea!). <strong>NEVER START OR STOP ULT DURING AN ACUTE FLARE!</strong></li>
+                    <li><strong>Anti-TNF-α Biologics:</strong> Mandatory screening for <strong>Latent TB (PPD/IGRA + CXR) and Hepatitis B</strong> prior to therapy!</li>
+                    <li><strong>Ankylosing Spondylitis:</strong> Only Anti-TNF-α & Anti-IL-17A prevent structural axial fusion. <strong>Systemic steroids have NO ROLE!</strong></li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scroll To Top Button -->
+    <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()" title="Scroll to Top">↑</button>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        /* ==========================================================================
+           GLOBAL APP STATE & TAB NAVIGATION
+           ========================================================================== */
+        function switchTab(tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.remove('active'));
+
+            // Deactivate all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Activate target
+            const targetContent = document.getElementById(`tab-${tabId}`);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+
+            // Highlight button
+            event.currentTarget.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleDarkMode() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+            }
+        }
+
+        function toggleAccordion(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.toggle('open');
+            }
+        }
+
+        function copyTable(tableId) {
+            const table = document.getElementById(tableId);
+            if (!table) return;
+            
+            let range, selection;
+            if (document.createRange && window.getSelection) {
+                range = document.createRange();
+                selection = window.getSelection();
+                selection.removeAllRanges();
+                try {
+                    range.selectNodeContents(table);
+                    selection.addRange(range);
+                } catch (e) {
+                    range.selectNode(table);
+                    selection.addRange(range);
+                }
+                document.execCommand("copy");
+                selection.removeAllRanges();
+                alert("Table content copied to clipboard!");
+            }
+        }
+
+        // Global Search Filter
+        function handleGlobalSearch() {
+            const query = document.getElementById('global-search').value.toLowerCase();
+            if (query.trim() === '') return;
+
+            // Search cards, accordions, and tables
+            const searchableElements = document.querySelectorAll('.card, .accordion, .buzzword-card');
+            searchableElements.forEach(el => {
+                const text = el.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    el.style.display = '';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+        }
+
+        // Scroll to Top Listener
+        window.onscroll = function() {
+            const btn = document.getElementById('scrollTopBtn');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+
+        /* ==========================================================================
+           FLASHCARD ENGINE (50 ACTIVE RECALL CARDS)
+           ========================================================================== */
+        const flashcardsData = [
+            // OA (1-8)
+            { cat: "OA", q: "Where is the primary pathologic lesion located in Osteoarthritis?", a: "In the hyaline articular cartilage (characterized by matrix degradation by MMPs, fibrillation, focal erosions, subchondral sclerosis, and osteophytes)." },
+            { cat: "OA", q: "Why is cartilage loss in OA not directly accompanied by pain?", a: "Hyaline cartilage is ANEURAL and AVASCULAR. Pain in OA arises from surrounding innervated structures: synovitis, joint effusions, bone marrow edema, and periarticular bursitis." },
+            { cat: "OA", q: "Which knee compartment degenerates first in OA, and what deformity does it cause?", a: "The medial compartment degenerates first, leading to a VARUS deformity ('bow-leggedness' or 'penguin walk')." },
+            { cat: "OA", q: "Differentiate Heberden's nodes from Bouchard's nodes.", a: "Heberden's nodes occur at the Distal Interphalangeal (DIP) joints; Bouchard's nodes occur at the Proximal Interphalangeal (PIP) joints." },
+            { cat: "OA", q: "What is the typical duration of morning stiffness in Osteoarthritis?", a: "Brief, lasting <30 minutes (often <5 minutes), classically referred to as the 'gel phenomenon'." },
+            { cat: "OA", q: "What is the most potent overall risk factor for Osteoarthritis?", a: "Increasing Age." },
+            { cat: "OA", q: "Which oral NSAIDs are considered safest from a cardiovascular standpoint?", a: "Naproxen and low-dose Celecoxib." },
+            { cat: "OA", q: "What childhood hip conditions predispose to early-onset adult hip OA?", a: "Congenital Dysplasia, Legg-Calvé-Perthes disease, and Slipped Capital Femoral Epiphysis (SCFE)." },
+
+            // RA (9-18)
+            { cat: "RA", q: "What is the primary site of pathology in Rheumatoid Arthritis?", a: "The Synovium (persistent inflammatory synovitis with hypervascularized Pannus formation leading to cartilage/bone erosion)." },
+            { cat: "RA", q: "How does Porphyromonas gingivalis contribute to RA pathogenesis?", a: "P. gingivalis expresses Peptidyl Arginine Deiminase (PAD) enzyme, which citrullinates human tissue arginine, triggering Anti-CCP / ACPA antibody production." },
+            { cat: "RA", q: "Why is Anti-CCP preferred over Rheumatoid Factor (RF) in RA diagnosis?", a: "Anti-CCP has superior specificity (~95% vs RF 75-80%) and strongly predicts severe erosive joint destruction and extra-articular disease." },
+            { cat: "RA", q: "Describe the Boutonnière deformity in RA.", a: "Hyperflexion of the PIP joint with hyperextension of the DIP joint." },
+            { cat: "RA", q: "Describe the Swan-neck deformity in RA.", a: "Hyperextension of the PIP joint with hyperflexion of the DIP joint." },
+            { cat: "RA", q: "What is the leading cause of mortality in Rheumatoid Arthritis patients?", a: "Cardiovascular Disease / Ischemic Heart Disease (Myocardial Infarction and Stroke; 2-4x increased risk)." },
+            { cat: "RA", q: "What triad defines Felty's Syndrome in chronic RA?", a: "1. Neutropenia, 2. Splenomegaly, and 3. Nodular Rheumatoid Arthritis." },
+            { cat: "RA", q: "Why is C1-C2 involvement in RA clinically critical prior to surgery?", a: "Atlantoaxial subluxation can cause compressive cervical myelopathy or fatal spinal cord injury during endotracheal intubation under anesthesia." },
+            { cat: "RA", q: "What is the anchor csDMARD of choice for Rheumatoid Arthritis?", a: "Methotrexate (10-25 mg/week oral/SQ + Folic acid 1 mg/day)." },
+            { cat: "RA", q: "What mandatory screening is required before starting Anti-TNF-α biologics?", a: "Screening for Latent Tuberculosis (PPD/IGRA + Chest X-ray) and Hepatitis B." },
+
+            // GOUT & CPPD (19-28)
+            { cat: "GOUT", q: "Why are humans uniquely susceptible to gout compared to other mammals?", a: "Humans lack uricase, the enzyme that degrades uric acid into soluble allantoin." },
+            { cat: "GOUT", q: "What proportion of gout cases are due to renal underexcretion vs overproduction?", a: "Renal underexcretion accounts for ~90% of cases; overproduction accounts for ~10%." },
+            { cat: "GOUT", q: "What is the gold standard diagnostic finding for Gouty Arthritis?", a: "Demonstration of Intracellular/Extracellular Needle-Shaped Monosodium Urate (MSU) crystals displaying Strong Negative Birefringence under polarized light." },
+            { cat: "GOUT", q: "Why might serum uric acid be normal or low during an acute gout flare?", a: "Inflammatory cytokines released during an acute flare act as uricosurics, temporarily lowering serum urate levels by ~2 mg/dL." },
+            { cat: "GOUT", q: "What is the cardinal rule regarding Urate-Lowering Therapy (ULT) during an acute gout flare?", a: "DO NOT START or STOP ULT during an acute attack! (Initiate ULT 2-3 weeks post-flare; if already on ULT, maintain the dose)." },
+            { cat: "GOUT", q: "Why must HLA-B*58:01 testing be performed prior to starting Allopurinol in Southeast Asians?", a: "Carriers of HLA-B*58:01 are at high risk for severe Allopurinol Hypersensitivity Syndrome (TEN, SJS, vasculitis, liver/renal failure)." },
+            { cat: "GOUT", q: "What crystal characteristics identify Calcium Pyrophosphate Deposition (CPPD)?", a: "Rhomboid or Rod-shaped crystals showing Weak Positive Birefringence under polarized light microscopy." },
+            { cat: "GOUT", q: "What is the pathognomonic radiographic sign of CPPD Disease?", a: "Chondrocalcinosis (punctate or linear radiodense calcifications in fibrocartilage/menisci or articular hyaline cartilage)." },
+            { cat: "GOUT", q: "If CPPD / Pseudogout occurs in a patient under 50 years old, what conditions must be investigated?", a: "Hemochromatosis, Primary Hyperparathyroidism, Hypomagnesemia, Hypophosphatasia, or Gitelman's Syndrome." },
+            { cat: "GOUT", q: "What is Podagra?", a: "Acute gouty arthritis involving the 1st Metatarsophalangeal (MTP) joint." },
+
+            // AS (29-34)
+            { cat: "AS", q: "What genetic marker is present in >90% of patients with Ankylosing Spondylitis?", a: "HLA-B27." },
+            { cat: "AS", q: "Describe the characteristic back pain pattern in Ankylosing Spondylitis.", a: "Insidious dull low back/gluteal pain in young males (<45 yo), duration >3 mos, worse in morning/rest, IMPROVES WITH EXERCISE/ACTIVITY." },
+            { cat: "AS", q: "What are syndesmophytes, and what radiographic appearance do they form in AS?", a: "Bony excrescences bridging adjacent vertebral bodies due to ossification of the annulus fibrosus, forming 'Bamboo Spine'." },
+            { cat: "AS", q: "What is the most common extra-articular manifestation of Ankylosing Spondylitis?", a: "Acute Anterior Uveitis / Iritis (unilateral, painful red eye, photophobia)." },
+            { cat: "AS", q: "Which medications are proven to slow axial structural progression in AS?", a: "Anti-TNF-α biologics (Infliximab, Etanercept, Adalimumab, Golimumab) and Anti-IL-17A (Secukinumab)." },
+            { cat: "AS", q: "Do conventional csDMARDs like Methotrexate slow spinal progression in AS?", a: "No! Methotrexate and Sulfasalazine only benefit peripheral joint arthritis in AS and have NO effect on axial spine disease." },
+
+            // ARF (35-40)
+            { cat: "ARF", q: "What organism precipitates Acute Rheumatic Fever?", a: "Group A Beta-Hemolytic Streptococcus (GAS) / Streptococcus pyogenes pharyngitis." },
+            { cat: "ARF", q: "List the 5 Major Jones Criteria for Acute Rheumatic Fever.", a: "1. Carditis, 2. Polyarthritis (migratory), 3. Sydenham's Chorea, 4. Erythema Marginatum, 5. Subcutaneous Nodules." },
+            { cat: "ARF", q: "How does the joint involvement in ARF differ from Rheumatoid Arthritis?", a: "ARF causes a Migratory Polyarthritis of large joints ('jumping' joint to joint), whereas RA causes a Symmetrical Additive Polyarthritis of small joints." },
+            { cat: "ARF", q: "What valve is most frequently damaged in Rheumatic Heart Disease?", a: "The Mitral Valve (causing regurgitation acutely, and mitral stenosis chronically)." },
+            { cat: "ARF", q: "What is the secondary prophylaxis duration for ARF with carditis but no residual valvular disease?", a: "10 years after last attack OR until age 21 (whichever is longer)." },
+            { cat: "ARF", q: "What is the drug of choice for secondary ARF prophylaxis?", a: "Benzathine Penicillin G 1.2 Million Units IM every 21 days (or 3-4 weeks)." },
+
+            // SEPTIC (41-50)
+            { cat: "SEPTIC", q: "What is the #1 overall cause of non-gonococcal septic arthritis across all age groups?", a: "Staphylococcus aureus." },
+            { cat: "SEPTIC", q: "What is the most common cause of septic arthritis in sexually active young adults <40?", a: "Neisseria gonorrhoeae." },
+            { cat: "SEPTIC", q: "Why is septic arthritis considered a rheumatologic emergency?", a: "Bacterial toxins, host PMNs, and intra-articular pressure destroy articular cartilage within 48 hours!" },
+            { cat: "SEPTIC", q: "What synovial fluid WBC count threshold strongly suggests Septic Arthritis?", a: "Synovial WBC >50,000 /µL with >75-90% PMNs." },
+            { cat: "SEPTIC", q: "Describe the classic presentation of Disseminated Gonococcal Infection (DGI).", a: "Triad of Tenosynovitis (wrists/ankles), Dermatitis (petechial/pustular skin lesions), and Migratory Polyarthralgias + Fever." },
+            { cat: "SEPTIC", q: "Where must culture specimens be collected if Gonococcal Arthritis is suspected?", a: "Mucosal sites (Urethra, Cervix, Pharynx, Rectum) plated on Thayer-Martin medium (as blood and synovial cultures are frequently negative)." },
+            { cat: "SEPTIC", q: "In an IV drug user presenting with fever and joint pain, what atypical joint sites are common?", a: "Axial joints: Sacroiliac joint, Sternoclavicular joint, and Vertebral spine." },
+            { cat: "SEPTIC", q: "What empiric IV antibiotic coverage should be given for Gram-positive cocci on synovial fluid smear?", a: "IV Vancomycin (15-20 mg/kg q8-12h)." },
+            { cat: "SEPTIC", q: "Along with IV antibiotics, what procedure is essential for curing non-gonococcal septic arthritis?", a: "Joint Drainage (repeated needle aspiration, arthroscopic lavage, or open arthrotomy) to clear pus and debris." },
+            { cat: "SEPTIC", q: "What co-infection must be empirically treated in patients with Disseminated Gonococcal Infection?", a: "Chlamydia trachomatis co-infection (treat with oral Azithromycin 1g single dose)." }
+        ];
+
+        let currentFCIndex = 0;
+        let filteredFCs = [...flashcardsData];
+
+        function renderFlashcard() {
+            if (filteredFCs.length === 0) return;
+            const card = filteredFCs[currentFCIndex];
+            document.getElementById('fc-category').innerText = card.cat;
+            document.getElementById('fc-question-text').innerText = card.q;
+            document.getElementById('fc-answer-text').innerText = card.a;
+            document.getElementById('fc-progress-text').innerText = `Card ${currentFCIndex + 1} of ${filteredFCs.length}`;
+            
+            // Ensure card is unflipped on render
+            document.getElementById('flashcard-element').classList.remove('flipped');
+        }
+
+        function flipFlashcard() {
+            document.getElementById('flashcard-element').classList.toggle('flipped');
+        }
+
+        function nextFlashcard() {
+            if (currentFCIndex < filteredFCs.length - 1) {
+                currentFCIndex++;
+                renderFlashcard();
+            }
+        }
+
+        function prevFlashcard() {
+            if (currentFCIndex > 0) {
+                currentFCIndex--;
+                renderFlashcard();
+            }
+        }
+
+        function shuffleFlashcards() {
+            for (let i = filteredFCs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filteredFCs[i], filteredFCs[j]] = [filteredFCs[j], filteredFCs[i]];
+            }
+            currentFCIndex = 0;
+            renderFlashcard();
+        }
+
+        function filterFlashcards(category) {
+            // Highlight active button
+            const btns = document.querySelectorAll('.filter-bar .filter-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            if (category === 'ALL') {
+                filteredFCs = [...flashcardsData];
+            } else {
+                filteredFCs = flashcardsData.filter(item => item.cat === category);
+            }
+            currentFCIndex = 0;
+            renderFlashcard();
+        }
+
+        // Keyboard Controls for Flashcards
+        document.addEventListener('keydown', function(e) {
+            const fcTab = document.getElementById('tab-flashcards');
+            if (fcTab && fcTab.classList.contains('active')) {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    flipFlashcard();
+                } else if (e.code === 'ArrowRight') {
+                    nextFlashcard();
+                } else if (e.code === 'ArrowLeft') {
+                    prevFlashcard();
+                }
+            }
+        });
+
+
+        /* ==========================================================================
+           SELF-ASSESSMENT MCQ QUIZ ENGINE (50 BOARD MCQs)
+           ========================================================================== */
+        const mcqQuestions = [
+            // 1-10
+            {
+                q: "A 68-year-old female presents with progressive bilateral knee pain worsened by walking down stairs and standing after prolonged sitting. She reports knee stiffness lasting 5 minutes upon waking up. Examination reveals bony enlargement, varus deformity, quadriceps atrophy, and coarse crepitus. No warmth or erythema is present. What is the primary pathologic process underlying her condition?",
+                opts: ["Persistent autoimmune inflammatory synovitis with pannus formation", "Lysosomal enzyme and MMP-mediated loss of hyaline articular cartilage", "Monosodium urate crystal deposition in periarticular tissue", "Immune-complex mediated microvascular injury of synovial capillaries"],
+                ans: 1,
+                exp: "The clinical presentation (mechanical pain, brief morning stiffness <5 min 'gel phenomenon', bony enlargement, varus deformity, coarse crepitus) is classic for Osteoarthritis (OA). The pathologic hallmark of OA resides in the loss of hyaline articular cartilage driven by MMPs and cathepsins.",
+                distract: ["Option A describes Rheumatoid Arthritis.", "Option C describes Gouty Arthritis.", "Option D describes early autoimmune synovitis."]
+            },
+            {
+                q: "Despite articular hyaline cartilage being completely aneural, patients with advanced knee osteoarthritis experience prominent pain. Which of the following is the most significant source of joint pain in OA?",
+                opts: ["Microfractures within the articular cartilage matrix", "Synovial inflammation, bone marrow edema, and joint capsular stretching", "Invasion of sensory nerve fibers into hyaline cartilage", "Denervation of bridging quadriceps muscle tendon units"],
+                ans: 1,
+                exp: "Cartilage is aneural and avascular. Pain in OA arises from surrounding innervated structures: synovial inflammation (synovitis), bone marrow edema (from subchondral stress), joint effusion capsular stretching, and periarticular bursitis.",
+                distract: ["Option A & C are incorrect because cartilage lacks nerves and neurovascular invasion is absent in standard OA.", "Option D is incorrect as muscles undergo atrophy, not denervation."]
+            },
+            {
+                q: "A 45-year-old woman presents with a 2-month history of symmetric swelling and tenderness in both wrists, MCP, and PIP joints, accompanied by 2 hours of morning stiffness. Lab work reveals positive Anti-CCP antibodies and elevated CRP. Which of the following joint groups is characteristically SPARED in this disease?",
+                opts: ["Metacarpophalangeal (MCP) joints", "Proximal Interphalangeal (PIP) joints", "Distal Interphalangeal (DIP) joints", "Wrist joint"],
+                ans: 2,
+                exp: "Rheumatoid Arthritis typically involves small peripheral joints (MCPs, PIPs, Wrists, MTPs) symmetrically. It characteristically SPARES the Distal Interphalangeal (DIP) joints and 1st CMC joint (which are classically involved in OA).",
+                distract: ["Option A, B, and D are primary targets of RA synovitis."]
+            },
+            {
+                q: "A 52-year-old male presents with excruciating pain, swelling, and redness of his right 1st MTP joint that awoke him at 2:00 AM after an alcohol binge. Arthrocentesis shows cloudy fluid with 35,000 WBCs/µL. What finding under polarized light microscopy confirms the diagnosis?",
+                opts: ["Rhomboid-shaped crystals displaying weak positive birefringence", "Needle-shaped crystals displaying strong negative birefringence", "Envelope-shaped crystals displaying no birefringence", "Spherical calcified bodies displaying Maltese-cross birefringence"],
+                ans: 1,
+                exp: "Podagra (acute gout involving 1st MTP) is definitively diagnosed by demonstrating intracellular/extracellular needle-shaped Monosodium Urate (MSU) crystals displaying strong negative birefringence under polarized light.",
+                distract: ["Option A describes CPPD / Pseudogout.", "Option C describes Calcium Oxalate.", "Option D describes lipid/starch artifacts."]
+            },
+            {
+                q: "A 28-year-old male presents with a 6-month history of dull lower back and gluteal pain that is most severe in the morning, accompanied by 2 hours of stiffness. He notes that the stiffness improves significantly after his daily 30-minute jog but worsens after sitting at his desk. Pelvic X-ray shows bilateral sacroiliitis. What genetic marker is present in >90% of these patients?",
+                opts: ["HLA-DR4", "HLA-B27", "HLA-B*58:01", "HLA-DQ8"],
+                ans: 1,
+                exp: "The scenario describes Ankylosing Spondylitis (AS)—an inflammatory axial spondyloarthritis characterized by inflammatory back pain that improves with exercise. HLA-B27 is present in >90% of AS patients.",
+                distract: ["Option A is associated with RA.", "Option C confers high risk for Allopurinol Hypersensitivity Syndrome.", "Option D is associated with Celiac disease."]
+            },
+            {
+                q: "A 9-year-old child presents with fever and a migratory polyarthritis involving the knees and ankles. History reveals a severe sore throat 3 weeks ago. Examination discloses a new holosystolic murmur at the apex. Which of the following is required to establish the diagnosis of Acute Rheumatic Fever?",
+                opts: ["Presence of 2 Major Jones criteria plus proof of preceding GAS infection", "Presence of 1 Major and 1 Minor Jones criteria alone", "Positive blood culture for Streptococcus pneumoniae", "Elevated rheumatoid factor titers"],
+                ans: 0,
+                exp: "According to the Revised Jones criteria, diagnosis of ARF requires 2 Major OR 1 Major + 2 Minor criteria PLUS mandatory evidence of a preceding Group A Streptococcal (GAS) infection (ASO titer, anti-DNase B, or throat culture).",
+                distract: ["Option B lacks sufficient criteria and GAS proof.", "Option C is wrong because ARF is caused by Streptococcus pyogenes (GAS), not S. pneumoniae.", "Option D is irrelevant."]
+            },
+            {
+                q: "A 22-year-old male college student presents with acute right knee pain, high fever (39.1°C), and inability to bear weight. Arthrocentesis yields opaque, purulent fluid with a WBC count of 85,000 /µL (92% PMNs). Gram stain reveals Gram-positive cocci in clusters. What is the most likely causative pathogen?",
+                opts: ["Neisseria gonorrhoeae", "Staphylococcus aureus", "Streptococcus pneumoniae", "Pseudomonas aeruginosa"],
+                ans: 1,
+                exp: "Staphylococcus aureus (Gram-positive cocci in clusters) is the #1 overall cause of non-gonococcal septic arthritis across all age groups, causing purulent fluid with WBC >50,000 /µL.",
+                distract: ["Option A is a Gram-negative diplococcus.", "Option C forms Gram-positive cocci in chains.", "Option D is a Gram-negative bacillus."]
+            },
+            {
+                q: "Which of the following joint protective mechanisms diminshes in concentration following joint injury and synovial inflammation, directly predisposing to cartilage wear?",
+                opts: ["Matrix Metalloproteinases (MMPs)", "Hyaluronic acid and Lubricin in synovial fluid", "Subchondral bone osteophytes", "Capsular collagen type II"],
+                ans: 1,
+                exp: "Synovial fluid lubrication depends on Hyaluronic Acid and Lubricin (secreted by synovial fibroblasts), whose concentrations diminish after joint injury and during synovial inflammation, compromising friction-reduction and accelerating cartilage wear.",
+                distract: ["Option A increases in inflammation, causing matrix destruction.", "Option C is a pathologic repair attempt, not a protective lubricant.", "Option D is structural cartilage collagen."]
+            },
+            {
+                q: "A 58-year-old female with long-standing Rheumatoid Arthritis presents with severe hand deformities. Physical exam shows hyperextension of the PIP joint with hyperflexion of the DIP joint in her index and middle fingers. What is the name of this deformity?",
+                opts: ["Boutonnière deformity", "Swan-neck deformity", "Z-deformity", "Heberden's node"],
+                ans: 1,
+                exp: "Hyperextension of PIP + Hyperflexion of DIP = Swan-Neck Deformity. (Boutonnière = Hyperflexion of PIP + Hyperextension of DIP).",
+                distract: ["Option A is the exact opposite flex/ext pattern.", "Option C involves 1st MCP/IP subluxation.", "Option D is a bony DIP node in OA."]
+            },
+            {
+                q: "Before initiating Methotrexate therapy for a patient newly diagnosed with Rheumatoid Arthritis, which baseline evaluation is MOST essential?",
+                opts: ["HLA-B27 genetic typing", "Complete Blood Count, LFTs, and Chest X-ray", "Dual-energy X-ray Absorptiometry (DEXA) scan", "Optical Coherence Tomography (OCT) visual field test"],
+                ans: 1,
+                exp: "Methotrexate can cause myelosuppression, hepatotoxicity, and interstitial pneumonitis. Baseline CBC, Liver Function Tests (LFTs), and Chest X-ray (CXR) are essential prior to therapy initiation.",
+                distract: ["Option A is for AS.", "Option D is mandatory for Hydroxychloroquine monitoring."]
+            },
+
+            // 11-20
+            {
+                q: "A 62-year-old male with a history of recurrent gouty attacks is started on Allopurinol. Two weeks later, he presents with a severe acute gout flare in his left ankle. What is the most appropriate management of his Allopurinol therapy?",
+                opts: ["Immediately discontinue Allopurinol permanently", "Double the dose of Allopurinol to lower urate faster", "Continue Allopurinol at the current dose and add anti-inflammatory treatment (NSAID/Colchicine)", "Switch Allopurinol to IV Uricase immediately"],
+                ans: 2,
+                exp: "CARDINAL RULE: Do NOT stop or change the dose of Urate-Lowering Therapy (ULT) during an acute gout flare! Continuing the maintained dose prevents further fluctuations in serum urate. Acute flares are managed by adding anti-inflammatory drugs (Colchicine, NSAIDs, or Steroids).",
+                distract: ["Option A & B disrupt urate equilibrium further, prolonging the flare."]
+            },
+            {
+                q: "A 71-year-old female presents with acute pain and swelling in her right wrist. X-ray of the wrist demonstrates linear radiodense calcifications within the triangular fibrocartilage. Polarized light microscopy of aspirated synovial fluid reveals weak positive birefringent, rod-shaped crystals. What is the diagnosis?",
+                opts: ["Gouty Arthritis", "Pseudogout (Calcium Pyrophosphate Deposition)", "Septic Arthritis", "Rheumatoid Arthritis"],
+                ans: 1,
+                exp: "Chondrocalcinosis on X-ray + Weakly positive birefringent rod/rhomboid crystals = Pseudogout (CPPD Disease).",
+                distract: ["Option A presents with strongly negative birefringent needle crystals."]
+            },
+            {
+                q: "Which medication is the ONLY drug class proven to slow axial radiographic disease progression and prevent spinal fusion in Ankylosing Spondylitis?",
+                opts: ["Oral Systemic Corticosteroids", "Methotrexate", "Sulfasalazine", "Anti-TNF-α Biologics"],
+                ans: 3,
+                exp: "Anti-TNF-α agents (e.g., Infliximab, Etanercept, Adalimumab) and Anti-IL-17A are the only proven drugs that reduce axial spinal inflammation and structural disease progression in AS. csDMARDs (MTX/SSZ) only work for peripheral joint symptoms.",
+                distract: ["Option A has no role in AS.", "Option B & C fail to slow axial spine progression."]
+            },
+            {
+                q: "A 12-year-old girl is evaluated for secondary prophylaxis following an episode of Acute Rheumatic Fever with documented carditis and mild mitral regurgitation. What is the recommended duration of secondary antibiotic prophylaxis?",
+                opts: ["5 years or until age 21", "10 years or until age 21", "10 years or until age 40", "6 months total duration"],
+                ans: 2,
+                exp: "For ARF WITH Carditis AND persistent valvular disease (RHD), secondary prophylaxis (Benzathine Penicillin G IM q21 days) must be continued for 10 years OR until age 40 (whichever is longer).",
+                distract: ["Option A is for ARF without carditis.", "Option B is for ARF with carditis but NO residual valvular disease."]
+            },
+            {
+                q: "A 25-year-old sexually active female presents with a 2-day history of fever, painful swollen wrists, and scattered pustular skin lesions on her extensor forearms. Synovial fluid culture from the wrist is negative, but mucosal swab on Thayer-Martin medium isolates Gram-negative diplococci. What is the diagnosis?",
+                opts: ["Staphylococcal Septic Arthritis", "Disseminated Gonococcal Infection (DGI)", "Reactive Arthritis", "Rheumatoid Vasculitis"],
+                ans: 1,
+                exp: "The triad of Dermatitis (pustular rash), Tenosynovitis (wrists/ankles), and Migratory Arthralgias in a young female, with mucosal culture on Thayer-Martin medium isolating Neisseria gonorrhoeae, is classic for DGI Syndrome.",
+                distract: ["Option A presents as acute purulent monoarthritis.", "Option C follows GI/GU infection with conjunctivitis/urethritis."]
+            },
+            {
+                q: "Which gene mutation is associated with genetic susceptibility to Osteoarthritis?",
+                opts: ["GDF5 (Growth Differentiation Factor 5)", "HLA-B27", "PAD4 (Peptidyl Arginine Deiminase 4)", "PTPN22"],
+                ans: 0,
+                exp: "Growth Differentiation Factor 5 (GDF5) gene mutation is specifically associated with susceptibility to Osteoarthritis.",
+                distract: ["Option B is AS.", "Option C & D are RA susceptibility genes."]
+            },
+            {
+                q: "A patient with long-standing Rheumatoid Arthritis presents with severe neutropenia, splenomegaly, and large rheumatoid nodules. What syndrome does this represent?",
+                opts: ["Sjögren's Syndrome", "Felty's Syndrome", "Still's Disease", "Reiter's Syndrome"],
+                ans: 1,
+                exp: "Felty's Syndrome is defined by the triad of: 1. Neutropenia, 2. Splenomegaly, and 3. Nodular Rheumatoid Arthritis.",
+                distract: ["Option A is dry eyes/mouth.", "Option C is systemic juvenile idiopathic arthritis."]
+            },
+            {
+                q: "Which of the following dietary items is UNRESTRICTED for patients diagnosed with Gouty Arthritis?",
+                opts: ["Beer and hard spirits", "Organ meats and red meats", "Legumes, nuts, and plant oils", "High-fructose corn syrup beverages"],
+                ans: 2,
+                exp: "Recent dietary guidelines state that plant-derived purines (nuts, legumes, vegetables, plant oils like olive/canola) do NOT increase gout flare risk and have NO restrictions! Alcohol, red meats, and high-fructose beverages must be restricted.",
+                distract: ["Option A, B, and D are strong triggers for hyperuricemia flares."]
+            },
+            {
+                q: "In Ankylosing Spondylitis, the inflammatory lesion at the attachment of ligaments or tendons to bone is termed:",
+                opts: ["Pannus", "Enthesitis", "Synovitis", "Chondrocalcinosis"],
+                ans: 1,
+                exp: "Enthesitis is the inflammation of entheses—the sites where tendons, ligaments, or joint capsules insert into bone (hallmark of Spondyloarthritides).",
+                distract: ["Option A is RA synovium.", "Option D is CPPD crystal deposition."]
+            },
+            {
+                q: "What is the primary mechanism of action of Colchicine in acute gout management?",
+                opts: ["Inhibition of Xanthine Oxidase", "Inhibition of neutrophil microtubule assembly and inflammasome activation", "Enhancement of renal urate excretion", "Direct degradation of uric acid crystals"],
+                ans: 1,
+                exp: "Colchicine binds tubulin, disrupting microtubule polymerization, impairing neutrophil chemotaxis, adhesion, and inflammasome activation in response to MSU crystals.",
+                distract: ["Option A is Allopurinol/Febuxostat.", "Option C is Probenecid.", "Option D is Pegloticase."]
+            },
+
+            // 21-30
+            {
+                q: "Which feature of synovial fluid analysis distinguishes a Non-Inflammatory joint effusion (e.g., OA) from an Inflammatory effusion (e.g., RA/Gout)?",
+                opts: ["WBC count <2,000 /µL", "Neutrophil percentage >75%", "Opaque purulent clarity", "Low fluid viscosity"],
+                ans: 0,
+                exp: "Non-inflammatory effusions (Group I) have WBC <2,000 /µL, <25% PMNs, and high viscosity.",
+                distract: ["Options B, C, and D are features of inflammatory or septic effusions."]
+            },
+            {
+                q: "A 48-year-old male Southeast Asian patient with chronic gout is being considered for Allopurinol therapy. What genetic screening should be ordered to prevent severe cutaneous adverse reactions (TEN/SJS)?",
+                opts: ["HLA-B27", "HLA-B*58:01", "HLA-DR4", "G6PD deficiency screening"],
+                ans: 1,
+                exp: "HLA-B*58:01 allele screening is recommended in high-risk populations (Southeast Asians, Han Chinese, Korean) prior to starting Allopurinol to prevent severe Allopurinol Hypersensitivity Syndrome / SJS / TEN.",
+                distract: ["Option A is AS.", "Option D is for Sulfasalazine/Primaquine."]
+            },
+            {
+                q: "What characteristic ocular manifestation occurs in up to 30% of Ankylosing Spondylitis patients?",
+                opts: ["Keratoconjunctivitis sicca", "Acute Anterior Uveitis (Iritis)", "Scleromalacia perforans", "Band keratopathy"],
+                ans: 1,
+                exp: "Acute Anterior Uveitis (unilateral, painful, photophobia) is the most common extra-articular feature of AS.",
+                distract: ["Option A & C are seen in RA."]
+            },
+            {
+                q: "In Acute Rheumatic Fever, what is the pathognomonic cutaneous rash characterized by serpigenous, erythematous borders with central clearing?",
+                opts: ["Erythema nodosum", "Erythema marginatum", "Livedo reticularis", "Malar rash"],
+                ans: 1,
+                exp: "Erythema marginatum is a Major Jones criterion for ARF, presenting as a non-pruritic, serpigenous rash on the trunk and proximal limbs with central clearing.",
+                distract: ["Option A is painful red shins in sarcoid/IBD.", "Option C is vasculitis/antiphospholipid.", "Option D is SLE."]
+            },
+            {
+                q: "A 65-year-old patient with severe OA of the knee asks about exercise. Which exercise regimen is MOST appropriate?",
+                opts: ["High-impact running and jumping exercises", "Isometric quadriceps strengthening and swimming", "Heavy weightlifting squats", "Prolonged treadmill running"],
+                ans: 1,
+                exp: "Low-impact exercises (swimming, stationary cycling, isometric quadriceps strengthening) strengthen bridging muscles to unload the joint without joint overload.",
+                distract: ["Option A, C, and D cause high mechanical joint overload."]
+            },
+            {
+                q: "Which antibody test has the HIGHEST specificity (~95%) for Rheumatoid Arthritis?",
+                opts: ["Rheumatoid Factor (RF)", "Anti-Cyclic Citrullinated Peptide (Anti-CCP / ACPA)", "Anti-Nuclear Antibody (ANA)", "Anti-dsDNA"],
+                ans: 1,
+                exp: "Anti-CCP (ACPA) approaches 95% specificity for RA.",
+                distract: ["Option A is 75% sensitive but non-specific.", "Option C & D are for SLE."]
+            },
+            {
+                q: "A 55-year-old male with chronic kidney disease (eGFR 25 mL/min) presents with an acute gout flare. Which acute anti-inflammatory agent is safest?",
+                opts: ["Full-dose Indomethacin", "High-dose Naproxen", "Intra-articular or low-dose Oral Glucocorticoids", "High-dose Colchicine"],
+                ans: 2,
+                exp: "In chronic renal insufficiency, NSAIDs are contraindicated and Colchicine carries high toxicity risk. Intra-articular or oral Glucocorticoids are the safest acute choice.",
+                distract: ["Option A, B, and D cause severe nephrotoxicity/toxicity in advanced CKD."]
+            },
+            {
+                q: "What is the primary cellular mechanism driving bone erosion in Rheumatoid Arthritis?",
+                opts: ["Osteoblast apoptosis", "TNF-α and RANKL-mediated osteoclast activation", "Chondrocyte hypertrophy", "Microvascular thrombosis"],
+                ans: 1,
+                exp: "In RA, inflammatory cytokines (TNF-α, IL-6, IL-1) stimulate RANKL expression, driving osteoclastogenesis and localized subchondral bone resorption.",
+                distract: ["Option A & C do not cause focal erosions."]
+            },
+            {
+                q: "A 30-year-old male presents with acute septic arthritis of the knee. Synovial fluid culture grows Gram-negative diplococci. What is the appropriate initial empiric IV antibiotic regimen?",
+                opts: ["IV Vancomycin", "IV Ceftriaxone", "IV Penicillin G", "Oral Ciprofloxacin"],
+                ans: 1,
+                exp: "N. gonorrhoeae (Gram-negative diplococci) is treated initially with IV Ceftriaxone 1g Q24h for 7 days.",
+                distract: ["Option A is for Gram-positive MRSA.", "Option D is step-down oral therapy once improving."]
+            },
+            {
+                q: "Which chronic hand deformity in RA is characterized by subluxation of the MCP joints pulling the phalanges toward the ulnar side?",
+                opts: ["Swan-neck deformity", "Ulnar deviation", "Boutonnière deformity", "Piano-key sign"],
+                ans: 1,
+                exp: "Ulnar deviation results from chronic synovitis causing subluxation of the MCP joints and pulling fingers towards the ulnar bone.",
+                distract: ["Option D refers to dorsal ulnar styloid subluxation."]
+            },
+
+            // 31-50
+            {
+                q: "In Osteoarthritis, what structural change in the subchondral bone occurs directly beneath areas of lost hyaline cartilage?",
+                opts: ["Subchondral Osteopenia", "Subchondral Sclerosis", "Marginal Erosions", "Pannus formation"],
+                ans: 1,
+                exp: "Subchondral Bone Sclerosis (bone thickening/whitening on X-ray) is a hallmark of OA occurring directly beneath lost cartilage.",
+                distract: ["Option A & C are hallmarks of RA."]
+            },
+            {
+                q: "What is the mechanism of action of Methotrexate in rheumatology?",
+                opts: ["Xanthine oxidase inhibition", "Inhibition of dihydrofolate reductase and stimulation of adenosine release", "TNF-α receptor blockade", "Interleukin-6 receptor antagonism"],
+                ans: 1,
+                exp: "MTX inhibits dihydrofolate reductase and increases extracellular adenosine, producing potent anti-inflammatory effects.",
+                distract: ["Option A is Allopurinol.", "Option C is Etanercept.", "Option D is Tocilizumab."]
+            },
+            {
+                q: "A patient presenting with acute monoarthritis of the knee has a synovial fluid leukocyte count of 110,000 /µL with 95% PMNs. What is the mandatory next step?",
+                opts: ["Prescribe oral NSAIDs and discharge home", "Gram stain, culture, and immediate joint drainage / empiric IV antibiotics", "Order serum uric acid level and initiate Allopurinol", "Schedule physical therapy"],
+                ans: 1,
+                exp: "WBC >50,000 /µL with >90% PMNs indicates probable Septic Arthritis until proven otherwise. Gram stain, cultures, joint drainage, and empiric IV antibiotics are mandatory rheumatologic emergencies!",
+                distract: ["Options A, C, and D delay urgent septic arthritis management."]
+            },
+            {
+                q: "What is the pathognomonic radiographic sign seen in chronic tophaceous gout?",
+                opts: ["Punched-out 'rat-bite' erosions with sclerotic margins and overhanging edges", "Symmetric joint space narrowing with periarticular osteopenia", "Bamboo spine with syndesmophytes", "Punctate chondrocalcinosis"],
+                ans: 0,
+                exp: "Chronic tophaceous gout produces characteristic punched-out 'rat-bite' bone erosions with overhanging cortical margins.",
+                distract: ["Option B is RA.", "Option C is AS.", "Option D is CPPD."]
+            },
+            {
+                q: "Which DMARD is classified as Pregnancy Category X and strictly contraindicated in pregnancy?",
+                opts: ["Hydroxychloroquine", "Sulfasalazine", "Methotrexate and Leflunomide", "Prednisone"],
+                ans: 2,
+                exp: "Methotrexate and Leflunomide are Category X teratogens and strictly contraindicated in pregnancy.",
+                distract: ["Option A & B can be used cautiously in pregnancy if required."]
+            },
+            {
+                q: "In Ankylosing Spondylitis, what physical test measures lumbar spine flexion restriction?",
+                opts: ["Schober's Test", "Phalen's Test", "Finkelstein's Test", "Lachman Test"],
+                ans: 0,
+                exp: "Schober's test measures the restriction of lumbar spine flexion in AS (normal expansion >5 cm; <4 cm is abnormal).",
+                distract: ["Option B is Carpal Tunnel.", "Option C is De Quervain's.", "Option D is ACL tear."]
+            },
+            {
+                q: "What severe neurological complication can arise from atlantoaxial (C1-C2) subluxation in long-standing RA?",
+                opts: ["Cauda equina syndrome", "Compressive cervical myelopathy", "Lumbar radiculopathy", "Trigeminal neuralgia"],
+                ans: 1,
+                exp: "Atlantoaxial subluxation in RA causes spinal cord compression leading to compressive cervical myelopathy.",
+                distract: ["Option A involves lumbar nerve roots."]
+            },
+            {
+                q: "A 50-year-old female taking Hydroxychloroquine for 5 years requires annual screening for which serious drug toxicity?",
+                opts: ["Pulmonary fibrosis", "Irreversible Retinal Damage / Maculopathy", "Aplastic anemia", "Glomerulonephritis"],
+                ans: 1,
+                exp: "Hydroxychloroquine requires baseline and annual eye exams (OCT and visual fields) to screen for irreversible retinal toxicity (bull's-eye maculopathy).",
+                distract: ["Option A is MTX toxicity."]
+            },
+            {
+                q: "What is the primary target serum urate level when treating gout with Urate-Lowering Therapy?",
+                opts: ["<8.0 mg/dL", "<6.0 mg/dL (or <5.0 mg/dL if tophi present)", "<3.0 mg/dL", "<10.0 mg/dL"],
+                ans: 1,
+                exp: "The therapeutic target for ULT is serum urate <6.0 mg/dL (or <5.0 mg/dL in severe tophaceous gout) to promote MSU crystal dissolution.",
+                distract: ["Options A, C, and D are incorrect target thresholds."]
+            },
+            {
+                q: "Which joint is most frequently involved in non-gonococcal septic arthritis in adults?",
+                opts: ["Wrist joint", "Knee joint (>50%)", "Hip joint", "Ankle joint"],
+                ans: 1,
+                exp: "The knee joint is involved in >50% of all non-gonococcal septic arthritis cases.",
+                distract: ["Options A, C, and D are less common single sites."]
+            },
+            {
+                q: "What is the pathognomonic finding on physical exam of a patient with 1st MTP osteoarthritis?",
+                opts: ["Rheumatoid nodule", "Bunion (Hallux valgus with 1st MTP bony enlargement)", "Tophi discharging chalky material", "Heberden's node"],
+                ans: 1,
+                exp: "1st MTP involvement in OA manifests as bony enlargement and hallux valgus deformity, commonly called a bunion.",
+                distract: ["Option C is gout."]
+            },
+            {
+                q: "Which biologic DMARD acts by blocking the Interleukin-6 (IL-6) receptor?",
+                opts: ["Infliximab", "Tocilizumab", "Rituximab", "Abatacept"],
+                ans: 1,
+                exp: "Tocilizumab is a monoclonal antibody targeting the IL-6 receptor.",
+                distract: ["Option A is TNF-α.", "Option C is CD20.", "Option D is CD28/CD80 T-cell co-stimulation inhibitor."]
+            },
+            {
+                q: "What feature distinguishes Inflammatory Low Back Pain in AS from Mechanical Low Back Pain?",
+                opts: ["Onset after age 50", "Sudden acute onset after heavy lifting", "Improvement with exercise and worsening with rest", "Absence of morning stiffness"],
+                ans: 2,
+                exp: "Inflammatory back pain in AS improves with exercise/activity and worsens with rest, accompanied by prolonged morning stiffness. Mechanical back pain worsens with exercise and improves with rest.",
+                distract: ["Option A, B, and D describe mechanical strain or disc herniation."]
+            },
+            {
+                q: "Secondary Sjögren's Syndrome in RA is clinically characterized by:",
+                opts: ["Keratoconjunctivitis sicca (dry eyes) and Xerostomia (dry mouth)", "Malar rash and discoid lesions", "Raynaud's phenomenon and sclerodactyly", "Oral ulcers and uveitis"],
+                ans: 0,
+                exp: "Secondary Sjögren's Syndrome occurs in ~10% of RA patients, manifesting as dry eyes and dry mouth.",
+                distract: ["Option B is SLE.", "Option C is Systemic Sclerosis."]
+            },
+            {
+                q: "What is the primary route of bacterial entry into joints in non-gonococcal septic arthritis?",
+                opts: ["Direct trauma", "Hematogenous spread via synovial blood vessels", "Contiguous extension from cellulitis", "Iatrogenic surgical inoculation"],
+                ans: 1,
+                exp: "Hematogenous spread is the #1 route because synovial capillaries lack a basement membrane, allowing circulating bacteria to enter the joint space easily.",
+                distract: ["Options A, C, and D are less frequent routes."]
+            },
+            {
+                q: "In Acute Rheumatic Fever, Sydenham's Chorea is characterized by:",
+                opts: ["Symmetrical intention tremor", "Rapid, involuntary, non-rhythmic choreiform movements and muscle weakness", "Lead-pipe muscle rigidity", "Resting pill-rolling tremor"],
+                ans: 1,
+                exp: "Sydenham's Chorea ('St. Vitus' Dance') is a Major Jones criterion featuring rapid, uncoordinated, involuntary movements and emotional lability.",
+                distract: ["Option D is Parkinson's disease."]
+            },
+            {
+                q: "Which DMARD requires baseline G6PD level testing prior to initiation due to risk of hemolytic anemia?",
+                opts: ["Sulfasalazine", "Methotrexate", "Leflunomide", "Hydroxychloroquine"],
+                ans: 0,
+                exp: "Sulfasalazine can cause hemolytic anemia in G6PD deficient patients, requiring baseline G6PD testing.",
+                distract: ["Options B, C, and D do not carry high G6PD hemolysis risk."]
+            },
+            {
+                q: "What synovial fluid appearance is typically observed in chronic gout or pseudogout effusions?",
+                opts: ["Crystal clear and straw-colored", "Turbid / Cloudy to milky", "Frank grossly bloody", "Anchovy paste appearance"],
+                ans: 1,
+                exp: "Inflammatory crystal effusions appear cloudy or turbid due to elevated leukocyte counts (2,000 - 60,000 /µL).",
+                distract: ["Option A is normal/OA.", "Option C is hemorrhagic."]
+            },
+            {
+                q: "Which anti-gout agent functions as a Uricosuric by inhibiting renal tubular reabsorption of uric acid?",
+                opts: ["Allopurinol", "Febuxostat", "Probenecid", "Colchicine"],
+                ans: 2,
+                exp: "Probenecid is a uricosuric drug that blocks URAT1 in renal tubules to increase uric acid excretion.",
+                distract: ["Option A & B are Xanthine Oxidase Inhibitors."]
+            },
+            {
+                q: "What is the initial radiographic finding in early Rheumatoid Arthritis?",
+                opts: ["Periarticular Osteopenia (Juxta-articular demineralization)", "Bone ankylosis", "Subchondral bone sclerosis", "Osteophyte formation"],
+                ans: 0,
+                exp: "Periarticular Osteopenia (darkening of bone adjacent to inflamed joints) is the earliest plain X-ray finding in RA.",
+                distract: ["Option B occurs in late untreated RA.", "Option C & D are OA findings."]
+            }
+        ];
+
+        let quizUserAnswers = {};
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container-element');
+            if (!container) return;
+            container.innerHTML = '';
+
+            mcqQuestions.forEach((qObj, index) => {
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+                card.id = `quiz-card-${index}`;
+
+                let optionsHTML = '';
+                const letters = ['A', 'B', 'C', 'D'];
+                qObj.opts.forEach((optText, optIdx) => {
+                    optionsHTML += `
+                        <div class="quiz-option" id="q-${index}-opt-${optIdx}" onclick="selectQuizOption(${index}, ${optIdx})">
+                            <span class="quiz-opt-letter">${letters[optIdx]}</span>
+                            <span>${optText}</span>
+                        </div>
+                    `;
+                });
+
+                let distractorsHTML = '';
+                if (qObj.distract && qObj.distract.length > 0) {
+                    distractorsHTML = `<div style="margin-top:0.5rem; font-size:0.85rem; color:var(--text-muted);"><strong>Distractor Breakdown:</strong><ul>${qObj.distract.map(d => `<li>${d}</li>`).join('')}</ul></div>`;
+                }
+
+                card.innerHTML = `
+                    <div class="quiz-header">
+                        <span class="quiz-num">QUESTION ${index + 1} OF 50</span>
+                        <span class="badge badge-purple">PLE BOARD STYLE</span>
+                    </div>
+                    <div class="quiz-question">${qObj.q}</div>
+                    <div class="quiz-options">${optionsHTML}</div>
+                    <div class="quiz-explanation" id="quiz-exp-${index}">
+                        <strong style="color:var(--primary);">Rationale:</strong> ${qObj.exp}
+                        ${distractorsHTML}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            updateQuizStats();
+        }
+
+        function selectQuizOption(qIndex, optIndex) {
+            // If already answered, ignore
+            if (quizUserAnswers[qIndex] !== undefined) return;
+
+            quizUserAnswers[qIndex] = optIndex;
+            const qObj = mcqQuestions[qIndex];
+            const isCorrect = (optIndex === qObj.ans);
+
+            // Highlight selected
+            const selectedOptEl = document.getElementById(`q-${qIndex}-opt-${optIndex}`);
+            if (isCorrect) {
+                selectedOptEl.classList.add('correct-choice');
+            } else {
+                selectedOptEl.classList.add('incorrect-choice');
+                // Highlight correct one
+                const correctOptEl = document.getElementById(`q-${qIndex}-opt-${qObj.ans}`);
+                if (correctOptEl) correctOptEl.classList.add('correct-choice');
+            }
+
+            // Show explanation
+            const expEl = document.getElementById(`quiz-exp-${qIndex}`);
+            if (expEl) expEl.classList.add('show');
+
+            updateQuizStats();
+        }
+
+        function updateQuizStats() {
+            const answeredCount = Object.keys(quizUserAnswers).length;
+            let correctCount = 0;
+            for (let qIdx in quizUserAnswers) {
+                if (quizUserAnswers[qIdx] === mcqQuestions[qIdx].ans) {
+                    correctCount++;
+                }
+            }
+            document.getElementById('quiz-score').innerText = correctCount;
+            document.getElementById('quiz-total-answered').innerText = answeredCount;
+        }
+
+        function resetQuiz() {
+            quizUserAnswers = {};
+            renderQuiz();
+        }
+
+        /* ==========================================================================
+           INITIALIZATION ON LOAD
+           ========================================================================== */
+        window.onload = function() {
+            renderFlashcard();
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>
