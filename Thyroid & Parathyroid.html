@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thyroid and Parathyroid Surgery - Comprehensive Interactive Reviewer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-light: #64748b;
+            
+            --primary: #4f46e5;
+            --primary-light: #e0e7ff;
+            --primary-dark: #3730a3;
+            
+            --success: #059669;
+            --success-light: #d1fae5;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --info: #0891b2;
+            --info-light: #cffaff;
+            --purple: #7c3aed;
+            --purple-light: #ede9fe;
+            
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 60px;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 0 1.5rem;
+        }
+
+        .header-title-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            font-weight: 700;
+        }
+
+        /* TABS */
+        .nav-tabs {
+            display: flex;
+            gap: 0.25rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 1px;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.75rem 1rem;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+            background-color: var(--bg-main);
+            border-radius: 6px 6px 0 0;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* MAIN CONTAINER */
+        .main-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* GRID & LAYOUT */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* CARDS & CONTAINERS */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .card-accent-primary { border-left: 5px solid var(--primary); }
+        .card-accent-success { border-left: 5px solid var(--success); }
+        .card-accent-warning { border-left: 5px solid var(--warning); }
+        .card-accent-danger { border-left: 5px solid var(--danger); }
+        .card-accent-info { border-left: 5px solid var(--info); }
+        .card-accent-purple { border-left: 5px solid var(--purple); }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ALERTS */
+        .alert {
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1.25rem;
+            font-size: 0.925rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .alert-must-know {
+            background-color: var(--warning-light);
+            border-left: 4px solid var(--warning);
+            color: #78350f;
+        }
+
+        .alert-danger {
+            background-color: var(--danger-light);
+            border-left: 4px solid var(--danger);
+            color: #7f1d1d;
+        }
+
+        .alert-key-point {
+            background-color: var(--success-light);
+            border-left: 4px solid var(--success);
+            color: #064e3b;
+        }
+
+        .alert-title {
+            font-weight: 700;
+            font-family: var(--font-heading);
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* BADGES */
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .badge-indigo { background-color: var(--primary-light); color: var(--primary-dark); }
+        .badge-green { background-color: var(--success-light); color: #065f46; }
+        .badge-amber { background-color: var(--warning-light); color: #92400e; }
+        .badge-red { background-color: var(--danger-light); color: #991b1b; }
+        .badge-cyan { background-color: var(--info-light); color: #155e75; }
+        .badge-purple { background-color: var(--purple-light); color: #5b21b6; }
+
+        /* REASONING CUES */
+        .reasoning-cue {
+            background-color: #f1f5f9;
+            border: 1px dashed #cbd5e1;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            margin: 0.75rem 0;
+            font-size: 0.9rem;
+            color: #334155;
+        }
+
+        .reasoning-cue strong {
+            color: var(--primary-dark);
+            font-family: var(--font-mono);
+        }
+
+        /* TABLES */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.875rem;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* CSS DIAGRAMS & FLOWCHARTS */
+        .flowchart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin: 1rem 0;
+        }
+
+        .flow-step {
+            background: white;
+            border: 2px solid var(--primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            width: 100%;
+            max-width: 320px;
+            box-shadow: var(--shadow-sm);
+            font-size: 0.875rem;
+        }
+
+        .flow-arrow {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .diagram-box {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .diagram-title {
+            font-family: var(--font-heading);
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* FLASHCARDS */
+        .flashcard-wrapper {
+            max-width: 650px;
+            margin: 2rem auto;
+            perspective: 1000px;
+        }
+
+        .flashcard {
+            width: 100%;
+            min-height: 320px;
+            background-color: transparent;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 320px;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            box-shadow: var(--shadow-md);
+            border-radius: 12px;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            min-height: 320px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+        }
+
+        .flashcard-front {
+            border-top: 6px solid var(--primary);
+        }
+
+        .flashcard-back {
+            background-color: #f0fdf4;
+            border-top: 6px solid var(--success);
+            transform: rotateY(180deg);
+            color: #14532d;
+        }
+
+        .flashcard-prompt {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .flashcard-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .card-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 650px;
+            margin: 1.5rem auto 0 auto;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.25rem;
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: #cbd5e1;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background-color: #e2e8f0;
+            border-radius: 9999px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* QUIZ */
+        .quiz-container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .quiz-card {
+            background-color: var(--bg-card);
+            border-radius: 10px;
+            padding: 1.75rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-question {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .quiz-option {
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.925rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .quiz-option:hover {
+            background-color: var(--bg-main);
+            border-color: #cbd5e1;
+        }
+
+        .quiz-option.correct {
+            background-color: var(--success-light);
+            border-color: var(--success);
+            color: #064e3b;
+            font-weight: 600;
+        }
+
+        .quiz-option.incorrect {
+            background-color: var(--danger-light);
+            border-color: var(--danger);
+            color: #7f1d1d;
+        }
+
+        .quiz-option.disabled {
+            pointer-events: none;
+        }
+
+        .quiz-explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            font-size: 0.875rem;
+            display: none;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+            animation: fadeIn 0.2s;
+        }
+
+        .quiz-results-banner {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* CRAM SHEET */
+        .cram-section {
+            margin-bottom: 2rem;
+        }
+
+        .cram-title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .cram-list {
+            list-style-type: disc;
+            padding-left: 1.25rem;
+            font-size: 0.9rem;
+        }
+
+        .cram-list li {
+            margin-bottom: 0.4rem;
+        }
+
+        .key-term {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 700;
+            padding: 0.05rem 0.3rem;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STICKY HEADER -->
+    <header>
+        <div class="header-container">
+            <div class="header-title-area">
+                <h1>
+                    <span>Thyroid & Parathyroid Surgery</span>
+                </h1>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <span class="meta-tag">SURGERY 2</span>
+                    <span class="meta-tag" style="background-color: #d1fae5; color: #065f46;">Dr. Ampil</span>
+                </div>
+            </div>
+            
+            <!-- TAB NAVIGATION -->
+            <nav class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('overview')">📌 Overview</button>
+                <button class="tab-btn" onclick="switchTab('workup')">🔬 Work-Up & Diagnostics</button>
+                <button class="tab-btn" onclick="switchTab('diseases')">🦋 Goiter & Thyrotoxicosis</button>
+                <button class="tab-btn" onclick="switchTab('thyroiditis')">🔥 Thyroiditis</button>
+                <button class="tab-btn" onclick="switchTab('tumors')">🎗️ Tumors & Complications</button>
+                <button class="tab-btn" onclick="switchTab('parathyroid')">🦴 Parathyroid Disorders</button>
+                <button class="tab-btn" onclick="switchTab('comparisons')">⚖️ Side-by-Side Comparisons</button>
+                <button class="tab-btn" onclick="switchTab('flashcards')">🎴 Flashcards (30)</button>
+                <button class="tab-btn" onclick="switchTab('quiz')">📝 Self-Assessment Quiz (30)</button>
+                <button class="tab-btn" onclick="switchTab('cram')">⚡ Cram Sheet</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-container">
+
+        <!-- ==================== TAB 1: OVERVIEW ==================== -->
+        <section id="tab-overview" class="tab-content active">
+            <div class="alert alert-key-point">
+                <div>
+                    <div class="alert-title">✅ Master Learning Strategy</div>
+                    All content in this interactive reviewer is derived strictly from Dr. Isaac David E. Ampil II's lecture notes. Use the navigation bar above to dive into specific core topics, run through active recall flashcards, test yourself with 30 MCQs, or review the high-yield pre-exam cram sheet.
+                </div>
+            </div>
+
+            <div class="card card-accent-primary">
+                <h2 class="card-title">Core Concepts & Executive Summary</h2>
+                <p style="margin-bottom: 1rem;">Thyroid and parathyroid surgical management relies heavily on understanding functional status (TFTs), sonographic features, cytopathological classification (Bethesda system), and surgical anatomy to prevent catastrophic nerve or metabolic complications.</p>
+
+                <div class="grid-3">
+                    <div style="background-color: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <h3 style="font-family: var(--font-heading); font-size: 1rem; color: var(--primary-dark); margin-bottom: 0.5rem;">1. Anatomic & Functional Evaluation</h3>
+                        <p style="font-size: 0.875rem; color: var(--text-muted);">Anteroinferior neck mass moving with <span class="key-term">deglutition</span> confirms thyroid origin. TSH is the most sensitive initial assay. Low TSH prompts Radionuclide Scan; Normal/High TSH prompts Neck Ultrasound + FNABC.</p>
+                    </div>
+                    <div style="background-color: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <h3 style="font-family: var(--font-heading); font-size: 1rem; color: var(--primary-dark); margin-bottom: 0.5rem;">2. Goiter & Malignancy Spectrum</h3>
+                        <p style="font-size: 0.875rem; color: var(--text-muted);">Toxic goiters (Graves', Toxic MNG) require pre-op antithyroid stabilization. Well-Differentiated Carcinomas (Papillary & Follicular) account for ~90% of cancers; age (<55 vs ≥55) dictates AJCC prognosis.</p>
+                    </div>
+                    <div style="background-color: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <h3 style="font-family: var(--font-heading); font-size: 1rem; color: var(--primary-dark); margin-bottom: 0.5rem;">3. Surgical Hazards & Parathyroid</h3>
+                        <p style="font-size: 0.875rem; color: var(--text-muted);">Recurrent Laryngeal Nerve (RLN) runs in the tracheoesophageal groove (bilateral injury = airway emergency). Post-op hypocalcemia presents with Chvostek/Trousseau signs.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-family: var(--font-heading); margin-bottom: 0.75rem;">Executive Summary Matrix</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Pathophysiology / Etiology</th>
+                            <th>Key Diagnostic Clue</th>
+                            <th>First-Line Management</th>
+                            <th>Major Exam Trap</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Graves' Disease</strong></td>
+                            <td>TSH receptor autoantibodies stimulating thyrocytes</td>
+                            <td>Diffuse "hot" uptake on scan; Resting tachycardia</td>
+                            <td>ATDs (PTU/Methimazole) → Surgery or RAI</td>
+                            <td>Must render patient euthyroid BEFORE surgery to prevent thyroid storm.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Toxic MNG</strong></td>
+                            <td>Autonomous nodules in long-standing nontoxic goiter</td>
+                            <td>Multiple discrete hot spots; Jod-Basedow history</td>
+                            <td>ATDs followed by Thyroidectomy</td>
+                            <td>Does NOT show diffuse uptake; common in >50 yo with iodine load.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Papillary Carcinoma (PTC)</strong></td>
+                            <td>Follicular cell malignancy (~80% of thyroid cancers)</td>
+                            <td>Orphan Annie nuclei & Psammoma bodies</td>
+                            <td>Lobectomy (≤1cm low risk) or Total Thyroidectomy</td>
+                            <td>30-45% lymph node spread, but 90-95% cure rate; Age is main prognostic factor.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Follicular Carcinoma (FCA)</strong></td>
+                            <td>Follicular cell malignancy with blood vessel invasion</td>
+                            <td>Capsular and/or vascular invasion on histopathology</td>
+                            <td>Total Thyroidectomy ± RAI</td>
+                            <td>FNABC CANNOT differentiate Follicular Adenoma from Carcinoma!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Riedel's Thyroiditis</strong></td>
+                            <td>Invasive fibrous thyroiditis extending beyond capsule</td>
+                            <td>Hard, "woody" fixed neck mass</td>
+                            <td>Surgical decompression / Symptomatic</td>
+                            <td>Most commonly mistaken for anaplastic cancer due to extreme hardness.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary Hyperparathyroidism</strong></td>
+                            <td>Parathyroid adenoma (80-85%) or hyperplasia</td>
+                            <td>Elevated serum Calcium + Elevated serum PTH</td>
+                            <td>Parathyroidectomy</td>
+                            <td>Classic pentad (Stones, Bones, Groans, Moans) is rare; most are asymptomatic/mild.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 2: WORK-UP & DIAGNOSTICS ==================== -->
+        <section id="tab-workup" class="tab-content">
+            <div class="card card-accent-info">
+                <h2 class="card-title">Initial Evaluation: Neck Mass & HPT Axis</h2>
+                <p>An anterior neck mass that <span class="key-term">moves up with deglutition</span> (swallowing) confirms an origin in the <strong>THYROID GLAND</strong> because the thyroid is anchored to the larynx by Berry's ligament.</p>
+                
+                <div class="reasoning-cue">
+                    <strong>CLINICAL REASONING CUE:</strong> If you see an anterior neck mass moving vertically with swallowing → Think <strong>Thyroid origin</strong> → Order initial <strong>Thyroid Function Tests (TSH, FT4, FT3)</strong>.
+                </div>
+
+                <div class="grid-2" style="margin-top: 1rem;">
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1rem; color: var(--primary-dark);">Thyroid Function Tests (TFTs)</h3>
+                        <ul style="padding-left: 1.2rem; font-size: 0.9rem; margin-top: 0.5rem;">
+                            <li><strong>Serum TSH:</strong> Single <span class="key-term">most sensitive and specific</span> test for diagnosing thyroid metabolic status.</li>
+                            <li><strong>Serum Free T4 & Free T3 (FT4/FT3):</strong> Measures biologically active hormones; crucial for quantifying degree of dysfunction.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1rem; color: var(--primary-dark);">HPT Axis Feedback Regulation</h3>
+                        <p style="font-size: 0.875rem;">Hypothalamus releases TRH → Pituitary releases TSH → Thyroid produces T3/T4. There is an <strong>inverse relationship</strong> between Thyroid Hormone (TH) and TSH levels.</p>
+                    </div>
+                </div>
+
+                <div class="diagram-box">
+                    <div class="diagram-title">Figure 3 & 4: Hypothalamic-Pituitary-Thyroid (HPT) Feedback Axis</div>
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 1rem;">
+                        <div class="flowchart-container" style="max-width: 300px; width: 100%;">
+                            <span class="badge badge-amber">Positive Regulation (Low TH)</span>
+                            <div class="flow-step">Low Thyroid Hormone (TH ↓)</div>
+                            <div class="flow-arrow">↓ stimulates</div>
+                            <div class="flow-step">Hypothalamus (TRH ↑)</div>
+                            <div class="flow-arrow">↓ stimulates</div>
+                            <div class="flow-step">Pituitary (TSH ↑)</div>
+                            <div class="flow-arrow">↓ drives overcompensation</div>
+                            <div class="flow-step">Thyroid Gland</div>
+                        </div>
+
+                        <div class="flowchart-container" style="max-width: 300px; width: 100%;">
+                            <span class="badge badge-cyan">Negative Feedback (High TH)</span>
+                            <div class="flow-step">High Thyroid Hormone (TH ↑)</div>
+                            <div class="flow-arrow">↓ inhibits</div>
+                            <div class="flow-step">Hypothalamus (TRH ↓) & Pituitary (TSH ↓)</div>
+                            <div class="flow-arrow">↓ decreases stimulation</div>
+                            <div class="flow-step">Thyroid Output Suppressed</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-primary">
+                <h3 class="card-title">Table 1: TFT Interpretation Matrix</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Serum TSH</th>
+                                <th>Free T4 / Free T3</th>
+                                <th>Clinical Interpretation</th>
+                                <th>Next Diagnostic Step</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge badge-red">High TSH</span></td>
+                                <td><span class="badge badge-red">Low FT4 / FT3</span></td>
+                                <td><strong>Overt Hypothyroidism</strong></td>
+                                <td>Levothyroxine replacement</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-red">High TSH</span></td>
+                                <td><span class="badge badge-green">Normal FT4 / FT3</span></td>
+                                <td><strong>Subclinical Hypothyroidism</strong></td>
+                                <td>Monitor TFTs / Anti-TPO antibodies</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-amber">Low TSH</span></td>
+                                <td><span class="badge badge-red">High FT4 / FT3</span></td>
+                                <td><strong>Overt Hyperthyroidism</strong></td>
+                                <td><span class="key-term">Radionuclide Thyroid Scan</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-amber">Low TSH</span></td>
+                                <td><span class="badge badge-green">Normal FT4 / FT3</span></td>
+                                <td><strong>Subclinical Hyperthyroidism</strong></td>
+                                <td>Evaluate for early autonomous adenoma / repeat TFTs</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <!-- RADIONUCLIDE IMAGING -->
+                <div class="card card-accent-warning">
+                    <h3 class="card-title">Radionuclide Imaging (Thyroid Scan)</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">Indicated <strong>ONLY</strong> if TFTs reveal hyperthyroidism (Low TSH). Uses Iodine-123 ($I^{123}$), Iodine-131 ($I^{131}$), or Technetium-99m ($^{99m}\text{Tc}$).</p>
+                    
+                    <div class="alert alert-danger">
+                        <div>
+                            <div class="alert-title">⚠️ Diagnostic Pitfall</div>
+                            $I^{123}$ or $I^{131}$ is preferred over $^{99m}\text{Tc}$ pertechnetate because <strong>3–8% of warm nodules appear cold on pertechnetate scan</strong>, leading to potential misdiagnosis!
+                        </div>
+                    </div>
+
+                    <ul style="padding-left: 1.2rem; font-size: 0.875rem;">
+                        <li><strong>Hot / Warm Nodule:</strong> Demonstrates hyperfunctioning/increased radioisotope uptake. Treated as a "toxic" nodule (rarely malignant).</li>
+                        <li><strong>Cold Nodule:</strong> Hypoactive area trapping less radioactivity than surrounding gland. <span class="key-term">Requires FNABC</span> to rule out cancer!</li>
+                    </ul>
+                </div>
+
+                <!-- NECK ULTRASOUND -->
+                <div class="card card-accent-success">
+                    <h3 class="card-title">Thyroid Neck Ultrasonography (USG)</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">Ordered when TSH is normal/high. Key uses: guides FNAB, measures nodule size, detects non-palpable multicentric nodules, checks cervical lymphadenopathy, and evaluates substernal goiters.</p>
+                    
+                    <h4 style="font-size: 0.875rem; font-family: var(--font-heading); color: var(--success); margin-top: 0.5rem;">USG Features: Benign vs Carcinoma</h4>
+                    <table style="margin-top: 0.5rem;">
+                        <thead>
+                            <tr>
+                                <th>Benign Characteristics</th>
+                                <th>Carcinoma Characteristics</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>• <strong>Spongiform:</strong> "Honeycomb" or "puff pastry" microcystic spaces separated by thin septa.</td>
+                                <td>• <span class="key-term">Hypoechogenic:</span> Dark/grayish tone.</td>
+                            </tr>
+                            <tr>
+                                <td>• <strong>Simple cyst:</strong> Fluid-filled with no solid component.</td>
+                                <td>• <span class="key-term">Taller-than-wide shape</span> (anteroposterior > transverse diameter).</td>
+                            </tr>
+                            <tr>
+                                <td>• Isoechogenic / Hyperechogenic smooth round nodule.</td>
+                                <td>• Irregular/microlobulated margins.<br>• Microcalcifications (white specks).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TIRADS & BETHESDA -->
+            <div class="card card-accent-purple">
+                <h3 class="card-title">TIRADS & Bethesda Categorization Systems</h3>
+                
+                <div class="grid-2">
+                    <div>
+                        <h4 style="font-family: var(--font-heading); font-size: 0.95rem; margin-bottom: 0.5rem;">TIRADS (USG Cancer Risk)</h4>
+                        <ul style="font-size: 0.85rem; list-style: none; padding-left: 0;">
+                            <li style="padding: 0.2rem 0;"><strong>TIRADS 1:</strong> Normal thyroid</li>
+                            <li style="padding: 0.2rem 0;"><strong>TIRADS 2:</strong> Benign (spongiform or simple cyst)</li>
+                            <li style="padding: 0.2rem 0;"><strong>TIRADS 3:</strong> Probably benign (no suspicious features)</li>
+                            <li style="padding: 0.2rem 0;"><strong>TIRADS 4:</strong> Suspicious for CA (≥1 suspicious feature)</li>
+                            <li style="padding: 0.2rem 0;"><strong>TIRADS 5:</strong> Highly suggestive of CA (all suspicious features)</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="font-family: var(--font-heading); font-size: 0.95rem; margin-bottom: 0.5rem;">Fine Needle Aspiration Biopsy (FNABC)</h4>
+                        <p style="font-size: 0.85rem;"><span class="key-term">Single most useful diagnostic modality</span> for thyroid nodules in non-hyperthyroid patients.</p>
+                        <div class="alert alert-must-know" style="margin-top: 0.5rem; padding: 0.5rem 0.75rem;">
+                            <div>
+                                <strong>⭐ Major FNABC Limitations:</strong>
+                                1. Cannot differentiate <i>Follicular Adenoma</i> from <i>Follicular Carcinoma</i> (requires histopathology showing capsular/vascular invasion).<br>
+                                2. Contraindicated in hot/hyperthyroid nodules (causes bleeding & false positives due to hypertrophic cells).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="font-family: var(--font-heading); font-size: 1rem; margin-top: 1.25rem; margin-bottom: 0.5rem;">Bethesda Criteria & Management Algorithm (Figure 11)</h4>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bethesda Category</th>
+                                <th>Cytologic Interpretation</th>
+                                <th>Standard Management Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Category I</strong></td>
+                                <td>Non-diagnostic / Unsatisfactory</td>
+                                <td>Repeat FNAB with Ultrasound Guidance</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Category II</strong></td>
+                                <td>Benign (Colloid nodule / Simple cyst)</td>
+                                <td>Observe / Aspirate cyst (Surgery if >4 cm or recurs 3x)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Category III</strong></td>
+                                <td>AUS / FLUS (Atypia / Follicular Lesion of Undetermined Significance)</td>
+                                <td>Repeat FNAB</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Category IV</strong></td>
+                                <td>FN / Suspicious for FN (Follicular Neoplasm)</td>
+                                <td><strong>Thyroid Lobectomy</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Category V</strong></td>
+                                <td>Suspicious for Malignancy</td>
+                                <td>Lobectomy or Near-total / Total Thyroidectomy</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Category VI</strong></td>
+                                <td>Malignant (e.g., Papillary CA)</td>
+                                <td><strong>Near-total or Total Thyroidectomy</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ADDITIONAL DIAGNOSTICS -->
+            <div class="card card-accent-primary">
+                <h3 class="card-title">Specialized Diagnostic Work-ups</h3>
+                <div class="grid-3">
+                    <div>
+                        <h4 style="font-size: 0.875rem; font-family: var(--font-heading); color: var(--primary);">Antibodies & Markers</h4>
+                        <ul style="font-size: 0.85rem; padding-left: 1rem;">
+                            <li><strong>Anti-TPO Antibodies:</strong> Order if Hashimoto's thyroiditis is suspected.</li>
+                            <li><strong>Thyroglobulin (Tg):</strong> Tumor marker used to monitor cancer recurrence <i>after total thyroidectomy</i>.</li>
+                            <li><strong>Calcitonin:</strong> Virtually diagnostic for Medullary Thyroid Cancer (MTC).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 0.875rem; font-family: var(--font-heading); color: var(--primary);">Imaging & Endoscopy</h4>
+                        <ul style="font-size: 0.85rem; padding-left: 1rem;">
+                            <li><strong>Neck CT Scan:</strong> Indicated for fixed lesions with borderline resectability or organ invasion.</li>
+                            <li><strong>Laryngoscopy:</strong> Essential to assess vocal cord mobility if hoarseness or compression occurs.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 0.875rem; font-family: var(--font-heading); color: var(--primary);">MEN Syndrome Work-up</h4>
+                        <ul style="font-size: 0.85rem; padding-left: 1rem;">
+                            <li>If MTC or family history of MEN 2A/2B is present → check serum calcitonin + screen for <strong>pheochromocytoma</strong> and <strong>hyperparathyroidism</strong>!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 3: GOITER & THYROTOXICOSIS ==================== -->
+        <section id="tab-diseases" class="tab-content">
+            <div class="card card-accent-warning">
+                <h2 class="card-title">Thyroid Cyst & Goiter Taxonomy</h2>
+                
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1rem; color: var(--warning-dark);">Thyroid Cyst</h3>
+                        <p style="font-size: 0.875rem;">Etiology: Unknown (theories: iodine lack, autoimmune, radiation). Diagnosed by USG. 75% resolve with simple needle aspiration.</p>
+                        <div class="alert alert-danger" style="margin-top: 0.5rem; padding: 0.5rem 0.75rem;">
+                            <strong>⚠️ Indications for Surgery (Thyroidectomy) in Cysts:</strong>
+                            1. Recurrence after <strong>3 needle aspirations</strong>.<br>
+                            2. Cyst diameter <strong>> 4 cm</strong>.
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1rem; color: var(--warning-dark);">Goiter Classification & Compressive Signs</h3>
+                        <ul style="font-size: 0.875rem; padding-left: 1rem;">
+                            <li><strong>Diffuse vs Nodular:</strong> Diffuse has no discrete nodules; Nodular presents with ≥1 nodules.</li>
+                            <li><strong>Toxic vs Nontoxic:</strong> Toxic = Hyperthyroid state; Nontoxic = Euthyroid/Normal TH.</li>
+                            <li><strong>Compressive Symptoms:</strong> Dysphagia, orthopnea, dysphonia.</li>
+                        </ul>
+                        <div class="reasoning-cue" style="margin-top: 0.5rem;">
+                            <strong>PEMBERTON SIGN:</strong> Facial flushing and cervical vein dilation when raising arms above head → indicates thoracic inlet venous obstruction from a <strong>substernal goiter</strong>.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="diagram-box">
+                    <div class="diagram-title">Figure 14 & 15: Pathophysiology of Nontoxic vs Toxic Goiter</div>
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 1rem;">
+                        <div style="flex: 1; min-width: 280px; background: #fff; padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                            <span class="badge badge-amber">Nontoxic Goiter Mechanism</span>
+                            <p style="font-size: 0.8rem; margin-top: 0.4rem;">Low TH / Iodine Deficiency → High TSH secretion → Thyroid overcompensates → Gland Hypertrophy / Hyperplasia = <strong>Nontoxic Goiter</strong>.</p>
+                        </div>
+                        <div style="flex: 1; min-width: 280px; background: #fff; padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                            <span class="badge badge-red">Toxic Goiter Mechanism</span>
+                            <p style="font-size: 0.8rem; margin-top: 0.4rem;">Increased TRH/TSH (e.g. pituitary tumor) OR Autonomous Nodules → Excessive TH release → Hypertrophy = <strong>Toxic Goiter</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-danger">
+                <h3 class="card-title">Hyperthyroidism & Diffuse Toxic Goiter (Graves' Disease)</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">Autoimmune condition (TSH receptor antibodies stimulate thyrocytes). Prevalent in females 40–60 yo. Triggers: postpartum, excess iodine, lithium, viral infections.</p>
+
+                <div class="alert alert-must-know">
+                    <div>
+                        <div class="alert-title">⭐ Clinical Manifestations of Thyrotoxicosis</div>
+                        Heat intolerance, weight loss, fine tremors, proximal muscle weakness, warm moist skin, amenorrhea, pretibial dermopathy, ophthalmopathy.<br>
+                        <strong>MOST RELIABLE CLINICAL SIGN:</strong> <span class="key-term">Resting Tachycardia</span>.
+                    </div>
+                </div>
+
+                <h4 style="font-family: var(--font-heading); font-size: 0.95rem; margin-top: 1rem;">Treatment Modalities for Graves' Disease</h4>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Treatment Type</th>
+                                <th>Mechanism / Agent</th>
+                                <th>Clinical Advantages</th>
+                                <th>Drawbacks & Exam Traps</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Antithyroid Drugs (ATDs)</strong></td>
+                                <td>Propylthiouracil (PTU 100-300mg TID) or Methimazole (10-30mg TID)</td>
+                                <td>Prepares patients for definitive surgery/RAI; control thyrotoxicosis</td>
+                                <td>High relapse rate if discontinued; risks of <span class="badge badge-red">Agranulocytosis</span>, vasculitis, hepatotoxicity.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Radioactive Iodine (RAI)</strong></td>
+                                <td>$I^{131}$ ablation of hyperactive thyroid tissue</td>
+                                <td>Non-surgical; ideal for small goiters (<100 mL), high surgical risk</td>
+                                <td>Gradual effect (3-6 mos); <span class="badge badge-red">Contraindicated in pregnancy / breastfeeding</span>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Thyroidectomy (Surgery)</strong></td>
+                                <td>Subtotal or Total excision of thyroid gland</td>
+                                <td>Immediate cure; required for large goiters (>100 mL), compression, suspicious nodules</td>
+                                <td>Must render patient <span class="key-term">EUTHYROID</span> with ATDs first to avoid intraoperative <strong>THYROID STORM</strong>!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card card-accent-primary">
+                    <h3 class="card-title">Toxic Multinodular Goiter & Jod-Basedow</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0.5rem;">Occurs in patients <strong>>50 years old</strong> with a prior history of nontoxic multinodular goiter. Over years, nodules acquire autonomy.</p>
+                    
+                    <div class="reasoning-cue">
+                        <strong>JOD-BASEDOW PHENOMENON:</strong> Patient with nontoxic goiter given exogenous iodine (CT contrast, kelp supplements, amiodarone) → escapes negative feedback → <strong>Iodine-Induced Hyperthyroidism</strong>.
+                    </div>
+                    
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem;"><strong>Diagnosis & Tx:</strong> Scan shows <i>multiple hot nodules</i>. Treatment is <strong>Thyroidectomy</strong> (after ATD prep).</p>
+                </div>
+
+                <div class="card card-accent-info">
+                    <h3 class="card-title">Nontoxic Goiter (DNTG vs NNTG)</h3>
+                    <p style="font-size: 0.875rem;">Results from iodine deficiency or TSH stimulation. Patients are <strong>euthyroid</strong> (Normal TSH/FT4/FT3).</p>
+
+                    <h4 style="font-size: 0.85rem; font-family: var(--font-heading); margin-top: 0.5rem;">TSH Suppression vs Surgery:</h4>
+                    <ul style="font-size: 0.85rem; padding-left: 1rem;">
+                        <li><strong>TSH Suppression:</strong> High-dose thyroxine suppresses TSH. Best for young patients with small nodules.</li>
+                        <li><strong>Contraindications to TSH Suppression:</strong> Postmenopausal women, age >60, osteoporosis, cardiovascular disease.</li>
+                        <li><strong>Indications for Surgery:</strong> Large goiter, compressive symptoms, or suspicious nodules.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 4: THYROIDITIS ==================== -->
+        <section id="tab-thyroiditis" class="tab-content">
+            <div class="card card-accent-danger">
+                <h2 class="card-title">Thyroiditis: Spectrum & Subtypes</h2>
+                <p style="font-size: 0.9rem; margin-bottom: 1rem;">Thyroiditis presents as a firm anterior neck mass moving with deglutition. It commonly runs a <strong>4-phase clinical course:</strong></p>
+
+                <div class="flowchart-container" style="flex-direction: row; justify-content: space-around; flex-wrap: wrap;">
+                    <div class="flow-step" style="border-color: var(--danger); max-width: 150px;">1. Hyperthyroid</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step" style="border-color: var(--success); max-width: 150px;">2. Euthyroid</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step" style="border-color: var(--warning); max-width: 150px;">3. Hypothyroid</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step" style="border-color: var(--primary); max-width: 150px;">4. Resolution</div>
+                </div>
+
+                <div class="table-responsive" style="margin-top: 1rem;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subtype</th>
+                                <th>Etiology & Demographics</th>
+                                <th>Clinical Presentation & Histology</th>
+                                <th>Management</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Acute Thyroiditis</strong></td>
+                                <td>Acute bacterial infection (<strong>Streptococcal 70%</strong>)</td>
+                                <td>Severe anterior neck pain, redness, warmth, fever, abscess formation</td>
+                                <td>Antibiotics, incision & drainage/debridement if suppurative</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Subacute Painful</strong><br><i>(De Quervain's / Granulomatous)</i></td>
+                                <td>Viral / Post-viral response<br>(30–40 yo females)</td>
+                                <td><strong>Painful tender thyroid mass</strong>; elevated ESR; granulomatous inflammation</td>
+                                <td>Symptomatic: NSAIDs / Steroids; short-term beta-blockers</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Subacute Painless</strong><br><i>(Postpartum)</i></td>
+                                <td>Autoimmune response<br>(30–60 yo females)</td>
+                                <td>Painless thyroid enlargement; occurs post-partum</td>
+                                <td>Supportive; serial monitoring of thyroid function</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Chronic Thyroiditis</strong><br><i>(Hashimoto's)</i></td>
+                                <td>Autoimmune lymphocytic destruction</td>
+                                <td>Firm rubbery goiter; <span class="key-term">Anti-TPO</span> & <span class="key-term">Anti-Tg</span> antibodies positive</td>
+                                <td>Levothyroxine replacement.<br><span class="badge badge-red">Risk of Thyroid Lymphoma!</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Riedel's Thyroiditis</strong></td>
+                                <td>Invasive fibrous thyroiditis (Autoimmune)</td>
+                                <td><strong>Dense, hard "woody" mass</strong> extending beyond thyroid capsule into soft tissues</td>
+                                <td>Surgical decompression.<br><span class="badge badge-amber">Most commonly mistaken for cancer!</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert alert-must-know">
+                    <div>
+                        <div class="alert-title">⭐ Indications for Surgery in Thyroiditis</div>
+                        Medical treatment is 1st-line. Surgery is indicated ONLY for:
+                        1. <strong>Malignancy cannot be ruled out</strong> (e.g., Riedel's).<br>
+                        2. <strong>Significant compression</strong> (severe dysphagia/dyspnea).<br>
+                        3. <strong>Failure of medical therapy</strong> or abscess formation in acute thyroiditis.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 5: TUMORS & COMPLICATIONS ==================== -->
+        <section id="tab-tumors" class="tab-content">
+            <div class="card card-accent-primary">
+                <h2 class="card-title">Benign & Malignant Thyroid Neoplasms</h2>
+                
+                <div class="grid-3">
+                    <div style="background-color: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <h3 style="font-family: var(--font-heading); font-size: 0.95rem; color: var(--primary);">Benign Adenomas</h3>
+                        <p style="font-size: 0.85rem;"><strong>Follicular & Hurthle Cell Adenoma:</strong> CANNOT be distinguished from carcinoma by FNAB. Histology must show NO capsular/vascular invasion.<br><strong>Toxic Adenoma (Plummer's):</strong> Single hot nodule in younger patients. Scan shows single hot spot with rest of gland suppressed.</p>
+                    </div>
+
+                    <div style="background-color: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <h3 style="font-family: var(--font-heading); font-size: 0.95rem; color: var(--primary);">Well-Differentiated CA (WDC)</h3>
+                        <p style="font-size: 0.85rem;">Comprises ~90% of thyroid cancers.<br>• <strong>Papillary (PTC) - 80%:</strong> 90-95% cure rate, 30-45% lymph node metastasis.<br>• <strong>Follicular (FCA) - 10%:</strong> 70-80% cure rate, hematogenous spread (lungs/bones).</p>
+                    </div>
+
+                    <div style="background-color: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <h3 style="font-family: var(--font-heading); font-size: 0.95rem; color: var(--primary);">Rare & Aggressive Cancers</h3>
+                        <p style="font-size: 0.85rem;">• <strong>Hurthle Cell (3%):</strong> Oxyphilic cells; <span class="key-term">Only ~5% take up RAI!</span><br>• <strong>Medullary (5%):</strong> Parafollicular C cells; secretes <span class="key-term">Calcitonin</span>.<br>• <strong>Anaplastic (1%):</strong> Highly lethal; rapid growth; requires tracheostomy.</p>
+                    </div>
+                </div>
+
+                <!-- HISTOLOGY HIGHLIGHT -->
+                <div class="alert alert-key-point" style="margin-top: 1rem;">
+                    <div>
+                        <div class="alert-title">✅ Papillary Thyroid Carcinoma Histopathology Cues</div>
+                        Presence of two pathognomonic features confirms PTC:
+                        1. <span class="key-term">Orphan Annie Nuclei</span> (cells with clear intranuclear cytoplasmic inclusions).<br>
+                        2. <span class="key-term">Psammoma Bodies</span> (concentric calcified microcalcification deposits).
+                    </div>
+                </div>
+            </div>
+
+            <!-- RISK STRATIFICATION & SURGICAL MANAGEMENT -->
+            <div class="card card-accent-purple">
+                <h3 class="card-title">WDC Risk Stratification & Surgical Algorithms</h3>
+                <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">Prognostic scoring systems (<strong>AGES, MACIS, AMES, AJCC</strong>) classify low vs high risk. Under AJCC TNM 8th Edition, <span class="key-term">AGE (<55 vs ≥55 years)</span> is the single most important factor.</p>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tumor Extent / Risk Category</th>
+                                <th>Surgical Procedure Required</th>
+                                <th>Adjuvant Therapy / Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Mass ≤ 1.0 cm, Low Risk</strong><br><i>(Minimal / Microcarcinoma)</i></td>
+                                <td><strong>Total Lobectomy + Isthmusectomy</strong></td>
+                                <td>Thyroid preservation possible</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mass > 1.0 cm OR Multicentric</strong></td>
+                                <td><strong>Total Thyroidectomy</strong></td>
+                                <td>TSH suppression therapy (target TSH ≈ 0)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Extrathyroidal Spread / Muscle Invasion</strong></td>
+                                <td><strong>Total Thyroidectomy + Central Neck Dissection (CND)</strong></td>
+                                <td>Adjuvant <span class="key-term">Radioactive Iodine (RAI) Ablation</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>(+) Lymph Node Metastasis</strong></td>
+                                <td><strong>Total Thyroidectomy + Modified Radical Neck Dissection (MRND)</strong></td>
+                                <td>RAI Ablation + Monitor baseline <span class="key-term">Serum Thyroglobulin (Tg)</span> at 3-6 mos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="reasoning-cue">
+                    <strong>THYROGLOBULIN MONITORING:</strong> Thyroglobulin is produced solely by thyroid tissue. Following total thyroidectomy, Tg should be zero. Rising Tg indicates <strong>recurrence</strong> → order Total Body Iodine-131 Scan (TBS) or CT scan!
+                </div>
+            </div>
+
+            <!-- COMPLICATIONS OF THYROIDECTOMY -->
+            <div class="card card-accent-danger">
+                <h3 class="card-title">Complications of Thyroidectomy</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Complication</th>
+                                <th>Incidence</th>
+                                <th>Anatomical / Pathophysiologic Basis</th>
+                                <th>Clinical Presentation & Management</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Post-op Hemorrhage</strong></td>
+                                <td>1%</td>
+                                <td>Arterial bleeding into closed neck compartment</td>
+                                <td><span class="badge badge-red">Emergency!</span> Bulging neck mass, pale, hypotensive, airway compromise. Immediate bedside decompression.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Unilateral Recurrent Laryngeal Nerve (RLN) Injury</strong></td>
+                                <td>3–8%</td>
+                                <td>Nerve damaged in <strong>tracheoesophageal groove</strong></td>
+                                <td><strong>Hoarseness</strong>. Note: Edema can cause temporary hoarseness. Wait 3–6 mos; confirm by laryngoscopy.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bilateral Recurrent Laryngeal Nerve (RLN) Injury</strong></td>
+                                <td>3–8%</td>
+                                <td>Bilateral RLN transection/trauma</td>
+                                <td><span class="badge badge-red">Airway Emergency!</span> Paralysis of vocal cords in midline position causing acute airway obstruction → <strong>Tracheostomy</strong>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Superior Laryngeal Nerve (SLN) Injury</strong></td>
+                                <td>3–8%</td>
+                                <td>External branch damaged near <strong>superior pole</strong></td>
+                                <td>Loss of voice pitch/high frequency and decreased voice strength.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Parathyroid Injury / Hypocalcemia</strong></td>
+                                <td>3–5%</td>
+                                <td>Inadvertent excision or ischemia of parathyroid glands</td>
+                                <td>Paresthesias, tetany, positive Chvostek and Trousseau signs. Tx: Oral/IV Calcium + Vitamin D.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 6: PARATHYROID DISORDERS ==================== -->
+        <section id="tab-parathyroid" class="tab-content">
+            <div class="card card-accent-success">
+                <h2 class="card-title">Calcium Homeostasis & Parathyroid Disorders</h2>
+                
+                <div class="grid-3" style="margin-bottom: 1rem;">
+                    <div style="background-color: #f0fdf4; padding: 1rem; border-radius: 8px; border: 1px solid var(--success-light);">
+                        <h3 style="font-size: 0.9rem; font-family: var(--font-heading); color: var(--success);">PTH (Parathyroid Hormone)</h3>
+                        <p style="font-size: 0.85rem;"><strong>Increases serum calcium</strong> by driving bone resorption, renal calcium reabsorption, and activating Vitamin D in kidneys.</p>
+                    </div>
+                    <div style="background-color: #f0fdf4; padding: 1rem; border-radius: 8px; border: 1px solid var(--success-light);">
+                        <h3 style="font-size: 0.9rem; font-family: var(--font-heading); color: var(--success);">Vitamin D</h3>
+                        <p style="font-size: 0.85rem;">Stimulates active absorption of <strong>calcium and phosphate</strong> from the GI tract.</p>
+                    </div>
+                    <div style="background-color: #f0fdf4; padding: 1rem; border-radius: 8px; border: 1px solid var(--success-light);">
+                        <h3 style="font-size: 0.9rem; font-family: var(--font-heading); color: var(--success);">Calcitonin</h3>
+                        <p style="font-size: 0.85rem;">Secreted by thyroid C cells; <strong>decreases serum calcium</strong> by inhibiting osteoclast activity.</p>
+                    </div>
+                </div>
+
+                <h3 style="font-family: var(--font-heading); font-size: 1.1rem; margin-top: 1.5rem;">Hyperparathyroidism (HPT) Subtypes</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Etiology & Mechanism</th>
+                                <th>Lab Findings</th>
+                                <th>Surgical Treatment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Primary (PHPT)</strong></td>
+                                <td>Parathyroid Adenoma (80-85%), Hyperplasia (10-15%), or CA (1-2%)</td>
+                                <td><span class="badge badge-red">High Serum Ca</span><br><span class="badge badge-red">High Serum PTH</span></td>
+                                <td>Adenoma: Excision of single enlarged gland.<br>Hyperplasia: Subtotal (3.5 glands) or Total Parathyroidectomy with autotransplantation into forearm.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Secondary</strong></td>
+                                <td>Compensatory response to chronic hypocalcemia (e.g. Chronic Renal Failure, GI Malabsorption)</td>
+                                <td><span class="badge badge-amber">Low/Normal Ca</span><br><span class="badge badge-red">High Serum PTH</span></td>
+                                <td>Treat underlying renal failure / malabsorption; Medical phosphate binders & Vit D.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tertiary</strong></td>
+                                <td>Autonomous hypersecretion after long-standing secondary HPT (e.g., post renal transplant)</td>
+                                <td><span class="badge badge-red">High Serum Ca</span><br><span class="badge badge-red">Very High PTH</span></td>
+                                <td>Parathyroidectomy</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert alert-must-know">
+                    <div>
+                        <div class="alert-title">⭐ Primary Hyperparathyroidism Clinical Presentation</div>
+                        Classic "Pentad" (Rare): <strong>Kidney stones, Painful bones, Abdominal groans, Psychic moans, Fatigue</strong>.<br>
+                        <i>Most patients today are asymptomatic or present with non-specific weakness, polyuria, constipation, and memory loss.</i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HYPOPARATHYROIDISM -->
+            <div class="card card-accent-danger">
+                <h3 class="card-title">Hypoparathyroidism & Hypocalcemia Signs</h3>
+                <p style="font-size: 0.875rem;"><strong>Most common cause:</strong> Inadvertent surgical removal or vascular injury during <span class="key-term">Total Thyroidectomy</span>. Other causes: DiGeorge syndrome, neonatal hypoparathyroidism.</p>
+
+                <div class="grid-2" style="margin-top: 1rem;">
+                    <div style="border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px;">
+                        <h4 style="font-family: var(--font-heading); color: var(--danger); font-size: 0.95rem;">Chvostek Sign</h4>
+                        <p style="font-size: 0.85rem; margin-top: 0.3rem;">Tapping on the facial nerve anterior to the ear elicits <strong>ipsilateral facial muscle contraction/twitching</strong> due to increased neuromuscular excitability from hypocalcemia.</p>
+                    </div>
+
+                    <div style="border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px;">
+                        <h4 style="font-family: var(--font-heading); color: var(--danger); font-size: 0.95rem;">Trousseau Sign</h4>
+                        <p style="font-size: 0.85rem; margin-top: 0.3rem;">Occluding brachial artery blood flow with a BP cuff inflated to 20 mmHg above systolic BP for 2–3 minutes triggers <strong>carpopedal spasm</strong> (carpal spasm in hand/wrist).</p>
+                    </div>
+                </div>
+
+                <div class="reasoning-cue" style="margin-top: 1rem;">
+                    <strong>MANAGEMENT OF HYPOCALCEMIA:</strong> Oral calcium tablets + Vitamin D supplements. If severe symptomatic tetany occurs → Administer <span class="key-term">IV Calcium Gluconate infusion</span> immediately!
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 7: COMPARISONS ==================== -->
+        <section id="tab-comparisons" class="tab-content">
+            <h2 style="font-family: var(--font-heading); margin-bottom: 1rem;">High-Yield Side-by-Side Exam Differentiators</h2>
+
+            <!-- COMPARISON 1 -->
+            <div class="card card-accent-primary">
+                <h3 class="card-title">1. Hyperthyroid Goiters: Graves' vs Toxic MNG vs Toxic Adenoma</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Graves' Disease</th>
+                                <th>Toxic Multinodular Goiter</th>
+                                <th>Toxic Adenoma</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Age / Demographics</strong></td>
+                                <td>Females 40–60 years old</td>
+                                <td>Older >50 years old</td>
+                                <td>Younger patients</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Etiology</strong></td>
+                                <td>TSH receptor autoantibodies</td>
+                                <td>Autonomous nodules after long goiter</td>
+                                <td>Single autonomous hyperfunctioning nodule</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Thyroid Scan Pattern</strong></td>
+                                <td><span class="badge badge-red">Diffuse uniform hot uptake</span></td>
+                                <td><span class="badge badge-amber">Multiple discrete hot spots</span></td>
+                                <td><span class="badge badge-indigo">Single hot spot</span> (rest suppressed)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Unique Features</strong></td>
+                                <td>Ophthalmopathy, pretibial dermopathy</td>
+                                <td>Jod-Basedow trigger (iodine load)</td>
+                                <td>Solitary hyperfunctioning lesion</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Definitive Surgery</strong></td>
+                                <td>Subtotal or Total Thyroidectomy</td>
+                                <td>Total Thyroidectomy</td>
+                                <td>Lobectomy / Thyroidectomy</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- COMPARISON 2 -->
+            <div class="card card-accent-danger">
+                <h3 class="card-title">2. Malignant Thyroid Carcinomas Comparison</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Papillary (PTC)</th>
+                                <th>Follicular (FCA)</th>
+                                <th>Hurthle Cell</th>
+                                <th>Medullary (MTC)</th>
+                                <th>Anaplastic</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Frequency</strong></td>
+                                <td><strong>80%</strong> (Most common)</td>
+                                <td><strong>10%</strong></td>
+                                <td><strong>3%</strong></td>
+                                <td><strong>5%</strong></td>
+                                <td><strong>1%</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cell Origin</strong></td>
+                                <td>Follicular cell</td>
+                                <td>Follicular cell</td>
+                                <td>Oxyphilic cell</td>
+                                <td>Parafollicular C cell</td>
+                                <td>Undifferentiated</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Histology Clue</strong></td>
+                                <td>Orphan Annie nuclei & Psammoma bodies</td>
+                                <td>Capsular & vascular invasion</td>
+                                <td>Mitochondria-dense acidophilic cells</td>
+                                <td>Amyloid deposits; Calcitonin+</td>
+                                <td>Pleomorphic giant cells</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Metastasis Route</strong></td>
+                                <td>Lymphatic (30-45%)</td>
+                                <td>Hematogenous (2-5%)</td>
+                                <td>Lymphatic & Hematogenous</td>
+                                <td>Lymphatic & Hematogenous</td>
+                                <td>Aggressive local invasion</td>
+                            </tr>
+                            <tr>
+                                <td><strong>RAI Uptake</strong></td>
+                                <td><span class="badge badge-green">High</span></td>
+                                <td><span class="badge badge-green">High</span></td>
+                                <td><span class="badge badge-red">Very Low (~5%)</span></td>
+                                <td><span class="badge badge-red">None</span></td>
+                                <td><span class="badge badge-red">None</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Prognosis / Cure</strong></td>
+                                <td>90–95% cure rate</td>
+                                <td>70–80% cure rate</td>
+                                <td>Poorer than FCA</td>
+                                <td>Intermediate; RET link</td>
+                                <td><span class="badge badge-red">Highly Lethal</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- COMPARISON 3 -->
+            <div class="card card-accent-warning">
+                <h3 class="card-title">3. Thyroidectomy Nerve Injuries: RLN vs SLN</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nerve Branch</th>
+                                <th>Anatomic Location</th>
+                                <th>Clinical Presentation</th>
+                                <th>Emergency Management</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Unilateral RLN</strong></td>
+                                <td>Tracheoesophageal groove</td>
+                                <td>Hoarseness, breathy voice</td>
+                                <td>Observation (wait 3-6 mos for edema); vocal cord medialization if permanent</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bilateral RLN</strong></td>
+                                <td>Tracheoesophageal groove</td>
+                                <td>Paralysis of vocal cords in midline → <span class="badge badge-red">Acute Airway Obstruction</span></td>
+                                <td><strong>Immediate Emergency Tracheostomy</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Superior Laryngeal (SLN)</strong></td>
+                                <td>Near superior thyroid pole</td>
+                                <td>Loss of high-pitch voice range & vocal fatigue</td>
+                                <td>Speech therapy; supportive</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 8: FLASHCARDS ==================== -->
+        <section id="tab-flashcards" class="tab-content">
+            <h2 style="font-family: var(--font-heading); margin-bottom: 0.5rem; text-align: center;">Active Recall Flashcards (30 Cards)</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;">Click card or press <strong>SPACEBAR</strong> to flip. Use <strong>LEFT / RIGHT ARROWS</strong> to navigate.</p>
+
+            <div class="progress-bar-container" style="max-width: 650px; margin: 0 auto 1rem auto;">
+                <div id="flashcard-progress" class="progress-bar"></div>
+            </div>
+
+            <div class="flashcard-wrapper">
+                <div id="flashcard" class="flashcard" onclick="flipCard()">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <div class="flashcard-prompt">QUESTION <span id="card-num">1</span> OF 30</div>
+                            <div id="card-question" class="flashcard-text">Loading question...</div>
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="flashcard-prompt" style="color: #166534;">ANSWER</div>
+                            <div id="card-answer" class="flashcard-text" style="color: #14532d;">Loading answer...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-controls">
+                <button class="btn btn-secondary" onclick="prevCard()">← Previous</button>
+                <span id="card-counter" style="font-family: var(--font-mono); font-size: 0.875rem; font-weight: 700;">1 / 30</span>
+                <button class="btn" onclick="nextCard()">Next →</button>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 9: QUIZ ==================== -->
+        <section id="tab-quiz" class="tab-content">
+            <div class="quiz-container">
+                <div id="quiz-results" class="quiz-results-banner" style="display: none;">
+                    <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 0.5rem;">Quiz Completed!</h2>
+                    <p style="font-size: 1.2rem;">Your Score: <strong id="quiz-score">0</strong> / 30</p>
+                    <button class="btn" style="background: white; color: var(--primary-dark); margin-top: 1rem;" onclick="resetQuiz()">Restart Quiz</button>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h2 style="font-family: var(--font-heading);">Self-Assessment Examination (30 MCQs)</h2>
+                    <span id="quiz-progress-text" class="badge badge-indigo">Answered: 0 / 30</span>
+                </div>
+
+                <div id="quiz-questions-list">
+                    <!-- Questions injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 10: CRAM SHEET ==================== -->
+        <section id="tab-cram" class="tab-content">
+            <div class="card card-accent-danger">
+                <h2 class="card-title">⚡ Ultra-Condensed Pre-Exam Cram Sheet</h2>
+                <p style="font-size: 0.875rem; margin-bottom: 1.5rem;">Designed to be read in under 10 minutes prior to entering the examination room. Bullet points and high-yield rapid tables only.</p>
+
+                <div class="cram-section">
+                    <h3 class="cram-title">1. Diagnostic Work-up Rules</h3>
+                    <ul class="cram-list">
+                        <li>Neck mass moving up with deglutition = <span class="key-term">THYROID ORIGIN</span>.</li>
+                        <li>Initial test for all thyroid nodule suspects = <span class="key-term">Serum TSH</span> (Most sensitive/specific).</li>
+                        <li>If TSH is <span class="key-term">LOW</span> (Hyperthyroid) → Order <span class="key-term">Radionuclide Scan</span> ($I^{123}/I^{131}$ preferred over $^{99m}\text{Tc}$ because 3-8% warm nodules look cold on Tc).</li>
+                        <li>If TSH is <span class="key-term">NORMAL/HIGH</span> → Order <span class="key-term">Neck Ultrasound</span>.</li>
+                        <li>FNABC is single most useful test for non-hyperthyroid nodules, BUT cannot differentiate Follicular Adenoma from Follicular Carcinoma.</li>
+                        <li>FNABC is CONTRAINDICATED in hot nodules due to bleeding and false positive hypertrophic cells.</li>
+                    </ul>
+                </div>
+
+                <div class="cram-section">
+                    <h3 class="cram-title">2. Quick Sonographic Differentiators</h3>
+                    <ul class="cram-list">
+                        <li><strong>Benign USG:</strong> Spongiform ("honeycomb/puff pastry") appearance or Simple cyst.</li>
+                        <li><strong>Malignant USG:</strong> Hypoechogenic, Taller-than-wide shape, Microcalcifications, Irregular margins.</li>
+                        <li><strong>Thyroid Cyst Surgery indications:</strong> Recurrence after <span class="key-term">3 aspirations</span> OR size <span class="key-term">> 4 cm</span>.</li>
+                    </ul>
+                </div>
+
+                <div class="cram-section">
+                    <h3 class="cram-title">3. Rapid Review Table: Hyperthyroid Causes</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Condition</th>
+                                    <th>Key Diagnostic Findings</th>
+                                    <th>Treatment of Choice</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Graves' Disease</strong></td>
+                                    <td>TSHR antibodies + Diffuse uniform hot scan</td>
+                                    <td>ATDs (PTU/Methimazole) → Surgery or RAI</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Toxic MNG</strong></td>
+                                    <td>>50 yo + Multiple hot nodules + Jod-Basedow history</td>
+                                    <td>ATDs → Thyroidectomy</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Toxic Adenoma</strong></td>
+                                    <td>Younger + Single hot nodule suppressing rest of gland</td>
+                                    <td>ATDs → Lobectomy / Thyroidectomy</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="cram-section">
+                    <h3 class="cram-title">4. Rapid Review Table: Thyroid Cancers</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cancer Type</th>
+                                    <th>Key Feature / Histology</th>
+                                    <th>Management Key</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Papillary (PTC)</strong></td>
+                                    <td>Orphan Annie nuclei + Psammoma bodies; Lymphatic spread</td>
+                                    <td>Lobectomy (≤1cm) vs Total Thyroidectomy</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Follicular (FCA)</strong></td>
+                                    <td>Capsular/vascular invasion; Hematogenous spread</td>
+                                    <td>Total Thyroidectomy + RAI</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Hurthle Cell</strong></td>
+                                    <td>Oxyphilic cells; <span class="key-term">Does NOT take up RAI (~5%)</span></td>
+                                    <td>Total Thyroidectomy ± Neck Dissection</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Medullary (MTC)</strong></td>
+                                    <td>Parafollicular C cells; Secretes Calcitonin; RET/MEN2 link</td>
+                                    <td>Total Thyroidectomy + Central Neck Dissection</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Anaplastic</strong></td>
+                                    <td>Rapidly enlarging; highly lethal</td>
+                                    <td>Palliative Tracheostomy + Radiotherapy</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="cram-section">
+                    <h3 class="cram-title">5. Surgical Complications & Parathyroid Quick Rules</h3>
+                    <ul class="cram-list">
+                        <li><strong>Unilateral RLN injury:</strong> Hoarseness. (Wait 3-6 mos for edema).</li>
+                        <li><strong>Bilateral RLN injury:</strong> Midline vocal cord paralysis → <span class="key-term">Emergency Tracheostomy</span>.</li>
+                        <li><strong>SLN injury:</strong> Loss of high pitch / voice strength.</li>
+                        <li><strong>Chvostek Sign:</strong> Facial nerve tap → facial twitch = Hypocalcemia.</li>
+                        <li><strong>Trousseau Sign:</strong> BP cuff >20 mmHg SBP for 2-3 mins → Carpopedal spasm = Hypocalcemia.</li>
+                        <li><strong>Post-op Total Thyroidectomy Monitoring:</strong> Serum Thyroglobulin (Tg) for WDC recurrence.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SCRIPT & INTERACTIVITY -->
+    <script>
+        // TAB SWITCHING LOGIC
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById('tab-' + tabId).classList.add('active');
+            
+            // Highlight button
+            const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick').includes(tabId));
+            if (activeBtn) activeBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // FLASHCARD DATA & LOGIC
+        const flashcardsData = [
+            { q: "What physical finding confirms an anterior neck mass is of thyroid origin?", a: "Vertical movement of the mass with deglutition (swallowing)." },
+            { q: "What is the single most sensitive and specific test for thyroid function?", a: "Serum TSH (Thyroid Stimulating Hormone)." },
+            { q: "What diagnostic test is indicated next if serum TSH is abnormally low (hyperthyroid state)?", a: "Radionuclide Thyroid Scan (using Iodine-123, Iodine-131, or Tc-99m)." },
+            { q: "What diagnostic test is indicated next if serum TSH is normal or elevated?", a: "Thyroid Neck Ultrasonography (USG)." },
+            { q: "What is the single most useful diagnostic modality for thyroid nodules in non-hyperthyroid patients?", a: "Fine Needle Aspiration Biopsy Cytology (FNABC)." },
+            { q: "What ultrasound feature is described as a 'honeycomb' or 'puff pastry' microcystic structure?", a: "Spongiform appearance (a classic benign ultrasound characteristic)." },
+            { q: "Name four ultrasound characteristics strongly suggestive of thyroid carcinoma.", a: "1) Hypoechogenic, 2) Taller-than-wide shape, 3) Irregular/microlobulated margins, 4) Microcalcifications." },
+            { q: "Why CANNOT FNABC differentiate Follicular Adenoma from Follicular Carcinoma?", a: "Malignancy in follicular neoplasms is defined by capsular and vascular invasion, which requires histological tissue examination." },
+            { q: "What are the two indications for surgical excision (thyroidectomy) of a thyroid cyst?", a: "1) Recurrence after 3 fine needle aspirations, or 2) Initial cyst size > 4 cm." },
+            { q: "What is Pemberton sign and what does it indicate?", a: "Facial flushing and cervical vein dilation upon arm elevation; indicates thoracic inlet venous obstruction from a substernal goiter." },
+            { q: "What is the single most reliable clinical sign of hyperthyroidism / thyrotoxicosis?", a: "Resting Tachycardia." },
+            { q: "What autoantibody drives the pathogenesis of Graves' disease?", a: "TSH receptor autoantibodies that continuously stimulate thyrocytes to secrete thyroid hormone." },
+            { q: "What nuclear scan pattern is pathognomonic for Graves' disease?", a: "Symmetrically enlarged gland with diffuse, uniform 'hot' radioisotope uptake." },
+            { q: "What is the primary objective of antithyroid drug therapy (PTU/Methimazole) prior to surgery in Graves' disease?", a: "To render the patient euthyroid and prevent intraoperative thyroid storm." },
+            { q: "What is the Jod-Basedow phenomenon?", a: "Exogenous iodine load (e.g. contrast material) triggering hyperthyroidism in a patient with a pre-existing nontoxic goiter." },
+            { q: "What nuclear scan pattern distinguishes Toxic Multinodular Goiter from Graves' disease?", a: "Toxic MNG shows multiple discrete 'hot' nodules with suppressed background tissue, whereas Graves' shows diffuse uniform uptake." },
+            { q: "Which thyroiditis presents with fever, erythema, severe neck pain, and purulent discharge?", a: "Acute Thyroiditis (most commonly bacterial, Streptococcal in ~70%)." },
+            { q: "Which thyroiditis variant follows a viral infection, presents with neck pain, and shows granulomas on pathology?", a: "Subacute Painful (De Quervain's / Granulomatous) Thyroiditis." },
+            { q: "Which autoimmune thyroiditis is marked by anti-TPO/anti-Tg antibodies and carries a risk of thyroid lymphoma?", a: "Chronic (Hashimoto's) Thyroiditis." },
+            { q: "Which thyroiditis causes dense woody fibrosis extending beyond the capsule and is commonly mistaken for cancer?", a: "Riedel's Thyroiditis (Invasive Fibrous Thyroiditis)." },
+            { q: "What scan result is diagnostic for Toxic Adenoma (Plummer's Disease)?", a: "A single hyperfunctioning 'hot' nodule with complete suppression of uptake in the remaining gland." },
+            { q: "What are the two classic histopathologic features of Papillary Thyroid Carcinoma?", a: "1) Orphan Annie Nuclei (intranuclear inclusions), 2) Psammoma Bodies (concentric calcifications)." },
+            { q: "What is the single most important clinical factor in AJCC TNM staging distinguishing low-risk from high-risk WDC?", a: "Patient Age (<55 years vs ≥55 years)." },
+            { q: "What surgical procedure is indicated for a solitary low-risk WDC ≤ 1.0 cm?", a: "Total Lobectomy + Isthmusectomy." },
+            { q: "What serum marker is monitored post-operatively to detect recurrence of high-risk WDC after total thyroidectomy?", a: "Serum Thyroglobulin (Tg)." },
+            { q: "What unique metabolic trait distinguishes Hurthle Cell Carcinoma from typical Follicular Carcinoma?", a: "Hurthle Cell CA rarely takes up radioactive iodine (~5% uptake) and is derived from mitochondria-rich oxyphilic cells." },
+            { q: "What thyroid cancer arises from parafollicular C cells and secretes calcitonin?", a: "Medullary Thyroid Carcinoma (MTC)." },
+            { q: "Where is the Recurrent Laryngeal Nerve (RLN) anatomically located?", a: "In the tracheoesophageal groove (between trachea and esophagus)." },
+            { q: "What are the clinical consequences of unilateral vs bilateral Recurrent Laryngeal Nerve injury?", a: "Unilateral = Hoarseness; Bilateral = Midline vocal cord paralysis causing acute airway obstruction (requires emergency tracheostomy)." },
+            { q: "What physical exam maneuvers elicit Chvostek and Trousseau signs in hypocalcemia?", a: "Chvostek = Tapping facial nerve anterior to ear → facial twitch; Trousseau = BP cuff inflation >20 mmHg SBP for 2-3 mins → carpopedal spasm." }
+        ];
+
+        let currentCardIndex = 0;
+
+        function updateCardDisplay() {
+            const card = flashcardsData[currentCardIndex];
+            document.getElementById('card-question').innerText = card.q;
+            document.getElementById('card-answer').innerText = card.a;
+            document.getElementById('card-num').innerText = currentCardIndex + 1;
+            document.getElementById('card-counter').innerText = `${currentCardIndex + 1} / ${flashcardsData.length}`;
+            
+            const progress = ((currentCardIndex + 1) / flashcardsData.length) * 100;
+            document.getElementById('flashcard-progress').style.width = `${progress}%`;
+
+            document.getElementById('flashcard').classList.remove('flipped');
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            currentCardIndex = (currentCardIndex + 1) % flashcardsData.length;
+            updateCardDisplay();
+        }
+
+        function prevCard() {
+            currentCardIndex = (currentCardIndex - 1 + flashcardsData.length) % flashcardsData.length;
+            updateCardDisplay();
+        }
+
+        // QUIZ DATA & LOGIC
+        const quizData = [
+            {
+                q: "A 33-year-old female consults for an anterior neck mass. Physical exam reveals vertical movement during deglutition. What is the organ of origin?",
+                options: ["Lymph node", "Thyroid gland", "Thyroglossal duct cyst", "Parotid gland"],
+                correct: 1,
+                explanation: "Correct: The thyroid gland is attached to the larynx by Berry's ligament, causing it to move vertically with swallowing. Distractors: Lymph nodes and parotid masses do not move predictably with deglutition."
+            },
+            {
+                q: "What is the single most sensitive and specific initial diagnostic blood test for evaluating thyroid function?",
+                options: ["Free T4 assay", "Serum Thyroglobulin", "Serum TSH", "Anti-TPO Antibodies"],
+                correct: 2,
+                explanation: "Correct: Serum TSH is the most sensitive and specific initial screening test. Distractors: FT4 is ordered to measure active hormone; Thyroglobulin monitors cancer recurrence; Anti-TPO is for Hashimoto's."
+            },
+            {
+                q: "A patient presents with low serum TSH and elevated FT4. What is the most appropriate next diagnostic modality?",
+                options: ["Thyroid Neck Ultrasound", "Radionuclide Thyroid Scan", "Fine Needle Aspiration Biopsy", "Neck CT Scan"],
+                correct: 1,
+                explanation: "Correct: Low TSH indicates hyperthyroidism; a radionuclide thyroid scan determines functional nodule status. Distractors: Ultrasound/FNAB are indicated when TSH is normal or elevated."
+            },
+            {
+                q: "A patient presents with a solitary thyroid nodule. TFTs show normal TSH, FT4, and FT3. What is the next step in evaluation?",
+                options: ["Radionuclide Thyroid Scan", "Thyroid Neck Ultrasonography", "Empiric TSH Suppression", "Immediate Total Thyroidectomy"],
+                correct: 1,
+                explanation: "Correct: In euthyroid patients, ultrasound is the next step to assess sonographic features and guide FNAB. Distractors: Thyroid scans are only for low TSH."
+            },
+            {
+                q: "Ultrasound of a thyroid nodule reveals a simple cyst with no solid component. What is the initial treatment of choice?",
+                options: ["Propylthiouracil", "Needle Aspiration", "Total Thyroidectomy", "Radioactive Iodine Ablation"],
+                correct: 1,
+                explanation: "Correct: Simple cysts are managed initially with needle aspiration, resolving ~75% of cases. Distractors: ATDs/RAI are for hyperthyroidism; Thyroidectomy is reserved for recurrence >3x or size >4 cm."
+            },
+            {
+                q: "Which of the following findings is an absolute indication for surgical thyroidectomy in a patient with a thyroid cyst?",
+                options: ["Presence of spongiform appearance", "Recurrence after 3 aspirations or size > 4 cm", "Elevated Anti-TPO antibody titer", "Patient age under 30 years"],
+                correct: 1,
+                explanation: "Correct: Indications for surgery in cysts are size > 4 cm or recurrence after 3 aspirations. Distractors: Spongiform appearance is benign."
+            },
+            {
+                q: "Which diagnostic modality serves as both a diagnostic tool (cytology) and therapeutic modality (cyst drainage)?",
+                options: ["Radionuclide Scan", "Neck CT Scan", "FNABC", "Thyroid Peroxidase Assay"],
+                correct: 2,
+                explanation: "Correct: FNABC provides cytopathology (diagnostic) and aspirates fluid from cysts (therapeutic)."
+            },
+            {
+                q: "What is the single greatest limitation of FNABC in evaluating thyroid nodules?",
+                options: ["Inability to detect papillary features", "Inability to distinguish Follicular Adenoma from Follicular Carcinoma", "High incidence of vocal cord paralysis", "Cannot be performed under ultrasound guidance"],
+                correct: 1,
+                explanation: "Correct: FNABC cannot differentiate follicular adenoma from carcinoma because malignancy requires histological proof of capsular/vascular invasion."
+            },
+            {
+                q: "Why is FNABC contraindicated in hyperfunctioning ('hot') thyroid nodules?",
+                options: ["Risk of severe hypocalcemia", "Increased bleeding and false positive results from hypertrophic cells", "High risk of malignant seeding", "Triggers immediate thyroid storm"],
+                correct: 1,
+                explanation: "Correct: FNABC in hot nodules increases bleeding risk and produces false positives because hyperactive hypertrophic cells mimic carcinoma."
+            },
+            {
+                q: "A nuclear scan shows symmetrically increased radioisotope uptake throughout the entire thyroid gland. What is the diagnosis?",
+                options: ["Toxic Multinodular Goiter", "Graves' Disease", "Toxic Adenoma", "Subacute Thyroiditis"],
+                correct: 1,
+                explanation: "Correct: Diffuse, uniform hot uptake across both lobes is pathognomonic for Graves' disease."
+            },
+            {
+                q: "A patient with a large goiter experiences facial flushing and dilated neck veins when raising both arms above her head. What is this sign?",
+                options: ["Chvostek sign", "Trousseau sign", "Pemberton sign", "Berry sign"],
+                correct: 2,
+                explanation: "Correct: Pemberton sign indicates thoracic inlet venous obstruction from a substernal goiter."
+            },
+            {
+                q: "What is the single most reliable clinical physical exam sign of hyperthyroidism?",
+                options: ["Exophthalmos", "Resting Tachycardia", "Pretibial Myxedema", "Fine Tremor"],
+                correct: 1,
+                explanation: "Correct: Resting tachycardia is the most reliable sign of hyperthyroidism."
+            },
+            {
+                q: "A patient with a long-standing nontoxic goiter develops hyperthyroidism after receiving IV contrast for a CT scan. What is this phenomenon?",
+                options: ["Wolff-Chaikoff effect", "Jod-Basedow phenomenon", "De Quervain syndrome", "Plummer disease"],
+                correct: 1,
+                explanation: "Correct: Jod-Basedow phenomenon is iodine-induced hyperthyroidism triggered by exogenous iodine in a pre-existing goiter."
+            },
+            {
+                q: "Why are antithyroid drugs (PTU / Methimazole) mandatory before thyroidectomy in Graves' disease?",
+                options: ["To shrink the gland by 90%", "To render the patient euthyroid and prevent thyroid storm", "To cure Graves' disease permanently", "To prevent recurrent laryngeal nerve injury"],
+                correct: 1,
+                explanation: "Correct: ATDs render the patient euthyroid to prevent intraoperative thyroid storm."
+            },
+            {
+                q: "A 55-year-old female with a 5 cm nontoxic nodular goiter presents with severe dysphagia and orthopnea. What is the definitive treatment?",
+                options: ["TSH Suppression Therapy", "Thyroidectomy", "Radioactive Iodine Ablation", "High-dose Methimazole"],
+                correct: 1,
+                explanation: "Correct: Compressive symptoms (dysphagia/orthopnea) in a large nontoxic goiter require surgical resection (Thyroidectomy)."
+            },
+            {
+                q: "A 35-year-old female presents with a painful, tender thyroid mass following a viral URI. ESR is elevated. What is the diagnosis?",
+                options: ["Acute Bacterial Thyroiditis", "Subacute Painful (De Quervain's) Thyroiditis", "Hashimoto's Thyroiditis", "Riedel's Thyroiditis"],
+                correct: 1,
+                explanation: "Correct: Subacute painful (granulomatous / De Quervain's) thyroiditis is post-viral, presenting with a painful tender gland and high ESR."
+            },
+            {
+                q: "Which thyroiditis is characterized by elevated Anti-TPO antibodies and carries a risk of developing thyroid lymphoma?",
+                options: ["De Quervain's Thyroiditis", "Hashimoto's Thyroiditis", "Riedel's Thyroiditis", "Acute Suppurative Thyroiditis"],
+                correct: 1,
+                explanation: "Correct: Hashimoto's is autoimmune (Anti-TPO+) and carries a risk of primary thyroid lymphoma."
+            },
+            {
+                q: "A patient presents with a hard, 'woody' fixed neck mass extending into soft tissues. Biopsy shows dense fibrosis. What is the diagnosis?",
+                options: ["Anaplastic Carcinoma", "Riedel's Thyroiditis", "Follicular Adenoma", "Graves' Disease"],
+                correct: 1,
+                explanation: "Correct: Riedel's thyroiditis causes dense woody invasive fibrosis extending beyond the capsule and is commonly mistaken for cancer."
+            },
+            {
+                q: "Histopathology of a thyroid nodule reveals Orphan Annie eyes nuclei and Psammoma bodies. What is the diagnosis?",
+                options: ["Follicular Carcinoma", "Papillary Thyroid Carcinoma", "Medullary Carcinoma", "Anaplastic Carcinoma"],
+                correct: 1,
+                explanation: "Correct: Orphan Annie nuclei and Psammoma bodies are pathognomonic for Papillary Thyroid Carcinoma."
+            },
+            {
+                q: "Under AJCC TNM 8th Edition staging for differentiated thyroid cancer, what single clinical factor primary dictates risk group classification?",
+                options: ["Gender", "Patient Age (<55 vs ≥55 years)", "Serum TSH level", "Presence of thyroiditis"],
+                correct: 1,
+                explanation: "Correct: Patient age (<55 vs ≥55 years) is the most important factor distinguishing low-risk from high-risk WDC in AJCC staging."
+            },
+            {
+                q: "A 40-year-old male is diagnosed with a 0.9 cm solitary Papillary Thyroid Microcarcinoma without node involvement or genetic mutations. Surgical management?",
+                options: ["Total Lobectomy + Isthmusectomy", "Total Thyroidectomy", "Total Thyroidectomy + Modified Radical Neck Dissection", "Observation only"],
+                correct: 0,
+                explanation: "Correct: Low-risk microcarcinomas (≤ 1.0 cm) are managed safely with Total Lobectomy + Isthmusectomy."
+            },
+            {
+                q: "A 60-year-old male presents with a 4 cm Papillary CA, tall cell variant, with enlarged cervical lymph nodes. Recommended surgical management?",
+                options: ["Total Lobectomy + Isthmusectomy", "Subtotal Thyroidectomy", "Total Thyroidectomy + Modified Radical Neck Dissection", "Radioactive Iodine alone"],
+                correct: 2,
+                explanation: "Correct: High-risk factors (age ≥55, size 4 cm, aggressive tall-cell variant, (+) LN metastasis) require Total Thyroidectomy + MRND."
+            },
+            {
+                q: "What blood test is used as a tumor marker to monitor for recurrence following total thyroidectomy in high-risk WDC?",
+                options: ["Serum Calcitonin", "Serum Thyroglobulin (Tg)", "Anti-TPO Antibody", "Serum PTH"],
+                correct: 1,
+                explanation: "Correct: Serum Thyroglobulin is produced solely by thyroid tissue; rising levels post-total thyroidectomy indicate cancer recurrence."
+            },
+            {
+                q: "Which thyroid cancer is derived from oxyphilic cells, is 30% bilateral, and rarely takes up radioactive iodine (~5%)?",
+                options: ["Papillary Carcinoma", "Follicular Carcinoma", "Hurthle Cell Carcinoma", "Medullary Carcinoma"],
+                correct: 2,
+                explanation: "Correct: Hurthle cell carcinoma arises from oxyphilic cells and rarely takes up RAI (~5%)."
+            },
+            {
+                q: "A patient with Medullary Thyroid Carcinoma should be routinely screened for which associated condition?",
+                options: ["Pituitary Adenoma", "Pheochromocytoma", "Insulinoma", "Gastrinoma"],
+                correct: 1,
+                explanation: "Correct: MTC is linked to MEN 2A/2B; patients must be screened for pheochromocytoma and hyperparathyroidism."
+            },
+            {
+                q: "Immediately following thyroidectomy, a patient develops a rapidly swelling neck mass, pallor, hypotension, and respiratory distress. Primary cause?",
+                options: ["Unilateral RLN injury", "Bilateral RLN injury", "Post-operative Hemorrhage", "Acute Hypocalcemia"],
+                correct: 2,
+                explanation: "Correct: Post-op hemorrhage creates a neck hematoma causing airway compromise and hypotension."
+            },
+            {
+                q: "During thyroidectomy, a nerve running in the tracheoesophageal groove is transected bilaterally. What is the immediate clinical outcome?",
+                options: ["Loss of high-pitched voice", "Midline vocal cord paralysis and acute airway obstruction", "Hoarseness without respiratory distress", "Severe tetany"],
+                correct: 1,
+                explanation: "Correct: Bilateral RLN injury causes bilateral vocal cord paralysis in midline position → acute airway obstruction requiring immediate tracheostomy."
+            },
+            {
+                q: "Injury to the external branch of the Superior Laryngeal Nerve (SLN) during superior pole dissection causes which deficit?",
+                options: ["Midline vocal cord paralysis", "Loss of voice pitch/strength", "Dysphagia to solids", "Facial twitching"],
+                correct: 1,
+                explanation: "Correct: SLN supplies cricothyroid muscle; injury causes loss of voice pitch and decreased vocal power."
+            },
+            {
+                q: "Tapping the facial nerve anterior to the ear elicits ipsilateral facial muscle contraction in a post-thyroidectomy patient. What is this sign?",
+                options: ["Trousseau sign", "Chvostek sign", "Pemberton sign", "Graefe sign"],
+                correct: 1,
+                explanation: "Correct: Chvostek sign indicates hypocalcemia-induced neuromuscular excitability."
+            },
+            {
+                q: "A post-thyroidectomy patient experiences carpopedal spasm after a BP cuff is inflated to 20 mmHg above SBP for 3 minutes. What is the underlying abnormality?",
+                options: ["Hyperkalemia", "Hypocalcemia (Trousseau sign)", "Hypercalcemia", "Hyponatremia"],
+                correct: 1,
+                explanation: "Correct: Trousseau sign (carpopedal spasm) indicates acute hypocalcemia from parathyroid injury."
+            }
+        ];
+
+        let quizUserAnswers = new Array(quizData.length).fill(null);
+
+        function renderQuiz() {
+            const list = document.getElementById('quiz-questions-list');
+            list.innerHTML = '';
+
+            quizData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+                card.id = `quiz-card-${index}`;
+
+                let optionsHTML = '';
+                item.options.forEach((opt, optIndex) => {
+                    optionsHTML += `
+                        <div class="quiz-option" id="q${index}-opt${optIndex}" onclick="selectQuizAnswer(${index}, ${optIndex})">
+                            <span><strong>${String.fromCharCode(65 + optIndex)}.</strong> ${opt}</span>
+                            <span class="opt-status"></span>
+                        </div>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="quiz-question">Question ${index + 1}: ${item.q}</div>
+                    <div class="quiz-options">${optionsHTML}</div>
+                    <div class="quiz-explanation" id="q${index}-exp">
+                        <strong>Explanation:</strong> ${item.explanation}
+                    </div>
+                `;
+
+                list.appendChild(card);
+            });
+        }
+
+        function selectQuizAnswer(qIndex, optIndex) {
+            if (quizUserAnswers[qIndex] !== null) return; // Prevent changing answer
+
+            quizUserAnswers[qIndex] = optIndex;
+            const item = quizData[qIndex];
+            const isCorrect = (optIndex === item.correct);
+
+            // Highlight chosen option
+            const chosenElem = document.getElementById(`q${qIndex}-opt${optIndex}`);
+            if (isCorrect) {
+                chosenElem.classList.add('correct');
+            } else {
+                chosenElem.classList.add('incorrect');
+                document.getElementById(`q${qIndex}-opt${item.correct}`).classList.add('correct');
+            }
+
+            // Disable all options for this question
+            for (let i = 0; i < item.options.length; i++) {
+                document.getElementById(`q${qIndex}-opt${i}`).classList.add('disabled');
+            }
+
+            // Show explanation
+            const expElem = document.getElementById(`q${qIndex}-exp`);
+            expElem.classList.add('show');
+
+            updateQuizSummary();
+        }
+
+        function updateQuizSummary() {
+            const answeredCount = quizUserAnswers.filter(a => a !== null).length;
+            document.getElementById('quiz-progress-text').innerText = `Answered: ${answeredCount} / ${quizData.length}`;
+
+            if (answeredCount === quizData.length) {
+                let score = 0;
+                quizUserAnswers.forEach((ans, idx) => {
+                    if (ans === quizData[idx].correct) score++;
+                });
+
+                document.getElementById('quiz-score').innerText = score;
+                document.getElementById('quiz-results').style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function resetQuiz() {
+            quizUserAnswers = new Array(quizData.length).fill(null);
+            document.getElementById('quiz-results').style.display = 'none';
+            renderQuiz();
+            updateQuizSummary();
+        }
+
+        // KEYBOARD CONTROLS FOR FLASHCARDS & NAVIGATION
+        document.addEventListener('keydown', function(event) {
+            const activeTab = document.querySelector('.tab-content.active').id;
+
+            if (activeTab === 'tab-flashcards') {
+                if (event.code === 'Space') {
+                    event.preventDefault();
+                    flipCard();
+                } else if (event.code === 'ArrowRight') {
+                    event.preventDefault();
+                    nextCard();
+                } else if (event.code === 'ArrowLeft') {
+                    event.preventDefault();
+                    prevCard();
+                }
+            }
+        });
+
+        // INITIALIZATION
+        window.addEventListener('DOMContentLoaded', () => {
+            updateCardDisplay();
+            renderQuiz();
+        });
+    </script>
+</body>
+</html>

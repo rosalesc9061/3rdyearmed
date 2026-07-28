@@ -1,0 +1,2099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Head and Neck Surgery — Master Interactive Reviewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-main: #F8FAFC;
+      --surface: #FFFFFF;
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --border: #E2E8F0;
+      
+      --primary: #2563EB;
+      --primary-light: #EFF6FF;
+      --primary-dark: #1D4ED8;
+      
+      --accent-green: #059669;
+      --accent-green-bg: #ECFDF5;
+      
+      --accent-amber: #D97706;
+      --accent-amber-bg: #FFFBEB;
+      
+      --accent-red: #DC2626;
+      --accent-red-bg: #FEF2F2;
+      
+      --accent-purple: #7C3AED;
+      --accent-purple-bg: #F5F3FF;
+      
+      --accent-cyan: #0891B2;
+      --accent-cyan-bg: #ECFEFF;
+
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Syne', sans-serif;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    /* Sticky Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-top {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .header-title h1 {
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+
+    .header-title p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .header-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      font-weight: 700;
+    }
+
+    /* Navigation Bar */
+    nav {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    nav::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    nav::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 0.75rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .tab-btn:hover {
+      color: var(--primary);
+      background-color: rgba(37, 99, 235, 0.03);
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1400px;
+      margin: 2rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.35s ease-in-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Grid & Layout System */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Cards with Accent Borders */
+    .card {
+      background-color: var(--surface);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .card-blue { border-left: 5px solid var(--primary); }
+    .card-green { border-left: 5px solid var(--accent-green); }
+    .card-amber { border-left: 5px solid var(--accent-amber); }
+    .card-red { border-left: 5px solid var(--accent-red); }
+    .card-purple { border-left: 5px solid var(--accent-purple); }
+    .card-cyan { border-left: 5px solid var(--accent-cyan); }
+
+    .card-title {
+      font-size: 1.15rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    /* Alert Boxes */
+    .alert {
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .alert-must-know {
+      background-color: var(--accent-amber-bg);
+      border: 1px solid rgba(217, 119, 6, 0.3);
+      color: #92400E;
+    }
+
+    .alert-danger {
+      background-color: var(--accent-red-bg);
+      border: 1px solid rgba(220, 38, 38, 0.3);
+      color: #991B1B;
+    }
+
+    .alert-key-point {
+      background-color: var(--accent-green-bg);
+      border: 1px solid rgba(5, 150, 105, 0.3);
+      color: #065F46;
+    }
+
+    .alert-icon {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    /* Clinical Reasoning Cues */
+    .reasoning-cue {
+      background-color: var(--accent-purple-bg);
+      border-left: 4px solid var(--accent-purple);
+      padding: 0.75rem 1rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.875rem;
+      color: #4C1D95;
+      margin: 0.75rem 0;
+      font-weight: 500;
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.875rem;
+      background-color: var(--surface);
+    }
+
+    th {
+      background-color: #F1F5F9;
+      color: var(--text-main);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) {
+      background-color: #F8FAFC;
+    }
+
+    tr:hover {
+      background-color: #EFF6FF !important;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .badge-blue { background-color: #DBEAFE; color: #1E40AF; }
+    .badge-green { background-color: #D1FAE5; color: #065F46; }
+    .badge-amber { background-color: #FEF3C7; color: #92400E; }
+    .badge-red { background-color: #FEE2E2; color: #991B1B; }
+    .badge-purple { background-color: #EDE9FE; color: #5B21B6; }
+    .badge-gray { background-color: #E2E8F0; color: #334155; }
+
+    /* CSS Flowcharts / Diagrams */
+    .flowchart {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--surface);
+      padding: 0.85rem 1.25rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .flow-number {
+      font-family: 'Space Mono', monospace;
+      background: var(--primary);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .flow-arrow {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      line-height: 1;
+      margin: -0.25rem 0;
+    }
+
+    /* Flashcard Styles */
+    .flashcard-container {
+      max-width: 650px;
+      margin: 2rem auto;
+      perspective: 1000px;
+    }
+
+    .flashcard {
+      width: 100%;
+      min-height: 320px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .flashcard.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      background-color: var(--surface);
+    }
+
+    .flashcard-front {
+      background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+    }
+
+    .flashcard-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%);
+      border-color: rgba(37, 99, 235, 0.3);
+    }
+
+    .flashcard-category {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .flashcard-text {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-main);
+      text-align: center;
+      margin: auto 0;
+      line-height: 1.5;
+    }
+
+    .flashcard-hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      font-style: italic;
+    }
+
+    .flashcard-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 650px;
+      margin: 1.5rem auto 0;
+    }
+
+    .btn {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn:hover {
+      background-color: #F1F5F9;
+      border-color: #CBD5E1;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background-color: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background-color: var(--primary);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Quiz Styles */
+    .quiz-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .quiz-q-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .quiz-q-text {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .quiz-option {
+      background-color: #F8FAFC;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .quiz-option:hover:not(.disabled) {
+      background-color: #EFF6FF;
+      border-color: #BFDBFE;
+    }
+
+    .quiz-option.selected-correct {
+      background-color: var(--accent-green-bg) !important;
+      border-color: var(--accent-green) !important;
+      color: #065F46 !important;
+      font-weight: 600;
+    }
+
+    .quiz-option.selected-incorrect {
+      background-color: var(--accent-red-bg) !important;
+      border-color: var(--accent-red) !important;
+      color: #991B1B !important;
+    }
+
+    .quiz-option.show-correct {
+      background-color: var(--accent-green-bg) !important;
+      border-color: var(--accent-green) !important;
+      color: #065F46 !important;
+    }
+
+    .quiz-option.disabled {
+      cursor: default;
+    }
+
+    .quiz-explanation {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .quiz-explanation.show {
+      display: block;
+    }
+
+    .score-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .score-banner h2 {
+      color: white;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Cram Sheet Formatting */
+    .cram-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .cram-list li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .cram-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0.5rem;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* Key Terms Highlighting */
+    .hl {
+      background-color: #FEF08A;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      font-weight: 600;
+      color: #713F12;
+    }
+
+    .hl-blue {
+      background-color: #DBEAFE;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      font-weight: 600;
+      color: #1E40AF;
+    }
+
+    .hl-green {
+      background-color: #D1FAE5;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      font-weight: 600;
+      color: #065F46;
+    }
+
+    @media (max-width: 768px) {
+      .header-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .flashcard-text {
+        font-size: 1.05rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header>
+    <div class="header-top">
+      <div class="header-title">
+        <h1>Head & Neck Surgery Master Reviewer</h1>
+        <p>UERMMMC College of Medicine • Surgery 2 Trans #01 (Dr. Charo Coloma)</p>
+      </div>
+      <div class="header-badge">SURGERY LE 1 • COMPLETE MODULE</div>
+    </div>
+    
+    <!-- Tab Navigation Bar -->
+    <nav>
+      <button class="tab-btn active" onclick="switchTab('overview')">📌 Overview</button>
+      <button class="tab-btn" onclick="switchTab('benign')">🩺 Benign Conditions</button>
+      <button class="tab-btn" onclick="switchTab('cancer')">🎗️ Head & Neck Cancer</button>
+      <button class="tab-btn" onclick="switchTab('neck')">🔍 Neck Mass & Dissections</button>
+      <button class="tab-btn" onclick="switchTab('salivary')">💦 Salivary Glands</button>
+      <button class="tab-btn" onclick="switchTab('comparisons')">⚖️ Comparisons</button>
+      <button class="tab-btn" onclick="switchTab('flashcards')">🎴 Flashcards</button>
+      <button class="tab-btn" onclick="switchTab('quiz')">📝 Self-Assessment Quiz</button>
+      <button class="tab-btn" onclick="switchTab('cram')">⚡ Cram Sheet</button>
+    </nav>
+  </header>
+
+  <!-- Main Content Container -->
+  <main>
+
+    <!-- ========================================== -->
+    <!-- TAB 1: OVERVIEW                            -->
+    <!-- ========================================== -->
+    <div id="tab-overview" class="tab-content active">
+      <div class="card card-blue">
+        <h2 class="card-title">
+          <span>Head and Neck Surgery Core Overview</span>
+          <span class="badge badge-blue">SURG 2 • LE 1</span>
+        </h2>
+        <p>The head and neck region accounts for only <strong>20% of total body surface area</strong>, yet pathologies in this area exert a disproportionate functional, psychosocial, and economic impact. Disorders affect critical upper aerodigestive tract functions including vision, olfaction, audition, phonation, deglutition, and respiration.</p>
+        
+        <div class="grid-3" style="margin-top: 1.25rem;">
+          <div style="background:#F8FAFC; padding:1rem; border-radius:8px; border:1px solid var(--border);">
+            <h4 style="color:var(--primary); margin-bottom:0.5rem;">Functional Impact</h4>
+            <p style="font-size:0.85rem;">Disruption of breathing, swallowing, and speech can lead to immediate life-threatening airway compromise or severe malnutrition.</p>
+          </div>
+          <div style="background:#F8FAFC; padding:1rem; border-radius:8px; border:1px solid var(--border);">
+            <h4 style="color:var(--accent-amber); margin-bottom:0.5rem;">Cosmetic & Psychosocial</h4>
+            <p style="font-size:0.85rem;">Facial disfigurement from aggressive tumors or resections carries substantial psychological burden and social stigma.</p>
+          </div>
+          <div style="background:#F8FAFC; padding:1rem; border-radius:8px; border:1px solid var(--border);">
+            <h4 style="color:var(--accent-red); margin-bottom:0.5rem;">Infectious Sequelae</h4>
+            <p style="font-size:0.85rem;">Head & neck soft tissue infections can rapidly spread into deep neck spaces, causing mediastinitis, necrotizing fasciitis, or airway closure.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-must-know">
+        <span class="alert-icon">⭐</span>
+        <div>
+          <strong>Golden Rule of Head and Neck Oncology Management:</strong><br>
+          If a head and neck tumor is <strong>resectable</strong>, surgery with adequate gross margins is the primary treatment of choice. Radiation or chemotherapy serves as primary treatment when tumors are unresectable, in preservation of speech/voice (e.g., early glottic cancer, nasopharynx), or as post-operative adjuvant therapy for high-risk features.
+        </div>
+      </div>
+
+      <!-- Overview Summary Table -->
+      <div class="card card-purple">
+        <h3 class="card-title">Comprehensive Topic Architecture</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Pathologies Included</th>
+                <th>Primary Clinical Presentation</th>
+                <th>First-Line Management</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-blue">Ear Infections</span></td>
+                <td>Otitis Externa, Otitis Media, Malignant Otitis Externa</td>
+                <td>Otalgia, otorrhea, fever, conductive hearing loss</td>
+                <td>Topical quinolones (OE), Oral Amoxicillin (OM), IV Anti-pseudomonals (Malignant OE)</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-amber">Sino-Laryngeal</span></td>
+                <td>Sinusitis, RRP, Reinke's Edema, Vocal Cord Polyps/Cysts/Paralysis</td>
+                <td>Nasal congestion, hoarseness, breathiness, stridor, throat pain</td>
+                <td>Medical (steroids, anti-reflux, voice therapy) vs. Microlaryngoscopy / Laser excision</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-green">Vascular</span></td>
+                <td>Hemangiomas, Port Wine Stains, Cystic Hygromas</td>
+                <td>Proliferating endothelial mass vs. congenital non-proliferating malformations</td>
+                <td>Observation/Steroids (Hemangioma), FPDL laser (Port Wine), Early Surgery (Cystic Hygroma)</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">Oral & Jaw Tumors</span></td>
+                <td>Mucocele, Ranula, Leukoplakia, Erythroplakia, Ameloblastoma</td>
+                <td>Bluish vesicles, non-scrapable plaques, "soap bubble" jaw expansions</td>
+                <td>Excision/Marsupialization (Ranula/Mucocele), Excision Biopsy (Leukoplakia), Mandibulectomy (Ameloblastoma)</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-red">Malignancies</span></td>
+                <td>Squamous Cell CA (Lip, Tongue, Floor of Mouth, Naso/Oro/Hypopharynx, Larynx)</td>
+                <td>Non-healing ulcer, hoarseness, dysphagia, referred otalgia, neck mass</td>
+                <td>Wide local excision + Neck Dissection ± RT/Chemo (Surgery NOT 1st-line in Nasopharyngeal CA)</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-cyan">Salivary Glands</span></td>
+                <td>Pleomorphic Adenoma, Warthin's, Mucoepidermoid CA, Adenoid Cystic CA</td>
+                <td>Painless pre-auricular or submandibular mass, facial nerve weakness</td>
+                <td>Superficial or Total Parotidectomy with Facial Nerve Preservation</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: BENIGN CONDITIONS                   -->
+    <!-- ========================================== -->
+    <div id="tab-benign" class="tab-content">
+      
+      <!-- Section A: Non-Tumor Disorders -->
+      <div class="card card-blue">
+        <h2 class="card-title">
+          <span>Non-Tumor Disorders (Ear, Sinuses, Larynx, Vascular)</span>
+          <span class="badge badge-blue">Inflammatory & Infectious</span>
+        </h2>
+
+        <h3>1. Ear Infections</h3>
+        <div class="grid-2">
+          <div style="background:#FFFFFF; padding:1rem; border:1px solid var(--border); border-radius:8px;">
+            <h4>Otitis Externa ("Swimmer's Ear")</h4>
+            <p><strong>Definition:</strong> Infection of the external auditory canal skin initiated by persistent moisture retention.</p>
+            <p><strong>Etiology:</strong> <span class="hl">Pseudomonas aeruginosa</span> (most common bacterial agent).</p>
+            <p><strong>Phases & Presentation:</strong></p>
+            <ul style="margin-left: 1.2rem; font-size: 0.85rem;">
+              <li><em>Initial Phase:</em> Severe otalgia, pruritus, tragic tenderness, soft tissue swelling.</li>
+              <li><em>Chronic Phase:</em> Subsided pain, profound itching, skin thickening.</li>
+            </ul>
+            <p><strong>Management:</strong> Otomicroscopic debris clearing, topical quinolone ear drops (e.g., Ciprofloxacin), topical steroids for severe edema, 2% acetic acid. Systemic antibiotics reserved for severe/immunocompromised cases.</p>
+          </div>
+
+          <div style="background:#FFFFFF; padding:1rem; border:1px solid var(--border); border-radius:8px;">
+            <h4>Otitis Media</h4>
+            <p><strong>Definition:</strong> Bacterial infection of the middle ear space; accounts for 25% of pediatric antibiotic prescriptions.</p>
+            <p><strong>Pathophysiology:</strong> Peak incidence &lt;2 years of age due to anatomical <span class="hl">immaturity and horizontal orientation of the Eustachian tube</span>.</p>
+            <p><strong>Key Pathogens:</strong> <em>Streptococcus pneumoniae</em>, <em>Haemophilus influenzae</em>, <em>Moraxella catarrhalis</em>.</p>
+            <p><strong>Complications:</strong></p>
+            <ul style="margin-left: 1.2rem; font-size: 0.85rem;">
+              <li><em>Intratemporal:</em> Acute coalescent mastoiditis, Petrositis (Gradenigo syndrome: retro-orbital pain + CN VI palsy), Labyrinthitis (vertigo + SNHL), Facial nerve palsy.</li>
+              <li><em>Intracranial:</em> Meningitis (#1 intracranial complication, associated with <em>H. influenzae</em> type B), brain abscess, sigmoid sinus thrombosis.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert alert-danger">
+          <span class="alert-icon">⚠️</span>
+          <div>
+            <strong>Malignant Otitis Externa (Necrotizing Otitis Externa):</strong><br>
+            Fulminant, necrotizing infection of otologic soft tissues with osteomyelitis of the skull base, seen characteristically in <strong>elderly diabetic or immunocompromised patients</strong> presenting with persistent otalgia (>1 month) and granulation tissue in the ear canal. Requires aggressive IV anti-pseudomonal antibiotics and tight glycemic control.
+          </div>
+        </div>
+
+        <div class="reasoning-cue">
+          💡 <strong>Clinical Reasoning Cue:</strong> If an infant/child presents with acute otitis media that fails to resolve and develops severe post-auricular tenderness, erythema, and outward displacement of the pinna → Think <strong>Acute Coalescent Mastoiditis</strong>. Goal: Sterilize middle ear with IV antibiotics + Myringotomy tube placement.
+        </div>
+
+        <h3 style="margin-top: 1.5rem;">2. Sinus Inflammatory Disorders</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Classification</th>
+                <th>Duration</th>
+                <th>Pathogens</th>
+                <th>Diagnostic Clues & Management</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Acute Sinusitis</strong></td>
+                <td>7-10 days to &lt;4 weeks</td>
+                <td><em>S. pneumoniae</em>, <em>H. influenzae</em>, <em>M. catarrhalis</em> (Nosocomial: <em>P. aeruginosa</em>, <em>S. aureus</em>)</td>
+                <td>Follows viral URTI; mucosal swelling closes sinus ostium. Tx: Targeted oral antibiotics, decongestants, saline spray, steroids.</td>
+              </tr>
+              <tr>
+                <td><strong>Subacute Sinusitis</strong></td>
+                <td>4 to 12 weeks</td>
+                <td>Similar to acute pathogens</td>
+                <td>Continuation of symptoms despite initial therapy. Similar medical management.</td>
+              </tr>
+              <tr>
+                <td><strong>Chronic Sinusitis</strong></td>
+                <td>&gt;12 weeks</td>
+                <td>Polymicrobial, antibiotic-resistant flora, fungi</td>
+                <td>Requires objective mucosal inflammation. Diagnostic Gold Standard: <span class="hl">Nasal Endoscopy & CT Scan</span> (shows sinus opacification/mucosal thickening). Tx: 3-6 weeks antibiotics, saline irrigation, endoscopic sinus surgery.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top: 1.5rem;">3. Benign Laryngeal Disorders</h3>
+        <div class="grid-2">
+          <div style="background:#F8FAFC; padding:1rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Recurrent Respiratory Papillomatosis (RRP)</h4>
+            <p><strong>Etiology:</strong> HPV Subtypes <span class="hl">6 and 11</span> in mucosal epithelium.</p>
+            <p><strong>Transmission:</strong> Acquisition during vaginal delivery (juvenile onset) or adult-onset in 3rd-4th decade.</p>
+            <p><strong>Presentation:</strong> Progressive hoarseness, stridor, airway obstruction.</p>
+            <p><strong>Tx:</strong> Operative microlaryngoscopy with excision/laser ablation (frequent recurrences requires multiple procedures); Medical adjuvant: intralesional cidofovir, oral indole-3-carbinol.</p>
+          </div>
+
+          <div style="background:#F8FAFC; padding:1rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Reinke's Edema (Polypoid Corditis)</h4>
+            <p><strong>Pathophysiology:</strong> Accumulation of fluid in the <span class="hl">superficial lamina propria</span> (Reinke's space) of vocal cords due to capillary shearing injury.</p>
+            <p><strong>Associations:</strong> Heavy smoking, female predominance, laryngopharyngeal reflux (LPR), vocal abuse.</p>
+            <p><strong>Presentation:</strong> Bilateral, progressive development of a <em>rough, low-pitched, deep voice</em>.</p>
+            <p><strong>Tx:</strong> Smoking cessation, reflux management, voice therapy, superficial excision under microlaryngoscopy.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div style="background:#F8FAFC; padding:1rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Idiopathic Vocal Cord Paralysis</h4>
+            <p><strong>Key Fact:</strong> <span class="hl">Left vocal cord</span> is more commonly involved due to the longer intrathoracic course of the left recurrent laryngeal nerve (looping around aortic arch).</p>
+            <p><strong>Exam Trap:</strong> Vocal cord paralysis can be the <em>first presenting sign</em> of occult lung, thyroid, or esophageal carcinoma!</p>
+            <p><strong>Diagnostics:</strong> Flexible fiberoptic laryngoscopy (confirmatory); Laryngeal EMG to distinguish nerve paralysis from cricoarytenoid joint fixation or scar tissue.</p>
+          </div>
+
+          <div style="background:#F8FAFC; padding:1rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Laryngeal Granuloma</h4>
+            <p><strong>Location:</strong> Posterior larynx on the <span class="hl">arytenoid mucosa</span>.</p>
+            <p><strong>Etiology:</strong> Gastroesophageal/laryngopharyngeal reflux, endotracheal intubation, chronic throat clearing, vocal misuse.</p>
+            <p><strong>Presentation:</strong> Patients report <em>pain on swallowing (odynophagia)</em> more prominently than voice changes.</p>
+            <p><strong>Tx:</strong> Anti-reflux therapy, voice rest. Surgery reserved for airway compromise or suspected carcinoma.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 1.5rem;">4. Vascular Lesions: Hemangioma vs. Vascular Malformations</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Hemangiomas</th>
+                <th>Vascular Malformations</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Neoplastic Status</strong></td>
+                <td><span class="badge badge-amber">True Neoplasm</span> (endothelial proliferation)</td>
+                <td><span class="badge badge-gray">Not a True Neoplasm</span> (error in morphogenesis)</td>
+              </tr>
+              <tr>
+                <td><strong>Onset & Growth</strong></td>
+                <td>Appears 2-4 weeks post-birth; rapid proliferation in infancy</td>
+                <td>Present at birth; grows proportionally with child without proliferation</td>
+              </tr>
+              <tr>
+                <td><strong>Spontaneous Involution</strong></td>
+                <td><span class="hl-green">YES</span> (most regress spontaneously by 5-7 years)</td>
+                <td><span class="hl-red">NO</span> (will persist and enlarge over time)</td>
+              </tr>
+              <tr>
+                <td><strong>Subtypes & Sites</strong></td>
+                <td>Cutaneous/mucosal head and neck vascular masses</td>
+                <td>Port Wine Stains (venular, follow dermatomes); Cystic Hygromas / Lymphangiomas (lymphatic)</td>
+              </tr>
+              <tr>
+                <td><strong>Clinical Danger</strong></td>
+                <td>Airway or visual axis obstruction during proliferative phase</td>
+                <td>Cystic Hygromas in neck can rapidly enlarge if infected → <strong>Airway Obstruction</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Primary Treatment</strong></td>
+                <td>Observation, Intralesional/Systemic Steroids, Sclerotherapy, Lasers (FPDL, KTP, Nd:YAG)</td>
+                <td>Port Wine Stain: FPDL laser. Cystic Hygroma: <span class="hl">Early Surgical Resection</span> (Secure airway first!)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section B: Benign Tumors (Oral, Odontogenic, Non-Odontogenic) -->
+      <div class="card card-green">
+        <h2 class="card-title">
+          <span>Benign Tumors of the Oral Cavity and Jaws</span>
+          <span class="badge badge-green">Oral & Maxillofacial</span>
+        </h2>
+
+        <h3>1. Soft Tissue & Mucosal Lesions</h3>
+        <div class="grid-2">
+          <div style="background:#FFFFFF; padding:1rem; border:1px solid var(--border); border-radius:8px;">
+            <h4>Mucocele vs. Ranula</h4>
+            <p><strong>Mucocele (Mucous Retention/Extravasation Cyst):</strong></p>
+            <ul style="margin-left:1.2rem; font-size:0.85rem;">
+              <li>Arises in <span class="hl">minor salivary glands</span> (lower lip #1, cheek, ventral tongue).</li>
+              <li>Caused by mechanical trauma (e.g., lip biting).</li>
+              <li>Fluid-filled bluish nodule in patients &lt;20 years.</li>
+              <li>Tx: Excision of the cyst wall and capsule.</li>
+            </ul>
+            <p style="margin-top:0.5rem;"><strong>Ranula:</strong></p>
+            <ul style="margin-left:1.2rem; font-size:0.85rem;">
+              <li>Retention/extravasation cyst arising from <span class="hl">sublingual major salivary gland</span> in the floor of mouth.</li>
+              <li>Tx: Marsupialization or excision of sublingual gland.</li>
+            </ul>
+          </div>
+
+          <div style="background:#FFFFFF; padding:1rem; border:1px solid var(--border); border-radius:8px;">
+            <h4>Epulis, Granuloma, Papilloma</h4>
+            <p><strong>Epulis:</strong> Granulomatous lesion on the <span class="hl">gingiva</span> secondary to chronic irritation; can bleed easily and mimic malignancy. Tx: Excision biopsy.</p>
+            <p><strong>Granuloma:</strong> Mass of granulation tissue responding to repeated trauma or foreign body. Biopsy necessary to rule out cancer.</p>
+            <p><strong>Papilloma:</strong> Soft, irregular, pedunculated wart-like mucosal growth derived from epidermis. Tx: Surgical excision or cauterization.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:1.5rem;">2. Premalignant Lesions of the Oral Mucosa</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Entity</th>
+                <th>Clinical Appearance</th>
+                <th>Malignant Potential</th>
+                <th>Key Associations & Management</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Leukoplakia</strong></td>
+                <td>White patch/plaque that <span class="hl-red">CANNOT be scraped off</span></td>
+                <td>5 - 25% transformation risk</td>
+                <td>Associated with smoking & alcohol. (Contrast with Oral Candidiasis which <em>can</em> be scraped off). Tx: Excision biopsy.</td>
+              </tr>
+              <tr>
+                <td><strong>Erythroplakia</strong></td>
+                <td>Bright red, velvety mucosal patch</td>
+                <td><span class="hl-red">HIGHEST malignant potential</span> (&gt;50% dysplasia/CIS)</td>
+                <td>High-risk sites: ventral tongue, floor of mouth. Demands immediate excision biopsy!</td>
+              </tr>
+              <tr>
+                <td><strong>Oral Submucosal Fibrosis (OSMF)</strong></td>
+                <td>Fibrotic, blanching, rigid mucosa; severe trismus (reduced mouth opening)</td>
+                <td>High risk for SCCA transformation</td>
+                <td>Strongly linked to <span class="hl">Betel Nut chewing</span> (common in Ilocos region). Tx: Stop betel nut, intra-lesional steroids, jaw physiotherapy.</td>
+              </tr>
+              <tr>
+                <td><strong>Oral Lichen Planus (OLP)</strong></td>
+                <td>White lace-like patches (Wickham striae) on erythematous tissue</td>
+                <td>Low-to-moderate potential</td>
+                <td>Chronic autoimmune disease. Tx: Topical corticosteroids, immunosuppressants (cyclosporine).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top:1.5rem;">3. Odontogenic vs. Non-Odontogenic Jaw Tumors</h3>
+        <div class="grid-2">
+          <div style="background:#F8FAFC; padding:1rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Ameloblastoma (Most Common Odontogenic Tumor)</h4>
+            <p><strong>Definition:</strong> Benign but locally aggressive epithelial odontogenic neoplasm arising from dental lamina associated with an impacted 3rd molar.</p>
+            <p><strong>Demographics:</strong> Young adults; 80% located in the <span class="hl">mandible</span> (molar-ramus area).</p>
+            <p><strong>Radiographic Hallmark:</strong> <span class="hl-blue">"Soap bubble" or "Honeycomb"</span> multilocular radiolucency with bony expansion.</p>
+            <p><strong>Management:</strong> Surgical resection with wide margins (<span class="hl">Segmental Mandibulectomy</span>) due to high recurrence rates with simple curettage.</p>
+          </div>
+
+          <div style="background:#F8FAFC; padding:1rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Non-Odontogenic Bony Exostoses & Lesions</h4>
+            <p><strong>Torus Palatinus:</strong> Harmless exostosis along the midline of hard palate. Asymptomatic unless interfered with by dentures. Tx: None unless symptomatic.</p>
+            <p><strong>Torus Mandibularis:</strong> Bony overgrowth on lingual surface of mandible opposite premolars.</p>
+            <p><strong>Osteoma:</strong> Slow-growing benign bone lesion attached to cortex by a dense pedicle.</p>
+            <p><strong>Fibrous Dysplasia:</strong> Normal cortical bone replaced by immature fibrous matrix.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: HEAD & NECK CANCER                  -->
+    <!-- ========================================== -->
+    <div id="tab-cancer" class="tab-content">
+      <div class="card card-red">
+        <h2 class="card-title">
+          <span>Head and Neck Squamous Cell Carcinoma (HNSCC)</span>
+          <span class="badge badge-red">Oncology & Staging</span>
+        </h2>
+
+        <p>Over <strong>90-95% of head and neck cancers are Squamous Cell Carcinoma (SCCA)</strong>, originating from the non-keratinizing stratified squamous mucosal lining of the upper aerodigestive tract.</p>
+
+        <div class="grid-2" style="margin-top:1rem;">
+          <div style="background:#FFFFFF; padding:1rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Etiology & Carcinogenesis</h4>
+            <ul style="margin-left:1.2rem; font-size:0.85rem;">
+              <li><span class="hl">Tobacco & Alcohol Abuse:</span> Synergistic major risk factors.</li>
+              <li><span class="hl">Betel Nut Chewing:</span> Major cause in Southeast Asia / India.</li>
+              <li><span class="hl">HPV (Subtypes 16 & 18):</span> Increasingly linked to oropharyngeal cancers.</li>
+              <li><span class="hl">EBV (Epstein-Barr Virus):</span> High association with Nasopharyngeal CA.</li>
+              <li><span class="hl">p53 Gene Mutation:</span> Leads to loss of cell cycle regulation.</li>
+            </ul>
+          </div>
+
+          <div style="background:#FFFFFF; padding:1rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Natural History Cascade</h4>
+            <div class="flowchart">
+              <div class="flow-step">
+                <div class="flow-number">1</div>
+                <div><strong>Normal Mucosa:</strong> Exposure to carcinogens</div>
+              </div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-step">
+                <div class="flow-number">2</div>
+                <div><strong>Hyperplasia & Dysplasia:</strong> Epithelial atypia</div>
+              </div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-step">
+                <div class="flow-number">3</div>
+                <div><strong>Carcinoma In Situ (CIS):</strong> Full thickness atypia, intact basement membrane</div>
+              </div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-step">
+                <div class="flow-number">4</div>
+                <div><strong>Invasive SCCA:</strong> Basement membrane breach into stroma</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-must-know">
+          <span class="alert-icon">⭐</span>
+          <div>
+            <strong>Second Primary Tumors in HNSCC:</strong><br>
+            Approximately <strong>14% of HNSCC patients develop a second primary tumor</strong> due to field cancerization.<br>
+            • <strong>Synchronous Tumor:</strong> Diagnosed <em>within 6 months</em> of primary CA (3-4%).<br>
+            • <strong>Metachronous Tumor:</strong> Diagnosed <em>after 6 months</em> from primary CA (80% of second primaries; 50% occur within 2 years).
+          </div>
+        </div>
+
+        <h3 style="margin-top:1.5rem;">AJCC TNM Staging Breakdown</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Category</th>
+                <th>Definition / Dimensional Cutoffs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="4"><strong>Tumor Size (T)</strong><br><em>Tip: Remember 2 and 4</em></td>
+                <td><span class="badge badge-blue">T1</span></td>
+                <td>Tumor <strong>&le; 2 cm</strong> in greatest dimension</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">T2</span></td>
+                <td>Tumor <strong>&gt; 2 cm but &le; 4 cm</strong></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">T3</span></td>
+                <td>Tumor <strong>&gt; 4 cm</strong></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">T4</span></td>
+                <td>Invasion of adjacent deep structures (bone, deep muscle, skin)</td>
+              </tr>
+              <tr>
+                <td rowspan="5"><strong>Nodal Spread (N)</strong><br><em>Tip: Remember 3 and 6</em></td>
+                <td><span class="badge badge-amber">N1</span></td>
+                <td>Single ipsilateral lymph node, <strong>&le; 3 cm</strong></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-amber">N2a</span></td>
+                <td>Single ipsilateral node, <strong>&gt; 3 cm but &le; 6 cm</strong></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-amber">N2b</span></td>
+                <td>Multiple ipsilateral nodes, all <strong>&le; 6 cm</strong></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-amber">N2c</span></td>
+                <td>Bilateral or contralateral nodes, all <strong>&le; 6 cm</strong></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-amber">N3</span></td>
+                <td>Any lymph node <strong>&gt; 6 cm</strong></td>
+              </tr>
+              <tr>
+                <td rowspan="2"><strong>Metastasis (M)</strong></td>
+                <td><span class="badge badge-green">M0</span></td>
+                <td>No distant metastasis</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-red">M1</span></td>
+                <td>Distant metastasis present (most common: lungs, bone, liver)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top:1.5rem;">Anatomical Site Sub-Types & Surgical Strategy</h3>
+
+        <!-- Lip Cancer -->
+        <div style="background:#F8FAFC; padding:1.25rem; border-radius:8px; border:1px solid var(--border); margin-bottom:1rem;">
+          <h4>1. Lip Malignancy</h4>
+          <p><strong>Demographics:</strong> Caucasian males, 50-70 years, chronic UV/sunlight exposure.</p>
+          <p><strong>Distribution:</strong> <span class="hl">Lower lip (88-90% - predominantly SCCA)</span>; Upper lip (2-7% - <em>Basal Cell CA more frequent</em>); Oral commissure (1%).</p>
+          <p><strong>Surgical Management:</strong> Wide local excision with 1 cm gross clear margins.</p>
+          <ul style="margin-left:1.2rem; font-size:0.85rem;">
+            <li>Defects &le; 1/3 of lip length: Primary closure via wedge resection.</li>
+            <li>Defects up to 75% of lip: <span class="hl">Karapandzic flap</span>.</li>
+            <li>Lip switch technique: <span class="hl">Abbe-Estlander flap</span>.</li>
+            <li><em>Potential Complication:</em> Microstomia (abnormally small oral aperture).</li>
+          </ul>
+        </div>
+
+        <!-- Oral Cavity & Mandible -->
+        <div style="background:#F8FAFC; padding:1.25rem; border-radius:8px; border:1px solid var(--border); margin-bottom:1rem;">
+          <h4>2. Oral Cavity & Mandible Cancer</h4>
+          <p><strong>Distribution:</strong> Most common sites = <span class="hl">Anterior 2/3 tongue and Floor of the mouth</span>. Least common site = Hard palate (Adenoid Cystic CA is most common here).</p>
+          <p><strong>Tongue CA:</strong> Arises typically on lateral midportion. High metastatic rate—even T1 lesions have a ~30% risk of occult cervical lymph node metastasis! Tx: Transoral wide excision (>1.5 cm margin) + Neck Dissection.</p>
+          <p><strong>Floor of Mouth CA:</strong> 3rd most common site (13-17%). 50% present at Stage III/IV. Tumors easily invade mandible through dental sockets (in dentate) or alveolar pores (in edentulous).</p>
+          <p><strong>Mandibular Resection Types:</strong></p>
+          <ul style="margin-left:1.2rem; font-size:0.85rem;">
+            <li><span class="hl-green">Marginal Mandibulectomy:</span> Removal of periosteum/cortex while keeping the bony arch intact; done when tumor abuts periosteum without bony invasion.</li>
+            <li><span class="hl-red">Segmental Mandibulectomy:</span> Full-thickness bony resection; mandatory when cortical bone is invaded by cancer. Requires microvascular free flap reconstruction (e.g., fibula free flap).</li>
+            <li><span class="hl">COMMANDO Procedure:</span> <strong>CO</strong>mbined <strong>M</strong>andibulectomy <strong>A</strong>nd <strong>N</strong>eck <strong>D</strong>issection <strong>O</strong>peration.</li>
+          </ul>
+        </div>
+
+        <!-- Pharyngeal & Laryngeal Cancers -->
+        <div class="grid-2">
+          <div style="background:#F8FAFC; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>3. Nasopharyngeal Carcinoma (NPC)</h4>
+            <p><strong>Anatomy:</strong> Rosenmuller fossa, Eustachian tube orifices, adenoid pad. Endemic in Southern China and Eskimos.</p>
+            <p><strong>Symptoms:</strong> Nasal stuffiness, epistaxis, unilateral serous otitis media / hearing loss, neck mass. Cranial nerve palsies (CN II, IV, V, VI) indicate cavernous sinus/skull base invasion.</p>
+            <div class="alert alert-danger" style="margin:0.5rem 0;">
+              <strong>CRITICAL EXAM TRAP:</strong> Surgical resection is NOT the primary treatment for Nasopharyngeal CA! <span class="hl">Primary Radiotherapy ± Chemotherapy</span> is the gold standard. Surgery is reserved strictly for RT failure.
+            </div>
+          </div>
+
+          <div style="background:#F8FAFC; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>4. Hypopharyngeal & Laryngeal CA</h4>
+            <p><strong>Hypopharyngeal CA Triad:</strong> <span class="hl-red">Throat Pain + Referred Otalgia + Dysphagia (>50%)</span>. Poor prognosis (30% 5-year survival). Tx: Laryngopharyngectomy + Radical Neck Dissection + RT. Reconstruction via <strong>Pharyngolaryngoesophagectomy (PLO) with Gastric Pull-up</strong>.</p>
+            <p><strong>Laryngeal CA:</strong> Early symptom is <span class="hl">Hoarseness</span>. Glottic cancers diagnosed early have high cure rates. Voice-sparing RT used for early stages; Total Laryngectomy + Bilateral Neck Dissection for advanced (T3/T4) disease.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: NECK MASS & DISSECTIONS             -->
+    <!-- ========================================== -->
+    <div id="tab-neck" class="tab-content">
+      <div class="card card-purple">
+        <h2 class="card-title">
+          <span>Neck Masses & Neck Dissections</span>
+          <span class="badge badge-purple">Diagnostic Rules & Surgical Staging</span>
+        </h2>
+
+        <h3>1. Clinical Rules of Thumb for Neck Masses</h3>
+        <div class="grid-2">
+          <div style="background:#FFFFFF; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>The Rule of 80s (Shaha / MSKCC)</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">Applies to non-thyroid lateral neck masses in adults:</p>
+            <ul class="cram-list">
+              <li><strong>80%</strong> are Neoplastic (20% inflammatory/congenital)</li>
+              <li><strong>80%</strong> of neoplasms are Malignant (20% benign)</li>
+              <li><strong>80%</strong> of malignant neck masses are Metastatic (20% primary)</li>
+              <li><strong>80%</strong> metastasize from primaries ABOVE the clavicle</li>
+              <li><strong>80%</strong> of metastases are Squamous Cell Carcinoma</li>
+              <li><strong>80%</strong> are detected during the initial clinical exam</li>
+            </ul>
+          </div>
+
+          <div style="background:#FFFFFF; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>The Rule of 7s (Duration of Mass)</h4>
+            <ul class="cram-list">
+              <li><strong>7 Days (Acute):</strong> Inflammatory / Infectious origin (bacterial, viral lymphadenopathy, abscess).</li>
+              <li><strong>7 Months (Subacute):</strong> Neoplastic / Malignant origin (Lymphoma, Carotid Body Tumor, Metastatic Squamous or Thyroid CA).</li>
+              <li><strong>7 Years or more (Chronic):</strong> Congenital origin (Thyroglossal duct cyst, Branchial cleft cyst, Dermoid cyst).</li>
+            </ul>
+            <div class="reasoning-cue" style="margin-top:0.75rem;">
+              💡 <strong>Cue:</strong> A neck mass present for 5 days in a 10-year-old → Think Infection. A mass present for 6 months in a 60-year-old smoker → Think Malignancy!
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:1.5rem;">2. Lymph Node Levels of the Neck</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Nodal Level</th>
+                <th>Anatomical Boundaries</th>
+                <th>Primary Site Drainage Areas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-blue">Level I</span></td>
+                <td>Ia: Submental (between anterior bellies of digastric)<br>Ib: Submandibular triangle</td>
+                <td>Lower lip, oral cavity, floor of mouth, anterior tongue, skin of lower face</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">Level II</span></td>
+                <td>Upper jugular chain (skull base to hyoid bone)</td>
+                <td>Oropharynx (tonsil, base of tongue), nasopharynx, parotid gland</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">Level III</span></td>
+                <td>Middle jugular chain (hyoid bone to cricoid cartilage)</td>
+                <td>Oral cavity, larynx, hypopharynx, thyroid gland</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">Level IV</span></td>
+                <td>Lower jugular chain (cricoid cartilage to clavicle)</td>
+                <td>Hypopharynx, larynx, thyroid, subclavicular sites (lung, GI, breast)</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-amber">Level V</span></td>
+                <td>Posterior triangle (SCM, trapezius, clavicle)</td>
+                <td>Posterior scalp skin, nasopharynx, lymphoma</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-green">Level VI</span></td>
+                <td>Anterior / Central compartment (hyoid to sternal notch)</td>
+                <td>Thyroid gland, parathyroid glands, glottic/subglottic larynx</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-gray">Level VII</span></td>
+                <td>Superior mediastinal nodes</td>
+                <td>Thyroid, subglottic larynx, cervical esophagus</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top:1.5rem;">3. Neck Dissection Classifications</h3>
+        
+        <!-- Comprehensive Neck Dissections -->
+        <div style="background:#FFFFFF; padding:1.25rem; border-radius:8px; border:1px solid var(--border); margin-bottom:1rem;">
+          <h4>Comprehensive Neck Dissections (Levels I–V Removed)</h4>
+          
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Procedure Type</th>
+                  <th>Lymph Nodes Removed</th>
+                  <th>Spinal Accessory Nerve (CN XI)</th>
+                  <th>Sternocleidomastoid Muscle (SCM)</th>
+                  <th>Internal Jugular Vein (IJV)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Radical Neck Dissection (RND)</strong></td>
+                  <td>Levels I – V</td>
+                  <td><span class="hl-red">EXCISED</span></td>
+                  <td><span class="hl-red">EXCISED</span></td>
+                  <td><span class="hl-red">EXCISED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>MRND Type 1</strong></td>
+                  <td>Levels I – V</td>
+                  <td><span class="hl-green">PRESERVED</span></td>
+                  <td><span class="hl-red">EXCISED</span></td>
+                  <td><span class="hl-red">EXCISED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>MRND Type 2</strong></td>
+                  <td>Levels I – V</td>
+                  <td><span class="hl-green">PRESERVED</span></td>
+                  <td><span class="hl-green">PRESERVED</span></td>
+                  <td><span class="hl-red">EXCISED</span></td>
+                </tr>
+                <tr>
+                  <td><strong>MRND Type 3 (Functional)</strong></td>
+                  <td>Levels I – V</td>
+                  <td><span class="hl-green">PRESERVED</span></td>
+                  <td><span class="hl-green">PRESERVED</span></td>
+                  <td><span class="hl-green">PRESERVED</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Selective Neck Dissections -->
+        <div style="background:#FFFFFF; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+          <h4>Selective Neck Dissections (Preserves select node levels)</h4>
+          <ul class="cram-list">
+            <li><strong>Supraomohyoid Neck Dissection (Levels I, II, III):</strong> Standard staging neck dissection for clinical N0 oral cavity SCCA.</li>
+            <li><strong>Extended Supraomohyoid Neck Dissection (Levels I, II, III, IV):</strong> Used for skin cancers anterior to ear tragus or combined with parotidectomy.</li>
+            <li><strong>Lateral / Anterolateral Neck Dissection (Levels II, III, IV):</strong> Used for clinically N0 oropharyngeal, hypopharyngeal, and laryngeal cancers.</li>
+            <li><strong>Posterolateral Neck Dissection (Levels II, III, IV, V):</strong> Used for skin cancers/melanoma posterior to tragus on scalp.</li>
+            <li><strong>Central Compartment Neck Dissection (Level VI):</strong> Used for differentiated and medullary thyroid cancers.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: SALIVARY GLANDS                     -->
+    <!-- ========================================== -->
+    <div id="tab-salivary" class="tab-content">
+      <div class="card card-cyan">
+        <h2 class="card-title">
+          <span>Salivary Gland Pathologies & Surgery</span>
+          <span class="badge badge-cyan">Anatomy & Neoplasms</span>
+        </h2>
+
+        <h3>1. The Golden Rule of Salivary Gland Malignancy Risk</h3>
+        <div class="alert alert-key-point">
+          <span class="alert-icon">✅</span>
+          <div>
+            <strong>Inverse Size-Malignancy Rule:</strong><br>
+            The smaller the salivary gland organ size, the <strong>HIGHER the percentage risk of malignancy</strong> when a tumor is present!
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Salivary Gland</th>
+                <th>Relative Size</th>
+                <th>Benign Rate</th>
+                <th>Malignant Rate</th>
+                <th>Most Common Benign Tumor</th>
+                <th>Most Common Malignant Tumor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Parotid Gland</strong></td>
+                <td>Largest</td>
+                <td><span class="hl-green">80%</span></td>
+                <td>20%</td>
+                <td><span class="hl">Pleomorphic Adenoma</span> (#1)<br>Warthin's Tumor (#2)</td>
+                <td><span class="hl">Mucoepidermoid Carcinoma</span></td>
+              </tr>
+              <tr>
+                <td><strong>Submandibular Gland</strong></td>
+                <td>Intermediate</td>
+                <td>60%</td>
+                <td>40%</td>
+                <td>Pleomorphic Adenoma</td>
+                <td>Adenoid Cystic Carcinoma & Mucoepidermoid CA</td>
+              </tr>
+              <tr>
+                <td><strong>Sublingual & Minor Glands</strong></td>
+                <td>Smallest</td>
+                <td>40%</td>
+                <td><span class="hl-red">60%</span></td>
+                <td>Pleomorphic Adenoma</td>
+                <td><span class="hl">Adenoid Cystic Carcinoma</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top:1.5rem;">2. Parotid Anatomy & The Facial Nerve (CN VII)</h3>
+        <div class="grid-2">
+          <div style="background:#FFFFFF; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Anatomical Relationships</h4>
+            <p>• The parotid is a unilobular gland sitting in the retromandibular fossa, traversed by the <strong>Facial Nerve (CN VII)</strong>.</p>
+            <p>• CN VII divides the parotid into two clinical zones:</p>
+            <ul style="margin-left:1.2rem; font-size:0.85rem;">
+              <li><span class="hl">Superficial Lobe:</span> Contains <strong>70%</strong> of gland tissue (located superficial to CN VII). Most tumors arise here.</li>
+              <li><span class="hl">Deep Lobe:</span> Contains <strong>30%</strong> of gland tissue (located deep to CN VII).</li>
+            </ul>
+            <p style="margin-top:0.5rem;">• Drained by <strong>Stensen's duct</strong> opening opposite the upper 2nd molar.</p>
+          </div>
+
+          <div style="background:#FFFFFF; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>5 Branches of Facial Nerve (Top to Bottom)</h4>
+            <div class="flowchart">
+              <div class="flow-step"><div class="flow-number">1</div><div><strong>Temporal (Frontal) Branch:</strong> Forehead wrinkling</div></div>
+              <div class="flow-step"><div class="flow-number">2</div><div><strong>Zygomatic Branch:</strong> Eye closure (orbicularis oculi)</div></div>
+              <div class="flow-step"><div class="flow-number">3</div><div><strong>Buccal Branch:</strong> Cheek movement / smiling</div></div>
+              <div class="flow-step"><div class="flow-number">4</div><div><strong>Marginal Mandibular Branch:</strong> Lower lip depression</div></div>
+              <div class="flow-step"><div class="flow-number">5</div><div><strong>Cervical Branch:</strong> Platysma innervation</div></div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:1.5rem;">3. Surgical Procedures for Parotid Tumors</h3>
+        <div class="grid-2">
+          <div style="background:#F8FAFC; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Superficial Parotidectomy</h4>
+            <p><strong>Indication:</strong> Benign tumors (e.g., Pleomorphic Adenoma) <strong>&le; 4 cm</strong> restricted to the superficial lobe.</p>
+            <p><strong>Technique:</strong> Pre-auricular modified Blair incision, identification of CN VII main trunk at stylomastoid foramen, dissection along the nerve plane, and removal of superficial lobe while <strong>preserving all 5 branches of CN VII</strong>.</p>
+          </div>
+
+          <div style="background:#F8FAFC; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Total Parotidectomy</h4>
+            <p><strong>Indication:</strong> Malignant parotid tumors, deep lobe tumors, or benign tumors <strong>&gt; 4 cm</strong> (to prevent high recurrence rates).</p>
+            <p><strong>Technique:</strong> Complete removal of both superficial and deep lobes. In malignancy without direct nerve invasion, CN VII is dissected and preserved. If directly involved by cancer, sacrifice with nerve grafting is performed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 6: COMPARISONS                         -->
+    <!-- ========================================== -->
+    <div id="tab-comparisons" class="tab-content">
+      <div class="card card-blue">
+        <h2 class="card-title">
+          <span>High-Yield Side-by-Side Exam Differentiators</span>
+          <span class="badge badge-blue">Quick Differentiators</span>
+        </h2>
+
+        <h3>1. Oral Premalignant Lesions Comparison</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Leukoplakia</th>
+                <th>Erythroplakia</th>
+                <th>Oral Candidiasis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Lesion Color</strong></td>
+                <td>White patch/plaque</td>
+                <td>Velvety red patch</td>
+                <td>White cottage cheese-like curd</td>
+              </tr>
+              <tr>
+                <td><strong>Scrape Test</strong></td>
+                <td><span class="hl-red">CANNOT be scraped off</span></td>
+                <td>N/A</td>
+                <td><span class="hl-green">CAN be scraped off</span> (leaves raw erythematous base)</td>
+              </tr>
+              <tr>
+                <td><strong>Malignant Transformation Risk</strong></td>
+                <td>5 – 25%</td>
+                <td><span class="hl-red">&gt; 50% (High risk)</span></td>
+                <td>Zero (Infectious)</td>
+              </tr>
+              <tr>
+                <td><strong>Primary Treatment</strong></td>
+                <td>Excision biopsy + Stop smoking/alcohol</td>
+                <td>Immediate Excision Biopsy</td>
+                <td>Topical/Systemic Antifungals (Nystatin/Fluconazole)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top:1.5rem;">2. Vascular Lesions Comparison</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Hemangioma</th>
+                <th>Port Wine Stain</th>
+                <th>Cystic Hygroma</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Pathology</strong></td>
+                <td>True endothelial neoplasm</td>
+                <td>Venular malformation</td>
+                <td>Lymphatic malformation</td>
+              </tr>
+              <tr>
+                <td><strong>Growth Dynamics</strong></td>
+                <td>Rapid postnatal growth, then spontaneous regression</td>
+                <td>Grows steadily with child; thickens with age</td>
+                <td>Slowly enlarges; can rapidly swell during infection</td>
+              </tr>
+              <tr>
+                <td><strong>Anatomical Site</strong></td>
+                <td>Head and neck skin/mucosa</td>
+                <td>Facial dermatomes (CN V distribution)</td>
+                <td>Posterior triangle / midline neck or forehead</td>
+              </tr>
+              <tr>
+                <td><strong>Management</strong></td>
+                <td>Steroids, Sclerotherapy, Lasers, Observation</td>
+                <td>Flashlamp Pulsed-Dye Laser (FPDL)</td>
+                <td><span class="hl-red">Early Surgical Excision</span> (Airway emergency risk)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top:1.5rem;">3. Comprehensive Neck Dissections Comparison</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Neck Dissection Type</th>
+                <th>Nodes (I-V)</th>
+                <th>Spinal Accessory Nerve (CN XI)</th>
+                <th>Sternocleidomastoid (SCM)</th>
+                <th>Internal Jugular Vein (IJV)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Radical Neck Dissection (RND)</strong></td>
+                <td>Removed</td>
+                <td><span class="hl-red">Excised</span></td>
+                <td><span class="hl-red">Excised</span></td>
+                <td><span class="hl-red">Excised</span></td>
+              </tr>
+              <tr>
+                <td><strong>Modified Radical Type 1</strong></td>
+                <td>Removed</td>
+                <td><span class="hl-green">Preserved</span></td>
+                <td><span class="hl-red">Excised</span></td>
+                <td><span class="hl-red">Excised</span></td>
+              </tr>
+              <tr>
+                <td><strong>Modified Radical Type 2</strong></td>
+                <td>Removed</td>
+                <td><span class="hl-green">Preserved</span></td>
+                <td><span class="hl-green">Preserved</span></td>
+                <td><span class="hl-red">Excised</span></td>
+              </tr>
+              <tr>
+                <td><strong>Modified Radical Type 3 (Functional)</strong></td>
+                <td>Removed</td>
+                <td><span class="hl-green">Preserved</span></td>
+                <td><span class="hl-green">Preserved</span></td>
+                <td><span class="hl-green">Preserved</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 7: FLASHCARDS                          -->
+    <!-- ========================================== -->
+    <div id="tab-flashcards" class="tab-content">
+      <div class="card card-purple">
+        <h2 class="card-title">
+          <span>Active Recall Flashcards</span>
+          <span id="card-counter" class="badge badge-purple">Card 1 of 32</span>
+        </h2>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Use your spacebar or click the card to flip it. Use left/right arrow keys to navigate.</p>
+        
+        <div class="progress-bar-container" style="margin-top:1rem;">
+          <div id="flashcard-progress" class="progress-bar"></div>
+        </div>
+
+        <div class="flashcard-container">
+          <div id="flashcard" class="flashcard" onclick="flipCard()">
+            <div class="flashcard-face flashcard-front">
+              <span id="card-category" class="flashcard-category">Category</span>
+              <div id="card-front-text" class="flashcard-text">Front Question</div>
+              <span class="flashcard-hint">Click or press Spacebar to flip 🔄</span>
+            </div>
+            <div class="flashcard-face flashcard-back">
+              <span class="flashcard-category">Answer Rationale</span>
+              <div id="card-back-text" class="flashcard-text">Back Answer</div>
+              <span class="flashcard-hint">Click or press Spacebar to flip back 🔄</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard-controls">
+          <button class="btn" onclick="prevCard()">← Previous</button>
+          <button class="btn btn-primary" onclick="nextCard()">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 8: SELF-ASSESSMENT QUIZ                -->
+    <!-- ========================================== -->
+    <div id="tab-quiz" class="tab-content">
+      <div class="card card-blue">
+        <h2 class="card-title">
+          <span>30-Question Multiple Choice Examination</span>
+          <span class="badge badge-blue">Instant Feedback</span>
+        </h2>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem;">Select an answer for immediate rationale and explanation on why options are correct or incorrect.</p>
+
+        <div id="quiz-container"></div>
+
+        <div id="score-summary" class="score-banner" style="display:none;">
+          <h2>Examination Complete!</h2>
+          <p id="score-text" style="font-size:1.25rem; font-weight:600; margin-bottom:1rem;">Your Score: 0 / 30</p>
+          <button class="btn btn-primary" onclick="resetQuiz()">Retake Quiz</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 9: CRAM SHEET                          -->
+    <!-- ========================================== -->
+    <div id="tab-cram" class="tab-content">
+      <div class="card card-amber">
+        <h2 class="card-title">
+          <span>10-Minute Pre-Exam High-Yield Cram Sheet</span>
+          <span class="badge badge-amber">Ultra-Condensed</span>
+        </h2>
+
+        <div class="grid-2">
+          <div style="background:#FFFFFF; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Infections & Inflammatory Rapid Review</h4>
+            <ul class="cram-list">
+              <li><strong>Otitis Externa:</strong> <em>P. aeruginosa</em> #1; Ciprofloxacin ear drops + debris cleaning.</li>
+              <li><strong>Otitis Media:</strong> Peak &lt;2 yrs due to horizontal Eustachian tube. <em>S. pneumoniae</em> #1.</li>
+              <li><strong>Malignant Otitis Externa:</strong> Elderly diabetics; necrotizing osteomyelitis; IV anti-pseudomonals.</li>
+              <li><strong>Chronic Sinusitis:</strong> &gt;12 weeks; Nasal endoscopy + CT scan confirmatory.</li>
+              <li><strong>Reinke's Edema:</strong> Fluid in superficial lamina propria; female heavy smokers; rough low voice.</li>
+              <li><strong>Vocal Cord Paralysis:</strong> Left VC more common (longer RLN course); fiberoptic laryngoscopy + EMG.</li>
+              <li><strong>RRP:</strong> HPV 6 & 11; juvenile vaginal delivery acquisition; multiple laser procedures required.</li>
+            </ul>
+          </div>
+
+          <div style="background:#FFFFFF; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Tumors & Premalignant Rapid Review</h4>
+            <ul class="cram-list">
+              <li><strong>Hemangioma vs Malformation:</strong> Hemangiomas are TRUE neoplasms, regress spontaneously. Malformations are NOT neoplasms, DO NOT regress.</li>
+              <li><strong>Cystic Hygroma:</strong> Lymphatic malformation; midline neck/forehead; airway emergency risk → Early surgery!</li>
+              <li><strong>Mucocele vs Ranula:</strong> Mucocele = minor salivary glands (lower lip #1). Ranula = sublingual gland floor of mouth.</li>
+              <li><strong>Leukoplakia:</strong> White patch CANNOT be scraped off (vs Candidiasis which CAN be scraped off).</li>
+              <li><strong>Erythroplakia:</strong> Red velvety patch; HIGHER malignant potential (&gt;50%).</li>
+              <li><strong>Ameloblastoma:</strong> Most common odontogenic tumor; molar ramus mandible; "Soap bubble / Honeycomb" X-ray; Mandibulectomy.</li>
+              <li><strong>Betel Nut:</strong> Causes Oral Submucosal Fibrosis (OSMF) with severe trismus.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:1rem;">
+          <div style="background:#FFFFFF; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Oncology & Neck Dissection Rapid Review</h4>
+            <ul class="cram-list">
+              <li><strong>HNSCC:</strong> 90-95% SCCA; Tobacco + Alcohol synergistic; p53 mutation.</li>
+              <li><strong>Nasopharyngeal CA:</strong> Rosenmuller fossa; EBV; Hearing loss + Epistaxis; PRIMARY TX IS RADIOTHERAPY (NOT surgery!).</li>
+              <li><strong>Hypopharyngeal CA Triad:</strong> Throat pain + Referred Otalgia + Dysphagia (&gt;50%). PLO + Gastric pull-up.</li>
+              <li><strong>Rule of 80s:</strong> Lateral neck mass in adult → 80% Neoplastic, 80% Malignant, 80% Metastatic, 80% Above clavicle, 80% SCCA.</li>
+              <li><strong>Rule of 7s:</strong> 7 days = Infection; 7 months = Malignancy; 7 years = Congenital.</li>
+              <li><strong>RND vs MRND:</strong> RND removes CN XI, SCM, and IJV. MRND Type 1 preserves CN XI. MRND Type 2 preserves CN XI & SCM. MRND Type 3 preserves CN XI, SCM, and IJV.</li>
+            </ul>
+          </div>
+
+          <div style="background:#FFFFFF; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+            <h4>Salivary Glands Rapid Review</h4>
+            <ul class="cram-list">
+              <li><strong>Size-Malignancy Rule:</strong> Parotid (80% benign), Submandibular (60% benign), Sublingual/Minor (60% MALIGNANT).</li>
+              <li><strong>Pleomorphic Adenoma:</strong> #1 benign tumor of parotid & submandibular glands.</li>
+              <li><strong>Mucoepidermoid CA:</strong> #1 malignant tumor of parotid gland.</li>
+              <li><strong>Adenoid Cystic CA:</strong> #1 malignant tumor of submandibular, sublingual, and minor salivary glands (hard palate).</li>
+              <li><strong>Parotidectomy:</strong> Superficial parotidectomy for benign tumors &le;4 cm. Total parotidectomy for malignant or &gt;4 cm benign tumors. Always preserve 5 branches of CN VII!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    /* ==========================================================================
+       TAB SWITCHING LOGIC
+       ========================================================================== */
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById('tab-' + tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ==========================================================================
+       FLASHCARD DATA & ENGINE
+       ========================================================================== */
+    const flashcardsData = [
+      { cat: "Ear Infections", q: "What is the most common etiologic bacterial agent in Otitis Externa ('Swimmer's Ear')?", a: "Pseudomonas aeruginosa. First-line topical treatment involves quinolone ear drops (e.g., Ciprofloxacin) with debris clearance." },
+      { cat: "Ear Infections", q: "Why is Otitis Media significantly more prevalent in children under 2 years of age?", a: "Due to anatomical immaturity, shorter length, and horizontal orientation of the Eustachian tube." },
+      { cat: "Ear Infections", q: "What is the most common intracranial complication of acute otitis media?", a: "Meningitis, most frequently associated with Haemophilus influenzae type B infection." },
+      { cat: "Ear Infections", q: "Which clinical population is highly susceptible to Malignant Otitis Externa?", a: "Elderly diabetic patients and immunodeficient individuals. It is a necrotizing osteomyelitis requiring IV anti-pseudomonal therapy." },
+      { cat: "Sinus Disorders", q: "What imaging modality and diagnostic test are confirmatory for Chronic Sinusitis?", a: "Nasal Endoscopy (showing purulence/polyps) and CT Scan (showing sinus opacification and mucosal thickening lasting >12 weeks)." },
+      { cat: "Laryngeal Pathologies", q: "Which HPV subtypes are implicated in Recurrent Respiratory Papillomatosis (RRP)?", a: "HPV Subtypes 6 and 11. Acquisition in children occurs during vaginal delivery." },
+      { cat: "Laryngeal Pathologies", q: "In Reinke's Edema, fluid accumulates within which anatomical vocal cord layer?", a: "The superficial lamina propria (Reinke's space), secondary to capillary injury from smoking, reflux, or vocal abuse." },
+      { cat: "Laryngeal Pathologies", q: "Why is the left vocal cord more frequently involved in idiopathic paralysis than the right?", a: "The left recurrent laryngeal nerve has a significantly longer intrathoracic course, looping under the aortic arch." },
+      { cat: "Vascular Lesions", q: "How do Hemangiomas differ fundamentally from Vascular Malformations?", a: "Hemangiomas are TRUE neoplasms with endothelial proliferation that regress spontaneously by 5-7 years. Malformations are morphogenesis errors present at birth that DO NOT regress." },
+      { cat: "Vascular Lesions", q: "What is the primary management priority for a large Cystic Hygroma in the neck?", a: "Securing the airway! Cystic hygromas can rapidly enlarge during infection, causing catastrophic airway/esophageal compression. Early surgical resection is indicated." },
+      { cat: "Oral Pathology", q: "What distinguishes Leukoplakia from Oral Candidiasis on physical examination?", a: "Leukoplakia CANNOT be scraped off with a gauze. Oral Candidiasis CAN be scraped off, leaving an underlying erythematous base." },
+      { cat: "Oral Pathology", q: "Which oral premalignant lesion carries the HIGHEST risk of transformation to invasive SCCA?", a: "Erythroplakia (bright red velvety patch), with over 50% demonstrating severe dysplasia or carcinoma in situ." },
+      { cat: "Oral Pathology", q: "What habits and regions are characteristically associated with Oral Submucosal Fibrosis (OSMF)?", a: "Betel nut chewing, highly prevalent in the Ilocos region. Causes progressive mucosal fibrosis and severe trismus (reduced mouth opening)." },
+      { cat: "Odontogenic Tumors", q: "What is the classic radiographic appearance of an Ameloblastoma?", a: "'Soap bubble' or 'Honeycomb' multilocular radiolucency with bony expansion, most common in the mandibular molar-ramus region." },
+      { cat: "Odontogenic Tumors", q: "Why is segmental mandibulectomy preferred over simple curettage for large Ameloblastomas?", a: "Ameloblastoma is locally aggressive with a very high recurrence rate if incompletely excised." },
+      { cat: "Head & Neck Cancer", q: "What is the most common histological type of head and neck cancer?", a: "Squamous Cell Carcinoma (SCCA), representing over 90–95% of all head and neck malignancies." },
+      { cat: "Head & Neck Cancer", q: "What is the difference between a Synchronous and a Metachronous second primary tumor?", a: "Synchronous tumors are diagnosed within 6 months of the primary CA. Metachronous tumors are diagnosed after 6 months (50% occur within 2 years)." },
+      { cat: "TNM Staging", q: "In AJCC TNM staging for HNSCC, what are the dimensional cutoffs for T1, T2, and T3?", a: "T1: ≤ 2 cm; T2: > 2 cm to ≤ 4 cm; T3: > 4 cm." },
+      { cat: "TNM Staging", q: "What is the definition of N2c nodal status?", a: "Bilateral or contralateral lymph node metastases, none greater than 6 cm in greatest dimension." },
+      { cat: "Lip Malignancy", q: "What is the most common site for lip cancer, and what is its dominant histology?", a: "The lower lip (88-90% of cases), dominated by Squamous Cell Carcinoma. Upper lip cancers are rarer and more frequently Basal Cell CA." },
+      { cat: "Oral Cavity CA", q: "What are the two most common anatomical sites for Squamous Cell Carcinoma in the oral cavity?", a: "The ventral/anterior surface of the tongue and the floor of the mouth." },
+      { cat: "Pharyngeal CA", q: "Why is surgical resection NOT the first-line treatment for Nasopharyngeal Carcinoma?", a: "Nasopharynx is complex and surgically inaccessible; NPC is highly radiosensitive and chemosensitive. Primary Radiotherapy ± Chemotherapy is standard." },
+      { cat: "Pharyngeal CA", q: "What clinical triad classically presents in Hypopharyngeal Carcinoma?", a: "Throat Pain + Referred Otalgia + Dysphagia (>50% of cases)." },
+      { cat: "Neck Mass Rules", q: "State the Rule of 80s for an adult non-thyroid lateral neck mass.", a: "80% Neoplastic, 80% Malignant, 80% Metastatic, 80% Metastasis from above clavicle, 80% Squamous Cell CA." },
+      { cat: "Neck Mass Rules", q: "According to the Rule of 7s, what etiology should be suspected for a neck mass present for 7 days vs 7 months vs 7 years?", a: "7 Days: Inflammatory/Infectious; 7 Months: Neoplastic/Malignant; 7 Years: Congenital lesion." },
+      { cat: "Lymph Node Levels", q: "Which primary head and neck sites drain directly into Level II (Upper Jugular) lymph nodes?", a: "Oropharynx (tonsil, base of tongue), Nasopharynx, and Parotid gland." },
+      { cat: "Neck Dissections", q: "What non-lymphatic structures are excised during a classical Radical Neck Dissection (RND)?", a: "Spinal Accessory Nerve (CN XI), Sternocleidomastoid Muscle (SCM), and Internal Jugular Vein (IJV)." },
+      { cat: "Neck Dissections", q: "What structure is preserved in a Modified Radical Neck Dissection (MRND) Type 1?", a: "The Spinal Accessory Nerve (CN XI) is preserved. SCM and IJV are excised." },
+      { cat: "Salivary Gland Risk", q: "State the inverse size-malignancy rule for salivary gland tumors.", a: "The smaller the salivary gland, the higher the risk of malignancy: Parotid (20% malignant), Submandibular (40% malignant), Sublingual/Minor (60% malignant)." },
+      { cat: "Salivary Neoplasms", q: "What is the most common overall benign tumor and most common malignant tumor of the Parotid gland?", a: "Benign: Pleomorphic Adenoma (#1). Malignant: Mucoepidermoid Carcinoma (#1)." },
+      { cat: "Salivary Neoplasms", q: "What is the most common malignant tumor of the Submandibular and Minor Salivary Glands?", a: "Adenoid Cystic Carcinoma." },
+      { cat: "Parotid Surgery", q: "What anatomical landmark divides the superficial and deep lobes of the parotid gland?", a: "The Facial Nerve (CN VII) and its branching plane. 70% of the gland lies superficial to CN VII." }
+    ];
+
+    let currentCardIdx = 0;
+
+    function updateCard() {
+      const card = flashcardsData[currentCardIdx];
+      document.getElementById('card-category').innerText = card.cat;
+      document.getElementById('card-front-text').innerText = card.q;
+      document.getElementById('card-back-text').innerText = card.a;
+      document.getElementById('card-counter').innerText = `Card ${currentCardIdx + 1} of ${flashcardsData.length}`;
+      
+      const progressPercent = ((currentCardIdx + 1) / flashcardsData.length) * 100;
+      document.getElementById('flashcard-progress').style.width = progressPercent + '%';
+
+      document.getElementById('flashcard').classList.remove('flipped');
+    }
+
+    function flipCard() {
+      document.getElementById('flashcard').classList.toggle('flipped');
+    }
+
+    function nextCard() {
+      if (currentCardIdx < flashcardsData.length - 1) {
+        currentCardIdx++;
+        updateCard();
+      }
+    }
+
+    function prevCard() {
+      if (currentCardIdx > 0) {
+        currentCardIdx--;
+        updateCard();
+      }
+    }
+
+    /* Keyboard navigation for flashcards */
+    document.addEventListener('keydown', function(event) {
+      const activeTab = document.querySelector('.tab-content.active');
+      if (activeTab && activeTab.id === 'tab-flashcards') {
+        if (event.code === 'Space') {
+          event.preventDefault();
+          flipCard();
+        } else if (event.code === 'ArrowRight') {
+          nextCard();
+        } else if (event.code === 'ArrowLeft') {
+          prevCard();
+        }
+      }
+    });
+
+    /* ==========================================================================
+       QUIZ ENGINE & DATA (30 Detailed MCQs)
+       ========================================================================== */
+    const quizQuestions = [
+      {
+        q: "1. A 45-year-old swimmer presents with severe right otalgia, pruritus, and tragal tenderness. Otoscopy shows an edematous external canal with debris. What is the most common etiologic agent?",
+        opts: ["A. Streptococcus pneumoniae", "B. Pseudomonas aeruginosa", "C. Staphylococcus aureus", "D. Candida albicans"],
+        ans: 1,
+        exp: "Correct: B (Pseudomonas aeruginosa). Pseudomonas is the predominant causative organism in Otitis Externa ('Swimmer's Ear'). A: S. pneumoniae causes Otitis Media. C: S. aureus causes nosocomial sinusitis or cutaneous abscesses. D: Candida causes fungal otitis or pharyngitis."
+      },
+      {
+        q: "2. Why is acute otitis media overwhelmingly prevalent in children under 2 years of age?",
+        opts: ["A. Immature blood-brain barrier", "B. Absence of mastoid air cells", "C. Anatomical immaturity and horizontal orientation of the Eustachian tube", "D. Hypertrophy of the palatine tonsils"],
+        ans: 2,
+        exp: "Correct: C. Eustachian tube immaturity (shorter, wider, more horizontal orientation) impairs middle ear clearance and promotes bacterial reflux from the nasopharynx."
+      },
+      {
+        q: "3. What is the most common intracranial complication of acute otitis media in pediatric patients?",
+        opts: ["A. Sigmoid sinus thrombosis", "B. Meningitis", "C. Subdural empyema", "D. Otitic hydrocephalus"],
+        ans: 1,
+        exp: "Correct: B (Meningitis). Meningitis is the #1 intracranial complication of otitis media, classically associated with Haemophilus influenzae type B infection."
+      },
+      {
+        q: "4. An 8-year-old child presents with progressive hoarseness and stridor. Endoscopy reveals multiple warty mucosal exophytic lesions on the vocal cords. What is the cause and recommended treatment?",
+        opts: ["A. EBV infection; Oral Acyclovir", "B. HPV 6 and 11; Operative microlaryngoscopy with laser ablation", "C. Vocal abuse; Voice rest and speech therapy", "D. Laryngopharyngeal reflux; PPI therapy"],
+        ans: 1,
+        exp: "Correct: B. Recurrent Respiratory Papillomatosis (RRP) is caused by HPV subtypes 6 and 11, acquired during vaginal delivery. Primary treatment is operative microlaryngoscopy with laser ablation."
+      },
+      {
+        q: "5. A female heavy smoker presents with a rough, low-pitched, 'deep male-like' voice. Laryngoscopy reveals bilateral translucent swelling of the vocal cords in the superficial lamina propria. What is the diagnosis?",
+        opts: ["A. Vocal Cord Granuloma", "B. Reinke's Edema", "C. Laryngeal Papillomatosis", "D. Squamous Cell Carcinoma"],
+        ans: 1,
+        exp: "Correct: B (Reinke's Edema / Polypoid Corditis). Characterized by fluid accumulation in Reinke's space (superficial lamina propria), strongly associated with heavy smoking in females."
+      },
+      {
+        q: "6. Why is left-sided vocal cord paralysis significantly more common than right-sided paralysis?",
+        opts: ["A. Left vagus nerve carries more motor fibers", "B. Left recurrent laryngeal nerve has a longer course looping around the aortic arch", "C. Right recurrent laryngeal nerve passes through the thyroid gland", "D. Left cricoarytenoid joint is structurally weaker"],
+        ans: 1,
+        exp: "Correct: B. The left RLN loops under the aortic arch before ascending, giving it a much longer intrathoracic trajectory vulnerable to mediastinal, lung, or aortic pathologies."
+      },
+      {
+        q: "7. Which statement correctly distinguishes Hemangiomas from Vascular Malformations?",
+        opts: ["A. Hemangiomas are not true neoplasms and never regress", "B. Vascular malformations are true neoplasms that proliferate in infancy", "C. Hemangiomas are true endothelial neoplasms that rapidly proliferate in infancy and usually involute spontaneously", "D. Vascular malformations respond dramatically to systemic steroid therapy"],
+        ans: 2,
+        exp: "Correct: C. Hemangiomas are true neoplasms that proliferate in infancy and regress by age 5-7. Vascular malformations are structural morphogenesis errors present at birth that enlarge proportionally without spontaneous regression."
+      },
+      {
+        q: "8. What is the primary immediate concern when evaluating a infant with a rapidly swelling Cystic Hygroma of the neck?",
+        opts: ["A. Cosmetic disfigurement", "B. Malignant transformation to angiosarcoma", "C. Airway and esophageal obstruction", "D. Spontaneous severe hemorrhage"],
+        ans: 2,
+        exp: "Correct: C. Cystic hygromas (lymphatic malformations) in the neck can rapidly enlarge during upper respiratory infections, threatening airway compromise and esophageal obstruction. Securing airway is priority #1!"
+      },
+      {
+        q: "9. A 19-year-old student presents with a fluid-filled, bluish 1 cm painless nodule on his lower inner lip after accidentally biting it. What is the diagnosis?",
+        opts: ["A. Ranula", "B. Mucocele", "C. Epulis", "D. Ameloblastoma"],
+        ans: 1,
+        exp: "Correct: B (Mucocele / Mucous extravasation cyst). Commonly occurs in minor salivary glands of the lower lip secondary to biting trauma in patients <20 years old."
+      },
+      {
+        q: "10. What physical exam feature distinguishes Leukoplakia from Oral Candidiasis?",
+        opts: ["A. Leukoplakia bleeds profusely on touch", "B. Leukoplakia cannot be scraped off with gauze", "C. Oral Candidiasis is bright velvety red", "D. Oral Candidiasis requires mandibulectomy"],
+        ans: 1,
+        exp: "Correct: B. Leukoplakia is a white plaque that CANNOT be scraped off. Oral Candidiasis white curds CAN be scraped off, leaving a hyperemic base."
+      },
+      {
+        q: "11. Which oral mucosal lesion carries the HIGHEST risk for malignant transformation into Squamous Cell Carcinoma?",
+        opts: ["A. Leukoplakia", "B. Oral Lichen Planus", "C. Erythroplakia", "D. Torus Palatinus"],
+        ans: 2,
+        exp: "Correct: C (Erythroplakia). Erythroplakia (red velvety patch) has a malignant transformation rate >50%, significantly higher than leukoplakia (5-25%)."
+      },
+      {
+        q: "12. Oral Submucosal Fibrosis (OSMF) characterized by blanching fibrotic mucosa and severe trismus is strongly linked to which cultural habit?",
+        opts: ["A. Cigarette smoking", "B. Betel nut chewing", "C. Alcohol consumption", "D. High salt intake"],
+        ans: 1,
+        exp: "Correct: B (Betel nut chewing). Betel nut contains alkaloids that stimulate collagen synthesis and cross-linking, causing mucosal stiffness and trismus (common in Ilocos region)."
+      },
+      {
+        q: "13. A 30-year-old male has a panoramic radiograph showing a multilocular radiolucency with a 'soap bubble' appearance in the posterior mandible. What is the diagnosis?",
+        opts: ["A. Osteoma", "B. Ameloblastoma", "C. Torus Mandibularis", "D. Branchial Cleft Cyst"],
+        ans: 1,
+        exp: "Correct: B (Ameloblastoma). The classic radiographic hallmark of ameloblastoma is a multilocular 'soap bubble' or 'honeycomb' radiolucency in the posterior mandible."
+      },
+      {
+        q: "14. A second primary head and neck tumor diagnosed 18 months after successful treatment of the initial primary cancer is classified as:",
+        opts: ["A. Synchronous tumor", "B. Metachronous tumor", "C. Recurrent primary tumor", "D. Metastatic tumor"],
+        ans: 1,
+        exp: "Correct: B (Metachronous tumor). Second primary tumors diagnosed AFTER 6 months from the initial diagnosis are metachronous (80% of second primaries). Synchronous tumors occur WITHIN 6 months."
+      },
+      {
+        q: "15. A head and neck squamous cell carcinoma measuring 3.5 cm in greatest dimension without deep invasion is classified as which T stage?",
+        opts: ["A. T1", "B. T2", "C. T3", "D. T4"],
+        ans: 1,
+        exp: "Correct: B (T2). Staging dimensional cutoffs: T1 is ≤2 cm; T2 is >2 cm but ≤4 cm; T3 is >4 cm."
+      },
+      {
+        q: "16. A patient with oral cavity cancer has a single ipsilateral neck lymph node measuring 2.5 cm. What is the N stage?",
+        opts: ["A. N1", "B. N2a", "C. N2b", "D. N3"],
+        ans: 0,
+        exp: "Correct: A (N1). N1 is defined as a single ipsilateral lymph node ≤ 3 cm. N2a is single ipsilateral >3 cm to ≤6 cm."
+      },
+      {
+        q: "17. What lip defect size threshold mandates complex flap reconstruction (e.g., Karapandzic flap) rather than primary wedge closure?",
+        opts: ["A. Defects > 10%", "B. Defects > 33% (1/3 of lip length)", "C. Defects > 80%", "D. Any commissure involvement"],
+        ans: 1,
+        exp: "Correct: B. Lip defects up to 1/3 (33%) can undergo primary wedge resection and closure. Defects exceeding 1/3 require local flap reconstruction (Karapandzic or Abbe-Estlander)."
+      },
+      {
+        q: "18. What surgical procedure is indicated when oral cavity carcinoma invades the underlying mandibular cortical bone?",
+        opts: ["A. Marginal Mandibulectomy", "B. Segmental Mandibulectomy", "C. Sub-sclerotherapy injection", "D. Enucleation"],
+        ans: 1,
+        exp: "Correct: B (Segmental Mandibulectomy). Cortical bone invasion requires full-thickness segmental mandibulectomy. Marginal mandibulectomy is reserved for periosteal involvement without bony invasion."
+      },
+      {
+        q: "19. A patient from Southern China presents with nasal congestion, unilateral epistaxis, serous otitis media, and CN VI palsy. What primary treatment should be offered?",
+        opts: ["A. Radical Neck Dissection + COMMANDO", "B. Primary Radiotherapy ± Chemotherapy", "C. Total Parotidectomy", "D. Endoscopic sinus resection"],
+        ans: 1,
+        exp: "Correct: B. This is Nasopharyngeal Carcinoma (NPC). Surgery is NOT first-line for NPC due to anatomical location and high radiosensitivity/chemosensitivity. Primary RT ± Chemo is standard."
+      },
+      {
+        q: "20. A 60-year-old male presents with a triad of severe throat pain, referred otalgia, and progressive dysphagia. What primary cancer site is most suspect?",
+        opts: ["A. Oral Tongue", "B. Nasopharynx", "C. Hypopharynx", "D. Parotid Gland"],
+        ans: 2,
+        exp: "Correct: C (Hypopharynx). Hypopharyngeal carcinoma classically presents with the triad of throat pain, referred otalgia (via Arnold's/Jacobson's nerve), and dysphagia."
+      },
+      {
+        q: "21. According to the Rule of 80s, an adult non-thyroid lateral neck mass has an 80% probability of being:",
+        opts: ["A. Congenital", "B. Inflammatory", "C. Malignant", "D. Benign primary salivary tumor"],
+        ans: 2,
+        exp: "Correct: C (Malignant). Rule of 80s: 80% Neoplastic, 80% Malignant, 80% Metastatic, 80% From above clavicle, 80% Squamous Cell CA."
+      },
+      {
+        q: "22. According to the Rule of 7s, a neck mass that has been present for 7 years is most likely:",
+        opts: ["A. Acute bacterial abscess", "B. Metastatic Squamous Cell CA", "C. Congenital lesion", "D. High-grade lymphoma"],
+        ans: 2,
+        exp: "Correct: C (Congenital). Rule of 7s: 7 Days = Acute Infection; 7 Months = Malignancy; 7 Years = Congenital lesion (e.g., thyroglossal duct or branchial cleft cyst)."
+      },
+      {
+        q: "23. Primary tumors of the base of tongue and palatine tonsils (Oropharynx) drain primarily into which lymph node level?",
+        opts: ["A. Level I", "B. Level II (Upper Jugular)", "C. Level VI", "D. Level VII"],
+        ans: 1,
+        exp: "Correct: B (Level II). Level II upper jugular nodes serve as the primary first-echelon drainage basin for the oropharynx, nasopharynx, and parotid gland."
+      },
+      {
+        q: "24. A surgeon performs a neck dissection removing node Levels I–V along with the Sternocleidomastoid Muscle and Internal Jugular Vein, but PRESERVES the Spinal Accessory Nerve. What type of neck dissection was performed?",
+        opts: ["A. Radical Neck Dissection", "B. Modified Radical Neck Dissection Type 1", "C. Modified Radical Neck Dissection Type 2", "D. Modified Radical Neck Dissection Type 3"],
+        ans: 1,
+        exp: "Correct: B (MRND Type 1). MRND Type 1 preserves CN XI while excising SCM and IJV. Type 2 preserves CN XI and SCM. Type 3 (Functional) preserves CN XI, SCM, AND IJV."
+      },
+      {
+        q: "25. Which neck dissection technique selectively removes node Levels I, II, and III for staging a clinically N0 oral cavity carcinoma?",
+        opts: ["A. Supraomohyoid Neck Dissection", "B. Central Compartment Neck Dissection", "C. Posterolateral Neck Dissection", "D. Radical Neck Dissection"],
+        ans: 0,
+        exp: "Correct: A (Supraomohyoid Neck Dissection). Supraomohyoid ND removes levels I-III superior to the omohyoid muscle, standard for staging N0 oral cavity SCCA."
+      },
+      {
+        q: "26. Based on the inverse size-malignancy rule for salivary glands, which gland location carries the HIGHEST risk of malignancy when a mass is detected?",
+        opts: ["A. Parotid Gland", "B. Submandibular Gland", "C. Sublingual and Minor Salivary Glands", "D. Accessory Parotid Tissue"],
+        ans: 2,
+        exp: "Correct: C. Malignancy risk: Parotid ~20%, Submandibular ~40%, Sublingual/Minor glands ~60%. The smaller the gland, the higher the percentage risk of cancer."
+      },
+      {
+        q: "27. What is the most common overall benign tumor of the parotid gland?",
+        opts: ["A. Warthin's Tumor", "B. Pleomorphic Adenoma", "C. Oncocytoma", "D. Hemangioma"],
+        ans: 1,
+        exp: "Correct: B (Pleomorphic Adenoma). Pleomorphic adenoma (benign mixed tumor) accounts for ~70-80% of all benign parotid neoplasms. Warthin's tumor is #2."
+      },
+      {
+        q: "28. What is the most common malignant neoplasm of the parotid gland?",
+        opts: ["A. Adenoid Cystic Carcinoma", "B. Mucoepidermoid Carcinoma", "C. Acinic Cell Carcinoma", "D. Squamous Cell Carcinoma"],
+        ans: 1,
+        exp: "Correct: B (Mucoepidermoid Carcinoma). Mucoepidermoid CA is the #1 most common primary salivary gland malignancy in the parotid gland."
+      },
+      {
+        q: "29. During superficial parotidectomy, injury to the marginal mandibular branch of the Facial Nerve results in which clinical deficit?",
+        opts: ["A. Inability to wrinkle forehead", "B. Inability to close the eye", "C. Paralysis of lower lip depressors / facial asymmetry when smiling", "D. Loss of sensation to the earlobe"],
+        ans: 2,
+        exp: "Correct: C. The marginal mandibular branch innervates the depressor anguli oris and lower lip muscles. Injury causes weakness of lower lip depression and mouth asymmetry."
+      },
+      {
+        q: "30. What is the primary management for a 2.5 cm benign Pleomorphic Adenoma confined to the superficial lobe of the parotid gland?",
+        opts: ["A. Enucleation", "B. Superficial Parotidectomy with Facial Nerve preservation", "C. Radical Neck Dissection", "D. Primary Radiation Therapy"],
+        ans: 1,
+        exp: "Correct: B. Superficial Parotidectomy with facial nerve dissection and preservation is the gold standard for benign tumors ≤4 cm in the superficial lobe. Simple enucleation leads to high recurrence rates."
+      }
+    ];
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+
+      quizQuestions.forEach((q, qIdx) => {
+        const qCard = document.createElement('div');
+        qCard.className = 'quiz-card';
+        qCard.id = `q-card-${qIdx}`;
+
+        let optionsHTML = '';
+        q.opts.forEach((opt, oIdx) => {
+          optionsHTML += `
+            <div class="quiz-option" id="opt-${qIdx}-${oIdx}" onclick="selectAnswer(${qIdx}, ${oIdx})">
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+
+        qCard.innerHTML = `
+          <div class="quiz-q-num">QUESTION ${qIdx + 1} OF ${quizQuestions.length}</div>
+          <div class="quiz-q-text">${q.q}</div>
+          <div class="quiz-options">${optionsHTML}</div>
+          <div class="quiz-explanation" id="exp-${qIdx}"></div>
+        `;
+
+        container.appendChild(qCard);
+      });
+    }
+
+    let userAnswers = new Array(quizQuestions.length).fill(null);
+
+    function selectAnswer(qIdx, oIdx) {
+      if (userAnswers[qIdx] !== null) return; // Prevent re-selection
+
+      userAnswers[qIdx] = oIdx;
+      const q = quizQuestions[qIdx];
+      const isCorrect = oIdx === q.ans;
+
+      const selectedOptEl = document.getElementById(`opt-${qIdx}-${oIdx}`);
+      const correctOptEl = document.getElementById(`opt-${qIdx}-${q.ans}`);
+      const expEl = document.getElementById(`exp-${qIdx}`);
+
+      // Disable all options for this question
+      for (let i = 0; i < q.opts.length; i++) {
+        document.getElementById(`opt-${qIdx}-${i}`).classList.add('disabled');
+      }
+
+      if (isCorrect) {
+        selectedOptEl.classList.add('selected-correct');
+        expEl.className = 'quiz-explanation show alert-key-point';
+        expEl.innerHTML = `<strong>✅ Correct!</strong><br>${q.exp}`;
+      } else {
+        selectedOptEl.classList.add('selected-incorrect');
+        correctOptEl.classList.add('show-correct');
+        expEl.className = 'quiz-explanation show alert-danger';
+        expEl.innerHTML = `<strong>❌ Incorrect.</strong><br>${q.exp}`;
+      }
+
+      checkQuizCompletion();
+    }
+
+    function checkQuizCompletion() {
+      const allAnswered = userAnswers.every(ans => ans !== null);
+      if (allAnswered) {
+        let score = 0;
+        userAnswers.forEach((ans, idx) => {
+          if (ans === quizQuestions[idx].ans) score++;
+        });
+
+        const scoreBanner = document.getElementById('score-summary');
+        const scoreText = document.getElementById('score-text');
+        scoreText.innerText = `Your Final Score: ${score} / ${quizQuestions.length} (${Math.round((score/quizQuestions.length)*100)}%)`;
+        scoreBanner.style.display = 'block';
+        scoreBanner.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function resetQuiz() {
+      userAnswers = new Array(quizQuestions.length).fill(null);
+      document.getElementById('score-summary').style.display = 'none';
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* Initialize Applications on Load */
+    window.addEventListener('DOMContentLoaded', () => {
+      updateCard();
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>

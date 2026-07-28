@@ -1,0 +1,2500 @@
+```
+<style>
+    :root {
+        --primary: #0284c7;
+        --primary-dark: #0369a1;
+        --primary-light: #e0f2fe;
+        --secondary: #0f766e;
+        --secondary-light: #ccfbf1;
+        --accent: #6366f1;
+        --accent-light: #e0e7ff;
+        --danger: #e11d48;
+        --danger-light: #ffe4e6;
+        --warning: #d97706;
+        --warning-light: #fef3c7;
+        --success: #16a34a;
+        --success-light: #dcfce7;
+        --bg-main: #f8fafc;
+        --bg-card: #ffffff;
+        --text-main: #0f172a;
+        --text-muted: #64748b;
+        --border-color: #e2e8f0;
+        --radius-sm: 6px;
+        --radius-md: 12px;
+        --radius-lg: 18px;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --font-title: 'Syne', sans-serif;
+        --font-body: 'DM Sans', sans-serif;
+        --font-code: 'Space Mono', monospace;
+    }
+
+    body.dark-mode {
+        --bg-main: #0f172a;
+        --bg-card: #1e293b;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --border-color: #334155;
+        --primary-light: #1e3a8a;
+        --secondary-light: #134e4a;
+        --danger-light: #881337;
+        --warning-light: #78350f;
+        --success-light: #14532d;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: var(--font-body);
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        line-height: 1.6;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Progress Bar */
+    #progress-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: transparent;
+        z-index: 1000;
+    }
+
+    #progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        width: 0%;
+        transition: width 0.1s;
+    }
+
+    /* Header & Navigation */
+    header {
+        background-color: var(--bg-card);
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 900;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .header-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .brand-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: white;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-title);
+        font-weight: 800;
+        font-size: 1.2rem;
+    }
+
+    .brand-text h1 {
+        font-family: var(--font-title);
+        font-size: 1.25rem;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .brand-text p {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+    }
+
+    .header-controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .search-box {
+        position: relative;
+        width: 260px;
+    }
+
+    .search-box input {
+        width: 100%;
+        padding: 0.5rem 1rem 0.5rem 2.25rem;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-color);
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        font-size: 0.875rem;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+        border-color: var(--primary);
+    }
+
+    .search-box svg {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        fill: var(--text-muted);
+    }
+
+    .btn-toggle-theme {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 0.5rem;
+        cursor: pointer;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+    }
+
+    .btn-toggle-theme:hover {
+        background-color: var(--border-color);
+    }
+
+    /* Nav Tabs */
+    nav.nav-tabs-wrapper {
+        background-color: var(--bg-card);
+        border-bottom: 1px solid var(--border-color);
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: thin;
+    }
+
+    .nav-tabs {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        padding: 0 1.5rem;
+        list-style: none;
+    }
+
+    .nav-tab-item {
+        padding: 0.85rem 1.2rem;
+        font-family: var(--font-title);
+        font-weight: 600;
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .nav-tab-item:hover {
+        color: var(--primary);
+    }
+
+    .nav-tab-item.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+    }
+
+    .tab-badge {
+        background-color: var(--primary-light);
+        color: var(--primary);
+        font-size: 0.7rem;
+        padding: 0.15rem 0.4rem;
+        border-radius: 999px;
+        font-family: var(--font-code);
+    }
+
+    /* Main Container */
+    main {
+        max-width: 1400px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+        min-height: 80vh;
+    }
+
+    .tab-content {
+        display: none;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Section Styling */
+    .section-header {
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .section-header h2 {
+        font-family: var(--font-title);
+        font-size: 1.75rem;
+        color: var(--primary-dark);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .section-header p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+    }
+
+    /* Cards Layout */
+    .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .card {
+        background-color: var(--bg-card);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-color);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative;
+    }
+
+    .card:hover {
+        box-shadow: var(--shadow-md);
+    }
+
+    .card-accent-left {
+        border-left: 5px solid var(--primary);
+    }
+
+    .card-accent-warning {
+        border-left: 5px solid var(--warning);
+    }
+
+    .card-accent-danger {
+        border-left: 5px solid var(--danger);
+    }
+
+    .card-accent-success {
+        border-left: 5px solid var(--success);
+    }
+
+    .card-accent-secondary {
+        border-left: 5px solid var(--secondary);
+    }
+
+    .card-header-title {
+        font-family: var(--font-title);
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Callout Boxes */
+    .callout {
+        padding: 1rem 1.25rem;
+        border-radius: var(--radius-md);
+        margin: 1rem 0;
+        font-size: 0.9rem;
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+    }
+
+    .callout-icon {
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+
+    .callout-must-know {
+        background-color: var(--primary-light);
+        border: 1px solid var(--primary);
+        color: var(--text-main);
+    }
+
+    .callout-pitfall {
+        background-color: var(--danger-light);
+        border: 1px solid var(--danger);
+        color: var(--text-main);
+    }
+
+    .callout-pearl {
+        background-color: var(--secondary-light);
+        border: 1px solid var(--secondary);
+        color: var(--text-main);
+    }
+
+    .callout-tip {
+        background-color: var(--warning-light);
+        border: 1px solid var(--warning);
+        color: var(--text-main);
+    }
+
+    /* High Yield Tables */
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+        background-color: var(--bg-card);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-color);
+        margin: 1.5rem 0;
+        box-shadow: var(--shadow-sm);
+        position: relative;
+    }
+
+    .table-actions {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0.5rem 1rem;
+        background-color: var(--bg-main);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .btn-copy {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-color);
+        padding: 0.25rem 0.6rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.75rem;
+        font-family: var(--font-code);
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+        background-color: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.875rem;
+    }
+
+    th {
+        background-color: var(--primary-light);
+        color: var(--primary-dark);
+        font-family: var(--font-title);
+        font-weight: 700;
+        padding: 0.85rem 1rem;
+        border-bottom: 2px solid var(--border-color);
+        position: sticky;
+        top: 0;
+    }
+
+    td {
+        padding: 0.85rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: var(--bg-main);
+    }
+
+    tbody tr:hover {
+        background-color: var(--primary-light);
+    }
+
+    /* Badges & Tags */
+    .badge {
+        display: inline-block;
+        padding: 0.15rem 0.5rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.75rem;
+        font-weight: 600;
+        font-family: var(--font-code);
+        margin-right: 0.25rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .badge-blue { background-color: var(--primary-light); color: var(--primary-dark); }
+    .badge-green { background-color: var(--success-light); color: var(--success); }
+    .badge-red { background-color: var(--danger-light); color: var(--danger); }
+    .badge-yellow { background-color: var(--warning-light); color: var(--warning); }
+    .badge-purple { background-color: var(--accent-light); color: var(--accent); }
+
+    /* Custom Visual SVG Diagrams & Schematics */
+    .diagram-box {
+        background-color: var(--bg-main);
+        border: 1px dashed var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        text-align: center;
+    }
+
+    .diagram-title {
+        font-family: var(--font-title);
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    /* Flashcards Engine */
+    .fc-container {
+        max-width: 650px;
+        margin: 0 auto;
+        perspective: 1000px;
+    }
+
+    .flashcard {
+        width: 100%;
+        min-height: 320px;
+        background-color: var(--bg-card);
+        border: 2px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        cursor: pointer;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2.5rem;
+        text-align: center;
+    }
+
+    .flashcard.flipped {
+        transform: rotateY(180deg);
+    }
+
+    .fc-front, .fc-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        top: 0;
+        left: 0;
+    }
+
+    .fc-back {
+        transform: rotateY(180deg);
+        background-color: var(--primary-light);
+        color: var(--text-main);
+    }
+
+    .fc-category {
+        position: absolute;
+        top: 1.25rem;
+        left: 1.25rem;
+        font-family: var(--font-code);
+        font-size: 0.75rem;
+        color: var(--primary);
+        background: var(--bg-main);
+        padding: 0.25rem 0.6rem;
+        border-radius: 999px;
+        border: 1px solid var(--border-color);
+    }
+
+    .fc-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .btn-action {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.6rem 1.25rem;
+        border-radius: var(--radius-md);
+        font-family: var(--font-title);
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .btn-action:hover {
+        opacity: 0.9;
+    }
+
+    .btn-action-outline {
+        background-color: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-main);
+    }
+
+    .btn-action-outline:hover {
+        background-color: var(--border-color);
+    }
+
+    /* MCQ Engine */
+    .mcq-card {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .mcq-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .mcq-number {
+        font-family: var(--font-code);
+        font-weight: 700;
+        color: var(--primary);
+        font-size: 0.9rem;
+    }
+
+    .mcq-question {
+        font-family: var(--font-title);
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+    }
+
+    .mcq-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+    }
+
+    .mcq-option {
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .mcq-option:hover {
+        background-color: var(--bg-main);
+        border-color: var(--primary);
+    }
+
+    .mcq-option.selected {
+        border-color: var(--primary);
+        background-color: var(--primary-light);
+    }
+
+    .mcq-option.correct {
+        border-color: var(--success);
+        background-color: var(--success-light);
+        color: var(--success-dark);
+        font-weight: 600;
+    }
+
+    .mcq-option.incorrect {
+        border-color: var(--danger);
+        background-color: var(--danger-light);
+        color: var(--danger-dark);
+    }
+
+    .mcq-explanation {
+        display: none;
+        padding: 1rem;
+        border-radius: var(--radius-sm);
+        background-color: var(--bg-main);
+        border-left: 4px solid var(--primary);
+        font-size: 0.875rem;
+        margin-top: 1rem;
+    }
+
+    /* Floating Scroll Top */
+    #btn-scroll-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        box-shadow: var(--shadow-lg);
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 800;
+        transition: transform 0.2s;
+    }
+
+    #btn-scroll-top:hover {
+        transform: translateY(-3px);
+    }
+
+    /* Printable Layout */
+    @media print {
+        header, nav, .btn-action, #btn-scroll-top, .search-box {
+            display: none !important;
+        }
+        .tab-content {
+            display: block !important;
+        }
+        body {
+            background: white;
+            color: black;
+        }
+        .card {
+            break-inside: avoid;
+            border: 1px solid #ccc;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .grid-2, .grid-3 {
+            grid-template-columns: 1fr;
+        }
+        .search-box {
+            width: 100%;
+        }
+        .header-container {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+</style>
+
+```
+
+```
+<!-- Scroll Progress Indicator -->
+<div id="progress-container">
+    <div id="progress-bar"></div>
+</div>
+
+<!-- Header Navigation -->
+<header>
+    <div class="header-container">
+        <div class="brand">
+            <div class="brand-icon">S2</div>
+            <div class="brand-text">
+                <h1>Skin & Soft Tissue Reviewer</h1>
+                <p>Surgery II • Dr. Vicente Francisco Que Firmalo • Board Level</p>
+            </div>
+        </div>
+
+        <div class="header-controls">
+            <div class="search-box">
+                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                <input type="text" id="global-search" placeholder="Search concepts, tumors, drugs...">
+            </div>
+            <button class="btn-toggle-theme" id="theme-toggle" title="Toggle Dark Mode">
+                🌙
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Nav Tabs Navigation -->
+<nav class="nav-tabs-wrapper">
+    <ul class="nav-tabs">
+        <li class="nav-tab-item active" data-tab="tab-overview">Overview <span class="tab-badge">Core</span></li>
+        <li class="nav-tab-item" data-tab="tab-anatomy">Anatomy & Histology <span class="tab-badge">01</span></li>
+        <li class="nav-tab-item" data-tab="tab-inflammatory">Inflammatory Lesions <span class="tab-badge">02</span></li>
+        <li class="nav-tab-item" data-tab="tab-injuries">Skin Injuries <span class="tab-badge">03</span></li>
+        <li class="nav-tab-item" data-tab="tab-infections">Bacterial & Viral <span class="tab-badge">04</span></li>
+        <li class="nav-tab-item" data-tab="tab-benign">Benign Tumors <span class="tab-badge">05</span></li>
+        <li class="nav-tab-item" data-tab="tab-malignant">Malignant Tumors <span class="tab-badge">06</span></li>
+        <li class="nav-tab-item" data-tab="tab-comparisons">Comparisons <span class="tab-badge">VS</span></li>
+        <li class="nav-tab-item" data-tab="tab-flashcards">Flashcards <span class="tab-badge" id="fc-count">50</span></li>
+        <li class="nav-tab-item" data-tab="tab-assessment">Self-Assessment <span class="tab-badge">50 MCQs</span></li>
+        <li class="nav-tab-item" data-tab="tab-cram">Cram Sheet ⚡</li>
+    </ul>
+</nav>
+
+<!-- Main Container -->
+<main>
+
+    <!-- TAB 1: OVERVIEW -->
+    <section id="tab-overview" class="tab-content active">
+        <div class="section-header">
+            <h2>High-Yield Executive Summary</h2>
+            <p>Comprehensive, exam-focused orientation on Skin and Soft Tissue Lesions & Tumors (Surgery II - Dr. Firmalo).</p>
+        </div>
+
+        <div class="grid-2">
+            <div class="card card-accent-left">
+                <div class="card-header-title">
+                    <span>🎯 Learning Objectives</span>
+                </div>
+                <ul style="padding-left: 1.2rem; font-size: 0.9rem;">
+                    <li>Review the detailed anatomy, histology, vascularity, and appendages of the skin.</li>
+                    <li>Differentiate inflammatory skin conditions (Hidradenitis Suppurativa, Pyoderma Gangrenosum, SJS/TEN).</li>
+                    <li>Evaluate radiation, mechanical trauma, caustic chemical burns, thermal injuries, and pressure ulcers.</li>
+                    <li>Master uncomplicated vs. complicated bacterial soft tissue infections (NSTIs, Fournier's) & viral surgical lesions.</li>
+                    <li>Identify benign neoplasms (Hemangioma, Nevi, Cysts, Keratoses, Soft tissue & Neural tumors).</li>
+                    <li>Formulate diagnostic and surgical management plans for malignant cutaneous tumors (BCC, SCC, Melanoma, Merkel Cell, DFSP, Angiosarcoma, EMPD).</li>
+                </ul>
+            </div>
+
+            <div class="card card-accent-secondary">
+                <div class="card-header-title">
+                    <span>📊 Key Metrics & Surgical Axioms</span>
+                </div>
+                <div style="font-size: 0.9rem;">
+                    <p><strong>Skin Weight:</strong> Comprises <strong>15%</strong> of total body weight.</p>
+                    <p><strong>Epidermal Renewal:</strong> 30-day keratinocyte life cycle; completely avascular (diffusion-dependent).</p>
+                    <p><strong>Dermal Collagen Ratio:</strong> Type I to Type III collagen in <strong>4:1 ratio</strong> (mechanical toughness & retractile memory).</p>
+                    <p><strong>Pressure Necrosis Threshold:</strong> Microvascular capillary pressure = <strong>30 mmHg</strong> (pressures above this cause ischemia).</p>
+                    <p><strong>Burn Mortality:</strong> Caustic injuries account for 10.7% of burns but <strong>30% of all burn deaths</strong>.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout callout-must-know">
+            <div class="callout-icon">⭐</div>
+            <div>
+                <strong>Primary Source of Truth:</strong> This reviewer strictly mirrors the lecture by Dr. Vicente Francisco Que Firmalo, MD. All board-relevant facts, precise surgical excision margins, staining markers (CD34, CK-20, S100), and specific antidotes are categorized for direct application in the Physician Licensure Examination (PLE).
+            </div>
+        </div>
+
+        <div class="section-header" style="margin-top: 2rem;">
+            <h3>Core Concepts at a Glance</h3>
+        </div>
+
+        <div class="table-container">
+            <div class="table-actions">
+                <button class="btn-copy" onclick="copyTable('summary-table')">Copy Table</button>
+            </div>
+            <table id="summary-table">
+                <thead>
+                    <tr>
+                        <th>Condition / Entity</th>
+                        <th>Pathophysiology / Key Marker</th>
+                        <th>Classic Clinical Presentation</th>
+                        <th>First-Line Surgical / Medical Management</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Hidradenitis Suppurativa</strong></td>
+                        <td>Occlusion & inflammation of pilosebaceous unit (apocrine areas)</td>
+                        <td>Tender deep nodules, sinus tracts, foul purulent drainage in axilla/groin</td>
+                        <td>Stage 1: Clindamycin; Stage 3: Radical excision + reconstructive flap/STSG + TNF-alpha inhibitors</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pyoderma Gangrenosum</strong></td>
+                        <td>Neutrophilic dermatosis; TNF-alpha pathway; associated with IBD/RA</td>
+                        <td>Painful sterile pustules expanding to ulcers with <strong>purple/violaceous borders</strong></td>
+                        <td>Treat underlying IBD + systemic steroids / Cyclosporine / Infliximab (pathergy risk)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Epidermal Necrolysis (SJS/TEN)</strong></td>
+                        <td>Dermoepidermal junction destruction, drug-induced apoptosis</td>
+                        <td><strong>(+) Nikolsky sign</strong>, mucosal erosion, flaccid bullae, >30% TBSA = TEN</td>
+                        <td>Stop offending drug + non-sulfonamide silver dressings + euvolemia + enteral nutrition</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Basal Cell Carcinoma (BCC)</strong></td>
+                        <td>Basal keratinocyte mutation (p53 in 50%); UVB exposure</td>
+                        <td>Pearly pink papule with telangiectasia, central rolled ulcer ("rodent ulcer")</td>
+                        <td>Excision with 4 mm margins (low risk); Mohs surgery (Morpheaform / high risk)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Squamous Cell Carcinoma (SCC)</strong></td>
+                        <td>Atypical keratinocytes; UV radiation, Marjolin's ulcer (burn scar)</td>
+                        <td>Erythematous scaly plaque or ulcerated non-healing lesion</td>
+                        <td>Excision with 4 mm margins (low risk) or 6 mm margins (high risk); LN dissection if (+)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Malignant Melanoma</strong></td>
+                        <td>Melanocyte malignancy; dermoepidermal junction; BRAF/p16</td>
+                        <td>ABCDE criteria (Asymmetry, Border, Color, Diameter, Evolution)</td>
+                        <td>Wide local excision based on Breslow thickness + Sentinel Lymph Node Biopsy (SLNB)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Merkel Cell Carcinoma</strong></td>
+                        <td>Neuroendocrine tumor; <strong>CK-20 positive</strong> (dot-like pattern)</td>
+                        <td>Rapidly expanding violaceous/red painless papule in elderly</td>
+                        <td>Wide excision with 1-3 cm margins down to fascia + radiation therapy</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DFSP</strong></td>
+                        <td>Fibroblastic low-grade sarcoma; <strong>CD34 positive</strong></td>
+                        <td>Indurated violaceous plaque on trunk; finger-like deep projection</td>
+                        <td>Wide excision with 3 cm margins down to fascia or Mohs; Imatinib for advanced cases</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- TAB 2: ANATOMY & HISTOLOGY -->
+    <section id="tab-anatomy" class="tab-content">
+        <div class="section-header">
+            <h2>01. Review of Skin Anatomy, Histology & Physiology</h2>
+            <p>Complete breakdown of the Epidermis, Dermis, Hypodermis, Cellular Components, and Appendages.</p>
+        </div>
+
+        <!-- CSS/SVG Skin Layers Diagram -->
+        <div class="diagram-box">
+            <div class="diagram-title">Cross-Sectional Schematic of Cutaneous Layers & Vascular Plexuses</div>
+            <svg viewBox="0 0 800 320" width="100%" height="240" style="max-width: 800px; font-family: var(--font-code); font-size: 12px;">
+                <!-- Epidermis -->
+                <rect x="50" y="20" width="700" height="50" fill="#fbcfe8" stroke="#f43f5e" stroke-width="2" rx="4"/>
+                <text x="60" y="45" fill="#9f1239" font-weight="bold">EPIDERMIS (Avascular, 30-day life cycle, Ectoderm)</text>
+                <text x="500" y="45" fill="#be123c">Eyelid: 75-150 µm | Palms/Soles: 0.4-1.5 mm</text>
+                
+                <!-- Dermoepidermal Junction -->
+                <line x1="50" y1="70" x2="750" y2="70" stroke="#e11d48" stroke-dasharray="4,4" stroke-width="2"/>
+                
+                <!-- Papillary Dermis -->
+                <rect x="50" y="70" width="700" height="70" fill="#fed7aa" stroke="#f97316" stroke-width="2"/>
+                <text x="60" y="95" fill="#c2410c" font-weight="bold">PAPILLARY DERMIS (Mesoderm - Rete Ridges & Loose Fibroblasts)</text>
+                <!-- Superficial Subpapillary Plexus -->
+                <circle cx="150" cy="120" r="6" fill="#ef4444"/><circle cx="170" cy="120" r="6" fill="#3b82f6"/>
+                <circle cx="350" cy="120" r="6" fill="#ef4444"/><circle cx="370" cy="120" r="6" fill="#3b82f6"/>
+                <text x="400" y="125" fill="#9a3412">Superficial Subpapillary Vascular Plexus</text>
+
+                <!-- Reticular Dermis -->
+                <rect x="50" y="140" width="700" height="90" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
+                <text x="60" y="165" fill="#c2410c" font-weight="bold">RETICULAR DERMIS (Coarse Network - 80-90% Type I Collagen; Elastic Fibers)</text>
+                <!-- Deep Dermal Plexus -->
+                <circle cx="200" cy="210" r="8" fill="#ef4444"/><circle cx="225" cy="210" r="8" fill="#3b82f6"/>
+                <text x="245" y="215" fill="#9a3412">Deep Dermal Plexus (Junction of Reticular Dermis & Hypodermis)</text>
+
+                <!-- Hypodermis -->
+                <rect x="50" y="230" width="700" height="60" fill="#fef08a" stroke="#ca8a04" stroke-width="2" rx="4"/>
+                <text x="60" y="265" fill="#854d0e" font-weight="bold">HYPODERMIS / SUBCUTIS (Subcutaneous Fat, Insulation, Energy, Gliding)</text>
+            </svg>
+        </div>
+
+        <div class="grid-2">
+            <!-- Epidermis Breakdown -->
+            <div class="card card-accent-left">
+                <div class="card-header-title">
+                    <span>1. Epidermis (5 Layers)</span>
+                    <span class="badge badge-blue">Avascular</span>
+                </div>
+                <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">Obtains all nutrients via diffusion from dermal vessels. Contains 5 distinct strata (deep to superficial):</p>
+                <ol style="padding-left: 1.2rem; font-size: 0.875rem; line-height: 1.8;">
+                    <li><strong>Stratum Basale (Germinativum):</strong> Deepest layer; cuboidal/columnar cells bound by desmosomes. High mitotic index, large basophilic nuclei. Continuous epidermal replication. Origin of <strong>melanocytes</strong>.</li>
+                    <li><strong>Stratum Spinosum ("Spiny Layer"):</strong> Characteristic spinous appearance due to desmosomal attachments. Active keratin production. <strong>Langerhans cells</strong> interdigitate here.</li>
+                    <li><strong>Stratum Granulosum:</strong> Contains lamellar granules packed with lipids and glycolipids that undergo exocytosis to form an impermeable lipid layer.</li>
+                    <li><strong>Stratum Lucidum:</strong> Flat, translucent, dead keratinocytes. Present <strong>ONLY in thick skin</strong> (palms and soles).</li>
+                    <li><strong>Stratum Corneum:</strong> Outermost thinnest layer of anucleate keratinocytes surrounded by a lipid-rich matrix. Protects against shear, mechanical disruption, and insensible water loss.</li>
+                </ol>
+                <div class="callout callout-tip" style="margin-top: 1rem;">
+                    <div class="callout-icon">🧠</div>
+                    <div><strong>Mnemonic (Superficial to Deep):</strong> <strong>C</strong>ome, <strong>L</strong>et's <strong>G</strong>et <strong>S</strong>un <strong>B</strong>urned (Corneum, Lucidum, Granulosum, Spinosum, Basale).</div>
+                </div>
+            </div>
+
+            <!-- Cellular Components -->
+            <div class="card card-accent-secondary">
+                <div class="card-header-title">
+                    <span>2. Specific Epidermal Cells</span>
+                    <span class="badge badge-purple">Histology</span>
+                </div>
+                <ul style="padding-left: 1.2rem; font-size: 0.875rem; line-height: 1.8;">
+                    <li><strong>Keratinocytes:</strong> Basic functional building blocks of skin. Undergo 30-day maturation cycle.</li>
+                    <li><strong>Melanocytes:</strong> Neural crest-derived cells residing in <strong>stratum basale</strong> (500–2,000/mm²). Produce melanin to shield nuclear DNA from UV damage.
+                        <br><em>Staining markers:</em> Express <strong>S100 protein, BCL2, and Vimentin</strong>.
+                        <br><em>Clinical note:</em> Filipinos have higher melanin density than Caucasians, resulting in lower baseline rates of skin cancer.
+                    </li>
+                    <li><strong>Langerhans Cells:</strong> Dendritic immunologic antigen-presenting cells (3–6% of epidermal cells) located in <strong>stratum spinosum</strong>. Readily impaired by UV radiation.</li>
+                    <li><strong>Merkel Cells:</strong> Mechanoreceptors for light touch/tactile perception. Aggregated in fingertips, lips, hair follicle bases. Origin of <strong>Merkel Cell Carcinoma</strong>.</li>
+                    <li><strong>Toker Cells:</strong> Specialized clear cells present in 10% of nipple epidermis; potential cell of origin for Paget's Disease of the Nipple.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Epidermal Appendages -->
+            <div class="card card-accent-warning">
+                <div class="card-header-title">
+                    <span>3. Epidermal Appendages</span>
+                    <span class="badge badge-yellow">Ectodermal</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <p><strong>Sweat Glands (Exocrine Tubular):</strong> Embryologically derived from ectoderm; bulk sits in dermis.</p>
+                    <ul style="padding-left: 1.2rem; margin-bottom: 0.75rem;">
+                        <li><strong>Eccrine Glands:</strong> Majority of body surface; essential for thermoregulation. Excrete solids via <strong>exocytosis</strong>.</li>
+                        <li><strong>Apocrine Glands:</strong> Axilla, perineum, anus, areola, eyelids, external auditory canal. Excretion involves <strong>decapitation of apical cell portion</strong>.</li>
+                        <li><strong>Apoeccrine Glands:</strong> Open directly to skin surface; become functional at puberty.</li>
+                    </ul>
+                    <p><strong>Pilosebaceous Unit:</strong> Multicomponent structure consisting of <em>hair follicle, sebaceous gland, arrector pili muscle, and sensory nerve</em>.
+                    <br>⭐ <em>Crucial Surgical Concept:</em> Lined by germinal epithelium; serves as the <strong>primary source of epidermal re-epithelialization</strong> following partial-thickness injuries!</p>
+                </div>
+            </div>
+
+            <!-- Dermis & Innervation -->
+            <div class="card card-accent-success">
+                <div class="card-header-title">
+                    <span>4. Dermis & Vascularity</span>
+                    <span class="badge badge-green">Mesodermal</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <p><strong>Dermal Collagen:</strong> Type I & Type III collagen in <strong>4:1 ratio</strong>. Type I is stiffer (skin, bone, tendons); Type III is flexible (skin, vascular walls).</p>
+                    <p><strong>Dermal Layers:</strong></p>
+                    <ul style="padding-left: 1.2rem; margin-bottom: 0.5rem;">
+                        <li><em>Papillary Layer:</em> Interdigitates with epidermal rete ridges; contains loose fibroblasts and high cell density.</li>
+                        <li><em>Reticular Layer:</em> Deep 80-90% of dermis; coarse network of Type I collagen and elastic fibers responsible for skin retractility.</li>
+                    </ul>
+                    <p><strong>Fibroblasts & Myofibroblasts:</strong> Workhorse of wound healing; myofibroblasts drive wound contraction.</p>
+                    <p><strong>Dual Vascular Plexus:</strong></p>
+                    <ul style="padding-left: 1.2rem;">
+                        <li><em>Superficial Subpapillary Plexus:</em> Located between papillary and reticular dermis.</li>
+                        <li><em>Deep Dermal Plexus:</em> Located at dermal-hypodermal junction.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout callout-pearl">
+            <div class="callout-icon">💡</div>
+            <div>
+                <strong>Surgical Pearl (Skin Grafting Principles):</strong> When performing Split-Thickness Skin Grafting (STSG), removing the epidermis and superficial papillary dermis leaves the deep dermal plexus and pilosebaceous units intact at the donor site. This allows rapid spontaneous re-epithelialization without secondary defect creation.
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 3: INFLAMMATORY CONDITIONS -->
+    <section id="tab-inflammatory" class="tab-content">
+        <div class="section-header">
+            <h2>02. Inflammatory Skin Pathologies</h2>
+            <p>In-depth coverage of Hidradenitis Suppurativa, Pyoderma Gangrenosum, and Epidermal Necrolysis (SJS/TEN).</p>
+        </div>
+
+        <div class="grid-3">
+            <!-- Hidradenitis Suppurativa -->
+            <div class="card card-accent-danger">
+                <div class="card-header-title">
+                    <span>Hidradenitis Suppurativa</span>
+                    <span class="badge badge-red">Acne Inversa</span>
+                </div>
+                <div style="font-size: 0.875rem; line-height: 1.7;">
+                    <p><strong>Definition:</strong> Chronic, painful inflammatory disorder of apocrine gland-bearing skin characterized by deep nodules, recurrent abscesses, and subterranean sinus tracts.</p>
+                    <p><strong>Sites:</strong> Axilla, perineum, inguinoperineal folds, inframammary regions (Female:Male = 3:2).</p>
+                    <p><strong>Pathophysiology:</strong> Inward follicular occlusion, sebaceous gland atrophy, TNF-alpha / IL-12 / IL-23 dysregulation. Exacerbated by obesity, smoking, and diabetes.</p>
+                    
+                    <div style="margin: 0.75rem 0; background: var(--bg-main); padding: 0.5rem; border-radius: var(--radius-sm);">
+                        <strong>Hurley Staging & Management:</strong>
+                        <ul style="padding-left: 1rem; font-size: 0.8rem;">
+                            <li><strong>Stage 1:</strong> Solitary/multiple abscesses, NO sinus tracts/scarring. <br>→ <em>Tx:</em> Topical & systemic Clindamycin.</li>
+                            <li><strong>Stage 2:</strong> Recurrent abscesses with sinus tracts & scarring. <br>→ <em>Tx:</em> Antibiotics insufficient alone; radical resection / biologics / reconstruction.</li>
+                            <li><strong>Stage 3:</strong> Diffuse interconnected sinus tracts across whole region. <br>→ <em>Tx:</em> Wide radical excision + local flaps / STSG + Biologics (Adalimumab/Infliximab).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pyoderma Gangrenosum -->
+            <div class="card card-accent-warning">
+                <div class="card-header-title">
+                    <span>Pyoderma Gangrenosum</span>
+                    <span class="badge badge-yellow">Violaceous Edge</span>
+                </div>
+                <div style="font-size: 0.875rem; line-height: 1.7;">
+                    <p><strong>Definition:</strong> Non-infectious, destructive inflammatory neutrophilic dermatosis (5th to 7th decades of life).</p>
+                    <p><strong>Clinical Hallmarks:</strong> Starts as sterile pustules that rapidly breakdown into painful, expanding ulcerations with <strong>raised, purple/violaceous overhanging borders</strong>. Most common site: <strong>Legs</strong>.</p>
+                    <p><strong>Systemic Associations:</strong> Strongly tied to <strong>Inflammatory Bowel Disease (Crohn's, Ulcerative Colitis)</strong>, Rheumatoid Arthritis, and Hematologic malignancies.</p>
+                    <p><strong>Management:</strong> Primary mainstay is medical: treat underlying systemic condition + high-dose corticosteroids, Cyclosporine, or anti-TNF agents (Infliximab, Etanercept, Ustekinumab). Surgical debridement must be cautious due to <em>pathergy</em>.</p>
+                </div>
+            </div>
+
+            <!-- Epidermal Necrolysis -->
+            <div class="card card-accent-left">
+                <div class="card-header-title">
+                    <span>Epidermal Necrolysis</span>
+                    <span class="badge badge-blue">SJS / TEN</span>
+                </div>
+                <div style="font-size: 0.875rem; line-height: 1.7;">
+                    <p><strong>Definition:</strong> Severe acute mucocutaneous reaction causing apoptosis and extensive detachment at the dermoepidermal junction. 90% mucosal involvement (oral, ocular, genital).</p>
+                    <p><strong>TBSA Spectrum:</strong></p>
+                    <ul style="padding-left: 1rem; font-size: 0.8rem;">
+                        <li><strong>SJS:</strong> &lt;10% Body Surface Area detachment.</li>
+                        <li><strong>SJS/TEN Overlap:</strong> 10%–30% TBSA.</li>
+                        <li><strong>TEN:</strong> &gt;30% TBSA sloughing.</li>
+                    </ul>
+                    <p><strong>Key Physical Sign:</strong> <strong>(+) Nikolsky Sign</strong> — lateral finger pressure causes sloughing of epidermis from dermis.</p>
+                    <p><strong>Etiology & Drugs:</strong> Presents ~8 weeks after exposure to high-risk drugs: <em>Aromatic Anticonvulsants (Carbamazepine, Phenytoin), Sulfonamides (Co-trimoxazole), Allopurinol, NSAIDs, Nevirapine</em>.</p>
+                    <p><strong>Treatment:</strong> Immediate withdrawal of offending drug, burn-unit support, non-sulfonamide antimicrobial dressings, maintain euvolemia, early enteral nutrition.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout callout-pitfall">
+            <div class="callout-icon">⚠️</div>
+            <div>
+                <strong>Exam Pitfall (Epidermal Necrolysis Therapy):</strong> Never administer Sulfonamide antibiotics to a patient suffering from TEN/SJS! If an infectious complication arises in TEN, select non-sulfonamide, non-cross-reacting broad-spectrum antimicrobials. Systemic steroids in TEN remain controversial due to increased sepsis risk.
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 4: SKIN INJURIES -->
+    <section id="tab-injuries" class="tab-content">
+        <div class="section-header">
+            <h2>03. Radiation, Trauma, Caustic, Thermal & Pressure Injuries</h2>
+            <p>Complete physical breakdown of skin trauma and burn wound mechanics.</p>
+        </div>
+
+        <div class="grid-2">
+            <!-- Radiation Injuries -->
+            <div class="card card-accent-left">
+                <div class="card-header-title">
+                    <span>1. Radiation-Induced Injuries</span>
+                    <span class="badge badge-blue">UVA / UVB</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <p><strong>UVA (320–400 nm):</strong> Represents 95% of UV rays reaching Earth. Longer wavelength → penetrates deep into the <strong>reticular dermis</strong> (20-30%). Causes <em>photooxidation of pre-existing melanin</em> leading to immediate pigmentation, melasma, actinic lentigines, and post-inflammatory hyperpigmentation.</p>
+                    <p><strong>UVB (290–320 nm):</strong> Shorter wavelength → mostly absorbed in epidermis (&lt;10% reaches papillary dermis). Induces <em>neomelanization</em> (synthesis of new melanin) and direct DNA damage (primary sunburn/cancer wave).</p>
+                    <p><strong>Therapeutic Radiation:</strong> Used for malignancies, keloids, psoriasis. Causes basal keratinocyte and fibroblast destruction → chronic erythema, radiation fibrosis, non-healing ulcers. Surgical excision must encompass collateral irradiated surrounding tissue!</p>
+                </div>
+            </div>
+
+            <!-- Bite Wounds -->
+            <div class="card card-accent-warning">
+                <div class="card-header-title">
+                    <span>2. Trauma & Bite Wounds</span>
+                    <span class="badge badge-yellow">Microbiology</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <p><strong>Wound Depth Axiom:</strong> Partial-thickness mechanical injuries preserve pilosebaceous units and heal spontaneously if kept clean and moist. Full-thickness injuries obliterate germinal epithelium and demand skin grafting or flap coverage.</p>
+                    <p><strong>Bite Microbiology Clues:</strong> Polymicrobial early; single pathogen late.</p>
+                    <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                        <li><strong>Human Bites:</strong> High bacterial load! <em>S. aureus, S. epidermidis, Peptococcus</em>.</li>
+                        <li><strong>Cat Bites:</strong> <em>Pasteurella multocida</em> (high rate of rapid cellulitis).</li>
+                        <li><strong>Dog Bites:</strong> <em>Capnocytophaga canimorsus</em> (severe sepsis in splenectomized/immunocompromised).</li>
+                    </ul>
+                    <p><strong>Prophylaxis:</strong> <strong>Amoxicillin-clavulanate</strong> (1st line), Doxycycline, or Clindamycin + Ciprofloxacin for 3-7 days.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Caustic Chemical Injuries -->
+            <div class="card card-accent-danger">
+                <div class="card-header-title">
+                    <span>3. Caustic Chemical Injuries</span>
+                    <span class="badge badge-red">Acid vs Alkaline</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <p>Chemical burns comprise 10.7% of all burns but cause <strong>30% of burn deaths</strong>!</p>
+                    <p><strong>Alkaline (Basic) Solutions:</strong> MORE severe than acids! Cause <strong>Liquefactive Necrosis</strong> — saponifies tissue lipids and dissolves proteins, leaving no protective barrier, resulting in continuous deep tissue melting.</p>
+                    <p><strong>Acidic Solutions:</strong> Cause <strong>Coagulative Necrosis</strong> — forms a hard, thick eschar/coagulum that self-limits deeper penetration.</p>
+                    <p>⭐ <em>Mandatory First-Line Treatment:</em> Immediate copous water/saline irrigation. Acid burns: <strong>30 minutes</strong>; Alkaline burns: <strong>2 hours</strong> minimum. <strong>NEVER NEUTRALIZE</strong> (chemical neutralization generates an exothermic reaction that drastically deepens tissue destruction!).</p>
+                    
+                    <div style="margin-top: 0.5rem; background: var(--bg-main); padding: 0.5rem; border-radius: var(--radius-sm);">
+                        <strong>Specific Chemical Antidotes:</strong>
+                        <ul style="padding-left: 1rem; font-size: 0.8rem;">
+                            <li><strong>Hydrofluoric Acid:</strong> Neutralize with <strong>Calcium Gluconate</strong>.</li>
+                            <li><strong>Phenol Burns:</strong> Wash with <strong>Polyethylene Glycol (PEG)</strong>.</li>
+                            <li><strong>Chemotherapy Extravasation:</strong> Conservative initial observation until clear tissue demarcation, then debridement + grafting.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thermal Injuries & Jackson's Zones -->
+            <div class="card card-accent-secondary">
+                <div class="card-header-title">
+                    <span>4. Thermal Injuries & Zones</span>
+                    <span class="badge badge-purple">Jackson's Zones</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <p>Full-thickness destruction occurs in <strong>&lt;1 second at temperatures &gt;80°C</strong>.</p>
+                    
+                    <!-- Jackson's Zones Schematic -->
+                    <div style="margin: 0.75rem 0; text-align: center; background: var(--bg-main); padding: 0.75rem; border-radius: var(--radius-sm);">
+                        <div style="display: flex; gap: 4px; height: 35px; text-align: center; font-family: var(--font-code); font-size: 0.75rem; font-weight: bold;">
+                            <div style="flex: 1; background: #fda4af; color: #9f1239; line-height: 35px;">Hyperemia</div>
+                            <div style="flex: 1; background: #fde047; color: #713f12; line-height: 35px;">Stasis (Threatened)</div>
+                            <div style="flex: 1; background: #ef4444; color: white; line-height: 35px;">Coagulation</div>
+                            <div style="flex: 1; background: #fde047; color: #713f12; line-height: 35px;">Stasis (Threatened)</div>
+                            <div style="flex: 1; background: #fda4af; color: #9f1239; line-height: 35px;">Hyperemia</div>
+                        </div>
+                    </div>
+
+                    <ul style="padding-left: 1.2rem;">
+                        <li><strong>Zone of Coagulation:</strong> Innermost core; irreversible necrotic tissue. Requires surgical debridement.</li>
+                        <li><strong>Zone of Stasis:</strong> Middle zone of vascular compromise and sluggish perfusion. Tissue is <em>at risk</em>; can recover or progress to necrosis over 3-4 days depending on resuscitation!</li>
+                        <li><strong>Zone of Hyperemia:</strong> Outermost zone; characterized by intense inflammation. Tissue remains fully viable.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pressure Injuries -->
+        <div class="card card-accent-success" style="margin-top: 1.5rem;">
+            <div class="card-header-title">
+                <span>5. Pressure Injuries (Decubitus Ulcers)</span>
+                <span class="badge badge-green">Capillary Pressure = 30 mmHg</span>
+            </div>
+            <div style="font-size: 0.875rem;">
+                <p>Occur in 22–49% of critically ill ICU patients over bony prominences (Sacrum, Ischium, Coccyx, Malleolus). Normal skin microvascular capillary perfusion pressure = <strong>30 mmHg</strong>. Pressures exceeding 30 mmHg lead to microvascular occlusion and tissue ischemia.</p>
+                
+                <div class="grid-2" style="margin-top: 1rem;">
+                    <div>
+                        <strong>Official Staging Criteria:</strong>
+                        <ul style="padding-left: 1.2rem; font-size: 0.8rem; line-height: 1.8;">
+                            <li><strong>Stage 1:</strong> Non-blanchable erythema over intact skin.</li>
+                            <li><strong>Stage 2:</strong> Partial-thickness skin loss with exposed dermis or intact/ruptured serum blisters.</li>
+                            <li><strong>Stage 3:</strong> Full-thickness skin loss extending down to (but NOT through) underlying fascia.</li>
+                            <li><strong>Stage 4:</strong> Full-thickness skin and tissue loss with direct exposure/palpation of bone, tendon, muscle, or joint capsule.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Management & Surgical Rules:</strong>
+                        <ul style="padding-left: 1.2rem; font-size: 0.8rem; line-height: 1.8;">
+                            <li>⭐ Reposition patient <strong>every 2 hours (q2h)</strong>; use off-loading mattresses.</li>
+                            <li>Nutritional buildup is essential (hypoalbuminemia severely impairs healing).</li>
+                            <li>Fever in chronic pressure ulcer patients is most commonly from <em>urinary or pulmonary sources</em>, not the ulcer itself!</li>
+                            <li>Stage 3 or 4 ulcers do NOT automatically mandate surgery. Surgical goals: wide debridement, pseudobursa excision, ostectomy of involved bone, and tension-free vascularized flap closure.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 5: BACTERIAL & VIRAL INFECTIONS -->
+    <section id="tab-infections" class="tab-content">
+        <div class="section-header">
+            <h2>04. Cutaneous Bacterial & Viral Pathologies</h2>
+            <p>Uncomplicated vs. Complicated Infections, Necrotizing Soft Tissue Infections (NSTIs), Actinomycosis, HPV, and HIV skin surgical lesions.</p>
+        </div>
+
+        <div class="grid-2">
+            <!-- Uncomplicated Bacterial Infections -->
+            <div class="card card-accent-left">
+                <div class="card-header-title">
+                    <span>1. Uncomplicated Infections</span>
+                    <span class="badge badge-blue">&lt;75 cm² Area</span>
+                </div>
+                <ul style="padding-left: 1.2rem; font-size: 0.875rem; line-height: 1.8;">
+                    <li><strong>Impetigo:</strong> Superficial vesiculopustular infection with classic <strong>honey-colored crusting</strong>.</li>
+                    <li><strong>Erysipelas:</strong> Acute lymphatic infection restricted to the upper papillary dermis; raised, sharply demarcated borders.</li>
+                    <li><strong>Cellulitis:</strong> Infection extending into deep dermis and subcutaneous tissue; ill-defined non-demarcated erythema.</li>
+                    <li><strong>Folliculitis:</strong> Localized infection of hair follicle.</li>
+                    <li><strong>Furuncle (Boil):</strong> Painful purulent nodule originating from a hair follicle.</li>
+                    <li><strong>Carbuncle:</strong> Coalescence of multiple adjacent furuncles presenting with <strong>multiple draining sinus tracts</strong>.</li>
+                </ul>
+            </div>
+
+            <!-- Necrotizing Soft Tissue Infections -->
+            <div class="card card-accent-danger">
+                <div class="card-header-title">
+                    <span>2. Necrotizing Soft Tissue Infections (NSTI)</span>
+                    <span class="badge badge-red">Surgical Emergency</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <p>Complicated infections (&gt;75 cm² or deep fascia involvement) carrying high mortality (25–40%). Rapid, fulminant tissue destruction.</p>
+                    <p><strong>Physical Exam Signs:</strong></p>
+                    <ul style="padding-left: 1.2rem; margin-bottom: 0.5rem; font-size: 0.8rem;">
+                        <li><strong>Crepitus:</strong> Indicates gas-forming anaerobes/Gram-negative bacilli.</li>
+                        <li><strong>Fluctuance:</strong> Denotes deep abscess accumulation.</li>
+                        <li><strong>Purpura & Bullae:</strong> Denotes underlying microvascular thrombosis, tissue ischemia, and severe sepsis (e.g., Streptococcal, <em>Vibrio vulnificus</em>).</li>
+                    </ul>
+                    <p><strong>Fournier's Gangrene:</strong> Fulminant NSTI of the perineum, scrotum, and genitalia.</p>
+                    <p>⭐ <em>Management Axiom:</em> Extremely low threshold for surgical exploration! <strong>Immediate aggressive debridement of ALL devitalized tissue and bullae</strong> + empiric broad-spectrum IV antibiotics (Cephalosporins + Vancomycin/Linezolid for MRSA coverage).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Actinomycosis -->
+            <div class="card card-accent-warning">
+                <div class="card-header-title">
+                    <span>3. Actinomycosis</span>
+                    <span class="badge badge-yellow">Sulfur Granules</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <p><strong>Etiology:</strong> Caused by <em>Actinomyces israelii</em> (Gram-positive anaerobic branching filamentous bacilli). Normal inhabitant of oropharynx, GI, and female genital tract.</p>
+                    <p><strong>Presentation:</strong> Acute or chronic indurated pyogenic abscesses in the submandibular/paramandibular area ("lumpy jaw") that rupture to form sinus tracts discharging yellow <strong>"sulfur granules"</strong>.</p>
+                    <p><strong>Treatment:</strong> High-dose intravenous Penicillin G followed by extended oral Penicillin. Surgical debridement indicated for dense necrotic tissue and sinus tracts.</p>
+                </div>
+            </div>
+
+            <!-- Viral Infections -->
+            <div class="card card-accent-purple">
+                <div class="card-header-title">
+                    <span>4. Viral Pathologies (HPV & HIV)</span>
+                    <span class="badge badge-purple">Surgical Risks</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <p><strong>Human Papillomavirus (HPV):</strong></p>
+                    <ul style="padding-left: 1.2rem; margin-bottom: 0.5rem; font-size: 0.8rem;">
+                        <li><em>Verruca Vulgaris:</em> Common warts caused by HPV types 1, 2, and 4.</li>
+                        <li><em>Epidermodysplasia Verruciformis:</em> Rare autosomal recessive condition predisposing to widespread HPV infection (HPV 5 and 8) with extremely high risk of transformation to <strong>Squamous Cell Carcinoma (SCC)</strong>.</li>
+                    </ul>
+                    <p><strong>Human Immunodeficiency Virus (HIV):</strong></p>
+                    <ul style="padding-left: 1.2rem; font-size: 0.8rem;">
+                        <li><em>Acute Retroviral Syndrome:</em> Morbilliform rash on face/trunk in 30-50%.</li>
+                        <li><em>Malignancies:</em> Kaposi's Sarcoma (&lt;5% of HIV patients). ⭐ <strong>Basal Cell Carcinoma (BCC)</strong> is the <strong>MOST COMMON skin cancer associated with HIV</strong>!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 6: BENIGN TUMORS -->
+    <section id="tab-benign" class="tab-content">
+        <div class="section-header">
+            <h2>05. Benign Cutaneous & Soft Tissue Neoplasms</h2>
+            <p>Hemangiomas, Nevi, Cysts, Keratoses, Soft Tissue Tumors, and Neural Neoplasms.</p>
+        </div>
+
+        <div class="grid-3">
+            <!-- Hemangioma -->
+            <div class="card card-accent-left">
+                <div class="card-header-title">
+                    <span>Hemangioma</span>
+                    <span class="badge badge-blue">Propranolol</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <p>Benign vascular endothelial cell proliferation. Rapid growth during 1st year of life, followed by gradual childhood involution.</p>
+                    <p><strong>Involution Timeline:</strong></p>
+                    <ul style="padding-left: 1.2rem; font-size: 0.8rem; margin-bottom: 0.5rem;">
+                        <li><strong>50%</strong> involute by age 5.</li>
+                        <li><strong>70%</strong> involute by age 7.</li>
+                    </ul>
+                    <p>⭐ <strong>First-Line Therapy:</strong> <strong>Propranolol</strong> (oral beta-blocker).</p>
+                    <p><em>Surgical Resection:</em> Reserved for high-risk functional areas (upper eyelid obstructing vision, nasal airway, perioral), refractory hemorrhage, or residual cosmetic defects in adolescence.</p>
+                </div>
+            </div>
+
+            <!-- Nevi -->
+            <div class="card card-accent-secondary">
+                <div class="card-header-title">
+                    <span>Melanocytic Nevi</span>
+                    <span class="badge badge-purple">Depth Layers</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <p>Benign melanocytic hyperplasias. UV exposure increases density.</p>
+                    <ul style="padding-left: 1.2rem; font-size: 0.8rem; margin-bottom: 0.5rem;">
+                        <li><strong>Junctional Nevi:</strong> Confined to dermoepidermal junction.</li>
+                        <li><strong>Compound Nevi:</strong> Present in both epidermis and dermis.</li>
+                        <li><strong>Dermal Nevi:</strong> Completely within the dermis.</li>
+                    </ul>
+                    <p>⭐ <strong>Giant Congenital Nevi:</strong> Defined as <strong>&gt;20 cm</strong> in size. Possesses a <strong>5% risk of malignant transformation into Melanoma</strong> → Surgical excision recommended.</p>
+                </div>
+            </div>
+
+            <!-- Cystic Lesions -->
+            <div class="card card-accent-warning">
+                <div class="card-header-title">
+                    <span>Cystic Lesions</span>
+                    <span class="badge badge-yellow">Foul Odor</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <ul style="padding-left: 1.2rem; font-size: 0.8rem; line-height: 1.7;">
+                        <li><strong>Epidermoid Cysts (Epidermal Inclusion / Sebaceous Cyst):</strong> Arise from keratin-plugged pilosebaceous units. Contain cheesy keratinaceous debris with a characteristic <strong>foul-smelling/malodorous discharge</strong>.</li>
+                        <li><strong>Trichilemmal Cyst (Pilar Cyst):</strong> Originates from the outer root sheath of hair follicles (most common on the scalp).</li>
+                        <li><strong>Dermoid Cyst:</strong> Congenital inclusion of ectodermal elements containing hair follicles and skin appendages. Most common at the <strong>lateral brow area</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-3">
+            <!-- Keratoses -->
+            <div class="card card-accent-danger">
+                <div class="card-header-title">
+                    <span>Keratoses</span>
+                    <span class="badge badge-red">Actinic vs Seborrheic</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <p><strong>Actinic Keratosis:</strong></p>
+                    <p style="font-size: 0.8rem;">Premalignant neoplasm of keratinocytes in sun-exposed elderly. ⭐ <strong>10% transform into SCC within 2 years</strong> (60-65% of all SCCs originate from Actinic Keratosis). <br><em>Tx:</em> Excision, topical 5-Fluorouracil (5-FU), cryotherapy.</p>
+                    <p><strong>Seborrheic Keratosis:</strong></p>
+                    <p style="font-size: 0.8rem;">Benign, brown "stuck-on" waxy papules/plaques in elderly. <strong>NOT premalignant!</strong> <br><em>Tx:</em> Excision for cosmetics/irritation; dermoscopy to rule out BCC.</p>
+                </div>
+            </div>
+
+            <!-- Soft Tissue Tumors -->
+            <div class="card card-accent-success">
+                <div class="card-header-title">
+                    <span>Soft Tissue Tumors</span>
+                    <span class="badge badge-green">Pucker Sign</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <ul style="padding-left: 1.2rem; font-size: 0.8rem; line-height: 1.7;">
+                        <li><strong>Acrochordon (Skin Tag):</strong> Benign epidermal outpouching with a central collagenous core.</li>
+                        <li><strong>Dermatofibroma:</strong> Firm pink-to-brown papule/nodule that <strong>puckers or dimples inward at the center when pinched</strong> ("Fitzpatrick's dimple sign").</li>
+                        <li><strong>Lipoma:</strong> Most common subcutaneous neoplasm. Benign fat cell tumor; no malignant potential.</li>
+                        <li><strong>Liposarcoma:</strong> Malignant fatty tumor; deep-seated, rapidly growing, fixed, painful, and invasive.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Neural Tumors -->
+            <div class="card card-accent-left">
+                <div class="card-header-title">
+                    <span>Neural Tumors</span>
+                    <span class="badge badge-blue">NF-1 & NF-2</span>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <ul style="padding-left: 1.2rem; font-size: 0.8rem; line-height: 1.7;">
+                        <li><strong>Neuroma:</strong> Disordered proliferation of Schwann cells and axons, commonly post-traumatic and painful.</li>
+                        <li><strong>Schwannoma:</strong> Benign sheath tumor of Schwann cells. Arises sporadically or with Neurofibromatosis Type 2 (NF-2).</li>
+                        <li><strong>Neurofibroma:</strong> Composed of all nerve elements. Arises sporadically or with NF-1 (Café-au-lait spots, Lisch nodules). <br>⭐ <em>Red Flag:</em> Sudden pain or rapid growth in a previously asymptomatic neurofibroma indicates <strong>malignant transformation</strong>!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAB 7: MALIGNANT TUMORS -->
+    <section id="tab-malignant" class="tab-content">
+        <div class="section-header">
+            <h2>06. Cutaneous Malignancies & Sarcomas</h2>
+            <p>Complete surgical oncology details: BCC, SCC, Melanoma, Merkel Cell, DFSP, Angiosarcoma, and EMPD.</p>
+        </div>
+
+        <!-- Basal Cell Carcinoma -->
+        <div class="card card-accent-left" style="margin-bottom: 1.5rem;">
+            <div class="card-header-title">
+                <span>1. Basal Cell Carcinoma (BCC)</span>
+                <span class="badge badge-blue">Most Common Skin Cancer</span>
+            </div>
+            <div style="font-size: 0.875rem;">
+                <p>Most common malignant skin tumor (&gt;1 million cases/yr in US). Males &gt; Females, &gt;60 years old. Primary risk factor: <strong>UVB exposure</strong>. Mutated <strong>p53 tumor suppressor gene present in 50%</strong> of cases. Indolent growth, extremely low metastatic rate (&lt;0.1%).</p>
+                
+                <div class="grid-2" style="margin-top: 1rem;">
+                    <div>
+                        <strong>BCC Subtypes:</strong>
+                        <ul style="padding-left: 1.2rem; font-size: 0.8rem; line-height: 1.7;">
+                            <li><strong>Nodular BCC:</strong> <em>Most common overall</em>. Pearly pink papule with telangiectasias, central umbilication/ulceration ("Rodent Ulcer").</li>
+                            <li><strong>Superficial Spreading BCC:</strong> Flat, pink scaling lesion on trunk; often mistaken for eczema or psoriasis.</li>
+                            <li><strong>Micronodular / Infiltrative BCC:</strong> Yellow-white, opaque, aggressive subtypes.</li>
+                            <li><strong>Morpheaform (Sclerosing) BCC:</strong> Indurated scar-like papule/plaque. <strong>Most aggressive subtype</strong>!</li>
+                            <li><strong>Basosquamous BCC:</strong> Hybrid of BCC and SCC with metastatic potential.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Surgical Management Rules:</strong>
+                        <ul style="padding-left: 1.2rem; font-size: 0.8rem; line-height: 1.7;">
+                            <li><strong>Small / Low-Risk BCC:</strong> Surgical excision with <strong>4 mm clear margins</strong>.</li>
+                            <li><strong>High-Risk / Aggressive / Facial BCC:</strong> Excision with <strong>10 mm (1 cm) margins</strong> or <strong>Mohs Micrographic Surgery</strong>.</li>
+                            <li>⭐ <strong>Mohs Surgery:</strong> Treatment of choice for Morpheaform BCC and facial aesthetic zones; achieves lowest recurrence rate (&lt;1%).</li>
+                            <li><strong>Topical Imiquimod / 5-FU:</strong> Option for small superficial BCCs in non-surgical candidates.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Squamous Cell Carcinoma -->
+        <div class="card card-accent-warning" style="margin-bottom: 1.5rem;">
+            <div class="card-header-title">
+                <span>2. Squamous Cell Carcinoma (SCC)</span>
+                <span class="badge badge-yellow">Marjolin's Ulcer</span>
+            </div>
+            <div style="font-size: 0.875rem;">
+                <p>Second most common skin cancer. Risk factors: UV radiation (Fitzpatrick type I/II fair skin), chemical carcinogens, chronic immunosuppression, chronic non-healing wounds, and burn scars.</p>
+                
+                <div class="grid-2" style="margin-top: 1rem;">
+                    <div>
+                        <strong>SCC In Situ Subtypes:</strong>
+                        <ul style="padding-left: 1.2rem; font-size: 0.8rem; line-height: 1.7;">
+                            <li><strong>Actinic Keratosis:</strong> Premalignant lesion (10% progress to invasive SCC).</li>
+                            <li><strong>Bowen's Disease:</strong> In situ SCC presenting as a scaly erythematous plaque with fissuring.</li>
+                            <li><strong>Erythroplasia of Queyrat:</strong> In situ SCC specifically involving the <strong>glans penis</strong> (10% progress to invasive SCC).</li>
+                            <li>⭐ <strong>Marjolin's Ulcer:</strong> Aggressive SCC arising in chronic burn scars, non-healing ulcers, or osteomyelitis sinus tracts (transformation latency: 30–40 years!). Metastatic rate: 20–30%.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Surgical Excision Margins:</strong>
+                        <ul style="padding-left: 1.2rem; font-size: 0.8rem; line-height: 1.7;">
+                            <li><strong>Low-Risk SCC:</strong> Surgical excision with <strong>4 mm margins</strong>.</li>
+                            <li><strong>High-Risk SCC (&gt;2 cm, deep, high grade):</strong> Excision with <strong>6 mm margins</strong> down to healthy tissue.</li>
+                            <li><strong>Lymph Node Dissection:</strong> Performed following positive FNAB or core needle biopsy of clinically palpable regional lymph nodes (or CT-proven nodes).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Malignant Melanoma -->
+        <div class="card card-accent-danger" style="margin-bottom: 1.5rem;">
+            <div class="card-header-title">
+                <span>3. Malignant Melanoma</span>
+                <span class="badge badge-red">Most Dreaded Cutaneous Malignancy</span>
+            </div>
+            <div style="font-size: 0.875rem;">
+                <p>Arises from melanocytes at dermoepidermal junction or mucosal surfaces. High early metastatic potential; median survival with distant metastasis = 6–8 months. 30% arise from pre-existing nevi. Risk factor: Intermittent intense UV exposure / childhood sunburns (&gt;10 tanning bed sessions doubles relative risk). Pathways: BRAF/MEK/ERK, PI3K-Akt, p16/CDK4,6.</p>
+                
+                <div class="grid-2" style="margin-top: 1rem;">
+                    <div>
+                        <strong>Melanoma Subtypes:</strong>
+                        <ul style="padding-left: 1.2rem; font-size: 0.8rem; line-height: 1.7;">
+                            <li><strong>Superficial Spreading:</strong> <em>Most common overall (50–70%)</em>.</li>
+                            <li><strong>Nodular:</strong> 15–30%; aggressive vertical growth phase.</li>
+                            <li><strong>Lentigo Maligna:</strong> 10%; sun-damaged facial skin of elderly.</li>
+                            <li>⭐ <strong>Acral Lentiginous:</strong> <strong>29–72% in dark-skinned individuals (Filipinos)</strong>; occurs on palms, soles, and subungual nail beds.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Prognosis & Sentinel Lymph Node Biopsy:</strong>
+                        <ul style="padding-left: 1.2rem; font-size: 0.8rem; line-height: 1.7;">
+                            <li>⭐ <strong>Breslow Tumor Thickness:</strong> Microscopic depth measurement in mm; the <strong>MOST IMPORTANT prognostic factor</strong> in melanoma.</li>
+                            <li><strong>Sentinel Lymph Node Biopsy (SLNB):</strong> Standard staging procedure for clinically node-negative melanoma. Identifies first draining node using lymphoscintigraphy with <strong>Technetium-99m sulfur colloid tracer</strong> and/or <strong>isosulfan blue dye</strong>.</li>
+                            <li><strong>Isolated Limb Infusion (ILI) / Perfusion (ILP):</strong> Delivers high-dose <strong>Melphalan</strong> chemotherapy under tourniquet control for recurrent/in-transit extremity disease.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rare Malignancies & Sarcomas Table -->
+        <div class="section-header" style="margin-top: 2rem;">
+            <h3>Rare Cutaneous Malignancies & Soft Tissue Sarcomas</h3>
+        </div>
+
+        <div class="table-container">
+            <div class="table-actions">
+                <button class="btn-copy" onclick="copyTable('sarcoma-table')">Copy Table</button>
+            </div>
+            <table id="sarcoma-table">
+                <thead>
+                    <tr>
+                        <th>Tumor Entity</th>
+                        <th>Cell Origin & Immunomarkers</th>
+                        <th>Classic Clinical Presentation</th>
+                        <th>Surgical Margin & Key Treatment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Merkel Cell Carcinoma</strong></td>
+                        <td>Neuroendocrine light-touch mechanoreceptors. <br><span class="badge badge-purple">CK-20 Positive</span></td>
+                        <td>Rapidly expanding violaceous/red painless papule in elderly (&gt;65 yo); 5-yr survival = 46%</td>
+                        <td>Wide local excision with <strong>1–3 cm margins down to deep fascia</strong> + SLNB / Radiation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dermatofibrosarcoma Protuberans (DFSP)</strong></td>
+                        <td>Fibroblastic low-grade sarcoma. <br><span class="badge badge-blue">CD34 Positive</span> (Factor XIIIa negative)</td>
+                        <td>Indurated violaceous nodular plaque on trunk. Finger-like local projections. High local recurrence (50-75%)</td>
+                        <td>Wide excision with <strong>3 cm margins down to fascia</strong> or Mohs; <strong>Imatinib</strong> for unresectable cases</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kaposi's Sarcoma</strong></td>
+                        <td>Endothelial-derived spindle cell tumor; HHV-8 associated</td>
+                        <td>Violaceous macules, papules, or nodules. Seen in &lt;5% of HIV/AIDS patients</td>
+                        <td>Antiretroviral therapy (ART) + localized cryo/radiation or systemic chemotherapy</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Malignant Fibrous Histiocytoma (MFH)</strong></td>
+                        <td>Pleomorphic cutaneous spindle cell neoplasm</td>
+                        <td>Solitary soft-to-firm subcutaneous nodule in extremities/head of elderly</td>
+                        <td>Complete surgical resection with wide margins + adjuvant radiation therapy</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Angiosarcoma</strong></td>
+                        <td>Vascular endothelial cell origin. Highly lethal (5-yr survival = 15%)</td>
+                        <td><strong>Stewart-Treves Syndrome:</strong> Develops in severe chronic lymphedematous arm post-mastectomy / axillary LN dissection</td>
+                        <td>Radical wide excision (or extremity amputation) + radiation therapy</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Extramammary Paget's Disease (EMPD)</strong></td>
+                        <td>Intraepithelial apocrine adenocarcinoma. <br>⭐ <strong>40% associated with internal GI/GU cancer</strong></td>
+                        <td>Erythematous, scaly, eczema-like plaques in axilla/perineum failing topical therapy</td>
+                        <td>Surgical resection with intraoperative <strong>frozen section</strong> margin assessment + GI/GU workup</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- TAB 8: COMPARISONS -->
+    <section id="tab-comparisons" class="tab-content">
+        <div class="section-header">
+            <h2>07. High-Yield Diagnostic & Management Comparison Tables</h2>
+            <p>Direct side-by-side comparison tables designed for rapid differentiation of commonly confused board exam topics.</p>
+        </div>
+
+        <!-- Comparison 1: Skin Cancers -->
+        <div class="section-header">
+            <h3>1. Major Cutaneous Malignancies: BCC vs. SCC vs. Melanoma</h3>
+        </div>
+        <div class="table-container">
+            <div class="table-actions"><button class="btn-copy" onclick="copyTable('comp-cancers')">Copy Table</button></div>
+            <table id="comp-cancers">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Basal Cell Carcinoma (BCC)</th>
+                        <th>Squamous Cell Carcinoma (SCC)</th>
+                        <th>Malignant Melanoma</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Incidence / Rank</strong></td>
+                        <td>#1 Most common overall skin cancer</td>
+                        <td>#2 Most common skin cancer</td>
+                        <td>#3 Most lethal / dreaded skin cancer</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cell of Origin</strong></td>
+                        <td>Basal epidermal keratinocytes</td>
+                        <td>Atypical spinous keratinocytes</td>
+                        <td>Melanocytes (dermoepidermal junction)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Primary Risk Factor</strong></td>
+                        <td>Chronic UVB radiation (p53 in 50%)</td>
+                        <td>UV radiation, burn scars (Marjolin's), Arsenic</td>
+                        <td>Intermittent intense UV / childhood sunburns</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Classic Appearance</strong></td>
+                        <td>Pearly pink papule, telangiectasia, rolled border</td>
+                        <td>Erythematous scaly hyperkeratotic plaque / ulcer</td>
+                        <td>ABCDE: Asymmetric, irregular border, variegated color</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Metastatic Potential</strong></td>
+                        <td>Extremely rare (&lt;0.1%)</td>
+                        <td>Low-to-moderate (20-30% in Marjolin's)</td>
+                        <td>Extremely high early hematogenous/lymphatic spread</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Excision Margin (Low Risk)</strong></td>
+                        <td><strong>4 mm</strong> clear surgical margin</td>
+                        <td><strong>4 mm</strong> clear surgical margin</td>
+                        <td>1 cm margin (Breslow &lt;1mm); 2 cm (&gt;2mm)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Excision Margin (High Risk)</strong></td>
+                        <td><strong>10 mm (1 cm)</strong> or Mohs surgery</td>
+                        <td><strong>6 mm</strong> clear surgical margin</td>
+                        <td>Wide excision + Sentinel Lymph Node Biopsy</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Comparison 2: Burn Mechanics -->
+        <div class="section-header" style="margin-top: 2rem;">
+            <h3>2. Caustic Burns: Acidic vs. Alkaline Chemical Injuries</h3>
+        </div>
+        <div class="table-container">
+            <div class="table-actions"><button class="btn-copy" onclick="copyTable('comp-caustic')">Copy Table</button></div>
+            <table id="comp-caustic">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Acidic Chemical Burns</th>
+                        <th>Alkaline (Basic) Chemical Burns</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mechanism of Necrosis</strong></td>
+                        <td><strong>Coagulative Necrosis</strong></td>
+                        <td><strong>Liquefactive Necrosis</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tissue Depth Penetration</strong></td>
+                        <td>Self-limiting (coagulated eschar acts as barrier)</td>
+                        <td>Deep continuous penetration (saponifies fats & melts proteins)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clinical Severity</strong></td>
+                        <td>Less severe superficial injury</td>
+                        <td><strong>Significantly MORE severe</strong> and destructive</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Water Irrigation Duration</strong></td>
+                        <td>Continuous flush for <strong>30 minutes</strong></td>
+                        <td>Continuous flush for <strong>2 hours</strong> minimum</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Neutralization Rule</strong></td>
+                        <td><strong>STRICTLY FORBIDDEN</strong> (exothermic reaction deepens thermal tissue burn)</td>
+                        <td><strong>STRICTLY FORBIDDEN</strong> (exothermic reaction deepens thermal tissue burn)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Comparison 3: Eccrine vs Apocrine -->
+        <div class="section-header" style="margin-top: 2rem;">
+            <h3>3. Epidermal Appendages: Eccrine vs. Apocrine Sweat Glands</h3>
+        </div>
+        <div class="table-container">
+            <div class="table-actions"><button class="btn-copy" onclick="copyTable('comp-glands')">Copy Table</button></div>
+            <table id="comp-glands">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Eccrine Sweat Glands</th>
+                        <th>Apocrine Sweat Glands</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Body Distribution</strong></td>
+                        <td>Widespread over entire body surface</td>
+                        <td>Restricted to Axilla, Perineum, Anus, Areola, Eyelid, Canal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Primary Function</strong></td>
+                        <td>Body thermoregulation & fluid excretion</td>
+                        <td>Pheromonal / odoriferous excretion (puberty-dependent)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Secretion Mechanism</strong></td>
+                        <td>Exocytosis (cell membrane intact)</td>
+                        <td>Decapitation (apical portion of cell cytoplasm shed)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Associated Pathology</strong></td>
+                        <td>Miliaria / heat rash</td>
+                        <td><strong>Hidradenitis Suppurativa (Acne Inversa)</strong> & EMPD</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Comparison 4: Skin Grafting Substitutes -->
+        <div class="section-header" style="margin-top: 2rem;">
+            <h3>4. Bioengineered Skin Substitutes Classification</h3>
+        </div>
+        <div class="table-container">
+            <div class="table-actions"><button class="btn-copy" onclick="copyTable('comp-grafts')">Copy Table</button></div>
+            <table id="comp-grafts">
+                <thead>
+                    <tr>
+                        <th>Graft Type</th>
+                        <th>Source / Tissue Donor Origin</th>
+                        <th>Immunogenicity & Clinical Utility</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Autograft</strong></td>
+                        <td>Harvested from patient's own body donor site</td>
+                        <td>Zero rejection risk; gold standard permanent skin coverage</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Allograft (Homograft)</strong></td>
+                        <td>Harvested from human organ donors / cadavers</td>
+                        <td>Temporary wound coverage; eventually rejected by immune system</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Xenograft</strong></td>
+                        <td>Harvested from different animal species (e.g., Porcine skin)</td>
+                        <td>Highly reactive; temporary biological dressing</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acellular Dermal Matrix (ADM)</strong></td>
+                        <td>Decellularized biomaterial scaffold</td>
+                        <td>Bridges gap between autografts and xenografts; reduced immune response</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- TAB 9: FLASHCARDS -->
+    <section id="tab-flashcards" class="tab-content">
+        <div class="section-header">
+            <h2>08. High-Yield Active-Recall Flashcards (50 Cards)</h2>
+            <p>Test your rapid recall across all lecture topics. Click card to flip. Use Arrow Keys (Left/Right) to navigate, Spacebar to flip.</p>
+        </div>
+
+        <div class="fc-controls" style="margin-bottom: 1rem;">
+            <button class="btn-action btn-action-outline" id="fc-filter-all">All Cards</button>
+            <button class="btn-action btn-action-outline" id="fc-shuffle">🔀 Shuffle Deck</button>
+            <span style="font-family: var(--font-code); font-size: 0.9rem;" id="fc-progress">Card 1 / 50</span>
+        </div>
+
+        <div class="fc-container">
+            <div class="flashcard" id="active-flashcard">
+                <div class="fc-category" id="fc-cat">Anatomy</div>
+                <div class="fc-front">
+                    <p id="fc-question" style="font-family: var(--font-title); font-size: 1.2rem; font-weight: 700;">What percentage of total body weight is comprised by the skin?</p>
+                    <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 1.5rem;">(Click to reveal answer)</span>
+                </div>
+                <div class="fc-back">
+                    <p id="fc-answer" style="font-size: 1.1rem; font-weight: 600;">15% of total body weight.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="fc-controls">
+            <button class="btn-action btn-action-outline" id="fc-prev">← Previous</button>
+            <button class="btn-action" id="fc-next">Next Card →</button>
+        </div>
+    </section>
+
+    <!-- TAB 10: SELF-ASSESSMENT (50 MCQs) -->
+    <section id="tab-assessment" class="tab-content">
+        <div class="section-header">
+            <h2>09. Board-Style Self-Assessment (50 MCQs)</h2>
+            <p>Includes all 23 lecture exam review questions plus 27 custom high-yield PLE board-format items with full option rationales.</p>
+        </div>
+
+        <div style="background: var(--bg-card); padding: 1rem 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <span style="font-family: var(--font-title); font-weight: 700;">Quiz Progress: </span>
+                <span id="quiz-score" style="font-family: var(--font-code); font-weight: 700; color: var(--primary);">0 / 50 Answered</span>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+                <button class="btn-action btn-action-outline" onclick="resetQuiz()">Reset Quiz</button>
+            </div>
+        </div>
+
+        <div id="mcq-container">
+            <!-- Dynamic MCQs will be rendered here via JS -->
+        </div>
+    </section>
+
+    <!-- TAB 11: CRAM SHEET -->
+    <section id="tab-cram" class="tab-content">
+        <div class="section-header">
+            <h2>10. Last-Minute Rapid Cram Sheet ⚡</h2>
+            <p>Ultra-condensed bullet summaries, diagnostic "If you see X → think Y", buzzwords, and high-yield surgical memory tricks designed for a 10-minute read before the exam.</p>
+        </div>
+
+        <div class="grid-2">
+            <!-- If You See X -> Think Y -->
+            <div class="card card-accent-left">
+                <div class="card-header-title">
+                    <span>🎯 "If You See X → Think Y" Trigger Rules</span>
+                </div>
+                <ul style="padding-left: 1.2rem; font-size: 0.85rem; line-height: 1.8;">
+                    <li><strong>If you see:</strong> Maculopapular rash after Sulfonamide/Carbamazepine + lateral skin pressure epidermal sloughing → <strong>Think: Epidermal Necrolysis (SJS/TEN) [(+) Nikolsky Sign]</strong>.</li>
+                    <li><strong>If you see:</strong> Axillary/groin deep tender nodules, recurrent purulent discharge, subterranean sinus tracts → <strong>Think: Hidradenitis Suppurativa (Hurley Stage 3)</strong>.</li>
+                    <li><strong>If you see:</strong> Painful leg ulceration with raised, overhanging <strong>purple/violaceous borders</strong> in a patient with Crohn's disease → <strong>Think: Pyoderma Gangrenosum</strong>.</li>
+                    <li><strong>If you see:</strong> Chemical burn from Liquid Sosa (NaOH) → <strong>Think: Liquefactive Necrosis → Needs 2 hours continuous saline flush (DO NOT NEUTRALIZE!)</strong>.</li>
+                    <li><strong>If you see:</strong> Pearly pink papule with telangiectasia and rolled border on face → <strong>Think: Nodular Basal Cell Carcinoma</strong>.</li>
+                    <li><strong>If you see:</strong> Indurated scar-like plaque on head/neck without raised edges → <strong>Think: Morpheaform BCC (Most aggressive → Needs Mohs Surgery)</strong>.</li>
+                    <li><strong>If you see:</strong> Non-healing ulcer/mass arising from a 40-year-old burn scar → <strong>Think: Marjolin's Ulcer (Aggressive SCC)</strong>.</li>
+                    <li><strong>If you see:</strong> Pigmented lesion on palm/sole/subungual area of a dark-skinned Filipino patient → <strong>Think: Acral Lentiginous Melanoma</strong>.</li>
+                    <li><strong>If you see:</strong> Rapidly expanding purple skin papule in elderly + <strong>Cytokeratin-20 (CK-20) positive</strong> → <strong>Think: Merkel Cell Carcinoma (Wide excision 1-3 cm margins)</strong>.</li>
+                    <li><strong>If you see:</strong> Violaceous trunk plaque + <strong>CD34 positive</strong> → <strong>Think: Dermatofibrosarcoma Protuberans (DFSP) → Treat with 3 cm margins / Imatinib</strong>.</li>
+                    <li><strong>If you see:</strong> Violaceous arm plaque in a female with chronic non-pitting lymphedema 12 years post-mastectomy → <strong>Think: Stewart-Treves Syndrome (Angiosarcoma)</strong>.</li>
+                    <li><strong>If you see:</strong> Eczema-like scaly plaque on perineum/axilla refractory to steroids → <strong>Think: Extramammary Paget's Disease (40% tied to internal GI/GU cancer)</strong>.</li>
+                    <li><strong>If you see:</strong> Submandibular indurated mass discharging yellow <strong>sulfur granules</strong> → <strong>Think: Actinomycosis (<em>A. israelii</em>) → Treat with high-dose Penicillin</strong>.</li>
+                    <li><strong>If you see:</strong> Hydrofluoric acid chemical burn → <strong>Think: Neutralize with Calcium Gluconate</strong>.</li>
+                    <li><strong>If you see:</strong> Phenol chemical burn → <strong>Think: Wash with Polyethylene Glycol (PEG)</strong>.</li>
+                </ul>
+            </div>
+
+            <!-- High-Yield Buzzwords & Surgical Numbers -->
+            <div class="card card-accent-warning">
+                <div class="card-header-title">
+                    <span>⚡ High-Yield Buzzword & Numerical Summary</span>
+                </div>
+                <div style="font-size: 0.85rem; line-height: 1.8;">
+                    <p><strong>15%:</strong> Proportion of body weight comprised by skin.</p>
+                    <p><strong>4:1 Ratio:</strong> Ratio of Type I to Type III Collagen in human dermis.</p>
+                    <p><strong>30 mmHg:</strong> Normal capillary perfusion pressure (threshold for pressure necrosis).</p>
+                    <p><strong>30 Days:</strong> Epidermal keratinocyte maturation life cycle.</p>
+                    <p><strong>50% at 5 yo / 70% at 7 yo:</strong> Involution rates for Infantile Hemangiomas.</p>
+                    <p><strong>&gt;20 cm:</strong> Size defining Giant Congenital Nevi (5% melanoma transformation risk).</p>
+                    <p><strong>10% in 2 Years:</strong> Transformation rate of Actinic Keratosis to SCC.</p>
+                    <p><strong>10.7% vs 30%:</strong> Chemical burns comprise 10.7% of burn admissions but 30% of burn deaths.</p>
+                    <p><strong>4 mm Margin:</strong> Surgical excision margin for low-risk BCC and low-risk SCC.</p>
+                    <p><strong>6 mm Margin:</strong> Surgical excision margin for high-risk SCC.</p>
+                    <p><strong>10 mm (1 cm) Margin:</strong> Surgical excision margin for high-risk BCC.</p>
+                    <p><strong>1–3 cm Margin:</strong> Surgical excision margin for Merkel Cell Carcinoma down to fascia.</p>
+                    <p><strong>3 cm Margin:</strong> Surgical excision margin for Dermatofibrosarcoma Protuberans (DFSP).</p>
+                    <p><strong>Propranolol:</strong> 1st line medical therapy for infantile Hemangioma.</p>
+                    <p><strong>Breslow Thickness:</strong> Single most important prognostic factor in Malignant Melanoma.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Scroll-to-Top Button -->
+<button id="btn-scroll-top" title="Scroll to Top">↑</button>
+
+<!-- JavaScript Features Engine -->
+<script>
+    // GLOBAL DATA STRUCTURES
+
+    // FLASHCARDS DATABASE (50 Cards)
+    const flashcardsData = [
+        { cat: "Anatomy", q: "What percentage of total body weight is comprised by human skin?", a: "15% of total body weight." },
+        { cat: "Anatomy", q: "Is the epidermal layer vascularized or avascular?", a: "Avascular. It obtains all nutrients via diffusion from the underlying dermal vasculature." },
+        { cat: "Anatomy", q: "What is the typical maturation life cycle length of an epidermal keratinocyte?", a: "30 days." },
+        { cat: "Anatomy", q: "Where is the Stratum Lucidum located?", a: "Exclusively in thick skin (palms of hands and soles of feet)." },
+        { cat: "Anatomy", q: "What is the embryological origin of melanocytes?", a: "Neural crest cells (which migrate into the stratum basale)." },
+        { cat: "Anatomy", q: "Which immunomarkers are expressed by melanocytes?", a: "S100 protein, BCL2, and Vimentin." },
+        { cat: "Anatomy", q: "What is the primary epidermal cell type involved in antigen presentation in the stratum spinosum?", a: "Langerhans cells (3-6% of epidermal cells)." },
+        { cat: "Anatomy", q: "Which epidermal appendiceal structure serves as the main reservoir for re-epithelialization in partial-thickness wounds?", a: "The pilosebaceous units (lined by germinal epithelium)." },
+        { cat: "Anatomy", q: "What is the dominant collagen ratio in human dermis?", a: "Type I to Type III collagen in a 4:1 ratio." },
+        { cat: "Anatomy", q: "What cell type in the dermis functions as the primary workhorse of wound contraction?", a: "Myofibroblasts (differentiated from dermal fibroblasts)." },
+
+        { cat: "Inflammatory", q: "Which apocrine-bearing disease presents with subterranean sinus tracts and foul axillary discharge?", a: "Hidradenitis Suppurativa (Acne Inversa)." },
+        { cat: "Inflammatory", q: "What is the first-line treatment for Hurley Stage 1 Hidradenitis Suppurativa?", a: "Topical and systemic Clindamycin." },
+        { cat: "Inflammatory", q: "Which biologic drug class is approved for Hurley Stage 2 and 3 Hidradenitis Suppurativa?", a: "TNF-alpha inhibitors (e.g., Adalimumab, Infliximab)." },
+        { cat: "Inflammatory", q: "What skin condition presents with sterile pustules expanding into painful ulcers with overhanging purple borders?", a: "Pyoderma Gangrenosum." },
+        { cat: "Inflammatory", q: "Pyoderma Gangrenosum is strongly associated with which underlying gastrointestinal condition?", a: "Inflammatory Bowel Disease (Crohn's Disease and Ulcerative Colitis)." },
+        { cat: "Inflammatory", q: "What physical sign in SJS/TEN describes detachment of the epidermis upon lateral pressure?", a: "(+) Nikolsky Sign." },
+        { cat: "Inflammatory", q: "What TBSA threshold differentiates Stevens-Johnson Syndrome (SJS) from Toxic Epidermal Necrolysis (TEN)?", a: "SJS is <10% TBSA; SJS/TEN overlap is 10-30%; TEN is >30% TBSA." },
+        { cat: "Inflammatory", q: "Name two common drug classes responsible for triggering Epidermal Necrolysis (TEN).", a: "Aromatic anticonvulsants (Carbamazepine, Phenytoin) and Sulfonamides (Co-trimoxazole)." },
+
+        { cat: "Injuries", q: "Which UV wavelength penetrates deepest into the reticular dermis?", a: "UVA (320-400 nm) - accounts for 95% of UV light reaching Earth." },
+        { cat: "Injuries", q: "Which UV wave is responsible for neomelanization and primary sunburn/carcinogenesis?", a: "UVB (290-320 nm)." },
+        { cat: "Injuries", q: "What type of necrosis is produced by alkaline (basic) chemical burns?", a: "Liquefactive Necrosis (more destructive than acid burn coagulative necrosis)." },
+        { cat: "Injuries", q: "What is the mandatory minimum duration for saline irrigation of an alkaline chemical burn?", a: "2 hours (30 minutes for acidic burns)." },
+        { cat: "Injuries", q: "Why is chemical neutralization strictly forbidden in caustic skin burns?", a: "Neutralization produces an exothermic chemical reaction that causes severe thermal burn deepening." },
+        { cat: "Injuries", q: "What specific antidote is used for Hydrofluoric Acid chemical burns?", a: "Calcium Gluconate." },
+        { cat: "Injuries", q: "What specific agent is used to wash Phenol chemical burns?", a: "Polyethylene Glycol (PEG)." },
+        { cat: "Injuries", q: "In Jackson's thermal injury zones, which zone represents threatened tissue capable of recovery or necrosis?", a: "The Zone of Stasis." },
+        { cat: "Injuries", q: "What is the average microvascular capillary perfusion pressure threshold for pressure necrosis?", a: "30 mmHg." },
+        { cat: "Injuries", q: "How often must bedbound ICU patients be repositioned to prevent pressure ulcers?", a: "Every 2 hours (q2h)." },
+
+        { cat: "Infections", q: "What bacterial skin infection presents with honey-colored crusting?", a: "Impetigo." },
+        { cat: "Infections", q: "How is a Carbuncle differentiated from a Furuncle?", a: "A Carbuncle is a coalescence of multiple furuncles presenting with multiple draining sinus tracts." },
+        { cat: "Infections", q: "What is the classic physical exam finding indicating gas-forming organisms in a Necrotizing Soft Tissue Infection?", a: "Crepitus." },
+        { cat: "Infections", q: "What organism causes submandibular abscesses discharging yellow sulfur granules?", a: "Actinomyces israelii (Actinomycosis)." },
+        { cat: "Infections", q: "Which HPV types cause common skin warts (Verruca Vulgaris)?", a: "HPV types 1, 2, and 4." },
+        { cat: "Infections", q: "Epidermodysplasia Verruciformis (HPV 5 and 8) predisposes patients to which malignancy?", a: "Squamous Cell Carcinoma (SCC)." },
+        { cat: "Infections", q: "What is the most common cutaneous malignancy associated with HIV patients?", a: "Basal Cell Carcinoma (BCC)." },
+
+        { cat: "Benign Tumors", q: "What is the first-line pharmacotherapy for infantile Hemangiomas?", a: "Oral Propranolol." },
+        { cat: "Benign Tumors", q: "What percentage of infantile hemangiomas spontaneously involute by age 7?", a: "70% (50% by age 5)." },
+        { cat: "Benign Tumors", q: "What size defines a Giant Congenital Nevus, and what is its malignant transformation risk?", a: ">20 cm size; carries a 5% risk of transformation to Malignant Melanoma." },
+        { cat: "Benign Tumors", q: "What cyst presents at the lateral brow area in children and contains ectodermal skin structures?", a: "Dermoid Cyst." },
+        { cat: "Benign Tumors", q: "What percentage of Actinic Keratosis lesions transform into Squamous Cell Carcinoma in 2 years?", a: "10% transformation rate in 2 years." },
+        { cat: "Benign Tumors", q: "Are Seborrheic Keratoses considered premalignant?", a: "No. Seborrheic Keratoses are benign waxy 'stuck-on' papules with zero premalignant potential." },
+        { cat: "Benign Tumors", q: "What classic physical sign identifies a Dermatofibroma upon lateral compression?", a: "Fitzpatrick's Dimple/Pucker Sign (the lesion puckers inward when pinched)." },
+
+        { cat: "Malignants", q: "What is the most common malignant skin cancer diagnosed overall?", a: "Basal Cell Carcinoma (BCC)." },
+        { cat: "Malignants", q: "What is the most aggressive histological subtype of Basal Cell Carcinoma?", a: "Morpheaform (Sclerosing) BCC." },
+        { cat: "Malignants", q: "What surgical clearance margin is required for a small, primary low-risk BCC?", a: "4 mm clear surgical margin." },
+        { cat: "Malignants", q: "What is a Marjolin's Ulcer?", a: "An aggressive Squamous Cell Carcinoma arising from a chronic non-healing wound or burn scar (30-40 yr latency)." },
+        { cat: "Malignants", q: "What form of Melanoma is most prevalent in dark-skinned individuals (Filipinos)?", a: "Acral Lentiginous Melanoma (involves palms, soles, subungual beds)." },
+        { cat: "Malignants", q: "What single microscopic measurement is the most important prognostic indicator in Melanoma?", a: "Breslow Tumor Thickness (depth in mm)." },
+        { cat: "Malignants", q: "Which immunomarker is characteristically positive in Merkel Cell Carcinoma?", a: "Cytokeratin-20 (CK-20) positive (perinuclear dot-like pattern)." },
+        { cat: "Malignants", q: "What immunomarker identifies Dermatofibrosarcoma Protuberans (DFSP)?", a: "CD34 positive (Factor XIIIa negative)." },
+        { cat: "Malignants", q: "What targeted tyrosine kinase inhibitor is approved for advanced DFSP?", a: "Imatinib." },
+        { cat: "Malignants", q: "What underlying condition causes Stewart-Treves Syndrome angiosarcoma?", a: "Severe chronic lymphedema following radical mastectomy with axillary LN dissection." }
+    ];
+
+    // MCQs DATABASE (50 Board-Style Questions)
+    const mcqsData = [
+        // Questions 1 to 23 (Verbatim / Exact mapping from Dr. Firmalo's Review Questions)
+        {
+            q: "A 22-year-old female was given trimethoprim-sulfamethoxazole. After 3 days, she developed a maculopapular rash that rapidly progressed to coalescing blisters with fever. Lateral skin pressure caused epidermal separation. What is the diagnosis?",
+            options: ["Pyoderma Gangrenosum", "Epidermal Necrolysis", "Hidradenitis Suppurativa", "Actinomycosis"],
+            correct: 1,
+            exp: "Epidermal Necrolysis (SJS/TEN) presents with flu-like symptoms, rapidly spreading erythema/blisters, (+) Nikolsky sign (lateral skin separation), and mucosal erosion following offending drugs like Sulfonamides."
+        },
+        {
+            q: "Which of the following statements BEST describes the epidermal layer?",
+            options: [
+                "The epidermal layer has 2 vascular layers",
+                "The stratum corneum is the strongest layer of the epidermis",
+                "The stratum lucidum is found in the ventral aspect of the foot",
+                "The stratum spinosum contains the melanocytes"
+            ],
+            correct: 2,
+            exp: "Stratum lucidum consists of flat translucent keratinocytes present ONLY in thick skin (palms and soles/ventral foot aspect). Epidermis is completely avascular; melanocytes reside in stratum basale."
+        },
+        {
+            q: "During partial-thickness skin injuries, which structure is MOST important in the re-epithelialization and regeneration of the epidermis?",
+            options: ["Apoeccrine glands", "Pilosebaceous units", "Langerhans cells", "Toker cells"],
+            correct: 1,
+            exp: "Pilosebaceous units are lined by germinal epithelium and reside deep in the dermis, acting as the primary source of epidermal regeneration following partial-thickness wound destruction."
+        },
+        {
+            q: "Which of the following statements BEST describes the dermal layer of the skin?",
+            options: [
+                "Reticular dermal layer interdigitates with the overlying epidermal layer to form a strong adhesion of layers",
+                "Two layers of vascularity are found in the subreticular and papillary layer of the dermis",
+                "This layer is avascular hence relies on subcutaneous layer for perfusion",
+                "Type I and II collagen comprises this layer in a 4:1 ratio"
+            ],
+            correct: 1,
+            exp: "The dermis contains two distinct vascular plexuses: the superficial subpapillary plexus (between papillary & reticular dermis) and the deep dermal plexus (at dermal-subcutaneous junction). Collagen is Type I & III (4:1 ratio)."
+        },
+        {
+            q: "What is the MOST COMMON histological form of Basal Cell Carcinoma?",
+            options: ["Morpheaform", "Nodular", "Pigmented", "Superficial Spreading"],
+            correct: 1,
+            exp: "Nodular BCC is the most common subtype (presents as a pearly pink papule with telangiectasia and central ulceration/'rodent ulcer')."
+        },
+        {
+            q: "Embryologically, where do cutaneous melanocytes originate from?",
+            options: ["Ectoderm", "Endoderm", "Mesoderm", "Neural crest"],
+            correct: 3,
+            exp: "Melanocytes are derived from Neural Crest cells that migrate into the stratum basale during embryonic development."
+        },
+        {
+            q: "Which of the following is an approved topical pharmacotherapy option for Basal Cell Carcinoma?",
+            options: ["Imiquimod", "Infliximab", "Polyethylene glycol", "Tumor necrosis factor antagonists"],
+            correct: 0,
+            exp: "Topical Imiquimod (5% cream) and 5-FU are approved non-surgical options for small, superficial BCCs in non-surgical candidates."
+        },
+        {
+            q: "A 47-year-old male, diabetic, consults for multiple draining axillary wounds with associated contractures and interconnected subterranean sinuses emptying purulent material across the whole axilla. Using Hurley Classification, what is the appropriate management?",
+            options: [
+                "Incision and drainage, systemic antibiotics and biologic agents",
+                "Radical excision, reconstruction, systemic antibiotics, and biologic agents",
+                "Topical and systemic antibiotics",
+                "Topical, systemic antibiotics plus biologic agents"
+            ],
+            correct: 1,
+            exp: "This patient has Hurley Stage 3 Hidradenitis Suppurativa (diffuse interconnected sinus tracts). Management requires radical surgical excision, flap/STSG reconstruction, systemic antibiotics, and anti-TNF biologics."
+        },
+        {
+            q: "A 45-year-old male ICU patient developed generalized skin sloughing, flaccid bullae, and hyperthermia after receiving carbamazepine. Which of the following is NOT part of the management?",
+            options: ["Antimicrobial dressings", "Discontinuation of offending agent", "Maintenance of euvolemia", "Start Sulfonamide antibiotic"],
+            correct: 3,
+            exp: "Sulfonamides are classic offending causes of TEN/SJS and are strictly contraindicated!"
+        },
+        {
+            q: "A 71-year-old male presented with a 4x5cm ulcerating, foul-smelling mass at the right axilla arising from a chemical burn sustained 42 years ago. What is the diagnosis?",
+            options: ["Actinic keratosis", "Basal cell carcinoma", "Bowen's disease", "Marjolin's ulcer"],
+            correct: 3,
+            exp: "Marjolin's ulcer is a highly aggressive Squamous Cell Carcinoma arising in chronic burn scars or long-standing non-healing wounds (typically after a 30-40 year latency period)."
+        },
+        {
+            q: "Stewart-Treves syndrome associated angiosarcoma results from which underlying etiology?",
+            options: ["Burn injury", "Chronic lymphedema", "Pressure sores", "Therapeutic radiation"],
+            correct: 1,
+            exp: "Stewart-Treves syndrome is a cutaneous angiosarcoma developing in an arm affected by chronic severe non-pitting lymphedema post-mastectomy and axillary lymph node dissection."
+        },
+        {
+            q: "A 79-year-old male presented with a 3.0-cm hyperpigmented, raised, irregularly shaped mass on his right leg. Biopsy confirmed nodular melanoma. Physical exam revealed no clinically palpable lymph nodes. What is the next step in management?",
+            options: [
+                "Wide excision of melanoma, reconstruction, followed by chemotherapy",
+                "Wide excision of melanoma, reconstruction, followed by radiotherapy",
+                "Wide excision of melanoma, reconstruction, followed by sentinel lymph node biopsy",
+                "Wide excision of melanoma, reconstruction, with postoperative brachytherapy"
+            ],
+            correct: 2,
+            exp: "In clinically node-negative malignant melanoma, wide local excision combined with Sentinel Lymph Node Biopsy (SLNB) is standard of care to evaluate for regional nodal micrometastasis."
+        },
+        {
+            q: "A 76-year-old female complains of chronic swelling of her left arm for 12 years following radical mastectomy for breast cancer. She recently developed violaceous plaques on the medial arm. Most likely diagnosis?",
+            options: ["Angiosarcoma", "Extramammary Paget's Sarcoma", "Kaposi's Sarcoma", "Malignant Fibrous Histiocytoma"],
+            correct: 0,
+            exp: "Development of violaceous plaques on a chronically lymphedematous limb post-mastectomy is classic for angiosarcoma (Stewart-Treves Syndrome)."
+        },
+        {
+            q: "An 85-year-old female ICU patient was referred for Stage 4 sacral pressure sore with gross necrotic tissue and purulent discharge. Which management is NOT performed on the day of admission?",
+            options: ["Antibiotic coverage", "Debridement and skin grafting reconstruction", "Nutritional buildup", "Strict turning schedule every 2 hours"],
+            correct: 1,
+            exp: "Immediate surgical reconstruction with skin grafting is NOT performed on day 1 for an acute infected Stage 4 pressure sore. Resuscitation, infection control, wound debridement, and medical optimization must occur first."
+        },
+        {
+            q: "What are bioengineered skin substitutes harvested from human organ donors called?",
+            options: ["Allografts", "Autografts", "Homografts", "Xenografts"],
+            correct: 0,
+            exp: "Grafts obtained from human organ donors/cadavers of the same species are called Allografts (or Homografts)."
+        },
+        {
+            q: "Which of the following is a recognized aggressive subtype of Basal Cell Carcinoma?",
+            options: ["Actinic Keratosis", "Bowen Disease", "Erythroplasia of Queyrat", "Morpheaform"],
+            correct: 3,
+            exp: "Morpheaform (Sclerosing) BCC is the most aggressive histological subtype of Basal Cell Carcinoma. The others are SCC in situ forms."
+        },
+        {
+            q: "A 39-year-old male sustained caustic burns from Liquid Sosa (Sodium Hydroxide). Which statement is CORRECT?",
+            options: [
+                "Flush with acetic acid to neutralize the solution",
+                "Intravenous antibiotics should be expeditiously started",
+                "Reconstruction with skin grafting is an option after surgical debridement",
+                "Surgical Debridement within 2 hours must be done"
+            ],
+            correct: 2,
+            exp: "Sodium hydroxide causes liquefactive necrosis. After profuse water irrigation (2 hrs) and surgical debridement of devitalized tissue, soft tissue reconstruction with skin grafts or flaps is an established option."
+        },
+        {
+            q: "A 36-year-old female presents with a large violaceous nodular trunk tumor that stains CD34 positive. Wide excision down to fascia was performed. What is the appropriate targeted adjuvant therapy?",
+            options: ["Imatinib", "Infliximab", "Interleukin-2", "No adjuvant management"],
+            correct: 0,
+            exp: "CD34 positivity in a violaceous trunk plaque confirms Dermatofibrosarcoma Protuberans (DFSP). Imatinib (tyrosine kinase inhibitor) is the targeted adjuvant/systemic agent of choice."
+        },
+        {
+            q: "An 85-year-old male presented with a 5cm purple skin papule that tested Cytokeratin-20 (CK-20) positive. What is the appropriate treatment?",
+            options: ["Close observation", "Electrodessication", "Surgical shaving with electrocautery", "Wide excision"],
+            correct: 3,
+            exp: "CK-20 positivity in a purple papule diagnoses Merkel Cell Carcinoma (highly aggressive neuroendocrine tumor). Treatment requires wide local excision (1-3 cm margins down to fascia) + SLNB/radiation."
+        },
+        {
+            q: "Which of the following conditions is NOT a risk factor predisposing to Squamous Cell Carcinoma?",
+            options: ["Actinic Keratosis", "Epidermodysplasia verruciformis", "Marjolin's ulcer", "Seborrheic Keratosis"],
+            correct: 3,
+            exp: "Seborrheic Keratosis is a completely benign epidermal lesion with no malignant transformation potential to SCC."
+        },
+        {
+            q: "What mechanism causes tissue necrosis in Hydrofluoric Acid chemical burns?",
+            options: ["Coagulative necrosis", "Liquefactive necrosis", "Free fluoride ion liquefaction & hypocalcemia", "Saponification"],
+            correct: 2,
+            exp: "Hydrofluoric acid causes deep tissue destruction via free fluoride ions chelating calcium (treated specifically with Calcium Gluconate)."
+        },
+        {
+            q: "In Jackson's burn zones, which zone is innermost and composed of non-viable necrotic tissue?",
+            options: ["Zone of Hyperemia", "Zone of Stasis", "Zone of Coagulation", "Zone of Ischemia"],
+            correct: 2,
+            exp: "The Zone of Coagulation is the central focal area of maximum burn injury containing dead, coagulated tissue."
+        },
+        {
+            q: "Extramammary Paget's Disease (EMPD) is associated with an underlying primary GI or GU malignancy in what percentage of cases?",
+            options: ["10%", "25%", "40%", "75%"],
+            correct: 2,
+            exp: "Approximately 40% of patients with Extramammary Paget's Disease have an underlying primary internal gastrointestinal or genitourinary adenocarcinoma."
+        },
+
+        // Questions 24 to 50 (Custom Board-Style Assessment Items covering remaining core topics)
+        {
+            q: "What is the thinnest epidermal layer in the human body?",
+            options: ["Stratum basale", "Stratum corneum", "Stratum spinosum", "Stratum granulosum"],
+            correct: 1,
+            exp: "The stratum corneum is described in lecture notes as the thinnest epidermal layer composed of anucleate keratinocytes in a lipid matrix."
+        },
+        {
+            q: "Which skin anatomical location possesses the thinnest epidermis overall?",
+            options: ["Palms", "Soles", "Eyelids", "Postauricular area"],
+            correct: 2,
+            exp: "The eyelids have the thinnest epidermis in the body (~75–150 µm thick)."
+        },
+        {
+            q: "Which specialized epidermal cell acts as a light touch mechanoreceptor and can give rise to a neuroendocrine malignancy?",
+            options: ["Langerhans cell", "Merkel cell", "Toker cell", "Fibroblast"],
+            correct: 1,
+            exp: "Merkel cells are light touch mechanoreceptors aggregated in digits and lips; they give rise to Merkel Cell Carcinoma."
+        },
+        {
+            q: "What is the excretion mechanism of Eccrine sweat glands?",
+            options: ["Decapitation", "Exocytosis", "Holocrine rupture", "Apical shedding"],
+            correct: 1,
+            exp: "Eccrine glands release solid products via exocytosis, leaving the cell intact."
+        },
+        {
+            q: "Which dermal cell type differentiates into myofibroblasts to drive wound contraction?",
+            options: ["Mast cells", "Fibroblasts", "Dermal dendrocytes", "Histiocytes"],
+            correct: 1,
+            exp: "Fibroblasts in the papillary dermis differentiate into myofibroblasts, which exert contractile forces during wound healing."
+        },
+        {
+            q: "What is the clear surgical excision margin required for a low-risk, primary Basal Cell Carcinoma?",
+            options: ["2 mm", "4 mm", "6 mm", "10 mm"],
+            correct: 1,
+            exp: "Primary low-risk BCCs require a 4 mm clear surgical margin."
+        },
+        {
+            q: "What surgical margin is indicated for high-risk Squamous Cell Carcinoma (&gt;2cm, high grade)?",
+            options: ["4 mm", "6 mm", "10 mm", "3 cm"],
+            correct: 1,
+            exp: "High-risk SCC lesions mandate a minimum of 6 mm clear surgical margins down to healthy tissue."
+        },
+        {
+            q: "Which procedure is the treatment of choice for Morpheaform Basal Cell Carcinoma on the face?",
+            options: ["Cryotherapy", "Topical 5-FU", "Mohs Micrographic Surgery", "Wide excision with 2mm margins"],
+            correct: 2,
+            exp: "Mohs micrographic surgery provides 100% margin evaluation and lowest recurrence (&lt;1%) for aggressive morpheaform BCC."
+        },
+        {
+            q: "What defined size threshold classifies a congenital melanocytic nevus as a 'Giant Congenital Nevus'?",
+            options: ["&gt;5 cm", "&gt;10 cm", "&gt;20 cm", "&gt;50 cm"],
+            correct: 2,
+            exp: "Congenital nevi &gt;20 cm are classified as Giant Congenital Nevi and carry a 5% life risk of transformation into melanoma."
+        },
+        {
+            q: "A 6-month-old infant presents with a rapidly growing red vascular capillary mass on the forehead. What is the 1st-line medical therapy?",
+            options: ["Oral Propranolol", "Systemic Steroids", "Surgical Excision", "Pulsed Dye Laser"],
+            correct: 0,
+            exp: "Oral Propranolol (non-selective beta-blocker) is the undisputed first-line treatment for proliferating infantile hemangiomas."
+        },
+        {
+            q: "What percentage of infantile hemangiomas undergo spontaneous involution by 5 years of age?",
+            options: ["30%", "50%", "70%", "90%"],
+            correct: 1,
+            exp: "Infantile hemangiomas follow the '50% by 5 years, 70% by 7 years' rule of involution."
+        },
+        {
+            q: "Erythroplasia of Queyrat represents Squamous Cell Carcinoma in situ located on which anatomical structure?",
+            options: ["Oral mucosa", "Glans penis", "Vulva", "Perianal skin"],
+            correct: 1,
+            exp: "Erythroplasia of Queyrat is SCC in situ specifically affecting the glans penis."
+        },
+        {
+            q: "What is the classic physical exam finding of a Dermatofibroma upon lateral compression?",
+            options: ["Pulsatility", "Fitzpatrick's Dimple / Pucker sign", "Fluctuance", "Erythematous blanching"],
+            correct: 1,
+            exp: "Pinching a dermatofibroma laterally causes it to pucker or dimple inward (Fitzpatrick's dimple sign)."
+        },
+        {
+            q: "What clear surgical margin down to deep fascia is required when excising Dermatofibrosarcoma Protuberans (DFSP)?",
+            options: ["4 mm", "6 mm", "1 cm", "3 cm"],
+            correct: 3,
+            exp: "DFSP has extensive local microscopic finger-like projections, necessitating a wide 3 cm clearance margin down to deep fascia."
+        },
+        {
+            q: "Which chemotherapy drug is infused during Isolated Limb Infusion (ILI) for recurrent extremity melanoma?",
+            options: ["Cisplatin", "Melphalan", "Doxorubicin", "5-Fluorouracil"],
+            correct: 1,
+            exp: "Melphalan is the standard high-dose regional chemotherapeutic agent used in Isolated Limb Infusion/Perfusion."
+        },
+        {
+            q: "What radiotracer is injected during Sentinel Lymph Node Biopsy for malignant melanoma?",
+            options: ["Technetium-99m sulfur colloid", "Iodine-131", "Fluorodeoxyglucose (FDG)", "Gallium-67"],
+            correct: 0,
+            exp: "Technetium-99m labeled sulfur colloid tracer (combined with blue dye) is used to locate sentinel lymph nodes."
+        },
+        {
+            q: "A patient with suspected Pyoderma Gangrenosum develops new pustules at needle puncture sites. What is this phenomenon called?",
+            options: ["Nikolsky sign", "Pathergy", "Koebner phenomenon", "Darier sign"],
+            correct: 1,
+            exp: "Pathergy refers to the development of new inflammatory skin lesions at sites of minor trauma or needle punctures in Pyoderma Gangrenosum."
+        },
+        {
+            q: "What is the recommended duration of continuous water flushing for an acidic chemical burn?",
+            options: ["10 minutes", "30 minutes", "2 hours", "6 hours"],
+            correct: 1,
+            exp: "Acid burns require 30 minutes of continuous saline/water irrigation (alkaline burns require 2 hours)."
+        },
+        {
+            q: "In Stage 2 Pressure Injuries, what is the depth of tissue involvement?",
+            options: [
+                "Non-blanchable intact skin",
+                "Partial-thickness loss involving exposed dermis or serum blisters",
+                "Full-thickness loss to fascia",
+                "Exposed muscle and bone"
+            ],
+            correct: 1,
+            exp: "Stage 2 pressure injury is defined as partial-thickness loss with exposed dermis or intact/ruptured blisters."
+        },
+        {
+            q: "Fever in a bedbound patient with a chronic Stage 4 sacral pressure sore is most commonly caused by:",
+            options: [
+                "Osteomyelitis of the sacrum",
+                "Urinary or pulmonary infection source",
+                "Pseudobursa abscess",
+                "Bacteremia from the ulcer"
+            ],
+            correct: 1,
+            exp: "Lecture note explicitly states: Fever in patients with chronic pressure ulcers is most often from a urinary or pulmonary source."
+        },
+        {
+            q: "What is the minimum surface area threshold that categorizes a soft tissue infection as 'complicated'?",
+            options: ["&gt;25 cm²", "&gt;50 cm²", "&gt;75 cm²", "&gt;100 cm²"],
+            correct: 2,
+            exp: "Complicated skin and soft tissue infections involve a surface area &gt;75 cm² or extend deep below the dermis."
+        },
+        {
+            q: "Which specific pathogen is associated with dog bite infections in immunocompromised/splenectomized patients?",
+            options: ["Pasteurella multocida", "Capnocytophaga canimorsus", "Eikenella corrodens", "Streptococcus iniae"],
+            correct: 1,
+            exp: "Capnocytophaga canimorsus is carried in dog saliva and causes fulminant sepsis in splenectomized or immunocompromised patients."
+        },
+        {
+            q: "What is the first-line oral prophylactic antibiotic for animal and human bite wounds?",
+            options: ["Cephalexin", "Amoxicillin-clavulanate", "Ciprofloxacin", "Metronidazole"],
+            correct: 1,
+            exp: "Amoxicillin-clavulanate (Augmentin) provides broad coverage against oral flora of humans, cats, and dogs."
+        },
+        {
+            q: "Epidermodysplasia Verruciformis is an autosomal recessive disorder associated with persistent infection by which HPV types?",
+            options: ["HPV 1 and 2", "HPV 6 and 11", "HPV 5 and 8", "HPV 16 and 18"],
+            correct: 2,
+            exp: "Epidermodysplasia Verruciformis is linked to HPV types 5 and 8, placing patients at extreme risk for cutaneous SCC."
+        },
+        {
+            q: "What is the cell of origin in Kaposi's Sarcoma?",
+            options: ["Keratinocyte", "Endothelial-derived spindle cell", "Fibroblast", "Schwann cell"],
+            correct: 1,
+            exp: "Kaposi's Sarcoma is a vascular tumor composed of endothelial-derived spindle cells associated with HHV-8."
+        },
+        {
+            q: "Radiation-induced angiosarcoma typically develops how many years following radiotherapy?",
+            options: ["1-2 years", "4-5 years", "10-15 years", "30-40 years"],
+            correct: 1,
+            exp: "Radiation-induced angiosarcoma typically presents 4 to 5 years following therapeutic radiation."
+        },
+        {
+            q: "What is the primary histological feature of Morpheaform Basal Cell Carcinoma?",
+            options: ["Pearly palisading nests", "Indurated scar-like dense fibrous stroma with cords of basaloid cells", "Keratin pearls", "Spindle cell pleomorphism"],
+            correct: 1,
+            exp: "Morpheaform BCC exhibits dense sclerotic stroma surrounding thin strands and cords of basaloid tumor cells, mimicking a scar."
+        }
+    ];
+
+    // ENGINE INTERACTIVITY LOGIC
+
+    // 1. TAB SWITCHING
+    document.querySelectorAll('.nav-tab-item').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.nav-tab-item').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            tab.classList.add('active');
+            const tabId = tab.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+    // 2. THEME TOGGLE (Dark Mode)
+    const themeBtn = document.getElementById('theme-toggle');
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        themeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    });
+
+    // 3. SCROLL PROGRESS & BACK TO TOP
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('progress-bar').style.width = scrolled + '%';
+
+        const scrollTopBtn = document.getElementById('btn-scroll-top');
+        if (winScroll > 300) {
+            scrollTopBtn.style.display = 'flex';
+        } else {
+            scrollTopBtn.style.display = 'none';
+        }
+    });
+
+    document.getElementById('btn-scroll-top').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // 4. COPY TABLE FUNCTION
+    function copyTable(tableId) {
+        const table = document.getElementById(tableId);
+        let text = '';
+        for (let row of table.rows) {
+            let rowText = [];
+            for (let cell of row.cells) {
+                rowText.push(cell.innerText.replace(/\n/g, ' '));
+            }
+            text += rowText.join('\t') + '\n';
+        }
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Table contents copied to clipboard!');
+        });
+    }
+
+    // 5. GLOBAL SEARCH ENGINE
+    document.getElementById('global-search').addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        if (query.length < 2) return;
+
+        // Highlight matches across visible cards
+        document.querySelectorAll('.card').forEach(card => {
+            const text = card.innerText.toLowerCase();
+            if (text.includes(query)) {
+                card.style.border = '2px solid var(--primary)';
+            } else {
+                card.style.border = '1px solid var(--border-color)';
+            }
+        });
+    });
+
+    // 6. FLASHCARDS ENGINE
+    let currentFcIndex = 0;
+    let activeDeck = [...flashcardsData];
+
+    const fcCard = document.getElementById('active-flashcard');
+    const fcQuestion = document.getElementById('fc-question');
+    const fcAnswer = document.getElementById('fc-answer');
+    const fcCat = document.getElementById('fc-cat');
+    const fcProgress = document.getElementById('fc-progress');
+
+    function renderFlashcard() {
+        if (activeDeck.length === 0) return;
+        fcCard.classList.remove('flipped');
+        setTimeout(() => {
+            const card = activeDeck[currentFcIndex];
+            fcQuestion.textContent = card.q;
+            fcAnswer.textContent = card.a;
+            fcCat.textContent = card.cat;
+            fcProgress.textContent = `Card ${currentFcIndex + 1} / ${activeDeck.length}`;
+        }, 150);
+    }
+
+    fcCard.addEventListener('click', () => {
+        fcCard.classList.toggle('flipped');
+    });
+
+    document.getElementById('fc-next').addEventListener('click', () => {
+        currentFcIndex = (currentFcIndex + 1) % activeDeck.length;
+        renderFlashcard();
+    });
+
+    document.getElementById('fc-prev').addEventListener('click', () => {
+        currentFcIndex = (currentFcIndex - 1 + activeDeck.length) % activeDeck.length;
+        renderFlashcard();
+    });
+
+    document.getElementById('fc-shuffle').addEventListener('click', () => {
+        for (let i = activeDeck.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [activeDeck[i], activeDeck[j]] = [activeDeck[j], activeDeck[i]];
+        }
+        currentFcIndex = 0;
+        renderFlashcard();
+    });
+
+    // Keyboard navigation for flashcards
+    document.addEventListener('keydown', (e) => {
+        const activeTab = document.querySelector('.tab-content.active').id;
+        if (activeTab === 'tab-flashcards') {
+            if (e.code === 'ArrowRight') {
+                document.getElementById('fc-next').click();
+            } else if (e.code === 'ArrowLeft') {
+                document.getElementById('fc-prev').click();
+            } else if (e.code === 'Space') {
+                e.preventDefault();
+                fcCard.click();
+            }
+        }
+    });
+
+    // 7. MCQ SELF-ASSESSMENT ENGINE
+    let userAnswers = {};
+
+    function renderMCQs() {
+        const container = document.getElementById('mcq-container');
+        container.innerHTML = '';
+
+        mcqsData.forEach((mcq, idx) => {
+            const card = document.createElement('div');
+            card.className = 'mcq-card';
+            card.id = `mcq-card-${idx}`;
+
+            let optionsHTML = '';
+            mcq.options.forEach((opt, optIdx) => {
+                optionsHTML += `
+                    <div class="mcq-option" data-mcq="${idx}" data-opt="${optIdx}" onclick="selectOption(${idx}, ${optIdx})">
+                        <strong style="font-family: var(--font-code);">${String.fromCharCode(65 + optIdx)}.</strong> ${opt}
+                    </div>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="mcq-header">
+                    <span class="mcq-number">Question ${idx + 1} of ${mcqsData.length}</span>
+                    <span class="badge badge-blue">PLE Board Style</span>
+                </div>
+                <div class="mcq-question">${mcq.q}</div>
+                <div class="mcq-options">${optionsHTML}</div>
+                <div class="mcq-explanation" id="mcq-exp-${idx}">
+                    <strong>Detailed Rationale:</strong><br>${mcq.exp}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function selectOption(mcqIdx, optIdx) {
+        if (userAnswers[mcqIdx] !== undefined) return; // Prevent re-answering
+
+        userAnswers[mcqIdx] = optIdx;
+        const mcq = mcqsData[mcqIdx];
+        const options = document.querySelectorAll(`[data-mcq="${mcqIdx}"]`);
+
+        options.forEach((optEl, i) => {
+            if (i === mcq.correct) {
+                optEl.classList.add('correct');
+            } else if (i === optIdx) {
+                optEl.classList.add('incorrect');
+            }
+        });
+
+        const expBox = document.getElementById(`mcq-exp-${mcqIdx}`);
+        expBox.style.display = 'block';
+
+        updateQuizScore();
+    }
+
+    function updateQuizScore() {
+        const answeredCount = Object.keys(userAnswers).length;
+        let correctCount = 0;
+
+        Object.keys(userAnswers).forEach(idx => {
+            if (userAnswers[idx] === mcqsData[idx].correct) {
+                correctCount++;
+            }
+        });
+
+        document.getElementById('quiz-score').textContent = `${answeredCount} / ${mcqsData.length} Answered (${correctCount} Correct)`;
+    }
+
+    function resetQuiz() {
+        userAnswers = {};
+        renderMCQs();
+        document.getElementById('quiz-score').textContent = `0 / ${mcqsData.length} Answered`;
+    }
+
+    // INITIALIZATION ON LOAD
+    window.addEventListener('DOMContentLoaded', () => {
+        renderFlashcard();
+        renderMCQs();
+    });
+</script>
