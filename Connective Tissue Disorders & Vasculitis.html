@@ -1,0 +1,2507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connective Tissue Disorders & Vasculitis Syndrome - Interactive Reviewer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0f4c81;
+            --primary-dark: #0a3258;
+            --primary-light: #e6f0fa;
+            --secondary: #00a88f;
+            --secondary-light: #e0f7f4;
+            --accent: #f26419;
+            --accent-light: #fef0e8;
+            --danger: #d90429;
+            --danger-light: #fde8eb;
+            --warning: #f7b801;
+            --warning-light: #fff9e6;
+            --success: #2b9348;
+            --success-light: #eaf5ec;
+            
+            --bg-body: #f4f7f6;
+            --bg-card: #ffffff;
+            --bg-sidebar: #1b263b;
+            
+            --text-main: #1d2d44;
+            --text-muted: #6c757d;
+            --text-light: #f8f9fa;
+            
+            --border: #e0e6ed;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-code: 'Space Mono', monospace;
+        }
+
+        .dark-mode {
+            --bg-body: #0d1b2a;
+            --bg-card: #1b263b;
+            --bg-sidebar: #0d1b2a;
+            
+            --text-main: #e0e1dd;
+            --text-muted: #a3a8b0;
+            --border: #2d3748;
+            
+            --primary-light: rgba(15, 76, 129, 0.3);
+            --secondary-light: rgba(0, 168, 143, 0.3);
+            --accent-light: rgba(242, 100, 25, 0.3);
+            --danger-light: rgba(217, 4, 41, 0.3);
+            --warning-light: rgba(247, 184, 1, 0.3);
+            --success-light: rgba(43, 147, 72, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Top Progress Indicator */
+        #progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1000;
+        }
+        #progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            width: 0%;
+        }
+
+        /* Header Navigation */
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .brand-title {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-title span {
+            color: var(--accent);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            padding: 8px 12px 8px 36px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            width: 220px;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            width: 280px;
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            fill: var(--text-muted);
+            width: 16px;
+            height: 16px;
+        }
+
+        .btn-icon {
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        .btn-icon:hover {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Navigation Tabs */
+        nav.nav-tabs-container {
+            background-color: var(--bg-card);
+            border-bottom: 2px solid var(--border);
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: thin;
+        }
+
+        .nav-tabs {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 16px;
+            list-style: none;
+        }
+
+        .nav-item {
+            padding: 14px 20px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item:hover {
+            color: var(--primary);
+            background-color: rgba(15, 76, 129, 0.03);
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1400px;
+            margin: 24px auto;
+            padding: 0 24px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Layout Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+
+        .col-12 { grid-column: span 12; }
+        .col-8 { grid-column: span 8; }
+        .col-6 { grid-column: span 6; }
+        .col-4 { grid-column: span 4; }
+
+        @media (max-width: 992px) {
+            .col-8, .col-6, .col-4 { grid-column: span 12; }
+        }
+
+        /* UI Cards */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            padding: 24px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .card.accent-left-primary { border-left: 5px solid var(--primary); }
+        .card.accent-left-secondary { border-left: 5px solid var(--secondary); }
+        .card.accent-left-warning { border-left: 5px solid var(--warning); }
+        .card.accent-left-danger { border-left: 5px solid var(--danger); }
+        .card.accent-left-accent { border-left: 5px solid var(--accent); }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Callout Badges & Boxes */
+        .badge-box {
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            margin: 12px 0;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            font-size: 0.95rem;
+        }
+
+        .badge-box.must-know {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            color: var(--text-main);
+        }
+
+        .badge-box.pitfall {
+            background-color: var(--danger-light);
+            border-left: 4px solid var(--danger);
+            color: var(--text-main);
+        }
+
+        .badge-box.pearl {
+            background-color: var(--success-light);
+            border-left: 4px solid var(--success);
+            color: var(--text-main);
+        }
+
+        .badge-box.exam-tip {
+            background-color: var(--warning-light);
+            border-left: 4px solid var(--warning);
+            color: var(--text-main);
+        }
+
+        .badge-box-icon {
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* Expandable / Accordions */
+        .accordion-item {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background-color: var(--bg-body);
+            padding: 14px 18px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .accordion-header:hover {
+            background-color: var(--primary-light);
+        }
+
+        .accordion-content {
+            padding: 18px;
+            display: none;
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border);
+        }
+
+        .accordion-item.open .accordion-content {
+            display: block;
+        }
+
+        .accordion-item.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* High-Yield Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 16px 0;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        table.data-table th {
+            background-color: var(--primary);
+            color: white;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            padding: 12px 14px;
+            position: sticky;
+            top: 0;
+            white-space: nowrap;
+        }
+
+        table.data-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        table.data-table tbody tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        table.data-table tbody tr:hover {
+            background-color: var(--primary-light);
+        }
+
+        .table-toolbar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 8px;
+        }
+
+        .btn-copy-table {
+            background-color: var(--bg-body);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: var(--font-code);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-copy-table:hover {
+            background-color: var(--secondary-light);
+            color: var(--secondary);
+        }
+
+        /* Tag Badges */
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-family: var(--font-code);
+            font-weight: 700;
+            margin-right: 4px;
+            margin-bottom: 4px;
+        }
+
+        .tag-primary { background-color: var(--primary-light); color: var(--primary); }
+        .tag-secondary { background-color: var(--secondary-light); color: var(--secondary); }
+        .tag-danger { background-color: var(--danger-light); color: var(--danger); }
+        .tag-warning { background-color: var(--warning-light); color: var(--warning); }
+
+        /* Diagram / CSS Schema Representations */
+        .diagram-container {
+            background-color: var(--bg-body);
+            border: 1px dashed var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .diagram-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .diagram-step {
+            background: var(--bg-card);
+            border: 2px solid var(--primary);
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.85rem;
+            box-shadow: var(--shadow-sm);
+            max-width: 200px;
+        }
+
+        .diagram-arrow {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Flashcard Styles */
+        .flashcard-container {
+            max-width: 650px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 360px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--border);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: var(--bg-card);
+            box-shadow: var(--shadow-md);
+        }
+
+        .flashcard-front {
+            border-top: 6px solid var(--primary);
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            border-top: 6px solid var(--secondary);
+            background-color: var(--primary-light);
+        }
+
+        .flashcard-category {
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        .flashcard-body {
+            font-size: 1.15rem;
+            font-weight: 500;
+            text-align: center;
+            margin: auto 0;
+        }
+
+        .flashcard-hint {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+            font-style: italic;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 650px;
+            margin: 20px auto 0;
+            gap: 12px;
+        }
+
+        .btn-action {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background-color: var(--primary);
+            color: white;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-action:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-action.btn-secondary {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-action.btn-secondary:hover {
+            background-color: var(--border);
+        }
+
+        /* MCQ Quiz Styles */
+        .quiz-card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .quiz-question-number {
+            font-family: var(--font-code);
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .quiz-question-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .quiz-option {
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background-color: var(--bg-body);
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+            font-weight: 600;
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success) !important;
+            background-color: var(--success-light) !important;
+            color: var(--success) !important;
+            font-weight: 700;
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--danger) !important;
+            background-color: var(--danger-light) !important;
+            color: var(--danger) !important;
+        }
+
+        .quiz-explanation {
+            display: none;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            background-color: var(--bg-body);
+            border-left: 4px solid var(--primary);
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        /* Floating Scroll to Top */
+        #scroll-top-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+        }
+
+        #scroll-top-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Print Styles */
+        @media print {
+            header, nav, .header-controls, #scroll-top-btn, .flashcard-controls, .btn-copy-table {
+                display: none !important;
+            }
+            .tab-content { display: block !important; }
+            .card { break-inside: avoid; border: 1px solid #ccc; box-shadow: none; }
+            body { background-color: white; color: black; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress Indicator -->
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- Header Toolbar -->
+    <header>
+        <div class="header-container">
+            <div class="brand-title">
+                ⚡ MED-REV <span>CONNECTIVE TISSUE & VASCULITIS</span>
+            </div>
+            <div class="header-controls">
+                <div class="search-box">
+                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    <input type="text" id="global-search" placeholder="Search keywords..." onkeyup="searchContent()">
+                </div>
+                <button class="btn-icon" id="theme-toggle" title="Toggle Theme" onclick="toggleTheme()">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs-container">
+        <ul class="nav-tabs" id="main-tabs">
+            <li class="nav-item active" onclick="switchTab('overview')">📌 1. Overview</li>
+            <li class="nav-item" onclick="switchTab('sle')">🦋 2. SLE</li>
+            <li class="nav-item" onclick="switchTab('aps')">🩸 3. APS</li>
+            <li class="nav-item" onclick="switchTab('ssc')">🧬 4. Scleroderma</li>
+            <li class="nav-item" onclick="switchTab('im')">💪 5. Myopathies</li>
+            <li class="nav-item" onclick="switchTab('sjogren')">👁️ 6. Sjögren's</li>
+            <li class="nav-item" onclick="switchTab('vasculitis')">🫀 7. Vasculitis</li>
+            <li class="nav-item" onclick="switchTab('comparisons')">⚖️ 8. Comparisons</li>
+            <li class="nav-item" onclick="switchTab('flashcards')">🎴 9. Flashcards</li>
+            <li class="nav-item" onclick="switchTab('assessment')">📝 10. Self-Assessment</li>
+            <li class="nav-item" onclick="switchTab('cramsheet')">⚡ 11. Cram Sheet</li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Body -->
+    <main>
+
+        <!-- ==================== TAB 1: OVERVIEW ==================== -->
+        <section id="tab-overview" class="tab-content active">
+            <div class="card accent-left-primary">
+                <div class="card-header">
+                    <h2 class="card-title">📖 High-Yield Executive Overview</h2>
+                </div>
+                <p>Welcome to the interactive board-exam reviewer for <strong>Connective Tissue Disorders & Vasculitis Syndrome</strong>. This module synthesizes core rheumatologic concepts from internal medicine lectures and board guidelines into interactive study cards, diagnostic flowcharts, side-by-side comparison matrices, active-recall flashcards, and board-style self-assessment questions.</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="col-6">
+                    <div class="card accent-left-secondary">
+                        <h3 class="card-title">🎯 Primary Learning Objectives</h3>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Recognize multisystem autoimmune connective tissue diseases (SLE, APS, SSc, IM, Sjögren's) based on clinical presentations and lab markers.</li>
+                            <li>Differentiate systemic vasculitides according to predominantly affected vessel size (Large, Medium, Small) and clinicopathologic patterns.</li>
+                            <li>Interpret complex autoantibody panels (ANA patterns, anti-dsDNA, anti-Sm, anti-Scl-70, anti-centromere, ANCA, anti-Ro/SSA, anti-La/SSB).</li>
+                            <li>Formulate evidence-based diagnostic algorithms, renal biopsy interpretations, and risk-adapted therapeutic plans.</li>
+                            <li>Avoid critical diagnostic traps (e.g., steroid-induced scleroderma renal crisis, mistaking steroid myopathy for myositis relapse).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="card accent-left-accent">
+                        <h3 class="card-title">🔑 Core Autoimmune Terminology</h3>
+                        <p><strong>Autoimmune Triad:</strong> Pathogenic convergence of genetic susceptibility, environmental/microenvironmental triggers, and defective immune tolerance leading to autoantibody deposition and end-organ damage.</p>
+                        <p style="margin-top: 8px;"><strong>Leukocytoclastic Vasculitis (LCV):</strong> Histopathologic neutrophil fragmentation (nuclear dust) within small blood vessel walls, typical of immune complex vasculitides.</p>
+                        <p style="margin-top: 8px;"><strong>Panniculitis:</strong> Inflammation of subcutaneous fat lobules or septa (e.g., in chronic cutaneous lupus).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card accent-left-primary">
+                <div class="table-toolbar">
+                    <button class="btn-copy-table" onclick="copyTable('master-overview-table')">📋 Copy Table</button>
+                </div>
+                <h3 class="card-title">📊 Master Spectrum of Rheumatologic & Connective Tissue Disorders</h3>
+                <div class="table-responsive">
+                    <table class="data-table" id="master-overview-table">
+                        <thead>
+                            <tr>
+                                <th>Disease Entity</th>
+                                <th>Demographics</th>
+                                <th>Pathognomonic / Key Features</th>
+                                <th>Key Autoantibodies / Markers</th>
+                                <th>First-Line / Key Therapy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Systemic Lupus Erythematosus (SLE)</strong></td>
+                                <td>F:M = 9:1, young females (20s-30s)</td>
+                                <td>Malar rash (spares nasolabial folds), non-erosive arthritis, lupus nephritis, oral ulcers (upper palate)</td>
+                                <td>ANA (&gt;95%), Anti-dsDNA (nephritis/flares), Anti-Sm (specific), Anti-histone (drug-induced)</td>
+                                <td>Hydroxychloroquine (all), Glucocorticoids, MMF / Cyclophosphamide (organ-threatening)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Antiphospholipid Syndrome (APS)</strong></td>
+                                <td>Young females; primary or SLE-secondary</td>
+                                <td>Recurrent venous/arterial thrombosis, livedo reticularis, pregnancy loss (&gt;10w or &lt;10w x3)</td>
+                                <td>Lupus Anticoagulant (aPTT/dRVVT), Anticardiolipin (aCL), Anti-β2GPI</td>
+                                <td>Warfarin (INR 2.0-3.0 for venous; 3.0-4.0 for arterial), Low-dose Aspirin (prophylaxis)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Limited Cutaneous SSc (CREST)</strong></td>
+                                <td>Females, indolent onset</td>
+                                <td>Calcinosis, Raynaud's, Esophageal dysmotility, Sclerodactyly, Telangiectasia (skin distal to elbows/knees)</td>
+                                <td>Anti-Centromere Antibodies (ACA)</td>
+                                <td>Symptomatic (CCBs for Raynaud's, PPIs for GERD), Avoid high-dose steroids</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Diffuse Cutaneous SSc (dcSSc)</strong></td>
+                                <td>Females, rapid onset & progression</td>
+                                <td>Skin proximal to elbows/knees/trunk; early severe Interstitial Lung Disease (ILD) & Scleroderma Renal Crisis</td>
+                                <td>Anti-Topoisomerase I (Anti-Scl-70), Anti-RNA Polymerase III (Renal crisis risk)</td>
+                                <td>Immunosuppressives (MMF, Cyclophosphamide); ACE Inhibitors for Renal Crisis (NOT steroids)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dermatomyositis (DM)</strong></td>
+                                <td>Children & Adults, F &gt; M</td>
+                                <td>Proximal &gt; distal muscle weakness, Heliotrope rash, Gottron papules/sign, V-sign, Shawl sign</td>
+                                <td>Anti-Mi-2, Anti-MDA5, Anti-TIF1, Anti-NXP2, CK elevated (up to 50x)</td>
+                                <td>High-dose Glucocorticoids (Prednisone 0.75-1.0 mg/kg/d) + steroid-sparing agents (MTX, AZA)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Polymyositis (PM)</strong></td>
+                                <td>Adults, F &gt; M</td>
+                                <td>Symmetric proximal weakness WITHOUT rash, endomysial CD8+ T-cell inflammation</td>
+                                <td>CK markedly elevated, elevated muscle enzymes, non-specific MSAs</td>
+                                <td>High-dose Glucocorticoids, Immunosuppressives</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sjögren's Syndrome</strong></td>
+                                <td>Middle-aged females (F:M = 10-20:1)</td>
+                                <td>Keratoconjunctivitis sicca (dry eyes), Xerostomia (dry mouth), parotid enlargement, MALT lymphoma risk (6%)</td>
+                                <td>Anti-Ro/SSA, Anti-La/SSB, Positive Schirmer test (&lt;5mm/5min), Unstimulated saliva (&lt;1.5mL/15min)</td>
+                                <td>Artificial tears, Muscarinic agonists (Pilocarpine/Cevimeline), Hydroxychloroquine for extraglandular</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Takayasu Arteritis (TA)</strong></td>
+                                <td>Young females (&lt;40yo), Asian predilection</td>
+                                <td>Pulseless disease, claudication, asymmetric BP (&gt;10 mmHg diff), subclavian/aortic bruits</td>
+                                <td>Arteriography showing aortic stenosis/occlusion/aneurysms; elevated ESR/CRP</td>
+                                <td>Glucocorticoids + Immunosuppressives (MTX, AZA), Surgical/Endovascular bypass</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Giant Cell Arteritis (GCA)</strong></td>
+                                <td>Adults &gt; 50yo, females</td>
+                                <td>New onset temporal headache, jaw claudication, tender temporal artery, Polymyalgia Rheumatica co-occurrence</td>
+                                <td>Temporal artery biopsy (granulomatous), ESR &ge; 50 mm/hr</td>
+                                <td>High-dose Glucocorticoids IMMEDIATELY (prevent irreversible blindness from anterior optic ischemia)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Polyarteritis Nodosa (PAN)</strong></td>
+                                <td>Adults (40-60yo), Associated with HBV</td>
+                                <td>Medium vessel necrotizing vasculitis: livedo reticularis, digital gangrene, mononeuritis multiplex, testicular pain; NO glomerulonephritis</td>
+                                <td>Biopsy (fibrinoid necrosis), Visceral arteriography (microaneurysms)</td>
+                                <td>Glucocorticoids + Cyclophosphamide; Treat HBV if positive</td>
+                            </tr>
+                            <tr>
+                                <td><strong>IgA Vasculitis (HSP)</strong></td>
+                                <td>Children (&lt;5yo), M:F = 1.5:1</td>
+                                <td>Post-URTI tetrad: Palpable purpura (buttocks/lower extremity), Arthralgia, Abdominal bowel angina, IgA Glomerulonephritis</td>
+                                <td>Skin biopsy: IgA + C3 deposition on immunofluorescence (leukocytoclastic)</td>
+                                <td>Supportive; Glucocorticoids for severe GI/renal disease</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 2: SYSTEMIC LUPUS ERYTHEMATOSUS ==================== -->
+        <section id="tab-sle" class="tab-content">
+            <div class="card accent-left-primary">
+                <div class="card-header">
+                    <h2 class="card-title">🦋 Systemic Lupus Erythematosus (SLE)</h2>
+                    <span class="tag tag-primary">Core Topic 1</span>
+                </div>
+                <p><strong>Definition:</strong> SLE is a prototypical multisystem autoimmune rheumatologic disease characterized by autoantibody production, complement activation, and immune complex deposition leading to widespread systemic inflammation and organ destruction.</p>
+                <p style="margin-top: 8px;"><strong>Epidemiology:</strong> Predominantly affects females of childbearing age (F:M ratio of <strong>9:1</strong>). Disease course is relapsing-remitting or continuously active. Early mortality is driven by active disease, infection, and thrombosis; late mortality is heavily driven by atherosclerotic cardiovascular disease and organ failure.</p>
+            </div>
+
+            <!-- Pathogenesis CSS Schema -->
+            <div class="card accent-left-secondary">
+                <h3 class="card-title">⚡ Pathogenesis & Etiology Flowchart</h3>
+                <div class="diagram-container">
+                    <div class="diagram-flow">
+                        <div class="diagram-step">Genetic Risk<br><small>(HLA-DR2/3, C1q/C2/C4 def)</small></div>
+                        <div class="diagram-arrow">➔</div>
+                        <div class="diagram-step">Triggers<br><small>(UV Light ~70%, EBV, Smoking, Drugs)</small></div>
+                        <div class="diagram-arrow">➔</div>
+                        <div class="diagram-step">Abnormal Immune Response<br><small>(Apoptosis failure, autoreactive T/B cells)</small></div>
+                        <div class="diagram-arrow">➔</div>
+                        <div class="diagram-step">Autoantibody & Complex Deposition<br><small>(Anti-dsDNA, Anti-Sm, Complement drop)</small></div>
+                        <div class="diagram-arrow">➔</div>
+                        <div class="diagram-step">End-Organ Damage<br><small>(Nephritis, Atherosclerosis, Stroke)</small></div>
+                    </div>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--text-muted);"><em>Triggers Detail:</em> Ultraviolet exposure increases skin cell apoptosis and alters DNA structure, rendering it immunogenic. Tobacco smoking increases risk (HR 1.5). Environmental silica exposure and drugs (hydralazine, procainamide, isoniazid) also trigger autoantibodies.</p>
+            </div>
+
+            <!-- Clinical Manifestations Breakdown -->
+            <div class="card accent-left-warning">
+                <h3 class="card-title">🩺 Organ System Clinical Manifestations</h3>
+                <div class="accordion-item open">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>1. Musculoskeletal & Cutaneous System</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Musculoskeletal:</strong> Polyarthritis in hands, wrists, and knees. Soft tissue swelling/tenderness without bone erosion (distinguishes it from Rheumatoid Arthritis). Hand deformities (Jaccoud's arthropathy) occur in 10% and are <em>reducible</em>.</p>
+                        <p style="margin-top: 8px;"><strong>Cutaneous:</strong></p>
+                        <ul style="margin-left: 20px;">
+                            <li><strong>Malar / "Butterfly" Rash:</strong> Erythematous, photosensitive, slightly raised rash over cheeks and nasal bridge, strictly <em>sparing the nasolabial folds</em>. Worsening signals systemic flare.</li>
+                            <li><strong>Discoid Lupus Erythematosus (DLE):</strong> Chronic dermatitis with circular hyperpigmented erythematous rims and depigmented atrophic centers destroying dermal appendages permanently. 5% of DLE have SLE; 20% of SLE have DLE.</li>
+                            <li><strong>Oral Ulcers:</strong> 3rd most common cutaneous sign; typically <em>painless</em>, located on the upper hard palate.</li>
+                            <li><strong>Alopecia:</strong> Non-scarring generalized hair thinning.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>2. Renal Manifestation: Lupus Nephritis (LN)</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Nephritis occurs in up to <strong>50%</strong> of patients and is a leading cause of early mortality alongside infection. Biopsy is indicated for unexplained creatinine elevation, confirmed proteinuria &ge; 1.0 g/24h, or proteinuria &ge; 0.5 g/24h with hematuria/cellular casts.</p>
+                        <div class="table-responsive" style="margin-top: 10px;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>LN Class</th>
+                                        <th>Histopathologic Description</th>
+                                        <th>Clinical / Lab Picture</th>
+                                        <th>Prognosis & Therapy</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Class I</strong></td>
+                                        <td>Minimal Mesangial</td>
+                                        <td>Bland sediment, proteinuria &lt;200 mg</td>
+                                        <td>Excellent prognosis; no specific immunosuppression.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Class II</strong></td>
+                                        <td>Mesangial Proliferative</td>
+                                        <td>Mild hematuria/proteinuria (200-500 mg)</td>
+                                        <td>Excellent prognosis; no active immunosuppression.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Class III</strong></td>
+                                        <td>Focal Lupus Nephritis (&lt;50% glomeruli)</td>
+                                        <td>Active sediment, proteinuria 500-3500 mg, high anti-dsDNA, low C3/C4</td>
+                                        <td>High risk for ESRD; aggressive immunosuppression required.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Class IV</strong></td>
+                                        <td>Diffuse Lupus Nephritis (&gt;50% glomeruli)</td>
+                                        <td><strong>Most frequent & severe</strong>; heavy proteinuria, RBC casts, HTN, low C3/C4</td>
+                                        <td>Poor prognosis without therapy. Immunosuppressive induction (MMF / Cyclophosphamide) mandatory!</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Class V</strong></td>
+                                        <td>Membranous Lupus Nephritis</td>
+                                        <td>Nephrotic-range proteinuria (&gt;3000 mg), bland sediment, normal complement</td>
+                                        <td>Treated with immunosuppression if mixed with Class III/IV or progressive.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Class VI</strong></td>
+                                        <td>Advanced Sclerotic (&ge;90% sclerotic)</td>
+                                        <td>Renal failure, chronic elevated creatinine</td>
+                                        <td>Irreversible damage; <strong>NO immunosuppression recommended</strong> (prepare for dialysis/transplant).</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>3. Hematologic, Neurologic, Cardiopulmonary & Other Systems</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Hematologic:</strong> Normochromic normocytic anemia (most common). Lymphopenia (almost always present; rarely predisposing to infection alone). Thrombocytopenia (therapy generally not required unless &lt;40,000/&mu;L or bleeding).</p>
+                        <p style="margin-top: 6px;"><strong>Neurologic:</strong> 19 neuropsychiatric syndromes. Most common diffuse manifestation: cognitive dysfunction and severe headaches (excruciating headaches herald a flare).</p>
+                        <p style="margin-top: 6px;"><strong>Cardiopulmonary:</strong> <strong>Pericarditis</strong> is the most common cardiac feature. 2.7-fold increased risk of Heart Failure. Premature coronary atherosclerosis is a major late mortality driver.</p>
+                        <p style="margin-top: 6px;"><strong>Ocular:</strong> Sicca syndrome & conjunctivitis are common. Retinal vasculitis and optic neuritis are vision-threatening emergencies!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diagnostic & Autoantibody Tables -->
+            <div class="card accent-left-primary">
+                <div class="table-toolbar">
+                    <button class="btn-copy-table" onclick="copyTable('sle-antibody-table')">📋 Copy Table</button>
+                </div>
+                <h3 class="card-title">🧪 SLE Autoantibody Profile</h3>
+                <div class="table-responsive">
+                    <table class="data-table" id="sle-antibody-table">
+                        <thead>
+                            <tr>
+                                <th>Autoantibody</th>
+                                <th>Sensitivity</th>
+                                <th>Specificity</th>
+                                <th>Clinical & Diagnostic Utility</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ANA (Antinuclear Ab)</strong></td>
+                                <td>&gt;95%</td>
+                                <td>Low</td>
+                                <td><strong>Best screening test.</strong> Titer &ge; 1:80 is obligatory entry criterion for 2019 EULAR/ACR. IF method preferred over ELISA.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anti-dsDNA</strong></td>
+                                <td>70%</td>
+                                <td>High</td>
+                                <td>Correlates directly with <strong>disease flares & lupus nephritis activity</strong>. Rising titers + declining C3/C4 indicate imminent renal flare.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anti-Sm (Smith)</strong></td>
+                                <td>30%</td>
+                                <td>Very High</td>
+                                <td><strong>Pathognomonic/specific for SLE.</strong> Does NOT fluctuate with disease activity.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anti-Histone</strong></td>
+                                <td>70%</td>
+                                <td>Moderate</td>
+                                <td>Associated with <strong>Drug-Induced Lupus</strong> (Procainamide, Hydralazine, Isoniazid, Lithium, TNF inhibitors). Spares kidneys and CNS.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anti-Ro / SS-A</strong></td>
+                                <td>30-40%</td>
+                                <td>Moderate</td>
+                                <td>Associated with <strong>Neonatal Lupus</strong> (congenital heart block), Sicca syndrome, and Subacute Cutaneous LE. Screening essential in pregnancy!</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Antiphospholipid (aPL)</strong></td>
+                                <td>20-30%</td>
+                                <td>Moderate</td>
+                                <td>Identifies risk for venous/arterial thrombosis, recurrent fetal loss, and thrombocytopenia.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SLE Classification Criteria -->
+            <div class="card accent-left-secondary">
+                <h3 class="card-title">📋 SLE Classification Criteria</h3>
+                <p><strong>2012 SLICC Criteria:</strong> Sensitivity 97%, Specificity 84%. Requires &ge; 4 of 17 criteria (with &ge; 1 clinical AND &ge; 1 immunologic criteria) OR biopsy-proven nephritis compatible with SLE plus positive ANA or Anti-dsDNA.</p>
+                <p style="margin-top: 10px;"><strong>2019 EULAR/ACR Criteria:</strong> Sensitivity 96.1%, Specificity 93.4%. Mandatory Entry Criterion: Positive ANA &ge; 1:80. Requires score &ge; 10 weighted points across 7 clinical and 3 immunologic domains. Biopsy-proven Class III or IV nephritis awards 10 points automatically!</p>
+            </div>
+
+            <!-- Pharmacology & Management -->
+            <div class="card accent-left-accent">
+                <h3 class="card-title">💊 Therapeutic Strategy & Pharmacotherapy</h3>
+                <p><strong>Goal:</strong> Remission/low disease activity, organ damage prevention, drug toxicity minimization.</p>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li><strong>Antimalarials (Hydroxychloroquine - HCQ):</strong> Indicated for ALL SLE patients regardless of activity. Dose &le; 5.0 mg/kg actual weight/day. Reduces flares by 50%, improves survival, protects against thrombosis and organ damage. <em>Adverse Effect:</em> Retinal toxicity (requires baseline, 5-year, and annual ophthalmologic screening).</li>
+                    <li><strong>Glucocorticoids:</strong> Mainstay for life/organ-threatening flares (Prednisone 0.5-1.0 mg/kg/day or IV Methylprednisolone pulses 500-1000 mg x 3 days). Taper to &le; 7.5 mg/day within 6 months to avoid steroid toxicity.</li>
+                    <li><strong>Immunosuppressive Agents (MMF & Cyclophosphamide):</strong> First-line induction for Class III/IV Lupus Nephritis. MMF (2-3 g/d) is preferred in women wanting fertility protection. Cyclophosphamide carries risks of hemorrhagic cystitis (prevented with Mesna) and premature ovarian failure.</li>
+                    <li><strong>Maintenance Agents:</strong> Mycophenolate Mofetil or Azathioprine (safer long-term options).</li>
+                    <li><strong>Biologics:</strong> <strong>Belimumab</strong> (anti-BLyS antibody) for refractory extrarenal disease; <strong>Rituximab</strong> (anti-CD20) for severe refractory disease or severe autoimmune thrombocytopenia.</li>
+                </ul>
+
+                <div class="badge-box must-know">
+                    <span class="badge-box-icon">⭐</span>
+                    <div><strong>MUST KNOW:</strong> All SLE patients should receive Hydroxychloroquine unless contraindicated. Broad-spectrum SPF &ge; 30 sunscreen is mandatory for photosensitive dermatitis.</div>
+                </div>
+                <div class="badge-box pitfall">
+                    <span class="badge-box-icon">⚠️</span>
+                    <div><strong>COMMON PITFALL:</strong> NSAIDs must be used with extreme caution due to elevated risks of NSAID-induced aseptic meningitis, elevated transaminases, hypertension, and acute renal insufficiency.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 3: ANTIPHOSPHOLIPID SYNDROME ==================== -->
+        <section id="tab-aps" class="tab-content">
+            <div class="card accent-left-primary">
+                <div class="card-header">
+                    <h2 class="card-title">🩸 Antiphospholipid Syndrome (APS)</h2>
+                    <span class="tag tag-primary">Core Topic 2</span>
+                </div>
+                <p><strong>Definition:</strong> Autoantibody-mediated acquired thrombophilia characterized by recurrent venous or arterial thrombosis and/or pregnancy morbidity.</p>
+                <p style="margin-top: 8px;"><strong>Subtypes:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Primary APS:</strong> Occurs in isolation without underlying autoimmune disease.</li>
+                    <li><strong>Secondary APS:</strong> Occurs in association with autoimmune diseases, predominantly SLE.</li>
+                    <li><strong>Catastrophic APS (CAPS):</strong> Rapidly progressive, life-threatening variant with simultaneous thrombotic occlusion of &ge; 3 organ systems over days.</li>
+                </ul>
+            </div>
+
+            <div class="card accent-left-secondary">
+                <h3 class="card-title">🧪 Autoantibodies & Laboratory Testing</h3>
+                <p>APS antibodies target negatively charged phospholipids and plasma phospholipid-binding proteins:</p>
+                <div class="table-responsive" style="margin-top: 10px;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Target Marker</th>
+                                <th>Assay Used</th>
+                                <th>Pathopathologic Mechanism & Utility</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Anticardiolipin Antibodies (aCL)</strong></td>
+                                <td>ELISA (IgG or IgM isotype)</td>
+                                <td>Recognizes &beta;2GPI bound to cardiolipin. Titer &gt; 40 GPL/MPL or &gt;99th percentile.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anti-&beta;2 Glycoprotein 1 (anti-&beta;2GPI)</strong></td>
+                                <td>ELISA (IgG or IgM isotype)</td>
+                                <td>Recognizes &beta;2GPI bound to oxidized polystyrene surface. Titers &gt;99th percentile.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lupus Anticoagulant (LA)</strong></td>
+                                <td>Coagulation Tests: aPTT, KCT, Dilute Russell Viper Venom Test (dRVVT)</td>
+                                <td>Prolongs clotting time <em>in vitro</em> by interfering with thrombin generation, but induces thrombosis <em>in vivo</em>! Most predictive marker for thrombosis.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card accent-left-warning">
+                <h3 class="card-title">🩺 Clinical Features & Sapporo Diagnostic Criteria</h3>
+                <p><strong>Clinical Spectrum:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Venous Thrombosis:</strong> Deep Vein Thrombosis (DVT) in lower extremities is the most common presentation, frequently leading to Pulmonary Embolism (PE).</li>
+                    <li><strong>Arterial Thrombosis:</strong> Brain is most common site (Stroke, TIA, Multi-infarct dementia, Migraines). Libman-Sacks endocarditis (valvular thickening/vegetations). Visceral/extremity gangrene.</li>
+                    <li><strong>Cutaneous:</strong> <strong>Livedo reticularis</strong> (mottled purple lace-like vascular discolouration due to capillary thrombi), ischemic leg ulcers.</li>
+                    <li><strong>Obstetric Morbidity:</strong> Late fetal loss (&ge;10 weeks of normal fetus), severe preeclampsia/eclampsia requiring premature delivery before 34 weeks, or &ge;3 unexplained consecutive spontaneous abortions before 10th week.</li>
+                </ul>
+
+                <div class="badge-box must-know" style="margin-top: 16px;">
+                    <span class="badge-box-icon">⭐</span>
+                    <div><strong>REVISED SAPPORO CRITERIA FOR DEFINITE APS:</strong> Requires at least <strong>1 Clinical Criterion</strong> (vascular thrombosis or defined pregnancy morbidity) AND <strong>1 Laboratory Criterion</strong> (LA, aCL, or anti-&beta;2GPI present on 2 or more occasions at least <strong>12 weeks apart</strong>). Tests must be within 5 years of clinical event.</div>
+                </div>
+            </div>
+
+            <div class="card accent-left-accent">
+                <h3 class="card-title">💊 Management Guidelines</h3>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Clinical Scenario</th>
+                                <th>Recommended Management</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Asymptomatic or High-risk aPL profile in SLE</strong></td>
+                                <td>Prophylactic Low-Dose Aspirin (80-100 mg/day).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>First Venous Thrombosis</strong></td>
+                                <td>Lifelong Vitamin K Antagonist (Warfarin) with target <strong>INR 2.0 - 3.0</strong>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Arterial Thrombosis</strong></td>
+                                <td>Warfarin with high-target <strong>INR 3.0 - 4.0</strong> OR Warfarin (INR 2.0 - 3.0) PLUS low-dose aspirin.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Catastrophic APS (CAPS)</strong></td>
+                                <td><strong>Triple Therapy:</strong> High-dose Glucocorticoids + Heparin + Plasma Exchange (PEX) or IVIG + treating underlying triggers (infections).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 4: SYSTEMIC SCLEROSIS ==================== -->
+        <section id="tab-ssc" class="tab-content">
+            <div class="card accent-left-primary">
+                <div class="card-header">
+                    <h2 class="card-title">🧬 Systemic Sclerosis (Scleroderma / SSc)</h2>
+                    <span class="tag tag-primary">Core Topic 3</span>
+                </div>
+                <p><strong>Definition:</strong> SSc is a chronic orphan connective tissue disease characterized by a pathogenic triad: 1) Autoimmunity & Inflammation, 2) Widespread Obliterative Microvasculopathy, and 3) Progressive Interstitial & Vascular Fibrosis of skin and internal organs.</p>
+            </div>
+
+            <div class="card accent-left-secondary">
+                <h3 class="card-title">⚖️ Limited vs. Diffuse Phenotypes Comparison</h3>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Limited Cutaneous SSc (lcSSc / CREST)</th>
+                                <th>Diffuse Cutaneous SSc (dcSSc)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Skin Distribution</strong></td>
+                                <td>Distal to elbows and knees; facial involvement possible; <strong>spares trunk</strong>.</td>
+                                <td>Proximal to elbows/knees, involving <strong>trunk, chest, and abdomen</strong>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Onset & Course</strong></td>
+                                <td>Indolent; Raynaud's precedes skin changes by years/decades.</td>
+                                <td>Rapid onset & progression; Raynaud's occurs concurrently with skin edema/induration.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Internal Organs</strong></td>
+                                <td>Late pulmonary arterial hypertension (PAH); low risk of early renal crisis.</td>
+                                <td>Early severe Interstitial Lung Disease (ILD) & Scleroderma Renal Crisis (within first 4 years).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Autoantibody</strong></td>
+                                <td><strong>Anti-Centromere Antibodies (ACA)</strong></td>
+                                <td><strong>Anti-Topoisomerase I (Anti-Scl-70)</strong> & Anti-RNA Polymerase III</td>
+                            </tr>
+                            <tr>
+                                <td><strong>CREST Features</strong></td>
+                                <td>Calcinosis, Raynaud's, Esophageal dysmotility, Sclerodactyly, Telangiectasia.</td>
+                                <td>Tendon friction rubs, carpal tunnel, severe joint contractures.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card accent-left-warning">
+                <h3 class="card-title">🩺 Systemic Manifestations & Radiography</h3>
+                <p><strong>Organ Systems Involved:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Skin:</strong> Edema &rarr; Sclerodactyly &rarr; Atrophy; "Salt-and-pepper" hyper/hypopigmentation; Calcinosis cutis; Digital ischemic ulcers & necrosis.</li>
+                    <li><strong>Gastrointestinal:</strong> Hypomotility (esophageal dysmotility, GERD, Barrett's), Gastric Antral Vascular Ectasia (GAVE / "watermelon stomach"), small bowel bacterial overgrowth, intestinal pseudo-obstruction.</li>
+                    <li><strong>Cardiopulmonary:</strong> Leading cause of mortality! ILD (frequent in dcSSc) and PAH (frequent in lcSSc). Diastolic dysfunction and pericarditis.</li>
+                    <li><strong>Scleroderma Renal Crisis (SRC):</strong> Occurs in 15% of dcSSc patients. Manifests as malignant accelerated hypertension, rapidly progressive oliguric renal failure, and microangiopathic hemolytic anemia. Risk linked to Anti-RNA Polymerase III.</li>
+                </ul>
+
+                <p style="margin-top: 12px;"><strong>Radiographic Hallmark:</strong> <strong>Acro-osteolysis</strong> — Resorption and dissolution of distal terminal phalanges of fingers due to long-standing ischemic injury.</p>
+            </div>
+
+            <div class="card accent-left-danger">
+                <h3 class="card-title">⚠️ Diagnostic Criteria & Steroid Warning</h3>
+                <p><strong>2013 ACR/EULAR Classification Criteria:</strong> Total score &ge; 9 fulfills definite SSc (90% sensitivity & specificity). Note: <em>Bilateral skin thickening of fingers extending proximal to MCP joints awards 9 points automatically!</em> Other scoring items: Sclerodactyly (2), Digital tip ulcers (2), Pitting scars (3), Telangiectasia (2), Abnormal nailfold capillaries (2), PAH/ILD (2), Raynaud's (3), SSc autoantibodies (3).</p>
+                
+                <div class="badge-box pitfall" style="margin-top: 16px;">
+                    <span class="badge-box-icon">⚠️</span>
+                    <div><strong>CRITICAL BOARD PITFALL:</strong> Glucocorticoids are <strong>NOT first-line</strong> in Scleroderma! Moderate-to-high dose corticosteroids (&gt;15 mg/day prednisone) trigger or precipitate <strong>Scleroderma Renal Crisis</strong>. If necessary, use lowest dose for brief periods only. Management of SRC is ACE Inhibitors (Captopril).</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 5: INFLAMMATORY MYOPATHIES ==================== -->
+        <section id="tab-im" class="tab-content">
+            <div class="card accent-left-primary">
+                <div class="card-header">
+                    <h2 class="card-title">💪 Idiopathic Inflammatory Myopathies (IIM)</h2>
+                    <span class="tag tag-primary">Core Topic 4</span>
+                </div>
+                <p>A heterogenous group of autoimmune muscle disorders characterized by muscle weakness, elevated serum muscle enzymes, abnormal electromyography (EMG), and inflammatory cell infiltration on muscle biopsy.</p>
+            </div>
+
+            <div class="card accent-left-secondary">
+                <div class="table-toolbar">
+                    <button class="btn-copy-table" onclick="copyTable('myopathy-comp-table')">📋 Copy Table</button>
+                </div>
+                <h3 class="card-title">📊 Inflammatory Myopathy Subtypes Comparison</h3>
+                <div class="table-responsive">
+                    <table class="data-table" id="myopathy-comp-table">
+                        <thead>
+                            <tr>
+                                <th>Disorder</th>
+                                <th>Weakness Pattern</th>
+                                <th>Skin Rash</th>
+                                <th>Muscle Biopsy & Cellular Infiltrate</th>
+                                <th>Malignancy Risk</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Dermatomyositis (DM)</strong></td>
+                                <td>Symmetric, Proximal &gt; Distal</td>
+                                <td><strong>Yes</strong> (Heliotrope, Gottron's, V/Shawl sign)</td>
+                                <td><strong>Perifascicular atrophy</strong>; Perivascular/perimysial CD4+ T cells, B cells, plasmacytoid dendritic cells</td>
+                                <td>High (15% in adult-onset within 2-3 years)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Polymyositis (PM)</strong></td>
+                                <td>Symmetric, Proximal &gt; Distal</td>
+                                <td><strong>No</strong></td>
+                                <td><strong>Endomysial infiltration</strong>; CD8+ T cells & macrophages surrounding MHC-1 expressing myofibers</td>
+                                <td>Moderate (lower than DM)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Immune-Mediated Necrotizing Myopathy (IMNM)</strong></td>
+                                <td>Severe Proximal Weakness</td>
+                                <td>No</td>
+                                <td><strong>Necrotic muscle fibers</strong> with sparse/minimal inflammatory infiltrate; Anti-SRP or Anti-HMGCR (statin-triggered)</td>
+                                <td>Variable</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Inclusion Body Myositis (IBM)</strong></td>
+                                <td>Asymmetric; <strong>Distal & Proximal</strong> (wrist/finger flexors, quadriceps)</td>
+                                <td>No</td>
+                                <td><strong>Rimmed vacuoles</strong>, amyloid/p62/TDP-43 deposits, 15-18 nm tubulofilaments; poorly responsive to therapy</td>
+                                <td>Not associated; males &gt; 50yo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card accent-left-warning">
+                <h3 class="card-title">🎨 Pathognomonic Cutaneous Signs of Dermatomyositis</h3>
+                <div class="content-grid">
+                    <div class="col-6">
+                        <ul style="margin-left: 20px;">
+                            <li><strong>Heliotrope Rash:</strong> Violaceous/erythematous eruption on upper eyelids, often accompanied by periorbital edema.</li>
+                            <li><strong>Gottron Papules:</strong> <em>Pathognomonic</em> raised erythematous scaly papules over extensor surfaces of MCP and IP joints.</li>
+                            <li><strong>Gottron Sign:</strong> Macular erythematous rash over elbows, knees, or ankles.</li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <ul style="margin-left: 20px;">
+                            <li><strong>V-Sign:</strong> Erythematous rash over sun-exposed anterior neck and upper chest.</li>
+                            <li><strong>Shawl Sign:</strong> Erythematous rash over upper back, posterior neck, and shoulders.</li>
+                            <li><strong>Nailbed Changes:</strong> Periungual telangiectasias with capillary loop dilation and cuticular hypertrophy.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card accent-left-accent">
+                <h3 class="card-title">💊 Management & Differential Diagnosis Traps</h3>
+                <p><strong>First-Line Therapy:</strong> High-dose Glucocorticoids (Prednisone 0.75-1.0 mg/kg/day). Maintained until strength normalizes or plateaus (3-6 months).</p>
+                <p style="margin-top: 8px;"><strong>Second-Line / Steroid-Sparing Agents:</strong> Methotrexate, Azathioprine, MMF, Rituximab (for severe weakness, cardiac/ILD involvement, or steroid toxicity).</p>
+
+                <div class="table-responsive" style="margin-top: 16px;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Clinical Feature</th>
+                                <th>Steroid Myopathy</th>
+                                <th>Myositis Relapse</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Timing of Weakness</strong></td>
+                                <td>Develops while on HIGH-dose prednisone.</td>
+                                <td>Develops during prednisone TAPER or reduction.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Serum Creatine Kinase (CK)</strong></td>
+                                <td><strong>NORMAL</strong></td>
+                                <td><strong>ELEVATED</strong> / Increasing</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Electromyography (EMG)</strong></td>
+                                <td>Normal (absence of membrane irritability).</td>
+                                <td>Abnormal spontaneous activity (fibrillations, sharp waves).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cushingoid Features</strong></td>
+                                <td>Present (moon facies, ecchymoses).</td>
+                                <td>Variable.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 6: SJOGREN'S SYNDROME ==================== -->
+        <section id="tab-sjogren" class="tab-content">
+            <div class="card accent-left-primary">
+                <div class="card-header">
+                    <h2 class="card-title">👁️ Sjögren's Syndrome</h2>
+                    <span class="tag tag-primary">Core Topic 5</span>
+                </div>
+                <p><strong>Definition:</strong> Chronic autoimmune disease characterized by progressive lymphocytic infiltration of exocrine glands (lacrimal and salivary), leading to glandular destruction and dryness.</p>
+                <p style="margin-top: 8px;"><strong>Epidemiology:</strong> Predominantly middle-aged females (F:M ratio <strong>10:1 to 20:1</strong>). May be Primary or Secondary (associated with RA, SLE, SSc).</p>
+            </div>
+
+            <div class="card accent-left-secondary">
+                <h3 class="card-title">🩺 Clinical Hallmarks & Diagnostic Algorithm</h3>
+                <p><strong>Classic Triad:</strong> 1) Keratoconjunctivitis Sicca (dry eyes), 2) Xerostomia (dry mouth), 3) Major salivary (parotid) gland enlargement.</p>
+
+                <p style="margin-top: 12px; font-weight: 700;">Screening History Questions (Must answer YES to &ge; 1):</p>
+                <ul style="margin-left: 20px;">
+                    <li>Persistent dry eyes &gt; 3 months?</li>
+                    <li>Recurrent sensation of sand or gravel in eyes?</li>
+                    <li>Use tear substitutes &gt; 3 times daily?</li>
+                    <li>Daily feeling of dry mouth &gt; 3 months?</li>
+                    <li>Frequently drink liquids to aid swallowing dry food?</li>
+                </ul>
+
+                <div class="table-responsive" style="margin-top: 16px;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Diagnostic Modality</th>
+                                <th>Objective Positive Threshold</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Schirmer Test</strong></td>
+                                <td><strong>&le; 5 mm wetting in 5 minutes</strong> (measures tear production).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Unstimulated Salivary Flow</strong></td>
+                                <td><strong>&le; 1.5 mL in 15 minutes</strong>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ocular Staining Score</strong></td>
+                                <td><strong>&ge; 5</strong> using lissamine green / fluorescein.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Minor Salivary Gland Biopsy</strong></td>
+                                <td>Focal lymphocytic sialadenitis with <strong>Focus Score &ge; 1</strong> (&ge;50 lymphocytes per 4 mm²).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Serology</strong></td>
+                                <td>Anti-Ro/SS-A antibodies (most important serologic marker).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card accent-left-warning">
+                <h3 class="card-title">⚠️ Extraglandular Manifestations & Malignancy Risk</h3>
+                <p><strong>Extraglandular Features:</strong> Non-erosive polyarthritis (Jaccoud's-like), Raynaud's phenomenon (37%), Lymphocytic Interstitial Pneumonitis (LIP), Renal Tubular Acidosis (Type 1 distal RTA), Small vessel vasculitis (palpable purpura), Peripheral neuropathy.</p>
+                
+                <div class="badge-box pitfall" style="margin-top: 12px;">
+                    <span class="badge-box-icon">⚠️</span>
+                    <div><strong>HIGH-YIELD MALIGNANCY RISK:</strong> Sjögren's patients have a <strong>44-fold increased risk</strong> (approx 6% incidence) of developing <strong>Non-Hodgkin Lymphoma</strong>, specifically <strong>MALT Lymphoma</strong> (Mucosa-Associated Lymphoid Tissue) in persistent swollen parotid glands!</div>
+                </div>
+            </div>
+
+            <div class="card accent-left-accent">
+                <h3 class="card-title">💊 Management Workflow</h3>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Dry Eyes:</strong> Avoid dry environments, artificial tear supplements, ophthalmic Cyclosporine drops, punctal occlusion.</li>
+                    <li><strong>Dry Mouth:</strong> Muscarinic receptor agonists (<strong>Pilocarpine</strong>, <strong>Cevimeline</strong>) to stimulate salivary flow; topical fluorides; oral sugarless gums.</li>
+                    <li><strong>Extraglandular Disease:</strong> NSAIDs/Hydroxychloroquine for mild arthralgias; Glucocorticoids & Immunosuppressives (MTX, AZA, MMF, Rituximab) for severe vasculitis, nephritis, or pulmonary involvement.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 7: SYSTEMIC VASCULITIS ==================== -->
+        <section id="tab-vasculitis" class="tab-content">
+            <div class="card accent-left-primary">
+                <div class="card-header">
+                    <h2 class="card-title">🫀 Systemic Vasculitis Syndrome</h2>
+                    <span class="tag tag-primary">Core Topic 6</span>
+                </div>
+                <p><strong>Definition:</strong> Heterogeneous clinicopathologic disorders characterized by inflammation and necrosis of blood vessel walls, leading to luminal stenosis, ischemia, thrombosis, or aneurysm formation.</p>
+            </div>
+
+            <!-- Vessel Size Categorization Graphic -->
+            <div class="card accent-left-secondary">
+                <h3 class="card-title">📐 Vessel Size Categorization Framework</h3>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Predominant Vessels Involved</th>
+                                <th>Typical Clinical Features</th>
+                                <th>Representative Disorders</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Large Vessel Vasculitis</strong></td>
+                                <td>Aorta and its major primary branches</td>
+                                <td>Limb claudication, absent/decreased pulses, asymmetric arm BP (&gt;10 mmHg), bruits, aortic dilation</td>
+                                <td>Takayasu Arteritis, Giant Cell Arteritis (GCA)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Medium Vessel Vasculitis</strong></td>
+                                <td>Main visceral/renal arteries and branches</td>
+                                <td>Cutaneous ulcers, subcutaneous nodules, livedo reticularis, digital gangrene, mononeuritis multiplex, microaneurysms</td>
+                                <td>Polyarteritis Nodosa (PAN), Kawasaki Disease</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Small Vessel Vasculitis</strong></td>
+                                <td>Intraparenchymal arterioles, capillaries, venules</td>
+                                <td><strong>Palpable purpura</strong>, vesicular lesions, glomerulonephritis, alveolar hemorrhage, scleritis/episcleritis</td>
+                                <td><strong>Immune Complex:</strong> IgA Vasculitis (HSP), Cryoglobulinemic<br><strong>ANCA-Associated:</strong> MPA, GPA, EGPA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Detailed Vasculitis Entities -->
+            <div class="card accent-left-warning">
+                <h3 class="card-title">🩺 Core Vasculitic Entities</h3>
+
+                <div class="accordion-item open">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>1. Takayasu Arteritis ("Pulseless Disease")</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Demographics:</strong> Young Asian females (&lt;40 years old, median 25yo).</p>
+                        <p><strong>Features:</strong> Granulomatous inflammation of aorta and branches. Limb claudication, weak/absent brachial pulses, asymmetric blood pressure (&gt;10 mmHg diff), subclavian/aortic bruits, renovascular HTN.</p>
+                        <p><strong>Diagnosis:</strong> Arteriography showing stenosis, vessel wall irregularity, post-stenotic dilatation, aneurysms, and collateral flow.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>2. Giant Cell Arteritis (GCA / Temporal Arteritis)</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Demographics:</strong> Adults <strong>&gt; 50 years old</strong> (females &gt; males). Most common systemic vasculitis in adults.</p>
+                        <p><strong>Features:</strong> Affects extracranial branches of carotid (temporal artery). Tender, indurated, nodular temporal artery, new localized headache, jaw claudication. Strongly linked to <strong>Polymyalgia Rheumatica (PMR)</strong> (neck/shoulder/hip stiffness).</p>
+                        <p><strong>Most Feared Complication:</strong> <strong>Irreversible blindness</strong> due to Anterior Ischemic Optic Neuropathy (AION).</p>
+                        <p><strong>Diagnosis & Tx:</strong> ESR &ge; 50 mm/hr, Temporal artery biopsy (granulomatous with giant cells). Start <strong>Immediate High-Dose Steroids</strong> before waiting for biopsy results if clinically suspected!</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>3. Polyarteritis Nodosa (PAN)</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Demographics:</strong> Adults 40-60yo; strongly associated with <strong>Hepatitis B Virus (HBV)</strong> infection.</p>
+                        <p><strong>Features:</strong> Necrotizing vasculitis of medium muscular arteries. Livedo reticularis, digital gangrene, testicular tenderness/pain, mononeuritis multiplex, hypertension. <strong>NO Glomerulonephritis!</strong> (spares capillaries).</p>
+                        <p><strong>Diagnosis:</strong> Biopsy showing transmural fibrinoid necrosis with PMN infiltration; Arteriography showing renal/visceral microaneurysms.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>4. IgA Vasculitis (Henoch-Schönlein Purpura / HSP)</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Demographics:</strong> Most common vasculitis in children (&lt;5 years old).</p>
+                        <p><strong>Trigger & Classic Tetrad:</strong> Occurs 1-3 weeks following an <strong>Upper Respiratory Tract Infection (URTI)</strong>.</p>
+                        <ol style="margin-left: 20px;">
+                            <li><strong>Palpable Purpura:</strong> Non-blanching raised rash over buttocks and lower extremities.</li>
+                            <li><strong>Arthralgias / Arthritis:</strong> Transient knees and ankles swelling.</li>
+                            <li><strong>Abdominal Pain / Bowel Angina:</strong> Colicky abdominal pain, GI bleeding, risk of intussusception.</li>
+                            <li><strong>Renal Involvement:</strong> Hematuria, proteinuria (IgA nephropathy pattern).</li>
+                        </ol>
+                        <p><strong>Histology:</strong> Leukocytoclastic vasculitis with prominent <strong>IgA and C3 deposition</strong> on immunofluorescence.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mimickers Table -->
+            <div class="card accent-left-danger">
+                <h3 class="card-title">⚠️ Conditions Mimicking Vasculitis</h3>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Mimicking Condition</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Infections</strong></td>
+                                <td>Infective Endocarditis, Syphilis, RMSF, Lyme Disease, Disseminated Gonococcal.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coagulopathies / Emboli</strong></td>
+                                <td>Antiphospholipid Syndrome, TTP, Atheroembolic Disease, Atrial Myxoma.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Drug Toxicity</strong></td>
+                                <td>Cocaine, Levamisole, Amphetamines, Ergot alkaloids.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 8: COMPARISONS ==================== -->
+        <section id="tab-comparisons" class="tab-content">
+            <div class="card accent-left-primary">
+                <div class="card-header">
+                    <h2 class="card-title">⚖️ Side-by-Side Comparison Matrices</h2>
+                </div>
+                <p>High-yield differential diagnosis matrices comparing commonly confused rheumatologic entities.</p>
+            </div>
+
+            <!-- SLE vs Drug-Induced Lupus -->
+            <div class="card accent-left-secondary">
+                <div class="table-toolbar">
+                    <button class="btn-copy-table" onclick="copyTable('sle-dil-table')">📋 Copy Table</button>
+                </div>
+                <h3 class="card-title">1. Idiopathic SLE vs. Drug-Induced Lupus (DIL)</h3>
+                <div class="table-responsive">
+                    <table class="data-table" id="sle-dil-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Idiopathic SLE</th>
+                                <th>Drug-Induced Lupus (DIL)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Gender Ratio</strong></td>
+                                <td>F:M = 9:1</td>
+                                <td>F:M = 1:1 (Equal)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Common Offending Drugs</strong></td>
+                                <td>None</td>
+                                <td>Procainamide, Hydralazine, Isoniazid, Lithium, Carbamazepine, Anti-TNF agents</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Renal & CNS Involvement</strong></td>
+                                <td>Common (&gt;50%)</td>
+                                <td><strong>Extremely Rare</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Key Autoantibody</strong></td>
+                                <td>Anti-dsDNA, Anti-Sm</td>
+                                <td><strong>Anti-Histone Antibodies (&gt;95%)</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Serum Complement (C3/C4)</strong></td>
+                                <td>Decreased during flares</td>
+                                <td>Normal</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Resolution</strong></td>
+                                <td>Lifelong chronic disease</td>
+                                <td>Resolves upon drug discontinuation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PAN vs MPA vs GPA -->
+            <div class="card accent-left-warning">
+                <div class="table-toolbar">
+                    <button class="btn-copy-table" onclick="copyTable('pan-mpa-gpa-table')">📋 Copy Table</button>
+                </div>
+                <h3 class="card-title">2. Polyarteritis Nodosa (PAN) vs. MPA vs. GPA</h3>
+                <div class="table-responsive">
+                    <table class="data-table" id="pan-mpa-gpa-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Polyarteritis Nodosa (PAN)</th>
+                                <th>Microscopic Polyangiitis (MPA)</th>
+                                <th>Granulomatosis with Polyangiitis (GPA)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Vessel Size</strong></td>
+                                <td>Medium muscular arteries</td>
+                                <td>Small vessels (capillaries/venules)</td>
+                                <td>Small and medium vessels</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ANCA Association</strong></td>
+                                <td><strong>Negative</strong></td>
+                                <td><strong>p-ANCA (Anti-MPO)</strong></td>
+                                <td><strong>c-ANCA (Anti-PR3)</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Granulomas</strong></td>
+                                <td>Absent</td>
+                                <td>Absent</td>
+                                <td><strong>Present</strong> (Necrotizing granulomas)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Glomerulonephritis</strong></td>
+                                <td><strong>ABSENT</strong></td>
+                                <td>Present (Rapidly progressive)</td>
+                                <td>Present (Crescentic RPGN)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pulmonary Involvement</strong></td>
+                                <td>Absent (Spares pulmonary arteries)</td>
+                                <td>Alveolar hemorrhage</td>
+                                <td>Cavitating lung nodules, chronic sinusitis</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 9: FLASHCARDS ==================== -->
+        <section id="tab-flashcards" class="tab-content">
+            <div class="card accent-left-primary">
+                <div class="card-header">
+                    <h2 class="card-title">🎴 Active-Recall Flashcard Deck (50+ Cards)</h2>
+                    <span id="flashcard-counter" class="tag tag-primary">Card 1 of 50</span>
+                </div>
+                <p>Click card to flip. Test your recall for Philippine Physician Licensure Examination (PLE) & Med 3 long exams.</p>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard" id="active-flashcard" onclick="flipCard()">
+                    <div class="flashcard-face flashcard-front">
+                        <div class="flashcard-category" id="fc-category">SLE</div>
+                        <div class="flashcard-body" id="fc-question">What is the most specific autoantibody for Systemic Lupus Erythematosus?</div>
+                        <div class="flashcard-hint">💡 Tap to reveal answer</div>
+                    </div>
+                    <div class="flashcard-face flashcard-back">
+                        <div class="flashcard-category">Answer</div>
+                        <div class="flashcard-body" id="fc-answer"><strong>Anti-Sm (Smith) Antibody</strong><br><br>While Anti-dsDNA is specific and fluctuates with nephritis flares, Anti-Sm is highly specific/pathognomonic for SLE.</div>
+                        <div class="flashcard-hint">Tap to flip back</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-controls">
+                <button class="btn-action btn-secondary" onclick="prevCard()">⬅️ Previous</button>
+                <button class="btn-action" onclick="shuffleCards()">🔀 Shuffle</button>
+                <button class="btn-action btn-secondary" onclick="nextCard()">Next ➡️</button>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 10: SELF-ASSESSMENT ==================== -->
+        <section id="tab-assessment" class="tab-content">
+            <div class="card accent-left-primary">
+                <div class="card-header">
+                    <h2 class="card-title">📝 Board-Style Self-Assessment (50 MCQs)</h2>
+                    <span class="tag tag-secondary" id="quiz-score-badge">Score: 0 / 50</span>
+                </div>
+                <p>Includes all verbatim review questions from trans lectures plus high-yield board-style vignettes. Detailed explanations provided for correct and incorrect choices.</p>
+            </div>
+
+            <div id="quiz-container">
+                <!-- Dynamically Populated Quiz Questions -->
+            </div>
+        </section>
+
+        <!-- ==================== TAB 11: CRAM SHEET ==================== -->
+        <section id="tab-cramsheet" class="tab-content">
+            <div class="card accent-left-accent">
+                <div class="card-header">
+                    <h2 class="card-title">⚡ Ultra-Condensed Cram Sheet (&lt;10 Min Read)</h2>
+                </div>
+                <p>Last-minute rapid review triggers, pathognomonic buzzwords, and mandatory exam associations.</p>
+            </div>
+
+            <div class="card accent-left-primary">
+                <h3 class="card-title">🎯 "IF YOU SEE X ➔ THINK Y" Clinical Clues</h3>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Clinical Presentation / Trigger (If You See X...)</th>
+                                <th>Diagnosis / Association (...Think Y)</th>
+                                <th>Pathopathologic / Clinical Mechanism</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Young female with malar rash sparing nasolabial folds + non-erosive arthritis</td>
+                                <td><strong>Systemic Lupus Erythematosus (SLE)</strong></td>
+                                <td>Immune complex-mediated type III hypersensitivity.</td>
+                            </tr>
+                            <tr>
+                                <td>High anti-dsDNA + declining serum complement C3/C4 levels</td>
+                                <td><strong>Active SLE Flare / Lupus Nephritis</strong></td>
+                                <td>Complement consumption via glomerular immune deposition.</td>
+                            </tr>
+                            <tr>
+                                <td>Lupus symptoms + positive Anti-Histone antibodies</td>
+                                <td><strong>Drug-Induced Lupus (DIL)</strong></td>
+                                <td>Triggered by Hydralazine, Procainamide, or Isoniazid; spares kidneys/CNS.</td>
+                            </tr>
+                            <tr>
+                                <td>Recurrent deep vein thrombosis or fetal loss + prolonged aPTT</td>
+                                <td><strong>Antiphospholipid Syndrome (APS)</strong></td>
+                                <td>In vitro prolonged aPTT paradoxically causes in vivo arterial/venous thrombosis.</td>
+                            </tr>
+                            <tr>
+                                <td>Mottled purplish lace-like skin discoloration on legs</td>
+                                <td><strong>Livedo Reticularis (APS / PAN)</strong></td>
+                                <td>Venule swelling due to capillary microthrombi occlusion.</td>
+                            </tr>
+                            <tr>
+                                <td>Rapidly progressive thrombosis in &ge; 3 organ systems simultaneously</td>
+                                <td><strong>Catastrophic APS (CAPS)</strong></td>
+                                <td>Requires urgent triple therapy (Steroids + Heparin + Plasma Exchange/IVIG).</td>
+                            </tr>
+                            <tr>
+                                <td>Bilateral skin thickening proximal to MCP joints</td>
+                                <td><strong>Diffuse Cutaneous Scleroderma (dcSSc)</strong></td>
+                                <td>Fulfills 2013 ACR criteria automatically (score = 9). Risk for early severe ILD.</td>
+                            </tr>
+                            <tr>
+                                <td>Scleroderma patient given high-dose prednisone presenting with severe HTN</td>
+                                <td><strong>Scleroderma Renal Crisis (SRC)</strong></td>
+                                <td>Steroid-induced hyperreninemic renal crisis; treat immediately with ACE Inhibitors.</td>
+                            </tr>
+                            <tr>
+                                <td>Distal digital tip resorption on hand radiographs</td>
+                                <td><strong>Acro-osteolysis</strong></td>
+                                <td>Terminal phalanx bone resorption secondary to chronic Raynaud's ischemia.</td>
+                            </tr>
+                            <tr>
+                                <td>Violaceous eyelid edema (Heliotrope) + knuckles scaly papules (Gottron's)</td>
+                                <td><strong>Dermatomyositis (DM)</strong></td>
+                                <td>Perifascicular atrophy; perimysial CD4+ / plasmacytoid dendritic cell infiltration.</td>
+                            </tr>
+                            <tr>
+                                <td>Proximal muscle weakness developing while on high-dose steroids with NORMAL CK</td>
+                                <td><strong>Steroid Myopathy</strong></td>
+                                <td>Distinguish from myositis relapse (which shows elevated CK & EMG irritability).</td>
+                            </tr>
+                            <tr>
+                                <td>Older male (&gt;50) with wrist/finger flexor weakness & rimmed vacuoles on biopsy</td>
+                                <td><strong>Inclusion Body Myositis (IBM)</strong></td>
+                                <td>Poorly responsive to immunosuppressive therapy.</td>
+                            </tr>
+                            <tr>
+                                <td>Dry eyes, dry mouth, parotid enlargement + positive Anti-Ro/SSA</td>
+                                <td><strong>Sjögren's Syndrome</strong></td>
+                                <td>Lymphocytic exocrine gland destruction; 44x increased risk for MALT Lymphoma.</td>
+                            </tr>
+                            <tr>
+                                <td>Young Asian female with asymmetric arm BP (&gt;10 mmHg diff) and bruits</td>
+                                <td><strong>Takayasu Arteritis ("Pulseless Disease")</strong></td>
+                                <td>Granulomatous large-vessel arteritis of aorta and primary branches.</td>
+                            </tr>
+                            <tr>
+                                <td>Adult &gt;50yo with new headache, jaw claudication, tender temporal artery</td>
+                                <td><strong>Giant Cell Arteritis (GCA)</strong></td>
+                                <td>Start high-dose steroids IMMEDIATELY to prevent irreversible blindness (AION).</td>
+                            </tr>
+                            <tr>
+                                <td>Medium-vessel necrotizing vasculitis + Hepatitis B + livedo + testicular pain</td>
+                                <td><strong>Polyarteritis Nodosa (PAN)</strong></td>
+                                <td>Visceral microaneurysms on arteriography; <strong>NO glomerulonephritis</strong>.</td>
+                            </tr>
+                            <tr>
+                                <td>Child with post-URTI palpable purpura on buttocks, abdominal pain, & hematuria</td>
+                                <td><strong>IgA Vasculitis (Henoch-Schönlein Purpura)</strong></td>
+                                <td>Small vessel leukocytoclastic vasculitis with IgA + C3 immune deposition.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scroll To Top Button -->
+    <button id="scroll-top-btn" onclick="scrollToTop()" title="Go to top">⬆️</button>
+
+    <!-- JavaScript Implementation -->
+    <script>
+        /* ==================== GLOBAL APP STATE & JS LOGIC ==================== */
+
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const themeBtn = document.getElementById('theme-toggle');
+            if (document.body.classList.contains('dark-mode')) {
+                themeBtn.textContent = '☀️';
+            } else {
+                themeBtn.textContent = '🌙';
+            }
+        }
+
+        // Scroll Progress & Scroll To Top
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+
+            const scrollTopBtn = document.getElementById("scroll-top-btn");
+            if (winScroll > 300) {
+                scrollTopBtn.style.display = "flex";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            document.getElementById('tab-' + tabId).classList.add('active');
+            
+            // Highlight active nav item
+            event.currentTarget.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Accordion Toggle Logic
+        function toggleAccordion(headerEl) {
+            const item = headerEl.parentElement;
+            item.classList.toggle('open');
+        }
+
+        // Table Copy Functionality
+        function copyTable(tableId) {
+            const table = document.getElementById(tableId);
+            if (!table) return;
+            
+            let range, selection;
+            if (document.createRange && window.getSelection) {
+                range = document.createRange();
+                selection = window.getSelection();
+                selection.removeAllRanges();
+                try {
+                    range.selectNodeContents(table);
+                    selection.addRange(range);
+                } catch (e) {
+                    range.selectNode(table);
+                    selection.addRange(range);
+                }
+                document.execCommand('copy');
+                selection.removeAllRanges();
+                alert('Table data copied to clipboard!');
+            }
+        }
+
+        // Search Content Filter
+        function searchContent() {
+            const query = document.getElementById('global-search').value.toLowerCase();
+            const cards = document.querySelectorAll('.card, .accordion-item');
+            
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        /* ==================== FLASHCARDS SYSTEM ==================== */
+        const flashcardsData = [
+            { cat: "SLE", q: "What is the primary screening test for SLE?", a: "Antinuclear Antibody (ANA) test by Immunofluorescence (positive in >95% at onset)." },
+            { cat: "SLE", q: "Which antibody correlates directly with SLE nephritis and disease flares?", a: "Anti-dsDNA antibody (levels rise as C3/C4 complement levels drop)." },
+            { cat: "SLE", q: "What is the hallmark hand deformity seen in SLE?", a: "Jaccoud's Arthropathy — non-erosive joint deformities that are REDUCIBLE." },
+            { cat: "SLE", q: "Which cutaneous lupus lesion causes permanent dermal appendage destruction?", a: "Discoid Lupus Erythematosus (DLE)." },
+            { cat: "SLE", q: "What is the mandatory entry criterion for the 2019 EULAR/ACR SLE criteria?", a: "ANA titer of at least 1:80 on HEp-2 cells." },
+            { cat: "SLE", q: "Which drug is mandatory for all SLE patients to reduce flares and mortality?", a: "Hydroxychloroquine (HCQ) at dose <= 5.0 mg/kg actual weight/day." },
+            { cat: "SLE", q: "Which LN Class shows 'full-house' immunofluorescence and wire-loop lesions?", a: "Class IV Diffuse Proliferative Lupus Nephritis." },
+            { cat: "SLE", q: "Why should cytotoxic therapy NOT be given in Class VI Lupus Nephritis?", a: "Class VI represents advanced sclerotic kidney disease (>=90% glomeruli sclerotic); immunosuppression offers no benefit and causes harm." },
+            { cat: "APS", q: "What paradox exists between in vitro and in vivo effects of Lupus Anticoagulant?", a: "Prolongs clotting times (aPTT) in vitro, but causes arterial/venous thrombosis in vivo." },
+            { cat: "APS", q: "What timing interval is required to confirm positive APS autoantibodies?", a: "Positive laboratory criteria on 2 or more occasions at least 12 WEEKS apart." },
+            { cat: "APS", q: "What is the target INR for Warfarin in APS patients with prior VENOUS thrombosis?", a: "Target INR 2.0 to 3.0." },
+            { cat: "APS", q: "What is the hallmark cutaneous vascular finding in APS?", a: "Livedo Reticularis (purplish lace-like skin mottling)." },
+            { cat: "SSc", q: "What autoantibody is specifically associated with Limited Cutaneous SSc (CREST)?", a: "Anti-Centromere Antibodies (ACA)." },
+            { cat: "SSc", q: "What autoantibody is associated with Diffuse Cutaneous SSc and early severe ILD?", a: "Anti-Topoisomerase I (Anti-Scl-70)." },
+            { cat: "SSc", q: "Which medication triggers Scleroderma Renal Crisis and must be avoided?", a: "Moderate to high dose Glucocorticoids (>15 mg/day prednisone)." },
+            { cat: "SSc", q: "What score on the 2013 ACR/EULAR criteria automatically classifies a patient as Definite SSc?", a: "Bilateral skin thickening of fingers extending proximal to MCP joints (Score = 9)." },
+            { cat: "SSc", q: "What is the first-line medical treatment for Scleroderma Renal Crisis?", a: "ACE Inhibitors (e.g., Captopril)." },
+            { cat: "IM", q: "What muscle biopsy finding is pathognomonic for Dermatomyositis?", a: "Perifascicular Atrophy." },
+            { cat: "IM", q: "What cellular infiltrate predominates in Polymyositis muscle biopsy?", a: "Endomysial infiltration of CD8+ T cells and macrophages." },
+            { cat: "IM", q: "What cutaneous sign presents as violaceous eyelid rash with periorbital edema?", a: "Heliotrope Rash." },
+            { cat: "IM", q: "What are Gottron Papules?", a: "Raised erythematous scaly papules over the knuckles (MCP and IP joints)." },
+            { cat: "IM", q: "How do you distinguish Steroid Myopathy from Myositis Relapse?", a: "Steroid Myopathy has NORMAL CK levels; Myositis Relapse has ELEVATED CK levels." },
+            { cat: "IM", q: "What inflammatory myopathy typically affects males >50 and presents with wrist/finger flexor weakness?", a: "Inclusion Body Myositis (IBM)." },
+            { cat: "Sjögren", q: "What is the primary histological finding on minor salivary gland biopsy in Sjögren's?", a: "Focal lymphocytic sialadenitis with Focus Score >= 1 (>=50 lymphocytes per 4 mm²)." },
+            { cat: "Sjögren", q: "What major malignancy risk is elevated in Sjögren's Syndrome?", a: "Non-Hodgkin Lymphoma (specifically MALT Lymphoma in 6% of patients)." },
+            { cat: "Sjögren", q: "What Schirmer test threshold indicates positive ocular dryness?", a: "<= 5 mm wetting in 5 minutes." },
+            { cat: "Sjögren", q: "What muscarinic agonists are used to treat xerostomia in Sjögren's?", a: "Pilocarpine and Cevimeline." },
+            { cat: "Vasculitis", q: "What classic triad characterizes Henoch-Schönlein Purpura (IgA Vasculitis)?", a: "Palpable purpura, arthralgias, abdominal pain (bowel angina), plus renal disease." },
+            { cat: "Vasculitis", q: "Which medium-vessel vasculitis is strongly associated with Hepatitis B Virus (HBV)?", a: "Polyarteritis Nodosa (PAN)." },
+            { cat: "Vasculitis", q: "Why is Polyarteritis Nodosa (PAN) notable regarding the kidneys?", a: "Causes renovascular HTN and microaneurysms, but SPARES the glomeruli (NO glomerulonephritis)." },
+            { cat: "Vasculitis", q: "What is the most feared complication of Giant Cell Arteritis (GCA)?", a: "Irreversible blindness due to Anterior Ischemic Optic Neuropathy (AION)." },
+            { cat: "Vasculitis", q: "What diagnostic finding on arteriography is characteristic of Takayasu Arteritis?", a: "Smooth stenosis, occlusion, post-stenotic dilation, or aneurysms of aorta and primary branches." },
+            { cat: "Vasculitis", q: "What age cutoff separates Giant Cell Arteritis from Takayasu Arteritis?", a: "Takayasu affects young females <40yo; Giant Cell Arteritis affects adults >50yo." },
+            { cat: "Vasculitis", q: "What autoantibody marker is associated with Granulomatosis with Polyangiitis (GPA)?", a: "c-ANCA (Anti-PR3 / Proteinase 3)." },
+            { cat: "Vasculitis", q: "What autoantibody marker is associated with Microscopic Polyangiitis (MPA)?", a: "p-ANCA (Anti-MPO / Myeloperoxidase)." },
+            { cat: "Vasculitis", q: "What skin biopsy finding defines small vessel vasculitis?", a: "Leukocytoclastic Vasculitis (neutrophilic nuclear fragmentation in vessel walls)." },
+            { cat: "SLE", q: "Which anti-malarial side effect mandates routine baseline and annual eye exams?", a: "Retinal Toxicity (maculopathy)." },
+            { cat: "SLE", q: "What is the most common cardiac manifestation of SLE?", a: "Pericarditis." },
+            { cat: "SLE", q: "What causes early vs late mortality in SLE patients?", a: "Early: Active disease, infection, thrombosis. Late: Atherosclerotic CVD and renal failure." },
+            { cat: "APS", q: "What is Catastrophic APS (CAPS)?", a: "Rapidly progressive thrombosis involving >= 3 organs simultaneously over days." },
+            { cat: "SSc", q: "What visual radiographic finding is seen in longstanding SSc hands?", a: "Acro-osteolysis (resorption of distal phalanges)." },
+            { cat: "SSc", q: "What GI vascular entity causes 'watermelon stomach' in SSc?", a: "Gastric Antral Vascular Ectasia (GAVE)." },
+            { cat: "IM", q: "Which MSA antibody is associated with statin-induced necrotizing myopathy?", a: "Anti-HMGCR antibody." },
+            { cat: "IM", q: "What is the Shawl sign in Dermatomyositis?", a: "Erythematous rash over the upper back, shoulders, and posterior neck." },
+            { cat: "Sjögren", q: "Which antibody in pregnant women with Sjögren's/SLE causes Congenital Heart Block?", a: "Anti-Ro / SS-A antibody." },
+            { cat: "Vasculitis", q: "What rheumatologic condition is strongly associated with Giant Cell Arteritis in up to 50% of cases?", a: "Polymyalgia Rheumatica (PMR)." },
+            { cat: "Vasculitis", q: "What triggers IgA Vasculitis (HSP) in pediatric patients?", a: "Upper Respiratory Tract Infection (URTI) 1-3 weeks prior." },
+            { cat: "Vasculitis", q: "What vessel size does Kawasaki Disease affect?", a: "Medium-sized arteries (predominantly coronary arteries in children)." },
+            { cat: "SLE", q: "What is the significance of Anti-Sm antibodies in SLE?", a: "Highly specific for SLE diagnosis; levels remain constant regardless of disease activity." },
+            { cat: "APS", q: "What primary management is recommended for asymptomatic aPL-positive patients?", a: "Low-dose Aspirin (80-100 mg/day)." }
+        ];
+
+        let currentFCIndex = 0;
+
+        function updateFlashcardUI() {
+            const cardData = flashcardsData[currentFCIndex];
+            document.getElementById('fc-category').textContent = cardData.cat;
+            document.getElementById('fc-question').textContent = cardData.q;
+            document.getElementById('fc-answer').innerHTML = cardData.a;
+            document.getElementById('flashcard-counter').textContent = `Card ${currentFCIndex + 1} of ${flashcardsData.length}`;
+            document.getElementById('active-flashcard').classList.remove('flipped');
+        }
+
+        function flipCard() {
+            document.getElementById('active-flashcard').classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            currentFCIndex = (currentFCIndex + 1) % flashcardsData.length;
+            updateFlashcardUI();
+        }
+
+        function prevCard() {
+            currentFCIndex = (currentFCIndex - 1 + flashcardsData.length) % flashcardsData.length;
+            updateFlashcardUI();
+        }
+
+        function shuffleCards() {
+            for (let i = flashcardsData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [flashcardsData[i], flashcardsData[j]] = [flashcardsData[j], flashcardsData[i]];
+            }
+            currentFCIndex = 0;
+            updateFlashcardUI();
+        }
+
+
+        /* ==================== SELF-ASSESSMENT QUIZ (50 MCQs) ==================== */
+        const mcqData = [
+            // Verbatim Lecture Review Questions (1-15)
+            {
+                q: "1. Which among the clinical manifestations of SLE has the highest prevalence at onset and over the entire course of the disease?",
+                opts: ["A. Anemia", "B. Nephritis", "C. Systemic / Constitutional symptoms", "D. Alopecia"],
+                ans: 2,
+                exp: "Systemic/constitutional symptoms (fatigue, myalgias, fever) occur in ~53% at onset and up to 77% over the entire course of SLE.",
+                why: "Anemia, nephritis, and alopecia are common but occur at lower overall cumulative percentages compared to systemic symptoms."
+            },
+            {
+                q: "2. What is the histopathological finding seen almost exclusively in small vessel vasculitis?",
+                opts: ["A. Fibrinoid necrosis", "B. Thrombosis", "C. Leukocytoclasis", "D. Aneurysm formation"],
+                ans: 2,
+                exp: "Leukocytoclasis (neutrophilic nuclear fragmentation / nuclear dust within small blood vessel walls) is the hallmark of small-vessel vasculitis.",
+                why: "Fibrinoid necrosis occurs in medium vessels (PAN); microaneurysms occur in medium vessels (PAN); thrombosis occurs across many sizes."
+            },
+            {
+                q: "3. What is the most common acute rash in SLE?",
+                opts: ["A. Vasculitis rash", "B. Panniculitis", "C. Discoid rash", "D. Malar rash"],
+                ans: 3,
+                exp: "The Malar ('butterfly') rash is the most common acute cutaneous manifestation of SLE.",
+                why: "Discoid rash is chronic cutaneous LE. Panniculitis is chronic deep tissue involvement."
+            },
+            {
+                q: "4. Which of the following statements is most accurate about the use of glucocorticoids (GC) in SLE life-threatening conditions?",
+                opts: ["A. Concomitant use of an antimalarial agent facilitates tapering of GC dose", "B. Tapering of GC commence after the first 2 to 4 weeks of therapy", "C. Low-dose GC is generally used to facilitate remission of lupus activity", "D. GC pulses (e.g. IV Methylprednisolone) may be given when high doses of GC are required for control"],
+                ans: 3,
+                exp: "In severe life/organ-threatening conditions, high-dose IV methylprednisolone pulse therapy (500-1000 mg/d x 3 days) is administered for rapid suppression.",
+                why: "Tapering generally starts after 4 weeks targeting <=7.5mg/d by 6 months. Antimalarials reduce flares but pulse steroids provide immediate rescue."
+            },
+            {
+                q: "5. What are the first-line therapeutic agents in the treatment of Raynaud's Phenomenon in a young adult female?",
+                opts: ["A. Serotonin Agents", "B. Calcium channel blockers", "C. Non-selective Beta-blockers", "D. Sildenafil"],
+                ans: 1,
+                exp: "Dihydropyridine Calcium Channel Blockers (e.g., Nifedipine, Amlodipine) are the established first-line therapy for Raynaud's phenomenon.",
+                why: "Beta-blockers can worsen vasospasm. Sildenafil (PDE-5 inhibitor) is second-line for severe/refractory cases."
+            },
+            {
+                q: "6. A 24/F came in for skin thickening on face, neck, and hands for 4 months. History noted spontaneous abortion at age 18. What potential pathogenic mechanism is proposed?",
+                opts: ["A. Genetic risk", "B. Infectious agents", "C. Microchimerism", "D. Environmental exposure"],
+                ans: 2,
+                exp: "Fetal progenitor cells can persist in maternal peripheral blood for decades (microchimerism), potentially initiating autoimmune graft-vs-host-like scleroderma reactions.",
+                why: "Microchimerism specifically links persistent fetal cells from prior pregnancy/abortion to scleroderma pathogenesis."
+            },
+            {
+                q: "7. What is the distinguishing clinical manifestation of Behçet's disease?",
+                opts: ["A. Recurrent aphthous oral and genital ulcers", "B. Arthritis", "C. Raynaud's phenomenon", "D. Digital ischemia"],
+                ans: 0,
+                exp: "Behçet's disease is defined by a triad of recurrent aphthous oral ulcers, genital ulcers, and uveitis.",
+                why: "Raynaud's and digital ischemia are hallmarks of Scleroderma, not Behçet's."
+            },
+            {
+                q: "8. A 22/F presents with malar rash, hand arthritis, proteinuria ++++, and positive ANA. Which antibody is used to monitor nephritis activity?",
+                opts: ["A. Anti-dsDNA", "B. Anti-Ro", "C. Anti-La", "D. Anti-Sm"],
+                ans: 0,
+                exp: "Anti-dsDNA titers fluctuate with renal disease activity and predict impending flares in lupus nephritis.",
+                why: "Anti-Sm remains constant over time. Anti-Ro/La do not correlate with LN flares."
+            },
+            {
+                q: "9. What is the most severe manifestation of renal involvement in scleroderma?",
+                opts: ["A. Chronic kidney disease", "B. Rapidly progressive glomerulonephritis", "C. Scleroderma renal crisis", "D. Urinary tract infection"],
+                ans: 2,
+                exp: "Scleroderma Renal Crisis (SRC) is a life-threatening emergency presenting with malignant hypertension, AKI, and microangiopathic anemia.",
+                why: "SSc causes vascular obliterative injury rather than primary glomerulonephritis."
+            },
+            {
+                q: "10. What is the most common cutaneous manifestation of dermatomyositis?",
+                opts: ["A. Heliotrope rash", "B. Gottron's papules", "C. Shawl sign", "D. V sign"],
+                ans: 0,
+                exp: "Heliotrope rash (violaceous eyelid discolouration) is the most frequent initial cutaneous sign of Dermatomyositis.",
+                why: "Gottron papules are pathognomonic, but Heliotrope is the most common presenting eruption."
+            },
+            {
+                q: "11. What is considered as the pathognomonic sign of dermatomyositis?",
+                opts: ["A. Shawl sign", "B. V sign", "C. Gottron's papules", "D. Heliotrope rash"],
+                ans: 2,
+                exp: "Gottron papules (raised erythematous scaly papules over MCP/IP joints) are pathognomonic for DM.",
+                why: "Shawl and V signs are characteristic photosensitive rashes but not pathognomonic."
+            },
+            {
+                q: "12. A 31/F developed purpuric rashes on lower extremities after anti-TB meds. What cell type predominates in small vessel vasculitis?",
+                opts: ["A. Leukocyte", "B. Platelet", "C. Neutrophil", "D. Lymphocyte"],
+                ans: 3,
+                exp: "Hypersensitivity / small vessel vasculitis features lymphocytic/neutrophilic infiltration; trans notes highlight lymphocytes in immune small vessel injury.",
+                why: "Platelets mediate thrombosis rather than vascular wall cellular infiltration."
+            },
+            {
+                q: "13. A 26/M presents with palpable purpura on legs, ankle arthritis, and epigastric pain. This vasculitis is usually precipitated by:",
+                opts: ["A. Urinary tract infection", "B. Diarrhea", "C. Upper respiratory tract infection", "D. Glomerulonephritis"],
+                ans: 2,
+                exp: "IgA Vasculitis (HSP) is classically preceded by an Upper Respiratory Tract Infection (URTI) 1 to 3 weeks prior.",
+                why: "UTI and diarrhea are not typical triggering antecedents for HSP."
+            },
+            {
+                q: "14. Calcinosis, Raynaud's, esophageal dysmotility, sclerodactyly, and telangiectasias characterize which subtype?",
+                opts: ["A. Diffuse cutaneous", "B. Limited cutaneous", "C. Visceral", "D. Vasculitic"],
+                ans: 1,
+                exp: "These 5 features form the classic CREST syndrome, defining Limited Cutaneous Systemic Sclerosis (lcSSc).",
+                why: "Diffuse cutaneous SSc features trunk involvement, friction rubs, and high ILD risk."
+            },
+            {
+                q: "15. What is the initiating mechanism in the pathogenesis of small and medium-sized vasculitides?",
+                opts: ["A. Degranulation of neutrophils", "B. Viral infection", "C. Lymphocytes", "D. Immune complex mediation"],
+                ans: 3,
+                exp: "Immune complex deposition in blood vessel walls is the initiating trigger activating complement and leucocytes.",
+                why: "Neutrophil degranulation is a downstream effector event following immune complex deposition."
+            },
+
+            // Additional Board-Style Questions (16-50)
+            {
+                q: "16. A 28/F with SLE presents with proteinuria of 2.5 g/24h. Biopsy shows subendothelial immune deposits and diffuse hypercellularity in 75% of glomeruli. Which class is this?",
+                opts: ["A. Class II", "B. Class III", "C. Class IV", "D. Class V"],
+                ans: 2,
+                exp: "Class IV (Diffuse Lupus Nephritis) involves >50% of glomeruli with subendothelial deposits.",
+                why: "Class III involves <50% of glomeruli (Focal)."
+            },
+            {
+                q: "17. Which medication in SLE requires mandatory baseline and annual ophthalmologic evaluation due to maculopathy risk?",
+                opts: ["A. Methotrexate", "B. Azathioprine", "C. Hydroxychloroquine", "D. Cyclophosphamide"],
+                ans: 2,
+                exp: "Hydroxychloroquine causes retinal toxicity; annual screening after 5 years (or baseline) is required.",
+                why: "Methotrexate causes hepatotoxicity/pulmonary toxicity; Cyclophosphamide causes hemorrhagic cystitis."
+            },
+            {
+                q: "18. A 32/F with primary APS experiences a deep vein thrombosis. What is the recommended long-term anticoagulation target?",
+                opts: ["A. Aspirin 80 mg daily", "B. Warfarin target INR 2.0 - 3.0", "C. Warfarin target INR 3.0 - 4.0", "D. Clopidogrel 75 mg daily"],
+                ans: 1,
+                exp: "First venous thromboembolism in APS mandates lifelong Warfarin with target INR 2.0 to 3.0.",
+                why: "Target INR 3.0-4.0 is reserved for arterial thrombosis."
+            },
+            {
+                q: "19. A pregnant woman with SLE has high titers of Anti-Ro/SS-A antibodies. What fetal risk must be monitored via fetal echocardiography?",
+                opts: ["A. Neural tube defects", "B. Congenital heart block", "C. Renal agenesis", "D. Cleft palate"],
+                ans: 1,
+                exp: "Transplacental passage of maternal Anti-Ro/SS-A antibodies can damage the fetal cardiac conduction system causing irreversible Congenital Heart Block.",
+                why: "Anti-Ro specifically targets fetal cardiac tissue, not neural tube or renal structures."
+            },
+            {
+                q: "20. What autoantibody profile carries the highest risk for developing Scleroderma Renal Crisis?",
+                opts: ["A. Anti-Centromere", "B. Anti-Ro/SS-A", "C. Anti-RNA Polymerase III", "D. Anti-U1-RNP"],
+                ans: 2,
+                exp: "Anti-RNA Polymerase III is strongly associated with rapidly progressive diffuse skin involvement and Scleroderma Renal Crisis.",
+                why: "Anti-Centromere is protective against renal crisis."
+            },
+            {
+                q: "21. A patient with diffuse SSc presents with severe dyspnea. HRCT shows bibasilar reticular opacities and ground-glass changes. Which antibody is most likely positive?",
+                opts: ["A. Anti-Topoisomerase I (Scl-70)", "B. Anti-Centromere", "C. Anti-Histone", "D. Anti-Sm"],
+                ans: 0,
+                exp: "Anti-Scl-70 (Topoisomerase I) is strongly associated with Diffuse Cutaneous SSc and severe Interstitial Lung Disease (ILD).",
+                why: "Anti-Centromere is linked to lcSSc and PAH rather than severe ILD."
+            },
+            {
+                q: "22. Which clinical feature differentiates Polymyositis from Dermatomyositis?",
+                opts: ["A. Proximal muscle weakness", "B. Elevated serum Creatine Kinase", "C. Absence of cutaneous rashes", "D. Good response to steroids"],
+                ans: 2,
+                exp: "Polymyositis presents with proximal muscle weakness identical to DM, but strictly lacks skin rashes.",
+                why: "Both show proximal weakness, high CK, and steroid responsiveness."
+            },
+            {
+                q: "23. A 55/M with Dermatomyositis receives high-dose prednisone for 4 months. Weakness worsens despite normalization of serum CK. EMG shows no fibrillations. Diagnosis?",
+                opts: ["A. Myositis relapse", "B. Steroid-induced myopathy", "C. Inclusion Body Myositis", "D. Diaphragmatic paralysis"],
+                ans: 1,
+                exp: "Steroid myopathy develops on high-dose steroids, presenting with worsening weakness but NORMAL CK and non-irritable EMG.",
+                why: "Myositis relapse would show elevated CK and abnormal spontaneous activity on EMG."
+            },
+            {
+                q: "24. What biopsy finding characterizes Polymyositis?",
+                opts: ["A. Perifascicular atrophy", "B. Endomysial CD8+ T cell infiltrate", "C. Rimmed vacuoles", "D. Fibrinoid necrosis of arterioles"],
+                ans: 1,
+                exp: "PM muscle biopsy shows endomysial inflammation with CD8+ cytotoxic T cells surrounding non-necrotic muscle fibers.",
+                why: "Perifascicular atrophy is pathognomonic for DM. Rimmed vacuoles indicate IBM."
+            },
+            {
+                q: "25. A 52/F with dry eyes and dry mouth has a parotid biopsy showing focal lymphocytic sialadenitis. She is at greatest risk for developing which neoplasm?",
+                opts: ["A. Squamous cell carcinoma of lip", "B. MALT Lymphoma", "C. Follicular thyroid cancer", "D. Multiple Myeloma"],
+                ans: 1,
+                exp: "Sjögren's patients have a 44-fold increased risk of developing Non-Hodgkin Lymphoma, predominantly MALT Lymphoma.",
+                why: "The chronic exocrine B-cell stimulation predisposes to MALT lymphoma."
+            },
+            {
+                q: "26. What Schirmer test result supports a diagnosis of Sjögren's Syndrome?",
+                opts: ["A. <= 5 mm wetting in 5 minutes", "B. >= 15 mm wetting in 5 minutes", "C. <= 10 mm wetting in 10 minutes", "D. 0 mm wetting in 1 minute"],
+                ans: 0,
+                exp: "Standard positive Schirmer test for dry eyes is <= 5 mm wetting of filter paper after 5 minutes.",
+                why: ">= 15 mm is normal tear production."
+            },
+            {
+                q: "27. A 32/F presents with absent radial pulses, claudication in arms, and a 20 mmHg BP difference between arms. Arteriogram shows subclavian stenosis. Diagnosis?",
+                opts: ["A. Giant Cell Arteritis", "B. Takayasu Arteritis", "C. Polyarteritis Nodosa", "D. Kawasaki Disease"],
+                ans: 1,
+                exp: "Takayasu Arteritis ('pulseless disease') affects young females <40yo, causing aortic branch stenosis and pulse deficits.",
+                why: "GCA affects older adults >50yo."
+            },
+            {
+                q: "28. A 68/F presents with a severe right-sided headache, jaw pain while chewing, and a tender temporal artery. What is the most urgent immediate action?",
+                opts: ["A. Order a brain MRI", "B. Perform temporal artery biopsy before starting meds", "C. Administer high-dose Glucocorticoids immediately", "D. Start Methotrexate"],
+                ans: 2,
+                exp: "High-dose glucocorticoids must be started IMMEDIATELY to prevent irreversible blindness from optic nerve ischemia.",
+                why: "Biopsy should not delay steroid therapy in suspected GCA."
+            },
+            {
+                q: "29. A 48/M with chronic Hepatitis B presents with livedo reticularis, hypertension, right wrist drop, and testicular pain. Biopsy shows medium-artery fibrinoid necrosis. Diagnosis?",
+                opts: ["A. Microscopic Polyangiitis", "B. Polyarteritis Nodosa (PAN)", "C. Granulomatosis with Polyangiitis", "D. IgA Vasculitis"],
+                ans: 1,
+                exp: "PAN is a medium-vessel necrotizing vasculitis linked to HBV, causing livedo, testicular pain, mononeuritis multiplex, and HTN without glomerulonephritis.",
+                why: "MPA and GPA are small-vessel ANCA vasculitides causing glomerulonephritis."
+            },
+            {
+                q: "30. A 4/M presents with palpable purpura on buttocks, knee swelling, colicky abdominal pain, and microscopic hematuria following a cold. What immunofluorescence finding is expected?",
+                opts: ["A. IgG anti-GBM deposits", "B. IgA and C3 deposits in vessel walls", "C. c-ANCA positivity", "D. Pauci-immune pattern"],
+                ans: 1,
+                exp: "IgA Vasculitis (HSP) is defined by leukocytoclastic vasculitis with prominent IgA and C3 deposition.",
+                why: "Anti-GBM is seen in Goodpasture's disease."
+            },
+            {
+                q: "31. What autoantibody is positive in >95% of Drug-Induced Lupus cases?",
+                opts: ["A. Anti-dsDNA", "B. Anti-Sm", "C. Anti-Histone", "D. Anti-Scl-70"],
+                ans: 2,
+                exp: "Anti-Histone antibodies are present in >95% of DIL cases.",
+                why: "Anti-dsDNA and Anti-Sm are specific for idiopathic SLE."
+            },
+            {
+                q: "32. What is the preferred induction therapy for Class IV Lupus Nephritis in a young female wishing to preserve fertility?",
+                opts: ["A. Cyclophosphamide", "B. Mycophenolate Mofetil (MMF)", "C. Azathioprine", "D. Methotrexate"],
+                ans: 1,
+                exp: "MMF is equal in efficacy to cyclophosphamide for LN induction but avoids the risk of premature ovarian failure.",
+                why: "Cyclophosphamide carries significant gonadal toxicity risks."
+            },
+            {
+                q: "33. What laboratory test is used to detect Lupus Anticoagulant?",
+                opts: ["A. ELISA for cardiolipin", "B. Dilute Russell Viper Venom Test (dRVVT)", "C. Western blot", "D. Indirect immunofluorescence"],
+                ans: 1,
+                exp: "Lupus Anticoagulant is detected using coagulation assays such as aPTT, Kaolin Clotting Time, and dRVVT.",
+                why: "aCL and anti-beta2GPI are measured by ELISA."
+            },
+            {
+                q: "34. What is the clinical significance of a rising Anti-dsDNA titer combined with falling C3/C4 complement levels in SLE?",
+                opts: ["A. Impending remission", "B. Drug toxicity", "C. Impending lupus flare / Nephritis activity", "D. Development of secondary Sjögren's"],
+                ans: 2,
+                exp: "Rising anti-dsDNA + falling complements indicate immune complex formation and complement consumption, signaling an active flare/nephritis.",
+                why: "Complements drop due to consumption in active immune deposition."
+            },
+            {
+                q: "35. A 40/F presents with Raynaud's, puffy fingers, telangiectasias, and pulmonary hypertension. Antinuclear antibody shows a centromere pattern. Diagnosis?",
+                opts: ["A. Diffuse Cutaneous SSc", "B. Limited Cutaneous SSc (CREST)", "C. SLE", "D. Polymyositis"],
+                ans: 1,
+                exp: "Anti-Centromere antibodies + CREST features define Limited Cutaneous SSc.",
+                why: "Diffus SSc has Anti-Scl-70 and trunk involvement."
+            },
+            {
+                q: "36. Which GI manifestation in Systemic Sclerosis is known as 'Watermelon Stomach'?",
+                opts: ["A. Barrett's Esophagus", "B. Gastric Antral Vascular Ectasia (GAVE)", "C. Small bowel bacterial overgrowth", "D. Esophageal stricture"],
+                ans: 1,
+                exp: "GAVE presents with longitudinal vascular stripes in the antrum mimicking watermelon stripes, causing chronic GI blood loss.",
+                why: "Barrett's is metaplasia from chronic GERD."
+            },
+            {
+                q: "37. What pathognomonic sign in Dermatomyositis appears as an erythematous rash over the sun-exposed anterior neck and upper chest?",
+                opts: ["A. Shawl sign", "B. V-Sign", "C. Gottron sign", "D. Heliotrope rash"],
+                ans: 1,
+                exp: "The V-sign is an erythematous rash over the anterior neck and upper chest.",
+                why: "Shawl sign is over the upper back and shoulders."
+            },
+            {
+                q: "38. What is the 5-year survival rate for Dermatomyositis in the absence of malignancy?",
+                opts: ["A. 20-30%", "B. 50-60%", "C. 70-93%", "D. 100%"],
+                ans: 2,
+                exp: "In the absence of associated malignancy or severe pulmonary fibrosis, DM prognosis is good with 5-year survival of 70-93%.",
+                why: "Malignancy significantly lowers survival."
+            },
+            {
+                q: "39. Which medication is a first-line muscarinic agonist used to treat severe dry mouth in Sjögren's Syndrome?",
+                opts: ["A. Atropine", "B. Pilocarpine", "C. Hydroxychloroquine", "D. Cyclosporine"],
+                ans: 1,
+                exp: "Pilocarpine and Cevimeline are muscarinic receptor agonists that stimulate salivary gland secretion.",
+                why: "Atropine is an anticholinergic that worsens dryness."
+            },
+            {
+                q: "40. Which extraglandular kidney disease is classically seen in Sjögren's Syndrome?",
+                opts: ["A. Membranous Nephropathy", "B. Distal Renal Tubular Acidosis (Type 1 RTA)", "C. Amyloidosis", "D. Minimal Change Disease"],
+                ans: 1,
+                exp: "Sjögren's causes interstitial nephritis leading to Type 1 (Distal) Renal Tubular Acidosis.",
+                why: "Glomerular involvement is rare in Sjögren's."
+            },
+            {
+                q: "41. What is the primary vessel size targeted in Giant Cell Arteritis?",
+                opts: ["A. Small capillaries", "B. Medium visceral arteries", "C. Large arteries (Aorta and primary branches)", "D. Small venules"],
+                ans: 2,
+                exp: "GCA is a large-vessel vasculitis targeting the aorta and branches, particularly carotid extracranial branches.",
+                why: "PAN targets medium arteries; IgA vasculitis targets small vessels."
+            },
+            {
+                q: "42. Which diagnostic test is the gold standard for confirming Polyarteritis Nodosa?",
+                opts: ["A. c-ANCA serology", "B. Biopsy of affected tissue (e.g. skin, muscle, nerve)", "C. Schirmer test", "D. Renal ultrasound"],
+                ans: 1,
+                exp: "Biopsy demonstrating necrotizing inflammation of medium muscular arteries is the gold standard for PAN.",
+                why: "PAN is ANCA-negative."
+            },
+            {
+                q: "43. What is the most common cardiac manifestation in SLE?",
+                opts: ["A. Libman-Sacks endocarditis", "B. Myocarditis", "C. Pericarditis", "D. Coronary vasculitis"],
+                ans: 2,
+                exp: "Pericarditis is the most frequent cardiac manifestation in SLE.",
+                why: "Libman-Sacks endocarditis occurs but is less common than pericarditis."
+            },
+            {
+                q: "44. What criteria count is required to classify SLE under the 2012 SLICC guidelines?",
+                opts: ["A. At least 3 criteria", "B. At least 4 criteria (including >=1 clinical and >=1 immunologic)", "C. 10 points", "D. Biopsy alone without antibodies"],
+                ans: 1,
+                exp: "SLICC requires >=4 criteria with at least 1 clinical and 1 immunologic, OR biopsy-proven nephritis + ANA/anti-dsDNA.",
+                why: "10 points is required under EULAR/ACR 2019."
+            },
+            {
+                q: "45. Catastrophic Antiphospholipid Syndrome (CAPS) is defined by thrombosis involving at least how many organs?",
+                opts: ["A. 1 organ", "B. 2 organs", "C. 3 or more organs simultaneously", "D. 5 organs"],
+                ans: 2,
+                exp: "CAPS involves rapidly progressive thrombosis in 3 or more organs simultaneously over days.",
+                why: "Single organ thrombosis defines standard APS."
+            },
+            {
+                q: "46. What radiographic feature in SSc hands represents resorption of terminal phalanges?",
+                opts: ["A. Joint space narrowing", "B. Acro-osteolysis", "C. Subchondral cysts", "D. Periarticular osteopenia"],
+                ans: 1,
+                exp: "Acro-osteolysis is the dissolution of distal finger phalanges secondary to chronic digital ischemia.",
+                why: "Osteopenia and joint space narrowing are features of RA."
+            },
+            {
+                q: "47. Anti-MDA5 positive Dermatomyositis is clinically notable for its strong association with:",
+                opts: ["A. Rapidly progressive Interstitial Lung Disease (ILD) & cutaneous ulcerations", "B. Severe heart block", "C. Renal failure", "D. DVT"],
+                ans: 0,
+                exp: "Anti-MDA5 DM is linked to clinically amyopathic DM with severe cutaneous ulcers and rapidly progressive ILD.",
+                why: "Anti-Mi2 has a classic mild skin/muscle outcome."
+            },
+            {
+                q: "48. What diagnostic test evaluates tear film integrity using lissamine green or fluorescein dye in Sjögren's?",
+                opts: ["A. Schirmer test", "B. Ocular Staining Score", "C. Salivary flow rate", "D. Sialography"],
+                ans: 1,
+                exp: "Ocular Staining Score evaluates corneal and conjunctival epithelial damage (score >= 5 is positive).",
+                why: "Schirmer measures volume of tear production."
+            },
+            {
+                q: "49. Which ANCA pattern and antigen target are characteristically associated with Granulomatosis with Polyangiitis (GPA)?",
+                opts: ["A. p-ANCA against Myeloperoxidase (MPO)", "B. c-ANCA against Proteinase 3 (PR3)", "C. Anti-dsDNA", "D. Anti-Centromere"],
+                ans: 1,
+                exp: "GPA is strongly associated with c-ANCA targeting PR3 (Proteinase 3).",
+                why: "p-ANCA against MPO is linked to Microscopic Polyangiitis (MPA) and EGPA."
+            },
+            {
+                q: "50. What is the primary therapy for Scleroderma Renal Crisis?",
+                opts: ["A. High-dose Prednisone", "B. ACE Inhibitors (e.g. Captopril)", "C. Hemodialysis only", "D. Rituximab"],
+                ans: 1,
+                exp: "ACE Inhibitors are life-saving in Scleroderma Renal Crisis by reversing renin-driven malignant hypertension.",
+                why: "Prednisone precipitates renal crisis and must be avoided."
+            }
+        ];
+
+        let userAnswers = new Array(mcqData.length).fill(null);
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            mcqData.forEach((q, index) => {
+                const qCard = document.createElement('div');
+                qCard.className = 'quiz-card';
+                qCard.id = `quiz-q-${index}`;
+
+                let optionsHTML = '';
+                q.opts.forEach((opt, optIndex) => {
+                    optionsHTML += `
+                        <div class="quiz-option" onclick="selectOption(${index}, ${optIndex})">
+                            <input type="radio" name="q-${index}" id="q-${index}-opt-${optIndex}" ${userAnswers[index] === optIndex ? 'checked' : ''}>
+                            <label for="q-${index}-opt-${optIndex}">${opt}</label>
+                        </div>
+                    `;
+                });
+
+                qCard.innerHTML = `
+                    <div class="quiz-question-number">Question ${index + 1} of 50</div>
+                    <div class="quiz-question-text">${q.q}</div>
+                    <div class="quiz-options">${optionsHTML}</div>
+                    <div class="quiz-explanation" id="quiz-exp-${index}">
+                        <strong>${q.ans === userAnswers[index] ? '✅ Correct!' : '❌ Incorrect'}</strong><br>
+                        <strong>Explanation:</strong> ${q.exp}<br>
+                        <strong>Distractor Analysis:</strong> ${q.why}
+                    </div>
+                `;
+
+                container.appendChild(qCard);
+            });
+        }
+
+        function selectOption(qIndex, optIndex) {
+            userAnswers[qIndex] = optIndex;
+            
+            // Highlight selected option
+            const options = document.querySelectorAll(`#quiz-q-${qIndex} .quiz-option`);
+            options.forEach((opt, idx) => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+                if (idx === optIndex) {
+                    opt.classList.add('selected');
+                }
+                
+                // Show correct/incorrect styles
+                if (idx === mcqData[qIndex].ans) {
+                    opt.classList.add('correct');
+                } else if (idx === optIndex && optIndex !== mcqData[qIndex].ans) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            // Show explanation
+            const expBox = document.getElementById(`quiz-exp-${qIndex}`);
+            expBox.classList.add('show');
+
+            updateScore();
+        }
+
+        function updateScore() {
+            let score = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans === mcqData[idx].ans) {
+                    score++;
+                }
+            });
+            document.getElementById('quiz-score-badge').textContent = `Score: ${score} / 50`;
+        }
+
+        // Initialize App on DOM Load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateFlashcardUI();
+            renderQuiz();
+        });
+    </script>
+</body>
+</html>
