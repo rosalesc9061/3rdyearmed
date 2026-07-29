@@ -1,0 +1,2533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poison & Drug Overdose: Environmental and Occupational Health Hazards - Interactive Reviewer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --accent-teal: #0d9488;
+            --accent-teal-light: #ccfbf1;
+            --accent-blue: #0284c7;
+            --accent-blue-light: #e0f2fe;
+            --accent-amber: #d97706;
+            --accent-amber-light: #fef3c7;
+            --accent-red: #dc2626;
+            --accent-red-light: #fee2e2;
+            --accent-purple: #7c3aed;
+            --accent-purple-light: #f3e8ff;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-code: 'Space Mono', monospace;
+        }
+
+        .dark-theme {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+            --accent-teal-light: #134e4a;
+            --accent-blue-light: #075985;
+            --accent-amber-light: #78350f;
+            --accent-red-light: #7f1d1d;
+            --accent-purple-light: #581c87;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Reading Progress Bar */
+        #progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1000;
+        }
+
+        #progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue));
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        /* Header Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 999;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+            color: white;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        .logo-text span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Nav Controls */
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-box {
+            position: relative;
+            width: 260px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.5rem 0.75rem 0.5rem 2.2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 2px var(--accent-teal-light);
+            width: 300px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .theme-toggle-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Navigation Tabs */
+        nav {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: thin;
+        }
+
+        .nav-tabs {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .tab-btn {
+            padding: 0.85rem 1.25rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn:hover {
+            color: var(--accent-teal);
+            background-color: var(--bg-tertiary);
+        }
+
+        .tab-btn.active {
+            color: var(--accent-teal);
+            border-bottom-color: var(--accent-teal);
+            background-color: var(--accent-teal-light);
+        }
+
+        /* Main Layout */
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            min-height: 80vh;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography Elements */
+        h1, h2, h3, h4, h5 {
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        h2 { font-size: 1.75rem; margin-bottom: 1rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.3rem; margin: 1.5rem 0 0.75rem 0; color: var(--accent-teal); }
+        h4 { font-size: 1.05rem; margin: 1rem 0 0.5rem 0; }
+
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+
+        ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; color: var(--text-secondary); }
+        li { margin-bottom: 0.35rem; }
+
+        /* Badge Pills */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 0.4rem;
+        }
+
+        .badge-must-know { background-color: var(--accent-amber-light); color: var(--accent-amber); border: 1px solid var(--accent-amber); }
+        .badge-pitfall { background-color: var(--accent-red-light); color: var(--accent-red); border: 1px solid var(--accent-red); }
+        .badge-pearl { background-color: var(--accent-teal-light); color: var(--accent-teal); border: 1px solid var(--accent-teal); }
+        .badge-exam { background-color: var(--accent-purple-light); color: var(--accent-purple); border: 1px solid var(--accent-purple); }
+
+        /* Concept Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.25rem;
+            margin: 1.25rem 0;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-accent-teal { border-left: 5px solid var(--accent-teal); }
+        .card-accent-red { border-left: 5px solid var(--accent-red); }
+        .card-accent-amber { border-left: 5px solid var(--accent-amber); }
+        .card-accent-purple { border-left: 5px solid var(--accent-purple); }
+        .card-accent-blue { border-left: 5px solid var(--accent-blue); }
+
+        /* Accordion / Expandable Cards */
+        .accordion-item {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 1rem 1.25rem;
+            background-color: var(--bg-secondary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            transition: background-color 0.2s;
+        }
+
+        .accordion-header:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .accordion-content {
+            padding: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            display: none;
+            background-color: var(--bg-secondary);
+        }
+
+        .accordion-item.open .accordion-content {
+            display: block;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s;
+        }
+
+        .accordion-item.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Tables Styling */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .table-copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.6rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .table-copy-btn:hover {
+            background-color: var(--accent-teal);
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--bg-secondary);
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            padding: 0.85rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.015);
+        }
+
+        .dark-theme tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        tr:hover {
+            background-color: var(--accent-teal-light);
+        }
+
+        /* Callout Boxes */
+        .callout {
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-md);
+            margin: 1.25rem 0;
+            border-left: 4px solid;
+            font-size: 0.95rem;
+        }
+
+        .callout-must-know { background-color: var(--accent-amber-light); border-color: var(--accent-amber); color: var(--text-primary); }
+        .callout-pitfall { background-color: var(--accent-red-light); border-color: var(--accent-red); color: var(--text-primary); }
+        .callout-pearl { background-color: var(--accent-teal-light); border-color: var(--accent-teal); color: var(--text-primary); }
+        .callout-exam { background-color: var(--accent-purple-light); border-color: var(--accent-purple); color: var(--text-primary); }
+
+        /* Flowcharts / Recreated Diagrams */
+        .diagram-container {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .diagram-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--accent-teal);
+        }
+
+        .diagram-flow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .diagram-box {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--accent-teal);
+            border-radius: var(--radius-md);
+            padding: 0.75rem 1.25rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            min-width: 140px;
+        }
+
+        .diagram-arrow {
+            font-weight: 800;
+            color: var(--accent-teal);
+            font-size: 1.2rem;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* SVG Graph Styling */
+        .graph-svg {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem auto;
+            display: block;
+        }
+
+        /* Flashcard Styles */
+        .flashcard-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .flashcard-filter {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+        }
+
+        .flashcard-container {
+            perspective: 1000px;
+            height: 320px;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 2px solid var(--border-color);
+            background-color: var(--bg-secondary);
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, var(--accent-teal-light), var(--bg-secondary));
+            border-color: var(--accent-teal);
+            overflow-y: auto;
+        }
+
+        .flashcard-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+            text-transform: uppercase;
+        }
+
+        .flashcard-hint {
+            position: absolute;
+            bottom: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .flashcard-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.25rem;
+            border-radius: var(--radius-md);
+            border: none;
+            background-color: var(--accent-teal);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: #0f766e;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+        }
+
+        /* MCQ Self Assessment */
+        .mcq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .mcq-header-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .mcq-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mcq-question-num {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        .mcq-question-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .mcq-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .mcq-option {
+            padding: 0.85rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background-color: var(--bg-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .mcq-option:hover {
+            border-color: var(--accent-teal);
+            background-color: var(--accent-teal-light);
+        }
+
+        .mcq-option.selected {
+            border-color: var(--accent-blue);
+            background-color: var(--accent-blue-light);
+        }
+
+        .mcq-option.correct {
+            border-color: var(--accent-teal) !important;
+            background-color: var(--accent-teal-light) !important;
+            color: var(--text-primary) !important;
+            font-weight: 600;
+        }
+
+        .mcq-option.incorrect {
+            border-color: var(--accent-red) !important;
+            background-color: var(--accent-red-light) !important;
+            color: var(--text-primary) !important;
+        }
+
+        .mcq-explanation {
+            display: none;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            background-color: var(--bg-tertiary);
+            border-left: 4px solid var(--accent-teal);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .mcq-explanation.show {
+            display: block;
+        }
+
+        .distractor-analysis {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        /* Cram Sheet Styling */
+        .cram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .cram-box {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cram-box h3 {
+            font-size: 1.1rem;
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-teal);
+            padding-bottom: 0.4rem;
+        }
+
+        .buzzword-list li {
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            background-color: var(--bg-tertiary);
+            padding: 0.4rem 0.6rem;
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.4rem;
+            list-style: none;
+        }
+
+        /* Floating UI Tools */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--accent-teal);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 900;
+        }
+
+        .scroll-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Print Friendly Adjustments */
+        @media print {
+            header, nav, .flashcard-controls, .flashcard-nav, .scroll-top-btn, #progress-container {
+                display: none !important;
+            }
+            .tab-content { display: block !important; }
+            body { background: white; color: black; }
+            .card, .accordion-item, .table-wrapper { break-inside: avoid; border: 1px solid #ccc; }
+        }
+
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; align-items: stretch; }
+            .search-box { width: 100%; }
+            .search-box input:focus { width: 100%; }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Reading Progress Bar -->
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- Header Navigation Bar -->
+    <header>
+        <div class="header-container">
+            <div class="logo-area">
+                <div class="logo-icon">Rx</div>
+                <div class="logo-text">
+                    <h1>Poison & Overdose Reviewer</h1>
+                    <span>Environmental & Occupational Health Hazards • Med 2</span>
+                </div>
+            </div>
+            <div class="nav-controls">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="global-search" placeholder="Search concepts, antidotes, toxins...">
+                </div>
+                <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Light/Dark Theme">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav>
+        <ul class="nav-tabs">
+            <li><button class="tab-btn active" data-tab="overview">📌 Overview</button></li>
+            <li><button class="tab-btn" data-tab="environmental">🌿 Environmental Hazards</button></li>
+            <li><button class="tab-btn" data-tab="toxicology">📈 Toxicology & Kinetics</button></li>
+            <li><button class="tab-btn" data-tab="toxidromes">👁️ Toxidromes & Evaluation</button></li>
+            <li><button class="tab-btn" data-tab="general-approach">🚑 Resuscitation (ABCD)</button></li>
+            <li><button class="tab-btn" data-tab="elimination">🧪 Elimination & Antidotes</button></li>
+            <li><button class="tab-btn" data-tab="caustics">⚠️ Caustic Hazards</button></li>
+            <li><button class="tab-btn" data-tab="comparisons">⚖️ Side-by-Side Comparisons</button></li>
+            <li><button class="tab-btn" data-tab="flashcards">🎴 Active-Recall Flashcards</button></li>
+            <li><button class="tab-btn" data-tab="assessment">📝 PLE Self-Assessment</button></li>
+            <li><button class="tab-btn" data-tab="cram">⚡ 10-Min Cram Sheet</button></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main>
+
+        <!-- TAB 1: OVERVIEW -->
+        <section id="overview" class="tab-content active">
+            <h2>High-Yield Course Overview</h2>
+            <p>Based on the lecture by <strong>Isagani C. Rodriguez, MD, FPCP, FPCCP</strong>. Designed as a comprehensive, exam-ready mastery module for Philippine medical students preparing for Medicine 2 Long Exams and the Physician Licensure Examination (PLE).</p>
+
+            <div class="card-grid">
+                <div class="card card-accent-teal">
+                    <h3>🎯 Learning Objectives</h3>
+                    <ul>
+                        <li>Evaluate patients presenting with toxic exposures using focused history and physical examination.</li>
+                        <li>Analyze signs and symptoms due to unknown poison to identify probable toxins and responsible toxidromes.</li>
+                        <li>Formulate systematic appropriate interventions among patients presenting with signs/symptoms of poisoning.</li>
+                        <li>Assess and monitor response to therapeutic intervention and evaluate the need to liaise with subspecialties.</li>
+                        <li>Outline preventive and immediate measures for accidental exposures at home, workplace, and environment.</li>
+                    </ul>
+                </div>
+                <div class="card card-accent-blue">
+                    <h3>⚡ Core Clinical Paradigms</h3>
+                    <ul>
+                        <li><strong>Paracelsus Principle:</strong> "All substances are poisons... The right dose differentiates a poison and a remedy."</li>
+                        <li><strong>Resuscitation Priority:</strong> ABCD (Airway, Breathing, Circulation, Disability) takes absolute priority over antidote search.</li>
+                        <li><strong>Dose Determines Response:</strong> Toxic response is a function of concentration, exposure pathway, and duration.</li>
+                        <li><strong>No Antidote for Caustics:</strong> Management is purely supportive; NEVER neutralize or induce vomiting.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>📊 Master Toxidrome & Antidote Matrix</h3>
+            <div class="table-wrapper">
+                <button class="table-copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Toxidrome / Toxin</th>
+                            <th>Pupils</th>
+                            <th>Vital Signs (HR / BP / Temp)</th>
+                            <th>Skin & Secretions</th>
+                            <th>Mental Status / Key Clues</th>
+                            <th>First-Line Antidote / Management</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Anticholinergic</strong></td>
+                            <td>Mydriasis (dilated)</td>
+                            <td>Tachycardia, High BP, Hyperthermic</td>
+                            <td>Dry skin, absent secretions</td>
+                            <td>Agitated, "Mad as a hatter", delirium</td>
+                            <td>Physostigmine (supportive care)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cholinergic (OP / Carbamates)</strong></td>
+                            <td>Miosis (pinpoint)</td>
+                            <td>Bradycardia, Low BP, Low RR</td>
+                            <td>Drenched, diaphoresis, bronchorrhea</td>
+                            <td>Stupor, SLUDGE / DUMBBELS, garlic smell</td>
+                            <td>Atropine + Pralidoxime (if available)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sympathomimetic</strong></td>
+                            <td>Mydriasis (dilated)</td>
+                            <td>Tachycardia, High BP, Hyperthermic</td>
+                            <td>Diaphoretic / wet skin</td>
+                            <td>Agitated, anxious, hyperreflexic</td>
+                            <td>Benzodiazepines (Diazepam)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Opioid</strong></td>
+                            <td>Miosis (pinpoint)</td>
+                            <td>Bradycardia, Hypotension, Hypoventilation</td>
+                            <td>Normal to dry</td>
+                            <td>Stupor/Coma, respiratory depression</td>
+                            <td>Naloxone</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sedative / Hypnotic</strong></td>
+                            <td>Normal / variable</td>
+                            <td>Depressed / mild changes</td>
+                            <td>Normal</td>
+                            <td>Somnolence, stupor, loss of gag reflex</td>
+                            <td>Supportive / Airway protection (Flumazenil)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Isoniazid (INH)</strong></td>
+                            <td>Variable</td>
+                            <td>Tachycardia, acidotic</td>
+                            <td>Variable</td>
+                            <td>Unrelenting seizures resistant to Diazepam</td>
+                            <td>Pyridoxine (Vitamin B6) 1:1 dose ratio</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Paracetamol (APAP)</strong></td>
+                            <td>Normal</td>
+                            <td>Normal initially</td>
+                            <td>Jaundice (delayed 36-48h)</td>
+                            <td>Asymptomatic early → Hepatic necrosis</td>
+                            <td>N-acetylcysteine (NAC)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Methanol / Ethylene Glycol</strong></td>
+                            <td>Normal / visual loss</td>
+                            <td>Tachycardia, tachypnea (Kussmaul)</td>
+                            <td>Variable</td>
+                            <td>Anion gap metabolic acidosis, blindness (MOH)</td>
+                            <td>Ethanol / Fomepizole + Dialysis</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 2: ENVIRONMENTAL HAZARDS -->
+        <section id="environmental" class="tab-content">
+            <h2>1. Environmental Poisoning</h2>
+
+            <div class="card-grid">
+                <div class="card card-accent-amber">
+                    <span class="badge badge-must-know">Must Know</span>
+                    <h3>Dibromochloropropane (DBCP)</h3>
+                    <p><strong>Historical Context & Application:</strong> Widely used since the mid-1950s as a potent nematicide against worms attacking banana roots. Commonly handled by banana plantation workers ("Bananeros") in South America and Mindanao, Philippines (e.g., Del Monte and Dole) under trade names <em>Amazon</em> or <em>Nemagon</em>.</p>
+                    <p><strong>Mechanism & Toxicity:</strong> Acts as an <strong>estrogen mimic</strong>. Pre-market animal testing revealed atrophied testes, but the chemical somehow passed licensing. Banned in 1979 in developed nations but continued to be sold in third-world countries.</p>
+                    <ul>
+                        <li><strong>Male Effects:</strong> Male sterility with azoospermia/oligospermia (observed in banana plantation workers and even sons of exposed mothers).</li>
+                        <li><strong>Female Effects:</strong> Increased incidence of breast cancer among female workers.</li>
+                        <li><strong>Antidote:</strong> <strong>NO KNOWN ANTIDOTE</strong>. Tissue damage is completely irreversible.</li>
+                    </ul>
+                    <div class="callout callout-pitfall">
+                        <strong>⚠️ Common Pitfall:</strong> Philippine tropical farmers often do not comply with protective clothing regulations due to heat, leading to direct transdermal and inhalational absorption.
+                    </div>
+                </div>
+
+                <div class="card card-accent-red">
+                    <span class="badge badge-must-know">Must Know</span>
+                    <h3>Paralytic Shellfish Poisoning (PSP) & Harmful Algal Blooms</h3>
+                    <p><strong>Etiology:</strong> Caused by Harmful Algal Blooms (HABs) or sudden proliferation of planktonic organisms, usually from the <em>Gonyaulacoid dinoflagellate</em> (<em>Gonyaulax</em>) family.</p>
+                    <p><strong>Terminology Clarification:</strong> "Red Tide" indicates an HAB, but color is not always red—it may appear yellow, brown, green, blue, or milky/misty.</p>
+                    <p><strong>Toxin & Mechanism:</strong> Produces <strong>Saxitoxin</strong>, a <em>heat-stable neurotoxin</em> (cannot be destroyed by cooking, boiling, or heating) that selectively <strong>blocks neuronal voltage-gated Na+ channels</strong>, preventing action potential propagation.</p>
+                    <ul>
+                        <li><strong>Vectors:</strong> Filter feeders (shellfish and bivalve mollusks) concentrate saxitoxin in their flesh and pose high risk to humans.</li>
+                        <li><strong>Fish Safety:</strong> Fish concentrate the toxin strictly in their <em>viscera/intestines</em>. Removing intestines/viscera before cooking spares humans from toxicity.</li>
+                        <li><strong>Clinical Manifestations:</strong> Perioral numbness/tingling, prickling sensation, dizziness, muscle weakness, paralysis of extremities and respiratory muscles, dyspnea, dysphagia, dyslexia, tachycardia, vomiting, diarrhea. All motor functions are affected in a dose-dependent manner.</li>
+                        <li><strong>Management:</strong> Purely supportive—fluid resuscitation and mechanical ventilatory support.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Diagram Recreation for PSP -->
+            <div class="diagram-container">
+                <div class="diagram-title">Pathophysiology of Paralytic Shellfish Poisoning (Saxitoxin)</div>
+                <div class="diagram-flow">
+                    <div class="diagram-box">HABs / Gonyaulax Bloom</div>
+                    <div class="diagram-arrow">➔</div>
+                    <div class="diagram-box">Saxitoxin Accumulation in Filter Feeders</div>
+                    <div class="diagram-arrow">➔</div>
+                    <div class="diagram-box">Human Ingestion (Heat Stable!)</div>
+                    <div class="diagram-arrow">➔</div>
+                    <div class="diagram-box">Blockade of Neuronal Na+ Channels</div>
+                    <div class="diagram-arrow">➔</div>
+                    <div class="diagram-box">Perioral Paresthesia ➔ Paralysis & Resp Failure</div>
+                </div>
+                <div class="diagram-caption">Figure 1. Mechanism of Saxitoxin action: Ingestion of contaminated shellfish leads to Na+ channel blockade and flaccid neuroparalytic syndrome.</div>
+            </div>
+        </section>
+
+        <!-- TAB 3: TOXICOLOGY & KINETICS -->
+        <section id="toxicology" class="tab-content">
+            <h2>2. Principles of Toxicology & Dose-Response</h2>
+
+            <div class="callout callout-pearl">
+                💡 <strong>Paracelsus Foundational Principle:</strong> "All substances are poisons; there is none that is not a poison. The right dose differentiates a poison and a remedy."
+                <br><em>Examples of Median Lethal Dose ($LD_{50}$):</em> Sugar ($30,000\text{ mg/kg}$), Ethanol ($13,700\text{ mg/kg}$), Water ($>90,000\text{ mg/kg}$). Oxygen administered at $>50\%\text{ FiO}_2$ for $>48\text{ hours}$ leads to pulmonary toxicity and irreversible fibrosis.
+            </div>
+
+            <div class="card-grid">
+                <div class="card card-accent-teal">
+                    <h3>Core Definitions</h3>
+                    <ul>
+                        <li><strong>Toxicology:</strong> Study of adverse effects of toxicants on living organisms. Adverse effect = any deviation from normal homeostasis.</li>
+                        <li><strong>Toxicant (Poison):</strong> Any agent capable of producing a deleterious response in a biological system.</li>
+                        <li><strong>Poisoning:</strong> Overdose of drugs, medicaments, or biological substances; or wrong substance given/taken in error (excludes standard adverse drug reactions or hypersensitivity of correctly administered drugs).</li>
+                    </ul>
+                </div>
+                <div class="card card-accent-purple">
+                    <h3>Determinants of Toxic Response & Exposure Pathways</h3>
+                    <ul>
+                        <li><strong>Exposure Pathway Onset Speed:</strong> Intravenous (IV) &gt; Inhalation &gt; Intraperitoneal &gt; Intramuscular &gt; Per Orem (PO) &gt; Topical.</li>
+                        <li><em>Topical Exceptions:</em> Certain organophosphates (malathion, parathion) readily penetrate intact skin.</li>
+                        <li><strong>Exposure Duration Categories:</strong>
+                            <ul>
+                                <li><strong>Acute:</strong> $< 24\text{ hours}$ (usually 1 single exposure).</li>
+                                <li><strong>Subacute:</strong> $\le 1\text{ month}$ (repeated doses).</li>
+                                <li><strong>Subchronic:</strong> $1\text{ to } 3\text{ months}$ (repeated doses).</li>
+                                <li><strong>Chronic:</strong> $> 3\text{ months}$ (repeated doses).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Dose-Response Curve & Sigmoidal Relationship</h3>
+            <p>The response of the human body to a drug or toxin follows a sigmoidal (S-shaped) curve when plotted against log-dose.</p>
+
+            <div class="diagram-container">
+                <div class="diagram-title">Recreated Sigmoidal Dose-Response Relationship</div>
+                <svg class="graph-svg" width="600" height="280" viewBox="0 0 600 280">
+                    <!-- Axes -->
+                    <line x1="60" y1="230" x2="550" y2="230" stroke="var(--text-primary)" stroke-width="2"/>
+                    <line x1="60" y1="230" x2="60" y2="30" stroke="var(--text-primary)" stroke-width="2"/>
+                    <!-- Labels -->
+                    <text x="300" y="270" fill="var(--text-primary)" font-family="Space Mono" font-size="12" text-anchor="middle">Log Dose (mg/kg)</text>
+                    <text x="20" y="130" fill="var(--text-primary)" font-family="Space Mono" font-size="12" transform="rotate(-90 20 130)" text-anchor="middle">% Response / Toxicity</text>
+                    
+                    <!-- Sigmoid Curve -->
+                    <path d="M 60 220 C 180 220, 200 210, 250 140 C 300 70, 350 40, 550 40" fill="none" stroke="var(--accent-teal)" stroke-width="4"/>
+                    
+                    <!-- Points / Segments -->
+                    <circle cx="160" cy="218" r="5" fill="var(--accent-amber)"/>
+                    <text x="160" y="200" fill="var(--accent-amber)" font-family="Space Mono" font-size="10" text-anchor="middle">0-1: NOAEL</text>
+                    
+                    <line x1="250" y1="230" x2="250" y2="140" stroke="gray" stroke-dasharray="4"/>
+                    <circle cx="250" cy="140" r="5" fill="var(--accent-blue)"/>
+                    <text x="250" y="125" fill="var(--accent-blue)" font-family="Space Mono" font-size="10" text-anchor="middle">2-3: Linear Range (ED50)</text>
+
+                    <circle cx="450" cy="42" r="5" fill="var(--accent-red)"/>
+                    <text x="450" y="30" fill="var(--accent-red)" font-family="Space Mono" font-size="10" text-anchor="middle">4: Max Response (Plateau / Death)</text>
+                </svg>
+                <div class="diagram-caption">Figure 2. Sigmoidal curve: Segment 0-1 is No Observed Adverse Effect Level (NOAEL); Segment 2-3 is linear graded response; Segment 4 is maximum response plateau.</div>
+            </div>
+
+            <div class="card-grid">
+                <div class="card card-accent-blue">
+                    <h3>Dose Metrics & Indices</h3>
+                    <ul>
+                        <li><strong>Effective Dose ($ED_{50}$):</strong> Dose that produces the desired therapeutic effect in 50% of the test population.</li>
+                        <li><strong>Lethal Dose ($LD_{50}$):</strong> Dose of a chemical/poison that causes death in 50% of the test population (expressed in $\text{mg/kg}$).</li>
+                        <li><strong>Lethal Concentration ($LC_{50}$):</strong> Concentration in environment (air/water) causing death in 50% of test population in a specified timeframe ($\text{mg/L}$ for liquid, $\text{ppm}$ for gas).</li>
+                        <li><strong>Therapeutic Index ($TI$):</strong> Ratio of $LD_{50}$ to $ED_{50}$ ($TI = \frac{LD_{50}}{ED_{50}}$).
+                            <ul>
+                                <li>A substance is considered <strong>SAFE</strong> if $TI \ge 10$.</li>
+                                <li>A low ratio indicates a narrow therapeutic window and high toxicity potential.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Therapeutic Window:</strong> Dose range between minimum effective dose and minimum toxic dose.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-red">
+                    <span class="badge badge-exam">Exam Tip</span>
+                    <h3>Theophylline: Narrow Therapeutic Window Example</h3>
+                    <p>Theophylline demonstrates progressive multi-organ toxicity as blood levels rise along the dose-response curve:</p>
+                    <ol>
+                        <li><strong>0–10 mcg/mL (NOAEL):</strong> Therapeutic Bronchodilation.</li>
+                        <li><strong>15–20 mcg/mL:</strong> Gastrointestinal symptoms (Nausea, Vomiting).</li>
+                        <li><strong>20–30 mcg/mL:</strong> Cardiovascular symptoms (Tachycardia, Dysrhythmias).</li>
+                        <li><strong>30–40 mcg/mL:</strong> Metabolic derangements (Severe Hypokalemia).</li>
+                        <li><strong>>40 mcg/mL:</strong> Central Nervous System excitation (Intractable Seizures, Coma, Death).</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h3>ILO Toxicity Categories & FDA Pregnancy Risk Classification</h3>
+            <div class="table-wrapper">
+                <button class="table-copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ILO Category</th>
+                            <th>Oral $LD_{50}$ (mg/kg)</th>
+                            <th>Label Symbol</th>
+                            <th>Signal Word</th>
+                            <th>Hazard Degree</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Category 1</strong></td>
+                            <td>$\le 5$</td>
+                            <td>Skull & Crossbones</td>
+                            <td>DANGER</td>
+                            <td>Fatal if swallowed (Extremely Toxic)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Category 2</strong></td>
+                            <td>$> 5 \text{ to } 50$</td>
+                            <td>Skull & Crossbones</td>
+                            <td>DANGER</td>
+                            <td>Fatal if swallowed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Category 3</strong></td>
+                            <td>$> 50 \text{ to } 300$</td>
+                            <td>Skull & Crossbones</td>
+                            <td>DANGER</td>
+                            <td>Toxic if swallowed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Category 4</strong></td>
+                            <td>$> 300 \text{ to } 2000$</td>
+                            <td>Exclamation Mark</td>
+                            <td>WARNING</td>
+                            <td>Harmful if swallowed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Category 5</strong></td>
+                            <td>$> 2000 \text{ to } 5000$</td>
+                            <td>No Symbol</td>
+                            <td>WARNING</td>
+                            <td>May be harmful if swallowed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card card-accent-purple" style="margin-top:1rem;">
+                <h3>FDA Pregnancy Categories & PLLR (2015) Rule</h3>
+                <ul>
+                    <li><strong>Category A:</strong> Controlled human studies fail to show fetal risk in 1st or later trimesters (e.g., Amoxicillin, Cephalosporins). Most safe.</li>
+                    <li><strong>Category B:</strong> Animal studies show no risk, but no controlled human studies; OR animal studies show risk but human studies do not.</li>
+                    <li><strong>Category C:</strong> Animal studies show adverse effects, no human studies. Give only if benefit outweighs risk.</li>
+                    <li><strong>Category D:</strong> Positive evidence of human fetal risk. May be used in life-threatening emergency if benefits outweigh risk.</li>
+                    <li><strong>Category X:</strong> Fetal abnormalities demonstrated in animals/humans. Risks strictly outweigh any potential benefit. Absolute contraindication.</li>
+                    <li><strong>Category N:</strong> Unclassified (new drugs or Emergency Use Authorization like Remdesivir during pandemics).</li>
+                    <li><strong>Pregnancy and Lactation Labeling Final Rule (PLLR, 2015):</strong> Replaced letter categories with narrative subsections: <em>Pregnancy</em>, <em>Lactation</em>, and <em>Females and Males of Reproductive Potential</em>.
+                        <ul>
+                            <li><em>Clinical Example:</em> <strong>Dutasteride/Finasteride</strong> (5-alpha reductase inhibitors). Males taking this must avoid getting partners pregnant (anti-androgen causes abnormal male genital development). Transferred via semen; couples must use barrier protection or postpone pregnancy for 6 months after stopping.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TAB 4: TOXIDROMES & CLINICAL EVALUATION -->
+        <section id="toxidromes" class="tab-content">
+            <h2>3. Toxidromes & Clinical Evaluation</h2>
+
+            <div class="callout callout-must-know">
+                ⭐ <strong>Toxidrome Concept:</strong> A constellation of signs and symptoms associated with specific classes of poisons. Essential when history is missing, unreliable, or patient is found unconscious. Relies heavily on autonomic physical exam findings: <strong>Eyes, Skin, Secretions, Vital Signs</strong>.
+            </div>
+
+            <div class="card-grid">
+                <div class="card card-accent-red">
+                    <h3>1. Anticholinergic Toxidrome</h3>
+                    <p><em>Mnemonic:</em> "Mad as a hatter, blind as a bat, hot as hell, red as a beet, dry as a bone, seizing like a squirrel."</p>
+                    <ul>
+                        <li><strong>Vital Signs:</strong> Tachycardia, Hypertension, Febrile (Hyperthermia), Tachypnea.</li>
+                        <li><strong>Physical Exam:</strong> Mydriasis (dilated pupils), dry flushed skin, absent urinary/sweat secretions, urinary retention.</li>
+                        <li><strong>Culprits:</strong> 1st generation antihistamines (Diphenhydramine, Hydroxyzine), Antipsychotics (Phenothiazines, Haloperidol, Atypicals), Tricyclic Antidepressants (TCAs), Carbamazepine.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-teal">
+                    <h3>2. Cholinergic Toxidrome</h3>
+                    <p>Opposite of anticholinergic. Caused by inhibition of acetylcholinesterase, leading to acetylcholine overload.</p>
+                    <ul>
+                        <li><strong>Vital Signs:</strong> Bradycardia, Hypotension, Hypoventilation.</li>
+                        <li><strong>Physical Exam:</strong> Miosis (pinpoint pupils), drenched skin, diaphoresis, hyperactive bowel sounds.</li>
+                        <li><strong>Mnemonics:</strong>
+                            <ul>
+                                <li><strong>SLUDGE:</strong> Salivation, Lacrimation, Urination, Diarrhea/Defecation, GI Dysmotility, Emesis.</li>
+                                <li><strong>DUMBBELS:</strong> Diarrhea, Urination, Miosis/Muscle weakness, Bronchorrhea, Bradycardia, Emesis, Lacrimation, Salivation/Sweating.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Culprits:</strong> Organophosphates (Malathion, Parathion—classic <em>kerosene + garlic breath smell</em>), Carbamates.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-purple">
+                    <h3>3. Opioid Toxidrome</h3>
+                    <ul>
+                        <li><strong>Triad:</strong> CNS depression (Coma), Respiratory depression (fatal), <strong>Universal Miosis (Pinpoint Pupils)</strong>.</li>
+                        <li><strong>Vital Signs:</strong> Severe Bradycardia, Hypotension, Hypothermia.</li>
+                        <li><strong>Culprits:</strong> Morphine, Codeine, Fentanyl, Heroin.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-amber">
+                    <h3>4. Sympathomimetic Toxidrome</h3>
+                    <ul>
+                        <li><strong>Vital Signs:</strong> Tachycardia, Tachyarrhythmias, Severe Hypertension, Hyperthermia.</li>
+                        <li><strong>Physical Exam:</strong> Mydriasis, <strong>Diaphoretic/Wet skin</strong> (distinguishes from Anticholinergic dry skin), normal secretions, hyperreflexia, agitation.</li>
+                        <li><strong>Culprits:</strong> Cocaine, Amphetamines ("poor man's cocaine"), Ephedrine, Pseudoephedrine, PPA, MAOIs, TCAs.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Poisons with Delayed Manifestations</h3>
+            <div class="table-wrapper">
+                <button class="table-copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Poison / Substance</th>
+                            <th>Onset Delay Before Signs/Symptoms</th>
+                            <th>Key Pathophysiologic Sequelae</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ethylene Glycol</strong></td>
+                            <td>6 Hours</td>
+                            <td>Anion gap acidosis, calcium oxalate crystal deposition in renal tubules</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Salicylates (Aspirin)</strong></td>
+                            <td>12 Hours</td>
+                            <td>Mixed respiratory alkalosis & metabolic acidosis, tinnitus, hyperthermia</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Paracetamol (APAP)</strong></td>
+                            <td>36 Hours</td>
+                            <td>Centrilobular hepatic necrosis (toxic NAPQI accumulation)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Paraquat</strong></td>
+                            <td>48 Hours</td>
+                            <td>Pulmonary fibrosis, cross-linking lipid peroxidation in alveoli</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Methanol</strong></td>
+                            <td>48 Hours</td>
+                            <td>Formic acid accumulation, optic papillitis, permanent blindness</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Thyroxine ($T_4$)</strong></td>
+                            <td>4 Weeks</td>
+                            <td>Delayed severe thyrotoxic storm, high-output cardiac failure</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card card-accent-teal" style="margin-top:1rem;">
+                <h3>Diagnostics & Matthew-Rumack Nomogram</h3>
+                <ul>
+                    <li><strong>Specimen Collection:</strong>
+                        <ul>
+                            <li><strong>Paracetamol Serum Levels:</strong> Blood drawn strictly at <strong>4 hours post-ingestion</strong> (or later) to match peak plasma concentration for outcome prognosis.</li>
+                            <li><strong>Tox Screen Protocol:</strong> $5\text{--}10\text{ mL}$ heparinized & clotted blood on ice; $200\text{ mL}$ urine; $200\text{ mL}$ gastric aspirate (frozen for medico-legal evidence).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Matthew-Rumack Nomogram:</strong> Used to interpret 4-hour post-ingestion paracetamol levels to decide $N$-acetylcysteine treatment. If serum levels lie on or above the probable risk line, start NAC immediately.
+                        <br><em>Clinical Rule:</em> If history indicates toxic ingestion ($>150\text{ mg/kg}$), treat immediately with NAC without waiting for serum assay results if turnaround time is delayed ($>24\text{ hours}$).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TAB 5: GENERAL APPROACH & RESUSCITATION -->
+        <section id="general-approach" class="tab-content">
+            <h2>4. General Approach & Resuscitation (ABCD Priority)</h2>
+
+            <div class="callout callout-must-know">
+                ⭐ <strong>Resuscitation Rule:</strong> The ABCD sequence (Airway, Breathing, Circulation, Disability, Electrolytes, Find Antidote) takes precedence over finding antidotes and can be executed simultaneously.
+            </div>
+
+            <div class="accordion-item open">
+                <div class="accordion-header">
+                    <span>A — Airway Management & Indications for Intubation</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li><strong>Action:</strong> Remove obstructions (dentures, vomit), suction secretions to prevent aspiration.</li>
+                        <li><strong>C-Spine Rule:</strong> Always rule out cervical spine fracture before intubating trauma/fall victims with altered sensorium. Immobilize neck.</li>
+                        <li><strong>Indications for Intubation:</strong> Acute respiratory failure, unconscious patient, loss of gag reflex, status epilepticus.</li>
+                        <li style="color:var(--accent-red); font-weight:700;">⚠️ CONTRAINDICATION: DO NOT INTUBATE AN ACTIVELY SEIZING PATIENT! Administer IV Diazepam first, wait for convulsion to terminate, then secure the airway.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>B — Breathing & Oxygenation</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li>Obtain Arterial Blood Gases (ABGs). Provide supplementary oxygen if hypoxemic.</li>
+                        <li>Initiate mechanical ventilation if ventilatory drive or effort is compromised.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>C — Circulation & Hemodynamic Support</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li>Establish prompt IV access. Hydrate with D5NSS or D5 Acetated/Lactated Ringer's Solution.</li>
+                        <li>Place patient in <strong>Trendelenburg position</strong> (head down) if hypotensive.</li>
+                        <li><strong>Inotropes / Vasopressors:</strong> Norepinephrine, Dopamine, or Dobutamine if persistent hypotension occurs despite fluid resuscitation and positioning to maintain vital organ perfusion and urine output.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>D — CNS Disability & Seizure Management</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li>Assess Glasgow Coma Scale (GCS). Baseline GCS non-responsive score is 3.</li>
+                        <li><strong>Seizure Drug of Choice:</strong> <strong>Diazepam 5 mg IV (or 0.3 mg/kg)</strong> or Phenytoin $10\text{--}20\text{ mg/kg}$ IV loading.
+                            <br><em>Pitfall:</em> NEVER give Diazepam or Phenytoin Intramuscularly (IM) due to erratic and poor absorption.</li>
+                        <li><strong>Isoniazid (INH) Exception:</strong> Seizures caused by INH toxicity are <em>unrelenting and completely refractory</em> to repeated doses of Diazepam. Etiology: INH depletes pyridoxal 5'-phosphate (active Vit B6), inhibiting GABA synthesis.
+                            <br><strong>Treatment:</strong> Administer <strong>Pyridoxine (Vitamin B6) in a 1:1 gram-for-gram ratio</strong> with the ingested INH dose.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Physiologic Stimulation & Depression Severity Grading (Table 459-2)</h3>
+            <div class="table-wrapper">
+                <button class="table-copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Grade</th>
+                            <th>Physiologic Stimulation Manifestations</th>
+                            <th>Physiologic Depression Manifestations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Grade 1</strong></td>
+                            <td>Anxious, irritable, tremulous; vital signs normal; diaphoresis, mydriasis, hyperreflexia.</td>
+                            <td>Awake, lethargic, or sleeping but arousable by voice/tactile stimulation; converses normally.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grade 2</strong></td>
+                            <td>Agitated, confused, hallucinations; follows commands; vital signs mildly to moderately increased.</td>
+                            <td>Responds to pain but not voice; vocalizes but cannot converse; spontaneous motor activity present; intact brainstem reflexes.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grade 3</strong></td>
+                            <td>Delirious, unintelligible speech, uncontrollable motor hyperactivity; tachyarrhythmias possible.</td>
+                            <td>Unresponsive to pain; spontaneous motor activity absent; depressed brainstem reflexes, motor tone, respirations, and temp.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grade 4</strong></td>
+                            <td>Coma, persistent seizures, cardiovascular collapse.</td>
+                            <td>Unresponsive to pain; flaccid paralysis; absent brainstem reflexes and respirations; severe cardiovascular depression.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Electrolyte & Metabolic Emergency Management</h3>
+            <div class="card-grid">
+                <div class="card card-accent-teal">
+                    <h3>Hypokalemia</h3>
+                    <p><strong>Causes:</strong> Theophylline overdose (stimulates $Na^+/K^+$ ATPase pump pushing $K^+$ into cells), forced alkaline diuresis, chronic corticosteroid use.</p>
+                    <p><strong>Treatment:</strong> Potassium Chloride (KCl) IV infusion at maximum rate of $40\text{ mEq/hr}$.</p>
+                </div>
+
+                <div class="card card-accent-red">
+                    <h3>Hyperkalemia</h3>
+                    <p><strong>Causes:</strong> Digitalis/Digoxin, Beta-blockers (inhibits $Na^+/K^+$ pump), ACE inhibitors, CO/Cyanide poisoning (inhibits ATP production stopping pump), Rhabdomyolysis.</p>
+                    <p><strong>Treatment (Cardioprotection):</strong>
+                        <ul>
+                            <li><strong>Glucose-Insulin:</strong> $50\text{ mL D50W} + 10\text{ Units Regular Insulin}$ (shifts $K^+$ intracellularly).</li>
+                            <li><strong>Calcium Gluconate 10%:</strong> $5\text{--}10\text{ mL}$ slow IV push (stabilizes cardiac membrane potential if peaked T waves present).</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="card card-accent-blue">
+                    <h3>Hypothermia vs. Hyperthermia</h3>
+                    <p><strong>Hypothermia (Rectal $<35^\circ\text{C}$):</strong> EtOH, TCAs, Barbiturates, OHAs, Phenothiazines.
+                        <br><em>Management:</em> Wrap in thick/thermal blankets. Do NOT rapidly heat up body externally.</p>
+                    <p><strong>Hyperthermia:</strong> Amphetamines, Atropine, Salicylates, 1st gen Antihistamines, INH, Phenytoin, Theophylline.
+                        <br><em>Management:</em> Immediate ice bath immersion / wrap in cold wet towels + cold saline IV infusion.</p>
+                </div>
+
+                <div class="card card-accent-amber">
+                    <h3>Hypoglycemia</h3>
+                    <p><strong>Causes:</strong> Acute EtOH intoxication, Salicylate toxicity (glycogen depletion).</p>
+                    <p><strong>Treatment:</strong> IV $50\%\text{ Dextrose in Water (D50W)} + \mathbf{Thiamine\text{ (Vit B1)}}$ to prevent Wernicke's Encephalopathy.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: ELIMINATION & ANTIDOTES -->
+        <section id="elimination" class="tab-content">
+            <h2>5. Decontamination, Elimination & Antidote Therapy</h2>
+
+            <div class="card-grid">
+                <div class="card card-accent-amber">
+                    <h3>1. Decontamination Techniques</h3>
+                    <ul>
+                        <li><strong>Skin Contamination:</strong> Discard all clothes, wash/bathe thoroughly with water and soap. Personnel MUST wear protective apparel (gloves, eye shields). <em>Crucial for organophosphates.</em></li>
+                        <li><strong>Eye Contamination:</strong> Direct eye irrigation with normal saline or tap water for <strong>at least 30 minutes</strong>.</li>
+                        <li><strong>Emesis Induction:</strong> Rarely used. Kinchay extract ($15\text{ mL}$) or Ipecac syrup ($15\text{--}30\text{ mL}$).
+                            <br><strong style="color:var(--accent-red);">Absolute Contraindications to Emesis:</strong> Decreased sensorium, absent gag reflex, late pregnancy, ingestion of caustics (double mucosa damage) or hydrocarbons (causes fatal ARDS/pneumonitis if aspirated), convulsants, arrhythmogenic drugs, cardiac disease, aneurysms.</li>
+                        <li><strong>Gastric Lavage:</strong> Indicated ONLY within 1 hour of ingestion in an awake patient or after securing airway with ET tube. Contraindicated in caustics.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-teal">
+                    <h3>2. Activated Charcoal & Adsorption</h3>
+                    <ul>
+                        <li><strong>Dosing:</strong> Charcoal to poison ratio must be <strong>10:1</strong>.</li>
+                        <li><strong>Multiple-Dose Activated Charcoal (MDAC):</strong> Enhances elimination of drugs undergoing enterohepatic recirculation (e.g., Amphetamines, Paracetamol, Organochlorines).</li>
+                        <li><strong>CONTRAINDICATIONS:</strong> Caustics (acids/alkalis), petroleum distillates.</li>
+                        <li><strong>INEFFECTIVE IN (Does NOT bind):</strong>
+                            <br><strong>A</strong>lcohols (Methanol, Ethanol, Isopropyl, Ethylene Glycol)
+                            <br><strong>C</strong>yanide
+                            <br><strong>I</strong>ron
+                            <br><strong>L</strong>ithium</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Urinary Manipulation & Renal Excretion</h3>
+            <div class="table-wrapper">
+                <button class="table-copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Modality</th>
+                            <th>Agent & Dosing</th>
+                            <th>Target Urine pH</th>
+                            <th>Indications & Mechanism</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Alkalinization</strong></td>
+                            <td>$8.4\%\text{ NaHCO}_3$ at $1\text{ mEq/kg/dose}$</td>
+                            <td>$\text{pH} > 7.5$</td>
+                            <td>Ionizes weak acids (Salicylates, Barbiturates, INH).
+                            <br><strong>Rhabdomyolysis:</strong> Keeps myoglobin soluble to prevent crystallization and acute tubular necrosis (ATN).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Acidification</strong></td>
+                            <td>Ascorbic acid $1\text{g q6h}$ or Ammonium Chloride ($\text{NH}_4\text{Cl}$) $4\text{g q2h}$</td>
+                            <td>$\text{pH} < 7.5$</td>
+                            <td>Ionizes weak bases (Amphetamines, PCP, Phenytoin). Ascorbic acid is safer; $\text{NH}_4\text{Cl}$ rarely used due to renal toxicity.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Forced Diuresis</strong></td>
+                            <td>20% Mannitol ($200\text{ mg/kg}$ test dose) or Furosemide ($1\text{ mg/kg}$)</td>
+                            <td>High flow ($1\text{ mL/min}$)</td>
+                            <td>Phenobarbital, Amphetamines, Salicylates overdose. Reserved for patients without heart failure.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Heavy Metal Chelation Antidotes</h3>
+            <div class="table-wrapper">
+                <button class="table-copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Heavy Metal Toxicant</th>
+                            <th>First-Line Chelating Antidote</th>
+                            <th>Alternative Chelating Agents</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Arsenic (As)</strong></td>
+                            <td>DMPS (Dimercapto-propane sulfonate)</td>
+                            <td>BAL (British Anti-Lewisite / Dimercaprol)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mercury (Hg)</strong></td>
+                            <td>BAL (Dimercaprol)</td>
+                            <td>DMSA (Dimercaptosuccinic acid)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lead (Pb)</strong></td>
+                            <td>DMSA</td>
+                            <td>EDTA (Ethylenediaminetetraacetic acid)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Copper (Cu)</strong></td>
+                            <td>Penicillamine</td>
+                            <td>DMSA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Iron (Fe)</strong></td>
+                            <td>Deferoxamine</td>
+                            <td>Sodium Bicarbonate lavage (local neutralization)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Specific Antidote Mechanisms</h3>
+            <div class="card-grid">
+                <div class="card card-accent-red">
+                    <h3>Cyanide Antidote Regimen</h3>
+                    <p>Cyanide binds to cytochrome oxidase, halting mitochondrial electron transport chain (ETC).</p>
+                    <ol>
+                        <li><strong>Amyl Nitrate (Inhalation) / Sodium Nitrite (IV):</strong> Induces methemoglobinemia, which avidly binds cyanide to form cyanmethemoglobin, freeing cytochrome oxidase.</li>
+                        <li><strong>Sodium Thiosulfate (IV):</strong> Donates sulfur groups to convert cyanide to non-toxic thiocyanate, excreted in urine.</li>
+                        <li><strong>Hydroxocobalamin IV:</strong> Binds cyanide directly to form non-toxic Cyanocobalamin (Vitamin B12), excreted renally.</li>
+                    </ol>
+                    <p><em>Sources:</em> Inappropriately prepared cassava / labong (cyanoglycosides), jewelry cleaners (cyanide salts used to purify gold).</p>
+                </div>
+
+                <div class="card card-accent-blue">
+                    <h3>Toxic Alcohols: Methanol vs. Ethylene Glycol</h3>
+                    <p><strong>Pathophysiology:</strong> Alcohol Dehydrogenase (ADH) converts Methanol $\rightarrow$ Formaldehyde $\rightarrow$ <strong>Formic Acid</strong> (causes optic neuritis and blindness). ADH converts Ethylene Glycol $\rightarrow$ <strong>Glycolic Acid / Oxalic Acid</strong> (causes renal failure).</p>
+                    <p><strong>Antidote Strategy:</strong> Administer <strong>Ethanol</strong> or <strong>Fomepizole</strong> to competitively inhibit ADH enzyme.</p>
+                    <p><strong>Cofactors:</strong>
+                        <br>• Methanol: <strong>Folinic Acid (Leucovorin)</strong>
+                        <br>• Ethylene Glycol: <strong>Pyridoxine (B6) & Thiamine (B1)</strong></p>
+                </div>
+
+                <div class="card card-accent-purple">
+                    <h3>Other Key Specific Antidotes</h3>
+                    <ul>
+                        <li><strong>Paracetamol:</strong> <strong>$N$-acetylcysteine (NAC)</strong> — donates cysteine to regenerate hepatic glutathione and neutralize toxic NAPQI.</li>
+                        <li><strong>Beta-Blocker Toxicity:</strong> <strong>Glucagon</strong> — increases cAMP inotropy/chronotropy independent of beta-2 receptors.</li>
+                        <li><strong>Digitalis/Digoxin:</strong> <strong>Digoxin-specific Fab antibodies (Digibind)</strong>.</li>
+                        <li><strong>Watusi (Firecrackers):</strong> <strong>Egg whites (8–12 egg whites)</strong> locally in stomach.</li>
+                        <li><strong>Iodine Ingestion:</strong> <strong>Starch solution</strong>.</li>
+                        <li><strong>Nicotine / Strychnine / Quinine:</strong> <strong>Potassium Permanganate ($\text{KMnO}_4$)</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: CAUSTIC HAZARDS -->
+        <section id="caustics" class="tab-content">
+            <h2>6. Caustic Acid & Alkali Ingestions</h2>
+
+            <div class="card-grid">
+                <div class="card card-accent-red">
+                    <span class="badge badge-must-know">Must Know</span>
+                    <h3>Caustic Acids</h3>
+                    <p><strong>Agents:</strong> Sulfuric acid (lead batteries), Muriatic acid / Hydrochloric acid (bathroom cleaners), Nitric acid (jewelers), Glacial acetic acid.</p>
+                    <p><strong>Mechanism of Injury:</strong> Produces <strong>COAGULATION NECROSIS</strong>. Forms a thick protective necrotic mucosal eschar that limits deeper layer tissue penetration.</p>
+                    <p><strong>Primary Target:</strong> Stomach and pylorus (esophagus relatively spared due to rapid transit time).</p>
+                    <p><strong>Late Sequelae:</strong> Gastric outlet obstruction, stenosis/stricture of esophagus, stomach, and pylorus.</p>
+                </div>
+
+                <div class="card card-accent-purple">
+                    <span class="badge badge-pitfall">Common Pitfall</span>
+                    <h3>Caustic Alkalis</h3>
+                    <p><strong>Agents:</strong> Sodium hydroxide (NaOH / Liquid Sosa), Sodium carbonate ($\text{Na}_2\text{CO}_3$), Potassium hydroxide (KOH), Concentrated Ammonia ($\text{NH}_3$ in jewelry cleaners).</p>
+                    <p><strong>Mechanism of Injury:</strong> Produces <strong>LIQUEFACTION NECROSIS</strong>. Dissolves mucosal protein/lipid membranes, leading to rapid, deep transmural liquefaction penetration into mediastinum and peritoneum for days!</p>
+                    <p><strong>Primary Target:</strong> Esophagus (severe liquefactive esophagitis).</p>
+                    <p><strong>Late Sequelae:</strong> Transmural perforation, stricture formation, severe risk of <strong>Esophageal Squamous Cell Carcinoma</strong>.</p>
+                    <p><strong>Minimum Lethal Dose:</strong> $5\text{ g } / \text{ 70 kg}$.</p>
+                </div>
+            </div>
+
+            <div class="callout callout-pitfall">
+                ⛔ <strong>STRICT CONTRAINDICATIONS IN ALL CAUSTIC INGESTIONS:</strong>
+                <ol>
+                    <li><strong>NEVER insert Nasogastric Tube (NGT)</strong> if $>30\text{ minutes}$ post-ingestion (risk of esophageal perforation). If patient arrives with NGT already in place, DO NOT remove it!</li>
+                    <li><strong>NEVER induce vomiting / emesis</strong> (re-exposes mucosa to caustic agent, doubling injury).</li>
+                    <li><strong>NEVER administer neutralizing agents</strong> (e.g., antacids or vinegar)—the exothermic chemical reaction generates extreme heat and massive carbon dioxide ($\text{CO}_2$), causing stomach explosion/perforation!</li>
+                </ol>
+            </div>
+
+            <h3>Staging & Management of Caustic Alkali Burns</h3>
+            <div class="table-wrapper">
+                <button class="table-copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Burn Depth Stage</th>
+                            <th>Pathologic Involvement</th>
+                            <th>Clinical Management Protocol</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1st Degree Burn</strong></td>
+                            <td>Mucosal hypermia & superficial edema only</td>
+                            <td>Pain control, oral antacids. Excellent prognosis.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2nd Degree Burn</strong></td>
+                            <td>Transmucosal ulcerations, erosions, exudates</td>
+                            <td>Pain control, IV Hydrocortisone (to prevent stricture formation), NPO status.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3rd Degree Burn</strong></td>
+                            <td>Deep transmural necrosis into mediastinum, pleura, or peritoneum</td>
+                            <td>Pain control, broad-spectrum IV Antibiotics, Hydrocortisone, Emergency Endoscopy / Surgery.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Glottic Compromise</strong></td>
+                            <td>Severe laryngeal / glottic edema</td>
+                            <td><strong>Emergency Tracheostomy</strong> (Endotracheal intubation contraindicated due to tissue necrosis).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 8: SIDE-BY-SIDE COMPARISONS -->
+        <section id="comparisons" class="tab-content">
+            <h2>7. High-Yield Side-by-Side Comparisons</h2>
+
+            <h3>Comparison 1: Anticholinergic vs. Sympathomimetic Toxidromes</h3>
+            <div class="table-wrapper">
+                <button class="table-copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Anticholinergic Toxidrome</th>
+                            <th>Sympathomimetic Toxidrome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Heart Rate / BP</strong></td>
+                            <td>Increased (Tachycardia / Hypertension)</td>
+                            <td>Severely Increased (Tachyarrhythmias / Severe HTN)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pupil Size</strong></td>
+                            <td>Mydriasis (Dilated)</td>
+                            <td>Mydriasis (Dilated)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Skin Condition</strong></td>
+                            <td><strong style="color:var(--accent-red);">DRY AS A BONE</strong> (Absent sweating)</td>
+                            <td><strong style="color:var(--accent-teal);">DIAPHORETIC / WET</strong> (Profuse sweating)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Secretions / Bowel Sounds</strong></td>
+                            <td>Dry mouth, Absent bowel sounds (Ileus)</td>
+                            <td>Normal secretions, Normal to hyperactive bowel sounds</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary Culprits</strong></td>
+                            <td>Diphenhydramine, Antipsychotics, TCAs</td>
+                            <td>Cocaine, Amphetamines, Ephedrine, PPA</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Comparison 2: Caustic Acid vs. Caustic Alkali Ingestion</h3>
+            <div class="table-wrapper">
+                <button class="table-copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Caustic Acid Ingestion</th>
+                            <th>Caustic Alkali Ingestion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Type of Necrosis</strong></td>
+                            <td><strong>Coagulation Necrosis</strong> (Protective eschar formed)</td>
+                            <td><strong>Liquefaction Necrosis</strong> (Deep tissue dissolution)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Penetration Depth</strong></td>
+                            <td>Superficial (Eschar blocks deeper layers)</td>
+                            <td>Deep transmural (Penetrates into mediastinum/peritoneum)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary Injury Site</strong></td>
+                            <td>Stomach & Pylorus</td>
+                            <td>Esophagus</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Long-term Malignancy Risk</strong></td>
+                            <td>Low</td>
+                            <td>High risk for Esophageal Squamous Cell Carcinoma</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Comparison 3: Toxic Alcohols (Methanol vs. Ethylene Glycol vs. Isopropyl Alcohol)</h3>
+            <div class="table-wrapper">
+                <button class="table-copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Toxic Alcohol</th>
+                            <th>Primary Toxic Metabolite</th>
+                            <th>Anion Gap Status</th>
+                            <th>Target Organ Damage & Clues</th>
+                            <th>Specific Cofactor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Methanol</strong></td>
+                            <td>Formic Acid</td>
+                            <td>High Anion Gap Acidosis</td>
+                            <td>Optic papillitis, Snowstorm vision, Blindness</td>
+                            <td>Folinic Acid (Leucovorin)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ethylene Glycol</strong></td>
+                            <td>Glycolic / Oxalic Acid</td>
+                            <td>High Anion Gap Acidosis</td>
+                            <td>Renal failure, Calcium Oxalate Monohydrate crystals in urine</td>
+                            <td>Pyridoxine (B6) & Thiamine (B1)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Isopropyl Alcohol</strong></td>
+                            <td>Acetone</td>
+                            <td><strong style="color:var(--accent-teal);">NORMAL Anion Gap</strong> (Ketosis without acidosis)</td>
+                            <td>Ketotic breath, CNS depression, Gastritis with hematemesis</td>
+                            <td>Supportive care (No ADH inhibition needed)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 9: ACTIVE RECALL FLASHCARDS -->
+        <section id="flashcards" class="tab-content">
+            <h2>8. Active-Recall Flashcards (50 Cards)</h2>
+            <p>Master high-yield facts. Click card or press <strong>Spacebar</strong> to flip. Use Left/Right arrows to navigate.</p>
+
+            <div class="flashcard-section">
+                <div class="flashcard-controls">
+                    <select id="flashcard-filter" class="flashcard-filter">
+                        <option value="all">All Topics (50 Cards)</option>
+                        <option value="environmental">Environmental Hazards</option>
+                        <option value="toxicology">Toxicology & Curves</option>
+                        <option value="toxidromes">Toxidromes</option>
+                        <option value="resuscitation">Resuscitation & ABCD</option>
+                        <option value="antidotes">Elimination & Antidotes</option>
+                        <option value="caustics">Caustic Hazards</option>
+                    </select>
+                    <button class="btn btn-secondary" onclick="shuffleFlashcards()">🔀 Random Shuffle</button>
+                    <span id="flashcard-counter" style="font-weight:700;">Card 1 of 50</span>
+                </div>
+
+                <div class="flashcard-container" onclick="flipCard()">
+                    <div class="flashcard" id="active-card">
+                        <div class="flashcard-front">
+                            <span class="flashcard-category" id="card-cat">Environmental</span>
+                            <p id="card-q" style="font-size:1.2rem; font-weight:700;">Question loading...</p>
+                            <span class="flashcard-hint">Click or press Space to reveal answer</span>
+                        </div>
+                        <div class="flashcard-back">
+                            <span class="flashcard-category">Answer</span>
+                            <p id="card-a" style="font-size:1.05rem; color:var(--text-primary);">Answer loading...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flashcard-nav">
+                    <button class="btn btn-secondary" onclick="prevCard()">◀ Previous</button>
+                    <button class="btn" onclick="nextCard()">Next Card ▶</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 10: SELF-ASSESSMENT MCQS -->
+        <section id="assessment" class="tab-content">
+            <h2>9. Board-Style Self-Assessment (50 MCQs)</h2>
+            <p>PLE-formatted high-yield multiple choice questions. Select an option for instant answer verification and complete rationales.</p>
+
+            <div class="mcq-container">
+                <div class="mcq-header-stats">
+                    <span id="mcq-score">Score: 0 / 0 (0%)</span>
+                    <button class="btn btn-secondary" onclick="resetMCQs()">🔄 Reset Exam</button>
+                </div>
+
+                <div id="mcq-list">
+                    <!-- MCQs generated via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 11: 10-MINUTE CRAM SHEET -->
+        <section id="cram" class="tab-content">
+            <h2>10. Ultra-Condensed 10-Minute Cram Sheet</h2>
+            <p>Rapid-review memory triggers, high-yield "If You See X $\rightarrow$ Think Y" rules, and exam buzzwords.</p>
+
+            <div class="cram-grid">
+                <div class="cram-box">
+                    <h3>⚡ "If You See X ➔ Think Y"</h3>
+                    <ul class="buzzword-list">
+                        <li>Banana worker + male azoospermia ➔ <strong>DBCP (Dibromochloropropane)</strong></li>
+                        <li>Red Tide + perioral paresthesia + heat stable ➔ <strong>Saxitoxin (PSP)</strong></li>
+                        <li>Garlic breath + kerosene smell + pinpoint pupils ➔ <strong>Organophosphate Poisoning</strong></li>
+                        <li>Unrelenting seizures refractory to Diazepam ➔ <strong>Isoniazid (INH) toxicity (Give B6)</strong></li>
+                        <li>Snowstorm vision + optic papillitis ➔ <strong>Methanol toxicity (Formic acid)</strong></li>
+                        <li>Calcium oxalate crystals in urine + renal failure ➔ <strong>Ethylene glycol toxicity</strong></li>
+                        <li>Ketosis + normal anion gap ➔ <strong>Isopropyl alcohol ingestion</strong></li>
+                        <li>Liquefaction necrosis + esophageal stricture ➔ <strong>Caustic Alkali Ingestion</strong></li>
+                        <li>Coagulation necrosis + gastric pyloric stenosis ➔ <strong>Caustic Acid Ingestion</strong></li>
+                        <li>Peaked T waves + beta-blocker overdose ➔ <strong>Hyperkalemia (Give Calcium Gluconate)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="cram-box">
+                    <h3>💡 High-Yield Antidote Rapid Recall</h3>
+                    <ul>
+                        <li><strong>Paracetamol</strong> ➔ $N$-acetylcysteine (NAC)</li>
+                        <li><strong>Isoniazid (INH)</strong> ➔ Pyridoxine (Vit B6) 1:1 ratio</li>
+                        <li><strong>Cyanide</strong> ➔ Amyl Nitrite + Sodium Thiosulfate + Hydroxocobalamin</li>
+                        <li><strong>Organophosphates</strong> ➔ Atropine + Pralidoxime</li>
+                        <li><strong>Opioids</strong> ➔ Naloxone</li>
+                        <li><strong>Beta-Blockers</strong> ➔ Glucagon</li>
+                        <li><strong>Digoxin</strong> ➔ Digoxin Fab (Digibind)</li>
+                        <li><strong>Arsenic</strong> ➔ DMPS / BAL</li>
+                        <li><strong>Lead</strong> ➔ DMSA / EDTA</li>
+                        <li><strong>Iron</strong> ➔ Deferoxamine</li>
+                        <li><strong>Methanol / Ethylene Glycol</strong> ➔ Ethanol / Fomepizole</li>
+                    </ul>
+                </div>
+
+                <div class="cram-box">
+                    <h3>⚠️ Absolute Exam Rules</h3>
+                    <ul>
+                        <li><strong>NEVER intubate</strong> an actively seizing patient! Give IV Diazepam first.</li>
+                        <li><strong>NEVER induce vomiting or give NGT</strong> in Caustic Ingestions.</li>
+                        <li><strong>NEVER give antacids/vinegar</strong> to neutralize caustics (exothermic reaction explosions).</li>
+                        <li><strong>NEVER give Diazepam IM</strong> (erratic absorption; strictly IV).</li>
+                        <li><strong>Activated Charcoal is useless for:</strong> Alcohols, Cyanide, Iron, Lithium, Caustics.</li>
+                        <li><strong>Safe Therapeutic Index:</strong> $TI \ge 10$.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scroll To Top Floating Button -->
+    <button class="scroll-top-btn" id="scroll-top" onclick="scrollToTop()">▲</button>
+
+    <script>
+        /* Global Data & Scripting Logic */
+
+        // Tab Navigation Logic
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetTab = btn.getAttribute('data-tab');
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                btn.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Theme Toggle Logic
+        const themeBtn = document.getElementById('theme-toggle');
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            themeBtn.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
+        });
+
+        // Accordion Logic
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                item.classList.toggle('open');
+            });
+        });
+
+        // Reading Progress & Scroll Top Button
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + '%';
+
+            const scrollTopBtn = document.getElementById('scroll-top');
+            if (winScroll > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Copy Table to Clipboard
+        function copyTable(btn) {
+            const table = btn.nextElementSibling;
+            let range = document.createRange();
+            range.selectNode(table);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = 'Copy Table'; }, 2000);
+        }
+
+        // Flashcards Data Array (50 Items)
+        const flashcardData = [
+            { cat: 'environmental', q: 'What pesticide caused male sterility and breast cancer in banana plantation workers?', a: 'Dibromochloropropane (DBCP / Nemagon / Amazon). It acts as an estrogen mimic with NO known antidote.' },
+            { cat: 'environmental', q: 'What toxin causes Paralytic Shellfish Poisoning (PSP) and what is its mechanism?', a: 'Saxitoxin. It is a heat-stable neurotoxin that selectively blocks neuronal voltage-gated Na+ channels.' },
+            { cat: 'toxicology', q: 'Define the Paracelsus principle.', a: '"All substances are poisons... The right dose differentiates a poison and a remedy."' },
+            { cat: 'toxicology', q: 'Rank exposure pathways by speed of toxic onset (Fastest to Slowest).', a: 'Intravenous (IV) > Inhalation > Intraperitoneal > Intramuscular > Per Orem (PO) > Topical.' },
+            { cat: 'toxicology', q: 'How is Therapeutic Index (TI) calculated and what value indicates safety?', a: 'TI = LD50 / ED50. A value of TI ≥ 10 is considered safe.' },
+            { cat: 'toxicology', q: 'What is segment 0-1 on a sigmoidal dose-response curve called?', a: 'NOAEL (No Observed Adverse Effect Level).' },
+            { cat: 'toxidromes', q: 'State the classic mnemonic for Anticholinergic Toxidrome.', a: '"Mad as a hatter, blind as a bat, hot as hell, red as a beet, dry as a bone, seizing like a squirrel."' },
+            { cat: 'toxidromes', q: 'What key physical sign distinguishes Sympathomimetic from Anticholinergic toxidrome?', a: 'Skin condition: Sympathomimetic causes DIAPHORETIC/WET skin, whereas Anticholinergic causes DRY skin.' },
+            { cat: 'toxidromes', q: 'What classic breath odors are associated with organophosphate toxicity?', a: 'Kerosene and Garlic odor.' },
+            { cat: 'toxidromes', q: 'What is the classic triad of Opioid toxicity?', a: 'CNS depression (coma), Respiratory depression, and Universal Miosis (pinpoint pupils).' },
+            { cat: 'resuscitation', q: 'What is the absolute contraindication regarding intubation in a patient with CNS disability?', a: 'NEVER intubate an actively seizing patient! Give IV Diazepam first.' },
+            { cat: 'resuscitation', q: 'Why are Diazepam and Phenytoin NEVER given intramuscularly (IM)?', a: 'Because IM administration results in poor, erratic, and unpredictable absorption.' },
+            { cat: 'resuscitation', q: 'Why do Isoniazid (INH) induced seizures fail to respond to Diazepam?', a: 'INH depletes pyridoxal 5\'-phosphate (active B6), stopping GABA synthesis. Treatment requires Pyridoxine (Vit B6) 1:1 ratio.' },
+            { cat: 'resuscitation', q: 'What is the first-line treatment for Hyperkalemia with EKG peaked T waves?', a: '10% Calcium Gluconate (5-10 mL slow IV push) for membrane stabilization, plus Glucose-Insulin.' },
+            { cat: 'antidotes', q: 'What is the antidote for Paracetamol toxicity and its mechanism?', a: 'N-acetylcysteine (NAC). It donates cysteine to regenerate hepatic glutathione, neutralizing toxic NAPQI.' },
+            { cat: 'antidotes', q: 'What substances are INEFFECTIVE against Activated Charcoal?', a: 'Alcohols, Cyanide, Iron, Lithium, and Caustics.' },
+            { cat: 'antidotes', q: 'What is the charcoal-to-poison ratio required for effective adsorption?', a: '10 : 1 ratio.' },
+            { cat: 'caustics', q: 'What type of necrosis is produced by Caustic Acids vs Caustic Alkalis?', a: 'Acids produce Coagulation Necrosis (protective eschar). Alkalis produce Liquefaction Necrosis (deep tissue dissolution).' },
+            { cat: 'caustics', q: 'What are the 3 strict rules in caustic ingestion management?', a: '1. NO NGT insertion (>30 min). 2. NO induced emesis. 3. NO neutralizing agents (antacids/vinegar).' },
+            { cat: 'caustics', q: 'What is the long-term neoplastic risk of Caustic Alkali exposure?', a: 'Esophageal Squamous Cell Carcinoma.' },
+            { cat: 'antidotes', q: 'What antidote regimen is given for Cyanide poisoning?', a: 'Amyl Nitrite / Sodium Nitrite (induces methemoglobinemia) + Sodium Thiosulfate + Hydroxocobalamin.' },
+            { cat: 'antidotes', q: 'What cofactor is given in Methanol toxicity vs Ethylene Glycol toxicity?', a: 'Methanol: Folinic Acid (Leucovorin). Ethylene Glycol: Pyridoxine (B6) and Thiamine (B1).' },
+            { cat: 'toxicology', q: 'What urine pH is targeted during Urinary Alkalinization therapy?', a: 'Urine pH > 7.5 (using 8.4% NaHCO3).' },
+            { cat: 'toxicology', q: 'Why is urinary alkalinization crucial in Rhabdomyolysis?', a: 'Myoglobin is only soluble in alkaline pH. In acidic urine, it precipitates and causes Acute Tubular Necrosis.' },
+            { cat: 'antidotes', q: 'What is the chelating agent of choice for Lead toxicity?', a: 'DMSA or EDTA.' },
+            { cat: 'antidotes', q: 'What is the antidote for Beta-blocker overdose?', a: 'Glucagon (increases intracellular cAMP independent of beta receptors).' },
+            { cat: 'environmental', q: 'Where do fish concentrate Saxitoxin during Red Tide blooms?', a: 'Exclusively in their viscera/intestines. Removing viscera before eating spares humans from PSP.' },
+            { cat: 'toxicology', q: 'Define LC50.', a: 'Concentration of a chemical in air/water that produces death in 50% of test animals in a specified time frame.' },
+            { cat: 'toxicology', q: 'What drug was historically notorious for causing Phocomelia (teratogenicity)?', a: 'Thalidomide.' },
+            { cat: 'toxicology', q: 'Under ILO categories, which category represents the MOST toxic substance?', a: 'Category 1 (Oral LD50 ≤ 5 mg/kg, labeled Danger with Skull & Crossbones).' },
+            { cat: 'toxidromes', q: 'What toxic alcohol causes ketosis WITHOUT anion gap metabolic acidosis?', a: 'Isopropyl Alcohol (metabolized to Acetone).' },
+            { cat: 'resuscitation', q: 'What position should a hypotensive poisoned patient be placed in?', a: 'Trendelenburg Position (head down).' },
+            { cat: 'resuscitation', q: 'What is the targeted blood drawing time for Paracetamol assay following acute ingestion?', a: '4 Hours post-ingestion (corresponds to peak plasma concentration on Matthew-Rumack nomogram).' },
+            { cat: 'antidotes', q: 'What home remedy is recommended for accidental Watusi (firecracker) ingestion?', a: 'Raw egg whites (8 to 12 egg whites).' },
+            { cat: 'antidotes', q: 'What is the neutralizing agent for Iodine ingestion?', a: 'Starch solution.' },
+            { cat: 'antidotes', q: 'What antidote is given for Arsenic poisoning?', a: 'DMPS or BAL (British Anti-Lewisite / Dimercaprol).' },
+            { cat: 'antidotes', q: 'What is the chelating agent for Copper toxicity?', a: 'Penicillamine or DMSA.' },
+            { cat: 'antidotes', q: 'What antidote is given for Iron toxicity?', a: 'Deferoxamine.' },
+            { cat: 'toxidromes', q: 'Name 3 poisons with a delayed toxidrome onset of 36-48 hours.', a: 'Paracetamol (36h), Paraquat (48h), Methanol (48h).' },
+            { cat: 'toxidromes', q: 'What hormone overdose presents with a delayed toxidrome onset of up to 4 weeks?', a: 'Thyroxine (T4).' },
+            { cat: 'caustics', q: 'What management is indicated for a 2nd-degree transmucosal caustic alkali burn?', a: 'Pain control, IV Hydrocortisone (to reduce stricture formation), NPO status.' },
+            { cat: 'caustics', q: 'What emergency airway procedure is required if glottic burns cause severe stridor?', a: 'Emergency Tracheostomy.' },
+            { cat: 'toxicology', q: 'What drug is the classic example of a medication with a narrow therapeutic window showing organ toxicity at high levels?', a: 'Theophylline (causes GI -> CVS -> Hypokalemia -> Seizures).' },
+            { cat: 'antidotes', q: 'What home remedy for emesis uses Apium graveolens?', a: 'Kinchay juice extract (~15 mL followed by water).' },
+            { cat: 'antidotes', q: 'What drug is given for urinary acidification and what urine pH is targeted?', a: 'Ascorbic Acid or Ammonium Chloride; target urine pH < 7.5.' },
+            { cat: 'resuscitation', q: 'What infusion rate should NOT be exceeded when replacing Potassium in hypokalemia?', a: '40 mEq/hour.' },
+            { cat: 'toxidromes', q: 'What is the primary toxic metabolite of Methanol responsible for blindness?', a: 'Formic acid (Formate).' },
+            { cat: 'toxidromes', q: 'What insecticidal chemical is 1250x less toxic to mammals than carbamates?', a: 'Pyrethroids / Pyrethrins (Chrysanthemum extracts).' },
+            { cat: 'toxicology', q: 'What does the 2015 FDA PLLR rule replace?', a: 'Replaces the old letter pregnancy categories (A, B, C, D, X) with detailed narrative risk summaries.' },
+            { cat: 'resuscitation', q: 'What is the minimum GCS score for an unarousable patient?', a: 'GCS = 3.' }
+        ];
+
+        let currentCardIndex = 0;
+        let filteredCards = [...flashcardData];
+
+        function renderCard() {
+            const cardObj = filteredCards[currentCardIndex];
+            document.getElementById('card-cat').textContent = cardObj.cat.toUpperCase();
+            document.getElementById('card-q').textContent = cardObj.q;
+            document.getElementById('card-a').textContent = cardObj.a;
+            document.getElementById('flashcard-counter').textContent = `Card ${currentCardIndex + 1} of ${filteredCards.length}`;
+            document.getElementById('active-card').classList.remove('flipped');
+        }
+
+        function flipCard() {
+            document.getElementById('active-card').classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            if (currentCardIndex < filteredCards.length - 1) {
+                currentCardIndex++;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            if (currentCardIndex > 0) {
+                currentCardIndex--;
+                renderCard();
+            }
+        }
+
+        function shuffleFlashcards() {
+            for (let i = filteredCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
+            }
+            currentCardIndex = 0;
+            renderCard();
+        }
+
+        document.getElementById('flashcard-filter').addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val === 'all') {
+                filteredCards = [...flashcardData];
+            } else {
+                filteredCards = flashcardData.filter(c => c.cat === val);
+            }
+            currentCardIndex = 0;
+            renderCard();
+        });
+
+        // Initialize Flashcards
+        renderCard();
+
+        // MCQs Data Array (50 PLE-Style Questions)
+        const mcqData = [
+            {
+                q: "1. A 32-year-old male banana plantation worker in Davao consults due to 6 years of primary marital infertility. Semen analysis shows azoospermia. His wife has normal gynecologic evaluations. Chronic unprotected exposure to which of the following agents is the primary culprit?",
+                options: ["A. Dibromochloropropane (DBCP)", "B. Malathion", "C. Paraquat", "D. Muriatic acid"],
+                answer: 0,
+                explanation: "DBCP (Nemagon/Amazon) is an estrogen mimic used in banana plantations. It causes testicular atrophy, male azoospermia, and increased breast cancer in women. Damage is irreversible with no antidote.",
+                distractors: ["B. Malathion causes cholinergic toxidrome.", "C. Paraquat causes delayed pulmonary fibrosis.", "D. Muriatic acid causes coagulation necrosis upon ingestion."]
+            },
+            {
+                q: "2. Following a coastal algal bloom ('Red Tide') in Samar, a patient presents with perioral numbness, dizziness, dysphagia, and flaccid quadriplegia. Which mechanism accounts for these clinical findings?",
+                options: ["A. Inhibition of acetylcholinesterase", "B. Selective blockade of neuronal voltage-gated Na+ channels", "C. Activation of GABA-A receptors", "D. Uncoupling of oxidative phosphorylation"],
+                answer: 1,
+                explanation: "Paralytic Shellfish Poisoning is caused by Saxitoxin, a heat-stable neurotoxin that blocks neuronal voltage-gated Na+ channels, halting action potentials and causing paralytic syndrome.",
+                distractors: ["A. Organophosphates inhibit acetylcholinesterase.", "C. Sedative-hypnotics act on GABA-A.", "D. Cyanide or dinitrophenol uncouple/halt oxidative phosphorylation."]
+            },
+            {
+                q: "3. A 22-year-old female ingests 18 tablets of Diphenhydramine (50 mg each). Physical examination reveals BP 140/90 mmHg, HR 128 bpm, temp 38.8°C, dilated pupils, and flushed dry skin. Which toxidrome is present?",
+                options: ["A. Cholinergic Toxidrome", "B. Anticholinergic Toxidrome", "C. Sympathomimetic Toxidrome", "D. Opioid Toxidrome"],
+                answer: 1,
+                explanation: "1st gen antihistamines cause Anticholinergic toxidrome ('Mad as a hatter, blind as a bat, hot as hell, red as a beet, dry as a bone'). Dry skin distinguishes it from sympathomimetics.",
+                distractors: ["A. Cholinergic causes wet/drenched skin and miosis.", "C. Sympathomimetic causes diaphoretic/wet skin.", "D. Opioid causes miosis, bradycardia, and hypoventilation."]
+            },
+            {
+                q: "4. A farmer is brought to the ER unconscious, covered in sweat, with pinpoint pupils, profuse bronchorrhea, and a distinct garlic odor on his breath. What is the immediate antidote of choice?",
+                options: ["A. Physostigmine", "B. Atropine Sulfate", "C. Naloxone", "D. Pyridoxine"],
+                answer: 1,
+                explanation: "Organophosphate toxicity (malathion/parathion) causes cholinergic crisis with garlic smell. Atropine reverses muscarinic hypersecretions and bronchorrhea.",
+                distractors: ["A. Physostigmine is for anticholinergic toxicity.", "C. Naloxone is for opioid overdose.", "D. Pyridoxine is for isoniazid overdose."]
+            },
+            {
+                q: "5. According to Paracelsus, what fundamental factor differentiates a medicine from a poison?",
+                options: ["A. Molecular weight", "B. Right dose", "C. Exposure route", "D. Hepatic clearance"],
+                answer: 1,
+                explanation: "Paracelsus famously stated: 'All substances are poisons... The right dose differentiates a poison and a remedy.'",
+                distractors: ["A, C, D are pharmacological variables, but dose is the fundamental differentiator stated by Paracelsus."]
+            },
+            {
+                q: "6. A drug has an ED50 of 5 mg/kg and an LD50 of 50 mg/kg. What is its Therapeutic Index (TI) and safety classification?",
+                options: ["A. TI = 0.1, Highly toxic", "B. TI = 10, Safe drug", "C. TI = 25, Extremely safe", "D. TI = 2.5, Highly toxic"],
+                answer: 1,
+                explanation: "Therapeutic Index TI = LD50 / ED50 = 50 / 5 = 10. A TI ≥ 10 classifies the drug as safe.",
+                distractors: ["A, C, D are mathematically incorrect based on TI = LD50/ED50."]
+            },
+            {
+                q: "7. Which exposure route provides the fastest onset of toxic action?",
+                options: ["A. Inhalation", "B. Per Orem (Oral)", "C. Intravenous (IV)", "D. Topically intact skin"],
+                answer: 2,
+                explanation: "The ranking of onset speed is IV > Inhalation > IP > IM > PO > Topical.",
+                distractors: ["A is second fastest.", "B and D have slower systemic absorption."]
+            },
+            {
+                q: "8. A patient on mechanical ventilation post-seizure has continuous generalized convulsions despite receiving 40 mg IV Diazepam. History reveals ingestion of antitubercular drugs. What is the specific therapy?",
+                options: ["A. Additional 20 mg IV Diazepam", "B. IV Phenytoin push", "C. IV Pyridoxine (Vit B6) 1:1 ratio", "D. IV Thiamine (Vit B1)"],
+                answer: 2,
+                explanation: "Isoniazid (INH) depletes active B6 (pyridoxal 5'-phosphate), blocking GABA synthesis. INH seizures are refractory to Diazepam and require 1:1 Pyridoxine.",
+                distractors: ["A and B will fail because GABA substrate is absent.", "D is for Wernicke's encephalopathy."]
+            },
+            {
+                q: "9. Why are Diazepam and Phenytoin strictly CONTRAINDICATED via the Intramuscular (IM) route during toxic seizure management?",
+                options: ["A. Causes immediate sterile abscesses", "B. Absorption is poor, erratic, and unpredictable", "C. Rapidly induces severe cardiac arrest", "D. Causes acute renal tubular necrosis"],
+                answer: 1,
+                explanation: "Neither Diazepam nor Phenytoin should be given IM due to erratic and delayed tissue absorption.",
+                distractors: ["A, C, D are incorrect toxicological mechanisms for IM diazepam/phenytoin."]
+            },
+            {
+                q: "10. What is the primary cause of death in acute opioid overdose?",
+                options: ["A. Intractable tonic-clonic seizures", "B. Severe hyperthermic brain injury", "C. Fatal respiratory depression", "D. Acute fulminant hepatic failure"],
+                answer: 2,
+                explanation: "Opioids depress the medullary respiratory center, causing fatal respiratory depression/hypoventilation.",
+                distractors: ["A is classic for INH/Theophylline.", "B is classic for Amphetamines.", "D is classic for Paracetamol."]
+            },
+            {
+                q: "11. A 3-year-old child ingests Muriatic Acid (HCl). The mother attempted to give liquid antacids at home. In the ER, what is the most critical management rule?",
+                options: ["A. Immediately insert an NGT to drain remaining acid", "B. Induce vomiting using Ipecac syrup", "C. Do NOT insert NGT, do NOT induce emesis, do NOT give neutralizing agents", "D. Give activated charcoal slurry 1 g/kg"],
+                answer: 2,
+                explanation: "In caustic acid/alkali ingestion, NGT insertion (>30m), emesis induction, and neutralizing agents are strictly contraindicated due to perforation and exothermic explosion risks.",
+                distractors: ["A increases esophageal perforation.", "B causes double mucosal burn.", "D activated charcoal does not bind caustics."]
+            },
+            {
+                q: "12. What specific mucosal pathological lesion differentiates Caustic Acid ingestion from Caustic Alkali ingestion?",
+                options: ["A. Acid causes Liquefaction Necrosis; Alkali causes Coagulation Necrosis", "B. Acid causes Coagulation Necrosis; Alkali causes Liquefaction Necrosis", "C. Both produce transmural liquefaction necrosis", "D. Neither causes tissue necrosis"],
+                answer: 1,
+                explanation: "Acids produce Coagulation Necrosis forming a protective eschar. Alkalis produce Liquefaction Necrosis dissolving tissue membranes and penetrating deeply.",
+                distractors: ["A is reversed.", "C and D are factually inaccurate."]
+            },
+            {
+                q: "13. A patient presents with acute methanol ingestion ('lambanog'). Which toxic metabolite is directly responsible for optic papillitis and permanent blindness?",
+                options: ["A. Acetaldehyde", "B. Glycolic Acid", "C. Formic Acid", "D. Oxalic Acid"],
+                answer: 2,
+                explanation: "Methanol is converted by ADH to Formaldehyde and then Formic Acid (Formate), which directly damages the optic nerve.",
+                distractors: ["A is from Ethanol.", "B and D are from Ethylene Glycol."]
+            },
+            {
+                q: "14. Which adjunctive cofactor is specifically administered in Methanol toxicity to accelerate formate breakdown?",
+                options: ["A. Pyridoxine", "B. Folinic Acid (Leucovorin)", "C. Thiamine", "D. Vitamin K"],
+                answer: 1,
+                explanation: "Folinic acid (Leucovorin) enhances the breakdown of toxic formic acid into CO2 and water.",
+                distractors: ["A and C are cofactors for Ethylene Glycol.", "D is for Warfarin toxicity."]
+            },
+            {
+                q: "15. A patient ingested antifreeze (Ethylene Glycol) 8 hours ago. Urine microscopy reveals envelope-shaped crystals. What are these crystals?",
+                options: ["A. Uric acid crystals", "B. Calcium Oxalate Monohydrate crystals", "C. Struvite crystals", "D. Cystine crystals"],
+                answer: 1,
+                explanation: "Ethylene glycol metabolism produces Oxalic acid, which chelates calcium to form Calcium Oxalate monohydrate crystals in renal tubules.",
+                distractors: ["A, C, D are not associated with toxic ethylene glycol metabolism."]
+            },
+            {
+                q: "16. A patient who ingested an unknown substance has ketosis and fruity breath, but arterial blood gas shows a NORMAL Anion Gap and normal pH. What substance was ingested?",
+                options: ["A. Methanol", "B. Ethylene Glycol", "C. Isopropyl Alcohol", "D. Ethanol"],
+                answer: 2,
+                explanation: "Isopropyl alcohol is metabolized to Acetone, causing ketosis and fruity breath WITHOUT high anion gap metabolic acidosis.",
+                distractors: ["A and B cause severe High Anion Gap Metabolic Acidosis."]
+            },
+            {
+                q: "17. At what specific time point post-ingestion should blood be drawn for serum Paracetamol level estimation to plot on the Matthew-Rumack Nomogram?",
+                options: ["A. 30 minutes", "B. 1 hour", "C. 4 hours", "D. 24 hours"],
+                answer: 2,
+                explanation: "Serum paracetamol levels drawn at 4 hours post-ingestion correspond to peak absorption and provide prognostic accuracy on the nomogram.",
+                distractors: ["A and B are too early (absorption incomplete).", "D is too late (hepatic necrosis already established)."]
+            },
+            {
+                q: "18. How does N-acetylcysteine (NAC) protect hepatocytes during Paracetamol overdose?",
+                options: ["A. Directly inhibits Cytochrome P450 enzymes", "B. Donates cysteine to regenerate hepatic Glutathione, neutralizing NAPQI", "C. Chelates paracetamol in the blood stream", "D. Causes rapid renal excretion of unchanged paracetamol"],
+                answer: 1,
+                explanation: "NAC acts as a precursor for glutathione synthesis, allowing hepatic detoxification of the toxic metabolite NAPQI.",
+                distractors: ["A, C, D do not represent the biochemical mechanism of NAC."]
+            },
+            {
+                q: "19. A worker in a jewelry cleaning shop collapses after accidentally ingesting a clearing solution. He is severely hypoxic with bright red venous blood. What is the mechanism of action of this poison?",
+                options: ["A. Inhibition of acetylcholinesterase", "B. Binding to Cytochrome Oxidase halting cellular respiration", "C. Methemoglobin oxidation", "D. Blockade of neuromuscular junction"],
+                answer: 1,
+                explanation: "Jewelry cleaners contain Cyanide salts. Cyanide binds ferric iron ($Fe^{3+}$) in cytochrome oxidase, halting mitochondrial ETC and ATP production.",
+                distractors: ["A is OP.", "C Nitrites cause methemoglobinemia.", "D Botulinum/Curare block NMJ."]
+            },
+            {
+                q: "20. What is the role of Amyl Nitrite / Sodium Nitrite in the treatment of Cyanide toxicity?",
+                options: ["A. Converts cyanide to thiocyanate directly", "B. Induces Methemoglobinemia, which scavenges cyanide from cytochrome oxidase", "C. Binds cyanide in the stomach lumen", "D. Excretes cyanide through lungs"],
+                answer: 1,
+                explanation: "Nitrites convert hemoglobin to methemoglobin ($Fe^{3+}$), which has a higher affinity for cyanide than cytochrome oxidase, forming cyanmethemoglobin.",
+                distractors: ["A is done by Sodium Thiosulfate.", "C and D are incorrect."]
+            },
+            {
+                q: "21. A 45-year-old female presents with severe salicylate (Aspirin) toxicity. Urinary alkalinization with 8.4% NaHCO3 is initiated. What is the therapeutic objective of alkalinizing urine to pH > 7.5?",
+                options: ["A. Convert salicylate into a lipophilic un-ionized form", "B. Ionize weak acid salicylate molecules to prevent renal tubular reabsorption", "C. Neutralize gastric acid content", "D. Induce metabolic acidosis"],
+                answer: 1,
+                explanation: "Alkalinizing urine ionizes weak acids like salicylate ($A^-$), trapping them in renal tubular fluid and preventing passive reabsorption.",
+                distractors: ["A lipophilic forms are reabsorbed.", "C and D are incorrect."]
+            },
+            {
+                q: "22. Why is Urinary Alkalinization life-saving in patients with severe Rhabdomyolysis?",
+                options: ["A. Prevents breakdown of creatine kinase", "B. Keeps myoglobin soluble in alkaline urine to prevent renal tubular precipitation", "C. Direct anti-inflammatory effect on muscles", "D. Excretes excess potassium instantly"],
+                answer: 1,
+                explanation: "Myoglobin precipitates in acidic urine, causing ATN. Keeping urine pH > 7.5 maintains myoglobin in a soluble, excretable state.",
+                distractors: ["A, C, D are false regarding myoglobin nephrotoxicity."]
+            },
+            {
+                q: "23. Which of the following substances CANNOT be effectively adsorbed by Activated Charcoal?",
+                options: ["A. Phenobarbital", "B. Paracetamol", "C. Iron", "D. Carbamazepine"],
+                answer: 2,
+                explanation: "Activated charcoal does NOT bind Alcohols, Cyanide, Iron, Lithium, or Caustics (Mnemonic: ACIL).",
+                distractors: ["A, B, D are organic molecules effectively bound by charcoal."]
+            },
+            {
+                q: "24. What is the recommended Charcoal-to-Poison ratio for effective gastric adsorption?",
+                options: ["A. 1 : 1", "B. 2 : 1", "C. 5 : 1", "D. 10 : 1"],
+                answer: 3,
+                explanation: "Optimal adsorption requires a 10:1 ratio of activated charcoal to ingested poison.",
+                distractors: ["A, B, C provide insufficient surface area for complete adsorption."]
+            },
+            {
+                q: "25. A 20-year-old male presents with acute Beta-Blocker overdose, presenting with HR 38 bpm and BP 70/40 mmHg refractory to Atropine. What is the antidote of choice?",
+                options: ["A. Epinephrine infusion", "B. IV Glucagon", "C. Naloxone", "D. Pyridoxine"],
+                answer: 1,
+                explanation: "Glucagon stimulates myocardial adenylate cyclase directly via non-beta receptor pathways, increasing intracellular cAMP and improving inotropy/chronotropy.",
+                distractors: ["A is less effective due to blocked receptors.", "C is for opioids.", "D is for INH."]
+            },
+            {
+                q: "26. What is the chelating agent of choice for acute Lead (Pb) poisoning?",
+                options: ["A. Deferoxamine", "B. DMSA (Dimercaptosuccinic acid)", "C. Penicillamine", "D. Atropine"],
+                answer: 1,
+                explanation: "DMSA (Succimer) and EDTA are primary chelating agents for lead toxicity.",
+                distractors: ["A is for Iron.", "C is for Copper.", "D is an anticholinergic."]
+            },
+            {
+                q: "27. What is the antidote for acute Iron (Fe) toxicity?",
+                options: ["A. Deferoxamine", "B. BAL", "C. DMPS", "D. Penicillamine"],
+                answer: 0,
+                explanation: "Deferoxamine chelates ferric iron ($Fe^{3+}$) to form ferrioxamine, which is excreted in urine (giving a classic rose-red urine color).",
+                distractors: ["B is for Mercury/Arsenic.", "C is for Arsenic.", "D is for Copper."]
+            },
+            {
+                q: "28. A 4-year-old child accidentally ingests 'Watusi' (dancing firecrackers). What immediate home first-aid measure is recommended before transport?",
+                options: ["A. Give 100 mL vinegar", "B. Administer 8 to 12 raw egg whites", "C. Induce vomiting with warm salt water", "D. Administer mineral oil"],
+                answer: 1,
+                explanation: "Egg whites serve as a local proteinaceous demulcent and binding agent for phosphorus in watusi firecrackers.",
+                distractors: ["A causes exothermic burns.", "C risks aspiration pneumonitis.", "D is not recommended."]
+            },
+            {
+                q: "29. What is the recommended antidote for acute Copper (Cu) poisoning?",
+                options: ["A. Penicillamine", "B. Deferoxamine", "C. Naloxone", "D. Atropine"],
+                answer: 0,
+                explanation: "Penicillamine and DMSA are chelating agents for copper overload (also used in Wilson's disease).",
+                distractors: ["B is for Iron.", "C is for Opioids.", "D is for Organophosphates."]
+            },
+            {
+                q: "30. According to the 2015 FDA Pregnancy and Lactation Labeling Rule (PLLR), why must male patients taking Dutasteride avoid getting their female partners pregnant?",
+                options: ["A. Causes severe maternal hypertension", "B. Transferred via semen, anti-androgenic effects disrupt male fetal genital development", "C. Induces early neural tube defects", "D. Causes immediate placental abruption"],
+                answer: 1,
+                explanation: "Dutasteride/Finasteride are 5-alpha reductase inhibitors present in semen that block dihydrotestosterone, impairing normal male fetal external genital development.",
+                distractors: ["A, C, D are not the mechanism of 5-alpha reductase inhibitors."]
+            },
+            {
+                q: "31. An unknown substance has an oral LD50 of 3 mg/kg. Under ILO classification, which Category and Signal Word apply?",
+                options: ["A. Category 1, DANGER", "B. Category 3, WARNING", "C. Category 5, CAUTION", "D. Category 4, DANGER"],
+                answer: 0,
+                explanation: "Category 1 includes substances with oral LD50 ≤ 5 mg/kg, labeled with Skull & Crossbones and signal word DANGER.",
+                distractors: ["B, C, D mismatch ILO toxicity boundaries."]
+            },
+            {
+                q: "32. A patient with severe Theophylline toxicity presents with blood level of 35 mcg/mL. Which metabolic derangement is expected?",
+                options: ["A. Severe Hyperkalemia", "B. Severe Hypokalemia", "C. Severe Hypernatremia", "D. Hypercalcemia"],
+                answer: 1,
+                explanation: "Theophylline stimulates Na+/K+ ATPase, driving potassium into cells and causing severe hypokalemia at levels >30 mcg/mL.",
+                distractors: ["A, C, D are not primary metabolic effects of theophylline toxicity."]
+            },
+            {
+                q: "33. What is the maximum recommended infusion rate for IV Potassium Chloride (KCl) during correction of toxic hypokalemia?",
+                options: ["A. 10 mEq/hr", "B. 20 mEq/hr", "C. 40 mEq/hr", "D. 100 mEq/hr"],
+                answer: 2,
+                explanation: "KCl IV infusion should not exceed 40 mEq/hr to prevent fatal hyperkalemic cardiac arrest.",
+                distractors: ["A and B are standard peripheral rates; C is the maximum emergency ceiling; D is fatal."]
+            },
+            {
+                q: "34. A hypothermic poisoned patient has a rectal temperature of 33.5°C. What is the recommended warming approach?",
+                options: ["A. Rapid hot water immersion at 45°C", "B. Preserve body heat using thick/thermal blankets", "C. Direct radiant heat lamps on skin", "D. Administer IV antipyretics"],
+                answer: 1,
+                explanation: "Hypothermia in poisoning should be managed gently by preserving body heat with thermal blankets; aggressive external heating causes vasodilation and shock.",
+                distractors: ["A and C cause peripheral vascular collapse.", "D antipyretics do not work on hypothermia."]
+            },
+            {
+                q: "35. A patient presents with severe hyperthermia (40.5°C) following Amphetamine abuse. What is the immediate ER management priority?",
+                options: ["A. Ice bath immersion or wrapping in cold wet towels + cold saline IV", "B. Oral Paracetamol 1 gram", "C. IV Aspirin", "D. Observation only"],
+                answer: 0,
+                explanation: "Hyperthermia from sympathomimetics requires immediate aggressive physical cooling (ice baths, cold towels, cold saline IV) to prevent thermal brain injury.",
+                distractors: ["B and C fail because toxic hyperthermia is driven by metabolic overload, not hypothalamic set-point changes."]
+            },
+            {
+                q: "36. In acute Alcohol (EtOH) intoxication presenting with hypoglycemia, why MUST Thiamine (Vit B1) be co-administered with IV D50W?",
+                options: ["A. Accelerates hepatic alcohol metabolism", "B. Prevents precipitation of acute Wernicke's Encephalopathy", "C. Prevents acute renal failure", "D. Treats alcoholic gastritis"],
+                answer: 1,
+                explanation: "Giving glucose load to thiamine-depleted alcoholics triggers acute pyruvate dehydrogenase dysfunction, precipitating Wernicke's Encephalopathy.",
+                distractors: ["A, C, D are not the rationale for thiamine co-administration."]
+            },
+            {
+                q: "37. What diagnostic specimen collection is required for legal and toxicological documentation during emergency gastric lavage?",
+                options: ["A. 10 mL gastric juice in alcohol", "B. 200 mL gastric aspirate kept frozen", "C. 50 mL urine at room temperature", "D. Saliva swab on ice"],
+                answer: 1,
+                explanation: "200 mL of gastric aspirate should be saved and frozen for medico-legal investigation of homicide or suicide.",
+                distractors: ["A, C, D do not follow standard toxicological preservation protocols."]
+            },
+            {
+                q: "38. What delayed onset period is characteristic before Paraquat toxicity presents with irreversible pulmonary fibrosis?",
+                options: ["A. 6 hours", "B. 12 hours", "C. 48 hours", "D. 4 weeks"],
+                answer: 2,
+                explanation: "Paraquat toxicity has a delayed onset of approximately 48 hours before progressive, fatal pulmonary fibrosis develops.",
+                distractors: ["A is ethylene glycol.", "B is salicylates.", "D is thyroxine."]
+            },
+            {
+                q: "39. Which drug toxicity presents with a delayed onset of clinical toxidrome up to 4 WEEKS post-ingestion?",
+                options: ["A. Thyroxine (T4)", "B. Paracetamol", "C. Methanol", "D. Digoxin"],
+                answer: 0,
+                explanation: "Thyroxine (T4) overdose has a very long half-life and tissue conversion delay, manifesting toxic storm up to 4 weeks later.",
+                distractors: ["B is 36 hours.", "C is 48 hours.", "D manifests within hours."]
+            },
+            {
+                q: "40. A patient ingests a large amount of Kerosene. Which complication occurs if emesis is induced?",
+                options: ["A. Severe renal tubular necrosis", "B. Chemical pneumonitis and fatal Acute Respiratory Distress Syndrome (ARDS)", "C. Esophageal squamous cell carcinoma", "D. Coagulation necrosis of stomach"],
+                answer: 1,
+                explanation: "Hydrocarbons (kerosene, gasoline) have low viscosity and high volatility; aspiration during vomiting causes devastating chemical pneumonitis and ARDS.",
+                distractors: ["A, C, D are not the acute pulmonary consequence of hydrocarbon aspiration."]
+            },
+            {
+                q: "41. Whole Bowel Irrigation (WBI) with Polyethylene Glycol is specifically indicated in which clinical scenario?",
+                options: ["A. Acute Muriatic acid ingestion", "B. Body packers who swallowed cocaine/drug condoms", "C. Acute ethanol intoxication", "D. Caustic Sosa ingestion"],
+                answer: 1,
+                explanation: "WBI is indicated for clearing sustained-release tablets, radiopaque toxins (ferrous sulfate), and drug packets/condoms in body packers.",
+                distractors: ["A, D caustics are absolute contraindications.", "C ethanol is rapidly absorbed in stomach."]
+            },
+            {
+                q: "42. Why is Hemodialysis NOT effective for Tricyclic Antidepressant (TCA) overdose?",
+                options: ["A. TCAs are excreted rapidly by kidneys", "B. TCAs have high protein binding and large Volume of Distribution (Vd)", "C. TCAs are water soluble", "D. TCAs destroy dialysis filters"],
+                answer: 1,
+                explanation: "Extracorporeal removal (hemodialysis) is ineffective for drugs with high plasma protein binding or large volume of distribution (like TCAs).",
+                distractors: ["A, C, D are pharmacokinetically incorrect for TCAs."]
+            },
+            {
+                q: "43. What is the mechanism of action of Pyrethroid insecticides compared to mammals?",
+                options: ["A. 1250x more toxic to mammals than insects", "B. 1250x more neurotoxic to insects than mammals", "C. Irreversible acetylcholinesterase inhibition", "D. Produces liquefaction necrosis"],
+                answer: 1,
+                explanation: "Pyrethroids (Chrysanthemum extracts) are modern household insecticides formulated to be ~1250x more toxic to insect nerve membranes than mammals.",
+                distractors: ["A is false.", "C describes organophosphates.", "D describes alkalis."]
+            },
+            {
+                q: "44. What staging classification applies to a caustic alkali burn displaying transmucosal ulcerations, erosions, and deep mucosal exudates?",
+                options: ["A. 1st Degree Burn", "B. 2nd Degree Burn", "C. 3rd Degree Burn", "D. 4th Degree Burn"],
+                answer: 1,
+                explanation: "2nd Degree caustic burns involve transmucosal ulcerations and erosions, requiring pain control, NPO, and hydrocortisone.",
+                distractors: ["A involves superficial mucosa only.", "C involves deep mediastinal/peritoneal perforation."]
+            },
+            {
+                q: "45. Glottic edema and stridor secondary to caustic ingestion requires which emergency intervention?",
+                options: ["A. Endotracheal intubation with stylet", "B. Forced liquid antacid swallow", "C. Emergency Tracheostomy", "D. Nebulized salbutamol"],
+                answer: 2,
+                explanation: "Severe caustic airway burns cause fragile, necrotic glottic tissue; attempting ET intubation causes perforation/complete airway loss, making Tracheostomy necessary.",
+                distractors: ["A risks total airway rupture.", "B is contraindicated.", "D does not relieve structural necrotic glottic edema."]
+            },
+            {
+                q: "46. Why is Sodium Bicarbonate ($NaHCO_3$) contraindicated as a gastric neutralizing wash in acute Iron ingestion?",
+                options: ["A. Generates toxic iron salts", "B. It is not contraindicated; NaHCO3 forms insoluble iron carbonate reducing absorption", "C. Causes hyperkalemia", "D. Destroys gastric mucosal lining"],
+                answer: 1,
+                explanation: "Sodium Bicarbonate IS used in iron poisoning local lavage because it forms insoluble, non-absorbable iron carbonate complexes.",
+                distractors: ["A, C, D are incorrect premises."]
+            },
+            {
+                q: "47. A patient presents with acute Arsenic poisoning from contaminated well water. What is the first-line chelating agent?",
+                options: ["A. DMPS or BAL (British Anti-Lewisite)", "B. Deferoxamine", "C. Atropine", "D. Naloxone"],
+                answer: 0,
+                explanation: "Arsenic toxicity is treated with sulfhydryl chelating agents: DMPS or BAL (Dimercaprol).",
+                distractors: ["B is for iron.", "C is for organophosphates.", "D is for opioids."]
+            },
+            {
+                q: "48. What visual field change is described by patients suffering from acute Methanol intoxication?",
+                options: ["A. Bitemporal hemianopsia", "B. 'Stepping into a snowstorm' vision", "C. Central ring scotoma", "D. Blue-green xanthopsia"],
+                answer: 1,
+                explanation: "Methanol's toxic metabolite (formic acid) damages optic nerve axons, classically described as 'seeing or stepping into a snowstorm'.",
+                distractors: ["A is optic chiasm compression.", "D is Digoxin toxicity."]
+            },
+            {
+                q: "49. What is the mechanism of action of Digoxin-Specific Fab fragments (Digibind)?",
+                options: ["A. Competitively blocks cardiac Na+/K+ ATPase", "B. High-affinity antibody binding of free Digoxin in intravascular space", "C. Increases renal excretion of potassium", "D. Metabolizes digoxin in liver"],
+                answer: 1,
+                explanation: "Digibind consists of specific antibody fragments that bind free intravascular digoxin, pulling it off cardiac tissue receptors and forming an excretable complex.",
+                distractors: ["A, C, D do not describe antibody Fab therapy."]
+            },
+            {
+                q: "50. A 28-year-old bank employee ingests 16 capsules of Benadryl (Diphenhydramine). Which vital sign combination is expected?",
+                options: ["A. HR 45 bpm, BP 80/50 mmHg, Temp 35.5°C, Miosis", "B. HR 135 bpm, BP 150/95 mmHg, Temp 38.9°C, Mydriasis", "C. HR 50 bpm, BP 120/80 mmHg, Temp 37.0°C, Normal pupils", "D. HR 100 bpm, BP 70/40 mmHg, Temp 36.0°C, Miosis"],
+                answer: 1,
+                explanation: "Diphenhydramine overdose causes severe Anticholinergic toxidrome: Tachycardia, Hypertension, Hyperthermia, Mydriasis, and dry skin.",
+                distractors: ["A describes Cholinergic/Opioid.", "C is normal/bradycardia.", "D describes shock with miosis."]
+            }
+        ];
+
+        let mcqAnswers = {};
+
+        function renderMCQs() {
+            const listContainer = document.getElementById('mcq-list');
+            listContainer.innerHTML = '';
+
+            mcqData.forEach((qObj, qIndex) => {
+                const card = document.createElement('div');
+                card.className = 'mcq-card';
+
+                let optionsHTML = '';
+                qObj.options.forEach((optText, optIndex) => {
+                    optionsHTML += `
+                        <button class="mcq-option" id="opt-${qIndex}-${optIndex}" onclick="selectOption(${qIndex}, ${optIndex})">
+                            ${optText}
+                        </button>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="mcq-question-num">Question ${qIndex + 1} of 50</div>
+                    <div class="mcq-question-text">${qObj.q}</div>
+                    <div class="mcq-options">${optionsHTML}</div>
+                    <div class="mcq-explanation" id="exp-${qIndex}">
+                        <strong>Rationale:</strong> ${qObj.explanation}
+                        <div class="distractor-analysis">
+                            <strong>Distractor Analysis:</strong>
+                            <ul>
+                                ${qObj.distractors.map(d => `<li>${d}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
+        function selectOption(qIndex, optIndex) {
+            if (mcqAnswers[qIndex] !== undefined) return; // Prevent re-selection
+
+            mcqAnswers[qIndex] = optIndex;
+            const qObj = mcqData[qIndex];
+            const isCorrect = optIndex === qObj.answer;
+
+            // Update Option UI
+            qObj.options.forEach((_, idx) => {
+                const optBtn = document.getElementById(`opt-${qIndex}-${idx}`);
+                if (idx === qObj.answer) {
+                    optBtn.classList.add('correct');
+                } else if (idx === optIndex && !isCorrect) {
+                    optBtn.classList.add('incorrect');
+                }
+            });
+
+            // Show Explanation
+            document.getElementById(`exp-${qIndex}`).classList.add('show');
+
+            updateMCQScore();
+        }
+
+        function updateMCQScore() {
+            const totalAnswered = Object.keys(mcqAnswers).length;
+            let correctCount = 0;
+            Object.keys(mcqAnswers).forEach(qIdx => {
+                if (mcqAnswers[qIdx] === mcqData[qIdx].answer) {
+                    correctCount++;
+                }
+            });
+
+            const percent = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
+            document.getElementById('mcq-score').textContent = `Score: ${correctCount} / ${totalAnswered} (${percent}%)`;
+        }
+
+        function resetMCQs() {
+            mcqAnswers = {};
+            renderMCQs();
+            updateMCQScore();
+        }
+
+        // Initialize MCQs on load
+        renderMCQs();
+
+        // Search Filter Logic across entire document
+        document.getElementById('global-search').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            if (query.length < 2) return;
+
+            // Simple search highlight trigger or section jump
+            const cards = document.querySelectorAll('.card, .accordion-item, .cram-box');
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.outline = '2px solid var(--accent-teal)';
+                } else {
+                    card.style.outline = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
