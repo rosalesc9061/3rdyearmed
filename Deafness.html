@@ -1,0 +1,2314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuro-Otology & Syncope: Board-Exam Quality Interactive Reviewer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --accent-blue: #0284c7;
+            --accent-blue-light: #e0f2fe;
+            --accent-teal: #0d9488;
+            --accent-teal-light: #ccfbf1;
+            --accent-amber: #d97706;
+            --accent-amber-light: #fef3c7;
+            --accent-red: #dc2626;
+            --accent-red-light: #fee2e2;
+            --accent-purple: #7c3aed;
+            --accent-purple-light: #f3e8ff;
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Syne', sans-serif;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        code, .font-mono {
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Top Header & Navigation */
+        .header {
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 20px 32px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header-title h1 {
+            font-size: 1.6rem;
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .header-subtitle {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .search-container {
+            position: relative;
+            min-width: 280px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border-radius: 20px;
+            border: 1px solid #334155;
+            background-color: #1e293b;
+            color: #ffffff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Tabs Navigation */
+        .tabs-nav {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: thin;
+            scrollbar-color: #334155 transparent;
+        }
+
+        .tabs-nav::-webkit-scrollbar {
+            height: 4px;
+        }
+        .tabs-nav::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 8px 16px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .tab-btn:hover {
+            color: #ffffff;
+            background-color: #1e293b;
+        }
+
+        .tab-btn.active {
+            color: #ffffff;
+            background-color: var(--accent-blue);
+        }
+
+        /* Progress Bar */
+        .progress-bar-container {
+            height: 3px;
+            background-color: #1e293b;
+            width: 100%;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-teal));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 1400px;
+            margin: 24px auto;
+            padding: 0 24px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Content Card Styling */
+        .section-card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Callout Badges */
+        .callout {
+            border-left: 4px solid;
+            padding: 16px;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin: 18px 0;
+            font-size: 0.95rem;
+        }
+
+        .callout-must-know {
+            border-color: #ca8a04;
+            background-color: #fef9c3;
+            color: #713f12;
+        }
+
+        .callout-pitfall {
+            border-color: var(--accent-red);
+            background-color: var(--accent-red-light);
+            color: #7f1d1d;
+        }
+
+        .callout-pearl {
+            border-color: var(--accent-teal);
+            background-color: var(--accent-teal-light);
+            color: #134e4a;
+        }
+
+        .callout-exam-tip {
+            border-color: var(--accent-purple);
+            background-color: var(--accent-purple-light);
+            color: #4c1d95;
+        }
+
+        .callout-title {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Tables Styling */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.92rem;
+        }
+
+        th {
+            background-color: #0f172a;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 14px 16px;
+            position: sticky;
+            top: 0;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.88rem;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+        }
+
+        .badge-blue { background-color: var(--accent-blue-light); color: #0369a1; }
+        .badge-teal { background-color: var(--accent-teal-light); color: #0f766e; }
+        .badge-amber { background-color: var(--accent-amber-light); color: #b45309; }
+        .badge-red { background-color: var(--accent-red-light); color: #b91c1c; }
+        .badge-purple { background-color: var(--accent-purple-light); color: #6d28d9; }
+
+        .btn-copy-table {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: #1e293b;
+            color: #ffffff;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .btn-copy-table:hover {
+            opacity: 1;
+        }
+
+        /* Recreated SVG & CSS Diagrams */
+        .diagram-container {
+            background-color: #f1f5f9;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .diagram-svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Flashcard Styling */
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 650px;
+            margin: 20px auto;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 340px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            box-shadow: var(--shadow-lg);
+            border-radius: var(--radius-lg);
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background-color: #0f172a;
+            color: #ffffff;
+            border-color: #1e293b;
+        }
+
+        .flashcard-category {
+            font-size: 0.75rem;
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-blue);
+        }
+
+        .flashcard-back .flashcard-category {
+            color: var(--accent-teal);
+        }
+
+        .flashcard-text {
+            font-size: 1.15rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .flashcard-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-action {
+            background-color: #0f172a;
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-action:hover {
+            background-color: var(--accent-blue);
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .btn-secondary:hover {
+            background-color: #cbd5e1;
+        }
+
+        /* MCQ Self-Assessment Styling */
+        .mcq-card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mcq-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .mcq-number {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+        }
+
+        .mcq-question {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+            color: var(--text-primary);
+        }
+
+        .mcq-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .mcq-option {
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mcq-option:hover {
+            border-color: var(--accent-blue);
+            background-color: var(--accent-blue-light);
+        }
+
+        .mcq-option.selected {
+            border-color: var(--accent-blue);
+            background-color: var(--accent-blue-light);
+            font-weight: 600;
+        }
+
+        .mcq-option.correct-choice {
+            border-color: var(--accent-teal);
+            background-color: var(--accent-teal-light);
+            color: #064e3b;
+            font-weight: 600;
+        }
+
+        .mcq-option.incorrect-choice {
+            border-color: var(--accent-red);
+            background-color: var(--accent-red-light);
+            color: #7f1d1d;
+        }
+
+        .mcq-explanation {
+            display: none;
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .mcq-explanation.show {
+            display: block;
+        }
+
+        .mcq-explanation-title {
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        /* Cram Sheet Styling */
+        .cram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .cram-box {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-top: 4px solid var(--accent-blue);
+        }
+
+        .cram-box-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--accent-blue);
+        }
+
+        .cram-list {
+            list-style-type: none;
+        }
+
+        .cram-list li {
+            padding: 6px 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        .cram-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Floating Scroll to Top Button */
+        .btn-scroll-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: #0f172a;
+            color: #ffffff;
+            border: none;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .btn-scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Expandable Accordion */
+        .accordion-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 14px 18px;
+            background-color: #f8fafc;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .accordion-header:hover {
+            background-color: #f1f5f9;
+        }
+
+        .accordion-content {
+            padding: 18px;
+            display: none;
+            border-top: 1px solid var(--border-color);
+            background-color: #ffffff;
+        }
+
+        .accordion-item.active .accordion-content {
+            display: block;
+        }
+
+        .accordion-icon {
+            transition: transform 0.2s ease;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px; }
+            .container { padding: 0 12px; }
+            .section-card { padding: 18px; }
+            .search-container { width: 100%; min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Header & Nav -->
+    <header class="header">
+        <div class="header-top">
+            <div class="header-title">
+                <h1>PHILIPPINE MEDICAL BOARD EXAM INTERACTIVE REVIEWER</h1>
+                <div class="header-subtitle">Adams & Victor Chapter 14: Deafness, Dizziness, Disorders of Equilibrium & Syncope</div>
+            </div>
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search core concepts, syndromes, buzzwords...">
+            </div>
+        </div>
+
+        <nav class="tabs-nav" id="tabsNav">
+            <button class="tab-btn active" data-tab="tab-overview">1. Overview</button>
+            <button class="tab-btn" data-tab="tab-auditory">2. Auditory & Hearing</button>
+            <button class="tab-btn" data-tab="tab-tinnitus">3. Tinnitus & Perception</button>
+            <button class="tab-btn" data-tab="tab-vestibular">4. Vestibular Physiology</button>
+            <button class="tab-btn" data-tab="tab-peripheral">5. Peripheral Vertigo</button>
+            <button class="tab-btn" data-tab="tab-central">6. Central Vertigo & Syncope</button>
+            <button class="tab-btn" data-tab="tab-comparisons">7. Comparisons</button>
+            <button class="tab-btn" data-tab="tab-flashcards">8. Flashcards (50)</button>
+            <button class="tab-btn" data-tab="tab-self-assessment">9. Self-Assessment (50)</button>
+            <button class="tab-btn" data-tab="tab-cram">10. Cram Sheet</button>
+        </nav>
+    </header>
+
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <!-- TAB 1: OVERVIEW -->
+        <section id="tab-overview" class="tab-content active">
+            <div class="section-card">
+                <h2 class="section-title">High-Yield Executive Summary</h2>
+                <p>This comprehensive, self-contained interactive reviewer covers <strong>Deafness, Dizziness, Disorders of Equilibrium, and Syncope</strong>, adhering rigorously to <em>Adams and Victor’s Principles of Neurology (Chapter 14)</em> and tailored for 3rd-year Philippine medical students preparing for departmental long exams, clerkship shelf exams, and the Philippine Physician Licensure Examination (PLE).</p>
+                
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⭐ Core Examination Rule</div>
+                    As a general rule, the association of <strong>vertigo and deafness</strong> signifies a disease of the end organs for hearing and vestibular function, or of the 8th cranial nerve (CN VIII). The precise anatomical locus is determined by tests of labyrinthine and auditory function, coupled with cranial nerve examination and imaging.
+                </div>
+
+                <h3>Learning Objectives</h3>
+                <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 20px;">
+                    <li>Differentiate Conductive, Sensorineural (Cochlear vs. Retrocochlear), and Central Hearing Loss using clinical tuning fork tests (Weber, Rinne, Schwabach) and advanced audiometric procedures (Békésy, Speech Discrimination, BAEP, Acoustic-Stapedial Reflex).</li>
+                    <li>Analyze the mechanisms, causes, and diagnostic workup of Tonal (Subjective) vs. Non-tonal/Pulsatile (Objective) Tinnitus, including vascular bruits, palatal/middle ear myoclonus, and superior canal dehiscence (Lloyd Minor syndrome).</li>
+                    <li>Master the anatomical organization of the Cochlear and Vestibular apparatus, ascending pathways (Cochlear nuclei → Superior Olivary Complex → Lateral Lemniscus → Inferior Colliculus → Medial Geniculate Body → Area 41), and central vestibular projections (MLF, vestibulospinal tracts, vestibulocerebellum).</li>
+                    <li>Categorize dizziness into four distinct clinical types: True Vertigo, Near-Syncope, Disequilibrium, and Ill-defined Lightheadedness/Psychiatric Dizziness.</li>
+                    <li>Diagnose and manage major peripheral vestibular disorders: Benign Paroxysmal Positional Vertigo (BPPV - canalolithiasis/cupulolithiasis), Ménière Disease (endolymphatic hydrops, Tumarkin drop attacks), Vestibular Neuritis, Bilateral Vestibulopathy, Cogan Syndrome, and Acoustic Schwannoma.</li>
+                    <li>Distinguish Peripheral from Central Nystagmus and Vertigo, recognizing stroke syndromes (Wallenberg, AICA infarction), Multiple Sclerosis, Basilar Migraine, and Syncope mechanisms.</li>
+                </ul>
+
+                <h3>Core Concepts & Definitions Table</h3>
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Term / Concept</th>
+                                <th>Anatomical / Pathophysiologic Basis</th>
+                                <th>Key Clinical Manifestation</th>
+                                <th>High-Yield Board Clue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Organ of Corti</strong></td>
+                                <td>End organ of hearing on basilar membrane (2.5 turns). Contains ~15,000 hair cells (~3,500 inner hair cells synapse with 90% of 30,000 afferent neurons).</td>
+                                <td>Transduces sound vibrations into nerve impulses via stereocilia bending against tectorial membrane.</td>
+                                <td><span class="badge badge-blue">Co-chlear</span> Inner hair cells convey 90% of afferent signal; outer hair cells modulate sharpness & recruitment.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Recruitment</strong></td>
+                                <td>Selective destruction of low-intensity outer hair cells in organ of Corti; high-intensity elements preserved.</td>
+                                <td>Heightened perception of loudness once threshold is exceeded ("You don't have to shout!").</td>
+                                <td><span class="badge badge-teal">Cochlear Specific</span> Pathognomonic for Cochlear lesions (e.g., Ménière disease); ABSENT in retrocochlear (Nerve) lesions.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Diplacusis</strong></td>
+                                <td>Defect in frequency discrimination in the organ of Corti.</td>
+                                <td>Lack of clarity of spoken words; music sounds out of tune or "mushy."</td>
+                                <td>Indicates end-organ cochlear damage.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>BPPV</strong></td>
+                                <td>Free-floating otolithic debris (canalolithiasis) or adhered debris (cupulolithiasis) in posterior semicircular canal (90%).</td>
+                                <td>Paroxysmal rotational vertigo (<1 min) triggered by head positioning (turning in bed).</td>
+                                <td><span class="badge badge-amber">Dix-Hallpike</span> Torsional geotropic nystagmus with latency (2-10s) and fatigue. Treated with Epley maneuver.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ménière Disease</strong></td>
+                                <td>Endolymphatic hydrops (distention of membranous labyrinth with endolymph).</td>
+                                <td>Triad: Episodic vertigo (mins to hours) + Low-frequency SNHL + Low-pitched roaring tinnitus & aural fullness.</td>
+                                <td>Low-pitched whooshing/roaring tinnitus (320 Hz); Tumarkin otolithic crisis = abrupt drop attacks without LOC.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Vestibular Neuritis</strong></td>
+                                <td>Acute viral inflammation of superior vestibular nerve trunk.</td>
+                                <td>Sudden prolonged severe vertigo + nausea + past pointing WITHOUT hearing loss or tinnitus.</td>
+                                <td>Spontaneous horizontal-rotary nystagmus beating away from affected side; positive rapid head impulse test.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bilateral Vestibulopathy</strong></td>
+                                <td>Bilateral destruction of vestibular hair cells, most commonly due to aminoglycoside toxicity (Gentamicin).</td>
+                                <td>Gait ataxia in dark + Oscillopsia (illusory movement of environment during walking); NO true vertigo.</td>
+                                <td>Bilateral absent caloric response; patient cannot walk smoothly without visual cues.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tullio Phenomenon</strong></td>
+                                <td>Sound-induced vertigo or eye movements caused by superior canal dehiscence (Lloyd Minor syndrome) or perilymph fistula.</td>
+                                <td>Vertigo triggered by loud sounds or pressure changes; associated with autophony (hearing own heart/voice loudly).</td>
+                                <td>Thin-slice CT shows dehiscence of bony roof over superior semicircular canal.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: AUDITORY SYSTEM & DEAFNESS -->
+        <section id="tab-auditory" class="tab-content">
+            <div class="section-card">
+                <h2 class="section-title">Anatomy & Physiology of Hearing</h2>
+                <p>The acoustic division of CN VIII has its cell bodies in the <strong>spiral ganglion</strong> of the cochlea. Bipolar neurons send peripheral processes to the <strong>Organ of Corti</strong> and central processes via the cochlear nerve to the brainstem.</p>
+                
+                <!-- SVG Diagram 1: Inner Ear & Organ of Corti -->
+                <div class="diagram-container">
+                    <svg class="diagram-svg" viewBox="0 0 800 300" width="100%" height="260">
+                        <!-- Background -->
+                        <rect width="800" height="300" fill="#ffffff" rx="10"/>
+                        <!-- External, Middle, Inner Ear Boundaries -->
+                        <line x1="250" y1="20" x2="250" y2="280" stroke="#cbd5e1" stroke-dasharray="5,5" stroke-width="2"/>
+                        <line x1="500" y1="20" x2="500" y2="280" stroke="#cbd5e1" stroke-dasharray="5,5" stroke-width="2"/>
+                        
+                        <text x="125" y="40" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" fill="#0284c7">EXTERNAL EAR</text>
+                        <text x="375" y="40" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" fill="#0d9488">MIDDLE EAR</text>
+                        <text x="650" y="40" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" fill="#7c3aed">INNER EAR (Labyrinth)</text>
+
+                        <!-- Ear Structures -->
+                        <!-- External Canal -->
+                        <path d="M 50,130 C 120,130 180,140 240,140" stroke="#94a3b8" stroke-width="20" fill="none"/>
+                        <!-- Tympanic Membrane -->
+                        <line x1="240" y1="110" x2="250" y2="170" stroke="#dc2626" stroke-width="4"/>
+                        <text x="245" y="190" text-anchor="middle" font-size="11" fill="#dc2626">Tympanic Membrane</text>
+
+                        <!-- Ossicles -->
+                        <circle cx="280" cy="130" r="12" fill="#0d9488"/> <!-- Malleus -->
+                        <rect x="310" y="122" width="25" height="16" fill="#0d9488" rx="3"/> <!-- Incus -->
+                        <polygon points="360,120 380,130 360,140" fill="#0d9488"/> <!-- Stapes -->
+                        <line x1="280" y1="130" x2="310" y2="130" stroke="#0d9488" stroke-width="4"/>
+                        <line x1="335" y1="130" x2="360" y2="130" stroke="#0d9488" stroke-width="4"/>
+                        <text x="330" y="170" text-anchor="middle" font-size="11" fill="#0d9488">Ossicular Chain (Malleus, Incus, Stapes)</text>
+
+                        <!-- Oval Window & Cochlea -->
+                        <ellipse cx="530" cy="130" rx="15" ry="25" fill="#e0e7ff" stroke="#7c3aed" stroke-width="3"/>
+                        <path d="M 545,130 Q 620,80 670,130 T 730,130" stroke="#7c3aed" stroke-width="12" fill="none"/>
+                        <text x="640" y="170" text-anchor="middle" font-size="11" fill="#7c3aed">Cochlea (2.5 turns) & Organ of Corti</text>
+                        <text x="640" y="190" text-anchor="middle" font-size="10" fill="#64748b">3,500 Inner Hair Cells | 11,500 Outer Hair Cells</text>
+                        
+                        <!-- Sound wave arrow -->
+                        <path d="M 20,130 L 230,130" stroke="#0284c7" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="4,4"/>
+                        <text x="100" y="110" font-size="11" fill="#0284c7" font-weight="700">Air Conduction Sound Waves</text>
+                    </svg>
+                    <div class="diagram-caption">Figure 14-1A/B Recreation: Auditory sound transmission path from external auditory canal through middle ear ossicles to the cochlea.</div>
+                </div>
+
+                <h3>Ascending Auditory Pathway</h3>
+                <p>Auditory nerve impulses pass sequentially through 6 neural stations before reaching the primary cortex:</p>
+                <ol style="margin-left: 24px; margin-bottom: 20px;">
+                    <li><strong>Spiral Ganglion:</strong> Bipolar primary afferent neurons innervating hair cells.</li>
+                    <li><strong>Dorsal & Ventral Cochlear Nuclei:</strong> Located at the junction of the pontine tegmentum and medulla. Fibers bifurcate here.</li>
+                    <li><strong>Superior Olivary Complex & Trapezoid Body:</strong> Receives crossing (80%) and uncrossed (20%) fibers. Subserves sound localization and the origin of efferent olivocochlear fibers (Rasmussen bundle).</li>
+                    <li><strong>Lateral Lemniscus:</strong> Main ascending tract carrying impulses through the pontine brainstem.</li>
+                    <li><strong>Inferior Colliculus:</strong> Tectal auditory reflex center (oculopostural orientation to sound).</li>
+                    <li><strong>Medial Geniculate Body (Thalamus):</strong> Special sensory thalamic relay station.</li>
+                    <li><strong>Primary Auditory Cortex:</strong> Transverse gyri of Heschl (Brodmann Area 41) in the superior temporal gyrus. Subcortical radiations pass through the ventrolateral posterior putamen.</li>
+                </ol>
+
+                <div class="callout callout-pearl">
+                    <div class="callout-title">💡 Clinical Pearl: Unilateral Cortical Lesions Do NOT Cause Deafness</div>
+                    Because ascending acoustic pathways cross bilaterally at multiple levels (trapezoid body, lateral lemniscus, commissures of Probst and inferior colliculus), a <strong>unilateral lesion of the brainstem or auditory cortex does NOT cause unilateral deafness</strong>. Unilateral deafness strictly signifies a <strong>peripheral lesion</strong> (external ear, middle ear, cochlea, or CN VIII).
+                </div>
+
+                <h3>Classification of Deafness</h3>
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Anatomical Site</th>
+                                <th>Etiologies</th>
+                                <th>Key Characteristics</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Conductive Deafness</strong></td>
+                                <td>External or Middle Ear</td>
+                                <td>Cerumen impaction, otitis media, otosclerosis, tympanic membrane perforation, eustachian tube obstruction.</td>
+                                <td>Equal loss of all frequencies or predominant low-frequency loss; bone conduction > air conduction; sound louder in affected ear on Weber test.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sensorineural: Cochlear</strong></td>
+                                <td>Organ of Corti (Inner ear)</td>
+                                <td>Ménière disease, presbycusis, noise trauma, ototoxic drugs (aminoglycosides, cisplatin, loop diuretics), mumps.</td>
+                                <td>High-frequency loss; <strong>Loudness Recruitment PRESENT</strong>; Diplacusis present; Békésy Type II audiogram.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sensorineural: Retrocochlear</strong></td>
+                                <td>CN VIII (Cochlear Nerve)</td>
+                                <td>Acoustic Schwannoma, meningioma, carcinomatous/lymphomatous meningitis, demyelination (MS).</td>
+                                <td>Marked loss of Speech Discrimination (<30%); <strong>Recruitment ABSENT</strong>; Békésy Type III/IV audiogram; tone decay.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Central Deafness</strong></td>
+                                <td>Cochlear Nuclei to Auditory Cortex</td>
+                                <td>Bilateral temporal lobe strokes, massive pontine tegmental lesions, inherited autosomal dominant tone deafness.</td>
+                                <td>Rare; cortical deafness requires bilateral geniculocortical interruption; preserved pure tones but lost word comprehension in pure word deafness.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Tuning Fork Examination (512 Hz)</h3>
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test</th>
+                                <th>Procedure</th>
+                                <th>Normal Result</th>
+                                <th>Conductive Deafness</th>
+                                <th>Sensorineural Deafness</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Weber Test</strong></td>
+                                <td>512 Hz fork on forehead midline or central incisor.</td>
+                                <td>Sound heard equally in both ears.</td>
+                                <td><strong>Lateralizes to AFFECTED ear</strong> (ambient noise is muted on affected side).</td>
+                                <td><strong>Lateralizes to NORMAL ear</strong> (normal ear perceives bone vibration better).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rinne Test</strong></td>
+                                <td>Fork on mastoid process until unheard, then held 2.5 cm from auditory meatus.</td>
+                                <td>Air Conduction (AC) > Bone Conduction (BC) by 2:1 ratio (Positive Rinne).</td>
+                                <td><strong>BC > AC</strong> (Abnormal / Negative Rinne).</td>
+                                <td><strong>AC > BC</strong> (Positive Rinne), but quantitatively reduced duration in both.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Schwabach Test</strong></td>
+                                <td>Compares patient's bone conduction duration with examiner's normal BC.</td>
+                                <td>Patient and examiner hear sound for equal duration.</td>
+                                <td>Patient hears bone conduction <strong>longer</strong> than examiner.</td>
+                                <td>Patient hears bone conduction <strong>shorter</strong> duration than examiner.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="callout callout-pitfall">
+                    <div class="callout-title">⚠️ Common Pitfall: Bedside Hearing Tests</div>
+                    Ticking watches or hair rubbing emit primarily <strong>high-frequency sounds</strong>. They are useful screening surrogates for high-tone sensorineural loss (e.g., presbycusis), but will completely <strong>miss low-frequency conductive hearing loss</strong> (e.g., early otosclerosis).
+                </div>
+
+                <h3>Special Audiologic & Diagnostic Testing</h3>
+                <ul>
+                    <li><strong>Békésy Audiometry:</strong> Continuous vs. Interrupted tone tracings.
+                        <ul>
+                            <li><em>Type I:</em> Normal or Conductive loss.</li>
+                            <li><em>Type II:</em> Cochlear lesion (Ménière disease; recruitment present).</li>
+                            <li><em>Types III & IV:</em> Retrocochlear lesion (CN VIII Schwannoma; severe tone decay).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Speech Discrimination Score:</strong> 50 phonetically balanced monosyllabic words at suprathreshold levels. A score <strong>&lt;30% is diagnostic of retrocochlear (CN VIII) lesions</strong>.</li>
+                    <li><strong>Brainstem Auditory Evoked Potentials (BAEP / BAER):</strong> Evaluates 5 neuroelectric waves generated along the auditory pathway:
+                        <ul>
+                            <li><strong>Wave I:</strong> CN VIII acoustic nerve.</li>
+                            <li><strong>Wave II:</strong> Cochlear nuclei (pons/medulla).</li>
+                            <li><strong>Wave III:</strong> Superior olivary complex.</li>
+                            <li><strong>Wave IV:</strong> Lateral lemniscus.</li>
+                            <li><strong>Wave V:</strong> Inferior colliculus.</li>
+                        </ul>
+                        <span class="badge badge-purple">Board Clue</span> In <strong>Brain Death</strong>, all waves EXCEPT Wave I are abolished.
+                    </li>
+                    <li><strong>Acoustic-Stapedial Reflex:</strong> High-intensity sound (&gt;70–90 dB) triggers reflex contraction of stapedius muscles bilaterally (CN VIII afferent → CN VII efferent). Muted in conductive ossicular fixation and CN VIII/VII lesions.</li>
+                </ul>
+
+                <h3>Hereditary Deafness & Genetic Syndromes</h3>
+                <p>Nonsyndromic hereditary deafness accounts for 80% of genetic cases. The single most important genetic discovery is the <strong>GJB2 gene mutation (Connexin-26) on chromosome 13 (DFNB1 locus)</strong>, which accounts for 50% of recessive familial deafness and 37% of sporadic congenital deafness. Connexin-26 forms gap junctions necessary for recycling K+ ions from hair cells back into endolymph.</p>
+
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Syndrome</th>
+                                <th>Inheritance / Gene</th>
+                                <th>Key Clinical Features</th>
+                                <th>Board Examination Clue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Waardenburg</strong></td>
+                                <td>AD (PAX3, SOX10)</td>
+                                <td>Sensorineural deafness, dystopic canthi, heterochromia iridis, white forelock (poliosis).</td>
+                                <td>Pigmentary anomalies + lateral displacement of inner canthi.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Branchio-Oto-Renal (BOR)</strong></td>
+                                <td>AD (EYA1)</td>
+                                <td>Mixed hearing loss, brachial cleft cysts/fistulae, external ear malformations, renal dysplasia.</td>
+                                <td>Neck cysts + ear malformations + renal failure.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Stickler Syndrome</strong></td>
+                                <td>AD (COL2A1)</td>
+                                <td>Progressive SNHL, cleft palate, spondyloepiphyseal dysplasia, severe myopia, retinal detachment.</td>
+                                <td>Cleft palate + joint laxity + retinal detachment.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Usher Syndrome</strong></td>
+                                <td>AR (USH1/2/3)</td>
+                                <td>Congenital severe SNHL + progressive <strong>Retinitis Pigmentosa</strong> + vestibular dysfunction.</td>
+                                <td>Deafness + night blindness/tunnel vision in 1st/2nd decade.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pendred Syndrome</strong></td>
+                                <td>AR (SLC26A4)</td>
+                                <td>Sensorineural hearing loss + <strong>Euthyroid Goiter</strong> + Mondini dysplasia of bony labyrinth.</td>
+                                <td>Deafness + thyroid enlargement in childhood.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Jervell and Lange-Nielsen</strong></td>
+                                <td>AR (KCNQ1, KCNE1)</td>
+                                <td>Profound congenital SNHL + <strong>Prolonged QT Interval on ECG</strong> + syncope / sudden cardiac death.</td>
+                                <td>Deaf child with syncopal spells during exercise/stress.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Alport Syndrome</strong></td>
+                                <td>X-linked (85%) (COL4A5)</td>
+                                <td>Progressive SNHL + Hematuria + Glomerulonephritis / End-stage renal disease + Anterior lenticonus.</td>
+                                <td>Deafness + hereditary nephritis + ocular lens deformity.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Refsum Disease</strong></td>
+                                <td>AR (PHYH)</td>
+                                <td>SNHL + Retinitis pigmentosa + Polyneuropathy + Cerebellar ataxia + High CSF protein (Phytanic acid accumulation).</td>
+                                <td>Elevated serum phytanic acid; treated with diet restriction.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Inner Ear Aplasias</h3>
+                <ul>
+                    <li><strong>Michel Defect:</strong> Complete absence of the otic capsule and CN VIII.</li>
+                    <li><strong>Mondini Defect:</strong> Incomplete development of bony and membranous labyrinths (cochlea has only 1.5 turns instead of 2.5).</li>
+                    <li><strong>Scheibe Defect:</strong> Membranous cochleosaccular dysplasia (most common aplasia).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TAB 3: TINNITUS & AUDITORY PERCEPTION -->
+        <section id="tab-tinnitus" class="tab-content">
+            <div class="section-card">
+                <h2 class="section-title">Tinnitus Aurium & Perception Disorders</h2>
+                <p><strong>Tinnitus</strong> is defined as any sensation of sound for which there is no source outside the individual. Affects &gt;37 million Americans. It is classified into <strong>Tonal (Subjective)</strong> and <strong>Nontonal/Pulsatile (Objective/Vibratory)</strong> forms.</p>
+
+                <div class="callout callout-exam-tip">
+                    <div class="callout-title">🧠 Exam Tip: Pitch Rules of Tinnitus</div>
+                    <ul>
+                        <li><strong>Conductive Hearing Loss Tinnitus:</strong> Low pitch (median 490 Hz, range 90–1450 Hz).</li>
+                        <li><strong>Sensorineural Loss Tinnitus:</strong> High pitch (median 3900 Hz, range 545–7500 Hz; "chirping" or bell-like).</li>
+                        <li><strong>CRITICAL EXCEPTION — Ménière Disease:</strong> Low-pitched whooshing, roaring, or buzzing sound (median 320 Hz), despite being a sensorineural disorder!</li>
+                    </ul>
+                </div>
+
+                <h3>Pulsatile and Nontonal Tinnitus Causes</h3>
+                <p>Nontonal tinnitus is mechanical in origin, conducted to the inner ear via soft tissues or vascular structures:</p>
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Specific Cause</th>
+                                <th>Mechanism & Features</th>
+                                <th>Diagnostic Clue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Vascular Bruit</strong></td>
+                                <td>Glomus Jugulare / Tympanicum Tumor, AV Malformation, Intracranial Aneurysm.</td>
+                                <td>Turbulent blood flow in vessels adjacent to temporal bone; synchronous with pulse.</td>
+                                <td>Bruit heard over mastoid by examiner; reddish mass behind tympanic membrane.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Venous Turbulence</strong></td>
+                                <td>Pseudotumor Cerebri (Idiopathic Intracranial Hypertension).</td>
+                                <td>Pressure gradient between cranial and cervical venous sinuses causing venous flow turbulence.</td>
+                                <td><strong>Obliterated by gentle jugular vein compression</strong> on symptomatic side.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Arterial Stenosis</strong></td>
+                                <td>Carotid Dissection, Fibromuscular Dysplasia, Atherosclerotic Stenosis.</td>
+                                <td>High-velocity jet through narrowed carotid or high flow contralateral to carotid occlusion.</td>
+                                <td>Unilateral neck/head pain + Horner syndrome + pulsatile bruit.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Middle Ear Myoclonus</strong></td>
+                                <td>Palatal Myoclonus, Tensor Tympani / Stapedius muscle spasms.</td>
+                                <td>Rhythmic clonic contractions of Eustachian or middle ear musculature.</td>
+                                <td>Rhythmic clicking noise; treated with Botulinum toxin or muscle section.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Third Window Defect</strong></td>
+                                <td>Superior Canal Dehiscence (Lloyd Minor Syndrome).</td>
+                                <td>Thinning or absence of bony roof overlying superior semicircular canal.</td>
+                                <td><strong>Autophony</strong> (hearing own heartbeats/voice loudly) + <strong>Tullio phenomenon</strong> (vertigo induced by sound).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Auditory Illusions and Hallucinosis</h3>
+                <ul>
+                    <li><strong>Pontine Auditory Hallucinosis:</strong> Complex auditory illusions (organ-like musical tones, buzzing swarm of bees, orchestra tuning up) caused by pontine tegmental lesions. Associated with impaired hearing and intact BAEPs. Patients maintain full insight into the illusory nature.</li>
+                    <li><strong>Peduncular/Deafferentation Auditory Hallucinosis:</strong> Musical hallucinations occurring in elderly individuals with long-standing neurosensory deafness (analogous to Charles Bonnet syndrome in visual loss). SPECT shows right auditory cortex activation.</li>
+                    <li><strong>Paracusis:</strong> Abnormal auditory repetition where a sound, voice, or tune is repeated for several seconds (similar to visual palinopsia).</li>
+                    <li><strong>Earworm (Involuntary Musical Imagery):</strong> Chronic, repetitive internal looping of song fragments; self-limiting or obsessive complaint.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TAB 4: VESTIBULAR PHYSIOLOGY & DIZZINESS -->
+        <section id="tab-vestibular" class="tab-content">
+            <div class="section-card">
+                <h2 class="section-title">Anatomy & Physiology of Equilibrium</h2>
+                <p>Maintenance of stable posture and gaze requires integrated input from 3 afferent systems: <strong>Visual</strong>, <strong>Vestibular</strong>, and <strong>Proprioceptive</strong> (neck and joint receptors).</p>
+
+                <!-- SVG Diagram 2: Semicircular Ducts & Otoliths -->
+                <div class="diagram-container">
+                    <svg class="diagram-svg" viewBox="0 0 800 260" width="100%" height="240">
+                        <rect width="800" height="260" fill="#ffffff" rx="10"/>
+                        
+                        <!-- Angular Acceleration (Crista) -->
+                        <g transform="translate(100, 30)">
+                            <rect width="250" height="200" fill="#f0f9ff" rx="8" stroke="#0284c7" stroke-width="2"/>
+                            <text x="125" y="30" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" fill="#0284c7">CRISTA AMPULLARIS</text>
+                            <path d="M 70,160 Q 125,70 180,160" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/>
+                            <path d="M 110,130 C 110,90 140,90 140,130 Z" fill="#0d9488" opacity="0.8"/> <!-- Cupula -->
+                            <text x="125" y="115" text-anchor="middle" font-size="11" fill="#ffffff" font-weight="700">Gelatinous Cupula</text>
+                            <text x="125" y="185" text-anchor="middle" font-size="11" font-weight="700" fill="#0284c7">Angular Acceleration (Yaw, Pitch, Roll)</text>
+                        </g>
+
+                        <!-- Linear Acceleration (Macula) -->
+                        <g transform="translate(450, 30)">
+                            <rect width="250" height="200" fill="#f0fdf4" rx="8" stroke="#0d9488" stroke-width="2"/>
+                            <text x="125" y="30" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" fill="#0d9488">MACULA (Utricle & Saccule)</text>
+                            <!-- Otolithic membrane -->
+                            <rect x="50" y="80" width="150" height="20" fill="#fef08a" stroke="#ca8a04" stroke-width="2" rx="4"/>
+                            <text x="125" y="95" text-anchor="middle" font-size="10" font-weight="700" fill="#854d0e">CaCO3 Otoliths / Otoconia</text>
+                            <!-- Gelatinous Layer -->
+                            <rect x="50" y="100" width="150" height="30" fill="#ccfbf1" stroke="#0d9488" stroke-width="1"/>
+                            <!-- Hair cells -->
+                            <line x1="70" y1="130" x2="70" y2="160" stroke="#0f766e" stroke-width="4"/>
+                            <line x1="110" y1="130" x2="110" y2="160" stroke="#0f766e" stroke-width="4"/>
+                            <line x1="150" y1="130" x2="150" y2="160" stroke="#0f766e" stroke-width="4"/>
+                            <line x1="190" y1="130" x2="190" y2="160" stroke="#0f766e" stroke-width="4"/>
+                            <text x="125" y="185" text-anchor="middle" font-size="11" font-weight="700" fill="#0d9488">Linear Acceleration & Gravity</text>
+                        </g>
+                    </svg>
+                    <div class="diagram-caption">Figure 14-1D Recreation: Functional division of the vestibular sensory epithelium into Cristae (angular transducers) and Maculae (linear/gravity force transducers).</div>
+                </div>
+
+                <h3>Central Vestibular Projections & Pathways</h3>
+                <ul>
+                    <li><strong>Scarpa Ganglion:</strong> Bipolar cells in internal auditory meatus providing primary vestibular fibers.</li>
+                    <li><strong>4 Vestibular Nuclei:</strong> Superior (Bechterew), Lateral (Deiters), Medial (Schwalbe), Inferior (Spinal/Descending).</li>
+                    <li><strong>Vestibulo-Ocular Reflex (VOR):</strong> Projections via <strong>Ascending Medial Longitudinal Fasciculus (MLF)</strong> to CN III, IV, and VI nuclei to stabilize gaze during head movement.</li>
+                    <li><strong>Vestibulospinal Pathways:</strong>
+                        <ul>
+                            <li><em>Lateral Vestibulospinal Tract (Uncrossed):</em> Acts on limb motor neurons to maintain extensor tone and upright stance.</li>
+                            <li><em>Medial Vestibulospinal Tract (Crossed & Uncrossed):</em> Descends in MLF to cervical spinal cord; coordinates neck/head posture.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Vestibulocerebellum:</strong> Direct primary fibers enter cerebellum via <strong>juxtarestiform body</strong> to end in flocculonodular lobe and vermis. Fastigial nucleus projects back bilaterally to vestibular nuclei.</li>
+                </ul>
+
+                <h3>Differential Categories of "Dizziness"</h3>
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Subjective Description</th>
+                                <th>Pathophysiologic Origin</th>
+                                <th>Associated Signs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. True Vertigo</strong></td>
+                                <td>"Environment spinning," rotation, tilting, up-and-down motion, pulsion (drawn to floor).</td>
+                                <td>Asymmetrical input from vestibular end organs, CN VIII, or brainstem vestibular nuclei.</td>
+                                <td>Nystagmus, ataxia, nausea, vomiting, past pointing, spatial disorientation.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Near-Syncope</strong></td>
+                                <td>"Faintness," lightheadedness, dimming vision, blacking out, impending loss of consciousness.</td>
+                                <td>Transient global cerebral hypoperfusion (orthostasis, arrhythmia, vasovagal).</td>
+                                <td>Pallor, diaphoresis, tunnel vision, relief upon lying flat.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Disequilibrium</strong></td>
+                                <td>"Unsteadiness in the legs," loss of balance while walking; head feels normal.</td>
+                                <td>Motor/sensory deficits: peripheral neuropathy, cerebellar ataxia, Parkinsonism, posterior column loss.</td>
+                                <td>Gait ataxia, positive Romberg, abnormal extrapyramidal or motor signs.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4. Giddiness / Psychiatric</strong></td>
+                                <td>"Walking on air," "distant feeling," floating, head detachment, inability to focus.</td>
+                                <td>Anxiety disorders, panic attacks, phobic postural vertigo, hyperventilation.</td>
+                                <td>Normal neuro-otologic exam; provoked by crowded places ("supermarket syndrome").</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Bedside Tests of Labyrinthine Function</h3>
+                <ul>
+                    <li><strong>Rapid Head Impulse Test (Halmagyi-Cremer):</strong> Patient fixates on examiner's nose while examiner quickly rotates patient's head 10° horizontally. A <em>catch-up saccade</em> indicates loss of VOR on the side toward which the head was turned (pathognomonic for peripheral vestibular loss).</li>
+                    <li><strong>Unterberger-Fukuda Marching Test:</strong> Patient marches in place with eyes closed and arms extended for 50 steps. Rotation &gt;45° indicates asymmetrical labyrinthine function (rotation toward affected side).</li>
+                    <li><strong>Caloric Testing (COWS / CUWD):</strong> Head elevated 30° (horizontal canal vertical). Irrigated with cold (30°C) or warm (44°C) water:
+                        <ul>
+                            <li><strong>COWS (Cold Opposite, Warm Same):</strong> Refers to the direction of the <em>FAST phase</em> of nystagmus. Cold water induces slow deviation to irrigated side + fast phase to OPPOSITE side. Warm water induces fast phase to SAME side.</li>
+                            <li><strong>Bilateral Cold Irrigation:</strong> Tonic downward gaze + fast phase UPWARD.</li>
+                            <li><strong>Bilateral Warm Irrigation:</strong> Tonic upward gaze + fast phase DOWNWARD ("CUWD").</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TAB 5: PERIPHERAL VESTIBULAR DISORDERS -->
+        <section id="tab-peripheral" class="tab-content">
+            <div class="section-card">
+                <h2 class="section-title">Peripheral Vestibular Disorders</h2>
+
+                <h3>1. Benign Paroxysmal Positional Vertigo (BPPV)</h3>
+                <p>The most common cause of vertigo. Caused by <strong>canalolithiasis</strong> (free-floating otolithic debris) or <strong>cupulolithiasis</strong> in the posterior semicircular canal (90% of cases) or lateral canal (10%).</p>
+
+                <!-- SVG Diagram 3: Dix-Hallpike & Epley Maneuver -->
+                <div class="diagram-container">
+                    <svg class="diagram-svg" viewBox="0 0 800 220" width="100%" height="200">
+                        <rect width="800" height="220" fill="#ffffff" rx="10"/>
+                        <!-- Step 1 -->
+                        <g transform="translate(20, 20)">
+                            <rect width="170" height="170" fill="#f8fafc" stroke="#0284c7" stroke-width="2" rx="8"/>
+                            <text x="85" y="25" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" font-size="12" fill="#0284c7">STEP 1: Dix-Hallpike</text>
+                            <circle cx="85" cy="80" r="25" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                            <text x="85" y="85" text-anchor="middle" font-size="10">Head 45° Right</text>
+                            <text x="85" y="140" text-anchor="middle" font-size="10" fill="#475569">Recline rapidly with head hanging 30°</text>
+                        </g>
+
+                        <!-- Step 2 -->
+                        <g transform="translate(210, 20)">
+                            <rect width="170" height="170" fill="#f8fafc" stroke="#0284c7" stroke-width="2" rx="8"/>
+                            <text x="85" y="25" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" font-size="12" fill="#0284c7">STEP 2: Rotate Head</text>
+                            <circle cx="85" cy="80" r="25" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                            <text x="85" y="85" text-anchor="middle" font-size="10">Rotate 90° Left</text>
+                            <text x="85" y="140" text-anchor="middle" font-size="10" fill="#475569">Left ear down; wait 20-30s</text>
+                        </g>
+
+                        <!-- Step 3 -->
+                        <g transform="translate(400, 20)">
+                            <rect width="170" height="170" fill="#f8fafc" stroke="#0284c7" stroke-width="2" rx="8"/>
+                            <text x="85" y="25" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" font-size="12" fill="#0284c7">STEP 3: Roll onto Side</text>
+                            <circle cx="85" cy="80" r="25" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                            <text x="85" y="85" text-anchor="middle" font-size="10">Face Floor 45°</text>
+                            <text x="85" y="140" text-anchor="middle" font-size="10" fill="#475569">Debris rolls to vestibule</text>
+                        </g>
+
+                        <!-- Step 4 -->
+                        <g transform="translate(590, 20)">
+                            <rect width="170" height="170" fill="#f8fafc" stroke="#0d9488" stroke-width="2" rx="8"/>
+                            <text x="85" y="25" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" font-size="12" fill="#0d9488">STEP 4: Return Upright</text>
+                            <circle cx="85" cy="80" r="25" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+                            <text x="85" y="85" text-anchor="middle" font-size="10">Sit Up Slowly</text>
+                            <text x="85" y="140" text-anchor="middle" font-size="10" fill="#475569">Otoconia repositioned (~80% cure)</text>
+                        </g>
+                    </svg>
+                    <div class="diagram-caption">Figure 14-5/6 Recreation: Diagnostic Dix-Hallpike Test and Therapeutic Epley Canalith Repositioning Sequence for Right Posterior Canal BPPV.</div>
+                </div>
+
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⭐ Diagnostic Criteria of BPPV (Dix-Hallpike Test)</div>
+                    <ol style="margin-left: 20px;">
+                        <li><strong>Latency:</strong> Nystagmus and vertigo begin 2–10 seconds after reaching head-hanging position.</li>
+                        <li><strong>Brevity:</strong> Paroxysm subsides within 30–40 seconds.</li>
+                        <li><strong>Torsional Geotropic Nystagmus:</strong> Fast phase beats toward dependent (affected) ear with upward vertical component.</li>
+                        <li><strong>Fatigability:</strong> Response diminishes marked upon immediate repetition of maneuver.</li>
+                        <li><strong>Reversal:</strong> Direction of nystagmus reverses upon sitting upright.</li>
+                    </ol>
+                </div>
+
+                <h3>2. Ménière Disease (Endolymphatic Hydrops)</h3>
+                <ul>
+                    <li><strong>Pathology:</strong> Distention of the endolymphatic system leading to micro-ruptures of membranous labyrinth, releasing K+-rich endolymph into perilymph and paralyzing vestibular nerve fibers.</li>
+                    <li><strong>Clinical Triad:</strong>
+                        <ol>
+                            <li>Episodic Rotational Vertigo (lasting 20 mins to several hours).</li>
+                            <li>Fluctuating Low-Frequency Sensorineural Hearing Loss.</li>
+                            <li>Low-Pitched Roaring Tinnitus & Aural Fullness (in affected ear).</li>
+                        </ol>
+                    </li>
+                    <li><strong>Otolithic Catastrophe of Tumarkin:</strong> Abrupt, violent drop attacks caused by sudden deformation of otolithic membranes (utricle/saccule). Patient is thrown to ground without loss of consciousness.</li>
+                    <li><strong>Treatment:</strong> Low-salt diet, diuretics (hydrochlorothiazide/triamterene), vestibular suppressants (meclizine, promethazine). Intratympanic Gentamicin or surgical endolymphatic sac shunt for recalcitrant cases.</li>
+                </ul>
+
+                <h3>3. Vestibular Neuritis (Neuronitis)</h3>
+                <ul>
+                    <li><strong>Pathology:</strong> Acute viral or post-viral inflammatory degeneration of the <strong>superior vestibular nerve trunk</strong>.</li>
+                    <li><strong>Clinical Presentation:</strong> Sudden, severe rotational vertigo, continuous for days, with nausea, vomiting, marked gait instability, and spontaneous horizontal-torsional nystagmus beating AWAY from affected side.</li>
+                    <li><strong>CRITICAL DIFFERENCE:</strong> Auditory function is completely <strong>NORMAL (NO hearing loss or tinnitus)</strong>.</li>
+                    <li><strong>Management:</strong> Short course of methylprednisolone (100 mg tapered over 3 weeks) significantly accelerates recovery. Vestibular rehabilitation exercises.</li>
+                </ul>
+
+                <h3>4. Bilateral Vestibulopathy & Ototoxicity</h3>
+                <ul>
+                    <li><strong>Etiology:</strong> Aminoglycoside antibiotics (<strong>Gentamicin</strong>, Amikacin, Tobramycin) destroying vestibular hair cells.</li>
+                    <li><strong>Clinical Hallmark:</strong> <strong>NO TRUE VERTIGO!</strong> Instead, patients present with severe gait ataxia (worse in dark) and <strong>Oscillopsia</strong> (illusory jumping of stationary objects during walking due to lost VOR).</li>
+                    <li><strong>Diagnostic Test:</strong> Bilateral absent responses on caloric and rotational chair testing.</li>
+                </ul>
+
+                <h3>5. Acoustic / Vestibular Schwannoma (CN VIII)</h3>
+                <ul>
+                    <li><strong>Anatomical Site:</strong> Internal auditory canal & cerebellopontine angle (CPA). Bilateral in Neurofibromatosis Type 2 (NF-2).</li>
+                    <li><strong>Clinical Sequence:</strong> Progressive high-frequency SNHL → Tinnitus → Mild imbalance (vertigo is rare due to central compensation) → CN VII weakness → CN V corneal sensory loss → Cerebellar ataxia.</li>
+                    <li><strong>Audiology Profile:</strong> Speech discrimination score &lt;30%, ABSENT recruitment, Békésy Type III/IV, delayed Wave V on BAEP.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TAB 6: CENTRAL VERTIGO & SYNCOPE -->
+        <section id="tab-central" class="tab-content">
+            <div class="section-card">
+                <h2 class="section-title">Central Vertigo & Syncope</h2>
+
+                <h3>Central Vertigo Etiologies</h3>
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Condition</th>
+                                <th>Anatomical Site</th>
+                                <th>Associated Neurologic Signs</th>
+                                <th>Key Differentiating Features</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Wallenberg Syndrome (Lateral Medullary Infarct)</strong></td>
+                                <td>PICA or Vertebral Artery occlusion (Lateral Medulla).</td>
+                                <td>Ipsilateral Horner syndrome, ipsilateral facial numbness (CN V), contralateral body pain/temp loss, dysphagia/hoarseness (CN IX/X), ipsilateral ataxia.</td>
+                                <td>Severe vertigo + lateral propulsion (falling toward lesion side) + crossed sensory loss.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AICA Territory Infarction</strong></td>
+                                <td>Anterior Inferior Cerebellar Artery occlusion.</td>
+                                <td>Ipsilateral SNHL, ipsilateral facial weakness (CN VII), ipsilateral ataxia, screaming tinnitus, gaze palsy.</td>
+                                <td>Combines peripheral-like hearing loss with central brainstem/cerebellar signs.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Multiple Sclerosis</strong></td>
+                                <td>Demyelinating plaque in vestibular nuclei entry zone or MLF.</td>
+                                <td>Internuclear Ophthalmoplegia (INO), optic neuritis, upper motor neuron signs, lhermitte sign.</td>
+                                <td>Persistent vertigo in adolescent or young adult without hearing loss.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Basilar Migraine (Migrainous Vertigo)</strong></td>
+                                <td>Brainstem vascular dysfunction / cortical spreading depression.</td>
+                                <td>Visual aura (photopsia/blindness), vertigo, dysarthria, ataxia, tinnitus followed by intense occipital headache.</td>
+                                <td>Normal audiometric and caloric tests between attacks; responds to triptans/migraine prophylaxis.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="section-title" style="margin-top: 32px;">Faintness and Syncope</h2>
+                <p><strong>Syncope</strong> is defined as a transient, self-limiting loss of consciousness (TLOC) caused by global cerebral hypoperfusion, characterized by rapid onset, short duration, and spontaneous, complete recovery.</p>
+
+                <!-- SVG Diagram 4: Syncope Pathophysiology -->
+                <div class="diagram-container">
+                    <svg class="diagram-svg" viewBox="0 0 800 200" width="100%" height="180">
+                        <rect width="800" height="200" fill="#ffffff" rx="10"/>
+                        
+                        <g transform="translate(30, 40)">
+                            <rect width="200" height="120" fill="#fee2e2" stroke="#dc2626" stroke-width="2" rx="8"/>
+                            <text x="100" y="35" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" fill="#dc2626">Trigger / Etiology</text>
+                            <text x="100" y="65" text-anchor="middle" font-size="11">Vasovagal / Orthostatic /</text>
+                            <text x="100" y="85" text-anchor="middle" font-size="11">Cardiac Arrhythmia / Output Loss</text>
+                        </g>
+
+                        <line x1="230" y1="100" x2="290" y2="100" stroke="#0f172a" stroke-width="3" marker-end="url(#arrow)"/>
+
+                        <g transform="translate(290, 40)">
+                            <rect width="220" height="120" fill="#fef3c7" stroke="#d97706" stroke-width="2" rx="8"/>
+                            <text x="110" y="35" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" fill="#d97706">Hemodynamic Collapse</text>
+                            <text x="110" y="60" text-anchor="middle" font-size="11">Drop in Mean Arterial Pressure</text>
+                            <text x="110" y="80" text-anchor="middle" font-size="11">or Systemic Vascular Resistance</text>
+                            <text x="110" y="100" text-anchor="middle" font-size="10" font-weight="700" fill="#b45309">Cerebral Blood Flow Drop &gt;35-50%</text>
+                        </g>
+
+                        <line x1="510" y1="100" x2="570" y2="100" stroke="#0f172a" stroke-width="3"/>
+
+                        <g transform="translate(570, 40)">
+                            <rect width="200" height="120" fill="#f3e8ff" stroke="#7c3aed" stroke-width="2" rx="8"/>
+                            <text x="100" y="35" text-anchor="middle" font-family="'Syne', sans-serif" font-weight="700" fill="#7c3aed">Clinical Syncope</text>
+                            <text x="100" y="65" text-anchor="middle" font-size="11">Loss of Postural Tone + LOC</text>
+                            <text x="100" y="85" text-anchor="middle" font-size="11">Duration: 8–15 seconds</text>
+                            <text x="100" y="105" text-anchor="middle" font-size="10" font-weight="700" fill="#6d28d9">Prompt Spontaneous Recovery</text>
+                        </g>
+                    </svg>
+                    <div class="diagram-caption">Pathophysiologic sequence of Transient Loss of Consciousness due to Global Cerebral Hypoperfusion.</div>
+                </div>
+
+                <h3>Classification of Syncope</h3>
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mechanism</th>
+                                <th>Subtypes</th>
+                                <th>Pathophysiology</th>
+                                <th>Clinical Clues</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. Reflex (Neurally Mediated)</strong></td>
+                                <td>Vasovagal (Common Faint), Situational (Micturition, Tussive, Deglutition), Carotid Sinus Syncope.</td>
+                                <td>Inappropriate cardio-inhibition (bradycardia) and/or vasodepression (venous pooling) triggered by autonomic reflexes.</td>
+                                <td>Clear prodrome: diaphoresis, pallor, nausea, lightheadedness, tunnel vision; triggered by fear, pain, prolonged standing, coughing.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Orthostatic Hypotension</strong></td>
+                                <td>Neurogenic (Parkinson's, MSA, Pure Autonomic Failure, Diabetic Neuropathy) vs. Non-neurogenic (hypovolemia, drugs).</td>
+                                <td>Impaired sympathetic vasoconstrictive reflexes leading to blood pooling in venous bed upon standing.</td>
+                                <td><strong>Drop in SBP ≥20 mmHg or DBP ≥10 mmHg within 3 mins of standing</strong>; NO reflex tachyadic response in neurogenic forms.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Cardiac Syncope</strong></td>
+                                <td>Arrhythmia (Sick Sinus, AV Block, VT/VF, Long QT, Brugada) or Structural (Aortic Stenosis, HCM, Atrial Myxoma, PE).</td>
+                                <td>Abrupt drop in cardiac output; high sudden death mortality!</td>
+                                <td><strong>Occurs while SUPINE or during active exercise</strong>; NO prodrome; sudden onset collapse; palpitations prior to event.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="callout callout-pitfall">
+                    <div class="callout-title">⚠️ Common Pitfall: Syncope vs. Seizure Differential</div>
+                    Brief myoclonic jerks (&lt;15 seconds) can occur during syncopal cerebral anoxia ("convulsive syncope") and are frequently misdiagnosed as epilepsy. 
+                    <br><strong>Key Distinction:</strong> Syncopal patients regain full alertness in &lt;1 minute without postictal confusion, whereas Seizure patients display postictal lethargy/confusion, lateral tongue biting, head turn, and prolonged motor activity (&gt;1–2 mins).
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: COMPARISONS -->
+        <section id="tab-comparisons" class="tab-content">
+            <div class="section-card">
+                <h2 class="section-title">Side-by-Side Diagnostic Comparison Tables</h2>
+                
+                <h3>Comparison 1: Peripheral vs. Central Nystagmus & Vertigo (Table 14-2)</h3>
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Peripheral Vestibular Origin</th>
+                                <th>Central Vestibular (Brainstem/Cerebellum)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Vertigo & Nausea Intensity</th>
+                                <td><span class="badge badge-red">Severe / Pronounced</span></td>
+                                <td><span class="badge badge-blue">Mild / Moderate</span></td>
+                            </tr>
+                            <tr>
+                                <th>Direction of Nystagmus</th>
+                                <td>Mixed Torsional-Horizontal; <strong>Unidirectional</strong> (fast phase AWAY from lesion side).</td>
+                                <td><strong>Pure Vertical</strong> (upbeat/downbeat), <strong>Pure Torsional</strong>, or <strong>Direction-Changing</strong> on gaze.</td>
+                            </tr>
+                            <tr>
+                                <th>Visual Fixation Effect</th>
+                                <td><strong>INHIBITS nystagmus and vertigo</strong> (suppression).</td>
+                                <td><strong>Does NOT inhibit</strong> nystagmus (unaffected or enhanced).</td>
+                            </tr>
+                            <tr>
+                                <th>Dix-Hallpike Latency</th>
+                                <td>Present (2–20 seconds latency).</td>
+                                <td>Absent (immediate onset).</td>
+                            </tr>
+                            <tr>
+                                <th>Dix-Hallpike Fatigability</th>
+                                <td><strong>Fatigably present</strong> (subsides with repetition).</td>
+                                <td><strong>Non-fatigable</strong> (persists with repetition).</td>
+                            </tr>
+                            <tr>
+                                <th>Associated Hearing Loss / Tinnitus</th>
+                                <td>Frequently present (Ménière, Schwannoma).</td>
+                                <td>Usually absent (except AICA infarction).</td>
+                            </tr>
+                            <tr>
+                                <th>Associated Brainstem Signs</th>
+                                <td><strong>ABSENT</strong>.</td>
+                                <td><strong>PRESENT</strong> (diplopia, dysarthria, ataxia, numbness).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Comparison 2: BPPV vs. Ménière Disease vs. Vestibular Neuritis</h3>
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>BPPV</th>
+                                <th>Ménière Disease</th>
+                                <th>Vestibular Neuritis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Duration of Attack</th>
+                                <td>Paroxysmal (&lt;30–60 seconds).</td>
+                                <td>20 minutes to several hours.</td>
+                                <td>Continuous severe for days (3–7 days).</td>
+                            </tr>
+                            <tr>
+                                <th>Provoking Factor</th>
+                                <td>Head position change (turning in bed).</td>
+                                <td>Spontaneous paroxysms.</td>
+                                <td>Spontaneous acute onset (post-viral).</td>
+                            </tr>
+                            <tr>
+                                <th>Hearing Status</th>
+                                <td>Normal.</td>
+                                <td>Fluctuating low-frequency SNHL.</td>
+                                <td>Normal.</td>
+                            </tr>
+                            <tr>
+                                <th>Tinnitus / Aural Fullness</th>
+                                <td>Absent.</td>
+                                <td>Low-pitched roaring tinnitus + fullness.</td>
+                                <td>Absent.</td>
+                            </tr>
+                            <tr>
+                                <th>Pathology</th>
+                                <td>Canalolithiasis (otoconia in posterior canal).</td>
+                                <td>Endolymphatic hydrops.</td>
+                                <td>Superior vestibular nerve inflammation.</td>
+                            </tr>
+                            <tr>
+                                <th>Primary Treatment</th>
+                                <td><strong>Epley Repositioning Maneuver</strong>.</td>
+                                <td>Low salt diet, diuretics, meclizine.</td>
+                                <td>Methylprednisolone taper + physical therapy.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Comparison 3: Syncope vs. Epileptic Seizure</h3>
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Syncope</th>
+                                <th>Epileptic Seizure</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Onset / Prodrome</th>
+                                <td>Progressive dimming vision, diaphoresis, lightheadedness, nausea, pallor over seconds.</td>
+                                <td>Sudden onset or specific aura (epigastric rising, olfactory, focal jerk).</td>
+                            </tr>
+                            <tr>
+                                <th>Posture at Onset</th>
+                                <td>Usually upright or standing (except cardiac).</td>
+                                <td>Any posture (including supine or during sleep).</td>
+                            </tr>
+                            <tr>
+                                <th>Duration of Unconsciousness</th>
+                                <td>Brief (&lt;15–30 seconds).</td>
+                                <td>Prolonged (1 to several minutes).</td>
+                            </tr>
+                            <tr>
+                                <th>Motor Movements</th>
+                                <td>Brief myoclonic jerks (&lt;15s) may occur; uncoordinated.</td>
+                                <td>Symmetrical tonic-clonic jerking &gt;1 minute; head/eye deviation.</td>
+                            </tr>
+                            <tr>
+                                <th>Tongue Biting</th>
+                                <td>Rare; tip of tongue if present.</td>
+                                <td>Frequent; <strong>Lateral border of tongue</strong>.</td>
+                            </tr>
+                            <tr>
+                                <th>Postictal State</th>
+                                <td><strong>Immediate prompt recovery</strong> of full alertness.</td>
+                                <td>Prolonged confusion, somnolence, headache, amnesia.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 8: FLASHCARDS -->
+        <section id="tab-flashcards" class="tab-content">
+            <div class="section-card">
+                <h2 class="section-title">Active Recall Flashcards (50)</h2>
+                <p>Click on the card or press <code>Spacebar</code> to flip. Use <code>Left Arrow</code> and <code>Right Arrow</code> keys to navigate.</p>
+                
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="flashcard-category" id="cardCategory">Category</span>
+                                <div class="flashcard-text" id="cardQuestion">Question loading...</div>
+                                <span class="flashcard-hint">Click or press Spacebar to reveal answer</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <span class="flashcard-category">ANSWER</span>
+                                <div class="flashcard-text" id="cardAnswer">Answer loading...</div>
+                                <span class="flashcard-hint">Press Right Arrow for next card</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flashcard-controls">
+                        <button class="btn-action btn-secondary" onclick="prevCard()">← Previous</button>
+                        <span id="cardCounter" class="font-mono" style="font-weight: 700;">1 / 50</span>
+                        <button class="btn-action" onclick="nextCard()">Next →</button>
+                        <button class="btn-action btn-secondary" onclick="shuffleCards()">🔀 Shuffle</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 9: SELF-ASSESSMENT -->
+        <section id="tab-self-assessment" class="tab-content">
+            <div class="section-card">
+                <h2 class="section-title">Board-Style Self-Assessment (50 MCQs)</h2>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #f1f5f9; padding: 16px; border-radius: 10px;">
+                    <div>
+                        <strong>Score Tracker:</strong> <span id="scoreDisplay" class="font-mono" style="color: var(--accent-blue); font-size: 1.2rem; font-weight: 700;">0 / 50</span>
+                    </div>
+                    <button class="btn-action btn-secondary" onclick="resetQuiz()">Reset Quiz</button>
+                </div>
+
+                <div id="mcqContainer">
+                    <!-- Dynamic MCQs populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 10: CRAM SHEET -->
+        <section id="tab-cram" class="tab-content">
+            <div class="section-card">
+                <h2 class="section-title">Ultra-Condensed Last-Minute Cram Sheet</h2>
+                <p style="margin-bottom: 20px; color: var(--text-muted);">Designed for high-speed review 10 minutes before entering the PLE exam hall.</p>
+
+                <div class="cram-grid">
+                    <div class="cram-box">
+                        <div class="cram-box-title">⚡ Rapid Clues: "If You See X → Think Y"</div>
+                        <ul class="cram-list">
+                            <li><strong>Vertigo + Deafness:</strong> End-organ labyrinthine or CN VIII lesion.</li>
+                            <li><strong>"You don't have to shout!" (Recruitment):</strong> Cochlear lesion (Ménière); ABSENT in Schwannoma.</li>
+                            <li><strong>Weber lateralizes to affected ear + Rinne BC > AC:</strong> Conductive Hearing Loss.</li>
+                            <li><strong>Speech Discrimination <30% + Tone Decay:</strong> Retrocochlear CN VIII Schwannoma.</li>
+                            <li><strong>BAEP Wave I preserved, Waves II-V absent:</strong> Brain Death.</li>
+                            <li><strong>GJB2 / Connexin-26 mutation:</strong> Most common genetic cause of congenital SNHL (DFNB1).</li>
+                            <li><strong>Sound-induced vertigo (Tullio) + Autophony:</strong> Superior Canal Dehiscence (Lloyd Minor).</li>
+                            <li><strong>Tinnitus synchronous with pulse, stops on jugular press:</strong> Pseudotumor Cerebri.</li>
+                            <li><strong>Low-pitched roaring tinnitus (320 Hz) + Episodic vertigo:</strong> Ménière Disease.</li>
+                            <li><strong>Sudden drop without LOC:</strong> Otolithic catastrophe of Tumarkin (Ménière).</li>
+                            <li><strong>Brief vertigo (<1 min) turning in bed + Geotropic nystagmus:</strong> BPPV (Posterior Canal).</li>
+                            <li><strong>Oscillopsia + Ataxia in dark + Gentamicin history:</strong> Bilateral Vestibulopathy.</li>
+                            <li><strong>Pure vertical nystagmus (upbeat/downbeat):</strong> Central brainstem/cerebellar lesion.</li>
+                            <li><strong>Wallenberg Syndrome + Lateral Pulsion:</strong> PICA / Lateral Medullary stroke.</li>
+                            <li><strong>Syncopal drop + Prolonged QT on ECG + Deaf child:</strong> Jervell & Lange-Nielsen Syndrome.</li>
+                        </ul>
+                    </div>
+
+                    <div class="cram-box">
+                        <div class="cram-box-title">🎯 High-Yield Buzzwords</div>
+                        <ul class="cram-list">
+                            <li><strong>Organ of Corti:</strong> ~15,000 hair cells (3,500 inner IHCs synapse with 90% afferents).</li>
+                            <li><strong>Rasmussen Bundle:</strong> Efferent olivocochlear tract from superior olivary complex.</li>
+                            <li><strong>Otosclerosis:</strong> Stapes fixation at oval window; AD variable penetrance; bilateral conductive loss.</li>
+                            <li><strong>Presbycusis:</strong> Age-related neuronal degeneration of spiral ganglion; high-tone SNHL.</li>
+                            <li><strong>COWS Caloric Mnemonic:</strong> Cold Opposite, Warm Same (refers to FAST phase of nystagmus).</li>
+                            <li><strong>Halmagyi Head Impulse Test:</strong> Catch-up saccade indicates peripheral VOR loss on head turn side.</li>
+                            <li><strong>Epley Maneuver:</strong> Canalith repositioning for BPPV.</li>
+                            <li><strong>Cogan Syndrome:</strong> Interstitial keratitis + vertiginous attacks + SNHL + Systemic Vasculitis / Aortic insufficiency.</li>
+                            <li><strong>Convulsive Syncope:</strong> Brief myoclonic jerks (<15s) due to cerebral anoxia; NO postictal state.</li>
+                            <li><strong>Orthostatic Hypotension:</strong> SBP drop ≥20 mmHg or DBP drop ≥10 mmHg within 3 minutes standing.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button class="btn-scroll-top" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+    <!-- Embedded Vanilla JavaScript -->
+    <script>
+        /* --- FLASHCARDS DATA (50) --- */
+        const flashcardsData = [
+            { cat: "Auditory Anatomy", q: "Which inner ear hair cells synapse with 90% of afferent cochlear neurons?", a: "Inner Hair Cells (~3,500 cells synapse with 90% of the 30,000 afferent neurons)." },
+            { cat: "Auditory Physiology", q: "What is the function of the efferent olivocochlear pathway (Rasmussen bundle)?", a: "Originates from superior olivary nuclei (80% contralateral) to modulate sound perception and enhance auditory sharpness." },
+            { cat: "Auditory Pathology", q: "Define Loudness Recruitment and state its anatomical significance.", a: "Heightened perception of loudness exceeding threshold due to outer hair cell loss; pathognomonic for COCHLEAR disease (absent in nerve lesions)." },
+            { cat: "Diagnostic Testing", q: "In the Weber tuning fork test, where does sound lateralize in conductive hearing loss?", a: "Lateralizes to the AFFECTED ear because ambient background noise is muted on that side." },
+            { cat: "Diagnostic Testing", q: "What does an abnormal (negative) Rinne test signify?", a: "Bone Conduction > Air Conduction (BC > AC), indicating Conductive Hearing Loss." },
+            { cat: "Audiometry", q: "Which Békésy audiometry patterns indicate retrocochlear (CN VIII) lesions?", a: "Types III and IV Békésy audiograms (characterized by severe tone decay)." },
+            { cat: "Audiometry", q: "A speech discrimination score below 30% strongly points to what anatomical location?", a: "Retrocochlear / Eighth Nerve (CN VIII) lesion (e.g., Acoustic Schwannoma)." },
+            { cat: "Neurophysiology", q: "Which wave of the BAEP represents the inferior colliculus?", a: "Wave V." },
+            { cat: "Neurophysiology", q: "In a comatose patient diagnosed with brain death, which BAEP wave may occasionally persist?", a: "Wave I (generated by the peripheral CN VIII acoustic nerve)." },
+            { cat: "Acoustic Reflex", q: "Which muscles and cranial nerves mediate the acoustic-stapedial reflex?", a: "Stapedius muscle; CN VIII afferent limb and CN VII efferent limb." },
+            { cat: "Tinnitus", q: "How does the pitch of tinnitus in Ménière disease differ from typical sensorineural loss?", a: "Ménière tinnitus is low-pitched (median 320 Hz, whooshing/roaring), unlike typical high-pitched sensorineural tinnitus." },
+            { cat: "Tinnitus", q: "What simple bedside maneuver obliterates venous pulsatile tinnitus in Pseudotumor Cerebri?", a: "Gentle compression of the internal jugular vein on the symptomatic side." },
+            { cat: "Tinnitus", q: "What is the Tullio phenomenon and what condition does it signify?", a: "Sound-induced vertigo/eye movements; signifies Superior Canal Dehiscence (Lloyd Minor syndrome) or perilymph fistula." },
+            { cat: "Deafness Etiology", q: "What is the underlying pathology of familial Otosclerosis?", a: "Overgrowth of labyrinthine capsular bone around the oval window leading to stapes fixation." },
+            { cat: "Genetics", q: "Which gene mutation is the most common cause of nonsyndromic recessive congenital deafness?", a: "GJB2 gene mutation encoding Connexin-26 on chromosome 13 (DFNB1)." },
+            { cat: "Genetic Syndromes", q: "Which syndrome features sensorineural deafness, white forelock, dystopic canthi, and heterochromia iridis?", a: "Waardenburg Syndrome (PAX3 mutation)." },
+            { cat: "Genetic Syndromes", q: "Which syndrome combines congenital sensorineural deafness with Retinitis Pigmentosa?", a: "Usher Syndrome." },
+            { cat: "Genetic Syndromes", q: "Which autosomal recessive syndrome combines SNHL, prolonged QT interval, and sudden death?", a: "Jervell and Lange-Nielsen Syndrome." },
+            { cat: "Genetic Syndromes", q: "A patient with deafness, hematuria, glomerulonephritis, and anterior lenticonus has what disease?", a: "Alport Syndrome (X-linked COL4A5 mutation)." },
+            { cat: "Inner Ear Aplasia", q: "What is the Mondini defect of the inner ear?", a: "Incomplete development of the bony/membranous labyrinth with cochlear coiling limited to 1.5 turns." },
+            { cat: "Vestibular Anatomy", q: "Which structures in the vestibular apparatus sense angular acceleration versus linear acceleration?", a: "Cristae in semicircular ducts sense angular acceleration; Maculae in utricle/saccule sense linear acceleration & gravity." },
+            { cat: "Vestibular Pathways", q: "Which vestibulospinal tract acts primarily on limb musculature to maintain extensor tone?", a: "Lateral Vestibulospinal Tract (uncrossed)." },
+            { cat: "Vestibular Pathways", q: "Through which cerebellar peduncle do primary vestibular fibers reach the vestibulocerebellum?", a: "Juxtarestiform body (part of inferior cerebellar peduncle)." },
+            { cat: "Dizziness Categories", q: "Define true Vertigo.", a: "An illusion or hallucination of movement of oneself or the environment in any plane." },
+            { cat: "Diagnostic Testing", q: "What eye movement occurs when turning the head rapidly toward a paretic labyrinth in the Head Impulse Test?", a: "A catch-up saccade back to the target fixation point." },
+            { cat: "Diagnostic Testing", q: "According to the COWS mnemonic, cold water caloric irrigation in a normal person causes fast-phase nystagmus to which side?", a: "To the OPPOSITE side." },
+            { cat: "BPPV", q: "Which semicircular canal is most frequently affected in BPPV?", a: "Posterior Semicircular Canal (90% of cases)." },
+            { cat: "BPPV", q: "What classic features characterize the nystagmus during a positive Dix-Hallpike test for BPPV?", a: "Latency (2-10s), brevity (<30-40s), torsional geotropic direction, reversal on sitting, and fatigability." },
+            { cat: "BPPV Treatment", q: "What is the definitive bedside treatment sequence for posterior canal BPPV?", a: "Epley Canalith Repositioning Maneuver." },
+            { cat: "Ménière Disease", q: "What is the core histopathologic abnormality in Ménière disease?", a: "Endolymphatic Hydrops (distention of the endolymphatic space)." },
+            { cat: "Ménière Disease", q: "What are Tumarkin drop attacks (otolithic catastrophe)?", a: "Sudden violent falls without loss of consciousness caused by abrupt otolithic membrane deformation." },
+            { cat: "Vestibular Neuritis", q: "How is Vestibular Neuritis distinguished clinically from Ménière disease?", a: "Vestibular Neuritis causes continuous severe vertigo for days WITHOUT hearing loss or tinnitus." },
+            { cat: "Ototoxicity", q: "Which class of antibiotics selectively damages vestibular hair cells, causing bilateral vestibulopathy?", a: "Aminoglycosides (especially Gentamicin)." },
+            { cat: "Ototoxicity", q: "What is the primary symptom of bilateral loss of vestibular function?", a: "Oscillopsia (illusory bouncing of environment during walking) and gait unsteadiness in dark; NO true vertigo." },
+            { cat: "Acoustic Schwannoma", q: "What is the earliest symptom of an Acoustic Schwannoma?", a: "Progressive unilateral high-frequency sensorineural hearing loss (vertigo is rare)." },
+            { cat: "Cogan Syndrome", q: "Non-syphilitic interstitial keratitis combined with vertiginous attacks and progressive deafness defines what syndrome?", a: "Cogan Syndrome (associated with systemic vasculitis and aortic insufficiency)." },
+            { cat: "Central Vertigo", q: "How does visual fixation affect nystagmus of peripheral versus central origin?", a: "Visual fixation INHIBITS peripheral nystagmus, but has NO EFFECT on central nystagmus." },
+            { cat: "Central Stroke", q: "Which artery occlusion causes lateral medullary infarction (Wallenberg syndrome) with severe vertigo?", a: "Posterior Inferior Cerebellar Artery (PICA) or Vertebral Artery." },
+            { cat: "Central Stroke", q: "Infarction of the AICA causes vertigo combined with which unique cranial nerve deficit?", a: "Ipsilateral Sensorineural Hearing Loss and Facial Weakness (CN VII/VIII involvement)." },
+            { cat: "Syncope Definition", q: "Define Syncope.", a: "Transient, self-limiting loss of consciousness due to global cerebral hypoperfusion, with rapid onset and prompt recovery." },
+            { cat: "Syncope Types", q: "What are the three main subtypes of Reflex (Neurally Mediated) Syncope?", a: "1. Vasovagal Syncope; 2. Situational Syncope (micturition, tussive); 3. Carotid Sinus Syncope." },
+            { cat: "Orthostatic Syncope", q: "What BP criteria define Orthostatic Hypotension?", a: "Drop in SBP ≥20 mmHg or DBP ≥10 mmHg within 3 minutes of standing." },
+            { cat: "Cardiac Syncope", q: "What clinical feature strongly suggests Cardiac Syncope rather than Vasovagal Syncope?", a: "Syncope occurring while SUPINE or during exertion, without prodromal autonomic symptoms." },
+            { cat: "Syncope vs Seizure", q: "How long do brief myoclonic movements last in 'convulsive syncope' compared to epileptic seizures?", a: "Convulsive syncope jerks last <15 seconds, whereas seizure jerking lasts >1-2 minutes." },
+            { cat: "Syncope vs Seizure", q: "Where is tongue biting characteristically located in epileptic seizures?", a: "Lateral border of the tongue." },
+            { cat: "Syndrome", q: "What ocular and systemic complications are associated with Cogan Syndrome?", a: "Interstitial keratitis, systemic polyarteritis nodosa-like vasculitis, and aortic insufficiency." },
+            { cat: "Auditory Cortical Lesions", q: "What condition is caused by left temporal lobe damage resulting in inability to comprehend spoken words despite normal audiometry?", a: "Pure Word Deafness (Auditory Verbal Agnosia)." },
+            { cat: "Physiology", q: "What is the fluid content of the membranous labyrinth versus the bony labyrinth?", a: "Membranous labyrinth contains Endolymph (K+-rich); Bony labyrinth contains Perilymph (Na+-rich, CSF-like)." },
+            { cat: "Central Connections", q: "Which cortical region serves as the primary vestibular cortex in primates?", a: "Posterior insula / Area 2 of Brodmann (adjacent to somatosensory face area)." },
+            { cat: "Treatment", q: "What medical treatment accelerates functional recovery in acute Vestibular Neuritis?", a: "Oral Methylprednisolone (100 mg tapered over 3 weeks)." }
+        ];
+
+        /* --- MCQ DATA (50) --- */
+        const mcqData = [
+            {
+                q: "A 45-year-old woman complains of sudden episodes of severe spinning dizziness lasting 30 seconds whenever she rolls over in bed to the right. She has no hearing loss or tinnitus. Dix-Hallpike maneuver with right ear down elicits horizontal-torsional nystagmus after a 4-second delay, lasting 20 seconds. What is the primary pathophysiology?",
+                options: ["Endolymphatic hydrops in the cochlea", "Free-floating otolithic debris in the posterior semicircular canal", "Viral inflammation of Scarpa ganglion", "Vascular compression of CN VIII root entry zone"],
+                correct: 1,
+                exp: "Correct: B. BPPV is caused by canalolithiasis (otolithic debris) in the posterior canal. Latency, brevity (<30s), and torsional nystagmus are classic. A is Ménière disease; C is vestibular neuritis; D is disabling positional vertigo."
+            },
+            {
+                q: "A 32-year-old male presents with recurrent episodes of violent vertigo lasting 2 hours, accompanied by a feeling of fullness, low-pitched roaring sound, and fluctuating hearing loss in his left ear. Pure-tone audiometry shows low-frequency sensorineural loss. Which audiometric finding is expected?",
+                options: ["Absent loudness recruitment", "Loudness recruitment present in the left ear", "Speech discrimination score <20%", "Békésy Type IV audiogram"],
+                correct: 1,
+                exp: "Correct: B. Ménière disease is a cochlear disorder (endolymphatic hydrops); loudness recruitment is present in cochlear lesions. Absent recruitment (A), poor speech discrimination <30% (C), and Békésy Type IV (D) are features of retrocochlear (nerve) lesions."
+            },
+            {
+                q: "During a Weber tuning fork test (512 Hz), a patient hears the sound louder in his right ear. Rinne test shows BC > AC in the right ear and AC > BC in the left ear. What is the diagnosis?",
+                options: ["Right sensorineural hearing loss", "Right conductive hearing loss", "Left conductive hearing loss", "Left sensorineural hearing loss"],
+                correct: 1,
+                exp: "Correct: B. Rinne BC > AC indicates conductive loss in that ear. Weber lateralizes to the ear with conductive loss due to elimination of ambient background noise."
+            },
+            {
+                q: "A 58-year-old man treated with high-dose IV Gentamicin for severe urosepsis complains of severe imbalance when walking, especially in the dark. He notices that objects jump when he walks. He has no spinning sensation. Caloric testing shows bilateral absent responses. What is the diagnosis?",
+                options: ["Benign Paroxysmal Positional Vertigo", "Acute Vestibular Neuritis", "Bilateral Ototoxic Vestibulopathy", "Cerebellar Hemisphere Stroke"],
+                correct: 2,
+                exp: "Correct: C. Aminoglycoside toxicity damages vestibular hair cells bilaterally, causing oscillopsia and gait ataxia without true vertigo. Caloric responses are bilaterally absent."
+            },
+            {
+                q: "A 22-year-old medical student suddenly experiences lightheadedness, nausea, diaphoresis, and dimming of vision while standing in a crowded operating room for 2 hours. She falls to the floor, displays 3 brief muscle jerks lasting 5 seconds, and regains full alertness within 20 seconds. What is the mechanism?",
+                options: ["Temporal lobe epileptic seizure", "Reflex vasovagal syncope", "Cardiac ventricular arrhythmia", "Vertebrobasilar TIA"],
+                correct: 1,
+                exp: "Correct: B. Classic vasovagal syncope triggered by prolonged standing and warm environment with autonomic prodrome. Brief myoclonic jerks (<15s) represent convulsive syncope. Prompt recovery rules out seizure."
+            },
+            {
+                q: "An 18-year-old male with progressive bilateral sensorineural hearing loss, white forelock, dystopic inner canthi, and heterochromia iridis presents for genetic counseling. Which gene is most likely mutated?",
+                options: ["GJB2 (Connexin-26)", "PAX3", "EYA1", "SLC26A4"],
+                correct: 1,
+                exp: "Correct: B. Waardenburg syndrome Type 1 is caused by PAX3 mutations. GJB2 (A) causes nonsyndromic deafness; EYA1 (C) causes Branchio-oto-renal syndrome; SLC26A4 (D) causes Pendred syndrome."
+            },
+            {
+                q: "A patient with suspected brain death undergoes Brainstem Auditory Evoked Potential (BAEP) testing. Which wave component is most likely to remain preserved if peripheral nerve function is intact?",
+                options: ["Wave I", "Wave III", "Wave IV", "Wave V"],
+                correct: 0,
+                exp: "Correct: A. Wave I is generated by the extra-axial CN VIII acoustic nerve and may persist in brain death while central brainstem waves (II-V) are abolished."
+            },
+            {
+                q: "A 50-year-old woman complains of hearing her own heartbeat and voice unusually loudly in her left ear (autophony). Loud sounds provoke brief attacks of vertigo and vertical-torsional eye movements. Thin-slice temporal bone CT will likely show:",
+                options: ["Fixation of the stapes footplate", "Dehiscence of the bony roof of the superior semicircular canal", "Acoustic schwannoma in internal auditory canal", "Endolymphatic sac distention"],
+                correct: 1,
+                exp: "Correct: B. Superior Canal Dehiscence (Lloyd Minor syndrome) causes a third mobile window in the inner ear, leading to autophony and the Tullio phenomenon (sound-induced vertigo)."
+            },
+            {
+                q: "Which characteristic differentiates central nystagmus (due to a brainstem plaque) from peripheral vestibular nystagmus?",
+                options: ["Central nystagmus is inhibited by visual fixation", "Central nystagmus is strictly unidirectional", "Central nystagmus can be purely vertical", "Central nystagmus is always accompanied by severe nausea"],
+                correct: 2,
+                exp: "Correct: C. Purely vertical nystagmus (upbeat or downbeat) is pathognomonic for central brainstem or cerebellar lesions. Peripheral nystagmus is mixed horizontal-torsional, inhibited by visual fixation, and unidirectional."
+            },
+            {
+                q: "A 62-year-old man presents with progressive unilateral right-sided hearing loss over 2 years. Audiometry reveals high-frequency SNHL, a speech discrimination score of 18%, and absence of loudness recruitment. MRI reveals a 1.5 cm mass in the right cerebellopontine angle. What is the diagnosis?",
+                options: ["Glomus Jugulare Tumor", "Acoustic Schwannoma (CN VIII)", "Ménière Disease", "Pontine Glioma"],
+                correct: 1,
+                exp: "Correct: B. Acoustic schwannoma causes retrocochlear hearing loss characterized by marked speech discrimination deficit (<30%), absent recruitment, and CPA mass."
+            },
+            {
+                q: "A 28-year-old woman presents with sudden severe rotational vertigo, nausea, and vomiting lasting 4 days. She has no hearing loss or tinnitus. Examination shows spontaneous horizontal nystagmus beating to the right. Rapid head impulse test to the left reveals a catch-up saccade. What is the diagnosis?",
+                options: ["Left Vestibular Neuritis", "Right Vestibular Neuritis", "Left Ménière Disease", "BPPV"],
+                correct: 0,
+                exp: "Correct: A. Vestibular neuritis causes prolonged severe vertigo without hearing loss. Nystagmus beats AWAY from the lesion (beating right = left lesion). Head impulse test is positive when turning toward the affected (left) side."
+            },
+            {
+                q: "Which genetic syndrome features profound sensorineural deafness combined with goiter and Mondini dysplasia of the bony labyrinth?",
+                options: ["Usher Syndrome", "Pendred Syndrome", "Alport Syndrome", "Refsum Disease"],
+                correct: 1,
+                exp: "Correct: B. Pendred syndrome (SLC26A4 mutation) features SNHL, thyroid goiter, and Mondini dysplasia."
+            },
+            {
+                q: "A patient with persistent pulsatile tinnitus describes a rushing sound synchronous with her pulse. Gentle pressure over the ipsilateral internal jugular vein completely stops the noise. What is the most likely underlying condition?",
+                options: ["Aortic Stenosis", "Pseudotumor Cerebri (IIH)", "Glomus Tympanicum Tumor", "Fibromuscular Dysplasia"],
+                correct: 1,
+                exp: "Correct: B. Venous bruits in Pseudotumor Cerebri arise from pressure gradients in dural venous sinuses and characteristically cease with gentle jugular compression."
+            },
+            {
+                q: "A 68-year-old diabetic male develops sudden severe vertigo, dysarthria, left facial numbness, right body loss of pain/temperature, and left Horner syndrome. Which artery is occluded?",
+                options: ["Anterior Inferior Cerebellar Artery (AICA)", "Posterior Inferior Cerebellar Artery (PICA)", "Basilar Artery main trunk", "Anterior Spinal Artery"],
+                correct: 1,
+                exp: "Correct: B. Wallenberg lateral medullary syndrome is caused by PICA or vertebral artery occlusion. Manifests with crossed sensory loss, Horner syndrome, ataxia, and severe vertigo."
+            },
+            {
+                q: "In caloric testing using cold water in the right ear of a healthy conscious subject, what is the expected normal eye movement response?",
+                options: ["Tonic deviation to the left, fast phase to the right", "Tonic deviation to the right, fast phase to the left", "Pure vertical upward nystagmus", "No eye movement"],
+                correct: 1,
+                exp: "Correct: B. COWS mnemonic (Cold Opposite, Warm Same) refers to the fast phase. Cold water in right ear causes slow tonic deviation to right (irrigated side) and fast component to LEFT (opposite side)."
+            },
+            {
+                q: "Which structure contains the sensory neuroepithelium responsible for detecting linear acceleration and gravitational pull?",
+                options: ["Crista ampullaris of semicircular ducts", "Macula of the utricle and saccule", "Organ of Corti", "Helicotrema"],
+                correct: 1,
+                exp: "Correct: B. Maculae of utricle and saccule contain calcium carbonate otoliths that transduce linear acceleration and gravity. Cristae sense angular acceleration."
+            },
+            {
+                q: "A 10-year-old boy experiences recurrent syncopal episodes while playing competitive basketball. His ECG demonstrates a corrected QT interval (QTc) of 520 ms. Audiogram shows bilateral profound sensorineural hearing loss. What is the inheritance pattern of this syndrome?",
+                options: ["Autosomal Dominant", "Autosomal Recessive", "X-linked Recessive", "Mitochondrial"],
+                correct: 1,
+                exp: "Correct: B. Jervell and Lange-Nielsen syndrome is autosomal recessive (mutations in KCNQ1/KCNE1). Romano-Ward syndrome is AD with long QT but normal hearing."
+            },
+            {
+                q: "Which audiometric procedure tests continuous vs. interrupted pure tones and yields a Type II pattern characteristic of end-organ cochlear lesions?",
+                options: ["Brainstem Auditory Evoked Response", "Békésy Audiometry", "Acoustic Stapedial Reflex", "Electrocochleography"],
+                correct: 1,
+                exp: "Correct: B. Békésy audiometry Type II tracings indicate cochlear disease. Types III and IV indicate retrocochlear lesions."
+            },
+            {
+                q: "A 55-year-old male presents with non-syphilitic interstitial keratitis, severe episodic vertigo, tinnitus, and rapidly progressive bilateral sensorineural deafness. Which systemic complication must be monitored?",
+                options: ["Glomerulonephritis", "Aortic Insufficiency / Polyarteritis Nodosa", "Pulmonary Fibrosis", "Hepatic Cirrhosis"],
+                correct: 1,
+                exp: "Correct: B. Cogan syndrome is associated with systemic vasculitis (PAN) and aortic insufficiency, which can be fatal."
+            },
+            {
+                q: "What is the primary mechanical effect of sound waves vibrating the basilar membrane in the Organ of Corti?",
+                options: ["Bending stereocilia against the tectorial membrane", "Displacing otoliths in the cupula", "Directly stimulating Scarpa ganglion cells", "Increasing perilymph pressure in scala vestibuli"],
+                correct: 0,
+                exp: "Correct: A. Upward displacement of the basilar membrane bends stereocilia against the gel-like tectorial membrane, depolarizing hair cells."
+            },
+            {
+                q: "A 72-year-old man with hypertension experiences lightheadedness and dimming vision every time he rises quickly from his armchair. His blood pressure drops from 140/85 mmHg sitting to 112/68 mmHg standing, without an increase in heart rate. What is the mechanism?",
+                options: ["Vasovagal syncope", "Neurogenic orthostatic hypotension", "Aortic valve stenosis", "Carotid sinus hypersensitivity"],
+                correct: 1,
+                exp: "Correct: B. Drop in SBP ≥20 mmHg upon standing without compensatory tachycardia indicates neurogenic orthostatic hypotension (autonomic failure)."
+            },
+            {
+                q: "Which primary central auditory nucleus receives bifurcating fibers directly from the cochlear nerve?",
+                options: ["Superior Olivary Complex", "Dorsal and Ventral Cochlear Nuclei", "Inferior Colliculus", "Medial Geniculate Body"],
+                correct: 1,
+                exp: "Correct: B. Cochlear nerve fibers enter the brainstem at the pontomedullary junction and bifurcate to end in dorsal and ventral cochlear nuclei."
+            },
+            {
+                q: "A 35-year-old female complains of clicks in her ear that sound like a telegraph machine. Examination reveals visible rhythmic twitching of the soft palate. What is the cause of her tinnitus?",
+                options: ["Glomus jugulare tumor", "Palatal myoclonus (middle ear myoclonus)", "Otosclerosis", "Eustachian tube patency"],
+                correct: 1,
+                exp: "Correct: B. Palatal myoclonus causes intermittent contractions of tensor tympani/stapedius muscles, producing objective clicking tinnitus."
+            },
+            {
+                q: "Which syndrome features sensorineural hearing loss, progressive retinitis pigmentosa (night blindness), and vestibular ataxia?",
+                options: ["Usher Syndrome", "Stickler Syndrome", "Waardenburg Syndrome", "Branchio-oto-renal Syndrome"],
+                correct: 0,
+                exp: "Correct: A. Usher syndrome combines SNHL with retinitis pigmentosa."
+            },
+            {
+                q: "A patient with acute cerebellar infarction in the territory of the medial branch of PICA presents with severe vertigo, vomiting, and gait ataxia. In which direction will the patient characteristically fall?",
+                options: ["Toward the side OPPOSITE the lesion", "Toward the side OF the lesion", "Directly backward regardless of head turn", "No falling occurs in cerebellar stroke"],
+                correct: 1,
+                exp: "Correct: B. Cerebellar lesions cause lateral propulsion and falling TOWARD the involved side."
+            },
+            {
+                q: "In the ascending auditory pathway, which brainstem structure serves as the main relay for sound localization and auditory startle reflexes?",
+                options: ["Spiral Ganglion", "Superior Olivary Complex", "Medial Geniculate Body", "Area 41"],
+                correct: 1,
+                exp: "Correct: B. Superior olivary complex processes binaural time differences for sound localization and reflex orientation."
+            },
+            {
+                q: "A 40-year-old man suffers a transverse fracture through the petrous temporal bone following a motor vehicle accident. What pair of cranial nerves is most vulnerable to injury?",
+                options: ["CN V and CN VI", "CN VII and CN VIII", "CN IX and CN X", "CN XI and CN XII"],
+                correct: 1,
+                exp: "Correct: B. Transverse petrous fractures cross the internal auditory canal, frequently damaging both the facial (CN VII) and vestibulocochlear (CN VIII) nerves."
+            },
+            {
+                q: "A patient presenting with sudden drop attacks while walking, maintaining full consciousness, in the setting of long-standing Ménière disease is experiencing:",
+                options: ["Atonic epileptic seizure", "Otolithic catastrophe of Tumarkin", "Vertebrobasilar stroke", "Carotid sinus syncope"],
+                correct: 1,
+                exp: "Correct: B. Otolithic crisis of Tumarkin causes abrupt falls without LOC due to otolithic membrane deformation in Ménière disease."
+            },
+            {
+                q: "Which medication class is proven to accelerate functional recovery in acute unilateral vestibular neuritis if initiated early?",
+                options: ["Intravenous Acyclovir", "Oral Corticosteroids (Methylprednisolone)", "Long-term Meclizine", "High-dose Aspirin"],
+                correct: 1,
+                exp: "Correct: B. Oral methylprednisolone taper significantly improves 1-year recovery of caloric function in vestibular neuritis."
+            },
+            {
+                q: "A 19-year-old athlete syncopes during intense physical exertion. Echocardiogram shows asymmetric septal hypertrophy. What was the cause of syncope?",
+                options: ["Vasovagal faint", "Hypertrophic Cardiomyopathy (HCM) dynamic outflow obstruction", "Micturition reflex", "Orthostatic hypotension"],
+                correct: 1,
+                exp: "Correct: B. Exertional syncope in a young athlete with septal hypertrophy points to HCM outflow tract obstruction / arrhythmia."
+            },
+            {
+                q: "Which inner ear aplasia involves complete absence of both the otic capsule and the eighth cranial nerve?",
+                options: ["Scheibe Defect", "Mondini Defect", "Michel Defect", "Alexander Defect"],
+                correct: 2,
+                exp: "Correct: C. Michel defect represents total aplasia of inner ear structures and CN VIII."
+            },
+            {
+                q: "What pitch pattern is characteristic of subjective tinnitus in conductive hearing loss versus typical sensorineural loss?",
+                options: ["Conductive is high pitch; Sensorineural is low pitch", "Conductive is low pitch (~490 Hz); Sensorineural is high pitch (~3900 Hz)", "Both are identical in pitch", "Conductive causes pulsatile tinnitus only"],
+                correct: 1,
+                exp: "Correct: B. Conductive loss tinnitus is typically low pitch (median 490 Hz); sensorineural loss tinnitus is high pitch (median 3900 Hz)."
+            },
+            {
+                q: "Unilateral destruction of the primary auditory cortex (transverse gyri of Heschl, Area 41) results in:",
+                options: ["Complete unilateral deafness in contralateral ear", "Complete bilateral deafness", "No loss of pure tone hearing thresholds", "Total loss of acoustic stapedial reflex"],
+                correct: 2,
+                exp: "Correct: C. Unilateral cortical lesions do not alter pure-tone hearing thresholds due to bilateral ascending auditory representation."
+            },
+            {
+                q: "A 52-year-old female presents with severe unsteadiness and a feeling that 'the world is spinning' when she turns her head quickly. Head impulse test demonstrates a corrective saccade when turning to the right. Unterberger marching test shows rotation to the right >60°. Where is the lesion?",
+                options: ["Left Labyrinth", "Right Labyrinth", "Cerebellar Vermis", "Right Temporal Lobe"],
+                correct: 1,
+                exp: "Correct: B. Catch-up saccade on right head impulse and rightward rotation on marching test indicate right peripheral vestibular deficit."
+            },
+            {
+                q: "Which test compares a patient's bone conduction duration directly with that of a normal examiner?",
+                options: ["Weber Test", "Rinne Test", "Schwabach Test", "Bing Test"],
+                correct: 2,
+                exp: "Correct: C. Schwabach test compares patient's bone conduction with normal examiner's BC."
+            },
+            {
+                q: "A 65-year-old male complains of bilateral high-frequency hearing loss that developed gradually over 10 years. He has difficulty hearing in noisy restaurants. Audiogram shows symmetrical sensorineural loss above 2000 Hz. What is the primary pathology?",
+                options: ["Fixation of stapes", "Loss of spiral ganglion neurons (Presbycusis)", "Endolymphatic hydrops", "Middle ear effusion"],
+                correct: 1,
+                exp: "Correct: B. Presbycusis is age-related sensorineural loss due to progressive degeneration of spiral ganglion neurons and hair cells."
+            },
+            {
+                q: "Which reflex pathway coordinates eye movements with head rotation to maintain stable visual fixation on a target?",
+                options: ["Vestibulospinal Reflex", "Vestibulo-Ocular Reflex (VOR)", "Cochleo-Orbicular Reflex", "Acoustic-Stapedial Reflex"],
+                correct: 1,
+                exp: "Correct: B. VOR maintains image stability on the retina during head motion via MLF connections to CN III, IV, VI nuclei."
+            },
+            {
+                q: "A patient experiences brief syncopal episodes immediately following violent coughing fits during an acute bout of bronchitis. What is the mechanism of this 'tussive syncope'?",
+                options: ["Increased intrathoracic pressure reducing venous return and cardiac output", "Epileptic discharge in motor cortex", "Acute rupture of perilymph fistula", "Carotid sinus hypersensitivity"],
+                correct: 0,
+                exp: "Correct: A. Severe coughing increases intrathoracic pressure, impairing venous return to heart and reducing cardiac output/cerebral perfusion."
+            },
+            {
+                q: "Which structure overlies the hair cell stereocilia in the Organ of Corti?",
+                options: ["Otolithic Membrane", "Tectorial Membrane", "Reissner Membrane", "Basilar Membrane"],
+                correct: 1,
+                exp: "Correct: B. Tectorial membrane is the gelatinous structure overlying hair cells in organ of Corti."
+            },
+            {
+                q: "A 25-year-old woman with history of migraine presents with episodic vertigo, photophobia, and occipital headache. Audiometry and caloric tests between attacks are completely normal. What is the diagnosis?",
+                options: ["Ménière Disease", "Migrainous Vertigo (Basilar Migraine)", "Acoustic Schwannoma", "BPPV"],
+                correct: 1,
+                exp: "Correct: B. Migrainous vertigo presents with episodic vertigo associated with migraine symptoms and normal neuro-otologic tests between spells."
+            },
+            {
+                q: "In the Epley maneuver for right posterior canal BPPV, what is the purpose of rotating the patient's head to face 45° toward the floor while side-lying?",
+                options: ["To test for acoustic reflex", "To allow otolithic debris to gravitate out of the posterior canal into the vestibule", "To suppress cerebellar nystagmus", "To stretch cervical muscles"],
+                correct: 1,
+                exp: "Correct: B. Step 3 of Epley maneuver moves debris sequentially along posterior canal into the vestibule where it no longer causes cupular deflection."
+            },
+            {
+                q: "Which form of congenital inner ear aplasia involves membranous cochleosaccular dysplasia and represents the most common inner ear malformation?",
+                options: ["Michel Defect", "Mondini Defect", "Scheibe Defect", "Bing-Siebenmann Defect"],
+                correct: 2,
+                exp: "Correct: C. Scheibe defect (cochleosaccular dysplasia) is the most common inner ear aplasia."
+            },
+            {
+                q: "What diagnostic finding distinguishes neurogenic orthostatic hypotension (e.g., Multiple System Atrophy) from hypovolemic orthostatic hypotension?",
+                options: ["Absence of compensatory heart rate increase despite blood pressure drop", "Marked sinus tachycardia upon standing", "Severe vertigo upon lying down", "Elevated serum phytanic acid"],
+                correct: 0,
+                exp: "Correct: A. Neurogenic orthostasis reflects baroreflex/sympathetic failure, resulting in BP drop WITHOUT expected compensatory tachycardia."
+            },
+            {
+                q: "Which cranial nerve carries postganglionic autonomic adrenergic fibers derived from the cervical chain to innervate inner ear vasculature?",
+                options: ["CN V", "CN VII", "CN VIII", "CN IX"],
+                correct: 2,
+                exp: "Correct: C. CN VIII contains sympathetic postganglionic autonomic fibers from cervical chain innervating cochlea and labyrinth."
+            },
+            {
+                q: "A patient presenting with sudden unilateral sensorineural hearing loss following lumbar puncture or CSF drainage is thought to develop hearing loss due to:",
+                options: ["Direct bacterial contamination", "Traction on cochlear nerve or endolymphatic hydrops via patent cochlear aqueduct", "Ototoxic drug absorption", "Middle ear ossicle dislocation"],
+                correct: 1,
+                exp: "Correct: B. Intracranial hypotension following LP causes endolymphatic changes or traction on CN VIII via cochlear aqueduct."
+            },
+            {
+                q: "Which diagnostic procedure is most sensitive for detecting small acoustic schwannomas <1 cm in size?",
+                options: ["Plain Skull X-ray", "Contrast-Enhanced Gadolinium MRI of Brain & IAC", "Non-contrast CT Head", "Electroencephalogram"],
+                correct: 1,
+                exp: "Correct: B. Gadolinium-enhanced MRI of internal auditory canals is gold standard for acoustic schwannoma."
+            },
+            {
+                q: "The primary auditory receptive cortex corresponds to which Brodmann anatomical area?",
+                options: ["Area 4", "Area 17", "Area 41", "Area 44"],
+                correct: 2,
+                exp: "Correct: C. Brodmann Area 41 in superior temporal gyrus (Heschl gyri) is primary auditory cortex."
+            },
+            {
+                q: "Which clinical feature strongly points to a cardiac cause of syncope rather than reflex vasovagal syncope?",
+                options: ["Presence of nausea and diaphoresis prior to loss of consciousness", "Occurrence of syncope while supine or during active exertion", "Rapid complete recovery within 30 seconds", "Preceding emotional distress"],
+                correct: 1,
+                exp: "Correct: B. Cardiac syncope occurs suddenly without autonomic prodrome, often while supine or during exertion."
+            },
+            {
+                q: "Which physical exam finding is pathognomonic for a perilymphatic fistula or superior canal dehiscence?",
+                options: ["Positive Dix-Hallpike Test", "Positive Fistula Test (vertigo/nystagmus induced by applying pressure to external ear canal)", "Absence of Wave I on BAEP", "Bilateral sensory loss in V3 distribution"],
+                correct: 1,
+                exp: "Correct: B. Pressure applied to external meatus inducing vertigo/nystagmus is positive fistula test."
+            },
+            {
+                q: "What is the key mechanism of action of antihistaminic agents (e.g., Meclizine) used in acute vertigo?",
+                options: ["Dissolution of otolithic crystals", "Suppression of central vestibular nuclear excitability and anticholinergic activity", "Direct stimulation of cochlear hair cells", "Vasodilation of labyrinthine artery"],
+                correct: 1,
+                exp: "Correct: B. Vestibular suppressants work centrally by reducing vestibular nuclear firing and autonomic reflex activity."
+            }
+        ];
+
+        /* --- INTERACTIVE JS ENGINE --- */
+
+        let currentCardIndex = 0;
+        let userScores = new Array(mcqData.length).fill(null);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initTabs();
+            initSearch();
+            initFlashcards();
+            initMCQs();
+            initScrollTop();
+            initProgressBar();
+        });
+
+        /* Tab Navigation Logic */
+        function initTabs() {
+            const tabBtns = document.querySelectorAll(".tab-btn");
+            const tabContents = document.querySelectorAll(".tab-content");
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const targetTab = btn.getAttribute("data-tab");
+
+                    tabBtns.forEach(b => b.classList.remove("active"));
+                    tabContents.forEach(c => c.classList.remove("active"));
+
+                    btn.classList.add("active");
+                    document.getElementById(targetTab).classList.add("active");
+
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+        }
+
+        /* Global Search Bar Logic */
+        function initSearch() {
+            const searchInput = document.getElementById("searchInput");
+            searchInput.addEventListener("input", (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                if (!query) return;
+
+                // Highlighting or simple tab jump if query matches flashcards or text
+                // Search across headings
+                const titles = document.querySelectorAll("h2, h3, h4, .cram-box-title");
+                titles.forEach(title => {
+                    if (title.textContent.toLowerCase().includes(query)) {
+                        title.style.backgroundColor = "#fef08a";
+                        setTimeout(() => { title.style.backgroundColor = ""; }, 2000);
+                    }
+                });
+            });
+        }
+
+        /* Flashcard Logic */
+        function initFlashcards() {
+            updateCardDisplay();
+
+            // Keyboard navigation
+            document.addEventListener("keydown", (e) => {
+                const flashcardTab = document.getElementById("tab-flashcards");
+                if (flashcardTab.classList.contains("active")) {
+                    if (e.code === "Space") {
+                        e.preventDefault();
+                        flipCard();
+                    } else if (e.code === "ArrowRight") {
+                        nextCard();
+                    } else if (e.code === "ArrowLeft") {
+                        prevCard();
+                    }
+                }
+            });
+        }
+
+        function updateCardDisplay() {
+            const card = flashcardsData[currentCardIndex];
+            document.getElementById("cardCategory").textContent = card.cat;
+            document.getElementById("cardQuestion").textContent = card.q;
+            document.getElementById("cardAnswer").textContent = card.a;
+            document.getElementById("cardCounter").textContent = `${currentCardIndex + 1} / ${flashcardsData.length}`;
+            
+            const flashcardElem = document.getElementById("flashcard");
+            flashcardElem.classList.remove("flipped");
+        }
+
+        function flipCard() {
+            document.getElementById("flashcard").classList.toggle("flipped");
+        }
+
+        function nextCard() {
+            currentCardIndex = (currentCardIndex + 1) % flashcardsData.length;
+            updateCardDisplay();
+        }
+
+        function prevCard() {
+            currentCardIndex = (currentCardIndex - 1 + flashcardsData.length) % flashcardsData.length;
+            updateCardDisplay();
+        }
+
+        function shuffleCards() {
+            for (let i = flashcardsData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [flashcardsData[i], flashcardsData[j]] = [flashcardsData[j], flashcardsData[i]];
+            }
+            currentCardIndex = 0;
+            updateCardDisplay();
+        }
+
+        /* MCQ Engine Logic */
+        function initMCQs() {
+            const container = document.getElementById("mcqContainer");
+            container.innerHTML = "";
+
+            mcqData.forEach((mcq, idx) => {
+                const card = document.createElement("div");
+                card.className = "mcq-card";
+                card.id = `mcq-card-${idx}`;
+
+                let optionsHTML = "";
+                mcq.options.forEach((opt, optIdx) => {
+                    const letters = ["A", "B", "C", "D"];
+                    optionsHTML += `
+                        <div class="mcq-option" onclick="selectMCQOption(${idx}, ${optIdx})" id="mcq-opt-${idx}-${optIdx}">
+                            <span class="font-mono" style="font-weight:700; color:var(--accent-blue);">${letters[optIdx]}.</span>
+                            <span>${opt}</span>
+                        </div>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="mcq-header">
+                        <span class="mcq-number">QUESTION ${idx + 1} OF 50</span>
+                        <span class="badge badge-blue">Board Vignette</span>
+                    </div>
+                    <div class="mcq-question">${mcq.q}</div>
+                    <div class="mcq-options">${optionsHTML}</div>
+                    <div class="mcq-explanation" id="mcq-exp-${idx}">
+                        <div class="mcq-explanation-title">Explanatory Breakdown:</div>
+                        <div>${mcq.exp}</div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function selectMCQOption(qIdx, optIdx) {
+            if (userScores[qIdx] !== null) return; // Already answered
+
+            const mcq = mcqData[qIdx];
+            const isCorrect = (optIdx === mcq.correct);
+            userScores[qIdx] = isCorrect;
+
+            // Highlight selected option
+            const selectedOpt = document.getElementById(`mcq-opt-${qIdx}-${optIdx}`);
+            if (isCorrect) {
+                selectedOpt.classList.add("correct-choice");
+            } else {
+                selectedOpt.classList.add("incorrect-choice");
+                // Highlight correct option too
+                document.getElementById(`mcq-opt-${qIdx}-${mcq.correct}`).classList.add("correct-choice");
+            }
+
+            // Show explanation
+            document.getElementById(`mcq-exp-${qIdx}`).classList.add("show");
+
+            updateScoreDisplay();
+        }
+
+        function updateScoreDisplay() {
+            const answered = userScores.filter(s => s !== null).length;
+            const correct = userScores.filter(s => s === true).length;
+            document.getElementById("scoreDisplay").textContent = `${correct} / ${mcqData.length} (${Math.round((correct/mcqData.length)*100)}%)`;
+        }
+
+        function resetQuiz() {
+            userScores = new Array(mcqData.length).fill(null);
+            initMCQs();
+            updateScoreDisplay();
+        }
+
+        /* Helper Utilities */
+        function copyTable(btn) {
+            const table = btn.nextElementSibling;
+            let text = "";
+            for (let row of table.rows) {
+                let rowData = [];
+                for (let cell of row.cells) {
+                    rowData.push(cell.innerText.replace(/\n/g, " "));
+                }
+                text += rowData.join("\t") + "\n";
+            }
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = "Copied!";
+                setTimeout(() => { btn.textContent = "Copy Table"; }, 2000);
+            });
+        }
+
+        function initScrollTop() {
+            const btn = document.getElementById("scrollTopBtn");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 300) {
+                    btn.classList.add("visible");
+                } else {
+                    btn.classList.remove("visible");
+                }
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function initProgressBar() {
+            window.addEventListener("scroll", () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("progressBar").style.width = scrolled + "%";
+            });
+        }
+    </script>
+</body>
+</html>
