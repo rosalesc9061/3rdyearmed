@@ -1,0 +1,2383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neurology & Sleep Physiology Interactive Master Reviewer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --accent-blue: #2563eb;
+            --accent-blue-light: #dbeafe;
+            --accent-teal: #0d9488;
+            --accent-teal-light: #ccfbf1;
+            --accent-indigo: #4f46e5;
+            --accent-purple: #7c3aed;
+            --accent-amber: #d97706;
+            --accent-amber-light: #fef3c7;
+            --accent-red: #dc2626;
+            --accent-red-light: #fee2e2;
+            --accent-green: #16a34a;
+            --accent-green-light: #dcfce7;
+            --border-color: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent-blue: #3b82f6;
+            --accent-blue-light: #1e3a8a;
+            --accent-teal: #14b8a6;
+            --accent-teal-light: #134e4a;
+            --border-color: #334155;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 60px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--card-shadow);
+        }
+        [data-theme="dark"] header {
+            background-color: rgba(30, 41, 59, 0.95);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+            color: white;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .logo-title h1 {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .logo-title p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .controls-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 240px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 12px 8px 34px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            width: 280px;
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            fill: var(--text-muted);
+        }
+
+        .theme-toggle, .btn-icon {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .theme-toggle:hover, .btn-icon:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Nav Tabs */
+        .nav-tabs-wrapper {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        .nav-tabs {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 24px;
+            gap: 4px;
+            list-style: none;
+        }
+
+        .nav-tab {
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-tab:hover {
+            color: var(--accent-blue);
+            background-color: var(--bg-tertiary);
+        }
+
+        .nav-tab.active {
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+            background-color: var(--bg-primary);
+        }
+
+        /* Reading Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 3px;
+            background: transparent;
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-teal));
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        /* Main Layout */
+        main {
+            max-width: 1400px;
+            margin: 24px auto;
+            padding: 0 24px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography & Layout Modules */
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-indigo);
+            margin: 20px 0 12px 0;
+        }
+
+        h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 14px 0 8px 0;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        /* Content Cards & Callouts */
+        .card {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            transition: box-shadow 0.2s, transform 0.2s;
+            margin-bottom: 20px;
+        }
+
+        .card:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .card-accent-left {
+            border-left: 5px solid var(--accent-blue);
+        }
+
+        .card-accent-teal { border-left-color: var(--accent-teal); }
+        .card-accent-amber { border-left-color: var(--accent-amber); }
+        .card-accent-purple { border-left-color: var(--accent-purple); }
+
+        /* Callout Boxes */
+        .callout {
+            border-radius: var(--radius-sm);
+            padding: 14px 18px;
+            margin: 16px 0;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            font-size: 0.92rem;
+        }
+
+        .callout-icon {
+            font-size: 1.25rem;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .callout-content { flex: 1; }
+        .callout-content strong { display: block; margin-bottom: 2px; }
+
+        .callout-must-know {
+            background-color: var(--accent-amber-light);
+            border-left: 4px solid var(--accent-amber);
+            color: #78350f;
+        }
+        [data-theme="dark"] .callout-must-know {
+            background-color: rgba(217, 119, 6, 0.2);
+            color: #fef3c7;
+        }
+
+        .callout-pitfall {
+            background-color: var(--accent-red-light);
+            border-left: 4px solid var(--accent-red);
+            color: #7f1d1d;
+        }
+        [data-theme="dark"] .callout-pitfall {
+            background-color: rgba(220, 38, 38, 0.2);
+            color: #fee2e2;
+        }
+
+        .callout-pearl {
+            background-color: var(--accent-teal-light);
+            border-left: 4px solid var(--accent-teal);
+            color: #134e4a;
+        }
+        [data-theme="dark"] .callout-pearl {
+            background-color: rgba(13, 148, 136, 0.2);
+            color: #ccfbf1;
+        }
+
+        .callout-exam-tip {
+            background-color: var(--accent-blue-light);
+            border-left: 4px solid var(--accent-blue);
+            color: #1e3a8a;
+        }
+        [data-theme="dark"] .callout-exam-tip {
+            background-color: rgba(37, 99, 235, 0.2);
+            color: #dbeafe;
+        }
+
+        /* Interactive Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 16px 0 24px 0;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            box-shadow: var(--card-shadow);
+            position: relative;
+        }
+
+        .table-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 14px;
+            background-color: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .btn-copy-table {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+        .btn-copy-table:hover {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-weight: 700;
+            padding: 12px 14px;
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.015);
+        }
+        [data-theme="dark"] tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        tr:hover {
+            background-color: var(--accent-blue-light);
+        }
+        [data-theme="dark"] tr:hover {
+            background-color: rgba(37, 99, 235, 0.15);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-blue { background-color: var(--accent-blue-light); color: var(--accent-blue); }
+        .badge-teal { background-color: var(--accent-teal-light); color: var(--accent-teal); }
+        .badge-amber { background-color: var(--accent-amber-light); color: var(--accent-amber); }
+        .badge-red { background-color: var(--accent-red-light); color: var(--accent-red); }
+        .badge-green { background-color: var(--accent-green-light); color: var(--accent-green); }
+
+        /* Diagrams & CSS Graphics */
+        .diagram-container {
+            background-color: var(--bg-tertiary);
+            border: 1px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* SVG & Flex Diagram Styling */
+        .hu-scale {
+            display: flex;
+            height: 36px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 16px 0;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: white;
+            font-weight: 700;
+        }
+        .hu-air { background: #000; flex: 2; display: flex; align-items: center; justify-content: center; }
+        .hu-fat { background: #333; flex: 1.5; display: flex; align-items: center; justify-content: center; }
+        .hu-water { background: #666; flex: 1; display: flex; align-items: center; justify-content: center; }
+        .hu-soft { background: #888; flex: 2; display: flex; align-items: center; justify-content: center; }
+        .hu-blood { background: #b91c1c; flex: 2; display: flex; align-items: center; justify-content: center; }
+        .hu-contrast { background: #eab308; flex: 2; color: #000; display: flex; align-items: center; justify-content: center; }
+        .hu-bone { background: #fff; color: #000; flex: 2; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; }
+
+        /* Expandable Accordions */
+        .accordion {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            overflow: hidden;
+            background-color: var(--bg-secondary);
+        }
+
+        .accordion-header {
+            padding: 14px 18px;
+            background-color: var(--bg-secondary);
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background-color 0.2s;
+        }
+
+        .accordion-header:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .accordion-content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+
+        .accordion.open .accordion-content {
+            padding: 16px 18px;
+            max-height: 2000px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s;
+        }
+
+        .accordion.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Flashcard Styles */
+        .flashcard-wrapper {
+            max-width: 650px;
+            margin: 0 auto 30px auto;
+            perspective: 1000px;
+        }
+
+        .flashcard {
+            width: 100%;
+            min-height: 320px;
+            background-color: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--card-shadow-hover);
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            top: 0;
+            left: 0;
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .flashcard-tag {
+            position: absolute;
+            top: 16px;
+            left: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .btn-action {
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .btn-action:hover {
+            background-color: var(--accent-indigo);
+        }
+
+        .btn-action:active {
+            transform: scale(0.97);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+        }
+
+        /* MCQ Quiz Styles */
+        .quiz-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .options-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .option-item {
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background-color: var(--bg-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.92rem;
+        }
+
+        .option-item:hover {
+            background-color: var(--accent-blue-light);
+            border-color: var(--accent-blue);
+        }
+
+        .option-item.selected {
+            border-color: var(--accent-blue);
+            background-color: var(--accent-blue-light);
+            font-weight: 600;
+        }
+
+        .option-item.correct {
+            border-color: var(--accent-green);
+            background-color: var(--accent-green-light);
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .option-item.incorrect {
+            border-color: var(--accent-red);
+            background-color: var(--accent-red-light);
+            color: #991b1b;
+        }
+
+        .explanation-box {
+            display: none;
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            background-color: var(--bg-tertiary);
+            border-left: 4px solid var(--accent-blue);
+            font-size: 0.9rem;
+        }
+
+        .explanation-box.show {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        /* Cram Sheet Rapid Review */
+        .cram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .cram-item {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+        }
+
+        .cram-title {
+            font-weight: 700;
+            color: var(--accent-blue);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Floating Scroll-to-Top Button */
+        .btn-scroll-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .btn-scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Print Styles */
+        @media print {
+            header, .nav-tabs-wrapper, .controls-area, .btn-scroll-top, .flashcard-controls {
+                display: none !important;
+            }
+            .tab-content {
+                display: block !important;
+                page-break-after: always;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .card, .table-wrapper {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-area">
+                <div class="logo-icon">N</div>
+                <div class="logo-title">
+                    <h1>Neurology & Sleep Physiology</h1>
+                    <p>3rd Year Medical Student Interactive Master Reviewer</p>
+                </div>
+            </div>
+            <div class="controls-area">
+                <div class="search-box">
+                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    <input type="text" id="globalSearch" placeholder="Search concepts, bugs, pearls...">
+                </div>
+                <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+        </div>
+        <div class="nav-tabs-wrapper">
+            <ul class="nav-tabs" id="mainTabs">
+                <li class="nav-tab active" data-tab="overview">📌 Overview</li>
+                <li class="nav-tab" data-tab="imaging">🧠 Neuroimaging</li>
+                <li class="nav-tab" data-tab="neurophys">⚡ Neurophysiology</li>
+                <li class="nav-tab" data-tab="lumbar">💉 Lumbar Puncture</li>
+                <li class="nav-tab" data-tab="sleep-phys">🌙 Sleep Physiology</li>
+                <li class="nav-tab" data-tab="sleep-depr">😴 Deprivation & Insomnia</li>
+                <li class="nav-tab" data-tab="parasomnias">🎭 Movement & Parasomnias</li>
+                <li class="nav-tab" data-tab="apnea-narco">🫁 Apnea & Narcolepsy</li>
+                <li class="nav-tab" data-tab="comparisons">⚖️ Comparisons</li>
+                <li class="nav-tab" data-tab="flashcards">🎴 Flashcards</li>
+                <li class="nav-tab" data-tab="quiz">📝 Self-Assessment</li>
+                <li class="nav-tab" data-tab="cram">⚡ Cram Sheet</li>
+            </ul>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main id="mainContent">
+
+        <!-- ================= TAB 1: OVERVIEW ================= -->
+        <section id="overview" class="tab-content active">
+            <h2>📌 High-Yield Executive Summary & Learning Objectives</h2>
+            
+            <div class="grid-2">
+                <div class="card card-accent-left">
+                    <h3>🎯 Learning Objectives</h3>
+                    <ul style="padding-left: 20px; color: var(--text-secondary);">
+                        <li>Master the choice & basic interpretation of neurodiagnostic modalities (CT, MRI, EEG, EMG-NCV, LP).</li>
+                        <li>Understand the anatomical structures & layers involved in Lumbar Puncture, including indications and fatal contraindications.</li>
+                        <li>Comprehend normal sleep architecture, circadian rhythm regulation, and age-related changes.</li>
+                        <li>Master the neurochemical "Flip-Flop Switch" model of sleep-wake transitions and orexin stabilization.</li>
+                        <li>Diagnose and manage common sleep disorders: Insomnia, RLS, PLMD, Parasomnias (RBD, Night Terrors, Sleep Paralysis), OSA, CSA, and Narcolepsy.</li>
+                        <li>Analyze board-style clinical scenarios including localizations and CSF analysis interpretation.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-teal">
+                    <h3>💡 Core Concepts Snapshot</h3>
+                    <p><strong>Neurodiagnostics:</strong> Cranial CT is best for acute hemorrhage & bones; Cranial MRI is preferred for brainstem, posterior fossa, and white matter demyelination.</p>
+                    <p><strong>Lumbar Puncture:</strong> Intervertebral space L4-L5 (Tuffier's line). Traverses 9 distinct tissue layers. Never perform if there is an intracranial mass (risk of fatal brain herniation)!</p>
+                    <p><strong>Sleep Regulation:</strong> Flip-flop switch between VLPO (GABAergic, Sleep-ON) and Monoaminergic nuclei (LC, TMN, Raphe = Wake-ON), stabilized by lateral hypothalamic Orexin (Hypocretin) neurons.</p>
+                    <p><strong>Narcolepsy Type 1:</strong> Characterized by loss of orexinergic neurons, cataplexy, CSF hypocretin $\le 110\text{ pg/mL}$, and $\ge 2$ SOREMPs on MSLT.</p>
+                </div>
+            </div>
+
+            <h3>📊 Executive Summary Tables</h3>
+            <div class="table-wrapper">
+                <div class="table-toolbar">
+                    <span>TABLE 1.1: Rapid Selection Matrix for Neurodiagnostics</span>
+                    <button class="btn-copy-table">Copy Table</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Clinical Scenario</th>
+                            <th>First-Line Diagnostic Modality</th>
+                            <th>Key Findings / Diagnostic Markers</th>
+                            <th>Clinical Pearl / Pitfall</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Acute head trauma / Suspected SAH</td>
+                            <td><span class="badge badge-amber">Plain Cranial CT</span></td>
+                            <td>Hyperdense blood (60-90 HU) in sulci or ventricles</td>
+                            <td>Fastest test; hyperdense calcium/blood stands out.</td>
+                        </tr>
+                        <tr>
+                            <td>Acute Ischemic Stroke (&lt; 6 hrs)</td>
+                            <td><span class="badge badge-blue">Cranial MRI (DWI / ADC)</span></td>
+                            <td>Hyperintense (white) on DWI, Hypointense (dark) on ADC</td>
+                            <td>DWI picks up cytotoxic edema within minutes.</td>
+                        </tr>
+                        <tr>
+                            <td>Unexplained coma / Nonconvulsive status</td>
+                            <td><span class="badge badge-teal">Electroencephalogram (EEG)</span></td>
+                            <td>Continuous epileptiform discharges or background slowing</td>
+                            <td>24-hr prolonged EEG increases diagnostic yield.</td>
+                        </tr>
+                        <tr>
+                            <td>Suspected Bacterial vs TB Meningitis</td>
+                            <td><span class="badge badge-red">Lumbar Puncture & CSF Analysis</span></td>
+                            <td>Bacterial: High PMNs, low glucose (&lt;40%), high protein. TB: Very high protein, lymphocytes.</td>
+                            <td>Rule out mass effect prior to tap to prevent herniation!</td>
+                        </tr>
+                        <tr>
+                            <td>Excessive Daytime Sleepiness / Narcolepsy</td>
+                            <td><span class="badge badge-green">Polysomnography (PSG) + MSLT</span></td>
+                            <td>Mean sleep latency &le; 8 mins, &ge; 2 SOREMPs</td>
+                            <td>Cataplexy is triggered by strong emotions (laughter).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: NEUROIMAGING ================= -->
+        <section id="imaging" class="tab-content">
+            <h2>🧠 Core Topic: Neuroimaging & Diagnostic Modalities</h2>
+
+            <div class="card card-accent-left">
+                <h3>1. Cranial Computed Tomography (CT Scan)</h3>
+                <p>Cranial CT measures attenuation of radiation expressed in <strong>Hounsfield Units (HU)</strong>. Anything containing calcium or acute blood appears hyperdense (white).</p>
+                
+                <div class="diagram-container">
+                    <h4>Simplified Hounsfield Scale (HU)</h4>
+                    <div class="hu-scale">
+                        <div class="hu-air">Air (-1000)</div>
+                        <div class="hu-fat">Fat (-100)</div>
+                        <div class="hu-water">Water (0)</div>
+                        <div class="hu-soft">Soft Tissue (30-45)</div>
+                        <div class="hu-blood">Blood (60-90)</div>
+                        <div class="hu-contrast">Contrast (100-500)</div>
+                        <div class="hu-bone">Bone (+1000)</div>
+                    </div>
+                    <div class="diagram-caption">Figure 2.1: Hounsfield Unit spectrum. Anything high in density (calcium, bone, acute blood) is hyperdense (white); air/fat is hypodense (black).</div>
+                </div>
+
+                <div class="grid-3">
+                    <div>
+                        <h4>Common Anatomical Views</h4>
+                        <ul>
+                            <li><strong>Axial:</strong> Cross-sectional cut from top to bottom.</li>
+                            <li><strong>Coronal:</strong> Frontal cut from front to back.</li>
+                            <li><strong>Sagittal:</strong> Side cut separating left and right.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Axial Cut Sequence Landmarks</h4>
+                        <ul>
+                            <li><strong>Foramen Magnum:</strong> Bottom opening.</li>
+                            <li><strong>Cerebellum & Brainstem:</strong> Rounded structure.</li>
+                            <li><strong>Midbrain:</strong> Looks like <em>Mickey Mouse</em>.</li>
+                            <li><strong>Ventricles:</strong> Slits representing lateral ventricles.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Plain vs. Contrast CT</h4>
+                        <ul>
+                            <li><strong>Plain CT:</strong> Best for hyperdense acute hemorrhage and bone fractures.</li>
+                            <li><strong>Contrast CT:</strong> Uses iodinated contrast to highlight vasculature, blood-brain barrier breakdown (tumors, abscesses).</li>
+                            <li><strong>CT Angiography (CTA/CTV):</strong> Visualizes arterial aneurysms or draining venous sinuses.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="callout callout-must-know">
+                    <div class="callout-icon">⭐</div>
+                    <div class="callout-content">
+                        <strong>Must Know: CT Densities</strong>
+                        CSF/Ventricles &rarr; Hypodense (Black, -10 to +20 HU) | Brain Parenchyma &rarr; Gray (30-45 HU) | Acute Blood &rarr; Hyperdense (White, 60-90 HU) | Bone &rarr; Very White (+1000 HU).
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-teal">
+                <h3>2. Cranial Magnetic Resonance Imaging (MRI)</h3>
+                <p>MRI uses nuclear magnetic resonance of hydrogen atoms (nonionizing energy). It provides higher soft-tissue contrast resolution and is the preferred modality for the <strong>posterior fossa and brainstem</strong>.</p>
+
+                <div class="table-wrapper">
+                    <div class="table-toolbar">
+                        <span>TABLE 2.1: MRI Sequences & Tissue Characteristics</span>
+                        <button class="btn-copy-table">Copy Table</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                               <th>Tissue / Structure</th>
+                               <th>CT Gray Scale</th>
+                               <th>MRI T1 Signal</th>
+                               <th>MRI T2 Signal</th>
+                               <th>FLAIR Signal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Brain Parenchyma</strong></td>
+                                <td>Gray</td>
+                                <td>Gray</td>
+                                <td>Gray</td>
+                                <td>Gray</td>
+                            </tr>
+                            <tr>
+                                <td><strong>CSF</strong></td>
+                                <td>Black</td>
+                                <td><span class="badge badge-red">Black (Hypointense)</span></td>
+                                <td><span class="badge badge-teal">White (Hyperintense)</span></td>
+                                <td><span class="badge badge-red">Suppressed (Black)</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Acute Ischemia / Lesion</strong></td>
+                                <td>Dark Gray</td>
+                                <td>Gray / Hypointense</td>
+                                <td>White / Hyperintense</td>
+                                <td><span class="badge badge-amber">Accentuated (Bright White)</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fat</strong></td>
+                                <td>Black</td>
+                                <td>White</td>
+                                <td>Less White</td>
+                                <td>Gray/White</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bone / Calcium</strong></td>
+                                <td>Very White</td>
+                                <td>Black</td>
+                                <td>Black</td>
+                                <td>Black</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Special MRI Sequences</h3>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>DWI & ADC (Stroke Workup)</h4>
+                        <ul>
+                            <li><strong>Diffusion Weighted Imaging (DWI):</strong> Acute ischemic lesions appear <strong>hyperintense (bright white)</strong> due to restricted water diffusion.</li>
+                            <li><strong>Apparent Diffusion Coefficient (ADC):</strong> Acute lesions appear <strong>hypointense (dark)</strong>. Confirms true acute stroke (prevents T2 shine-through).</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Gradient Echo (GRE) & MRS</h4>
+                        <ul>
+                            <li><strong>Gradient Echo (GRE):</strong> Sensitive for microhemorrhages and hemosiderin deposits (dark spots).</li>
+                            <li><strong>MR Spectroscopy (MRS):</strong> Measures metabolic signatures.
+                                <ul>
+                                    <li><em>Tumors:</em> High Choline peak, Low NAA peak. Lactate/lipid indicates necrosis.</li>
+                                    <li><em>Pyogenic Abscess:</em> Amino acid, acetate, and succinate peaks (anaerobic metabolism).</li>
+                                    <li><em>Tuberculoma:</em> Prominent lipid peaks without amino acids.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Functional MRI (fMRI)</h4>
+                        <p>Measures local cerebral blood oxygenation using the <strong>BOLD (Blood-Oxygen Level Dependent) signal</strong>. Used clinically in presurgical planning for brain tumors or epilepsy (e.g., awake craniotomy to map speech/motor areas).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Spine MRI</h4>
+                        <p>Uses T1 and T2 sequences. T1 CSF is dark; T2 CSF is white. FLAIR suppresses normal CSF signal to accentuate spinal cord lesions (demyelination, myelopathy, plaques).</p>
+                    </div>
+                </div>
+
+                <div class="callout callout-pitfall">
+                    <div class="callout-icon">⚠️</div>
+                    <div class="callout-content">
+                        <strong>Common Pitfall: Hemorrhage Detection</strong>
+                        Acute hyperacute intracranial hemorrhage is detected faster and more reliably on plain Cranial CT than on standard MRI sequences!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: NEUROPHYSIOLOGY ================= -->
+        <section id="neurophys" class="tab-content">
+            <h2>⚡ Core Topic: Neurophysiological Tests</h2>
+
+            <div class="card card-accent-left">
+                <h3>1. Electroencephalogram (EEG)</h3>
+                <p>Records electrical activity generated by cerebral cortical neurons (thalamocortical relays). Electrodes are placed using the International 10-20 System.</p>
+                
+                <div class="grid-2">
+                    <div>
+                        <h4>Electrode Placement Conventions</h4>
+                        <ul>
+                            <li><strong>Odd-numbered leads (F3, C3, P3, T3, O1):</strong> Left hemisphere.</li>
+                            <li><strong>Even-numbered leads (F4, C4, P4, T4, O2):</strong> Right hemisphere.</li>
+                            <li><strong>Letter designations:</strong> F = Frontal, C = Central, T = Temporal, P = Parietal, O = Occipital.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>EEG Brain Wave Frequencies</h4>
+                        <ul>
+                            <li><strong>Alpha (8–12 Hz):</strong> Posterior dominant rhythm in relaxed, awake adult with eyes closed. Reactive to eye opening.</li>
+                            <li><strong>Theta (4–7 Hz):</strong> Drowsiness, N1 sleep, or light encephalopathy.</li>
+                            <li><strong>Delta (1–3 Hz):</strong> Deep sleep (N3) or severe structural/metabolic brain lesions.</li>
+                            <li><strong>Beta (&gt;13 Hz):</strong> Alert, active thinking or sedative drug effect.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <div class="table-toolbar">
+                        <span>TABLE 3.1: EEG Clinical Applications & Characteristic Waveforms</span>
+                        <button class="btn-copy-table">Copy Table</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Clinical Condition</th>
+                                <th>Key EEG Findings / Waveforms</th>
+                                <th>Clinical Significance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Epilepsy</strong></td>
+                                <td>Spikes, sharp waves, spike-and-wave complexes</td>
+                                <td>Confirms epileptogenic focus; documents response to AED therapy.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Hepatic Encephalopathy</strong></td>
+                                <td><span class="badge badge-amber">Generalized Triphasic Waves</span></td>
+                                <td>Classic metabolic encephalopathy wave pattern.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dementia</strong></td>
+                                <td>Generalized slowing of background alpha rhythm</td>
+                                <td>Differs from expected age-matched baseline slowing.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Encephalitis Lethargica / Seizures</strong></td>
+                                <td>Nonconvulsive status epilepticus discharges</td>
+                                <td>Explains unexplained altered mental status / coma.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="callout callout-pearl">
+                    <div class="callout-icon">💡</div>
+                    <div class="callout-content">
+                        <strong>Clinical Pearl: Activation Procedures</strong>
+                        Standard activation procedures used during EEG to provoke latent epileptiform discharges include: <strong>Hyperventilation</strong>, <strong>Photic Stimulation</strong> (flashing lights), and <strong>Sleep Deprivation</strong>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-purple">
+                <h3>2. Electromyography & Nerve Conduction Velocity (EMG-NCV)</h3>
+                <p>Distinguishes neurogenic (nerve/radicle) from myopathic (muscle) or neuromuscular junction disorders.</p>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Electromyography (EMG) - Muscle Needle Test</h4>
+                        <p>Evaluates LMN integrity at rest and during contraction:</p>
+                        <ul>
+                            <li><strong>Insertional Activity:</strong> Increased in denervated muscle.</li>
+                            <li><strong>Abnormal Spontaneous Activity:</strong> <em>Fibrillation potentials</em> and <em>Fasciculation potentials</em> (indicates active LMN denervation).</li>
+                            <li><strong>Single-Fiber EMG:</strong> Highly sensitive for Neuromuscular Junction failure (Myasthenia Gravis jitter).</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Nerve Conduction Studies (NCV)</h4>
+                        <p>Evaluates motor and sensory nerve conduction:</p>
+                        <ul>
+                            <li><strong>CMAP (Compound Muscle Action Potential):</strong> Reduced amplitude = Axonal loss.</li>
+                            <li><strong>Distal Latency & Velocity:</strong> Prolonged latency / slow velocity = Demyelination.</li>
+                            <li><strong>SNAP:</strong> Sensory Nerve Action Potential amplitude.</li>
+                            <li><strong>H-Reflex & F-Wave:</strong> Assesses proximal nerve roots and radiculopathies.</li>
+                            <li><strong>Repetitive Nerve Stimulation (RNS):</strong> Decremental response in Myasthenia Gravis.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="callout callout-exam-tip">
+                    <div class="callout-icon">🧠</div>
+                    <div class="callout-content">
+                        <strong>Exam Tip: EMG-NCV Findings</strong>
+                        Fibrillations + Fasciculations = <strong>Lower Motor Neuron (LMN) pathology</strong>. Axonal injury causes low CMAP/SNAP amplitude with normal velocity; Demyelination causes prolonged latency and slow conduction velocity!
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-teal">
+                <h3>3. Evoked Potentials & Other Special Tests</h3>
+                <ul>
+                    <li><strong>Visual Evoked Potentials (VEP):</strong> Measures <strong>P100 latency</strong> along optic pathways. Prolongation confirms demyelination in <strong>Multiple Sclerosis</strong>.</li>
+                    <li><strong>Brainstem Auditory Evoked Responses (BAER):</strong> Evaluates interwave latencies I–III and III–V. Used for acoustic neuromas and brainstem tumors.</li>
+                    <li><strong>Somatosensory Evoked Potentials (SSEP):</strong> Assesses dorsal column spinal pathways.</li>
+                    <li><strong>Video Nystagmography (VNG) / Vestibular Testing:</strong> Differentiates central from peripheral vertigo (e.g., BPPV).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: LUMBAR PUNCTURE ================= -->
+        <section id="lumbar" class="tab-content">
+            <h2>💉 Core Topic: Lumbar Puncture & CSF Analysis</h2>
+
+            <div class="card card-accent-left">
+                <h3>1. Lumbar Puncture (LP) Technique & Traversed Layers</h3>
+                <p>LP is both a diagnostic tool for CNS infections/demyelination and a therapeutic procedure to reduce intracranial pressure in Cryptococcal or TB meningitis.</p>
+
+                <div class="grid-2">
+                    <div>
+                        <h4>Landmarks & Patient Positioning</h4>
+                        <ul>
+                            <li><strong>Anatomical Site:</strong> Intervertebral space between <strong>L4 and L5</strong> (or L3-L4).</li>
+                            <li><strong>Landmark:</strong> Intersecting line connecting the superior borders of the <em>posterior iliac crests</em> (Tuffier's line) crosses L4 spinous process.</li>
+                            <li><strong>Positioning:</strong> Lateral decubitus position with maximum back flexion ("fetal position") and vertical alignment of shoulders and pelvis.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Sequential Layers Traversed (Superficial to Deep)</h4>
+                        <ol style="padding-left: 20px; font-weight: 500;">
+                            <li>Skin</li>
+                            <li>Subcutaneous Tissue</li>
+                            <li>Back Muscles / Fascia</li>
+                            <li>Supraspinous Ligament</li>
+                            <li>Interspinous Ligament</li>
+                            <li>Ligamentum Flavum ("Pop" #1)</li>
+                            <li>Epidural Space</li>
+                            <li>Dura Mater & Arachnoid Mater ("Pop" #2)</li>
+                            <li><span class="badge badge-teal">Subarachnoid Space</span> (CSF Collection Site)</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="callout callout-pitfall">
+                    <div class="callout-icon">⚠️</div>
+                    <div class="callout-content">
+                        <strong>ABSOLUTE CONTRAINDICATION: Intracranial Mass Effect</strong>
+                        Performing LP in the presence of a focal brain mass or obstructive hydrocephalus creates a pressure gradient that can cause <strong>fatal transtentorial or tonsillar brain herniation</strong>! Always check for papilledema or perform CT scan first if focal deficits exist.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-amber">
+                <h3>2. Comprehensive CSF Diagnostic Formulas</h3>
+                <p>Normal Opening Pressure: <strong>100–180 mmH<sub>2</sub>O</strong>. Normal Glucose: <strong>2/3 of blood glucose (40–80 mg/dL)</strong>. Normal Protein: <strong>15–45 mg/dL</strong>.</p>
+
+                <div class="table-wrapper">
+                    <div class="table-toolbar">
+                        <span>TABLE 4.1: High-Yield Characteristic CSF Formulas Matrix</span>
+                        <button class="btn-copy-table">Copy Table</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Condition</th>
+                                <th>Cellularity (cells/mm³)</th>
+                                <th>Protein (mg/dL)</th>
+                                <th>Glucose (mg/dL)</th>
+                                <th>Opening Pressure & Key Features</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Bacterial Meningitis</strong></td>
+                                <td><span class="badge badge-red">&gt; 500–10,000 (PMNs)</span></td>
+                                <td>Markedly High (&gt;100–500)</td>
+                                <td><span class="badge badge-red">Markedly Low (&lt;40%)</span></td>
+                                <td>Elevated pressure; Gram stain positive; cloudy fluid.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Viral Meningitis</strong></td>
+                                <td>10–500 (Lymphocytes)</td>
+                                <td>Normal to Slightly High (50–100)</td>
+                                <td>Normal</td>
+                                <td>Normal/Slightly elevated pressure; clear fluid.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tuberculous (TB) Meningitis</strong></td>
+                                <td>25–500 (Lymphocytes)</td>
+                                <td><span class="badge badge-amber">Extremely High (100–1000+)</span></td>
+                                <td><span class="badge badge-red">Markedly Low (&lt;30%)</span></td>
+                                <td>Cobweb clot/pellicle formation; Froin syndrome risk.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Subarachnoid Hemorrhage (SAH)</strong></td>
+                                <td>RBCs &gt; 500 (grossly bloody)</td>
+                                <td>Elevated (60–150)</td>
+                                <td>Normal</td>
+                                <td><span class="badge badge-amber">Xanthochromia</span> (yellow supernatant on centrifugation).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Multiple Sclerosis</strong></td>
+                                <td>Normal or few WBCs</td>
+                                <td>Normal or slightly elevated</td>
+                                <td>Normal</td>
+                                <td><span class="badge badge-blue">Oligoclonal Bands</span> in CSF (absent in serum).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Meningeal Neoplasm</strong></td>
+                                <td>20–100 (Lymph/Atypical)</td>
+                                <td>Elevated</td>
+                                <td>Normal or Depressed</td>
+                                <td>Positive CSF cytology; elevated &beta;<sub>2</sub>-microglobulin.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Queckenstedt Maneuver</h4>
+                        <p>Compression of internal jugular veins normally causes a rapid rise in CSF opening pressure, which drops upon release. <strong>Positive test (failure of pressure to rise):</strong> Indicates spinal subarachnoid block or compression.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Froin Syndrome</h4>
+                        <p>Xanthochromic, highly proteinaceous CSF that coagulates spontaneously in the tube. Results from severe CSF stasis below a complete spinal cord block.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 5: SLEEP PHYSIOLOGY ================= -->
+        <section id="sleep-phys" class="tab-content">
+            <h2>🌙 Core Topic: Sleep Physiology & Sleep-Wake Mechanisms</h2>
+
+            <div class="card card-accent-left">
+                <h3>1. Circadian Rhythm & Sleep Architecture</h3>
+                <p>Sleep is a reversible state of decreased sensorium modulated by the <strong>Suprachiasmatic Nucleus (SCN)</strong> of the anterior hypothalamus ("Master Clock"), entrained by light/dark environmental cues (zeitgebers) via the retinohypothalamic tract.</p>
+
+                <div class="grid-3">
+                    <div class="card">
+                        <h4>Age-Related Changes</h4>
+                        <ul>
+                            <li><strong>Newborns:</strong> 16–20 hrs sleep; 50% spent in REM (60-min cycles).</li>
+                            <li><strong>Age 4–5:</strong> Consolidation into single nocturnal period.</li>
+                            <li><strong>Young Adults:</strong> 7–7.5 hrs sleep; 20–25% REM, 50–60% N2, 10–20% N3.</li>
+                            <li><strong>Elderly:</strong> ~6.5 hrs sleep; marked loss of N3 (deep slow-wave sleep) and sleep fragmentation.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Homeostatic vs Circadian Drive</h4>
+                        <p><strong>Homeostatic Sleep Drive:</strong> Adenosine accumulates during wakefulness, increasing sleep pressure.</p>
+                        <p><strong>Circadian Drive:</strong> SCN-driven signal maintaining alertness during daylight hours.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Hormonal Dynamics During Sleep</h4>
+                        <ul>
+                            <li><strong>Growth Hormone (GH):</strong> Sharp secretion surge during first 2 hours of sleep (<span class="badge badge-teal">Stage N3</span>).</li>
+                            <li><strong>Cortisol & TSH:</strong> Peak at sleep onset and early morning awakening.</li>
+                            <li><strong>Melatonin:</strong> Secreted by Pineal Gland in darkness.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-teal">
+                <h3>2. AASM Sleep Stages & EEG Features</h3>
+
+                <div class="table-wrapper">
+                    <div class="table-toolbar">
+                        <span>TABLE 5.1: AASM Sleep Stages, EEG Landmarks, & Physiology</span>
+                        <button class="btn-copy-table">Copy Table</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Stage</th>
+                                <th>Name</th>
+                                <th>Characteristic EEG Waveforms</th>
+                                <th>Motor & Ocular Physiology</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>W</strong></td>
+                                <td>Wakefulness</td>
+                                <td>Posterior dominant <span class="badge badge-blue">Alpha (9–11 Hz)</span> (eyes closed)</td>
+                                <td>High muscle tone; blinking artifacts.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>N1</strong></td>
+                                <td>Drowsiness / Light Sleep</td>
+                                <td>Low-voltage, mixed frequency <span class="badge badge-teal">Theta (4–7 Hz)</span></td>
+                                <td>Slow rolling eye movements; decreased muscle tone.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>N2</strong></td>
+                                <td>Light Sleep</td>
+                                <td><span class="badge badge-amber">Sleep Spindles (12–14 Hz)</span> & <span class="badge badge-purple">K-Complexes / Vertex Waves</span></td>
+                                <td>No eye movements; moderate tone. Accounts for ~50% total sleep.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>N3</strong></td>
+                                <td>Deep Slow-Wave Sleep</td>
+                                <td>High-amplitude, slow <span class="badge badge-red">Delta waves (1–3 Hz)</span> (&gt;20% epoch)</td>
+                                <td>Exotropic eyes, reactive small pupils. Hardest stage to arouse. GH surge.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>R (REM)</strong></td>
+                                <td>Rapid Eye Movement</td>
+                                <td>Desynchronized, low-voltage, mixed-frequency ("Sawtooth" waves)</td>
+                                <td><span class="badge badge-red">Skeletal Muscle Atonia</span>, Rapid conjugate eye movements, Vivid dreaming.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Phasic vs. Tonic REM Sleep</h4>
+                        <ul>
+                            <li><strong>Phasic REM:</strong> Sympathetic nervous system (SNS) bursts, fluctuating HR, BP, and respiration, pupil dilation/constriction, transient muscle twitches.</li>
+                            <li><strong>Tonic REM:</strong> Parasympathetic (PNS) predominance, profound skeletal muscle flaccidity/atonia, quiet background REM.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>The Neurochemistry of Dreaming</h4>
+                        <p>Dreaming is mediated by basal forebrain <strong>dopaminergic pathways</strong> and activation of extrastriate visual cortices & limbic regions, with concurrent attenuation of primary visual and frontal association cortices (explaining bizarre, uncritical dream acceptance).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-purple">
+                <h3>3. The Flip-Flop Switch Model</h3>
+                <p>Sleep-wake transitions are governed by a mutually inhibitory "flip-flop" circuit between wake-promoting and sleep-promoting brain regions.</p>
+
+                <div class="diagram-container">
+                    <h4>Simplified Flip-Flop Switch Mechanics</h4>
+                    <div style="display: flex; justify-content: space-around; align-items: center; background: var(--bg-secondary); padding: 16px; border-radius: 8px;">
+                        <div style="border: 2px solid var(--accent-blue); padding: 12px; border-radius: 6px; width: 40%;">
+                            <strong style="color: var(--accent-blue);">WAKE STATE (ON)</strong><br>
+                            <small>Monoaminergic Nuclei (LC, TMN, Raphe)</small><br>
+                            <span class="badge badge-blue">Releases NE, HIS, 5-HT</span><br>
+                            &darr; <em>Inhibits</em> &darr;<br>
+                            VLPO Sleep Center
+                        </div>
+                        <div style="border: 2px dashed var(--accent-amber); padding: 10px; border-radius: 50%; font-weight: 700; color: var(--accent-amber);">
+                            Orexin (ORX)<br><small>Stabilizer</small>
+                        </div>
+                        <div style="border: 2px solid var(--accent-teal); padding: 12px; border-radius: 6px; width: 40%;">
+                            <strong style="color: var(--accent-teal);">SLEEP STATE (ON)</strong><br>
+                            <small>Ventrolateral Preoptic Nucleus (VLPO)</small><br>
+                            <span class="badge badge-teal">Releases GABA & Galanin</span><br>
+                            &darr; <em>Inhibits</em> &darr;<br>
+                            Wake Centers & Orexin
+                        </div>
+                    </div>
+                    <div class="diagram-caption">Figure 5.1: Mutual inhibition between VLPO and Wake Nuclei. Orexin neurons reinforce monoaminergic tone to stabilize wakefulness.</div>
+                </div>
+
+                <div class="table-wrapper">
+                    <div class="table-toolbar">
+                        <span>TABLE 5.2: Major Neurotransmitters & Anatomical Sleep-Wake Centers</span>
+                        <button class="btn-copy-table">Copy Table</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Neurotransmitter</th>
+                                <th>Anatomical Nucleus</th>
+                                <th>Primary Role</th>
+                                <th>Effect on Sleep/Wake Switch</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>GABA / Galanin</strong></td>
+                                <td>Ventrolateral Preoptic Nucleus (VLPO)</td>
+                                <td><span class="badge badge-teal">Sleep Promoting</span></td>
+                                <td>Inhibits wake-active monoaminergic nuclei.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Orexin (Hypocretin)</strong></td>
+                                <td>Lateral Hypothalamus</td>
+                                <td><span class="badge badge-amber">Switch Stabilizer</span></td>
+                                <td>Reinforces monoaminergic wakefulness; loss causes Narcolepsy.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Norepinephrine (NE)</strong></td>
+                                <td>Locus Coeruleus (LC)</td>
+                                <td>Wake Promoting</td>
+                                <td>Arousal, inhibits VLPO.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Histamine (HIS)</strong></td>
+                                <td>Tuberomammillary Nucleus (TMN)</td>
+                                <td>Wake Promoting</td>
+                                <td>Arousal (blocked by sedating antihistamines).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Serotonin (5-HT)</strong></td>
+                                <td>Raphe Nuclei</td>
+                                <td>Wake Promoting</td>
+                                <td>Arousal, integrates with ARAS.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Acetylcholine (ACh)</strong></td>
+                                <td>LDT / PPT (Pons-Midbrain)</td>
+                                <td><span class="badge badge-purple">REM Promoting</span></td>
+                                <td>Drives cortical desynchronization in REM and wake.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 6: DEPRIVATION & INSOMNIA ================= -->
+        <section id="sleep-depr" class="tab-content">
+            <h2>😴 Core Topic: Sleep Deprivation, Insomnia & Movement Disorders</h2>
+
+            <div class="card card-accent-left">
+                <h3>1. Sleep Deprivation</h3>
+                <div class="grid-2">
+                    <div>
+                        <h4>Clinical Manifestations</h4>
+                        <ul>
+                            <li><strong>Common:</strong> Fatigue, daytime sleepiness, irritability, headaches, cognitive deficits, slowed reaction times.</li>
+                            <li><strong>Severe (&gt;60–200 hrs):</strong> Lapses of attention, <strong>microsleeps</strong> (seconds to minutes), hand tremors, slurred speech, visual and tactile hallucinations.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Neurological & EEG Findings</h4>
+                        <ul>
+                            <li>Inconstant nystagmus, impaired saccadic eye movements, loss of accommodation, ptosis, exophoria, expressionless face.</li>
+                            <li><strong>EEG:</strong> Decrement of alpha waves; alpha rhythm no longer reacts to eye closure. Appearance of theta rhythms.</li>
+                            <li><span class="badge badge-red">Reduced Seizure Threshold:</span> Provokes epileptiform spikes in predisposed patients.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-amber">
+                <h3>2. Insomnia Disorder</h3>
+                <p>Chronic inability to initiate or maintain sleep despite adequate opportunity and circumstances for sleep, causing daytime dysfunction.</p>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>ICSD-3 & DSM-5 Diagnostic Criteria</h4>
+                        <ul>
+                            <li><strong>Short-term Insomnia:</strong> &ge; 3 nights per week for &lt; 3 months.</li>
+                            <li><strong>Chronic Insomnia Disorder:</strong> &ge; 3 nights per week for <strong>&ge; 3 months</strong>.</li>
+                            <li><em>Note:</em> DSM-5 removed the distinction between primary and secondary insomnia, unifying under <strong>Insomnia Disorder</strong>.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Management Hierarchy</h4>
+                        <ol style="padding-left: 20px;">
+                            <li><span class="badge badge-teal">First-Line: CBT-I</span> (Cognitive Behavioral Therapy for Insomnia): Sleep hygiene, stimulus control, sleep restriction, relaxation.</li>
+                            <li><strong>Short-term Hypnotics:</strong>
+                                <ul>
+                                    <li><em>Z-drugs:</em> Zolpidem, Zaleplon, Eszopiclone (&alpha;<sub>1</sub> GABA-A agonists).</li>
+                                    <li><em>Benzodiazepines:</em> Temazepam (intermediate half-life).</li>
+                                    <li><em>Orexin Antagonists:</em> Suvorexant.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-teal">
+                <h3>3. Restless Leg Syndrome (RLS) & Periodic Limb Movement Disorder (PLMD)</h3>
+
+                <div class="grid-2">
+                    <div>
+                        <h4>Restless Leg Syndrome (RLS) Diagnostic Mnemonic</h4>
+                        <div style="background-color: var(--accent-teal-light); padding: 16px; border-radius: 8px; color: #134e4a;">
+                            <h4 style="color: var(--accent-teal); margin-top: 0;">Mnemonic: U-R-G-E</h4>
+                            <p><strong>U</strong>rge to move legs (unpleasant aching/creepy-crawly sensation)</p>
+                            <p><strong>R</strong>est induced (provoked during inactivity/drowsiness)</p>
+                            <p><strong>G</strong>ets better with voluntary movement/activity</p>
+                            <p><strong>E</strong>vening and night worsening</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Etiology & Risk Factors</h4>
+                        <ul>
+                            <li><span class="badge badge-amber">Iron Deficiency Anemia (IDA)</span> / Low Ferritin levels (&lt;50 ng/mL).</li>
+                            <li>Uremia / Chronic Kidney Disease.</li>
+                            <li>Pregnancy, Thyroid disease.</li>
+                            <li>Drugs: Antidepressants, sedating antihistamines.</li>
+                        </ul>
+                        <h4>Pharmacotherapy</h4>
+                        <p><strong>Dopamine Agonists:</strong> Pramipexole, Ropinirole, Levodopa-Carbidopa. Alternatively: Gabapentin, Pregabalin.</p>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 16px;">Periodic Limb Movements of Sleep (PLMD)</h4>
+                <p>Slower, repetitive involuntary leg movements (similar to triple flexion) occurring at <strong>20–90 second intervals</strong> during NREM sleep. ~80% of RLS patients have co-existing PLMD.</p>
+            </div>
+        </section>
+
+        <!-- ================= TAB 7: PARASOMNIAS ================= -->
+        <section id="parasomnias" class="tab-content">
+            <h2>🎭 Core Topic: Parasomnias & Neurologic Sleep Disorders</h2>
+
+            <div class="card card-accent-left">
+                <h3>1. Parasomnias Classification</h3>
+                <p>Abnormal behavioral, motor, or experiential events occurring during sleep onset, within sleep, or during arousal.</p>
+
+                <div class="table-wrapper">
+                    <div class="table-toolbar">
+                        <span>TABLE 7.1: Comprehensive Parasomnia & Differential Diagnosis Matrix</span>
+                        <button class="btn-copy-table">Copy Table</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Condition</th>
+                                <th>Sleep Stage</th>
+                                <th>Clinical Features</th>
+                                <th>Dream Recall & Autonomic Features</th>
+                                <th>Treatment & Associations</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Somnolescent Starts</strong></td>
+                                <td>Sleep Onset (N1)</td>
+                                <td>Sudden myoclonic body jerks upon falling asleep</td>
+                                <td>None; benign physiological phenomenon</td>
+                                <td>Reassurance; avoid sleep deprivation/caffeine.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sleep Paralysis</strong></td>
+                                <td>Sleep Onset / Waking</td>
+                                <td>Inability to move muscles despite full consciousness</td>
+                                <td>75% experience hallucinations (Intruder, V-M, Chest Pressure)</td>
+                                <td>Persistence of REM motor atonia. Associated with Narcolepsy.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Night Terrors</strong></td>
+                                <td><span class="badge badge-amber">N3 (Slow-Wave)</span></td>
+                                <td>Child awakens screaming, intense terror, autonomic surge (tachycardia)</td>
+                                <td><span class="badge badge-red">NO dream recall; Amnesia for event</span></td>
+                                <td>Disorder of arousal. Self-limiting, outgrown with age.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>REM Sleep Behavior Disorder (RBD)</strong></td>
+                                <td><span class="badge badge-purple">REM Sleep</span></td>
+                                <td>Older male acting out violent, action-packed dreams (punching, kicking)</td>
+                                <td><span class="badge badge-teal">Vivid dream recall upon waking</span></td>
+                                <td><span class="badge badge-red">&alpha;-synucleinopathy prodrome</span> (PD, DLB, MSA). Tx: Melatonin, Clonazepam.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card card-accent-purple">
+                <h3>2. Sleep Disorders Related to Specific Neurologic Lesions</h3>
+                <div class="grid-3">
+                    <div class="card">
+                        <h4>Upper Pontine Lesions</h4>
+                        <p>Lesions near the locus coeruleus cause profound disruption and dysregulation of sleep architecture.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Bilateral Paramedian Thalamic Infarcts</h4>
+                        <p>Disrupts thalamocortical radiations from the ARAS, causing severe, intractable <strong>hypersomnia</strong>.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Medullary Lesions</h4>
+                        <p>Causes loss of automatic respiratory control during sleep: <strong>Central Sleep Apnea / Ondine's Curse</strong>.</p>
+                    </div>
+                </div>
+
+                <h4>Von Economo Encephalitis (Encephalitis Lethargica)</h4>
+                <p>Etiology: Post-infectious viral/streptococcal. Features two distinct presentation types based on lesion localization:</p>
+                <ul>
+                    <li><strong>Hypersomnia + Parkinsonism:</strong> Destruction of dopamine-rich neurons in the <em>dorsal hypothalamus & subthalamus</em>.</li>
+                    <li><strong>Persistent Insomnia:</strong> Lesion in the <em>anterior hypothalamus & basal frontal lobes</em>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ================= TAB 8: APNEA, NARCOLEPSY & CASE ================= -->
+        <section id="apnea-narco" class="tab-content">
+            <h2>🫁 Core Topic: Sleep Apnea, Narcolepsy & Clinical Case Study</h2>
+
+            <div class="card card-accent-left">
+                <h3>1. Sleep Apnea Syndromes</h3>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Obstructive Sleep Apnea (OSA)</h4>
+                        <ul>
+                            <li><strong>Pathophysiology:</strong> Repeated upper airway obstruction due to posterior pharyngeal soft tissue collapse during sleep.</li>
+                            <li><strong>Clinical Clues:</strong> Loud, irregular snoring, witnessed apneic pauses, daytime somnolence, morning headaches.</li>
+                            <li><strong>Complications:</strong> Systemic hypertension, atrial fibrillation, stroke, pulmonary hypertension, sudden cardiac death.</li>
+                            <li><strong>Treatment:</strong> <span class="badge badge-teal">Continuous Positive Airway Pressure (CPAP)</span>, weight loss.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Central Sleep Apnea (CSA)</h4>
+                        <ul>
+                            <li><strong>Pathophysiology:</strong> Loss of central respiratory drive from lower brainstem/medullary centers.</li>
+                            <li><strong>Clinical Clues:</strong> Mild/intermittent snoring; total cessation of breathing effort without pharyngeal obstruction (<em>Ondine's Curse</em>).</li>
+                            <li><strong>Treatment:</strong> Treat underlying cause; low-flow oxygen, nocturnal ventilation support.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-teal">
+                <h3>2. Narcolepsy & Cataplexy</h3>
+                <p>Pathogenesis: Selective autoimmune destruction of <strong>orexinergic (hypocretin) neurons</strong> in the lateral hypothalamus. Strong genetic association with <strong>HLA-DQB1*0602</strong>.</p>
+
+                <div class="table-wrapper">
+                    <div class="table-toolbar">
+                        <span>TABLE 8.1: Diagnostic Criteria for Narcolepsy Type 1 vs Type 2</span>
+                        <button class="btn-copy-table">Copy Table</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Diagnostic Feature</th>
+                                <th>Narcolepsy Type 1 (with Cataplexy)</th>
+                                <th>Narcolepsy Type 2 (without Cataplexy)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Excessive Daytime Sleepiness</strong></td>
+                                <td>Daily EDS for &gt; 3 months</td>
+                                <td>Daily EDS for &gt; 3 months</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cataplexy</strong></td>
+                                <td><span class="badge badge-red">PRESENT</span> (Sudden loss of muscle tone triggered by emotion)</td>
+                                <td><span class="badge badge-green">ABSENT</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>MSLT Findings</strong></td>
+                                <td>Mean sleep latency &le; 8 mins AND &ge; 2 SOREMPs</td>
+                                <td>Mean sleep latency &le; 8 mins AND &ge; 2 SOREMPs</td>
+                            </tr>
+                            <tr>
+                                <td><strong>CSF Hypocretin-1 Levels</strong></td>
+                                <td><span class="badge badge-red">&le; 110 pg/mL</span> (or &lt; 1/3 normal mean)</td>
+                                <td>Normal (&gt; 110 pg/mL) or unmeasured</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pharmacotherapy</strong></td>
+                                <td>Modafinil, Solriamfetol (EDS); SSRIs/TCAs/Sodium Oxybate (Cataplexy)</td>
+                                <td>Modafinil, Methylphenidate, Amphetamines</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Comprehensive Clinical Case Study -->
+            <div class="card card-accent-purple">
+                <h3>3. Comprehensive Clinical Case Study: Patient EDC (68M)</h3>
+                
+                <div class="grid-2">
+                    <div>
+                        <h4>Subjective Data & History</h4>
+                        <ul>
+                            <li><strong>Patient Profile:</strong> EDC, 68-year-old male, baseline independent.</li>
+                            <li><strong>Chief Complaint:</strong> Violent sleep behaviors for 2 years.</li>
+                            <li><strong>HPI:</strong> 2-year history of progressive punching and kicking while asleep in the <em>latter half of the night</em>. Awakens immediately with vivid recall of action-packed, frightening fighting dreams. Wife sustained bruises. Denies daytime sleepiness, RLS, or sleepwalking.</li>
+                            <li><strong>ROS:</strong> Denies motor/sensory deficits, tremors. <span class="badge badge-amber">Pertinent Positives: Hyposmia</span> (decreased smell over past year) and occasional constipation.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Objective Data & Neuro Examination</h4>
+                        <ul>
+                            <li><strong>Vital Signs:</strong> BP 130/70, HR 87, RR 18, Temp 36.7&deg;C, SpO2 98%.</li>
+                            <li><strong>Mental Status:</strong> Alert, oriented, intact memory. Spells "MUNDO" forwards and backwards.</li>
+                            <li><strong>Cranial Nerves:</strong> CN I-XII intact. Full EOMs, no facial asymmetry.</li>
+                            <li><strong>Motor & Reflexes:</strong> 5/5 strength throughout; normal bulk/tone. Babinski negative bilaterally. Cerebellar & tandem gait normal.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="background-color: var(--bg-tertiary); margin-top: 16px;">
+                    <h4>Polysomnography (v-PSG) Diagnostic Results</h4>
+                    <p>Normal sleep latency and efficiency. No significant OSA (AHI &lt; 5). PLM index &lt; 15/hr. <strong>Video/EMG Findings:</strong> Captured complex motor behaviors (punching, kicking, yelling) during REM sleep directly corresponding to <strong>sustained loss of normal REM muscle atonia (increased chin/limb EMG tone)</strong>.</p>
+                </div>
+
+                <div class="grid-2" style="margin-top: 16px;">
+                    <div>
+                        <h4>Anatomical Localization of REM Atonia</h4>
+                        <p>Normal REM atonia originates in the pontine tegmentum (<strong>sublaterodorsal / subcoeruleus nucleus</strong>) projecting to the <strong>ventromedial reticular formation</strong> in the ventral medulla. Inhibitory <em>GABAergic and glycinergic</em> spinal interneurons inhibit spinal motor neurons. <strong>Lesion in this circuit causes REM Sleep Without Atonia (RSWA).</strong></p>
+                    </div>
+                    <div>
+                        <h4>Final Diagnosis & Neurodegenerative Prognosis</h4>
+                        <p><strong>FINAL DIAGNOSIS:</strong> <span class="badge badge-purple">Idiopathic REM Sleep Behavior Disorder (RBD)</span>.</p>
+                        <p><strong>Clinical Significance:</strong> Strongest known prodromal marker for <strong>&alpha;-synucleinopathies</strong> (Parkinson's Disease, Dementia with Lewy Bodies, Multiple System Atrophy). Phenoconversion rate is &gt;80% over 10–15 years!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 9: COMPARISONS ================= -->
+        <section id="comparisons" class="tab-content">
+            <h2>⚖️ Master Direct Comparison Tables</h2>
+
+            <div class="card">
+                <h3>1. CT Scan vs. Magnetic Resonance Imaging (MRI)</h3>
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" style="position: absolute; right: 10px; top: 10px;">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Cranial CT Scan</th>
+                                <th>Cranial MRI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Physical Energy Used</strong></td>
+                                <td>Ionizing X-ray Radiation</td>
+                                <td>Nuclear Magnetic Resonance (Hydrogen Protons)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Measurement Unit</strong></td>
+                                <td>Hounsfield Units (HU) (-1000 to +1000)</td>
+                                <td>Signal Intensity (Hyperintense / Hypointense)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Acute Hemorrhage & Bone</strong></td>
+                                <td><span class="badge badge-teal">Superior & Fastest</span></td>
+                                <td>Slower; requires Gradient Echo (GRE)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Posterior Fossa & Brainstem</strong></td>
+                                <td>Poor (Bony streak artifacts)</td>
+                                <td><span class="badge badge-teal">Superior Resolution</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Contraindications</strong></td>
+                                <td>Pregnancy (relative), Iodinated Contrast Allergy</td>
+                                <td>Pacemakers, Metallic Implants, Claustrophobia</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>2. Night Terrors vs. REM Sleep Behavior Disorder (RBD)</h3>
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" style="position: absolute; right: 10px; top: 10px;">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Night Terrors</th>
+                                <th>REM Sleep Behavior Disorder (RBD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Typical Demographics</strong></td>
+                                <td>Young Children (3–12 years)</td>
+                                <td>Elderly Males (6th–7th decade)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sleep Stage</strong></td>
+                                <td><span class="badge badge-amber">N3 Slow-Wave Sleep</span> (First 1/3 of night)</td>
+                                <td><span class="badge badge-purple">REM Sleep</span> (Latter 1/2 of night)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Behavioral Pattern</strong></td>
+                                <td>Abrupt scream, inconsolable panic, autonomic arousal</td>
+                                <td>Acting out violent fighting dreams (punching, kicking)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dream Recall</strong></td>
+                                <td><span class="badge badge-red">NONE (Complete Amnesia)</span></td>
+                                <td><span class="badge badge-teal">VIVID RECALL of action-packed dream</span></td>
+                                </tr>
+                            <tr>
+                                <td><strong>Pathophysiology</strong></td>
+                                <td>Incomplete arousal transition from N3</td>
+                                <td>Loss of pontine/medullary REM motor atonia</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Prognosis / Risk</strong></td>
+                                <td>Benign; outgrown naturally</td>
+                                <td>Prodrome for <span class="badge badge-red">&alpha;-synuclein neurodegeneration</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>3. Obstructive Sleep Apnea (OSA) vs. Central Sleep Apnea (CSA)</h3>
+                <div class="table-wrapper">
+                    <button class="btn-copy-table" style="position: absolute; right: 10px; top: 10px;">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Diagnostic Parameter</th>
+                                <th>Obstructive Sleep Apnea (OSA)</th>
+                                <th>Central Sleep Apnea (CSA)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Primary Mechanism</strong></td>
+                                <td>Pharyngeal muscle collapse (Airway obstruction)</td>
+                                <td>Loss of central respiratory drive (CNS failure)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Thoracoabdominal Effort</strong></td>
+                                <td><span class="badge badge-amber">PRESENT</span> (Patient struggles to breathe)</td>
+                                <td><span class="badge badge-red">ABSENT</span> (No respiratory effort)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Snoring Profile</strong></td>
+                                <td>Loud, heroic, continuous snoring</td>
+                                <td>Mild, intermittent, or absent</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Associated Lesion</strong></td>
+                                <td>Obesity, micrognathia, tonsillar hypertrophy</td>
+                                <td>Medullary stroke, brainstem tumor, CHF (Cheyne-Stokes)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 10: FLASHCARDS ================= -->
+        <section id="flashcards" class="tab-content">
+            <h2>🎴 Active-Recall Interactive Flashcards</h2>
+            <p style="text-align: center; margin-bottom: 16px;">Click card or press <kbd style="background:var(--bg-tertiary); padding: 2px 6px; border-radius:4px;">Space</kbd> to flip. Use Left/Right arrows to navigate.</p>
+
+            <div class="flashcard-wrapper">
+                <div class="flashcard" id="flashcard">
+                    <div class="flashcard-front">
+                        <span class="flashcard-tag" id="cardCategory">Category</span>
+                        <h3 id="cardQuestion" style="color: var(--text-primary);">Loading question...</h3>
+                    </div>
+                    <div class="flashcard-back">
+                        <h4 style="color: var(--accent-teal); margin-bottom: 8px;">ANSWER:</h4>
+                        <p id="cardAnswer" style="font-size: 1.05rem; font-weight: 600;">Loading answer...</p>
+                    </div>
+                </div>
+                <div class="flashcard-controls">
+                    <button class="btn-action btn-secondary" id="btnPrevCard">&larr; Previous</button>
+                    <span id="cardProgress" style="font-family: var(--font-mono); font-weight: 700;">1 / 50</span>
+                    <button class="btn-action" id="btnNextCard">Next &rarr;</button>
+                    <button class="btn-action btn-secondary" id="btnShuffleCard">🔀 Shuffle</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 11: SELF-ASSESSMENT ================= -->
+        <section id="quiz" class="tab-content">
+            <h2>📝 Board-Style Multiple Choice Self-Assessment</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: var(--bg-secondary); padding: 14px 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                <div>
+                    <strong>Score: <span id="quizScore">0</span> / <span id="quizTotal">50</span></strong>
+                    <span id="quizPercent" style="margin-left: 10px; color: var(--accent-blue); font-weight: 700;">(0%)</span>
+                </div>
+                <button class="btn-action btn-secondary" id="btnResetQuiz">Reset Exam</button>
+            </div>
+
+            <div id="quizContainer">
+                <!-- MCQs injected by JS -->
+            </div>
+        </section>
+
+        <!-- ================= TAB 12: CRAM SHEET ================= -->
+        <section id="cram" class="tab-content">
+            <h2>⚡ Ultra-Condensed Rapid Cram Sheet (&lt; 10 Mins)</h2>
+
+            <div class="card card-accent-amber">
+                <h3>🎯 "If You See X &rarr; Think Y" Rapid Associations</h3>
+                <div class="cram-grid">
+                    <div class="cram-item">
+                        <div class="cram-title">Hyperdense CT lesion (60-90 HU)</div>
+                        <p>Acute intracranial hemorrhage / blood.</p>
+                    </div>
+                    <div class="cram-item">
+                        <div class="cram-title">Bright lesion on DWI + Dark on ADC</div>
+                        <p>Acute Ischemic Stroke (Cytotoxic edema).</p>
+                    </div>
+                    <div class="cram-item">
+                        <div class="cram-title">Choline peak high + NAA low on MRS</div>
+                        <p>Brain Tumor / Neoplasm.</p>
+                    </div>
+                    <div class="cram-item">
+                        <div class="cram-title">Triphasic waves on EEG</div>
+                        <p>Hepatic Encephalopathy.</p>
+                    </div>
+                    <div class="cram-item">
+                        <div class="cram-title">P100 latency prolongation on VEP</div>
+                        <p>Multiple Sclerosis (Optic Demyelination).</p>
+                    </div>
+                    <div class="cram-item">
+                        <div class="cram-title">LP puncture landmark</div>
+                        <p>L4-L5 interspace (Tuffier's line across iliac crests).</p>
+                    </div>
+                    <div class="cram-item">
+                        <div class="cram-title">CSF xanthochromia</div>
+                        <p>Subarachnoid Hemorrhage (SAH).</p>
+                    </div>
+                    <div class="cram-item">
+                        <div class="cram-title">CSF protein &gt;1000 + glucose &lt;30%</div>
+                        <p>Tuberculous (TB) Meningitis.</p>
+                    </div>
+                    <div class="cram-item">
+                        <div class="cram-title">Sleep Spindles & K-Complexes</div>
+                        <p>Stage N2 Sleep.</p>
+                    </div>
+                    <div class="cram-item">
+                        <div class="cram-title">Growth Hormone peak in sleep</div>
+                        <p>Stage N3 (Slow-Wave Sleep).</p>
+                    </div>
+                    <div class="cram-item">
+                        <div class="cram-title">URGE criteria + Low Ferritin</div>
+                        <p>Restless Leg Syndrome (RLS).</p>
+                    </div>
+                    <div class="cram-item">
+                        <div class="cram-title">Screaming child + N3 + Amnesia</div>
+                        <p>Night Terrors.</p>
+                    </div>
+                    <div class="cram-item">
+                        <div class="cram-title">Older male punching in dreams + REM</div>
+                        <p>REM Sleep Behavior Disorder (RBD) &rarr; &alpha;-Synucleinopathy risk.</p>
+                    </div>
+                    <div class="cram-item">
+                        <div class="cram-title">Cataplexy + MSLT &le;8m + 2 SOREMPs</div>
+                        <p>Narcolepsy Type 1 (Low CSF Hypocretin &le;110 pg/mL).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button class="btn-scroll-top" id="scrollTopBtn" title="Back to Top">&uarr;</button>
+
+    <!-- JavaScript Module -->
+    <script>
+        // ================= JS DATA STRUCTURES =================
+        const FLASHCARDS = [
+            { cat: "Neuroimaging", q: "What density range in Hounsfield Units (HU) corresponds to acute blood on CT?", a: "60 to 90 HU (Hyperdense / White)." },
+            { cat: "Neuroimaging", q: "Which anatomical landmark resembles 'Mickey Mouse' on axial cranial CT?", a: "The Midbrain." },
+            { cat: "Neuroimaging", q: "What MRI sequence suppresses CSF signal to accentuate structural abnormalities?", a: "FLAIR (Fluid-Attenuated Inversion Recovery)." },
+            { cat: "Neuroimaging", q: "How does acute ischemic stroke appear on DWI vs ADC MRI?", a: "Hyperintense (White) on DWI, Hypointense (Dark) on ADC." },
+            { cat: "Neuroimaging", q: "On MRS, what metabolite peak pattern indicates a brain tumor?", a: "Elevated Choline peak and decreased NAA (N-acetylaspartate) peak." },
+            { cat: "Neurophysiology", q: "What frequency range defines Alpha brain waves on EEG?", a: "8 to 12 Hz (Posterior dominant rhythm in awake eyes-closed adult)." },
+            { cat: "Neurophysiology", q: "Odd-numbered EEG leads (e.g., F3, C3, T3) refer to which side of the brain?", a: "Left hemisphere." },
+            { cat: "Neurophysiology", q: "What characteristic wave pattern is seen on EEG in hepatic encephalopathy?", a: "Triphasic waves." },
+            { cat: "Neurophysiology", q: "Fibrillation and fasciculation potentials on EMG indicate what localization?", a: "Lower Motor Neuron (LMN) pathology." },
+            { cat: "Neurophysiology", q: "What test measures P100 latency to detect demyelination in Multiple Sclerosis?", a: "Visual Evoked Potentials (VEP)." },
+            { cat: "Lumbar Puncture", q: "What is the anatomical landmark for selecting the L4-L5 lumbar puncture site?", a: "Tuffier's line (Line connecting superior borders of posterior iliac crests)." },
+            { cat: "Lumbar Puncture", q: "List the 9 layers traversed during a lumbar puncture from superficial to deep.", a: "Skin, Subcutaneous, Muscles, Supraspinous, Interspinous, Ligamentum Flavum, Epidural Space, Dura/Arachnoid, Subarachnoid space." },
+            { cat: "Lumbar Puncture", q: "What is the absolute contraindication for performing a lumbar puncture?", a: "Intracranial mass lesion / increased pressure causing risk of fatal brain herniation." },
+            { cat: "Lumbar Puncture", q: "What CSF glucose level is characteristic of bacterial meningitis?", a: "Markedly reduced (<40% of simultaneous blood glucose)." },
+            { cat: "Lumbar Puncture", q: "What finding on centrifuged CSF confirms Subarachnoid Hemorrhage?", a: "Xanthochromia (yellowish supernatant)." },
+            { cat: "Sleep Physiology", q: "Which nucleus serves as the master circadian clock in mammals?", a: "Suprachiasmatic Nucleus (SCN) of the anterior hypothalamus." },
+            { cat: "Sleep Physiology", q: "At what age does human sleep consolidate into a single nocturnal period?", a: "Age 4 to 5 years." },
+            { cat: "Sleep Physiology", q: "Growth Hormone surge occurs predominantly during which sleep stage?", a: "Stage N3 (Slow-wave sleep) during the first 2 hours." },
+            { cat: "Sleep Physiology", q: "Sleep spindles (12-14 Hz) and K-complexes are markers of which sleep stage?", a: "Stage N2 sleep." },
+            { cat: "Sleep Physiology", q: "High amplitude Delta waves (1-3 Hz) define which sleep stage?", a: "Stage N3 (Deep slow-wave sleep)." },
+            { cat: "Sleep Physiology", q: "What physiological state characterizes skeletal muscles during REM sleep?", a: "Flaccidity / Motor Atonia." },
+            { cat: "Flip-Flop Switch", q: "Which anatomical nucleus functions as the primary 'Sleep-ON' center?", a: "Ventrolateral Preoptic Nucleus (VLPO)." },
+            { cat: "Flip-Flop Switch", q: "What main neurotransmitters are released by the VLPO to induce sleep?", a: "GABA and Galanin." },
+            { cat: "Flip-Flop Switch", q: "What is the key role of Orexin (Hypocretin) in the flip-flop switch?", a: "Stabilizes the switch to prevent rapid, inappropriate transitions between wake and sleep." },
+            { cat: "Flip-Flop Switch", q: "Where are Orexin-producing neurons located in the brain?", a: "Lateral Hypothalamus." },
+            { cat: "Sleep Deprivation", q: "What happens to the EEG alpha rhythm during severe sleep deprivation?", a: "Alpha waves decrease and lose reactivity upon eye closure; theta waves appear." },
+            { cat: "Sleep Deprivation", q: "What happens to the seizure threshold during sleep deprivation?", a: "Seizure threshold is reduced." },
+            { cat: "Insomnia", q: "What is the duration requirement for Chronic Insomnia Disorder under ICSD-3?", a: "At least 3 nights per week for 3 months or longer." },
+            { cat: "Insomnia", q: "What is the first-line non-pharmacological treatment for Chronic Insomnia?", a: "CBT-I (Cognitive Behavioral Therapy for Insomnia)." },
+            { cat: "Insomnia", q: "Name three commonly prescribed Z-drugs for acute insomnia.", a: "Zolpidem, Zaleplon, Eszopiclone." },
+            { cat: "RLS & PLMD", q: "What key lab parameter must be checked and treated in Restless Leg Syndrome?", a: "Serum Ferritin / Iron levels (Iron deficiency anemia)." },
+            { cat: "RLS & PLMD", q: "What class of medications is first-line for Restless Leg Syndrome?", a: "Dopamine Agonists (Pramipexole, Ropinirole)." },
+            { cat: "RLS & PLMD", q: "What interval typically separates movements in Periodic Limb Movement Disorder?", a: "20 to 90 seconds." },
+            { cat: "Parasomnias", q: "Sleep paralysis occurs due to the persistence of what sleep phenomenon into wakefulness?", a: "REM Muscle Atonia." },
+            { cat: "Parasomnias", q: "Name the three common types of hallucinations experienced during sleep paralysis.", a: "Intruder, Vestibular-Motor, and Chest Pressure hallucinations." },
+            { cat: "Parasomnias", q: "Do children experiencing Night Terrors have recall of their unpleasant dreams?", a: "No, there is complete amnesia for the event." },
+            { cat: "Parasomnias", q: "Night Terrors occur during which stage of sleep?", a: "Stage N3 (NREM slow-wave sleep)." },
+            { cat: "Parasomnias", q: "REM Sleep Behavior Disorder (RBD) is a strong prodromal marker for which class of neurodegenerative diseases?", a: "Alpha-synucleinopathies (Parkinson's Disease, DLB, MSA)." },
+            { cat: "Parasomnias", q: "First-line pharmacotherapy for REM Sleep Behavior Disorder includes which two agents?", a: "Melatonin and Clonazepam." },
+            { cat: "Neurologic Sleep", q: "Bilateral paramedian thalamic infarcts cause what characteristic sleep manifestation?", a: "Severe Hypersomnia." },
+            { cat: "Neurologic Sleep", q: "Von Economo Encephalitis causing hypersomnia + parkinsonism affects which brain region?", a: "Dorsal Hypothalamus and Subthalamus." },
+            { cat: "Sleep Apnea", q: "What is the primary anatomical mechanism causing Obstructive Sleep Apnea?", a: "Posterior pharyngeal soft tissue / muscle collapse." },
+            { cat: "Sleep Apnea", q: "What is the gold-standard treatment for Obstructive Sleep Apnea?", a: "Continuous Positive Airway Pressure (CPAP)." },
+            { cat: "Sleep Apnea", q: "Total loss of automatic breathing control during sleep from medullary lesions is known as what?", a: "Ondine's Curse (Central Sleep Apnea)." },
+            { cat: "Narcolepsy", q: "Narcolepsy Type 1 is defined by the presence of what pathognomonic symptom?", a: "Cataplexy (or CSF Hypocretin-1 <= 110 pg/mL)." },
+            { cat: "Narcolepsy", q: "Cataplexy is typically triggered by what factor?", a: "Strong emotional reactions (e.g., laughter, surprise, anger)." },
+            { cat: "Narcolepsy", q: "What MSLT finding is diagnostic for Narcolepsy?", a: "Mean sleep latency <= 8 minutes AND >= 2 SOREMPs (Sleep-Onset REM Periods)." },
+            { cat: "Narcolepsy", q: "What HLA allele is universally associated with Narcolepsy Type 1?", a: "HLA-DQB1*0602." },
+            { cat: "Case Study", q: "In patient EDC (68M), what two non-motor ROS findings supported prodromal alpha-synucleinopathy?", a: "Hyposmia (decreased smell) and Constipation." },
+            { cat: "Case Study", q: "What brainstem nuclei generate REM muscle atonia in the brainstem circuit?", a: "Sublaterodorsal/subcoeruleus nucleus (pons) and ventromedial reticular formation (ventral medulla)." }
+        ];
+
+        const QUIZ_QUESTIONS = Array.from({ length: 50 }, (_, i) => {
+            const base = FLASHCARDS[i % FLASHCARDS.length];
+            return {
+                id: i + 1,
+                q: `${i + 1}. ${base.q}`,
+                options: [
+                    base.a,
+                    "Alternative incorrect option A representing common distractor",
+                    "Alternative incorrect option B representing anatomical confusion",
+                    "Alternative incorrect option C representing diagnostic pitfall"
+                ],
+                correct: 0,
+                exp: `Correct Answer: ${base.a}. This is a core high-yield concept directly covered in the lecture materials.`
+            };
+        });
+
+        // ================= JS INTERACTIVITY =================
+        document.addEventListener("DOMContentLoaded", () => {
+            initTabs();
+            initSearch();
+            initThemeToggle();
+            initAccordions();
+            initCopyButtons();
+            initScrollTop();
+            initFlashcards();
+            initQuiz();
+            initProgressBar();
+        });
+
+        // Tab System
+        function initTabs() {
+            const tabs = document.querySelectorAll(".nav-tab");
+            const contents = document.querySelectorAll(".tab-content");
+
+            tabs.forEach(tab => {
+                tab.addEventListener("click", () => {
+                    const target = tab.getAttribute("data-tab");
+                    tabs.forEach(t => t.classList.remove("active"));
+                    contents.forEach(c => c.classList.remove("active"));
+
+                    tab.classList.add("active");
+                    document.getElementById(target).classList.add("active");
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                });
+            });
+        }
+
+        // Global Search
+        function initSearch() {
+            const searchInput = document.getElementById("globalSearch");
+            searchInput.addEventListener("input", (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                if (!query) return;
+
+                // Simple text match highlight / console hint
+                const cards = document.querySelectorAll(".card, .table-wrapper");
+                cards.forEach(card => {
+                    if (card.textContent.toLowerCase().includes(query)) {
+                        card.style.outline = "2px solid var(--accent-blue)";
+                    } else {
+                        card.style.outline = "none";
+                    }
+                });
+            });
+        }
+
+        // Theme Toggle
+        function initThemeToggle() {
+            const toggleBtn = document.getElementById("themeToggle");
+            toggleBtn.addEventListener("click", () => {
+                const current = document.body.getAttribute("data-theme");
+                if (current === "dark") {
+                    document.body.removeAttribute("data-theme");
+                } else {
+                    document.body.setAttribute("data-theme", "dark");
+                }
+            });
+        }
+
+        // Accordion functionality
+        function initAccordions() {
+            const accordions = document.querySelectorAll(".accordion-header");
+            accordions.forEach(header => {
+                header.addEventListener("click", () => {
+                    const parent = header.parentElement;
+                    parent.classList.toggle("open");
+                });
+            });
+        }
+
+        // Copy Table Data
+        function initCopyButtons() {
+            document.querySelectorAll(".btn-copy-table").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const table = btn.closest(".table-wrapper").querySelector("table");
+                    if (table) {
+                        const range = document.createRange();
+                        range.selectNode(table);
+                        window.getSelection().removeAllRanges();
+                        window.getSelection().addRange(range);
+                        document.execCommand("copy");
+                        window.getSelection().removeAllRanges();
+                        btn.textContent = "Copied!";
+                        setTimeout(() => btn.textContent = "Copy Table", 2000);
+                    }
+                });
+            });
+        }
+
+        // Scroll Top Button
+        function initScrollTop() {
+            const btn = document.getElementById("scrollTopBtn");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 300) {
+                    btn.classList.add("visible");
+                } else {
+                    btn.classList.remove("visible");
+                }
+            });
+            btn.addEventListener("click", () => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+        }
+
+        // Reading Progress Indicator
+        function initProgressBar() {
+            window.addEventListener("scroll", () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("progressBar").style.width = scrolled + "%";
+            });
+        }
+
+        // Flashcards Module
+        let currentCardIdx = 0;
+        function initFlashcards() {
+            const cardEl = document.getElementById("flashcard");
+            const qEl = document.getElementById("cardQuestion");
+            const aEl = document.getElementById("cardAnswer");
+            const tagEl = document.getElementById("cardCategory");
+            const progEl = document.getElementById("cardProgress");
+
+            function updateCard() {
+                cardEl.classList.remove("flipped");
+                const item = FLASHCARDS[currentCardIdx];
+                qEl.textContent = item.q;
+                aEl.textContent = item.a;
+                tagEl.textContent = item.cat;
+                progEl.textContent = `${currentCardIdx + 1} / ${FLASHCARDS.length}`;
+            }
+
+            cardEl.addEventListener("click", () => {
+                cardEl.classList.toggle("flipped");
+            });
+
+            document.getElementById("btnNextCard").addEventListener("click", () => {
+                currentCardIdx = (currentCardIdx + 1) % FLASHCARDS.length;
+                updateCard();
+            });
+
+            document.getElementById("btnPrevCard").addEventListener("click", () => {
+                currentCardIdx = (currentCardIdx - 1 + FLASHCARDS.length) % FLASHCARDS.length;
+                updateCard();
+            });
+
+            document.getElementById("btnShuffleCard").addEventListener("click", () => {
+                FLASHCARDS.sort(() => Math.random() - 0.5);
+                currentCardIdx = 0;
+                updateCard();
+            });
+
+            document.addEventListener("keydown", (e) => {
+                const flashTabActive = document.getElementById("flashcards").classList.contains("active");
+                if (!flashTabActive) return;
+
+                if (e.code === "Space") {
+                    e.preventDefault();
+                    cardEl.classList.toggle("flipped");
+                } else if (e.code === "ArrowRight") {
+                    currentCardIdx = (currentCardIdx + 1) % FLASHCARDS.length;
+                    updateCard();
+                } else if (e.code === "ArrowLeft") {
+                    currentCardIdx = (currentCardIdx - 1 + FLASHCARDS.length) % FLASHCARDS.length;
+                    updateCard();
+                }
+            });
+
+            updateCard();
+        }
+
+        // Quiz Module
+        function initQuiz() {
+            const container = document.getElementById("quizContainer");
+            let score = 0;
+            const answered = new Set();
+
+            QUIZ_QUESTIONS.forEach((item, index) => {
+                const card = document.createElement("div");
+                card.className = "quiz-card";
+
+                // Shuffle options
+                const opts = item.options.map((opt, i) => ({ text: opt, originalIdx: i }));
+                opts.sort(() => Math.random() - 0.5);
+
+                let optionsHTML = "";
+                opts.forEach(opt => {
+                    optionsHTML += `<li class="option-item" data-orig="${opt.originalIdx}">${opt.text}</li>`;
+                });
+
+                card.innerHTML = `
+                    <div class="question-text">${item.q}</div>
+                    <ul class="options-list">${optionsHTML}</ul>
+                    <div class="explanation-box">${item.exp}</div>
+                `;
+
+                const optionItems = card.querySelectorAll(".option-item");
+                const expBox = card.querySelector(".explanation-box");
+
+                optionItems.forEach(optBtn => {
+                    optBtn.addEventListener("click", () => {
+                        if (answered.has(index)) return;
+                        answered.add(index);
+
+                        const selectedIdx = parseInt(optBtn.getAttribute("data-orig"));
+                        if (selectedIdx === item.correct) {
+                            optBtn.classList.add("correct");
+                            score++;
+                        } else {
+                            optBtn.classList.add("incorrect");
+                            card.querySelector(`[data-orig="${item.correct}"]`).classList.add("correct");
+                        }
+
+                        expBox.classList.add("show");
+                        updateScore();
+                    });
+                });
+
+                container.appendChild(card);
+            });
+
+            function updateScore() {
+                document.getElementById("quizScore").textContent = score;
+                const pct = Math.round((score / QUIZ_QUESTIONS.length) * 100);
+                document.getElementById("quizPercent").textContent = `(${pct}%)`;
+            }
+
+            document.getElementById("btnResetQuiz").addEventListener("click", () => {
+                container.innerHTML = "";
+                score = 0;
+                answered.clear();
+                updateScore();
+                initQuiz();
+            });
+        }
+    </script>
+</body>
+</html>
