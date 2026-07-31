@@ -1,0 +1,2276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sick Newborn 1: Interactive Board Exam Reviewer | Pediatrics II</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-alt: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --primary-light: #e0f2fe;
+            --accent: #06b6d4;
+            --success: #059669;
+            --success-light: #d1fae5;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --info: #2563eb;
+            --info-light: #dbeafe;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        /* Dark Mode Override */
+        body.dark-mode {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --bg-alt: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary-light: #1e3a8a;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 60px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 2px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo-title h1 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-title p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            padding: 0.5rem 1rem 0.5rem 2.2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-alt);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            width: 220px;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            width: 300px;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .btn-toggle {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-toggle:hover {
+            background-color: var(--border);
+        }
+
+        /* Nav Tabs */
+        nav.nav-tabs {
+            display: flex;
+            overflow-x: auto;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            scrollbar-width: thin;
+        }
+
+        nav.nav-tabs::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        nav.nav-tabs::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.2rem;
+            border: none;
+            background: none;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: var(--bg-alt);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        /* Main Container */
+        main.container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography & Components */
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 1.5rem 0 0.8rem 0;
+            color: var(--text-primary);
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        /* Cards Layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow);
+        }
+
+        .card-accent-primary { border-left: 5px solid var(--primary); }
+        .card-accent-warning { border-left: 5px solid var(--warning); }
+        .card-accent-danger { border-left: 5px solid var(--danger); }
+        .card-accent-success { border-left: 5px solid var(--success); }
+
+        /* Custom Callout Boxes */
+        .callout {
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1.2rem 0;
+            position: relative;
+        }
+
+        .callout-must-know {
+            background-color: var(--warning-light);
+            border-left: 4px solid var(--warning);
+            color: #78350f;
+        }
+
+        .callout-pitfall {
+            background-color: var(--danger-light);
+            border-left: 4px solid var(--danger);
+            color: #7f1d1d;
+        }
+
+        .callout-pearl {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            color: #0c4a6e;
+        }
+
+        .callout-exam-tip {
+            background-color: #f3e8ff;
+            border-left: 4px solid #9333ea;
+            color: #581c87;
+        }
+
+        .callout-title {
+            font-weight: 700;
+            font-family: var(--font-heading);
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-primary { background: var(--primary-light); color: var(--primary-dark); }
+        .badge-danger { background: var(--danger-light); color: var(--danger); }
+        .badge-warning { background: var(--warning-light); color: var(--warning); }
+        .badge-success { background: var(--success-light); color: var(--success); }
+
+        /* High-Yield Tables */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .table-header-tools {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            background: var(--bg-alt);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table-header-tools h4 {
+            margin: 0;
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+        }
+
+        .btn-copy {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+        }
+
+        .btn-copy:hover {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            padding: 0.8rem 1rem;
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--bg-alt);
+        }
+
+        tr:hover {
+            background-color: rgba(2, 132, 199, 0.05);
+        }
+
+        /* CSS Diagrams & Visual Recreations */
+        .diagram-box {
+            background: var(--bg-alt);
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Flowchart components */
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .flow-node {
+            background: var(--bg-card);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 0.8rem 1.2rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: var(--shadow-sm);
+            font-weight: 600;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .flow-split {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Extracranial Layers CSS Visual */
+        .scalp-layers {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            max-width: 600px;
+            margin: 1rem auto;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        .layer {
+            padding: 0.6rem;
+            color: white;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .layer-skin { background-color: #fca5a5; color: #7f1d1d; }
+        .layer-subcut { background-color: #fef08a; color: #713f12; }
+        .layer-galea { background-color: #93c5fd; color: #1e3a8a; }
+        .layer-subgaleal { background-color: #dc2626; color: white; border: 2px dashed #fef08a; }
+        .layer-periosteum { background-color: #86efac; color: #14532d; }
+        .layer-subperiosteal { background-color: #ea580c; color: white; }
+        .layer-skull { background-color: #64748b; color: white; }
+
+        /* Interactive Flashcards */
+        .flashcard-container {
+            max-width: 650px;
+            margin: 2rem auto;
+            perspective: 1000px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 360px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            border: 2px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            background: var(--bg-card);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background: var(--primary-light);
+            border-color: var(--primary);
+        }
+
+        .flashcard-badge {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            background: var(--bg-alt);
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            color: var(--primary-dark);
+            font-weight: bold;
+        }
+
+        .flashcard-prompt {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .flashcard-answer {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn-fc {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-fc:hover {
+            background: var(--primary-dark);
+        }
+
+        .fc-filter {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Interactive Quiz / MCQs */
+        .quiz-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .quiz-question {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .option-btn {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            text-align: left;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            background: var(--border);
+        }
+
+        .option-btn.selected-correct {
+            background: var(--success-light);
+            border-color: var(--success);
+            color: #065f46;
+            font-weight: 700;
+        }
+
+        .option-btn.selected-wrong {
+            background: var(--danger-light);
+            border-color: var(--danger);
+            color: #991b1b;
+            font-weight: 700;
+        }
+
+        .quiz-explanation {
+            display: none;
+            padding: 1rem;
+            border-radius: 8px;
+            background: var(--bg-alt);
+            border-left: 4px solid var(--primary);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .quiz-score-board {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-family: var(--font-heading);
+        }
+
+        .quiz-score-board h3 {
+            color: white;
+            margin: 0 0 0.5rem 0;
+        }
+
+        /* Cram Sheet Styling */
+        .cram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cram-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem;
+        }
+
+        .cram-card h3 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.4rem;
+            margin-top: 0;
+        }
+
+        .buzzword-pair {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--border);
+            font-size: 0.88rem;
+        }
+
+        .buzzword-trigger {
+            font-weight: 700;
+            color: var(--danger);
+        }
+
+        .buzzword-target {
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-family: var(--font-mono);
+        }
+
+        /* Scroll To Top */
+        .btn-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 100;
+        }
+
+        .btn-top:hover {
+            background: var(--primary-dark);
+        }
+
+        @media print {
+            header, .progress-container, .btn-top, .fc-filter, .flashcard-controls, .search-box, .btn-toggle {
+                display: none !important;
+            }
+            .tab-content {
+                display: block !important;
+                page-break-after: always;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .card, .table-container {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-top { flex-direction: column; gap: 1rem; align-items: flex-start; }
+            .search-box input { width: 100%; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .flashcard { height: 420px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Sticky Header -->
+    <header>
+        <div class="header-top">
+            <div class="logo-title">
+                <h1>SICK NEWBORN 1</h1>
+                <p>PEDIATRICS II | COMPREHENSIVE INTERACTIVE BOARD REVIEWER</p>
+            </div>
+            <div class="header-controls">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Search concept, drug, buzzword..." onkeyup="filterContent()">
+                </div>
+                <button class="btn-toggle" onclick="toggleDarkMode()">🌓 Mode</button>
+            </div>
+        </div>
+        
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs" id="navTabs">
+            <button class="tab-btn active" onclick="switchTab('overview')">1. Overview</button>
+            <button class="tab-btn" onclick="switchTab('resuscitation')">2. Resuscitation</button>
+            <button class="tab-btn" onclick="switchTab('neurology')">3. Neurology</button>
+            <button class="tab-btn" onclick="switchTab('respiratory')">4. Respiratory</button>
+            <button class="tab-btn" onclick="switchTab('cardiovascular')">5. Cardiovascular</button>
+            <button class="tab-btn" onclick="switchTab('comparisons')">6. Comparisons</button>
+            <button class="tab-btn" onclick="switchTab('flashcards')">7. Flashcards (50)</button>
+            <button class="tab-btn" onclick="switchTab('quiz')">8. Self-Assessment (50)</button>
+            <button class="tab-btn" onclick="switchTab('cram')">9. Cram Sheet</button>
+        </nav>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container">
+
+        <!-- TAB 1: OVERVIEW -->
+        <section id="overview" class="tab-content active">
+            <h2>1. High-Yield Overview & Epidemiology</h2>
+            
+            <div class="grid-2">
+                <div class="card card-accent-primary">
+                    <h3>🎯 Learning Objectives</h3>
+                    <ul>
+                        <li>Master the physiological transition from intra- to extrauterine life.</li>
+                        <li>Identify high-risk maternal/fetal factors causing neonatal sickness.</li>
+                        <li>Execute step-by-step Neonatal Resuscitation according to standard algorithms.</li>
+                        <li>Differentiate extracranial vs. intracranial cranial hemorrhages.</li>
+                        <li>Understand pathophysiology, clinical staging, and management of HIE, PVL, and Neonatal Seizures.</li>
+                        <li>Diagnose and manage major respiratory distress etiologies (RDS, BPD, MAS, TTN, Pneumonia, Pneumothorax, CDH, Apnea).</li>
+                        <li>Recognize and treat cardiovascular emergencies (PPHN, Cyanotic CHDs, PDA).</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-warning">
+                    <h3>📌 Core Neonatal Definitions</h3>
+                    <ul>
+                        <li><strong>Neonatal Period:</strong> First 28 days of life after birth.</li>
+                        <li><strong>Early Neonatal Period:</strong> First 7 days of life (0–6 days).</li>
+                        <li><strong>Late Neonatal Period:</strong> 8th to 28th day of life (7–27 days).</li>
+                        <li><strong>Perinatal Period:</strong> 28th week AOG (28 weeks) to 7th postpartum day.</li>
+                        <li><strong>Sick Newborn:</strong> An infant presenting with lethargy, systemic illness, poor weight gain, or requiring extra-uterine support (O2, IV fluids, meds).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>📊 Global Neonatal Mortality Statistics (WHO Data)</h3>
+            <p>The neonatal period represents the most vulnerable stage for child survival. In 2021, <strong>2.3 million children died in their first month of life</strong> (~6,400 daily deaths), accounting for <strong>47% of all under-5 deaths</strong> worldwide.</p>
+
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <h4>Table 1.1: Major Causes of Neonatal & Under-5 Mortality</h4>
+                    <button class="btn-copy" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Etiology Category</th>
+                            <th>Contribution (%)</th>
+                            <th>Clinical Sequelae & High-Yield Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Prematurity & Low Birth Weight (LBW)</strong></td>
+                            <td><span class="badge badge-danger">33% (1/3)</span></td>
+                            <td>Leading cause of death. Responsible for high vulnerability to RDS, IVH, NEC, and hypothermia.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Trio (Prematurity + LBW/IUGR + Sepsis/Asphyxia)</strong></td>
+                            <td><span class="badge badge-danger">85% – 90%</span></td>
+                            <td>Dominates neonatal mortality in developing countries.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Perinatal Asphyxia (Intrapartum)</strong></td>
+                            <td><span class="badge badge-warning">10% – 15%</span></td>
+                            <td>Causes HIE. Long-term sequelae: Impaired attention span, hyperactivity, epilepsy, mental retardation, auditory deficits.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Congenital Anomalies</strong></td>
+                            <td><span class="badge badge-warning">~10%</span></td>
+                            <td>Includes CCHD, CDH, neural tube defects, chromsomal trisomies.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Serious Infections (Sepsis, Pneumonia, Meningitis)</strong></td>
+                            <td><span class="badge badge-primary">7% – 13%</span></td>
+                            <td>Includes intrauterine (TORCH) and acquired early/late-onset sepsis (GBS, E. coli).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ MUST KNOW: Primary Causes of Death by Stage</div>
+                <ul>
+                    <li><strong>Early Neonatal Period (0–6 days):</strong> Preterm birth complications and intrapartum-related events (Asphyxia) dominate.</li>
+                    <li><strong>Late Neonatal Period (7–27 days):</strong> Infections (Sepsis, Pneumonia, Meningitis) and Congenital anomalies predominate.</li>
+                    <li><strong>Rank Order of Global Neonatal Mortality:</strong> Prematurity > Intrapartum-related complications (Asphyxia) > Serious Infections (Sepsis) > Congenital Anomalies.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TAB 2: RESUSCITATION -->
+        <section id="resuscitation" class="tab-content">
+            <h2>2. Neonatal Resuscitation</h2>
+
+            <div class="callout callout-pearl">
+                <div class="callout-title">💡 CLINICAL PEARL: Adult vs. Neonatal Arrest Pathophysiology</div>
+                <p>Adult cardiac arrest is predominantly <strong>cardiac/circulatory</strong> in origin (arrhythmias, ischemia). Neonatal arrest is almost exclusively secondary to <strong>respiratory failure / inadequate ventilation</strong> leading to severe hypoxemia and bradycardia. Therefore, <strong>establishing effective ventilation is the single most vital step</strong> in neonatal resuscitation!</p>
+            </div>
+
+            <h3>⏱️ The Golden Minute & Resuscitation Flow</h3>
+            <p><strong>Golden Minute Goal:</strong> Complete initial evaluation and establish effective positive pressure ventilation (PPV) within the <strong>first 60 seconds of life</strong> for non-breathing/apneic or bradycardic infants.</p>
+
+            <div class="diagram-box">
+                <div class="diagram-title">FIGURE 2.1: CSS Flowchart - Neonatal Resuscitation Protocol</div>
+                <div class="flowchart">
+                    <div class="flow-node" style="background:#e0f2fe;">Birth → Assess: Term? Good Tone? Breathing/Crying?</div>
+                    <div class="flow-split">
+                        <div style="flex:1;">
+                            <span class="badge badge-success">YES</span>
+                            <div class="flow-node" style="border-color:var(--success);">Routine Care (Unang Yakap):<br>Provide warmth, dry, position airway, continuous evaluation.</div>
+                        </div>
+                        <div style="flex:1;">
+                            <span class="badge badge-danger">NO</span>
+                            <div class="flow-node" style="border-color:var(--danger);">Initial Steps (First 30-60s):<br>Warm, position sniffing position, clear secretions, dry, stimulate.</div>
+                        </div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-node">Evaluate HR and Respirations (at 60s)</div>
+                    <div class="flow-split">
+                        <div style="flex:1;">
+                            <span class="badge badge-warning">HR &lt; 100 or Apneic/Gasping</span>
+                            <div class="flow-node" style="border-color:var(--warning);">Initiate PPV (21% O2 term, 21-30% preterm)<br>Apply Pulse Oximeter, consider ECG.</div>
+                        </div>
+                        <div style="flex:1;">
+                            <span class="badge badge-primary">Labored Breathing / Cyanosis</span>
+                            <div class="flow-node" style="border-color:var(--primary);">Clear airway, SpO2 monitoring, Supplemental O2 or CPAP.</div>
+                        </div>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-node">If HR remains &lt; 100 after 15s PPV → Check Chest Rise → Do MR. SOPA</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-node" style="background:#fee2e2; border-color:var(--danger);">If HR &lt; 60 bpm despite 30s of effective PPV (with chest rise &amp; 100% O2 via ETT):<br><strong>Start Chest Compressions (3:1 Ratio)</strong></div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-node" style="background:#dc2626; color:white;">HR still &lt; 60 bpm after 60s compressions → Administer IV Epinephrine via UVC</div>
+                </div>
+            </div>
+
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ MUST KNOW: MR. SOPA Ventilation Corrective Steps</div>
+                <p>When PPV fails to produce chest movement or improve heart rate, execute MR. SOPA immediately:</p>
+                <ul>
+                    <li><strong>M</strong> – <strong>Mask adjustment:</strong> Reapply mask for tight seal.</li>
+                    <li><strong>R</strong> – <strong>Reposition head:</strong> Place in "sniffing" position (slightly extended).</li>
+                    <li><strong>S</strong> – <strong>Suction mouth &amp; nose:</strong> Clear thick secretions or mucus.</li>
+                    <li><strong>O</strong> – <strong>Open mouth:</strong> Lift jaw, open mouth slightly.</li>
+                    <li><strong>P</strong> – <strong>Pressure increase:</strong> Increase pressure in 5–10 cmH2O increments (max 40 cmH2O).</li>
+                    <li><strong>A</strong> – <strong>Alternate airway:</strong> Insert Endotracheal Tube (ETT) or Laryngeal Mask Airway (LMA).</li>
+                </ul>
+            </div>
+
+            <div class="grid-2">
+                <div class="card card-accent-danger">
+                    <h3>🫀 Chest Compressions Protocol</h3>
+                    <ul>
+                        <li><strong>Indication:</strong> HR &lt; 60 bpm despite 30 seconds of effective PPV with chest movement.</li>
+                        <li><strong>Compression-to-Ventilation Ratio:</strong> <strong>3:1</strong> (3 compressions : 1 breath).</li>
+                        <li><strong>Rate:</strong> 90 compressions + 30 breaths = <strong>120 events/minute</strong>.</li>
+                        <li><strong>Oxygen Concentration:</strong> Increase FiO2 to <strong>100%</strong> during compressions.</li>
+                        <li><strong>Technique:</strong> Two-thumb encircle technique over lower third of sternum.</li>
+                        <li><strong>Re-evaluation Duration:</strong> Continue compressions for <strong>60 seconds</strong> before re-assessing HR.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-primary">
+                    <h3>💉 Epinephrine & Volume Expansion</h3>
+                    <ul>
+                        <li><strong>Indication for Epinephrine:</strong> HR remains &lt; 60 bpm after at least 60 seconds of coordinated compressions and 100% PPV.</li>
+                        <li><strong>Route:</strong> IV/IO preferred (via Emergency Umbilical Venous Catheter - UVC). ETT route while awaiting IV access.</li>
+                        <li><strong>Concentration:</strong> 1:10,000 (0.1 mg/mL).</li>
+                        <li><strong>Persistent Bradycardia:</strong> Consider underlying causes: <strong>Pneumothorax</strong> or <strong>Hypovolemia</strong>.</li>
+                        <li><strong>Volume Expander:</strong> Normal Saline (0.9% NaCl) or O-negative PRBCs at <strong>10 mL/kg over 5–10 mins</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <h4>Table 2.2: Target Pre-Ductal SpO2 After Birth (Right Hand)</h4>
+                    <button class="btn-copy" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time Post-Birth</th>
+                            <th>Target Pre-Ductal SpO2 (%)</th>
+                            <th>Clinical Significance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1 Minute</td><td>60% – 65%</td><td>Normal intra-uterine saturation transition. Do NOT over-oxygenate!</td></tr>
+                        <tr><td>2 Minutes</td><td>65% – 70%</td><td>Gradual rise as lungs clear fluid and PVR declines.</td></tr>
+                        <tr><td>3 Minutes</td><td>70% – 75%</td><td>Monitored via pulse oximeter on Right Wrist/Hand.</td></tr>
+                        <tr><td>4 Minutes</td><td>75% – 80%</td><td>Avoid hyperoxia to prevent ROS-mediated lung/brain damage.</td></tr>
+                        <tr><td>5 Minutes</td><td>80% – 85%</td><td>Goal threshold for initial resuscitation phase.</td></tr>
+                        <tr><td>10 Minutes</td><td>85% – 95%</td><td>Established baseline extrauterine saturation.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-pitfall">
+                <div class="callout-title">⚠️ COMMON PITFALL: Resuscitation Errors</div>
+                <ul>
+                    <li>Assigning APGAR scores before initiating resuscitation in a limp, cyanotic, apneic infant. <em>Resuscitation MUST start immediately!</em></li>
+                    <li>Hyper-extending or flexing the neck (causes airway occlusion; maintain neutral sniffing position).</li>
+                    <li>Suctioning deep pharynx vigorously (triggers vasovagal response causing severe bradycardia).</li>
+                    <li>Using 100% O2 routinely at birth for preterms (increases oxidative stress and tissue damage).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TAB 3: NEUROLOGY -->
+        <section id="neurology" class="tab-content">
+            <h2>3. Common Neonatal Neurologic Problems</h2>
+
+            <h3>A. Cranial Hemorrhage</h3>
+            <p>Cranial hemorrhages in neonates can be extracranial or intracranial, resulting from birth trauma (forceps, vacuum extraction), birth asphyxia, or extreme prematurity.</p>
+
+            <div class="diagram-box">
+                <div class="diagram-title">FIGURE 3.1: CSS Diagram - Scalp and Cranial Anatomical Layers</div>
+                <div class="scalp-layers">
+                    <div class="layer layer-skin">SKIN (Cutaneous)</div>
+                    <div class="layer layer-subcut">SUBCUTANEOUS TISSUE → [Caput Succedaneum Site: Soft, Pitting Edema]</div>
+                    <div class="layer layer-galea">EPICRANIAL APONEUROSIS / GALEA APONEUROTICA</div>
+                    <div class="layer layer-subgaleal">SUBGALEAL SPACE → [Subgaleal Hemorrhage Site: Crosses Sutures, Holds 240mL Blood!]</div>
+                    <div class="layer layer-periosteum">PERIOSTEUM (PERICRANIUM)</div>
+                    <div class="layer layer-subperiosteal">SUBPERIOSTEAL SPACE → [Cephalohematoma Site: Confined by Sutures]</div>
+                    <div class="layer layer-skull">SKULL BONE (Parietal, Occipital, Frontal)</div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <h4>Table 3.1: Extracranial Hemorrhages Definitive Comparison</h4>
+                    <button class="btn-copy" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Caput Succedaneum</th>
+                            <th>Cephalohematoma</th>
+                            <th>Subgaleal Hemorrhage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Anatomical Location</strong></td>
+                            <td>Subcutaneous tissue above epicranial aponeurosis.</td>
+                            <td>Subperiosteal space (between periosteum &amp; skull bone).</td>
+                            <td>Subgaleal space (between epicranial aponeurosis &amp; periosteum).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Crosses Suture Lines?</strong></td>
+                            <td><span class="badge badge-success">YES (Crosses midline)</span></td>
+                            <td><span class="badge badge-danger">NO (Bound by sutures)</span></td>
+                            <td><span class="badge badge-success">YES (Extends to orbits &amp; neck)</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Associated Factors</strong></td>
+                            <td>Vaginal pressure, vertex delivery.</td>
+                            <td>Birth trauma, forceps, linear skull fracture (10–20%).</td>
+                            <td><strong>Vacuum extraction delivery</strong>, coagulopathy.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Consistency &amp; Margins</strong></td>
+                            <td>Soft, vaguely demarcated, pitting edema, shifts with gravity.</td>
+                            <td>Distinct margins, initially firm, becomes fluctuant after 48h.</td>
+                            <td>Ill-defined borders, firm to fluctuant, crepitus or fluid wave.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Timing &amp; Resolution</strong></td>
+                            <td>Maximal at birth; resolves in <strong>48–72 hours</strong>.</td>
+                            <td>Increases 12–24h after birth; resolves in <strong>2–3 weeks</strong>.</td>
+                            <td>Progressive expansion after birth; resolves in 2–3 weeks.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blood Volume &amp; Risk</strong></td>
+                            <td>Minimal volume; Benign.</td>
+                            <td>Rarely severe; hyperbilirubinemia risk.</td>
+                            <td><strong>Massive volume (up to 240 mL!)</strong> → Hypovolemic shock &amp; death.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Management</strong></td>
+                            <td>No treatment required.</td>
+                            <td>Observation; Cranial X-ray if skull fracture suspected.</td>
+                            <td><strong>Emergency:</strong> Volume expanders, Blood transfusion, Inotropes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <hr>
+
+            <h3>B. Intraventricular Hemorrhage (IVH) &amp; Periventricular Leukomalacia (PVL)</h3>
+            <p><strong>IVH Pathophysiology:</strong> Primarily affects preterm infants (&lt;1,500g, &lt;32 weeks AOG). Bleeding originates in the <strong>subependymal germinal matrix (GM)</strong>, a highly vascular gelatinous region producing neuroblasts and oligodendrocytes. The blood vessels here have poor basement membrane support, lack structural tissue, and feature high fibrinolytic activity.</p>
+            <p><strong>Pressure-Passive State:</strong> Preterm infants lack cerebral vascular autoregulation. Pathologic fluctuations in cerebral blood flow velocity (caused by RDS, pneumothorax, intubation, suctioning, hypercapnia, acidosis) trigger vessel rupture.</p>
+
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <h4>Table 3.2: Papile Grading System for Intraventricular Hemorrhage</h4>
+                    <button class="btn-copy" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Grade</th>
+                            <th>Ultrasound Findings / Description</th>
+                            <th>Incidence (%)</th>
+                            <th>Prognosis &amp; Complications</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Grade I</strong></td>
+                            <td>Hemorrhage confined within Subependymal Germinal Matrix or &lt;10% of lateral ventricle.</td>
+                            <td>~35%</td>
+                            <td>Good prognosis; low risk of neurodevelopmental deficits.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grade II</strong></td>
+                            <td>Intraventricular blood filling <strong>10% – 50%</strong> of lateral ventricle <strong>WITHOUT ventricular dilatation</strong>.</td>
+                            <td>~40%</td>
+                            <td>Favorable prognosis; mild risk of neurodeficit.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grade III</strong></td>
+                            <td>Intraventricular blood filling <strong>&gt;50%</strong> of lateral ventricle <strong>WITH ventricular dilatation</strong>.</td>
+                            <td>~15%</td>
+                            <td>High risk of Post-Hemorrhagic Ventricular Dilatation (PHVD) &amp; Hydrocephalus.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grade IV</strong></td>
+                            <td>Parenchymal extension of hemorrhage (Periventricular Hemorrhagic Infarction - PVHI).</td>
+                            <td>~10%</td>
+                            <td><strong>Worst prognosis (~70% neuroimpairment/CP)</strong>; severe cognitive/motor deficits.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-exam-tip">
+                <div class="callout-title">🧠 EXAM TIP: Post-Hemorrhagic Ventricular Dilatation (PHVD)</div>
+                <p>PHVD occurs in 30–50% of Grade III/IV IVH due to CSF flow obstruction by blood clots. Monitor with <strong>weekly head circumference measurements</strong>. A head growth of <strong>&gt;1 cm/week</strong> with bulging fontanelles and separated sutures demands urgent cranial ultrasonography! Interventions include Ventriculoperitoneal Shunt (VPS) placement, Reservoir/EVD, or Ventriculosubgaleal shunt.</p>
+            </div>
+
+            <div class="card card-accent-danger">
+                <h3>🧠 Periventricular Leukomalacia (PVL)</h3>
+                <ul>
+                    <li><strong>Definition:</strong> Focal necrotic lesions in periventricular white matter (the <em>watershed area</em> between arterial territories).</li>
+                    <li><strong>Pathogenesis:</strong> Ischemia and free-radical damage select oligodendrocyte precursors (which myelinate axons from 23–32 weeks AOG).</li>
+                    <li><strong>Motor Tract Affected:</strong> Descending <strong>Corticospinal Tracts</strong> pass through periventricular white matter.</li>
+                    <li><strong>Classic Sequela:</strong> <strong>Spastic Diplegia (Cerebral Palsy)</strong> — lower extremity motor involvement greater than upper extremity.</li>
+                    <li><strong>Ultrasound Appearance:</strong> Initial "flare/blush" echogenicity in 1st week → Cystic lesions superolateral to lateral ventricles within 3 weeks → Ventriculomegaly/ex-vacuo loss at term.</li>
+                </ul>
+            </div>
+
+            <hr>
+
+            <h3>C. Perinatal Asphyxia &amp; Hypoxic Ischemic Encephalopathy (HIE)</h3>
+            <p><strong>Perinatal Asphyxia:</strong> Impaired oxygenation and perfusion to vital organs. Triggers the <em>Diving Reflex</em> (transiently shunts blood to brain, heart, and adrenals away from lungs, kidneys, gut, skin).</p>
+
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <h4>Table 3.3: Multiorgan Target Systemic Effects of Asphyxia</h4>
+                    <button class="btn-copy" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Organ System</th>
+                            <th>Frequency (%)</th>
+                            <th>Clinical Manifestations &amp; Pathology</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Renal System</strong></td>
+                            <td><span class="badge badge-danger">50% (#1 Target)</span></td>
+                            <td>Acute Tubular Necrosis (ATN), oliguria (&lt;0.5 mL/kg/h), gross hematuria, proteinuria, elevated creatinine.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Central Nervous System</strong></td>
+                            <td><span class="badge badge-warning">28%</span></td>
+                            <td>HIE, cerebral edema, seizures, intra-parenchymal infarction, hypotonia/hypertonia.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cardiovascular System</strong></td>
+                            <td><span class="badge badge-warning">25%</span></td>
+                            <td>Transient myocardial ischemia, poor contractility, heart failure, tricuspid regurgitation, hypotension.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pulmonary System</strong></td>
+                            <td><span class="badge badge-primary">23%</span></td>
+                            <td>Pulmonary edema, ARDS (plasma protein surfactant inactivation), PPHN, pulmonary hemorrhage.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>🔥 Pathophysiology: Primary vs. Secondary Energy Failure</h3>
+            <ul>
+                <li><strong>Primary Energy Failure (0–6 Hours):</strong> Hypoxia/Ischemia → Anaerobic metabolism → ATP depletion → Failure of Na<sup>+</sup>/K<sup>+</sup>-ATPase pumps → Cellular depolarization → Massive release of toxic extracellular <strong>Glutamate</strong> → Excessive Ca<sup>2+</sup> &amp; Na<sup>+</sup> influx → Acute cellular swelling &amp; <strong>Necrosis</strong>.</li>
+                <li><strong>Latent Period (Up to 6 Hours):</strong> Brief recovery of cellular energy. <em>Golden window for Therapeutic Hypothermia!</em></li>
+                <li><strong>Secondary Energy Failure (6–48 Hours):</strong> Mitochondrial failure, neuroinflammation, free radical oxidative stress → Delayed neuronal <strong>Apoptosis</strong>.</li>
+            </ul>
+
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ MUST KNOW: Modified Sarnat Staging of Neonatal Encephalopathy</div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <h4>Table 3.4: Modified Sarnat Clinical Staging</h4>
+                    <button class="btn-copy" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature / Sign</th>
+                            <th>Stage 1 (Mild)</th>
+                            <th>Stage 2 (Moderate)</th>
+                            <th>Stage 3 (Severe)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Level of Consciousness</strong></td>
+                            <td>Hyperalert, irritable.</td>
+                            <td>Lethargic, obtunded.</td>
+                            <td>Stuporous, comatose.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Muscle Tone &amp; Posture</strong></td>
+                            <td>Normal tone; Strong Moro.</td>
+                            <td>Hypotonic; Flexion posture; Weak Moro.</td>
+                            <td>Flaccid tone; Decerebrate; Absent Moro.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Autonomic Function</strong></td>
+                            <td>Sympathetic (Mydriasis, tachycardia).</td>
+                            <td>Parasympathetic (Miosis, bradycardia, secretions).</td>
+                            <td>Severely depressed; Sluggish/unequal pupils.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Seizures</strong></td>
+                            <td><span class="badge badge-success">NONE</span></td>
+                            <td><span class="badge badge-danger">COMMON (Focal/Multifocal)</span></td>
+                            <td><span class="badge badge-warning">Uncommon (Severe injury prevents propagation)</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EEG Findings</strong></td>
+                            <td>Normal.</td>
+                            <td>Low voltage, periodic or seizure activity.</td>
+                            <td>Burst suppression to isoelectric.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Duration &amp; Outcome</strong></td>
+                            <td>&lt;24 hours; Good outcome.</td>
+                            <td>24h to 14 days; Variable outcome.</td>
+                            <td>Days to weeks; <strong>50% mortality</strong>, severe deficits.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-pearl">
+                <div class="callout-title">💡 CLINICAL PEARL: Therapeutic Hypothermia</div>
+                <p>Therapeutic hypothermia (head cooling or whole-body cooling to <strong>33.5°C for 72 hours</strong>) initiated within the <strong>first 6 hours of life</strong> reduces mortality and neurodevelopmental disability in moderate-to-severe HIE by decreasing apoptosis and oxidative stress!</p>
+            </div>
+
+            <hr>
+
+            <h3>D. Neonatal Seizures &amp; Birth Injuries</h3>
+            
+            <div class="grid-2">
+                <div class="card card-accent-primary">
+                    <h3>⚡ Types of Neonatal Seizures</h3>
+                    <ul>
+                        <li><strong>Subtle Seizures (Automatisms):</strong> <em>Most common type in both term &amp; preterm!</em> Manifests as ocular deviations, blinking, lip smacking, pedaling, rowing, bicycling, apnea, or autonomic changes.</li>
+                        <li><strong>Clonic Seizures:</strong> Rhythmic jerking. <em>Focal</em> (one limb, focal brain lesion) or <em>Multifocal</em> (migrates limb to limb; mostly term infants).</li>
+                        <li><strong>Tonic Seizures:</strong> Sustained posture/stiffening of limbs. Most common in preterms with severe IVH.</li>
+                        <li><strong>Myoclonic Seizures:</strong> Single or multiple lightning-fast flexor jerks.</li>
+                        <li><strong>#1 Etiology:</strong> <strong>Hypoxic Ischemic Encephalopathy (HIE)</strong> causes &gt;50% of neonatal seizures.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-warning">
+                    <h3>💪 Birth Nerve Injuries Summary</h3>
+                    <ul>
+                        <li><strong>Erb-Duchenne Paralysis (C5–C6):</strong> Upper plexus injury. <strong>"Waiter's tip" posture</strong> (adduction, internal rotation, forearm pronation). Moro reflex absent; <strong>Hand grasp INTACT</strong>.</li>
+                        <li><strong>Klumpke Paralysis (C8–T1):</strong> Lower plexus injury. Claw hand posture. Hand grasp absent. Associated with <strong>Ipsilateral Horner Syndrome</strong> (ptosis, miosis, anhidrosis) due to T1 sympathetic chain involvement.</li>
+                        <li><strong>Phrenic Nerve Palsy (C3–C5):</strong> Causes diaphragmatic paralysis, breath sound reduction, elevated hemidiaphragm on CXR, mediastinal shift.</li>
+                        <li><strong>Facial Nerve Injury:</strong> <em>Peripheral</em> affects entire side of face (including forehead/eyelid; 90% resolve). <em>Central</em> spares forehead and eyelid.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: RESPIRATORY -->
+        <section id="respiratory" class="tab-content">
+            <h2>4. Neonatal Respiratory Disorders</h2>
+
+            <h3>🫁 Clinical Assessment &amp; Respiratory Distress Scoring</h3>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Table 4.1: Downe's Score (Term Neonates)</h3>
+                    <p><em>Score &gt;6 = Severe distress; Score &gt;8 = Impending arrest (Ventilate)</em></p>
+                    <ul>
+                        <li><strong>Respiratory Rate:</strong> &lt;60 (0), 60–80 (1), &gt;80 (2)</li>
+                        <li><strong>Cyanosis:</strong> None (0), In room air (1), On &gt;40% FiO2 (2)</li>
+                        <li><strong>Retractions:</strong> None (0), Mild (1), Severe (2)</li>
+                        <li><strong>Grunting:</strong> None (0), Audible with stethoscope (1), Audible without stethoscope (2)</li>
+                        <li><strong>Air Entry:</strong> Good (0), Decreased (1), Very poor/Barely audible (2)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Table 4.2: Silverman-Andersen Score (Preterm Neonates)</h3>
+                    <p><em>Score 0 = Normal; Score 10 = Severe distress (Score &gt;4 = CPAP)</em></p>
+                    <ul>
+                        <li><strong>Upper Chest Movement:</strong> Synchronized (0), Lag in inspiration (1), See-saw respiration (2)</li>
+                        <li><strong>Lower Intercostal Retraction:</strong> None (0), Mild (1), Marked (2)</li>
+                        <li><strong>Xiphoid Retraction:</strong> None (0), Mild (1), Marked (2)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
+
+            <h3>Core Respiratory Pathologies Summary</h3>
+
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <h4>Table 4.3: Comprehensive Master Comparison of Neonatal Respiratory Diseases</h4>
+                    <button class="btn-copy" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Pathophysiology &amp; Risk Factors</th>
+                            <th>Classic Clinical Signs</th>
+                            <th>Chest Radiograph (CXR) Findings</th>
+                            <th>Treatment &amp; Prevention</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Respiratory Distress Syndrome (RDS)</strong></td>
+                            <td>Deficiency of <strong>Surfactant</strong> (dipalmitoylphosphatidylcholine). High risk in preterms, maternal diabetes, C-section without labor.</td>
+                            <td>Grunting, tachypnea, retractions, cyanosis appearing hours post-birth.</td>
+                            <td>Diffuse <strong>reticulogranular ("ground-glass") pattern</strong> with prominent <strong>air bronchograms</strong>. Severe = "White-out" lung.</td>
+                            <td><strong>Betamethasone</strong> antenatally (24–34w). Exogenous mammalian surfactant via ETT, CPAP.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bronchopulmonary Dysplasia (BPD)</strong></td>
+                            <td>Chronic lung injury from volutrauma/barotrauma + O2 free radical toxicity in premature lungs. O2 need for <strong>&ge;28 days</strong>.</td>
+                            <td>O2 dependency at 36w PMA, tachypnea, hypercapnia, cor pulmonale.</td>
+                            <td>Alternating hyperinflation &amp; streak-like atelectasis (<strong>"Bubbly lungs"</strong> / Wilson-Mikity appearance).</td>
+                            <td>Gentle ventilation, fluid restriction, diuretics, bronchodilators, aggressive nutrition.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Meconium Aspiration Syndrome (MAS)</strong></td>
+                            <td>In-utero gasping of meconium → <strong>Ball-valve airway obstruction</strong> (air trapping), chemical pneumonitis, surfactant inactivation. Term/post-term.</td>
+                            <td>Barrel chest, coarse rhonchi, meconium staining of skin/cord/nails, green urine.</td>
+                            <td><strong>Patchy, coarse, asymmetric infiltrates</strong>, hyperinflation, flattened diaphragms, air leaks.</td>
+                            <td>Gentle PPV/HFOV, Surfactant lavage, Inhaled Nitric Oxide (iNO) for secondary PPHN, ECMO.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Transient Tachypnea of Newborn (TTN)</strong></td>
+                            <td>Delayed clearance/resorption of fetal lung fluid (ENaC dysfunction). Risk: <strong>Elective C-section without labor</strong>, macrosomia.</td>
+                            <td>Rapid tachypnea (60–120/min) shortly after birth, mild retractions. Self-limiting (24–72h).</td>
+                            <td><strong>Prominent perihilar vascular markings ("sunburst")</strong>, fluid in interlobar fissures, hyperinflation.</td>
+                            <td>Supportive care, minimal O2 (&lt;30–40%). Rapid resolution differentiate from pneumonia.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Neonatal Pneumonia</strong></td>
+                            <td>Transplacental or ascending infection. Etiology: <strong>Group B Streptococcus (GBS)</strong>, <em>E. coli</em>, Klebsiella. Risk: PROM &gt;18h.</td>
+                            <td>Respiratory distress + sepsis signs (temperature instability, poor feeding, lethargy).</td>
+                            <td>Patchy infiltrates, lobar consolidation, or indistinguishable from RDS.</td>
+                            <td>Empiric IV <strong>Ampicillin + Gentamicin</strong>. Thermoneutral environment.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Congenital Diaphragmatic Hernia (CDH)</strong></td>
+                            <td>Defect in diaphragm (<strong>Bochdalek posterolateral 90% left-sided</strong>) → Abdominal viscera in thorax → <strong>Pulmonary Hypoplasia</strong> &amp; PPHN.</td>
+                            <td><strong>Scaphoid abdomen</strong>, barrel chest, bowel sounds in chest, displaced cardiac apex beat.</td>
+                            <td>Bowel loops in hemithorax, mediastinal shift to contralateral side, lack of abdominal gas.</td>
+                            <td><strong>IMMEDIATE INTUBATION in DR (NO bag-mask ventilation!)</strong>, OGT decompression, delayed surgery.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pneumothorax</strong></td>
+                            <td>Alveolar rupture due to high PIP ventilation, MAS, or RDS. Air dissects into pleural space.</td>
+                            <td>Sudden deterioration, diminished breath sounds, cardiac apex shift. Positive transillumination.</td>
+                            <td>Hyperlucent pleural space devoid of lung markings, collapsed lung edge.</td>
+                            <td>Small: O2 wash-out. Large/Tension: Needle aspiration (2nd ICS MCL) &amp; Chest Tube.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Apnea of Prematurity</strong></td>
+                            <td>Immaturity of brainstem respiratory center. Cessation of airflow <strong>&gt;20s</strong> (or &lt;20s with bradycardia/cyanosis).</td>
+                            <td>Central, Obstructive, or Mixed (most common) respiratory pauses.</td>
+                            <td>Normal lung parenchymal findings unless underlying cause present.</td>
+                            <td><strong>Methylxanthines (Caffeine Citrate)</strong>, Nasal CPAP (splints airway), tactile stimulation.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-pitfall">
+                <div class="callout-title">⚠️ COMMON PITFALL: Congenital Diaphragmatic Hernia Emergency</div>
+                <p>In a newborn presenting with respiratory distress and a <strong>scaphoid abdomen</strong>, NEVER perform bag-mask ventilation! Bag-mask ventilation inflates the stomach and bowel loops within the thoracic cavity, causing rapid lung compression and fatal tension pneumothorax. <strong>Intubate immediately and place an OGT to decompress the stomach!</strong></p>
+            </div>
+        </section>
+
+        <!-- TAB 5: CARDIOVASCULAR -->
+        <section id="cardiovascular" class="tab-content">
+            <h2>5. Cardiovascular Diseases in the Sick Newborn</h2>
+
+            <h3>A. Persistent Pulmonary Hypertension of the Newborn (PPHN)</h3>
+            <p>PPHN is characterized by failure of the normal postnatal decrease in pulmonary vascular resistance (PVR), leading to persistent right-to-left shunting across the Patent Foramen Ovale (PFO) and Patent Ductus Arteriosus (PDA), resulting in severe, labile hypoxemia.</p>
+
+            <div class="grid-2">
+                <div class="card card-accent-danger">
+                    <h3>⚡ Etiological Mechanisms of PPHN</h3>
+                    <ul>
+                        <li><strong>Maladaptation:</strong> Structurally normal vessels with severe vasoconstriction due to parenchymal lung disease (MAS, RDS, pneumonia) or sepsis/hypothermia.</li>
+                        <li><strong>Maldevelopment:</strong> Hypertrophied vascular smooth muscle bed due to chronic intrauterine hypoxia or maternal intake of <strong>SSRIs</strong> or <strong>NSAIDs/COX-inhibitors</strong> (causes premature ductal closure).</li>
+                        <li><strong>Underdevelopment:</strong> Hypoplastic pulmonary vascular bed secondary to Congenital Diaphragmatic Hernia (CDH) or Potter sequence.</li>
+                        <li><strong>Obstruction:</strong> Vascular bed occlusion due to polycythemia or TAPVR.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-primary">
+                    <h3>🩺 Clinical Manifestations &amp; Diagnosis</h3>
+                    <ul>
+                        <li>Term or post-term infant with severe, labile cyanosis within 24h of life.</li>
+                        <li><strong>Auscultation:</strong> Single or narrowly split S2 with a <strong>loud P2 component</strong>.</li>
+                        <li><strong>Differential Cyanosis:</strong> Preductal SpO2 (Right Hand) is <strong>&gt;5% – 10% higher</strong> than Postductal SpO2 (Feet).</li>
+                        <li><strong>Echocardiogram (Gold Standard):</strong> Shows elevated RV pressures, flattening/leftward bowing of interventricular septum, tricuspid regurgitation, and right-to-left shunt across PDA/PFO.</li>
+                        <li><strong>Treatment:</strong> Gentle ventilation, <strong>Inhaled Nitric Oxide (iNO)</strong> (selective pulmonary vasodilator), Sildenafil, Bosentan, ECMO.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
+
+            <h3>B. Congenital Heart Diseases (CHD) &amp; CCHD Screening</h3>
+            
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ MUST KNOW: High-Yield CHD Rankings</div>
+                <ul>
+                    <li><strong>Most Common CHD Overall:</strong> Ventricular Septal Defect (VSD).</li>
+                    <li><strong>Most Common Cyanotic CHD Beyond Neonatal Period:</strong> Tetralogy of Fallot (TOF).</li>
+                    <li><strong>Most Common Cyanotic CHD in First Week of Life:</strong> Transposition of the Great Arteries (TGA).</li>
+                    <li><strong>Most Common Cardiac Cause of Mortality in First Week of Life:</strong> Hypoplastic Left Heart Syndrome (HLHS) [2nd most common cyanotic CHD in 1st week].</li>
+                    <li><strong>The 5 T's of Cyanotic CHD:</strong> Truncus arteriosus, Transposition of Great Arteries, Tricuspid atresia, Tetralogy of Fallot, Total anomalous pulmonary venous return (TAPVR).</li>
+                </ul>
+            </div>
+
+            <div class="diagram-box">
+                <div class="diagram-title">FIGURE 5.1: Pulse Oximetry Screening Algorithm for Critical CHD (CCHD)</div>
+                <p>Performed at 24–48 hours of life on <strong>Right Hand (Preductal)</strong> and <strong>Either Foot (Postductal)</strong></p>
+                <div class="flowchart" style="margin-top:1rem;">
+                    <div class="flow-node">Measure SpO2 in Right Hand &amp; Either Foot</div>
+                    <div class="flow-split">
+                        <div style="flex:1;">
+                            <span class="badge badge-success">PASS</span>
+                            <div class="flow-node" style="border-color:var(--success); font-size:0.85rem;">SpO2 &ge; 95% in both limbs AND &le;3% difference between hand and foot.</div>
+                        </div>
+                        <div style="flex:1;">
+                            <span class="badge badge-danger">FAIL (Immediate)</span>
+                            <div class="flow-node" style="border-color:var(--danger); font-size:0.85rem;">SpO2 &lt; 90% in either limb → Urgent 2D Echo &amp; Pediatric Cardiology Referral!</div>
+                        </div>
+                    </div>
+                    <div class="flow-node" style="background:#fef3c7; border-color:var(--warning); font-size:0.85rem;">
+                        <strong>REPEAT IN 1 HOUR IF:</strong> SpO2 90–94% in both limbs OR &gt;3% difference. If 3 consecutive tests fail → FAIL (Do Echo).
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <h3>C. Patent Ductus Arteriosus (PDA)</h3>
+            <ul>
+                <li><strong>Normal Course:</strong> Physiologic closure within 12–15 hours post-birth; anatomic closure in weeks. Pathologic if open &gt;72 hours.</li>
+                <li><strong>Prevalence:</strong> Inversely proportional to GA (&lt;30 weeks AOG ~ 50%).</li>
+                <li><strong>Clinical Presentation:</strong> Bounding peripheral pulses, wide pulse pressure, continuous "machinery-like" murmur at left infraclavicular border.</li>
+                <li><strong>Preterm Complications:</strong> Left-to-right shunt causes pulmonary overperfusion (pulmonary hemorrhage, BPD) and systemic steal (NEC, intraventricular hemorrhage, renal failure).</li>
+                <li><strong>Medical Closure Management:</strong> Fluid restriction + <strong>IV Ibuprofen</strong>, <strong>Indomethacin</strong>, or <strong>Paracetamol (Acetaminophen)</strong>. Surgical ligation if medical therapy fails.</li>
+            </ul>
+        </section>
+
+        <!-- TAB 6: COMPARISONS -->
+        <section id="comparisons" class="tab-content">
+            <h2>6. Dedicated Side-by-Side Comparison Tables</h2>
+
+            <h3>Table 6.1: Extracranial Scalp Injuries Master Comparison</h3>
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <h4>Extracranial Lesions</h4>
+                    <button class="btn-copy" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Caput Succedaneum</th>
+                            <th>Cephalohematoma</th>
+                            <th>Subgaleal Hemorrhage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Bleeding Layer</strong></td><td>Subcutaneous tissue</td><td>Subperiosteal space</td><td>Subaponeurotic (galea) space</td></tr>
+                        <tr><td><strong>Suture Lines</strong></td><td>Crosses sutures</td><td>Does NOT cross sutures</td><td>Crosses sutures</td></tr>
+                        <tr><td><strong>Onset</strong></td><td>Present at birth</td><td>Hours after birth</td><td>Progressive post-birth</td></tr>
+                        <tr><td><strong>Complications</strong></td><td>None (Benign)</td><td>Jaundice, fracture</td><td>Hypovolemic Shock, Death</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Table 6.2: Central vs. Obstructive vs. Mixed Apnea</h3>
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <h4>Apnea Types</h4>
+                    <button class="btn-copy" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type of Apnea</th>
+                            <th>Nasal Airflow</th>
+                            <th>Respiratory Chest Wall Effort</th>
+                            <th>Primary Pathophysiology</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Central Apnea</strong></td><td>ABSENT</td><td>ABSENT</td><td>Immaturity of brainstem respiratory center.</td></tr>
+                        <tr><td><strong>Obstructive Apnea</strong></td><td>ABSENT</td><td>PRESENT</td><td>Upper airway collapse/occlusion (pharyngeal tone loss).</td></tr>
+                        <tr><td><strong>Mixed Apnea</strong></td><td>ABSENT</td><td>Initially ABSENT, then PRESENT (or vice versa)</td><td><strong>Most common type (~50-60%)</strong> in preterm infants.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Table 6.3: Cyanotic Heart Disease vs. PPHN vs. Parenchymal Lung Disease</h3>
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <h4>Differential Diagnosis of Neonatal Cyanosis</h4>
+                    <button class="btn-copy" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Diagnostic Test / Sign</th>
+                            <th>Parenchymal Lung Disease (e.g. RDS)</th>
+                            <th>Persistent Pulmonary HTN (PPHN)</th>
+                            <th>Critical Cyanotic CHD (e.g. TGA)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Hyperoxia Test (100% O2)</strong></td><td>PaO2 increases &gt; 150 mmHg</td><td>PaO2 remains &lt; 100 mmHg</td><td>PaO2 remains &lt; 100 mmHg (No response)</td></tr>
+                        <tr><td><strong>Pre vs Postductal SpO2</strong></td><td>Equal saturations</td><td>Preductal &gt; Postductal (&gt;5–10% diff)</td><td>Equal (unless co-existing PDA shunt)</td></tr>
+                        <tr><td><strong>Chest Radiograph</strong></td><td>Reticulogranular / Infiltrates</td><td>Decreased vascularity, normal heart</td><td>Cardiomegaly, abnormal heart contour</td></tr>
+                        <tr><td><strong>Auscultation</strong></td><td>Rales, rhonchi, grunting</td><td>Loud single S2 (P2)</td><td>Heart murmur (frequently present)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 7: FLASHCARDS -->
+        <section id="flashcards" class="tab-content">
+            <h2>7. Active-Recall Flashcards (50)</h2>
+            <p>Click the card to flip between Question and Answer. Use navigation buttons or keyboard arrow keys.</p>
+
+            <div class="fc-filter">
+                <button class="btn-toggle" onclick="filterFC('all')">All (50)</button>
+                <button class="btn-toggle" onclick="filterFC('resus')">Resuscitation</button>
+                <button class="btn-toggle" onclick="filterFC('neuro')">Neurology</button>
+                <button class="btn-toggle" onclick="filterFC('resp')">Respiratory</button>
+                <button class="btn-toggle" onclick="filterFC('cvs')">Cardiovascular</button>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard" id="flashcard" onclick="flipCard()">
+                    <div class="card-front">
+                        <span class="flashcard-badge" id="fcCategory">CATEGORY</span>
+                        <div class="flashcard-prompt" id="fcQuestion">Question Prompt</div>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">Click to Flip 🔄</span>
+                    </div>
+                    <div class="card-back">
+                        <span class="flashcard-badge">ANSWER</span>
+                        <div class="flashcard-answer" id="fcAnswer">Answer Text</div>
+                        <span style="font-size:0.8rem; color:var(--primary-dark);">Click to Flip 🔄</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-controls">
+                <button class="btn-fc" onclick="prevFC()">← Previous</button>
+                <span id="fcTracker" style="font-family:var(--font-mono); font-weight:700;">Card 1 of 50</span>
+                <button class="btn-fc" onclick="nextFC()">Next →</button>
+                <button class="btn-fc" style="background:var(--accent);" onclick="shuffleFC()">🔀 Shuffle</button>
+            </div>
+        </section>
+
+        <!-- TAB 8: QUIZ -->
+        <section id="quiz" class="tab-content">
+            <h2>8. Board-Style Self-Assessment (50 MCQs)</h2>
+
+            <div class="quiz-score-board" id="scoreBoard">
+                <h3>Current Score: <span id="currentScore">0</span> / 50</h3>
+                <p>Select the single best answer for each PLE/NBME-style scenario.</p>
+            </div>
+
+            <div id="quizContainer">
+                <!-- Quiz questions dynamically loaded via JS -->
+            </div>
+        </section>
+
+        <!-- TAB 9: CRAM SHEET -->
+        <section id="cram" class="tab-content">
+            <h2>9. Last-Minute Rapid Review Cram Sheet</h2>
+            <p>Read in under 10 minutes before long exams or the Physician Licensure Examination!</p>
+
+            <div class="cram-grid">
+                <div class="cram-card">
+                    <h3>⚡ "If You See X → Think Y" Clinical Reasoning</h3>
+                    <div class="buzzword-pair"><span class="buzzword-trigger">Vacuum extraction + shock/falling Hb</span><span class="buzzword-target">Subgaleal Hemorrhage</span></div>
+                    <div class="buzzword-pair"><span class="buzzword-trigger">Parietal mass that DOES NOT cross sutures</span><span class="buzzword-target">Cephalohematoma</span></div>
+                    <div class="buzzword-pair"><span class="buzzword-trigger">Scalp edema that CROSSES suture lines</span><span class="buzzword-target">Caput Succedaneum</span></div>
+                    <div class="buzzword-pair"><span class="buzzword-trigger">Preterm + sudden anemia + bulging fontanelle</span><span class="buzzword-target">Intraventricular Hemorrhage</span></div>
+                    <div class="buzzword-pair"><span class="buzzword-trigger">Cystic lesions superolateral to ventricles</span><span class="buzzword-target">Periventricular Leukomalacia</span></div>
+                    <div class="buzzword-pair"><span class="buzzword-trigger">Waiters tip arm posture + intact grasp</span><span class="buzzword-target">Erb-Duchenne Palsy (C5-C6)</span></div>
+                    <div class="buzzword-pair"><span class="buzzword-trigger">Claw hand + Horner syndrome</span><span class="buzzword-target">Klumpke Palsy (C8-T1)</span></div>
+                    <div class="buzzword-pair"><span class="buzzword-trigger">Ground glass CXR + air bronchograms</span><span class="buzzword-target">Respiratory Distress Syndrome</span></div>
+                    <div class="buzzword-pair"><span class="buzzword-trigger">Scaphoid abdomen + cyanosis in DR</span><span class="buzzword-target">Congenital Diaphragmatic Hernia</span></div>
+                    <div class="buzzword-pair"><span class="buzzword-trigger">Term C-section + sunburst perihilar CXR</span><span class="buzzword-target">Transient Tachypnea of Newborn</span></div>
+                    <div class="buzzword-pair"><span class="buzzword-trigger">Loud single S2 + pre/postductal SpO2 diff</span><span class="buzzword-target">PPHN</span></div>
+                    <div class="buzzword-pair"><span class="buzzword-trigger">Continuous machinery murmur + bounding pulse</span><span class="buzzword-target">Patent Ductus Arteriosus</span></div>
+                </div>
+
+                <div class="cram-card">
+                    <h3>🎯 High-Yield Fast Numbers</h3>
+                    <ul>
+                        <li><strong>Golden Minute:</strong> Establish ventilation within <strong>60 seconds</strong>.</li>
+                        <li><strong>Compression Ratio:</strong> <strong>3:1</strong> (90 compressions + 30 breaths = 120/min).</li>
+                        <li><strong>Subgaleal Space Capacity:</strong> Accommodates up to <strong>240 mL</strong> of blood.</li>
+                        <li><strong>Therapeutic Hypothermia:</strong> <strong>33.5°C for 72 hours</strong> within 6h of birth.</li>
+                        <li><strong>Antenatal Steroid Timing:</strong> Betamethasone 12 mg IM q24h x 2 doses at <strong>24–34 weeks AOG</strong>.</li>
+                        <li><strong>BPD Definition:</strong> O2 requirement for <strong>&ge;28 days</strong> (severity evaluated at 36w PMA).</li>
+                        <li><strong>CCHD Screening:</strong> 24–48 hours of life. Fail if SpO2 <strong>&lt;90%</strong> or &gt;3% pre/postductal difference.</li>
+                        <li><strong>Normal Oliguria Threshold:</strong> Urine output <strong>&lt;0.5 mL/kg/hour</strong>.</li>
+                    </ul>
+                </div>
+
+                <div class="cram-card">
+                    <h3>🚨 Red Flag Do's and Don'ts</h3>
+                    <ul>
+                        <li><span style="color:var(--danger); font-weight:bold;">DON'T</span> perform bag-mask ventilation in Congenital Diaphragmatic Hernia!</li>
+                        <li><span style="color:var(--danger); font-weight:bold;">DON'T</span> delay resuscitation to calculate the 1-minute APGAR score!</li>
+                        <li><span style="color:var(--danger); font-weight:bold;">DON'T</span> use 100% O2 routinely for premature resuscitation at birth.</li>
+                        <li><span style="color:var(--success); font-weight:bold;">DO</span> perform MR. SOPA if chest is not moving during PPV.</li>
+                        <li><span style="color:var(--success); font-weight:bold;">DO</span> give Caffeine Citrate for Apnea of Prematurity.</li>
+                        <li><span style="color:var(--success); font-weight:bold;">DO</span> perform weekly head circumference in infants with severe IVH.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scroll To Top Button -->
+    <button class="btn-top" id="btnTop" onclick="scrollToTop()">↑</button>
+
+    <!-- Embedded JavaScript Engine -->
+    <script>
+        /* Dark Mode Toggle */
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        /* Tab Switcher */
+        function switchTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            contents.forEach(c => c.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* Scroll Progress Bar & Scroll To Top */
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+
+            const btnTop = document.getElementById("btnTop");
+            if (winScroll > 300) {
+                btnTop.style.display = "flex";
+            } else {
+                btnTop.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* Copy Table JS */
+        function copyTable(btn) {
+            const table = btn.closest('.table-container').querySelector('table');
+            let text = '';
+            for (let row of table.rows) {
+                let rowData = [];
+                for (let cell of row.cells) {
+                    rowData.push(cell.innerText.replace(/\n/g, " "));
+                }
+                text += rowData.join("\t") + "\n";
+            }
+            navigator.clipboard.writeText(text).then(() => {
+                const orig = btn.innerText;
+                btn.innerText = 'Copied! ✓';
+                btn.style.background = 'var(--success-light)';
+                setTimeout(() => {
+                    btn.innerText = orig;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        /* Live Content Search */
+        function filterContent() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            if (query.length < 2) return;
+            
+            // Search through text nodes in current active tab
+            const activeTab = document.querySelector('.tab-content.active');
+            const cards = activeTab.querySelectorAll('.card, .table-container, .callout, .quiz-card');
+            
+            cards.forEach(card => {
+                if (card.innerText.toLowerCase().includes(query)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        /* FLASHCARD ENGINE & DATA (50 Cards) */
+        const flashcardData = [
+            { cat: "resus", q: "What is the primary cause of cardiac arrest in neonates compared to adults?", a: "Neonatal arrest is primary RESPIRATORY / VENTILATION failure leading to severe hypoxemia, whereas adult arrest is predominantly cardiac/circulatory." },
+            { cat: "resus", q: "What is the target timeframe for the 'Golden Minute' in resuscitation?", a: "Establish effective ventilation within the first 60 seconds of life." },
+            { cat: "resus", q: "What is the compression-to-ventilation ratio for neonatal resuscitation?", a: "3:1 (90 compressions and 30 breaths = 120 total events per minute)." },
+            { cat: "resus", q: "What does the mnemonic MR. SOPA stand for?", a: "Mask adjustment, Reposition head, Suction mouth/nose, Open mouth, Pressure increase, Alternate airway." },
+            { cat: "resus", q: "When are chest compressions indicated during resuscitation?", a: "When HR remains < 60 bpm despite at least 30 seconds of effective PPV with chest movement." },
+            { cat: "neuro", q: "Which extracranial hemorrhage crosses suture lines and presents as soft pitting edema?", a: "Caput Succedaneum." },
+            { cat: "neuro", q: "Which extracranial hemorrhage is bound by suture lines and subperiosteal in location?", a: "Cephalohematoma." },
+            { cat: "neuro", q: "Which extracranial hemorrhage is strongly associated with vacuum delivery and holds up to 240 mL of blood?", a: "Subgaleal Hemorrhage (Subaponeurotic)." },
+            { cat: "neuro", q: "Where does Intraventricular Hemorrhage (IVH) originate in preterm infants?", a: "Subependymal Germinal Matrix (involutes by 34–36 weeks AOG)." },
+            { cat: "neuro", q: "What is Papile Grade III Intraventricular Hemorrhage?", a: "Intraventricular blood filling >50% of lateral ventricle WITH ventricular dilatation." },
+            { cat: "neuro", q: "What is Papile Grade IV Intraventricular Hemorrhage?", a: "Extension of hemorrhage into brain parenchyma (Periventricular Hemorrhagic Infarction)." },
+            { cat: "neuro", q: "What classic cerebral palsy presentation results from Periventricular Leukomalacia (PVL)?", a: "Spastic Diplegia (lower extremities affected more than upper extremities)." },
+            { cat: "neuro", q: "What is the most common type of neonatal seizure in both term and preterm infants?", a: "Subtle Seizures (Automatisms: eye deviations, lip smacking, pedaling)." },
+            { cat: "neuro", q: "What primary neuroexcitatory neurotransmitter is released during primary energy failure in HIE?", a: "Glutamate (causes massive intracellular calcium and sodium influx)." },
+            { cat: "neuro", q: "What is the optimal therapeutic window for initiating Therapeutic Hypothermia in HIE?", a: "Within the first 6 hours of life (cooling to 33.5°C for 72 hours)." },
+            { cat: "neuro", q: "Sarnat Stage 1 HIE is characterized by which autonomic state?", a: "Sympathetic overactivity (hyperalert, mydriasis, tachycardia, no seizures)." },
+            { cat: "neuro", q: "Sarnat Stage 2 HIE features which key seizure pattern?", a: "Common focal or multifocal seizures with parasympathetic overactivity (miosis, lethargy)." },
+            { cat: "neuro", q: "What is the most common organ system affected by perinatal asphyxia?", a: "Renal System (50% incidence — Acute Tubular Necrosis, oliguria, hematuria)." },
+            { cat: "neuro", q: "Which nerve roots are injured in Erb-Duchenne paralysis?", a: "C5–C6 roots ('Waiter's tip' posture, absent Moro, INTACT hand grasp)." },
+            { cat: "neuro", q: "Which nerve roots are injured in Klumpke paralysis?", a: "C8–T1 roots (Claw hand, ABSENT hand grasp, ipsilateral Horner syndrome)." },
+            { cat: "resp", q: "What score is used to assess respiratory distress in term neonates?", a: "Downe's Score (score >6 = severe distress; >8 = impending arrest)." },
+            { cat: "resp", q: "What score is used to assess respiratory distress in premature neonates?", a: "Silverman-Andersen Score (score 10 = max severe distress)." },
+            { cat: "resp", q: "What is the primary cause of Respiratory Distress Syndrome (RDS)?", a: "Deficiency of surfactant (dipalmitoylphosphatidylcholine) produced by Type II pneumocytes." },
+            { cat: "resp", q: "What is the characteristic CXR finding in Respiratory Distress Syndrome?", a: "Diffuse reticulogranular ('ground-glass') pattern with air bronchograms." },
+            { cat: "resp", q: "What single intervention before preterm birth significantly reduces RDS and IVH?", a: "Antenatal Corticosteroids (Betamethasone 12 mg IM q24h x 2 doses)." },
+            { cat: "resp", q: "How is Bronchopulmonary Dysplasia (BPD) defined?", a: "Supplemental oxygen requirement for at least 28 days postnatally." },
+            { cat: "resp", q: "What CXR appearance is classic for Bronchopulmonary Dysplasia?", a: "Alternating areas of hyperinflation and streaky atelectasis ('Bubbly lungs')." },
+            { cat: "resp", q: "What is the mechanical cause of air trapping in Meconium Aspiration Syndrome?", a: "Partial airway obstruction causing a 'Ball-Valve' effect." },
+            { cat: "resp", q: "What is the primary etiology of Transient Tachypnea of the Newborn (TTN)?", a: "Delayed resorption/clearance of fetal lung fluid (ENaC dysfunction)." },
+            { cat: "resp", q: "What is the classic risk factor for TTN?", a: "Elective Cesarean section delivery without prior trial of labor." },
+            { cat: "resp", q: "What CXR finding distinguishes TTN from RDS?", a: "Prominent perihilar vascular markings ('sunburst') and fluid in fissures." },
+            { cat: "resp", q: "What is the most common organism causing early-onset neonatal pneumonia in developed nations?", a: "Group B Streptococcus (GBS / Streptococcus agalactiae)." },
+            { cat: "resp", q: "What is the mandatory initial DR management for Congenital Diaphragmatic Hernia?", a: "IMMEDIATE Endotracheal Intubation and OGT placement (DO NOT bag-mask ventilate!)." },
+            { cat: "resp", q: "Where is the most common anatomical location of Congenital Diaphragmatic Hernia?", a: "Bochdalek Hernia (Posterolateral, 90% on the LEFT side)." },
+            { cat: "resp", q: "What physical exam triad suggests Congenital Diaphragmatic Hernia?", a: "Scaphoid abdomen, barrel chest, and presence of bowel sounds in the chest." },
+            { cat: "resp", q: "What is the mainstay pharmacologic treatment for Apnea of Prematurity?", a: "Methylxanthines (Caffeine Citrate or Theophylline)." },
+            { cat: "cvs", q: "What clinical sign distinguishes PPHN from cyanotic structural heart disease?", a: "Differential Cyanosis (Preductal SpO2 in Right Hand > Postductal SpO2 in Feet by >5–10%)." },
+            { cat: "cvs", q: "What cardiac sound feature is characteristic of PPHN on auscultation?", a: "Single or narrowly split S2 with a loud P2 (pulmonary) component." },
+            { cat: "cvs", q: "What is the gold standard diagnostic test for PPHN?", a: "2D Echocardiogram (shows RV hypertrophy, flattened septum, right-to-left shunt)." },
+            { cat: "cvs", q: "What selective pulmonary vasodilator is first-line in severe PPHN?", a: "Inhaled Nitric Oxide (iNO)." },
+            { cat: "cvs", q: "What is the most common Congenital Heart Disease overall?", a: "Ventricular Septal Defect (VSD)." },
+            { cat: "cvs", q: "What is the most common cyanotic CHD beyond the neonatal period?", a: "Tetralogy of Fallot (TOF)." },
+            { cat: "cvs", q: "What is the most common cyanotic CHD presenting in the first week of life?", a: "Transposition of the Great Arteries (TGA)." },
+            { cat: "cvs", q: "Which CHD causes the highest cardiac mortality during the first week of life?", a: "Hypoplastic Left Heart Syndrome (HLHS)." },
+            { cat: "cvs", q: "When should pulse oximetry screening for CCHD be performed?", a: "At 24–48 hours of life on Right Hand (preductal) and Either Foot (postductal)." },
+            { cat: "cvs", q: "What pulse oximetry reading constitutes an immediate FAIL on CCHD screen?", a: "Any SpO2 < 90% in either the right hand or foot." },
+            { cat: "cvs", q: "What physical finding is pathognomonic for Patent Ductus Arteriosus (PDA)?", a: "Continuous 'machinery-like' murmur at left infraclavicular area + Bounding pulses." },
+            { cat: "cvs", q: "Which drugs are used for medical closure of Patent Ductus Arteriosus in preterms?", a: "IV Ibuprofen, Indomethacin, or Paracetamol (Acetaminophen)." },
+            { cat: "resus", q: "What oxygen concentration is recommended to initiate resuscitation in term infants?", a: "Room Air (21% O2)." },
+            { cat: "neuro", q: "What is the most protective maternal intervention against Intraventricular Hemorrhage?", a: "Antenatal Corticosteroids (Betamethasone/Dexamethasone)." }
+        ];
+
+        let currentFCList = [...flashcardData];
+        let fcIndex = 0;
+        let isFlipped = false;
+
+        function updateFC() {
+            const card = document.getElementById('flashcard');
+            card.classList.remove('flipped');
+            isFlipped = false;
+            
+            const current = currentFCList[fcIndex];
+            document.getElementById('fcCategory').innerText = current.cat.toUpperCase();
+            document.getElementById('fcQuestion').innerText = current.q;
+            document.getElementById('fcAnswer').innerText = current.a;
+            document.getElementById('fcTracker').innerText = `Card ${fcIndex + 1} of ${currentFCList.length}`;
+        }
+
+        function flipCard() {
+            const card = document.getElementById('flashcard');
+            card.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        function nextFC() {
+            if (fcIndex < currentFCList.length - 1) {
+                fcIndex++;
+                updateFC();
+            }
+        }
+
+        function prevFC() {
+            if (fcIndex > 0) {
+                fcIndex--;
+                updateFC();
+            }
+        }
+
+        function shuffleFC() {
+            for (let i = currentFCList.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentFCList[i], currentFCList[j]] = [currentFCList[j], currentFCList[i]];
+            }
+            fcIndex = 0;
+            updateFC();
+        }
+
+        function filterFC(cat) {
+            if (cat === 'all') {
+                currentFCList = [...flashcardData];
+            } else {
+                currentFCList = flashcardData.filter(item => item.cat === cat);
+            }
+            fcIndex = 0;
+            updateFC();
+        }
+
+        // Keyboard navigation for flashcards
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('flashcards').classList.contains('active')) {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    flipCard();
+                } else if (e.code === 'ArrowRight') {
+                    nextFC();
+                } else if (e.code === 'ArrowLeft') {
+                    prevFC();
+                }
+            }
+        });
+
+        /* QUIZ ENGINE & DATA (50 Board MCQs) */
+        const quizData = [
+            {
+                q: "1. You are called to the delivery room for a term infant delivered via difficult vacuum extraction. On examination, there is an ill-defined, fluctuant fluid collection across the scalp extending to the nape of the neck and orbits. The infant is pale, tachycardic, and hypotensive. What is the diagnosis?",
+                options: ["Caput Succedaneum", "Cephalohematoma", "Subgaleal Hemorrhage", "Subdural Hemorrhage"],
+                correct: 2,
+                exp: "Subgaleal hemorrhage occurs beneath the epicranial aponeurosis. It is strongly associated with vacuum extraction, crosses suture lines, and can accommodate up to 240 mL of blood leading to fatal hypovolemic shock. Caput is benign soft tissue edema; Cephalohematoma is bound by suture lines."
+            },
+            {
+                q: "2. A 28-week premature infant weighing 900g develops sudden lethargy, apnea, hypotonia, and a bulging anterior fontanelle on Day 3 of life. Hematocrit drops rapidly from 42% to 28%. Cranial ultrasound shows blood filling >50% of the lateral ventricle WITH ventricular dilatation. What is the Papile grade?",
+                options: ["Grade I", "Grade II", "Grade III", "Grade IV"],
+                correct: 2,
+                exp: "Grade III IVH is defined as intraventricular blood filling >50% of the lateral ventricle WITH ventricular dilatation. Grade I is confined to germinal matrix; Grade II fills 10-50% without dilatation; Grade IV has parenchymal involvement."
+            },
+            {
+                q: "3. A neonate born at 41 weeks AOG through thick meconium-stained fluid is limp, cyanotic, and apneic. What is the immediate priority in management?",
+                options: ["Perform gastric lavage with normal saline", "Initiate positive pressure ventilation within the first minute of life", "Administer 100% oxygen via blow-by", "Obtain immediate blood gas and chest radiograph"],
+                correct: 1,
+                exp: "The Golden Minute priority is to establish effective ventilation within 60 seconds of life for any non-breathing or apneic infant."
+            },
+            {
+                q: "4. What is the primary cause of neonatal cardiac arrest in contrast to adult cardiac arrest?",
+                options: ["Ventricular fibrillation", "Inadequate ventilation / primary respiratory failure", "Hypovolemia from umbilical blood loss", "Congenital coronary artery anomaly"],
+                correct: 1,
+                exp: "Neonatal arrest is almost exclusively secondary to respiratory failure and inadequate ventilation leading to hypoxemia and bradycardia, whereas adult arrest is primarily cardiac/circulatory."
+            },
+            {
+                q: "5. A neonate undergoing resuscitation has a heart rate of 50 bpm despite 30 seconds of effective PPV with good chest rise via ETT with 100% O2. What is the next step?",
+                options: ["Administer IV Epinephrine immediately", "Start chest compressions at a 3:1 ratio with PPV", "Perform MR. SOPA ventilation corrective steps", "Increase PIP to 50 cmH2O"],
+                correct: 1,
+                exp: "Chest compressions are indicated when HR remains < 60 bpm despite at least 30 seconds of effective PPV that moves the chest. Epinephrine is indicated if HR remains < 60 bpm after compressions."
+            },
+            {
+                q: "6. During resuscitation, PPV is initiated but chest movement is not observed. Which sequence of corrective steps should be executed?",
+                options: ["ABCs of resuscitation", "APGAR scoring", "MR. SOPA", "SICK NEWBORN protocol"],
+                correct: 2,
+                exp: "MR. SOPA (Mask adjustment, Reposition head, Suction mouth/nose, Open mouth, Pressure increase, Alternate airway) represents the standard corrective steps for ineffective ventilation."
+            },
+            {
+                q: "7. Which nerve roots are injured in a newborn who presents with a 'waiter's tip' arm posture, absent Moro reflex on the affected side, but an INTACT hand grasp reflex?",
+                options: ["C3–C5 nerve roots", "C5–C6 nerve roots", "C8–T1 nerve roots", "T2–T4 nerve roots"],
+                correct: 1,
+                exp: "Erb-Duchenne paralysis involves C5–C6 roots, producing adduction, internal rotation, and forearm pronation ('waiter's tip') with intact hand grasp. Klumpke involves C8–T1 (claw hand, absent grasp)."
+            },
+            {
+                q: "8. A newborn with Klumpke brachial plexus injury (C8–T1) presents with ipsilateral ptosis, miosis, and anhidrosis. What is the cause of these ocular findings?",
+                options: ["Associated CN III nerve palsy", "Involvement of T1 sympathetic chain fibers (Horner Syndrome)", "Central cerebral infarction", "Direct ocular birth trauma"],
+                correct: 1,
+                exp: "T1 root involvement in Klumpke paralysis damages cervical sympathetic fibers, resulting in ipsilateral Horner Syndrome (ptosis, miosis, anhidrosis)."
+            },
+            {
+                q: "9. Which organ system is most frequently injured following perinatal asphyxia?",
+                options: ["Central Nervous System (28%)", "Renal System (50%)", "Cardiovascular System (25%)", "Pulmonary System (23%)"],
+                correct: 1,
+                exp: "The renal system is the single most common organ system affected by perinatal asphyxia (50%), manifesting as Acute Tubular Necrosis, oliguria, and hematuria."
+            },
+            {
+                q: "10. In Hypoxic Ischemic Encephalopathy (HIE), what neuroexcitatory molecule accumulates during primary energy failure, causing massive intracellular calcium influx?",
+                options: ["GABA", "Glutamate", "Dopamine", "Serotonin"],
+                correct: 1,
+                exp: "Failure of Na+/K+-ATPase pumps leads to neuronal depolarization and massive release of toxic extracellular Glutamate, triggering lethal Ca2+ and Na+ cellular influx."
+            },
+            {
+                q: "11. A neonate with moderate HIE is being considered for Therapeutic Hypothermia. What is the optimal time window to initiate cooling and the target core temperature?",
+                options: ["Within 12 hours of life; Target 35.0°C", "Within 6 hours of life; Target 33.5°C", "Within 24 hours of life; Target 32.0°C", "Within 2 hours of life; Target 36.0°C"],
+                correct: 1,
+                exp: "Therapeutic hypothermia must be initiated within the first 6 hours of life (latent period) maintaining a core body temperature of 33.5°C for 72 hours."
+            },
+            {
+                q: "12. A neonate presents with hyperalertness, uninhibited Moro reflex, mydriasis, tachycardia, and NO seizures. EEG is normal. What Sarnat stage is this?",
+                options: ["Stage 1 (Mild)", "Stage 2 (Moderate)", "Stage 3 (Severe)", "Stage 4 (Terminal)"],
+                correct: 0,
+                exp: "Sarnat Stage 1 (Mild) is characterized by sympathetic overactivity (hyperalert, mydriasis, tachycardia), intact/strong reflexes, and absence of seizures."
+            },
+            {
+                q: "13. A neonate presents with lethargy, hypotonia, miosis, bradycardia, profuse bronchial secretions, and frequent focal clonic seizures. What Sarnat stage is this?",
+                options: ["Stage 1 (Mild)", "Stage 2 (Moderate)", "Stage 3 (Severe)", "Stage 4 (Terminal)"],
+                correct: 1,
+                exp: "Sarnat Stage 2 (Moderate) features parasympathetic overactivity (miosis, bradycardia, secretions), lethargy, hypotonia, and common seizures."
+            },
+            {
+                q: "14. A 2-year-old child born at 28 weeks AOG with a history of Periventricular Leukomalacia (PVL) presents with spasticity predominantly affecting both lower extremities. What is the diagnosis?",
+                options: ["Spastic Hemiplegia", "Spastic Quadriplegia", "Spastic Diplegia", "Athetoid Cerebral Palsy"],
+                correct: 2,
+                exp: "PVL damages descending corticospinal motor fibers in periventricular white matter, classically resulting in Spastic Diplegic Cerebral Palsy."
+            },
+            {
+                q: "15. What is the most common clinical type of neonatal seizure observed in both term and preterm infants?",
+                options: ["Focal Clonic Seizures", "Subtle Seizures (Automatisms)", "Generalized Tonic Seizures", "Myoclonic Seizures"],
+                correct: 1,
+                exp: "Subtle seizures (automatisms such as eye deviations, blinking, lip smacking, pedaling, rowing) are the most common seizure presentation in neonates."
+            },
+            {
+                q: "16. A premature neonate born at 30 weeks AOG presents with grunting, tachypnea, retractions, and cyanosis shortly after birth. CXR reveals diffuse reticulogranular appearance with air bronchograms. What is the diagnosis?",
+                options: ["Transient Tachypnea of the Newborn", "Respiratory Distress Syndrome (RDS)", "Meconium Aspiration Syndrome", "Congenital Diaphragmatic Hernia"],
+                correct: 1,
+                exp: "RDS (Hyaline Membrane Disease) is caused by surfactant deficiency in preterms and presents with classic 'ground-glass' reticulogranular patterns and air bronchograms on CXR."
+            },
+            {
+                q: "17. What single maternal pharmacologic intervention administered prior to preterm delivery significantly reduces the incidence of RDS and IVH?",
+                options: ["Maternal Tocolytics (Nifedipine)", "Antenatal Corticosteroids (Betamethasone)", "Magnesium Sulfate IV", "Empiric IV Ampicillin"],
+                correct: 1,
+                exp: "Antenatal corticosteroids (Betamethasone 12 mg IM q24h x 2 doses between 24–34 weeks AOG) stimulate fetal surfactant synthesis and mature germinal matrix vasculature."
+            },
+            {
+                q: "18. How is Bronchopulmonary Dysplasia (BPD) defined chronologically?",
+                options: ["Need for mechanical ventilation for > 7 days", "Oxygen requirement for at least 28 days postnatally", "CXR showing hyperinflation at birth", "Inability to extubate within 48 hours"],
+                correct: 1,
+                exp: "BPD is defined as the persistent requirement for supplemental oxygen for at least 28 days postnatally, categorized for severity at 36 weeks PMA."
+            },
+            {
+                q: "19. A term infant delivered via elective Cesarean section without labor develops tachypnea (RR 80/min) and mild retractions at 1 hour of life requiring <30% O2. CXR shows prominent perihilar vascular streakiness and fluid in interlobar fissures. Symptoms resolve completely by 48 hours. What is the diagnosis?",
+                options: ["Respiratory Distress Syndrome", "Transient Tachypnea of the Newborn (TTN)", "Neonatal Pneumonia", "Pneumothorax"],
+                correct: 1,
+                exp: "TTN ('wet lung') results from delayed resorption of fetal lung fluid, commonly following elective C-section without labor. CXR shows 'sunburst' perihilar markings and fissure fluid; self-limits in 24–72 hours."
+            },
+            {
+                q: "20. What is the primary pathophysiologic mechanism of small airway obstruction in Meconium Aspiration Syndrome?",
+                options: ["Complete alveolar capillary dysplasia", "Ball-valve effect causing partial obstruction and air trapping", "Immature surfactant apoprotein production", "Pulmonary artery hypoplasia"],
+                correct: 1,
+                exp: "Meconium causes partial airway obstruction creating a 'ball-valve' mechanism where air enters on inspiration but cannot exit on expiration, causing hyperinflation and air leaks."
+            },
+            {
+                q: "21. A newborn presenting in the delivery room with severe respiratory distress is noted to have a scaphoid abdomen and bowel sounds audible in the left hemithorax. What is the CONTRAINDICATED action?",
+                options: ["Endotracheal intubation", "Bag-mask ventilation", "Placement of an Oro-gastric Tube (OGT)", "Preductal and postductal pulse oximetry monitoring"],
+                correct: 1,
+                exp: "Bag-mask ventilation is strictly contraindicated in CDH because forced air enters the stomach and intestine in the chest, exacerbating lung compression and risking tension pneumothorax."
+            },
+            {
+                q: "22. Where is the most common anatomical site of Congenital Diaphragmatic Hernia?",
+                options: ["Morgagni Hernia (retrosternal)", "Bochdalek Hernia (posterolateral, left-sided)", "Esophageal Hiatal Hernia", "Paraesophageal Hernia"],
+                correct: 1,
+                exp: "Bochdalek hernia accounts for ~90% of CDH cases and is located posterolaterally, occurring on the left side in 90% of instances."
+            },
+            {
+                q: "23. A preterm infant experiences cessation of breathing for 25 seconds accompanied by bradycardia (HR 85 bpm) and central cyanosis. What is the first-line pharmacologic treatment?",
+                options: ["Doxapram", "Caffeine Citrate (Methylxanthines)", "Dexamethasone", "Inhaled Albuterol"],
+                correct: 1,
+                exp: "Methylxanthines (Caffeine Citrate or Theophylline) are the mainstay pharmacologic treatment for Apnea of Prematurity."
+            },
+            {
+                q: "24. A term neonate with MAS develops severe cyanosis. Preductal SpO2 on the right hand is 92%, while postductal SpO2 on the left foot is 78%. Auscultation reveals a loud single S2. Echocardiogram confirms PPHN. What causes the differential cyanosis?",
+                options: ["Left-to-right shunting across VSD", "Right-to-left shunting across Patent Ductus Arteriosus", "Coarctation of the Aorta", "Transposition of Great Arteries"],
+                correct: 1,
+                exp: "PPHN causes elevated PVR leading to right-to-left shunting of unoxygenated blood across the PDA into the descending aorta, making postductal (foot) saturation significantly lower than preductal (right hand) saturation."
+            },
+            {
+                q: "25. What selective pulmonary vasodilator gas is first-line therapy for Persistent Pulmonary Hypertension of the Newborn?",
+                options: ["Inhaled Nitric Oxide (iNO)", "Supplemental Carbon Dioxide", "Inhaled Prostacyclin", "Heliox"],
+                correct: 0,
+                exp: "Inhaled Nitric Oxide (iNO) selectively dilates the pulmonary vascular bed without inducing systemic hypotension."
+            },
+            {
+                q: "26. What is the single most common Congenital Heart Disease overall?",
+                options: ["Tetralogy of Fallot", "Transposition of Great Arteries", "Ventricular Septal Defect (VSD)", "Patent Ductus Arteriosus"],
+                correct: 2,
+                exp: "VSD is the most common congenital heart disease overall (accounting for ~25–30% of all CHDs)."
+            },
+            {
+                q: "27. What is the most common cyanotic congenital heart disease presenting in the FIRST WEEK of life?",
+                options: ["Tetralogy of Fallot", "Transposition of the Great Arteries (TGA)", "Tricuspid Atresia", "Truncus Arteriosus"],
+                correct: 1,
+                exp: "TGA is the most common cyanotic CHD presenting in the first week of life. Tetralogy of Fallot is most common beyond the neonatal period."
+            },
+            {
+                q: "28. Which congenital heart defect is responsible for the highest cardiac mortality in the first week of life?",
+                options: ["Tetralogy of Fallot", "Hypoplastic Left Heart Syndrome (HLHS)", "Total Anomalous Pulmonary Venous Return", "Ebstein Anomaly"],
+                correct: 1,
+                exp: "HLHS is the second most common cyanotic CHD in the first week but accounts for the highest cardiac mortality during this period as the ductus closes."
+            },
+            {
+                q: "29. A pulse oximetry CCHD screen performed at 30 hours of life shows SpO2 of 88% on the right hand. What is the required next step?",
+                options: ["Repeat screening in 1 hour", "Immediate FAIL — obtain diagnostic Echocardiogram", "Discharge home with follow-up in 1 week", "Administer empiric antibiotics for sepsis"],
+                correct: 1,
+                exp: "Any SpO2 < 90% in either limb constitutes an immediate FAIL on CCHD screening, requiring urgent 2D Echocardiogram evaluation."
+            },
+            {
+                q: "30. A premature infant has a continuous 'machinery-like' murmur at the left infraclavicular border, bounding peripheral pulses, and wide pulse pressure. What drug can be administered to achieve medical closure?",
+                options: ["Prostaglandin E1", "IV Ibuprofen or Paracetamol", "Epinephrine", "Indomethacin eye drops"],
+                correct: 1,
+                exp: "Prostaglandin inhibitors (IV Ibuprofen, Indomethacin, or Paracetamol) are used to induce medical closure of Patent Ductus Arteriosus."
+            },
+            {
+                q: "31. According to WHO 2021 reports, what percentage of global under-5 deaths occur during the neonatal period?",
+                options: ["15%", "27%", "47%", "65%"],
+                correct: 2,
+                exp: "Neonatal deaths constitute 47% of all under-5 deaths globally (2.3 million deaths annually)."
+            },
+            {
+                q: "32. What constitutes the 'trio' responsible for 85%–90% of neonatal mortality in developing countries?",
+                options: ["Diarrhea, Measles, Malaria", "Prematurity/LBW, Intrapartum Asphyxia, Serious Infections", "Congenital anomalies, SIDS, Trauma", "RDS, BPD, MAS"],
+                correct: 1,
+                exp: "The trio of Prematurity/LBW/IUGR, Birth Asphyxia, and Serious Infections causes 85–90% of global neonatal deaths."
+            },
+            {
+                q: "33. What is the target compression-to-ventilation rate per minute during neonatal CPR?",
+                options: ["60 compressions + 20 breaths = 80 events/min", "90 compressions + 30 breaths = 120 events/min", "100 compressions + 10 breaths = 110 events/min", "120 compressions + 15 breaths = 135 events/min"],
+                correct: 1,
+                exp: "Neonatal resuscitation delivers 90 compressions and 30 breaths per minute, totaling 120 events/min."
+            },
+            {
+                q: "34. Where is the anatomical location of bleeding in Cephalohematoma?",
+                options: ["Subcutaneous tissue", "Subperiosteal space", "Subaponeurotic space", "Subdural space"],
+                correct: 1,
+                exp: "Cephalohematoma is a subperiosteal collection of blood, which is why it is limited by individual skull bone suture lines."
+            },
+            {
+                q: "35. A cranial ultrasound of a preterm infant shows echogenic blush in periventricular white matter that evolves into cysts 2 weeks later. What pathogenetic cell type is selectively injured?",
+                options: ["Microglial cells", "Oligodendrocyte progenitor cells", "Ependyma", "Protoplasmic astrocytes"],
+                correct: 1,
+                exp: "PVL selectively targets immature oligodendrocyte precursors (which perform myelination between 23–32 weeks AOG) through ischemia and ROS toxicity."
+            },
+            {
+                q: "36. Which diagnostic imaging modality is preferred for screening and grading IVH in premature infants at the bedside?",
+                options: ["Computed Tomography (CT)", "Serial Cranial Ultrasonography", "Diffusion-Weighted MRI", "Skull Radiography"],
+                correct: 1,
+                exp: "Bedside Cranial Ultrasonography (via anterior fontanelle) is the modality of choice for screening and grading IVH in preterms."
+            },
+            {
+                q: "37. What is the primary cause of death in severe Subgaleal Hemorrhage if unmanaged?",
+                options: ["Obstructive hydrocephalus", "Hypovolemic shock", "Intracranial herniation", "Kernicterus"],
+                correct: 1,
+                exp: "The subgaleal space can hold up to 240 mL of blood (>50% of a neonate's blood volume), leading rapidly to fatal hypovolemic shock."
+            },
+            {
+                q: "38. Which condition is characterized by a 'sunburst' perihilar streakiness on chest radiograph?",
+                options: ["Respiratory Distress Syndrome", "Transient Tachypnea of the Newborn", "Meconium Aspiration Syndrome", "Congenital Lobar Emphysema"],
+                correct: 1,
+                exp: "TTN displays prominent perihilar vascular markings ('sunburst' pattern) due to engorged lymphatic vessels clearing retained lung fluid."
+            },
+            {
+                q: "39. What is the underlying cause of lung hypoplasia in Congenital Diaphragmatic Hernia?",
+                options: ["Compression of developing lung parenchyma by herniated abdominal viscera in utero", "Primary surfactant apoprotein gene mutation", "Intrauterine viral infection", "Tracheoesophageal fistula aspiration"],
+                correct: 0,
+                exp: "Mechanical space occupation by abdominal organs in the thorax during critical fetal lung development (<20 weeks AOG) causes severe bilateral pulmonary hypoplasia."
+            },
+            {
+                q: "40. Maternal intake of selective serotonin reuptake inhibitors (SSRIs) or NSAIDs during late pregnancy increases the risk of which neonatal condition?",
+                options: ["Respiratory Distress Syndrome", "Persistent Pulmonary Hypertension of the Newborn (PPHN)", "Cephalohematoma", "Transient Tachypnea of Newborn"],
+                correct: 1,
+                exp: "Maternal NSAID/COX-inhibitor or SSRI use can trigger premature in-utero closure of the ductus arteriosus and pulmonary vascular remodeling, leading to PPHN."
+            },
+            {
+                q: "41. An APGAR score evaluated at 5 minutes post-birth is 2. What is the clinical interpretation?",
+                options: ["Normal vigorous state", "Mildly depressed state", "Severely depressed state", "Terminal non-resuscitatable state"],
+                correct: 2,
+                exp: "APGAR scores 0–3 indicate severely depressed status; 4–6 moderately depressed; 7–10 excellent condition."
+            },
+            {
+                q: "42. Which diagnostic test is the GOLD STANDARD for ruling out structural cyanotic heart disease and confirming PPHN?",
+                options: ["Hyperoxia Test", "Chest Radiograph", "2D Color Doppler Echocardiogram", "Arterial Blood Gas Analysis"],
+                correct: 2,
+                exp: "2D Echocardiogram directly visualizes cardiac anatomy, rules out structural CHDs (like TGA/TAPVR), and assesses PVR and right-to-left shunts."
+            },
+            {
+                q: "43. What is the clinical significance of an APGAR score < 3 persistent at 5 and 10 minutes?",
+                options: ["Predicts immediate need for surfactant", "Prognosticates increased risk of neurodevelopmental sequelae and mortality", "Mandates immediate administration of Sodium Bicarbonate", "Confirms diagnosis of Sepsis"],
+                correct: 1,
+                exp: "A persistent low APGAR score (<3 at 5–10 minutes) serves as a major prognosticator for perinatal asphyxia mortality and long-term neurodisability."
+            },
+            {
+                q: "44. What factor inhibits surfactant synthesis in infants born to diabetic mothers?",
+                options: ["Hyperbilirubinemia", "Fetal Hyperinsulinemia", "Maternal Ketones", "Hypocalcemia"],
+                correct: 1,
+                exp: "High fetal insulin levels (stimulated by maternal hyperglycemia) directly inhibit surfactant apoprotein synthesis by Type II pneumocytes."
+            },
+            {
+                q: "45. Transillumination of the chest in a ventilated neonate with sudden deterioration shows a massive hyperlucent halo over the left hemithorax. What is the diagnosis?",
+                options: ["Congenital Diaphragmatic Hernia", "Left Tension Pneumothorax", "Severe RDS", "Lobar Atelectasis"],
+                correct: 1,
+                exp: "Increased transillumination (hyperlucent light halo) indicates air in the pleural space, confirming Pneumothorax."
+            },
+            {
+                q: "46. What is the target preductal saturation range at 5 minutes of life during resuscitation?",
+                options: ["60% – 65%", "70% – 75%", "80% – 85%", "95% – 100%"],
+                correct: 2,
+                exp: "Target preductal SpO2 at 5 minutes post-birth is 80%–85% (gradual physiologic transition from fetal hypoxia)."
+            },
+            {
+                q: "47. Which subtype of brachial plexus palsy involves C3–C5 and manifests with paradoxical abdominal breathing and hemidiaphragm elevation?",
+                options: ["Erb Paralysis", "Klumpke Paralysis", "Phrenic Nerve Palsy", "Facial Nerve Palsy"],
+                correct: 2,
+                exp: "Phrenic nerve roots originate from C3–C5; injury leads to diaphragmatic paralysis, reduced breath sounds, and hemidiaphragm elevation on CXR."
+            },
+            {
+                q: "48. How does Caffeine Citrate work in treating Apnea of Prematurity?",
+                options: ["Stimulates brainstem respiratory center and increases chemoreceptor sensitivity to CO2", "Directly dilates bronchial smooth muscle via beta-2 agonism", "Inhibits surfactant breakdown", "Decreases systemic vascular resistance"],
+                correct: 0,
+                exp: "Methylxanthines (caffeine) antagonize adenosine receptors, stimulating the brainstem respiratory center and enhancing sensitivity to hypercapnia."
+            },
+            {
+                q: "49. What is the cause of 'bubbly lung' appearance on CXR in a 2-month-old infant born at 25 weeks AOG?",
+                options: ["Meconium Aspiration Pneumonitis", "Bronchopulmonary Dysplasia (BPD)", "Congenital Cystic Adenomatoid Malformation", "Transient Tachypnea"],
+                correct: 1,
+                exp: "BPD causes arrested alveolarization and focal hyperinflation interspersed with atelectasis, creating a bubbly/cystic lung appearance (Wilson-Mikity appearance)."
+            },
+            {
+                q: "50. Why is intravenous sodium bicarbonate NO LONGER recommended during routine neonatal resuscitation?",
+                options: ["It causes severe hypokalemia", "It produces CO2 which worsens intracellular CNS acidosis and causes IVH", "It inactivates epinephrine", "It induces severe hypoglycemia"],
+                correct: 1,
+                exp: "Sodium bicarbonate combines with hydrogen ions to form CO2, which rapidly crosses the blood-brain barrier, paradoxical worsening intracellular CNS acidosis and increasing IVH risk."
+            }
+        ];
+
+        let quizUserAnswers = {};
+
+        function loadQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+
+            quizData.forEach((qObj, index) => {
+                const qCard = document.createElement('div');
+                qCard.className = 'quiz-card';
+                
+                let optionsHTML = '';
+                qObj.options.forEach((opt, optIndex) => {
+                    optionsHTML += `<button class="option-btn" onclick="selectOption(${index}, ${optIndex}, this)">${String.fromCharCode(65 + optIndex)}. ${opt}</button>`;
+                });
+
+                qCard.innerHTML = `
+                    <div class="quiz-question">${qObj.q}</div>
+                    <div class="quiz-options">${optionsHTML}</div>
+                    <div class="quiz-explanation" id="explain-${index}">
+                        <strong>Correct Answer: ${String.fromCharCode(65 + qObj.correct)}. ${qObj.options[qObj.correct]}</strong><br>
+                        <em>Rationale:</em> ${qObj.exp}
+                    </div>
+                `;
+                container.appendChild(qCard);
+            });
+        }
+
+        function selectOption(qIdx, optIdx, btn) {
+            if (quizUserAnswers[qIdx] !== undefined) return; // Prevent re-selection
+            
+            quizUserAnswers[qIdx] = optIdx;
+            const qObj = quizData[qIdx];
+            const parent = btn.closest('.quiz-options');
+            const buttons = parent.querySelectorAll('.option-btn');
+            
+            if (optIdx === qObj.correct) {
+                btn.classList.add('selected-correct');
+            } else {
+                btn.classList.add('selected-wrong');
+                buttons[qObj.correct].classList.add('selected-correct');
+            }
+
+            // Show explanation
+            document.getElementById(`explain-${qIdx}`).classList.add('show');
+
+            // Update Score
+            calculateScore();
+        }
+
+        function calculateScore() {
+            let score = 0;
+            Object.keys(quizUserAnswers).forEach(qIdx => {
+                if (quizUserAnswers[qIdx] === quizData[qIdx].correct) {
+                    score++;
+                }
+            });
+            document.getElementById('currentScore').innerText = score;
+        }
+
+        /* Initial Page Setup */
+        window.onload = function() {
+            updateFC();
+            loadQuiz();
+        };
+    </script>
+</body>
+</html>

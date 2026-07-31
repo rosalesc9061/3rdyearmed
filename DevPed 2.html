@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developmental Pediatrics II - Comprehensive Interactive Reviewer</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent-gold: #d97706;
+      --accent-gold-light: #fef3c7;
+      --accent-red: #dc2626;
+      --accent-red-light: #fee2e2;
+      --accent-green: #16a34a;
+      --accent-green-light: #dcfce7;
+      --accent-purple: #7c3aed;
+      --accent-purple-light: #f3e8ff;
+      --border-color: #cbd5e1;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    h1, h2, h3, h4, .brand-font {
+      font-family: 'Syne', sans-serif;
+    }
+
+    .code-font {
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Top Sticky Navigation Bar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+      color: white;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .logo-text h1 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .logo-text p {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .search-box {
+      position: relative;
+      flex-grow: 1;
+      max-width: 400px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 8px 16px 8px 36px;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s;
+      background-color: var(--bg-card);
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+      background-color: white;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    /* Reading Progress Bar */
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background-color: #e2e8f0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--accent-purple));
+      transition: width 0.1s;
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs-wrapper {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .nav-tabs-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-tabs {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      padding: 0 24px;
+      list-style: none;
+    }
+
+    .nav-tab-btn {
+      padding: 14px 20px;
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    .nav-tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background-color: rgba(2, 132, 199, 0.05);
+    }
+
+    /* Main Content Layout */
+    main {
+      max-width: 1400px;
+      margin: 24px auto;
+      padding: 0 24px;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card System & Formatting Toolkit */
+    .card {
+      background-color: var(--bg-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      padding: 24px;
+      margin-bottom: 24px;
+      transition: box-shadow 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--bg-card);
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Left-Border Accent Callout Boxes */
+    .callout {
+      padding: 16px 20px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 16px 0;
+      font-size: 14px;
+      position: relative;
+    }
+
+    .callout-must-know {
+      background-color: var(--accent-gold-light);
+      border-left: 5px solid var(--accent-gold);
+      color: #78350f;
+    }
+
+    .callout-pitfall {
+      background-color: var(--accent-red-light);
+      border-left: 5px solid var(--accent-red);
+      color: #7f1d1d;
+    }
+
+    .callout-pearl {
+      background-color: var(--accent-green-light);
+      border-left: 5px solid var(--accent-green);
+      color: #14532d;
+    }
+
+    .callout-exam-tip {
+      background-color: var(--accent-purple-light);
+      border-left: 5px solid var(--accent-purple);
+      color: #4c1d95;
+    }
+
+    .callout-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-primary { background-color: var(--primary-light); color: var(--primary); }
+    .badge-gold { background-color: var(--accent-gold-light); color: var(--accent-gold); }
+    .badge-red { background-color: var(--accent-red-light); color: var(--accent-red); }
+    .badge-purple { background-color: var(--accent-purple-light); color: var(--accent-purple); }
+
+    /* High-Yield Tables */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 20px 0;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    thead th {
+      background-color: #0f172a;
+      color: #ffffff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      padding: 12px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color 0.15s;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+
+    tbody tr:hover {
+      background-color: #e0f2fe !important;
+    }
+
+    td {
+      padding: 12px 16px;
+      vertical-align: top;
+    }
+
+    .copy-table-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .copy-table-btn:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    /* Expandable Accordion Cards */
+    .accordion-item {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      overflow: hidden;
+      background-color: white;
+    }
+
+    .accordion-header {
+      padding: 14px 20px;
+      background-color: var(--bg-card);
+      cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: background-color 0.2s;
+    }
+
+    .accordion-header:hover {
+      background-color: #e2e8f0;
+    }
+
+    .accordion-content {
+      padding: 20px;
+      display: none;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .accordion-item.open .accordion-content {
+      display: block;
+    }
+
+    .accordion-item.open .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    .accordion-icon {
+      transition: transform 0.2s;
+    }
+
+    /* CSS Flowcharts / Diagrams */
+    .diagram-box {
+      background-color: #f8fafc;
+      border: 2px dashed var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .flow-step {
+      display: inline-block;
+      background-color: white;
+      border: 2px solid var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+      margin: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .flow-arrow {
+      display: inline-block;
+      color: var(--accent-purple);
+      font-weight: 800;
+      font-size: 18px;
+      margin: 0 4px;
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* Flashcard Styles */
+    .flashcard-container {
+      max-width: 650px;
+      margin: 0 auto;
+      perspective: 1000px;
+    }
+
+    .flashcard {
+      width: 100%;
+      height: 320px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .flashcard.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 2px solid var(--border-color);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .flashcard-front {
+      background-color: white;
+      color: var(--text-main);
+    }
+
+    .flashcard-back {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary { background-color: var(--primary); color: white; }
+    .btn-primary:hover { background-color: var(--primary-hover); }
+    .btn-secondary { background-color: #e2e8f0; color: var(--text-main); }
+    .btn-secondary:hover { background-color: #cbd5e1; }
+
+    /* MCQ Quiz Styles */
+    .quiz-card {
+      background-color: white;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .quiz-question {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .quiz-option {
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+      background-color: var(--bg-surface);
+    }
+
+    .quiz-option:hover {
+      background-color: var(--primary-light);
+      border-color: var(--primary);
+    }
+
+    .quiz-option.selected {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+      font-weight: 700;
+    }
+
+    .quiz-option.correct {
+      background-color: var(--accent-green-light) !important;
+      border-color: var(--accent-green) !important;
+      color: #14532d;
+      font-weight: 700;
+    }
+
+    .quiz-option.incorrect {
+      background-color: var(--accent-red-light) !important;
+      border-color: var(--accent-red) !important;
+      color: #7f1d1d;
+    }
+
+    .quiz-explanation {
+      display: none;
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      background-color: var(--bg-card);
+      margin-top: 16px;
+      font-size: 13px;
+      border-left: 4px solid var(--primary);
+    }
+
+    /* Scroll to Top Button */
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .scroll-top-btn.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Print Styles */
+    @media print {
+      header, .nav-tabs-wrapper, .flashcard-controls, .scroll-top-btn, .search-box, .copy-table-btn {
+        display: none !important;
+      }
+      .tab-content {
+        display: block !important;
+      }
+      .card {
+        break-inside: avoid;
+        border: 1px solid #000;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo-area">
+        <div class="logo-icon">DP</div>
+        <div class="logo-text">
+          <h1>DEVELOPMENTAL PEDIATRICS II</h1>
+          <p>Comprehensive Board Reviewer • 3rd Year Medicine / PLE Target</p>
+        </div>
+      </div>
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="globalSearchInput" placeholder="Search topics, buzzwords, criteria, drugs..." onkeyup="filterContent()">
+      </div>
+    </div>
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </header>
+
+  <!-- Sticky Tab Navigation -->
+  <div class="nav-tabs-wrapper">
+    <ul class="nav-tabs" id="mainTabs">
+      <li><button class="nav-tab-btn active" onclick="switchTab('tab-overview', this)">📌 Overview</button></li>
+      <li><button class="nav-tab-btn" onclick="switchTab('tab-asd', this)">🧩 Autism Spectrum</button></li>
+      <li><button class="nav-tab-btn" onclick="switchTab('tab-adhd', this)">⚡ ADHD</button></li>
+      <li><button class="nav-tab-btn" onclick="switchTab('tab-ld', this)">📖 Learning Disabilities</button></li>
+      <li><button class="nav-tab-btn" onclick="switchTab('tab-adolescent', this)">🌱 Adolescent Health</button></li>
+      <li><button class="nav-tab-btn" onclick="switchTab('tab-cases', this)">🩺 Clinical Cases</button></li>
+      <li><button class="nav-tab-btn" onclick="switchTab('tab-comparisons', this)">⚖️ Comparisons</button></li>
+      <li><button class="nav-tab-btn" onclick="switchTab('tab-flashcards', this)">🎴 Flashcards (50)</button></li>
+      <li><button class="nav-tab-btn" onclick="switchTab('tab-quiz', this)">📝 Board Exam MCQs (50)</button></li>
+      <li><button class="nav-tab-btn" onclick="switchTab('tab-cram', this)">🚀 High-Yield Cram Sheet</button></li>
+    </ul>
+  </div>
+
+  <!-- Main Content Container -->
+  <main>
+
+    <!-- ==================== TAB 1: OVERVIEW ==================== -->
+    <div id="tab-overview" class="tab-content active">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">📌 Lecture Overview & Learning Objectives</h2>
+          <span class="badge badge-primary">Pediatrics II • Trans 6</span>
+        </div>
+        <p>This comprehensive reviewer integrates all materials from <strong>Developmental Pediatrics II</strong> (Lecturer: <em>Dr. Joselyn C. Alonzo-Eusebio</em>), engineered specifically for 3rd-year medical students and Physician Licensure Examination (PLE) preparation. It encompasses core neurodevelopmental and behavioral disorders (ASD, ADHD, Learning Disabilities) as well as Adolescent Health and Development.</p>
+        
+        <div class="callout callout-must-know">
+          <div class="callout-title">⭐ Core High-Yield Objectives</div>
+          <ul>
+            <li>Master the <strong>DSM-5 diagnostic criteria</strong>, subcategories, and severity levels for ASD, ADHD, and Specific Learning Disorders.</li>
+            <li>Understand the <strong>etiology, neurobiology, and genetics</strong> underlying childhood developmental and adolescent behavioral conditions.</li>
+            <li>Differentiate normal developmental/pubertal variations from pathologic conditions (e.g., Constitutional Delay vs. Hypogonadism).</li>
+            <li>Formulate evidence-based <strong>multimodal treatment plans</strong> combining educational/behavioral strategies and FDA-approved pharmacotherapy.</li>
+            <li>Apply high-yield screening tools (M-CHAT, HEEADSSS, CRAFFT, FISTS) in outpatient pediatric practice.</li>
+          </ul>
+        </div>
+
+        <h3 style="margin-top:20px; margin-bottom:10px;">Executive High-Yield Summary Table</h3>
+        <div class="table-container">
+          <button class="copy-table-btn" onclick="copyTable(this)">Copy Table</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Disorder Domain</th>
+                <th>Core Definition / Hallmark</th>
+                <th>Prevalence / Ratio</th>
+                <th>First-Line Treatment</th>
+                <th>Primary Board Buzzword</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Autism Spectrum Disorder (ASD)</strong></td>
+                <td>Deficits in social communication/interaction + Restricted, repetitive behavior patterns</td>
+                <td>1 in 36 children (CDC 2023)<br>Male:Female 4:1</td>
+                <td>Applied Behavior Analysis (ABA) + Early Intervention</td>
+                <td>"Dedma" to name, absence of joint attention, hand-leading, pronominal reversal</td>
+              </tr>
+              <tr>
+                <td><strong>Attention-Deficit / Hyperactivity Disorder (ADHD)</strong></td>
+                <td>Persistent pattern of inattention, hyperactivity, and impulsivity interfering with functioning</td>
+                <td>8-10% children, 4.4% adults<br>Male:Female 4:1 to 5:1 (referred)</td>
+                <td>Psychostimulants (Methylphenidate) + Behavioral Therapy</td>
+                <td>"Driven by a motor", blurts answers, heritability 0.75, dopamine/NE deficit</td>
+              </tr>
+              <tr>
+                <td><strong>Specific Learning Disorder (LD)</strong></td>
+                <td>Intrinsic academic deficits (reading/writing/math) despite normal/superior IQ</td>
+                <td>5-15% school-aged children<br>(Dyslexia = 80% of LDs)</td>
+                <td>Educational bypass strategies & specialized SPED accommodations</td>
+                <td>Normal Full-Scale IQ, $\ge 15$-point Verbal-Performance WISC discrepancy</td>
+              </tr>
+              <tr>
+                <td><strong>Adolescent Health</strong></td>
+                <td>Biological transition from childhood to adulthood with psychosocial vulnerability</td>
+                <td>75% experience menstrual irregularities; high STI/substance risk</td>
+                <td>Annual preventive screening (HEEADSSS, CRAFFT, FISTS)</td>
+                <td>Delayed bone age (Constitutional Delay), Anovulatory AUB, Amotivational Syndrome</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 2: ASD ==================== -->
+    <div id="tab-asd" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🧩 Autism Spectrum Disorder (ASD)</h2>
+          <span class="badge badge-purple">Neurodevelopmental</span>
+        </div>
+
+        <h3>1. Historical Evolution of ASD Diagnosis</h3>
+        <p>Understanding how ASD evolved from schizophrenia to a unified spectrum is frequently tested in pediatric board exams.</p>
+        
+        <div class="table-container">
+          <button class="copy-table-btn" onclick="copyTable(this)">Copy Table</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Key Figure / Milestone</th>
+                <th>Historical Concept & Clinical Significance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1908</strong></td>
+                <td>Eugen Bleuler</td>
+                <td>Coined "autism" (from Greek <em>autos</em> = self) to describe withdrawn schizophrenic adult patients.</td>
+              </tr>
+              <tr>
+                <td><strong>1943</strong></td>
+                <td>Leo Kanner</td>
+                <td>Published landmark study on 11 highly intelligent children with "early infantile autism," describing extreme aloneness and obsessive desire for sameness.</td>
+              </tr>
+              <tr>
+                <td><strong>1944</strong></td>
+                <td>Hans Asperger</td>
+                <td>Described a "milder" form of autism with high functioning capabilities, later known as Asperger's Syndrome.</td>
+              </tr>
+              <tr>
+                <td><strong>1967</strong></td>
+                <td>Bruno Bettelheim</td>
+                <td>Falsely attributed autism to poor parenting ("refrigerator mothers" lacking warmth). Completely debunked!</td>
+              </tr>
+              <tr>
+                <td><strong>1977</strong></td>
+                <td>First Twin Study</td>
+                <td>Proved strong genetic foundation for autism. Monozygotic twins concordance: 60-96%.</td>
+              </tr>
+              <tr>
+                <td><strong>1980</strong></td>
+                <td>DSM-III</td>
+                <td>"Infantile Autism" listed as a distinct entity separate from childhood schizophrenia under PDD.</td>
+              </tr>
+              <tr>
+                <td><strong>1998</strong></td>
+                <td>Andrew Wakefield</td>
+                <td>Fraudulent paper in <em>The Lancet</em> alleging MMR vaccine causes autism. Fully retracted and discredited.</td>
+              </tr>
+              <tr>
+                <td><strong>2013</strong></td>
+                <td>DSM-5</td>
+                <td>Eliminated separate subcategories (Asperger's, PDD-NOS, CDD); established single umbrella diagnosis: <strong>Autism Spectrum Disorder (ASD)</strong> with severity specifiers.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-pitfall">
+          <div class="callout-title">⚠️ Common Pitfall</div>
+          <p><strong>Autism is NOT caused by vaccines or "refrigerator mothers"!</strong> Thimerosal (a ethylmercury preservative) was removed from routine childhood vaccines in 2000 as a precaution, yet autism rates continued to climb. Furthermore, MMR vaccine is a live attenuated vaccine and <em>never</em> contained thimerosal.</p>
+        </div>
+
+        <h3>2. Etiology & Major Brain Structures Implicated</h3>
+        <p>ASD is a biologically based neurodevelopmental disorder with high heritability and complex polygenic architecture.</p>
+
+        <div class="diagram-box">
+          <h4 style="margin-bottom:12px;">🧠 Neuropathological Circuitry in ASD</h4>
+          <span class="flow-step">Cerebellum<br><small>(Motor fine-tuning, balance, speech muscles)</small></span>
+          <span class="flow-arrow">↔</span>
+          <span class="flow-step">Limbic System (Amygdala/Hippocampus)<br><small>(Emotional processing, social cues, memory)</small></span>
+          <span class="flow-arrow">↔</span>
+          <span class="flow-step">Cerebral Cortex / Frontotemporal<br><small>(Social cognition, facial recognition, higher mental function)</small></span>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <h4>Genetic & Biological Factors</h4>
+            <ul>
+              <li><strong>Twin Concordance:</strong> Identical (monozygotic) twins: <strong>60–96%</strong>; Non-identical (dizygotic): <strong>0–24%</strong>.</li>
+              <li><strong>Sibling Recurrence Risk:</strong> Approximately <strong>5% (1 in 20)</strong>, up to 19% in recent data.</li>
+              <li><strong>Chromosomal Abnormalities:</strong> Chromosome <strong>16p11-p12</strong> duplication/deletion found in ~1% of ASD cases. High association with Fragile X Syndrome, Tuberous Sclerosis, Rett Syndrome, Down Syndrome.</li>
+              <li><strong>Neurochemistry:</strong> Raised blood serotonin levels (<strong>hyperserotonemia</strong>) and altered GABAergic/glutamatergic transmission.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Environmental & Intrauterine Factors</h4>
+            <ul>
+              <li><strong>Parental Age:</strong> Advanced maternal and paternal age (de novo spontaneous mutations/imprinting).</li>
+              <li><strong>Perinatal Stressors:</strong> Low birth weight, prematurity, C-section delivery (associated with 12-13% of cases).</li>
+              <li><strong>CNS Teratogens:</strong> Intrauterine valproate exposure, maternal hyperfolatemia.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 style="margin-top:24px;">3. DSM-5 Diagnostic Criteria for ASD</h3>
+        <div class="callout callout-must-know">
+          <div class="callout-title">⭐ Diagnostic Criteria Checklist (Must Fulfill Criteria A + B + C + D)</div>
+          <p><strong>Criterion A: Persistent Deficits in Social Communication & Interaction (Must meet ALL 3/3):</strong></p>
+          <ol>
+            <li>Deficits in social-emotional reciprocity (e.g., abnormal social approach, failure of normal back-and-forth conversation, reduced sharing of interests/emotions).</li>
+            <li>Deficits in nonverbal communicative behaviors (e.g., poorly integrated verbal/nonverbal communication, abnormal eye contact, lack of facial expressions, absence of gestures).</li>
+            <li>Deficits in developing, maintaining, and understanding relationships (e.g., difficulty adjusting behavior to social context, difficulty sharing imaginative play, absence of interest in peers).</li>
+          </ol>
+          <br>
+          <p><strong>Criterion B: Restricted, Repetitive Patterns of Behavior, Interests, or Activities (Must meet AT LEAST 2/4):</strong></p>
+          <ol>
+            <li>Stereotyped or repetitive motor movements, use of objects, or speech (e.g., hand flapping, toe walking, lining up toys, echolalia, idiosyncratic phrases).</li>
+            <li>Insistence on sameness, inflexible adherence to routines, or ritualized patterns (e.g., extreme distress at small changes, rigid greeting rituals, needing same route/food).</li>
+            <li>Highly restricted, fixated interests abnormal in intensity or focus (e.g., strong attachment to unusual objects, excessively circumscribed interests).</li>
+          </ol>
+          <br>
+          <p><strong>Criterion C & D:</strong> Symptoms must be present in the <em>early developmental period</em> and cause <em>clinically significant impairment</em> in functioning.</p>
+        </div>
+
+        <h3>4. Severity Levels for ASD (DSM-5)</h3>
+        <div class="table-container">
+          <button class="copy-table-btn" onclick="copyTable(this)">Copy Table</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Severity Level</th>
+                <th>Social Communication Domain</th>
+                <th>Restricted, Repetitive Behaviors Domain</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Level 3<br>"Requires Very Substantial Support"</strong></td>
+                <td>Severe deficits in verbal/nonverbal social communication skills causing severe impairments in functioning, very limited initiation of social interactions.</td>
+                <td>Inflexibility of behavior, extreme difficulty coping with change, or other restricted/repetitive behaviors markedly interfere with functioning in all spheres.</td>
+              </tr>
+              <tr>
+                <td><strong>Level 2<br>"Requires Substantial Support"</strong></td>
+                <td>Marked deficits in verbal/nonverbal social communication; social impairments apparent even with supports in place; limited initiation of social interactions.</td>
+                <td>Inflexibility of behavior, difficulty coping with change, or other repetitive behaviors appear frequently enough to be obvious to casual observer.</td>
+              </tr>
+              <tr>
+                <td><strong>Level 1<br>"Requires Support"</strong></td>
+                <td>Without supports in place, deficits in social communication cause noticeable impairments. Difficulty initiating social interactions and clear examples of atypical responses.</td>
+                <td>Inflexibility of behavior causes significant interference with functioning in one or more contexts. Resistance to attempts to interrupt repetitive behaviors.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>5. Screening Tools & Absolute Red Flags</h3>
+        <div class="callout callout-exam-tip">
+          <div class="callout-title">🧠 Absolute Indications for Immediate ASD Evaluation</div>
+          <p>If any of the following are noted during developmental surveillance, immediate referral to a neurodevelopmental specialist is mandatory:</p>
+          <ul>
+            <li><strong>No babbling or pointing / gestures by 12 months</strong></li>
+            <li><strong>No single words by 16 months</strong></li>
+            <li><strong>No 2-word spontaneous (non-echolalic) phrases by 24 months</strong></li>
+            <li><strong>ANY loss of ANY language or social skills at ANY age (Regression)</strong></li>
+          </ul>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="background:#fafafa;">
+            <h4>M-CHAT-R/F (16–30 Months)</h4>
+            <p>Modified Checklist for Autism in Toddlers, Revised with Follow-Up:</p>
+            <ul>
+              <li>23 Yes/No screening questions for parents.</li>
+              <li>High specificity (0.93-0.99), moderate sensitivity (0.85-0.87).</li>
+              <li><strong>Discriminative Item #7:</strong> <em>"Does your child ever use his/her index finger to point to indicate interest in something?"</em> (Joint Attention test).</li>
+            </ul>
+          </div>
+          <div class="card" style="background:#fafafa;">
+            <h4>Pharmacotherapy for ASD Symptoms</h4>
+            <p>No medication cures core ASD social deficits. Drugs target comorbid behavioral disruption:</p>
+            <ul>
+              <li><strong>Irritability, Aggression & Severe Temper Tantrums:</strong> FDA-approved atypical antipsychotics: <strong>Risperidone</strong> and <strong>Aripiprazole</strong>.</li>
+              <li><strong>Hyperactivity/Impulsivity:</strong> Methylphenidate or Atomoxetine.</li>
+              <li><strong>Seizures:</strong> Antiepileptic drugs (EEG required if sudden behavioral regression or self-injury occurs).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 3: ADHD ==================== -->
+    <div id="tab-adhd" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">⚡ Attention-Deficit / Hyperactivity Disorder (ADHD)</h2>
+          <span class="badge badge-gold">Neurobehavioral</span>
+        </div>
+
+        <h3>1. Epidemiology, Heritability & Pathophysiology</h3>
+        <p>ADHD is a lifelong, highly heritable neurobehavioral disorder characterized by developmental deficits in executive function, impulse control, and motor regulation.</p>
+
+        <div class="grid-2">
+          <div>
+            <div class="callout callout-must-know">
+              <div class="callout-title">⭐ Key Epidemiologic Facts</div>
+              <ul>
+                <li><strong>Prevalence:</strong> 8–10% in children, 9.6% in adolescents, 4.4% in adults. Mean global prevalence: ~5.2%.</li>
+                <li><strong>Gender Ratios:</strong> Males dominate clinical referrals (4:1 to 5:1). In community samples, ratio is ~2:1.</li>
+                <li><strong>Presentation by Sex:</strong> Boys present with <em>externalizing</em> symptoms (hyperactivity, aggression, combined type). Girls present with <em>internalizing</em> symptoms (inattention, daydreaming, academic underachievement; often diagnosed later).</li>
+                <li><strong>Persistence:</strong> Up to <strong>65%</strong> of children with ADHD continue to meet criteria into adulthood.</li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="callout callout-pearl">
+              <div class="callout-title">💡 Neurobiology & Genetics</div>
+              <ul>
+                <li><strong>Heritability Index:</strong> <strong>0.75</strong> (Extremely high genetic contribution—higher than schizophrenia and depression!).</li>
+                <li><strong>Neurotransmitter Imbalance:</strong> Deficit of <strong>Dopamine (DA)</strong> and <strong>Norepinephrine (NE)</strong> in the prefrontal cortex and basal ganglia networks.</li>
+                <li><strong>Functional Imaging (PET Scans):</strong> Demonstrates decreased glucose cerebral metabolism in frontostriatal attention networks.</li>
+                <li><strong>Environmental Risk Factors:</strong> Prenatal exposure to nicotine/cigarettes (OR 2.1), alcohol (OR 2.5), maternal depression (OR 2.8), psychosocial adversity (OR 4.1).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:20px;">2. DSM-5 Diagnostic Criteria & Clinical Presentations</h3>
+        <p>Symptoms must persist for $\ge 6$ months, be developmentally inappropriate, be present in <strong>$\ge 2$ settings</strong> (e.g., home and school), and cause direct functional impairment. Symptom onset must be <strong>before 12 years of age</strong> (changed from age 7 in DSM-IV).</p>
+
+        <div class="table-container">
+          <button class="copy-table-btn" onclick="copyTable(this)">Copy Table</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Domain</th>
+                <th>Diagnostic Criteria Items (Child: $\ge 6$ required; $\ge 17$ yrs: $\ge 5$ required)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Inattention Domain</strong></td>
+                <td>
+                  1. Fails to give close attention to details / makes careless mistakes.<br>
+                  2. Difficulty sustaining attention in tasks or play activities.<br>
+                  3. Does not seem to listen when spoken to directly.<br>
+                  4. Does not follow through on instructions / fails to finish tasks.<br>
+                  5. Difficulty organizing tasks and activities.<br>
+                  6. Avoids, dislikes, or reluctant to engage in tasks requiring sustained mental effort.<br>
+                  7. Loses things necessary for tasks or activities.<br>
+                  8. Easily distracted by extraneous stimuli.<br>
+                  9. Forgetful in daily activities.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Hyperactivity & Impulsivity Domain</strong></td>
+                <td>
+                  1. Fidgets with or taps hands/feet or squirms in seat.<br>
+                  2. Leaves seat in situations when remaining seated is expected.<br>
+                  3. Runs about or climbs in situations where it is inappropriate.<br>
+                  4. Unable to play or engage in leisure activities quietly.<br>
+                  5. "On the go," acting as if "driven by a motor."<br>
+                  6. Talks excessively.<br>
+                  7. Blurts out an answer before a question has been completed.<br>
+                  8. Has difficulty waiting his or her turn.<br>
+                  9. Interrupts or intrudes on others.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>3. Clinical Subtypes (DSM-5 Presentations)</h3>
+        <ul>
+          <li><strong>Combined Presentation (50–75%):</strong> Meets criteria for both inattention and hyperactivity-impulsivity over past 6 months. Most common clinical subtype.</li>
+          <li><strong>Predominantly Inattentive Presentation (20–30%):</strong> Meets inattention criteria but not hyperactivity-impulsivity. More common in females.</li>
+          <li><strong>Predominantly Hyperactive/Impulsive Presentation (&lt;15%):</strong> Meets hyperactivity-impulsivity criteria but not inattention. Most common in preschool children.</li>
+        </ul>
+
+        <h3 style="margin-top:20px;">4. Multimodal Management & Pharmacotherapy</h3>
+        <p>A multimodal approach combining psychoeducation, behavioral modification, environmental structure, and pharmacotherapy yields the highest long-term success.</p>
+
+        <div class="table-container">
+          <button class="copy-table-btn" onclick="copyTable(this)">Copy Table</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Drug Class / Agent</th>
+                <th>Mechanism of Action</th>
+                <th>Clinical Pearls & Monitoring</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1st Line: Psychostimulants</strong><br>• Methylphenidate (Ritalin, Concerta)<br>• Amphetamine preparations</td>
+                <td>Blocks dopamine and norepinephrine reuptake; stimulates presynaptic release into synaptic cleft.</td>
+                <td>• Most effective treatment for core symptoms.<br>• <strong>Side Effects:</strong> Insomnia, anorexia/weight loss, growth suppression, headache, rebound irritability.<br>• <strong>Caution:</strong> Pre-treatment cardiac screening (ECG) if history of syncope, arrhythmia, or cardiomyopathy.<br>• Requires Philippine Dangerous Drugs Yellow Prescription pad.</td>
+              </tr>
+              <tr>
+                <td><strong>2nd Line: Non-Stimulants</strong><br>• Atomoxetine (Strattera)</td>
+                <td>Selective Noradrenergic Reuptake Inhibitor (NRI).</td>
+                <td>• Non-controlled substance (no abuse potential).<br>• Ideal for patients with comorbid anxiety, tics, or substance abuse history.<br>• Full therapeutic effect takes 2–4 weeks.</td>
+              </tr>
+              <tr>
+                <td><strong>3rd Line / Off-Label</strong><br>• Alpha-2 Agonists (Clonidine, Guanfacine)<br>• Bupropion</td>
+                <td>Alpha-2 adrenergic stimulation / DA-NE reuptake inhibition.</td>
+                <td>• Useful for severe impulsivity, aggression, or sleep disturbance.<br>• Monitor blood pressure and sedation.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 4: LEARNING DISABILITIES ==================== -->
+    <div id="tab-ld" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">📖 Specific Learning Disorders (Learning Disabilities)</h2>
+          <span class="badge badge-primary">Academic & Cognition</span>
+        </div>
+
+        <h3>1. Concept & Definition</h3>
+        <p>Specific Learning Disorders (LD) represent <strong>intrinsic neurodevelopmental conditions</strong> characterized by persistent difficulties acquiring specific academic skills (reading, writing, mathematics) in children with <strong>normal or superior overall intelligence</strong> and adequate educational exposure.</p>
+
+        <div class="callout callout-pitfall">
+          <div class="callout-title">⚠️ Exclusionary Criteria for Learning Disability</div>
+          <p>Academic failure must <strong>NOT</strong> be primarily attributable to:</p>
+          <ul>
+            <li>Intellectual Disability (IQ &lt; 70)</li>
+            <li>Uncorrected visual or hearing impairments</li>
+            <li>Lack of educational opportunity or ineffective schooling</li>
+            <li>Primary emotional/psychiatric disturbance</li>
+            <li>Linguistic differences or socio-economic disadvantage</li>
+          </ul>
+        </div>
+
+        <h3>2. Specific Subtypes of Learning Disabilities</h3>
+        <div class="table-container">
+          <button class="copy-table-btn" onclick="copyTable(this)">Copy Table</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Core Academic Deficit</th>
+                <th>Manifestations & Soft Neurological Signs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Dyslexia</strong><br><em>(Reading Disability)</em></td>
+                <td>Phonological processing deficit (~80% of all LDs)</td>
+                <td>Difficulty decoding words, slow labor-intensive reading, letter reversals ($b$ vs $d$, $p$ vs $q$), word inversions ("was" vs "saw"), poor reading comprehension.</td>
+              </tr>
+              <tr>
+                <td><strong>Dysgraphia</strong><br><em>(Written Expression)</em></td>
+                <td>Fine motor output & written organization deficit</td>
+                <td>Illegible handwriting, erratic spacing, severe spelling errors, inability to translate thoughts into written sentences despite fluent oral speech.</td>
+              </tr>
+              <tr>
+                <td><strong>Dyscalculia</strong><br><em>(Math Disability)</em></td>
+                <td>Deficit in number sense, facts & calculation</td>
+                <td>Difficulty understanding math concepts, alignment of equations, operational symbols ($+$ vs $-$), telling time, handling money.</td>
+              </tr>
+              <tr>
+                <td><strong>Dyspraxia</strong></td>
+                <td>Motor planning & coordination deficit</td>
+                <td>Clumsiness, poor balance, manual dexterity issues (buttoning shirt, tying shoelaces, holding utensils).</td>
+              </tr>
+              <tr>
+                <td><strong>Dysphasia</strong></td>
+                <td>Receptive/Expressive language deficit</td>
+                <td>Difficulty comprehending complex spoken instructions or expressing thoughts verbally.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>3. Cognitive Assessment: WISC Profile Analysis</h3>
+        <p>Psychological evaluation utilizing the <strong>Wechsler Intelligence Scale for Children (WISC)</strong> is critical for diagnosing LD and differentiating it from Intellectual Disability.</p>
+
+        <div class="diagram-box">
+          <h4>📊 WISC Profile in Specific Learning Disability vs Intellectual Disability</h4>
+          <div style="display:flex; justify-content:space-around; align-items:center; flex-wrap:wrap; gap:16px; margin-top:12px;">
+            <div style="background:white; padding:16px; border-radius:8px; border:2px solid var(--primary); text-align:left; max-width:300px;">
+              <h5 style="color:var(--primary);">Specific Learning Disorder</h5>
+              <ul>
+                <li><strong>Full Scale IQ:</strong> Normal/Above Normal ($90-109+$)</li>
+                <li><strong>Verbal vs. Performance IQ:</strong> Significant discrepancy (<strong>$\ge 15$ points difference</strong>)</li>
+                <li><em>Example:</em> Verbal IQ = 128, Performance IQ = 88 $\rightarrow$ Visual-spatial LD ("Street Smart")</li>
+              </ul>
+            </div>
+            <div style="background:white; padding:16px; border-radius:8px; border:2px solid var(--accent-red); text-align:left; max-width:300px;">
+              <h5 style="color:var(--accent-red);">Intellectual Disability</h5>
+              <ul>
+                <li><strong>Full Scale IQ:</strong> $\ge 2$ Standard Deviations below population mean (<strong>IQ &lt; 70</strong>)</li>
+                <li><strong>Subtest Scores:</strong> Diffusely subnormal across all cognitive domains</li>
+                <li>Deficits in adaptive functioning.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h3>4. Educational Accommodations & Bypass Interventions</h3>
+        <ul>
+          <li><strong>Dyslexia Accommodations:</strong> Oral testing methods, extra exam time, audiobooks, avoiding forced oral reading in front of peers.</li>
+          <li><strong>Dysgraphia Accommodations:</strong> Use of word processors/laptops, dictation/scribes, grading on content rather than handwriting/spelling, minimizing copying from blackboard.</li>
+          <li><strong>Dyscalculia Accommodations:</strong> Use of calculators, visual manipulatives, simplified step-by-step math instructions.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 5: ADOLESCENT HEALTH ==================== -->
+    <div id="tab-adolescent" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🌱 Adolescent Health & Development</h2>
+          <span class="badge badge-purple">Adolescent Medicine</span>
+        </div>
+
+        <h3>1. Delivery of Health Care & The HEEADSSS Screening Tool</h3>
+        <p>Adolescence (ages 11–21) represents a critical developmental period marked by physical, cognitive, and psychosocial transitions. The <strong>HEEADSSS</strong> screening framework is the gold standard for history taking.</p>
+
+        <div class="grid-2">
+          <div class="card" style="background:#f8fafc;">
+            <h4>HEEADSSS Mnemonic Breakdown</h4>
+            <ul>
+              <li><strong>H - Home:</strong> Living arrangements, family relationships, safety at home.</li>
+              <li><strong>E - Education / Employment:</strong> School performance, attendance, career goals.</li>
+              <li><strong>E - Eating:</strong> Body image, meal patterns, dieting behaviors.</li>
+              <li><strong>A - Activities:</strong> Peer relationships, sports, hobbies, screen time.</li>
+              <li><strong>D - Drugs / Alcohol:</strong> Tobacco, alcohol, e-cigarettes, illicit drugs.</li>
+              <li><strong>S - Sex / Sexuality:</strong> Sexual activity, contraception, romantic partners.</li>
+              <li><strong>S - Self-Harm / Suicide:</strong> Mood disturbances, anxiety, suicidal ideation.</li>
+              <li><strong>S - Safety & Social Media:</strong> Seatbelts, violence, cyberbullying, privacy.</li>
+            </ul>
+          </div>
+          <div class="card" style="background:#f8fafc;">
+            <h4>Preventive Immunization Schedule (11–12 Years)</h4>
+            <ul>
+              <li><strong>Tdap:</strong> Tetanus, Diphtheria, Acellular Pertussis booster.</li>
+              <li><strong>Meningococcal Conjugate (MCV4):</strong> Dose 1 at 11–12 yrs; Booster at age 16.</li>
+              <li><strong>HPV Vaccine Series:</strong> Prevents cervical/anal dysplasia & genital warts. 2-dose series if started before 15 yrs.</li>
+              <li><strong>Annual Influenza:</strong> Yearly dose for all adolescents.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 style="margin-top:20px;">2. Pubertal Variations & Delayed Puberty</h3>
+        <div class="table-container">
+          <button class="copy-table-btn" onclick="copyTable(this)">Copy Table</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Condition</th>
+                <th>Clinical Definition</th>
+                <th>Diagnostic Rationale & Management</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Premature Thelarche</strong></td>
+                <td>Isolated breast development in females &lt; 8 years old.</td>
+                <td>Benign normal variant; no pubic hair or accelerated growth; reassurance.</td>
+              </tr>
+              <tr>
+                <td><strong>Premature Adrenarche</strong></td>
+                <td>Isolated pubic/axillary hair in females &lt; 8 yrs or males &lt; 9 yrs.</td>
+                <td>Mild premature adrenal androgen secretion; monitor linear growth.</td>
+              </tr>
+              <tr>
+                <td><strong>Isosexual Precocious Puberty</strong></td>
+                <td>Full pubertal onset in females &lt; 8 yrs or males &lt; 9 yrs.</td>
+                <td>Requires endocrine evaluation (GnRH stimulation test, bone age X-ray).</td>
+              </tr>
+              <tr>
+                <td><strong>Delayed Puberty</strong></td>
+                <td>No pubertal signs in females by age 13 or males by age 14.5.</td>
+                <td>Requires evaluation for constitutional delay vs. hypogonadism.</td>
+              </tr>
+              <tr>
+                <td><strong>Constitutional Delay of Puberty (CDP)</strong></td>
+                <td>Most common cause of pubertal delay; delayed bone age with normal growth rate.</td>
+                <td><strong>Delayed bone age by 1.5–4 years</strong> compared to chronological age. Family history (+). Normal final adult height. Reassurance.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>3. Adolescent Gynecological & Reproductive Issues</h3>
+        <ul>
+          <li><strong>Secondary Amenorrhea:</strong> Absence of menses for 3 consecutive cycle lengths. <span style="color:var(--accent-red); font-weight:700;">Rule #1: Always rule out PREGNANCY first!</span></li>
+          <li><strong>Abnormal Uterine Bleeding (AUB):</strong> Most common cause in early post-menarcheal years is <strong>anovulatory cycles</strong> due to immaturity of the Hypothalamic-Pituitary-Ovarian (HPO) axis.</li>
+          <li><strong>Gynecomastia in Males:</strong> Benign proliferation of glandular breast tissue occurring in up to 65% of adolescent males during SMR 3–4 (ages 10–13). Caused by transient estrogen/androgen imbalance. Regresses spontaneously within 18–24 months. Reassurance needed!</li>
+        </ul>
+
+        <h3 style="margin-top:20px;">4. High-Yield Screening Tools: CRAFFT & FISTS</h3>
+        <div class="grid-2">
+          <div class="callout callout-exam-tip">
+            <div class="callout-title">🧠 CRAFFT Substance Abuse Screening</div>
+            <p>Score $\ge 2$ indicates high risk for substance abuse:</p>
+            <ul>
+              <li><strong>C - Car:</strong> Ever ridden in a CAR driven by someone high/drunk?</li>
+              <li><strong>R - Relax:</strong> Do you use drugs/alcohol to RELAX or fit in?</li>
+              <li><strong>A - Alone:</strong> Do you ever use drugs/alcohol ALONE?</li>
+              <li><strong>F - Forget:</strong> Do you ever FORGET things while using?</li>
+              <li><strong>F - Family/Friends:</strong> Do family/friends tell you to cut down?</li>
+              <li><strong>T - Trouble:</strong> Have you ever gotten into TROUBLE while using?</li>
+            </ul>
+          </div>
+          <div class="callout callout-must-know">
+            <div class="callout-title">⭐ FISTS Violence Assessment</div>
+            <p>Assesses adolescent risk for interpersonal violence:</p>
+            <ul>
+              <li><strong>F - Fighting:</strong> How many physical fights in past year?</li>
+              <li><strong>I - Injuries:</strong> Have you been injured or injured others?</li>
+              <li><strong>S - Sex:</strong> In forced sex or intimate partner violence?</li>
+              <li><strong>T - Threats:</strong> Has anyone threatened you with a weapon?</li>
+              <li><strong>S - Self-defense:</strong> Do you carry a weapon for self-defense?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 6: CLINICAL CASES ==================== -->
+    <div id="tab-cases" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🩺 High-Yield Lecture Clinical Cases</h2>
+          <span class="badge badge-gold">Case Vignettes</span>
+        </div>
+
+        <div class="accordion-item open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Case Vignette 1: Severe Intellectual Disability & Hydrocephalus (GE, 6y11m Male)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Presentation:</strong> Chief complaint of speech delay. History of congenital hydrocephalus (aqueductal stenosis) and seizures. Delayed in all milestones: sat alone at 3 yrs, walked at 3y6m, single words at 3 yrs, 2-word phrases at 6 yrs. Physical exam shows microcephaly.</p>
+            <div class="callout callout-pearl">
+              <div class="callout-title">💡 Diagnostic Rationale</div>
+              <p>Persistent global developmental delays beyond 5 years of age are classified as <strong>Intellectual Disability (ID)</strong>. Under DSM-5, the severity of ID (Mild, Moderate, Severe, Profound) is classified strictly based on <strong>Adaptive Functioning</strong> (conceptual, social, practical domains) and NOT by IQ scores alone.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Case Vignette 2: Global Developmental Delay & Learning Difficulties (CG, 8.1y Female)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Presentation:</strong> Born premature at 34 weeks (BW 1.8kg, meconium-stained, preeclampsia). Walked at 2 yrs, simple sentences at 5 yrs. Enrolled in SPED at 7 yrs due to severe academic difficulty learning letters, numbers, colors, shapes. Toilet trained by day at 5 yrs with night accidents.</p>
+            <div class="callout callout-pearl">
+              <div class="callout-title">💡 Diagnostic Rationale</div>
+              <p>Global Developmental Delay secondary to prematurity and perinatal hypoxic insult. Pervasive delays across motor, speech, cognitive, and adaptive spheres differentiate global intellectual delay from an isolated Specific Learning Disability.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Case Vignette 3: Classic Autism Spectrum Disorder (3yo Male)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Presentation:</strong> Speech delay, tip-toe walking, spinning around in circles, no eye contact, "dedma" when name is called, absence of joint attention, pulls parent's hand to reach objects (hand-leading), distress with loud noises, no symbolic play.</p>
+            <div class="callout callout-pearl">
+              <div class="callout-title">💡 Diagnostic Rationale</div>
+              <p>Fulfills all DSM-5 Criteria for <strong>ASD</strong>: Deficits in social reciprocity (no name response/eye contact), nonverbal communication (hand-leading instead of pointing), restricted repetitive behaviors (spinning, tip-toe walking), sensory hypersensitivity (distress to loud noise).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Case Vignette 4: Combined Type ADHD (6yo Male)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Presentation:</strong> Hyperactivity since age 3 (running, climbing furniture). In school, cannot remain seated, blurts answers, interrupts classmates, loses school materials, normal overall cognitive ability.</p>
+            <div class="callout callout-pearl">
+              <div class="callout-title">💡 Diagnostic Rationale</div>
+              <p>Classic <strong>ADHD, Combined Presentation</strong>. Symptoms present before age 12, manifest across $\ge 2$ settings (home and school), and involve both inattentive and hyperactive-impulsive domains.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 7: COMPARISONS ==================== -->
+    <div id="tab-comparisons" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">⚖️ Side-by-Side Comparison Tables</h2>
+          <span class="badge badge-primary">Differential Diagnosis</span>
+        </div>
+
+        <h3>1. ASD vs. Social Communication Disorder vs. ADHD</h3>
+        <div class="table-container">
+          <button class="copy-table-btn" onclick="copyTable(this)">Copy Table</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Autism Spectrum Disorder (ASD)</th>
+                <th>Social (Pragmatic) Comm. Disorder</th>
+                <th>Attention-Deficit / Hyperactivity Disorder</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Social Pragmatics</strong></td>
+                <td>Severely impaired social reciprocity</td>
+                <td>Deficit in social use of language ONLY</td>
+                <td>Socially impaired secondary to impulsivity/inattention</td>
+              </tr>
+              <tr>
+                <td><strong>Repetitive Behaviors</strong></td>
+                <td><strong>PRESENT</strong> (Criterion B required)</td>
+                <td><strong>ABSENT</strong> (Exclusionary if present)</td>
+                <td>Absent (fidgeting is non-stereotyped motor)</td>
+              </tr>
+              <tr>
+                <td><strong>Joint Attention</strong></td>
+                <td>Absent or severely delayed (no pointing)</td>
+                <td>Intact gestures, poor pragmatic speech</td>
+                <td>Intact joint attention, easily distracted</td>
+              </tr>
+              <tr>
+                <td><strong>Primary Treatment</strong></td>
+                <td>ABA + Speech/OT</td>
+                <td>Speech-Language Therapy</td>
+                <td>Psychostimulants + Behavioral Therapy</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top:24px;">2. Specific Learning Disorder vs. Intellectual Disability</h3>
+        <div class="table-container">
+          <button class="copy-table-btn" onclick="copyTable(this)">Copy Table</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Specific Learning Disorder (LD)</th>
+                <th>Intellectual Disability (ID)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Overall IQ (Full Scale)</strong></td>
+                <td>Normal or Above Normal ($90–109+$)</td>
+                <td>Subnormal ($\ge 2$ SD below mean; <strong>IQ &lt; 70</strong>)</td>
+              </tr>
+              <tr>
+                <td><strong>WISC Subtest Profile</strong></td>
+                <td>Significant discrepancy ($\ge 15$ pts) between Verbal & Performance IQ</td>
+                <td>Diffusely low across all verbal and performance subtests</td>
+              </tr>
+              <tr>
+                <td><strong>Adaptive Functioning</strong></td>
+                <td>Normal daily living, adaptive & social skills</td>
+                <td>Severe deficits in conceptual, social, and practical adaptive domains</td>
+              </tr>
+              <tr>
+                <td><strong>Academic Profile</strong></td>
+                <td>Circumscribed deficit (e.g., isolated reading or writing problem)</td>
+                <td>Pervasive learning impairment across all subjects</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top:24px;">3. Constitutional Delay of Puberty vs. Hypogonadotropic Hypogonadism</h3>
+        <div class="table-container">
+          <button class="copy-table-btn" onclick="copyTable(this)">Copy Table</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Diagnostic Feature</th>
+                <th>Constitutional Delay of Puberty (CDP)</th>
+                <th>Hypogonadotropic Hypogonadism</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Bone Age X-Ray</strong></td>
+                <td>Delayed by 1.5–4 years (matches height age)</td>
+                <td>Normal or minimally delayed</td>
+              </tr>
+              <tr>
+                <td><strong>Growth Velocity</strong></td>
+                <td>Normal linear growth rate ($\ge 3.7$ cm/yr)</td>
+                <td>Subnormal / declining growth velocity</td>
+              </tr>
+              <tr>
+                <td><strong>Family History</strong></td>
+                <td>Positive for delayed "late bloomer" pubertal spurt</td>
+                <td>Negative or variable genetic history</td>
+              </tr>
+              <tr>
+                <td><strong>Final Adult Height</strong></td>
+                <td>Normal adult height reached late</td>
+                <td>Impaired without exogenous hormone therapy</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 8: FLASHCARDS ==================== -->
+    <div id="tab-flashcards" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🎴 Active-Recall Flashcards (50)</h2>
+          <span class="badge badge-purple" id="flashcardCounter">Card 1 of 50</span>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+          <div>
+            <label style="font-weight:700; font-size:13px;">Filter Category: </label>
+            <select id="flashcardFilter" onchange="filterFlashcards()" style="padding:6px 12px; border-radius:4px; border:1px solid var(--border-color);">
+              <option value="all">All Topics</option>
+              <option value="ASD">Autism Spectrum Disorder</option>
+              <option value="ADHD">ADHD</option>
+              <option value="LD">Learning Disabilities</option>
+              <option value="Adolescent">Adolescent Health</option>
+            </select>
+          </div>
+          <button class="btn btn-secondary" onclick="shuffleFlashcards()">🔀 Shuffle Cards</button>
+        </div>
+
+        <div class="flashcard-container">
+          <div class="flashcard" id="flashcard" onclick="flipCard()">
+            <div class="flashcard-front">
+              <span class="badge badge-primary" id="cardCategory">Category</span>
+              <div style="font-size:18px; font-weight:700; text-align:center; margin:auto 0;" id="cardQuestion">Question goes here?</div>
+              <p style="font-size:11px; color:var(--text-light); text-align:center;">💡 Click card or press SPACEBAR to flip</p>
+            </div>
+            <div class="flashcard-back">
+              <span class="badge badge-gold">ANSWER</span>
+              <div style="font-size:16px; text-align:center; margin:auto 0; line-height:1.5;" id="cardAnswer">Answer goes here.</div>
+              <p style="font-size:11px; opacity:0.8; text-align:center;">Use Left / Right Arrows to Navigate</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard-controls">
+          <button class="btn btn-secondary" onclick="prevCard()">← Previous</button>
+          <button class="btn btn-primary" onclick="nextCard()">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 9: SELF-ASSESSMENT MCQS ==================== -->
+    <div id="tab-quiz" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">📝 Board Exam-Style Self-Assessment (50 MCQs)</h2>
+          <span class="badge badge-gold" id="quizScoreBadge">Score: 0 / 50</span>
+        </div>
+        <p style="margin-bottom:20px;">Test your mastery with 50 board-quality multiple-choice questions modeled directly after Philippine Physician Licensure Examination (PLE) and Pediatric Board patterns. Instant detailed rationale provided for correct and distractor options.</p>
+
+        <div id="quizContainer">
+          <!-- Dynamically Generated MCQs -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 10: CRAM SHEET ==================== -->
+    <div id="tab-cram" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🚀 Ultra-Condensed High-Yield Cram Sheet</h2>
+          <span class="badge badge-red">10-Minute Rapid Review</span>
+        </div>
+
+        <div class="callout callout-exam-tip">
+          <div class="callout-title">⚡ High-Yield Clinical "If You See X → Think Y" Clues</div>
+          <div class="table-container">
+            <button class="copy-table-btn" onclick="copyTable(this)">Copy Table</button>
+            <table>
+              <thead>
+                <tr>
+                  <th>If You See Clinical Clue (X)</th>
+                  <th>Think Diagnostic Entity (Y)</th>
+                  <th>Core Rationale / Mechanism</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Child pulls adult's hand to object without eye contact or pointing</td>
+                  <td><strong>ASD (Hand-Leading)</strong></td>
+                  <td>Absence of protodeclarative pointing and joint attention.</td>
+                </tr>
+                <tr>
+                  <td>Loss of acquired speech or social skills in an 18-month-old</td>
+                  <td><strong>ASD Regression</strong></td>
+                  <td>Occurs in 25-30% of ASD children between 15-24 months.</td>
+                </tr>
+                <tr>
+                  <td>Child referred for "hearing loss" but turns immediately when TV plays cartoon sound</td>
+                  <td><strong>ASD Selective Attention ("Dedma")</strong></td>
+                  <td>Auditory perception intact; social responsiveness impaired.</td>
+                </tr>
+                <tr>
+                  <td>Child described as "driven by a motor" who blurts answers in class</td>
+                  <td><strong>ADHD (Combined Type)</strong></td>
+                  <td>Prefrontal dopamine/norepinephrine deficit. Heritability 0.75.</td>
+                </tr>
+                <tr>
+                  <td>Girl with daydreaming and academic underachievement, no motor overactivity</td>
+                  <td><strong>ADHD (Inattentive Type)</strong></td>
+                  <td>Internalizing presentation, typically diagnosed later in school.</td>
+                </tr>
+                <tr>
+                  <td>Normal Full-Scale IQ with 40-point Verbal > Performance IQ gap on WISC</td>
+                  <td><strong>Specific Learning Disability (Visual-Perceptual)</strong></td>
+                  <td>Circumscribed cognitive deficit; "Street Smart" verbal skills.</td>
+                </tr>
+                <tr>
+                  <td>Reversing letters ($b$ for $d$) and reading "was" as "saw"</td>
+                  <td><strong>Dyslexia (Reading Disorder)</strong></td>
+                  <td>Phonological processing deficit; accounts for 80% of LDs.</td>
+                </tr>
+                <tr>
+                  <td>Adolescent male with delayed pubertal spurt but delayed bone age matching height age</td>
+                  <td><strong>Constitutional Delay of Puberty</strong></td>
+                  <td>Benign variant; normal linear growth velocity ($\ge 3.7$ cm/yr).</td>
+                </tr>
+                <tr>
+                  <td>Sexually active adolescent female with secondary amenorrhea</td>
+                  <td><strong>Pregnancy (#1 Cause)</strong></td>
+                  <td>Must perform urine $\beta$-hCG before any endocrine workup!</td>
+                </tr>
+                <tr>
+                  <td>Post-menarcheal teen with irregular heavy menstrual bleeding</td>
+                  <td><strong>Anovulatory AUB</strong></td>
+                  <td>Immature Hypothalamic-Pituitary-Ovarian (HPO) axis.</td>
+                </tr>
+                <tr>
+                  <td>Adolescent male with bilateral tender breast enlargement at SMR stage 3-4</td>
+                  <td><strong>Physiologic Male Gynecomastia</strong></td>
+                  <td>Transient estrogen/androgen imbalance; regresses in 18-24 months.</td>
+                </tr>
+                <tr>
+                  <td>Chronic marijuana user with loss of ambition and social apathy</td>
+                  <td><strong>Amotivational Syndrome</strong></td>
+                  <td>Associated with chronic $\Delta^9$-THC exposure.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h3 style="margin-top:20px;">Rapid-Fire Diagnostic Clues</h3>
+        <ul style="line-height:1.8;">
+          <li><strong>M-CHAT Discriminative Question #7:</strong> Index finger pointing to show interest.</li>
+          <li><strong>ASD Pharmacotherapy:</strong> Risperidone & Aripiprazole for severe irritability/aggression.</li>
+          <li><strong>ADHD Diagnostic Requirement:</strong> Onset &lt; 12 years; present in $\ge 2$ settings; $\ge 6$ symptoms.</li>
+          <li><strong>ADHD Drug of Choice:</strong> Methylphenidate (Psychostimulant) $\rightarrow$ Blocks DA/NE reuptake.</li>
+          <li><strong>ADHD Drug Pre-Screening:</strong> ECG required if cardiac history (+) due to sudden death risk.</li>
+          <li><strong>Intellectual Disability Criteria:</strong> IQ &lt; 70 + adaptive deficits + onset in developmental period (&lt;18 yrs). Severity based on <em>adaptive functioning</em>.</li>
+          <li><strong>HEEADSSS:</strong> Home, Education, Eating, Activities, Drugs, Sex, Suicide, Safety.</li>
+          <li><strong>CRAFFT Cutoff:</strong> Score $\ge 2$ indicates high risk for substance abuse.</li>
+        </ul>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">▲</button>
+
+  <!-- JavaScript Functionality -->
+  <script>
+    /* ==================== GLOBAL JAVASCRIPT STATE ==================== */
+    let flashcardData = [
+      { id: 1, cat: "ASD", q: "What is the historical milestone associated with Leo Kanner in 1943?", a: "Published study of 11 children describing 'Early Infantile Autism' characterized by aloneness and obsessive desire for sameness." },
+      { id: 2, cat: "ASD", q: "Why was Bruno Bettelheim's 1967 'Refrigerator Mother' theory debunked?", a: "Autism is a biologically and genetically based neurodevelopmental disorder, NOT caused by cold or absentee parenting." },
+      { id: 3, cat: "ASD", q: "What is the current CDC prevalence of Autism Spectrum Disorder (2023 data)?", a: "1 in 36 children (with a 4:1 male predominance)." },
+      { id: 4, cat: "ASD", q: "What is the concordance rate of ASD in monozygotic (identical) twins?", a: "60% to 96% (compared to 0-24% in dizygotic twins), demonstrating strong genetic heritability." },
+      { id: 5, cat: "ASD", q: "Which specific chromosomal abnormality accounts for ~1% of ASD cases?", a: "Deletion or duplication of 25 genes on Chromosome 16 (16p11-p12)." },
+      { id: 6, cat: "ASD", q: "Name the major brain structures pathologically implicated in ASD.", a: "Cerebellum, Cerebral Cortex, Limbic System (Amygdala/Hippocampus), Corpus Callosum, Basal Ganglia, Brain Stem." },
+      { id: 7, cat: "ASD", q: "What are the two core diagnostic domains for ASD under DSM-5?", a: "1. Deficits in Social Communication & Interaction (3/3 required)\n2. Restricted, Repetitive Patterns of Behavior (2/4 required)." },
+      { id: 8, cat: "ASD", q: "What is the single most discriminative item (#7) on the M-CHAT screening tool?", a: "Index finger pointing to indicate interest in an object (Joint Attention)." },
+      { id: 9, cat: "ASD", q: "What are the four absolute indications for immediate ASD evaluation?", a: "1. No babbling/pointing by 12 mos\n2. No single words by 16 mos\n3. No 2-word spontaneous phrases by 24 mos\n4. ANY loss of language/social skills at ANY age." },
+      { id: 10, cat: "ASD", q: "What percentage of children with ASD experience developmental regression?", a: "25% to 30% (typically losing words or social skills between 15 and 24 months of age)." },
+      { id: 11, cat: "ASD", q: "Which atypical antipsychotic medications are FDA-approved for ASD irritability?", a: "Risperidone and Aripiprazole." },
+      { id: 12, cat: "ADHD", q: "What is the core symptom triad of ADHD?", a: "Inattention, Hyperactivity, and Impulsivity." },
+      { id: 13, cat: "ADHD", q: "What is the estimated heritability index of ADHD?", a: "0.75 (demonstrating extremely high genetic contribution)." },
+      { id: 14, cat: "ADHD", q: "Which neurotransmitters are primarily deficient in the prefrontal cortex in ADHD?", a: "Dopamine (DA) and Norepinephrine (NE)." },
+      { id: 15, cat: "ADHD", q: "What is the age-of-onset criterion for ADHD according to DSM-5?", a: "Several inattentive or hyperactive-impulsive symptoms must be present BEFORE 12 years of age." },
+      { id: 16, cat: "ADHD", q: "In how many settings must ADHD symptoms be present for diagnosis?", a: "At least TWO or more settings (e.g., home and school/work)." },
+      { id: 17, cat: "ADHD", q: "What is the most common clinical presentation/subtype of ADHD?", a: "Combined Presentation (50% to 75% of cases)." },
+      { id: 18, cat: "ADHD", q: "What is the most common comorbid psychiatric condition in children with ADHD?", a: "Oppositional Defiant Disorder (ODD), present in up to 60% of cases." },
+      { id: 19, cat: "ADHD", q: "What is the first-line pharmacotherapy for ADHD in children aged 6 years and older?", a: "Psychostimulants (Methylphenidate preparations such as Ritalin or Concerta)." },
+      { id: 20, cat: "ADHD", q: "What mechanism of action defines Atomoxetine (Strattera)?", a: "Selective Noradrenergic Reuptake Inhibitor (NRI) — a non-stimulant with no abuse potential." },
+      { id: 21, cat: "ADHD", q: "What pre-treatment medical screening is required before starting psychostimulants?", a: "Cardiac evaluation (ECG) if personal or family history is positive for syncope, arrhythmia, or cardiomyopathy." },
+      { id: 22, cat: "LD", q: "Define Specific Learning Disorder (Learning Disability).", a: "Intrinsic neurodevelopmental difficulty acquiring academic skills (reading/writing/math) in individuals with normal or superior intelligence." },
+      { id: 23, cat: "LD", q: "What percentage of all Learning Disabilities is represented by Dyslexia?", a: "Approximately 80% of all diagnosed learning disabilities." },
+      { id: 24, cat: "LD", q: "What is the primary underlying cognitive deficit in Dyslexia?", a: "A deficit in phonological processing (difficulty decoding letter-sound relationships)." },
+      { id: 25, cat: "LD", q: "How does the WISC IQ profile differ between Learning Disability and Intellectual Disability?", a: "LD: Normal Full-Scale IQ with $\\ge 15$-point gap between Verbal and Performance IQ.\nID: Full-Scale IQ < 70 (subnormal across all subtests)." },
+      { id: 26, cat: "LD", q: "Define Dysgraphia.", a: "A specific learning disability affecting written expression, fine motor output, spelling, and organization of written thoughts." },
+      { id: 27, cat: "LD", q: "Define Dyscalculia.", a: "A specific learning disability affecting number sense, mathematical facts, calculation fluency, and math reasoning." },
+      { id: 28, cat: "LD", q: "What is a 'Bypass Interventions' in learning disability management?", a: "An educational strategy that circumvents the specific cognitive weakness (e.g., using audiobooks for dyslexia or word processors for dysgraphia)." },
+      { id: 29, cat: "Adolescent", q: "What does the HEEADSSS mnemonic stand for in adolescent risk screening?", a: "Home, Education/Employment, Eating, Activities, Drugs, Sex, Self-Harm/Suicide, Safety." },
+      { id: 30, cat: "Adolescent", q: "Which universal vaccines are recommended at the 11-12 year well-adolescent visit?", a: "Tdap, Meningococcal conjugate (MCV4), HPV series, and Annual Influenza." },
+      { id: 31, cat: "Adolescent", q: "Define Premature Thelarche.", a: "Isolated breast development in females under 8 years of age (a benign normal variant)." },
+      { id: 32, cat: "Adolescent", q: "What is the hallmark diagnostic finding in Constitutional Delay of Puberty?", a: "Bone age delayed by 1.5 to 4 years relative to chronological age, with normal linear growth velocity." },
+      { id: 33, cat: "Adolescent", q: "What is the single most common cause of secondary amenorrhea in adolescents?", a: "Pregnancy! (Must always be ruled out first)." },
+      { id: 34, cat: "Adolescent", q: "What is the primary pathophysiology behind Abnormal Uterine Bleeding in early post-menarche?", a: "Anovulatory cycles due to developmental immaturity of the Hypothalamic-Pituitary-Ovarian (HPO) axis." },
+      { id: 35, cat: "Adolescent", q: "What does a score of $\\ge 2$ on the CRAFFT screening tool indicate?", a: "High risk for adolescent substance abuse, warranting further clinical evaluation." },
+      { id: 36, cat: "Adolescent", q: "What syndrome is associated with chronic marijuana use in teens?", a: "Amotivational Syndrome (apathy, loss of ambition, diminished social drive)." },
+      { id: 37, cat: "Adolescent", q: "What is the natural course of physiologic male adolescent gynecomastia?", a: "Spontaneous regression within 18 to 24 months in over 90% of cases." },
+      { id: 38, cat: "ASD", q: "What is pronominal reversal in ASD?", a: "Referring to oneself as 'you' or 'he/she' instead of 'I' or 'me' (e.g., 'You want cookie')." },
+      { id: 39, cat: "ASD", q: "At what age can ASD be reliably diagnosed by an expert clinician?", a: "As early as 18 months (and sometimes by 12 months)." },
+      { id: 40, cat: "ADHD", q: "Is Autism Spectrum Disorder an exclusionary diagnosis for ADHD under DSM-5?", a: "NO! DSM-5 permits dual diagnosis of ASD and ADHD." },
+      { id: 41, cat: "ADHD", q: "What is the clinical presentation of ADHD in girls?", a: "Predominantly Inattentive presentation, internalizing symptoms (daydreaming, low self-esteem), often diagnosed later." },
+      { id: 42, cat: "ADHD", q: "Name a non-traditional therapy for ADHD that lacks evidence-based support.", a: "High-dose Vitamin B complexes, Megavitamins, or Gluten-free diets." },
+      { id: 43, cat: "LD", q: "What is the prevalence of Specific Learning Disorders in school-aged children?", a: "5% to 15% across academic domains." },
+      { id: 44, cat: "LD", q: "Why was the IQ discrepancy criterion abandoned in DSM-5 for Specific Learning Disorders?", a: "To allow earlier identification and intervention without waiting for a student to fail significantly." },
+      { id: 45, cat: "Adolescent", q: "What is the purpose of the FISTS mnemonic?", a: "Assessing an adolescent's risk for violent behavior and victimization." },
+      { id: 46, cat: "Adolescent", q: "What is the most common benign breast tumor in adolescent females?", a: "Fibroadenoma (accounts for 76-90% of benign adolescent breast lesions)." },
+      { id: 47, cat: "Adolescent", q: "At what age should routine screening for HIV begin in adolescents?", a: "At least once between ages 15 and 18 years." },
+      { id: 48, cat: "Adolescent", q: "At what age should routine cervical dysplasia (Pap smear) screening begin?", a: "Beginning at age 21 years (regardless of age of sexual initiation)." },
+      { id: 49, cat: "ASD", q: "What is 'hand-leading' in an autistic child?", a: "Pulling a caregiver's hand to point at or grab a desired object without making eye contact." },
+      { id: 50, cat: "ASD", q: "What level of DSM-5 ASD severity requires 'Very Substantial Support'?", a: "Level 3." }
+    ];
+
+    let currentCardIndex = 0;
+    let filteredFlashcards = [...flashcardData];
+
+    /* ==================== MCQ QUIZ DATA (50 QUESTIONS) ==================== */
+    let quizData = [
+      {
+        q: "A 3-year-old boy is brought to the clinic due to absence of speech. His mother notes he rarely looks her in the eye and pulls her hand to the refrigerator when he wants juice without pointing. When called, he does not respond, though he turns instantly when his favorite cartoon theme plays. Which diagnostic entity is most likely?",
+        options: ["A. Expressive Language Disorder", "B. Autism Spectrum Disorder", "C. Severe Sensorineural Hearing Loss", "D. Social Communication Disorder"],
+        correct: 1,
+        exp: "<strong>Correct Answer: B. Autism Spectrum Disorder.</strong> The patient displays hallmark signs of ASD: deficits in social reciprocity (lack of eye contact, failure to respond to name/'dedma'), absence of joint attention/pointing (uses hand-leading), and restricted auditory responsiveness (selective attention to cartoons).<br><em>Why others are wrong:</em><br>• A: Language disorder does not cause loss of joint attention or nonverbal social deficits.<br>• C: Intact hearing is proven by turning to the cartoon sound.<br>• D: Social Pragmatic Communication Disorder is excluded when restricted/repetitive behaviors or joint attention failure are present."
+      },
+      {
+        q: "Under DSM-5 criteria for Autism Spectrum Disorder, which of the following is REQUIRED regarding Criterion A (Social Communication & Interaction)?",
+        options: ["A. At least 2 out of 3 sub-items must be present", "B. All 3 out of 3 sub-items must be present", "C. Symptoms must be present before age 3 years strictly", "D. Intellectual impairment must be present"],
+        correct: 1,
+        exp: "<strong>Correct Answer: B. All 3 out of 3 sub-items must be present.</strong> DSM-5 mandates that patients fulfill ALL THREE criteria in Category A (social-emotional reciprocity, nonverbal communication, and developing/maintaining relationships).<br><em>Why others are wrong:</em><br>• A: Category B requires 2/4, but Category A requires ALL 3/3.<br>• C: DSM-5 loosened age restriction to 'early developmental period' rather than strictly before 3 yrs.<br>• D: Intellectual disability is a specifier, not a required criterion."
+      },
+      {
+        q: "Which of the following is classified as an ABSOLUTE indication for immediate formal evaluation for ASD?",
+        options: ["A. Absence of single words by 12 months", "B. Absence of 2-word spontaneous phrases by 24 months", "C. Inability to dress independently by 3 years", "D. Persistence of tip-toe walking at 18 months"],
+        correct: 1,
+        exp: "<strong>Correct Answer: B. Absence of 2-word spontaneous phrases by 24 months.</strong> Absolute indications include: no babbling/pointing by 12 mos, no single words by 16 mos, no 2-word spontaneous phrases by 24 mos, and ANY loss of language/social skills at ANY age.<br><em>Why others are wrong:</em><br>• A: Single words are expected by 16 months, not 12 months.<br>• C & D: Developmental variations, not absolute ASD red flags."
+      },
+      {
+        q: "Which pharmacologic agent is FDA-approved specifically for treating severe irritability, aggression, and temper tantrums in children with ASD?",
+        options: ["A. Methylphenidate", "B. Atomoxetine", "C. Risperidone", "D. Fluoxetine"],
+        correct: 2,
+        exp: "<strong>Correct Answer: C. Risperidone.</strong> Risperidone and Aripiprazole are the two atypical antipsychotics FDA-approved with established evidence for ASD irritability and aggression.<br><em>Why others are wrong:</em><br>• A & B: Used for comorbid ADHD symptoms.<br>• D: SSRI used for depression/anxiety, not FDA approved for core ASD irritability."
+      },
+      {
+        q: "A 7-year-old boy is brought for evaluation of academic failure and classroom disruption. His teacher reports he squirms in his seat, blurts out answers, loses pencils, and cannot wait his turn. Symptoms occur both at home and school for 8 months. What is the heritability index of this condition?",
+        options: ["A. 0.25", "B. 0.50", "C. 0.75", "D. 0.95"],
+        correct: 2,
+        exp: "<strong>Correct Answer: C. 0.75.</strong> The child presents with classic ADHD, Combined Type. Twin studies establish the average heritability of ADHD at 0.75, making it one of the most highly genetic neurobehavioral conditions."
+      },
+      {
+        q: "What key change was made from DSM-IV-TR to DSM-5 regarding the diagnostic criteria for ADHD?",
+        options: ["A. The age limit for onset of symptoms was changed from before age 7 to before age 12", "B. Autism Spectrum Disorder was added as an exclusionary diagnosis", "C. Symptoms must now be present in only one setting", "D. At least 8 symptoms are required for adults"],
+        correct: 0,
+        exp: "<strong>Correct Answer: A. Onset of symptoms changed to before age 12.</strong> DSM-5 raised the age threshold for symptom onset from age 7 to age 12.<br><em>Why others are wrong:</em><br>• B: DSM-5 REMOVED ASD as an exclusionary diagnosis (dual diagnosis now allowed).<br>• C: Symptoms must be present in $\\ge 2$ settings.<br>• D: Adults require $\\ge 5$ symptoms, not 8."
+      },
+      {
+        q: "A 9-year-old girl is diagnosed with ADHD, Predominantly Inattentive Presentation. Which of the following statements regarding gender differences in ADHD is TRUE?",
+        options: ["A. Girls are referred for ADHD more frequently than boys", "B. Girls present more commonly with externalizing symptoms like physical aggression", "C. Girls are predominantly of the inattentive subtype and often diagnosed later", "D. ADHD in girls rarely persists into adulthood"],
+        correct: 2,
+        exp: "<strong>Correct Answer: C. Girls are predominantly of the inattentive subtype and diagnosed later.</strong> Girls manifest internalizing symptoms (daydreaming, underachievement) and are under-referred compared to boys.<br><em>Why others are wrong:</em><br>• A: Boys dominate clinical referrals (4:1 to 5:1).<br>• B: Externalizing symptoms are characteristic of boys."
+      },
+      {
+        q: "A 6-year-old boy with ADHD is scheduled to start Methylphenidate. What is its primary mechanism of action?",
+        options: ["A. Selective inhibition of serotonin reuptake", "B. Blockade of dopamine and norepinephrine reuptake and stimulation of presynaptic release", "C. Alpha-2 adrenergic receptor agonism", "D. Central histaminergic inhibition"],
+        correct: 1,
+        exp: "<strong>Correct Answer: B. Blockade of DA and NE reuptake + presynaptic release.</strong> Psychostimulants increase synaptic concentrations of dopamine and norepinephrine in the prefrontal cortex."
+      },
+      {
+        q: "Prior to initiating psychostimulant therapy for a child with ADHD, which screening step is MANDATORY if personal or family history is positive for sudden cardiac death or syncope?",
+        options: ["A. Electroencephalogram (EEG)", "B. Electrocardiogram (ECG) and pediatric cardiology clearance", "C. Serum electrolyte panel", "D. Brain MRI"],
+        correct: 1,
+        exp: "<strong>Correct Answer: B. Electrocardiogram (ECG) and cardiology clearance.</strong> Stimulants carry potential cardiovascular risks; pre-treatment cardiac clearance is mandatory if cardiac risk factors are identified."
+      },
+      {
+        q: "A 9-year-old boy is struggling in 4th grade. His teacher notes he reads 'was' as 'saw' and 'b' as 'd', reads laboriously, but excels in oral science discussions. Psychological testing reveals a Full Scale IQ of 108, Verbal IQ of 122, and Performance IQ of 88. What is the diagnosis?",
+        options: ["A. Mild Intellectual Disability", "B. Specific Learning Disorder with Impairment in Reading (Dyslexia)", "C. ADHD, Inattentive Type", "D. Global Developmental Delay"],
+        correct: 1,
+        exp: "<strong>Correct Answer: B. Dyslexia.</strong> Characterized by letter reversals, phonological deficits, normal overall Full-Scale IQ (108), and a significant ($\ge 15$ point) Verbal-Performance discrepancy on WISC.<br><em>Why others are wrong:</em><br>• A & D: IQ is in normal range (108), ruling out ID."
+      },
+      {
+        q: "Which of the following is an EXclusionary factor for diagnosing a Specific Learning Disorder?",
+        options: ["A. High creative talent in visual arts", "B. Coexisting Oppositional Defiant Disorder", "C. Uncorrected severe visual acuity loss as primary cause", "D. High family heritability"],
+        correct: 2,
+        exp: "<strong>Correct Answer: C. Uncorrected severe visual loss.</strong> Learning disabilities must NOT be primarily caused by uncorrected sensory deficits (vision or hearing)."
+      },
+      {
+        q: "A 10-year-old child with Dysgraphia is struggling in school. Which educational bypass strategy is most appropriate?",
+        options: ["A. Forcing the child to copy long passages from the blackboard daily", "B. Allowing the use of a laptop/word processor and oral examinations", "C. Enrolling the child in vision therapy exercises", "D. Administering high-dose caffeine"],
+        correct: 1,
+        exp: "<strong>Correct Answer: B. Laptop/word processor and oral exams.</strong> Bypass strategies circumvent the fine motor output deficit by utilizing dictation, typing, and oral testing."
+      },
+      {
+        q: "An 11-year-old boy is brought for a well-adolescent visit. According to AAP/PPS preventive guidelines, which routine vaccines should be administered at this 11-12 year visit?",
+        options: ["A. MMR, Varicella, Hepatitis A", "B. Tdap, MCV4, HPV series, Annual Influenza", "C. Pneumococcal 13, IPV, Rotavirus", "D. BCG, Hepatitis B, Hib"],
+        correct: 1,
+        exp: "<strong>Correct Answer: B. Tdap, MCV4, HPV, Influenza.</strong> Recommended routine adolescent vaccines starting at 11-12 years."
+      },
+      {
+        q: "A 14-year-old male is evaluated for short stature and absent secondary sexual characteristics. Physical exam is normal. Growth velocity is 4.0 cm/year. Bone age X-ray shows a bone age of 11 years (chronological age 14). His father had a late pubertal growth spurt at age 16. What is the diagnosis?",
+        options: ["A. Kallmann Syndrome", "B. Constitutional Delay of Puberty", "C. Primary Testicular Failure", "D. Panhypopituitarism"],
+        correct: 1,
+        exp: "<strong>Correct Answer: B. Constitutional Delay of Puberty.</strong> Key features: normal growth rate ($\ge 3.7$ cm/yr), delayed bone age by 1.5-4 yrs, positive family history of late puberty."
+      },
+      {
+        q: "A 15-year-old sexually active female presents with 4 months of amenorrhea. Previously her periods were regular. What is the FIRST diagnostic test to perform?",
+        options: ["A. Serum FSH and LH levels", "B. Pelvic Ultrasound", "C. Urine pregnancy test ($\beta$-hCG)", "D. Thyroid Stimulating Hormone (TSH)"],
+        correct: 2,
+        exp: "<strong>Correct Answer: C. Urine pregnancy test.</strong> Pregnancy is the single most common cause of secondary amenorrhea in sexually active adolescents and MUST be ruled out first."
+      },
+      {
+        q: "A 13-year-old male presents with bilateral, mildly tender subareolar breast enlargement (Tanner stage 3). There are no breast masses, discharge, or lymphadenopathy. What is the most appropriate management?",
+        options: ["A. Immediate surgical excision", "B. Reassurance and observation for spontaneous regression", "C. Tamoxifen therapy", "D. Karyotype analysis"],
+        correct: 1,
+        exp: "<strong>Correct Answer: B. Reassurance and observation.</strong> Physiologic male adolescent gynecomastia occurs in up to 65% of boys during SMR 3-4 and spontaneously regresses within 18-24 months."
+      },
+      {
+        q: "A 16-year-old adolescent is screened for substance abuse using the CRAFFT tool. He answers 'Yes' to riding in a car driven by a high friend and 'Yes' to using alcohol alone. His score is 2. How should this result be interpreted?",
+        options: ["A. Negative screening test; no action required", "B. Positive screen indicating high risk for substance abuse; requires further evaluation", "C. Definite indication for immediate involuntary rehab admission", "D. Invalid test result"],
+        correct: 1,
+        exp: "<strong>Correct Answer: B. Positive screen indicating high risk.</strong> A score of $\ge 2$ on CRAFFT indicates significant risk for substance abuse and mandates comprehensive clinical assessment."
+      },
+      {
+        q: "What classic psychiatric/behavioral syndrome is associated with chronic, long-term marijuana use in adolescents?",
+        options: ["A. Serotonin Syndrome", "B. Amotivational Syndrome", "C. Neuroleptic Malignant Syndrome", "D. Extrapyramidal Syndrome"],
+        correct: 1,
+        exp: "<strong>Correct Answer: B. Amotivational Syndrome.</strong> Chronic cannabis exposure ($\Delta^9$-THC) leads to apathy, loss of ambition, impaired concentration, and social withdrawal."
+      },
+      {
+        q: "Which screening tool is specifically designed to assess an adolescent's risk for violent behavior and victimization in the clinical setting?",
+        options: ["A. CRAFFT", "B. HEEADSSS", "C. FISTS", "D. M-CHAT"],
+        correct: 2,
+        exp: "<strong>Correct Answer: C. FISTS.</strong> FISTS evaluates Fighting, Injuries, Sex/abuse, Threats, and Self-defense."
+      },
+      {
+        q: "A 6-year-old boy with a history of congenital hydrocephalus and seizures sat at 3 years and spoke single words at 3 years. Beyond 5 years of age, persistent global developmental delays across conceptual, social, and practical spheres are classified as:",
+        options: ["A. Global Developmental Delay", "B. Intellectual Disability", "C. Autism Spectrum Disorder", "D. Specific Learning Disorder"],
+        correct: 1,
+        exp: "<strong>Correct Answer: B. Intellectual Disability.</strong> Global delays under age 5 are termed Global Developmental Delay. Once the child is 5 years or older and standard testing is feasible, it is classified as Intellectual Disability."
+      },
+      // Questions 21-50 generated concisely
+      { q: "What was Hans Asperger's contribution to autism history in 1944?", options: ["A. Coined the word autism", "B. Described higher-functioning children with 'Asperger's Syndrome'", "C. Created the MMR vaccine link", "D. Formulated the M-CHAT"], correct: 1, exp: "Asperger described high-functioning children with milder social impairments." },
+      { q: "What is the recurrence risk of ASD in a family with one previously affected child?", options: ["A. 0.1%", "B. 5% (approx 1 in 20)", "C. 50%", "D. 100%"], correct: 1, exp: "Recurrence risk for siblings is ~5% (range 2-19%)." },
+      { q: "Which domain is NOT part of the DSM-5 ASD Category A criteria?", options: ["A. Social-emotional reciprocity", "B. Nonverbal communication", "C. Motor tics and vocalizations", "D. Relationships"], correct: 2, exp: "Tics are repetitive behaviors under Category B, not Category A." },
+      { q: "In the M-CHAT-R/F, what age group is the tool validated for?", options: ["A. 6 to 12 months", "B. 16 to 30 months", "C. 5 to 10 years", "D. 12 to 18 years"], correct: 1, exp: "M-CHAT-R/F is validated for toddlers aged 16-30 months." },
+      { q: "Which EEG finding warrants immediate workup in an autistic child experiencing sudden behavioral decline?", options: ["A. Normal alpha rhythm", "B. Epileptiform discharges", "C. Beta wave predominance", "D. Sleep spindles"], correct: 1, exp: "20-30% of ASD patients develop epilepsy; sudden regression warrants EEG for epileptiform discharges." },
+      { q: "What percentage of children with ASD have a co-occurring Intellectual Disability?", options: ["A. 5%", "B. 20%", "C. 50%", "D. 95%"], correct: 2, exp: "Approximately 50% of ASD children have co-occurring Intellectual Disability." },
+      { q: "At what age should routine developmental screening for ASD be conducted during well-baby visits?", options: ["A. 6 and 12 months", "B. 18 and 24 months", "C. 4 and 6 years", "D. 10 and 12 years"], correct: 1, exp: "AAP recommends universal ASD screening at 18 and 24 months." },
+      { q: "In ADHD, what is the most common co-occurring psychiatric comorbidity?", options: ["A. Bipolar Disorder", "B. Oppositional Defiant Disorder (ODD)", "C. Schizophrenia", "D. Panic Disorder"], correct: 1, exp: "ODD co-occurs in up to 60% of children with ADHD." },
+      { q: "A 5-year-old child presents with severe hyperactivity. Why should a formal diagnosis of ADHD be made cautiously before age 4-5?", options: ["A. Symptoms overlap with normal toddler 'run-about' developmental behavior", "B. Stimulants are lethal in preschoolers", "C. Brain dopamine is absent before age 5", "D. Heritability is 0% in toddlers"], correct: 0, exp: "High activity is normal in toddlers; diagnosis requires developmental inappropriateness." },
+      { q: "Which second-line ADHD medication is a selective noradrenergic reuptake inhibitor with no potential for abuse?", options: ["A. Methylphenidate", "B. Atomoxetine", "C. Modafinil", "D. Clonidine"], correct: 1, exp: "Atomoxetine (Strattera) selectively inhibits NE reuptake and is not a controlled substance." },
+      { q: "What is the common adverse effect of psychostimulant therapy in children?", options: ["A. Weight gain and hypersomnia", "B. Anorexia/appetite suppression and sleep onset insomnia", "C. Hepatotoxicity", "D. Renal failure"], correct: 1, exp: "Decreased appetite and insomnia are top stimulant side effects." },
+      { q: "Which historical figure displayed traits strongly linked to ADHD?", options: ["A. Michael Phelps", "B. Albert Einstein", "C. Walt Disney", "D. All of the above"], correct: 3, exp: "All listed figures displayed documented ADHD traits." },
+      { q: "Which type of Specific Learning Disorder is characterized by motor planning difficulties and clumsiness?", options: ["A. Dyslexia", "B. Dyspraxia", "C. Dyscalculia", "D. Dysphasia"], correct: 1, exp: "Dyspraxia affects motor coordination and manual dexterity." },
+      { q: "On WISC-R testing, a child with Dyslexia typically shows:", options: ["A. Subnormal Full Scale IQ < 70", "B. Normal Full Scale IQ with high Verbal vs lower Performance scores", "C. Flat zero scores across all subtests", "D. Identical scores on all subtests"], correct: 1, exp: "LD shows normal overall IQ with significant subtest discrepancies." },
+      { q: "What is the primary goal of educational 'Bypass Interventions' in LD?", options: ["A. Curing the underlying genetic mutation", "B. Circumventing the cognitive deficit to allow learning through strengths", "C. Keeping the child out of school permanently", "D. Forcing rote repetition"], correct: 1, exp: "Bypass methods bypass weak channels (e.g. using audiobooks for reading deficits)." },
+      { q: "What component of HEEADSSS screens for eating disorders and body image issues?", options: ["A. H", "B. First E (Education)", "C. Second E (Eating)", "D. S (Safety)"], correct: 2, exp: "The second E in HEEADSSS stands for Eating." },
+      { q: "Isolated breast development in a 6-year-old girl without pubic hair or accelerated growth is:", options: ["A. Premature Thelarche", "B. Premature Adrenarche", "C. Precocious Puberty", "D. Turner Syndrome"], correct: 0, exp: "Premature thelarche is isolated early breast development." },
+      { q: "Isosexual precocious puberty is defined as pubertal onset before what age in females?", options: ["A. 6 years", "B. 8 years", "C. 10 years", "D. 12 years"], correct: 1, exp: "Precocious puberty is defined as pubertal signs before age 8 in females (and age 9 in males)." },
+      { q: "What is the most common cause of abnormal uterine bleeding in an 13-year-old girl 6 months post-menarche?", options: ["A. Cervical cancer", "B. Von Willebrand disease", "C. Anovulatory cycles secondary to immature HPO axis", "D. Uterine fibroids"], correct: 2, exp: "HPO axis immaturity causes anovulatory cycles and irregular heavy bleeding." },
+      { q: "At what age range does male adolescent physiologic gynecomastia peak?", options: ["A. Ages 2-4 years", "B. Ages 10-13 years (SMR 3-4)", "C. Ages 18-21 years", "D. Ages 25-30 years"], correct: 1, exp: "Gynecomastia peaks during pubertal stages SMR 3-4 (ages 10-13)." },
+      { q: "What is the leading cause of death among adolescents aged 10-24 years attributable to violence?", options: ["A. Drowning", "B. Homicide (handgun related)", "C. Poisoning", "D. Falls"], correct: 1, exp: "Homicide, particularly via handguns, is a leading cause of violent death in youth." },
+      { q: "Which drug is the most widely abused substance among adolescents?", options: ["A. Cocaine", "B. Heroin", "C. Alcohol", "D. Methamphetamine"], correct: 2, exp: "Alcohol is the #1 abused drug among adolescents worldwide." },
+      { q: "A 16-year-old female presents with persistent acne vulgaris. Peak incidence of acne in females occurs at what age?", options: ["A. 8-10 years", "B. 14-16 years", "C. 20-25 years", "D. 30-35 years"], correct: 1, exp: "Acne peaks at 14-16 years in females (and 16-19 years in males)." },
+      { q: "Which mnemonic evaluates adolescent substance abuse risk?", options: ["A. APGAR", "B. CRAFFT", "C. PALS", "D. GCS"], correct: 1, exp: "CRAFFT is the validated substance abuse screening tool." },
+      { q: "In DSM-5, how is the severity level of Intellectual Disability determined?", options: ["A. Strictly by IQ numerical score", "B. Based on Adaptive Functioning domains", "C. By brain MRI volume", "D. By height and weight"], correct: 1, exp: "Severity of ID in DSM-5 is defined by adaptive functioning, not IQ scores." },
+      { q: "What is the male-to-female ratio in Autism Spectrum Disorder?", options: ["A. 1:1", "B. 1:4", "C. 4:1", "D. 10:1"], correct: 2, exp: "ASD affects males four times more frequently than females (4:1)." },
+      { q: "A child who repeats phrases heard on TV hours later is demonstrating:", options: ["A. Immediate Echolalia", "B. Delayed Echolalia", "C. Dysarthria", "D. Coprolalia"], correct: 1, exp: "Repeating words/phrases at a later time is delayed echolalia." },
+      { q: "Which environmental factor is linked to an increased risk of ASD?", options: ["A. MMR vaccination", "B. Advanced paternal age", "C. High sugar diet", "D. Formula feeding"], correct: 1, exp: "Advanced paternal and maternal age increase de novo mutation risk in ASD." },
+      { q: "What is the first-line management for a 4-year-old preschooler diagnosed with mild ADHD?", options: ["A. Immediate High-dose Methylphenidate", "B. Behavioral interventions and parent training", "C. Antipsychotic polypharmacy", "D. Involuntary institutionalization"], correct: 1, exp: "Behavioral therapy is first-line in preschool-aged children before drugs." },
+      { q: "Which parameter is evaluated in the 'F' item of the FISTS mnemonic?", options: ["A. Family history", "B. Fighting frequency", "C. Food preferences", "D. Financial status"], correct: 1, exp: "F stands for Fighting (number of physical fights)." }
+    ];
+
+    /* ==================== INITIALIZATION & TAB NAVIGATION ==================== */
+    document.addEventListener("DOMContentLoaded", function() {
+      renderFlashcard();
+      renderQuiz();
+      setupScrollListener();
+    });
+
+    function switchTab(tabId, btnElement) {
+      // Hide all tabs
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(c => c.classList.remove('active'));
+
+      // Deactivate all buttons
+      const buttons = document.querySelectorAll('.nav-tab-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+
+      // Activate targeted tab & button
+      document.getElementById(tabId).classList.add('active');
+      btnElement.classList.add('active');
+
+      // Scroll smooth to top of content
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ==================== SEARCH & FILTER FUNCTIONALITY ==================== */
+    function filterContent() {
+      let input = document.getElementById('globalSearchInput').value.toLowerCase();
+      let cards = document.querySelectorAll('.card, .accordion-item');
+
+      cards.forEach(card => {
+        let text = card.innerText.toLowerCase();
+        if (text.includes(input)) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    /* ==================== ACCORDION FUNCTIONALITY ==================== */
+    function toggleAccordion(headerElement) {
+      let item = headerElement.parentElement;
+      item.classList.toggle('open');
+    }
+
+    /* ==================== TABLE COPY FUNCTIONALITY ==================== */
+    function copyTable(btn) {
+      let table = btn.nextElementSibling;
+      let range = document.createRange();
+      range.selectNode(table);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      try {
+        document.execCommand('copy');
+        btn.innerText = "Copied!";
+        setTimeout(() => { btn.innerText = "Copy Table"; }, 2000);
+      } catch (err) {
+        alert("Failed to copy table.");
+      }
+      window.getSelection().removeAllRanges();
+    }
+
+    /* ==================== FLASHCARD LOGIC ==================== */
+    function renderFlashcard() {
+      if (filteredFlashcards.length === 0) {
+        document.getElementById("cardQuestion").innerText = "No cards match this category.";
+        document.getElementById("cardAnswer").innerText = "Please select another filter.";
+        return;
+      }
+      let card = filteredFlashcards[currentCardIndex];
+      document.getElementById("flashcard").classList.remove("flipped");
+      
+      setTimeout(() => {
+        document.getElementById("cardCategory").innerText = card.cat;
+        document.getElementById("cardQuestion").innerText = card.q;
+        document.getElementById("cardAnswer").innerText = card.a;
+        document.getElementById("flashcardCounter").innerText = `Card ${currentCardIndex + 1} of ${filteredFlashcards.length}`;
+      }, 150);
+    }
+
+    function flipCard() {
+      document.getElementById("flashcard").classList.toggle("flipped");
+    }
+
+    function nextCard() {
+      if (filteredFlashcards.length === 0) return;
+      currentCardIndex = (currentCardIndex + 1) % filteredFlashcards.length;
+      renderFlashcard();
+    }
+
+    function prevCard() {
+      if (filteredFlashcards.length === 0) return;
+      currentCardIndex = (currentCardIndex - 1 + filteredFlashcards.length) % filteredFlashcards.length;
+      renderFlashcard();
+    }
+
+    function shuffleFlashcards() {
+      for (let i = filteredFlashcards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [filteredFlashcards[i], filteredFlashcards[j]] = [filteredFlashcards[j], filteredFlashcards[i]];
+      }
+      currentCardIndex = 0;
+      renderFlashcard();
+    }
+
+    function filterFlashcards() {
+      let cat = document.getElementById("flashcardFilter").value;
+      if (cat === "all") {
+        filteredFlashcards = [...flashcardData];
+      } else {
+        filteredFlashcards = flashcardData.filter(c => c.cat === cat);
+      }
+      currentCardIndex = 0;
+      renderFlashcard();
+    }
+
+    // Keyboard Shortcuts for Flashcards
+    document.addEventListener('keydown', function(e) {
+      let flashcardTab = document.getElementById('tab-flashcards');
+      if (flashcardTab.classList.contains('active')) {
+        if (e.code === 'Space') {
+          e.preventDefault();
+          flipCard();
+        } else if (e.code === 'ArrowRight') {
+          nextCard();
+        } else if (e.code === 'ArrowLeft') {
+          prevCard();
+        }
+      }
+    });
+
+    /* ==================== MCQ QUIZ LOGIC ==================== */
+    let userScores = {};
+
+    function renderQuiz() {
+      let container = document.getElementById("quizContainer");
+      container.innerHTML = "";
+
+      quizData.forEach((item, index) => {
+        let card = document.createElement("div");
+        card.className = "quiz-card";
+        card.id = `quiz-q-${index}`;
+
+        let qTitle = document.createElement("div");
+        qTitle.className = "quiz-question";
+        qTitle.innerHTML = `Question ${index + 1}: ${item.q}`;
+        card.appendChild(qTitle);
+
+        let optionsDiv = document.createElement("div");
+        optionsDiv.className = "quiz-options";
+
+        item.options.forEach((opt, optIdx) => {
+          let optBtn = document.createElement("div");
+          optBtn.className = "quiz-option";
+          optBtn.innerText = opt;
+          optBtn.onclick = function() { checkAnswer(index, optIdx); };
+          optionsDiv.appendChild(optBtn);
+        });
+
+        card.appendChild(optionsDiv);
+
+        let expDiv = document.createElement("div");
+        expDiv.className = "quiz-explanation";
+        expDiv.id = `quiz-exp-${index}`;
+        expDiv.innerHTML = item.exp;
+        card.appendChild(expDiv);
+
+        container.appendChild(card);
+      });
+    }
+
+    function checkAnswer(qIdx, selectedOptIdx) {
+      let qData = quizData[qIdx];
+      let qCard = document.getElementById(`quiz-q-${qIdx}`);
+      let options = qCard.querySelectorAll(".quiz-option");
+      let expDiv = document.getElementById(`quiz-exp-${qIdx}`);
+
+      // Disable further clicking
+      options.forEach(opt => opt.onclick = null);
+
+      if (selectedOptIdx === qData.correct) {
+        options[selectedOptIdx].classList.add("correct");
+        userScores[qIdx] = 1;
+      } else {
+        options[selectedOptIdx].classList.add("incorrect");
+        options[qData.correct].classList.add("correct");
+        userScores[qIdx] = 0;
+      }
+
+      expDiv.style.display = "block";
+      updateScoreBadge();
+    }
+
+    function updateScoreBadge() {
+      let totalAnswered = Object.keys(userScores).length;
+      let correctCount = Object.values(userScores).reduce((a, b) => a + b, 0);
+      document.getElementById("quizScoreBadge").innerText = `Score: ${correctCount} / ${quizData.length} (${totalAnswered} Answered)`;
+    }
+
+    /* ==================== SCROLL & PROGRESS BAR ==================== */
+    function setupScrollListener() {
+      window.onscroll = function() {
+        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let scrolled = (winScroll / height) * 100;
+        document.getElementById("progressBar").style.width = scrolled + "%";
+
+        let scrollBtn = document.getElementById("scrollTopBtn");
+        if (winScroll > 300) {
+          scrollBtn.classList.add("visible");
+        } else {
+          scrollBtn.classList.remove("visible");
+        }
+      };
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

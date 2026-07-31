@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developmental Pediatrics I - Interactive Board Reviewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --primary: #2563eb;
+      --primary-light: #dbeafe;
+      --primary-dark: #1d4ed8;
+      --secondary: #0d9488;
+      --secondary-light: #ccfbf1;
+      --accent-orange: #ea580c;
+      --accent-orange-light: #ffedd5;
+      --accent-red: #dc2626;
+      --accent-red-light: #fee2e2;
+      --accent-green: #16a34a;
+      --accent-green-light: #dcfce7;
+      --accent-purple: #9333ea;
+      --accent-purple-light: #f3e8ff;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    h1, h2, h3, h4, h5, h6 { font-family: 'Syne', sans-serif; color: var(--text-main); font-weight: 700; }
+    code, pre, .mono { font-family: 'Space Mono', monospace; }
+
+    /* Top Progress Bar */
+    #progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(0,0,0,0.05);
+      z-index: 1000;
+    }
+    #progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      width: 0%;
+      transition: width 0.2s ease;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-top {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      background: var(--primary);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-family: 'Syne';
+      font-size: 1.2rem;
+    }
+    .brand-title h1 { font-size: 1.25rem; line-height: 1.2; }
+    .brand-title p { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      max-width: 360px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 8px 14px 8px 36px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-dark);
+      background: var(--bg-subtle);
+      font-size: 0.875rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-box input:focus {
+      border-color: var(--primary);
+      background: var(--bg-surface);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    }
+    .search-box svg {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      fill: var(--text-light);
+    }
+
+    /* Tab Nav */
+    .nav-tabs-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-tabs-wrapper::-webkit-scrollbar { display: none; }
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+      border-bottom: 1px solid transparent;
+    }
+    .tab-btn {
+      padding: 10px 16px;
+      border: none;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
+    .tab-btn:hover { color: var(--primary); background: var(--bg-subtle); }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    /* Container & Tab Panels */
+    main {
+      max-width: 1400px;
+      margin: 24px auto;
+      padding: 0 24px;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Core Card Layouts */
+    .card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s ease;
+    }
+    .card:hover { box-shadow: var(--shadow-md); }
+
+    .card-accent-left { border-left: 5px solid var(--primary); }
+    .card-accent-green { border-left: 5px solid var(--accent-green); }
+    .card-accent-orange { border-left: 5px solid var(--accent-orange); }
+    .card-accent-purple { border-left: 5px solid var(--accent-purple); }
+    .card-accent-red { border-left: 5px solid var(--accent-red); }
+
+    .card-title {
+      font-size: 1.35rem;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Callout Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .badge-must-know { background: var(--accent-red-light); color: var(--accent-red); border: 1px solid #fca5a5; }
+    .badge-pitfall { background: var(--accent-orange-light); color: var(--accent-orange); border: 1px solid #fdba74; }
+    .badge-pearl { background: var(--secondary-light); color: var(--secondary); border: 1px solid #99f6e4; }
+    .badge-exam-tip { background: var(--accent-purple-light); color: var(--accent-purple); border: 1px solid #d8b4fe; }
+
+    .callout-box {
+      padding: 16px 20px;
+      border-radius: var(--radius-sm);
+      margin: 16px 0;
+      font-size: 0.95rem;
+    }
+    .callout-must-know { background: var(--accent-red-light); border-left: 4px solid var(--accent-red); }
+    .callout-pitfall { background: var(--accent-orange-light); border-left: 4px solid var(--accent-orange); }
+    .callout-pearl { background: var(--secondary-light); border-left: 4px solid var(--secondary); }
+    .callout-exam-tip { background: var(--accent-purple-light); border-left: 4px solid var(--accent-purple); }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 20px 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+    th {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--border-dark);
+      position: sticky;
+      top: 0;
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tr:nth-child(even) { background-color: #f8fafc; }
+    tr:hover { background-color: #f1f5f9; }
+
+    .table-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .table-header-bar h4 { font-size: 1rem; color: var(--text-main); }
+    .btn-copy {
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      border: 1px solid var(--border-dark);
+      background: var(--bg-surface);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: 'Space Mono', monospace;
+      transition: all 0.2s;
+    }
+    .btn-copy:hover { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+
+    /* Key-Value Pairs & Grids */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+
+    /* Custom Diagram Box */
+    .diagram-card {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 20px;
+      border-radius: var(--radius-md);
+      margin: 20px 0;
+      font-family: 'Space Mono', monospace;
+    }
+    .diagram-title { color: #38bdf8; font-weight: 700; margin-bottom: 12px; font-size: 0.9rem; text-transform: uppercase; }
+
+    /* Collapsible Sections */
+    .accordion-header {
+      background: var(--bg-subtle);
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--border);
+      margin-top: 12px;
+      user-select: none;
+    }
+    .accordion-header:hover { background: #e2e8f0; }
+    .accordion-content {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      display: none;
+      background: var(--bg-surface);
+    }
+    .accordion-content.open { display: block; }
+
+    /* Flashcard Styles */
+    .flashcard-wrapper {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .flashcard-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .flashcard-card {
+      perspective: 1000px;
+      height: 320px;
+      cursor: pointer;
+    }
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+    .flashcard-card.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid var(--border-dark);
+    }
+    .flashcard-front {
+      background: var(--bg-surface);
+      color: var(--text-main);
+    }
+    .flashcard-back {
+      background: #1e293b;
+      color: #f8fafc;
+      transform: rotateY(180deg);
+      overflow-y: auto;
+    }
+    .flashcard-category {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .flashcard-back .flashcard-category { color: #38bdf8; }
+    .flashcard-q { font-size: 1.2rem; font-weight: 700; line-height: 1.4; }
+    .flashcard-a { font-size: 1rem; line-height: 1.6; }
+
+    .btn-action {
+      padding: 10px 20px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      transition: all 0.2s;
+    }
+    .btn-action:hover { background: var(--primary-dark); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-dark);
+      color: var(--text-main);
+    }
+    .btn-outline:hover { background: var(--bg-subtle); }
+
+    /* MCQ Styles */
+    .mcq-card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .mcq-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .mcq-q { font-size: 1.05rem; font-weight: 700; margin-bottom: 16px; }
+    .mcq-options { display: flex; flex-direction: column; gap: 10px; }
+    .mcq-option {
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.92rem;
+    }
+    .mcq-option:hover { background: #e2e8f0; border-color: var(--border-dark); }
+    .mcq-option.selected { border-color: var(--primary); background: var(--primary-light); }
+    .mcq-option.correct-choice { border-color: var(--accent-green); background: var(--accent-green-light); font-weight: 600; }
+    .mcq-option.incorrect-choice { border-color: var(--accent-red); background: var(--accent-red-light); }
+
+    .mcq-explanation {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      background: #f1f5f9;
+      border-left: 4px solid var(--primary);
+      display: none;
+      font-size: 0.9rem;
+    }
+    .mcq-explanation.show { display: block; }
+    .explanation-title { font-weight: 700; margin-bottom: 6px; color: var(--text-main); }
+
+    /* Scoreboard */
+    .quiz-scoreboard {
+      background: #1e293b;
+      color: white;
+      padding: 20px;
+      border-radius: var(--radius-md);
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+    }
+    .score-stat h3 { font-size: 1.8rem; color: #38bdf8; }
+    .score-stat p { font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.5px; }
+
+    /* Cram Sheet Rapid Cards */
+    .cram-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+    .cram-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+    }
+    .cram-rule {
+      font-weight: 700;
+      color: var(--accent-orange);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    /* Scroll to Top */
+    #btn-scroll-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: all 0.2s;
+    }
+    #btn-scroll-top:hover { transform: translateY(-3px); background: var(--primary-dark); }
+
+    @media (max-width: 768px) {
+      .header-top { flex-direction: column; align-items: stretch; }
+      .search-box { max-width: 100%; }
+      .quiz-scoreboard { flex-direction: column; gap: 16px; }
+    }
+
+    /* Print View */
+    @media print {
+      header, #progress-container, #btn-scroll-top, .flashcard-controls, .quiz-scoreboard { display: none !important; }
+      .tab-content { display: block !important; opacity: 1 !important; }
+      .card { page-break-inside: avoid; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Progress Bar -->
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-top">
+      <div class="brand">
+        <div class="brand-icon">DP</div>
+        <div class="brand-title">
+          <h1>Developmental Pediatrics I</h1>
+          <p>3rd-Year Medical Reviewer • PLE & LE Prep • Dr. Alonzo-Eusebio</p>
+        </div>
+      </div>
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input type="text" id="global-search" placeholder="Search milestones, CP types, criteria, drugs...">
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs-wrapper">
+      <div class="nav-tabs" id="nav-tabs">
+        <button class="tab-btn active" data-tab="tab-overview">1. Overview</button>
+        <button class="tab-btn" data-tab="tab-paradigm">2. Paradigm Shift</button>
+        <button class="tab-btn" data-tab="tab-evaluation">3. Neurodev Evaluation</button>
+        <button class="tab-btn" data-tab="tab-motor-cp">4. Motor Delay & CP</button>
+        <button class="tab-btn" data-tab="tab-language">5. Language & Hearing</button>
+        <button class="tab-btn" data-tab="tab-intellectual">6. Intellectual Disability</button>
+        <button class="tab-btn" data-tab="tab-comparisons">7. Core Comparisons</button>
+        <button class="tab-btn" data-tab="tab-flashcards">8. Active Flashcards (50)</button>
+        <button class="tab-btn" data-tab="tab-self-test">9. Self-Assessment (50 MCQs)</button>
+        <button class="tab-btn" data-tab="tab-cram">10. 10-Min Cram Sheet</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- TAB 1: OVERVIEW -->
+    <section id="tab-overview" class="tab-content active">
+      <div class="card card-accent-left">
+        <div class="badge badge-must-know">⭐ High-Yield Executive Summary</div>
+        <h2 class="card-title">Developmental Pediatrics I Overview</h2>
+        <p>Developmental pediatrics emphasizes <strong>early recognition</strong> to enable early intervention during the critical window of neuroplasticity (first 6 years of life)[cite: 1]. Pediatric disease burden has undergone a major paradigm shift from infectious/communicable conditions to non-communicable neurodevelopmental and behavioral disorders[cite: 1].</p>
+        
+        <div class="grid-3" style="margin-top: 20px;">
+          <div style="background: var(--bg-subtle); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+            <h4 style="color: var(--primary); margin-bottom: 6px;">🎯 Core Paradigm Shift</h4>
+            <p style="font-size: 0.85rem;">Global burden measured via DALYs (Disability-Adjusted Life Years)[cite: 1]. High-risk infant survival (preterms, low birth weight) driven by NICU tech advancements has increased the prevalence of long-term neurodevelopmental morbidity[cite: 1].</p>
+          </div>
+          <div style="background: var(--bg-subtle); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+            <h4 style="color: var(--secondary); margin-bottom: 6px;">🧠 Key Pillars of Evaluation</h4>
+            <p style="font-size: 0.85rem;">Combines detailed history (streams of development)[cite: 1], physical exam (anthropometrics, dysmorphisms, hard/soft neuro signs)[cite: 1], and standardized screening (PEDS, PEDS-DM, M-CHAT) at ages 9, 18, and 30 months[cite: 1].</p>
+          </div>
+          <div style="background: var(--bg-subtle); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+            <h4 style="color: var(--accent-orange); margin-bottom: 6px;">⚡ Priority Pathology</h4>
+            <p style="font-size: 0.85rem;">Cerebral Palsy (static encephalopathy)[cite: 1], Language Disorders (ASD is now the #1 cause of language delay)[cite: 1], and Intellectual Disability (Down syndrome is the #1 genetic etiology)[cite: 1].</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Primary Learning Objectives</h3>
+        <ul style="margin-left: 20px; margin-top: 10px; font-size: 0.92rem;">
+          <li>Discuss the classification, epidemiology, and local/global prevalence of developmental disabilities[cite: 1].</li>
+          <li>Recognize red flag signs and presenting clinical manifestations of common motor, language, and cognitive disorders[cite: 1].</li>
+          <li>Execute systematic pediatric neurodevelopmental evaluation (history, physical, soft neuro signs, screening tools)[cite: 1].</li>
+          <li>Differentiate patterns of developmental abnormality: Delay vs. Dissociation vs. Deviance vs. Regression[cite: 1].</li>
+          <li>Formulate evidence-based diagnostic workups and multidisciplinary management plans for CP, Hearing Impairment, Language Disorders, and Down Syndrome[cite: 1].</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="table-header-bar">
+          <h4>Summary Table 1: Global & Local Epidemiology of Core Conditions</h4>
+          <button class="btn-copy" onclick="copyTableText('summary-epi-table')">Copy Table</button>
+        </div>
+        <div class="table-container">
+          <table id="summary-epi-table">
+            <thead>
+              <tr>
+                <th>Condition</th>
+                <th>Prevalence / Incidence (Source Data)</th>
+                <th>Sex Ratio</th>
+                <th>Key Etiologic / Associated Factors</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Any Dev. Disability</strong></td>
+                <td>17.76% (US 2015-2017)[cite: 1] / 1.57% (PH Census 2010)[cite: 1]</td>
+                <td>Male > Female[cite: 1]</td>
+                <td>Prematurity, LBW, NICU interventions, environmental/genetics[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>ADHD</strong></td>
+                <td>9.8% (Top developmental disorder)[cite: 1]</td>
+                <td>Male > Female[cite: 1]</td>
+                <td>Strongly genetic/hereditary; high comorbidities (ODD 90%, CD 20-70%)[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Autism Spectrum (ASD)</strong></td>
+                <td>3.7% (1 in 36 children)[cite: 1]; #1 diagnosis in PH DevPed clinics[cite: 1]</td>
+                <td>Male > Female (~4:1)[cite: 1]</td>
+                <td>Multicause/multifactorial; exponential rise in past 2 decades[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Cerebral Palsy (CP)</strong></td>
+                <td>1.5 – 4.0 per 1,000 live births (2.6-2.9/1000)[cite: 1]</td>
+                <td>Male:Female 1.4:1[cite: 1]</td>
+                <td>Prenatal (75%), Perinatal/Asphyxia (8-10%), Postnatal (10%), Preterm PVL[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Intellectual Disability (ID)</strong></td>
+                <td>2.2% (US)[cite: 1] / 2.5% global population[cite: 1]</td>
+                <td>Male > Female[cite: 1]</td>
+                <td>Chromosomal (20%), Genetic syndromes (20%), Unknown (20%)[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Down Syndrome (Trisomy 21)</strong></td>
+                <td>1 in 733 live births[cite: 1]</td>
+                <td>Equal M:F</td>
+                <td>Advanced maternal age (>35y: 1/350; >40y: 1/100; >45y: 1/25)[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Hearing Loss</strong></td>
+                <td>Hard of Hearing: 16-30/1000; Deaf: 1/1000 births[cite: 1]</td>
+                <td>Equal</td>
+                <td>Chronic OME (mild)[cite: 1], TORCH, NICU >5d, Ototoxic meds, Meningitis[cite: 1]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: PARADIGM SHIFT -->
+    <section id="tab-paradigm" class="tab-content">
+      <div class="card card-accent-left">
+        <div class="badge badge-must-know">⭐ Core Concept</div>
+        <h2 class="card-title">Paradigm Shift in Pediatric Disease Burden</h2>
+        <p>Over the past two decades, there has been a dramatic shift in pediatric outpatient and inpatient morbidity from communicable/infectious diseases to non-communicable neurodevelopmental and behavioral disorders[cite: 1].</p>
+        
+        <div class="diagram-card">
+          <div class="diagram-title">Visual Diagram: Global Disease Burden Shift & DALY Concept</div>
+          <p>1900s: Communicable Diseases + Perinatal/Nutritional (Dominant)[cite: 1]</p>
+          <p>⬇ Advances in NICU Technology, Vaccines, Hygiene, Sanitation[cite: 1]</p>
+          <p>2020s: Non-Communicable Conditions (43%) + Neuropsychiatric Disorders (27%) + Injuries (15%)[cite: 1]</p>
+          <p style="margin-top: 10px; color: #facc15;"><strong>DALY (Disability-Adjusted Life Year)</strong> = Years of Life Lost (YLL) + Years Lived with Disability (YLD)</p>
+          <p>1 DALY = 1 Lost Year of Healthy Life[cite: 1].</p>
+        </div>
+
+        <div class="callout-box callout-pearl">
+          <strong>💡 Basis for the Shift in Pediatric Consultations:</strong>
+          <ul style="margin-left: 20px; margin-top: 6px;">
+            <li><strong>Newborn Consults:</strong> Shifted from checking basic physical completeness ("Kumpleto ba fingers/toes?") to evaluating <em>neurological integrity and sensorimotor performance</em>[cite: 1].</li>
+            <li><strong>Well-Child Visits:</strong> Shifted from strictly tracking weight/height anthropometrics to assessing <em>developmental milestone acquisition</em>[cite: 1].</li>
+            <li><strong>Chief Complaints:</strong> Shifted from standard acute medical illnesses (fever, cough, diarrhea) to primary parental concerns regarding <em>language delays and atypical behaviors</em>[cite: 1].</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Factors Driving the Paradigm Shift</h3>
+        <div class="grid-2" style="margin-top: 12px;">
+          <div>
+            <h4 style="color: var(--primary);">1. Advances in Medicine & Technology</h4>
+            <ul style="margin-left: 20px; font-size: 0.9rem;">
+              <li>Enhanced survival of high-risk, low birth weight (LBW), and severely premature infants[cite: 1].</li>
+              <li>Increased survival of neurologically compromised children who subsequently manifest long-term developmental impairments[cite: 1].</li>
+              <li>Establishment of specialized High-Risk Follow-Up Clinics (e.g., PCMC, PGH)[cite: 1].</li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="color: var(--accent-orange);">2. Public Health & Societal Changes</h4>
+            <ul style="margin-left: 20px; font-size: 0.9rem;">
+              <li>Widespread immunization programs and sanitation reducing infant mortality from infectious diseases[cite: 1].</li>
+              <li>Social dynamics: OFW phenomenon, single-parent households, and both parents working leading to altered child-rearing environments[cite: 1].</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="table-header-bar">
+          <h4>Table 2: Past vs. Present Pediatric Consultation Focus</h4>
+          <button class="btn-copy" onclick="copyTableText('table-paradigm-comp')">Copy Table</button>
+        </div>
+        <div class="table-container">
+          <table id="table-paradigm-comp">
+            <thead>
+              <tr>
+                <th>Domain</th>
+                <th>Historical Focus (Past)</th>
+                <th>Current Focus (Present / New Morbidity)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Primary Morbidity</strong></td>
+                <td>Infectious diseases, diarrhea, malnutrition, acute infections[cite: 1]</td>
+                <td>Neurodevelopmental disorders, behavioral issues, educational disabilities, family difficulties[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Newborn Assessment</strong></td>
+                <td>Physical completeness ("walang labis, walang kurang")[cite: 1]</td>
+                <td>Neurological integrity, sensorimotor skills, developmental trajectory[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Well-Child Visits</strong></td>
+                <td>Growth parameters (weight gain, length/height plotting)[cite: 1]</td>
+                <td>Anthropometrics PLUS domain-specific developmental milestones[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Common Presentation</strong></td>
+                <td>Fever, cough, colds, acute diarrhea[cite: 1]</td>
+                <td>Speech/language delay, social deficits, hyperactivity, academic underachievement[cite: 1]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: NEURODEV EVALUATION -->
+    <section id="tab-evaluation" class="tab-content">
+      <div class="card card-accent-left">
+        <div class="badge badge-must-know">⭐ Must Know Framework</div>
+        <h2 class="card-title">Pediatric Neurodevelopmental Evaluation</h2>
+        <p>A systematic evaluation consists of four mandatory components: <strong>Detailed History</strong>, <strong>Thorough Physical & Neurological Examination</strong>, <strong>Standardized Screening</strong>, and <strong>Targeted Laboratory Investigations</strong>[cite: 1].</p>
+
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <span>📜 Component 1: Detailed History & Developmental Streams</span>
+          <span>▼</span>
+        </div>
+        <div class="accordion-content">
+          <p>Developmental history must cover 4 major streams[cite: 1]:</p>
+          <ol style="margin-left: 20px; margin-top: 8px;">
+            <li><strong>Gross Motor:</strong> MATURATION FOLLOWS A CEPHALOCAUDAL PATTERN (Head control → Sitting → Standing → Walking)[cite: 1].</li>
+            <li><strong>Fine Motor:</strong> Eye-hand coordination, grasping, releasing, writing[cite: 1].</li>
+            <li><strong>Verbal Speech & Language:</strong> Divided strictly into <em>Receptive</em> (comprehension) and <em>Expressive</em> (production)[cite: 1].</li>
+            <li><strong>Social & Self-Help:</strong> Personal-social interactions, dressing, feeding, toileting[cite: 1].</li>
+          </ol>
+
+          <div class="callout-box callout-exam-tip" style="margin-top: 14px;">
+            <strong>🧠 High-Yield Milestone Memory Rules (Language & Motor):</strong>
+            <ul>
+              <li><strong>12 Months:</strong> Walks independently (mean: 12m; critical red flag: 18m)[cite: 1]. Speaks 3 words other than "mama" & "dada"[cite: 1].</li>
+              <li><strong>18 Months:</strong> Uses at least 10 words with meaning[cite: 1]; follows simple 1-step directions[cite: 1].</li>
+              <li><strong>2.5 Years (30m):</strong> Combines 2-3 words into short phrases ("Mommy give", "Let's go")[cite: 1].</li>
+              <li><strong>3 Years:</strong> Speaks in simple sentences, states full name, age, and sex; 75% intelligible to strangers[cite: 1].</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <span>🩺 Component 2: Physical & Neurological Examination</span>
+          <span>▼</span>
+        </div>
+        <div class="accordion-content">
+          <ul style="margin-left: 20px;">
+            <li><strong>Anthropometry:</strong> Weight, Height/Length, Head Circumference (HC reflects brain growth; maximum growth in 1st 2-3 years)[cite: 1].
+              <ul>
+                <li>Average HC increase in 1st year = <strong>10 cm</strong>[cite: 1].</li>
+                <li>At birth: $HC > CC$. At 6 months: $HC = CC$. At 12 months: $HC < CC$[cite: 1].</li>
+              </ul>
+            </li>
+            <li><strong>Dysmorphism Inspection:</strong> Look for classic syndromes (Down syndrome, Turner syndrome 45,XO)[cite: 1].</li>
+            <li><strong>Hard vs. Soft Neurological Signs:</strong>
+              <ul>
+                <li><em>Hard Signs:</em> Focal, fixed neurologic deficits (spasticity, hemiparesis, hyperreflexia)[cite: 1].</li>
+                <li><em>Soft Signs:</em> Subtle motor/sensory integration impairments (finger-thumb apposition, left-right orientation beyond 5y, letter/number mirroring)[cite: 1]. Presence of multiple soft signs predicts higher risk of future behavioral/learning disabilities[cite: 1].</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <span>📊 Component 3: Screening vs. Surveillance vs. Evaluation</span>
+          <span>▼</span>
+        </div>
+        <div class="accordion-content">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Process</th>
+                  <th>Definition</th>
+                  <th>Performer & Tools</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Surveillance</strong></td>
+                  <td>Continuous process of identifying children at risk of delays during routine care[cite: 1]</td>
+                  <td>Primary Care Clinician; milestone tracking & observational history[cite: 1]</td>
+                </tr>
+                <tr>
+                  <td><strong>Screening</strong></td>
+                  <td>Administration of brief, low-cost validated tools to refine recognized risk[cite: 1]</td>
+                  <td>Primary Care Clinician; PEDS, PEDS-DM, ASQ, M-CHAT at 9, 18, 30m[cite: 1]</td>
+                </tr>
+                <tr>
+                  <td><strong>Evaluation</strong></td>
+                  <td>In-depth diagnostic assessment to formally identify specific disorders[cite: 1]</td>
+                  <td>Specialists (Developmental Pediatrician, Neurologist, Neuropsychologist)[cite: 1]</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-accent-orange">
+        <div class="badge badge-pitfall">⚠️ Common Pitfalls & Abnormal Patterns</div>
+        <h3 class="card-title">Patterns of Developmental Abnormalities</h3>
+        <p>Screening identifies four distinct pathognomonic patterns of abnormal development[cite: 1]:</p>
+        
+        <div class="grid-2" style="margin-top: 14px;">
+          <div style="background: var(--bg-subtle); padding: 14px; border-radius: var(--radius-sm);">
+            <h4 style="color: var(--accent-red);">1. Delay</h4>
+            <p style="font-size: 0.85rem;">Lag in achieving milestones in one or all developmental streams[cite: 1]. <em>Global Developmental Delay (GDD)</em> is reserved for children &lt;5 years with delay in ≥2 domains[cite: 1]. <strong>Most common reason for referral!</strong>[cite: 1]</p>
+          </div>
+          <div style="background: var(--bg-subtle); padding: 14px; border-radius: var(--radius-sm);">
+            <h4 style="color: var(--accent-orange);">2. Dissociation</h4>
+            <p style="font-size: 0.85rem;">One developmental stream lags significantly behind other intact streams[cite: 1]. Classic Example: <strong>Cerebral Palsy</strong> (severe motor delay with normal IQ in spastic diplegia) or <strong>Learning Disability</strong> (normal verbal, poor reading)[cite: 1].</p>
+          </div>
+          <div style="background: var(--bg-subtle); padding: 14px; border-radius: var(--radius-sm);">
+            <h4 style="color: var(--accent-purple);">3. Deviance</h4>
+            <p style="font-size: 0.85rem;">Non-sequential, atypical skill acquisition[cite: 1]. Classic Example: <strong>Autism Spectrum Disorder (ASD)</strong> where a child can recite numbers/alphabets but cannot call parents "Mommy/Daddy" or gesture[cite: 1].</p>
+          </div>
+          <div style="background: var(--bg-subtle); padding: 14px; border-radius: var(--radius-sm);">
+            <h4 style="color: var(--accent-red);">4. Regression</h4>
+            <p style="font-size: 0.85rem;"><strong>MOST WORRISOME PRESENTATION!</strong> Loss of previously acquired milestones[cite: 1]. Indicates severe neurological breakdown: Rett Syndrome, Duchenne Muscular Dystrophy, or neurodegenerative conditions[cite: 1].</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: MOTOR DELAY & CP -->
+    <section id="tab-motor-cp" class="tab-content">
+      <div class="card card-accent-left">
+        <div class="badge badge-must-know">⭐ Board Favorite Topic</div>
+        <h2 class="card-title">Motor Delay & Cerebral Palsy (CP)</h2>
+        <p>Motor delay is the single most common presentation of physical developmental disorders and is the <strong>sine qua non</strong> for the diagnosis of Cerebral Palsy[cite: 1].</p>
+        
+        <div class="callout-box callout-must-know">
+          <strong>Definition of Cerebral Palsy:</strong> A group of permanent, non-progressive motor and posture development disorders causing activity limitation, attributed to non-progressive disturbances (static encephalopathy) in the developing fetal or infant brain[cite: 1].
+        </div>
+
+        <div class="grid-2" style="margin-top: 16px;">
+          <div>
+            <h4>Motor Delay & Walking Rules</h4>
+            <ul style="margin-left: 20px; font-size: 0.9rem;">
+              <li><strong>Mean Walking Age:</strong> 12 months (range: 9–17 months)[cite: 1].</li>
+              <li><strong>CRITICAL RED FLAG:</strong> Inability to walk independently by <strong>18 months</strong> (corrected age for preterms up to 2 years)[cite: 1].</li>
+              <li><strong>Motor Quotient (MQ):</strong> $\text{MQ} = (\text{Motor Age} / \text{Chronological Age}) \times 100$. MQ &lt; 70 defines Motor Delay (MQ &lt; 50 is Moderate/Severe)[cite: 1].</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Etiology & Timing of CP Insults</h4>
+            <ul style="margin-left: 20px; font-size: 0.9rem;">
+              <li><strong>Prenatal (75%):</strong> Brain malformations, intrauterine TORCH infections[cite: 1].</li>
+              <li><strong>Perinatal (8-10%):</strong> Birth asphyxia (APGAR 0-3 at 5 min), hypoglycemia, kernicterus[cite: 1].</li>
+              <li><strong>Postnatal (10%):</strong> Traumatic brain injury, bacterial meningitis[cite: 1].</li>
+              <li><strong>Preterm Vulnerability:</strong> Periventricular Leukomalacia (PVL) and Subependymal/Intraventricular Hemorrhage (IVH) due to oligodendroglia oxidative vulnerability (20-34w AOG)[cite: 1].</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Comprehensive Classification of Cerebral Palsy Types</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>CP Subtype</th>
+                <th>Distribution / Tone</th>
+                <th>Neuropathology / MRI</th>
+                <th>Clinical Features & Diagnostic Clues</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Spastic Diplegia</strong><br>(35%)[cite: 1]</td>
+                <td>Spasticity: LE &gt; UE[cite: 1]</td>
+                <td>Periventricular Leukomalacia (PVL)[cite: 1]</td>
+                <td>Strongly linked to <strong>prematurity (20-34w)</strong>[cite: 1]. <em>Commando crawl</em> (drags legs like rudder)[cite: 1]. Scissoring of legs, equinovarus gait, toe walking[cite: 1]. IQ usually preserved![cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Spastic Quadriplegia</strong><br>(20-35%)[cite: 1]</td>
+                <td>Spasticity: All 4 limbs severe[cite: 1]</td>
+                <td>Severe PVL, Multicystic Cortical Encephalomalacia[cite: 1]</td>
+                <td>Most severe type[cite: 1]. Associated with <strong>full-term birth asphyxia</strong>[cite: 1]. High rate of Intellectual Disability (93%) and Seizures (93%)[cite: 1]. Bulbar palsy/aspiration pneumonia[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Spastic Hemiplegia</strong><br>(25%)[cite: 1]</td>
+                <td>Spasticity: One side (UE &gt; LE)[cite: 1]</td>
+                <td>Middle Cerebral Artery (MCA) Infarct / Stroke[cite: 1]</td>
+                <td><strong>Early hand preference (&lt;18 months)</strong> is the classic red flag[cite: 1]! Circumduction gait, delayed walking (18-24m)[cite: 1]. Seizures (33%), Homonymous hemianopsia (25%)[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Dyskinetic / Athetoid</strong><br>(15-20%)[cite: 1]</td>
+                <td>Fluctuating tone, involuntary movements (UE &gt; LE)[cite: 1]</td>
+                <td>Basal Ganglia & Thalamus (Globus Pallidus) lesions[cite: 1]</td>
+                <td>Caused by <strong>Kernicterus</strong> (hyperbilirubinemia) or severe asphyxia[cite: 1]. Continuous writhing (athetosis), chorea, dystonia[cite: 1]. IQ preserved & seizures rare IF UMN signs absent[cite: 1]!</td>
+              </tr>
+              <tr>
+                <td><strong>Ataxic CP</strong></td>
+                <td>Hypotonia to incoordination</td>
+                <td>Cerebellar injury[cite: 1]</td>
+                <td>Wide-based unsteady gait, intention tremors, impaired depth perception and eye tracking[cite: 1]. Low seizure/ID rate[cite: 1].</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card card-accent-purple">
+        <div class="badge badge-exam-tip">🧠 Diagnostic Criteria & Functional Staging</div>
+        <div class="grid-2">
+          <div>
+            <h4>Levine (POSTER) Diagnostic Criteria for CP</h4>
+            <p style="font-size: 0.85rem; margin-bottom: 8px;">Requires presence of multiple clinical domain abnormalities[cite: 1]:</p>
+            <ul style="margin-left: 20px; font-size: 0.88rem;">
+              <li><strong>P</strong>osture and abnormal movement patterns (extensor thrust)[cite: 1]</li>
+              <li><strong>O</strong>ropharyngeal dysfunction (tongue thrust, swallowing difficulty, drooling)[cite: 1]</li>
+              <li><strong>S</strong>trabismus[cite: 1]</li>
+              <li><strong>T</strong>one alterations (hypertonia/spasticity or hypotonia)[cite: 1]</li>
+              <li><strong>E</strong>volutional responses (persistent primitive reflexes, absent protective reflexes)[cite: 1]</li>
+              <li><strong>R</strong>eflexes (hyperreflexia, clonus, upgoing +Babinski)[cite: 1]</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Gross Motor Function Classification Scale (GMFCS)</h4>
+            <ul style="margin-left: 20px; font-size: 0.88rem;">
+              <li><strong>Level I:</strong> Walks without restrictions; climbs stairs without handrails[cite: 1].</li>
+              <li><strong>Level II:</strong> Walks without mobility devices but limitations outdoors/in crowd[cite: 1].</li>
+              <li><strong>Level III:</strong> Walks using hand-held mobility devices (crutches, walker)[cite: 1].</li>
+              <li><strong>Level IV:</strong> Self-mobility limited; transported in power chair or adult assistance[cite: 1].</li>
+              <li><strong>Level V:</strong> Severely limited; completely dependent for physical mobility[cite: 1].</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="table-header-bar">
+          <h4>Table 3: Pharmacologic & Interventional Management of CP</h4>
+          <button class="btn-copy" onclick="copyTableText('table-cp-pharma')">Copy Table</button>
+        </div>
+        <div class="table-container">
+          <table id="table-cp-pharma">
+            <thead>
+              <tr>
+                <th>Target Problem</th>
+                <th>Intervention / Drug</th>
+                <th>Mechanism / Clinical Application</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="4"><strong>Spasticity Management</strong></td>
+                <td><strong>Diazepam</strong></td>
+                <td>Centrally acting muscle relaxant to reduce hypertonicity[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Baclofen</strong> (Oral / Intrathecal)</td>
+                <td>GABA-B agonist; blocks spinal signals to contracting muscles[cite: 1]. Intrathecal pump used in severe spasticity[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Dantrolene</strong></td>
+                <td>Acts directly on muscle tissue to inhibit calcium release and block contraction[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Botulinum Toxin (Botox)</strong></td>
+                <td>Local muscle injection; blocks ACh release to relieve focal spasticity and allow stretching[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Athetosis / Dyskinesia</strong></td>
+                <td><strong>Anticholinergics</strong></td>
+                <td>Blocks acetylcholine neurotransmitter signaling to diminish involuntary movements[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Contracture Prevention</strong></td>
+                <td><strong>Alcohol Washes / Injections</strong></td>
+                <td>Chemical neurolysis weakening focal spastic muscle groups to enable PT stretching[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Surgical Orthopedics</strong></td>
+                <td><strong>Tenotomies & Rhizotomy</strong></td>
+                <td>Achilles tenotomy, adductor tenotomy, psoas transfer, and Selective Dorsal Rhizotomy (SDR)[cite: 1].</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: LANGUAGE & HEARING -->
+    <section id="tab-language" class="tab-content">
+      <div class="card card-accent-left">
+        <div class="badge badge-must-know">⭐ Diagnostic Priority Rule</div>
+        <h2 class="card-title">Language & Communication Disorders</h2>
+        <p>Language delay is the <strong>most common chief complaint</strong> brought by parents during the preschool years[cite: 1]. Affects 20% of 2-year-olds and 6-8% of 5-year-olds (Male:Female ratio = 2:1)[cite: 1].</p>
+
+        <div class="callout-box callout-must-know">
+          <strong>GOLDEN DIAGNOSTIC RULE:</strong> Whenever evaluating ANY child presenting with speech or language delay, the <strong>FIRST MANDATORY DIAGNOSTIC STEP</strong> is to perform a formal <strong>AUDIOLOGICAL EVALUATION</strong> to rule out hearing impairment[cite: 1]! Never rely on informal office noise tests[cite: 1].
+        </div>
+
+        <div class="grid-2" style="margin-top: 16px;">
+          <div>
+            <h4>Language Red Flags by Age</h4>
+            <ul style="margin-left: 20px; font-size: 0.88rem;">
+              <li><strong>6 Months:</strong> No responsive cooing[cite: 1].</li>
+              <li><strong>10 Months:</strong> No babbling[cite: 1].</li>
+              <li><strong>12 Months:</strong> No basic gesturing (waving bye-bye, pointing)[cite: 1].</li>
+              <li><strong>18 Months:</strong> No single words beyond mama/dada (&lt;10 words); fails to follow 1-step directions[cite: 1].</li>
+              <li><strong>24 Months:</strong> &lt;50 words; no spontaneous 2-word phrases; &lt;50% speech intelligibility[cite: 1].</li>
+              <li><strong>36 Months:</strong> No 3-word sentences; &lt;75% speech intelligibility[cite: 1].</li>
+            </ul>
+          </div>
+          <div>
+            <h4>High-Risk Indicators for Hearing Loss (AAP)</h4>
+            <ul style="margin-left: 20px; font-size: 0.88rem;">
+              <li>Family history of congenital SNHL[cite: 1].</li>
+              <li>In utero TORCH infections (CMV, Rubella, Syphilis, Toxoplasmosis)[cite: 1].</li>
+              <li>Hyperbilirubinemia requiring exchange transfusion[cite: 1].</li>
+              <li>Birthweight &lt;1500 grams; NICU stay &gt;5 days[cite: 1].</li>
+              <li>Bacterial meningitis (H. influenzae carries 30% SNHL risk)[cite: 1].</li>
+              <li>Ototoxic drugs (Gentamicin) + loop diuretics &gt;5 days[cite: 1].</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>DSM-5-TR Communication Disorders Subtypes</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Disorder Subtype</th>
+                <th>Core Clinical Features</th>
+                <th>Diagnostic Clues & Management</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Language Disorder (DLD / SLI)</strong></td>
+                <td>Significant gap between normal nonverbal IQ and impaired verbal comprehension/expression[cite: 1].</td>
+                <td>Diagnosis of exclusion[cite: 1]. 62% have an affected parent (strong genetic basis)[cite: 1]. Requires speech therapy[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Speech Sound Disorder</strong></td>
+                <td>Phonological impairment (intelligibility) & articulation errors (substitutions/distortions)[cite: 1].</td>
+                <td>Child speaks fluently but is unintelligible[cite: 1]. At high risk for future reading/learning disabilities[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Social (Pragmatic) Communication Disorder</strong></td>
+                <td>Deficits in social use of language, nonverbal cues, understanding humor/metaphor/sarcasm[cite: 1].</td>
+                <td>Core feature of ASD spectrum[cite: 1]. Also seen in right hemisphere brain injury and Williams syndrome[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Selective Mutism</strong></td>
+                <td>Consistently fails to speak in specific social settings (e.g., school) despite speaking normally at home[cite: 1].</td>
+                <td>Manifestation of an <strong>Anxiety Disorder</strong>[cite: 1]! Speech therapy NOT primary; requires behavioral/psychiatric therapy[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Isolated Expressive Language Disorder</strong></td>
+                <td>"Late Talkers": normal receptive language & social interaction, but sparse spoken vocabulary[cite: 1].</td>
+                <td>Benign variant of normal ("late bloomers")[cite: 1]. Male dominance, positive family history[cite: 1]. Diagnosis made in retrospect[cite: 1].</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card card-accent-green">
+        <div class="badge badge-pearl">💡 Hearing Loss Classification & Staging</div>
+        <div class="grid-2">
+          <div>
+            <h4>Degree of Hearing Loss (Pure Tone Average)</h4>
+            <ul style="margin-left: 20px; font-size: 0.88rem;">
+              <li><strong>Normal:</strong> 10 – 15 dB HL[cite: 1]</li>
+              <li><strong>Slight:</strong> 16 – 25 dB HL[cite: 1]</li>
+              <li><strong>Mild:</strong> 26 – 40 dB HL (Most common cause: Chronic Otitis Media with Effusion)[cite: 1]</li>
+              <li><strong>Moderate:</strong> 41 – 55 dB HL[cite: 1]</li>
+              <li><strong>Moderately Severe:</strong> 56 – 70 dB HL[cite: 1]</li>
+              <li><strong>Severe:</strong> 71 – 90 dB HL[cite: 1]</li>
+              <li><strong>Profound:</strong> &gt;91 dB HL (Deafness definition)[cite: 1]</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Hearing Evaluation Methods & Goals</h4>
+            <p style="font-size: 0.85rem;"><strong>1-3-6 Benchmark Rule:</strong> Screening by 1 month, Diagnosis by 3 months, Intervention by 6 months[cite: 1]!</p>
+            <ul style="margin-left: 20px; font-size: 0.88rem; margin-top: 6px;">
+              <li><strong>OAE (Otoacoustic Emissions):</strong> Rapid universal newborn screening[cite: 1].</li>
+              <li><strong>ABR / BERA:</strong> Automated Auditory Brainstem Response; differentiates SNHL vs conductive loss at any age[cite: 1].</li>
+              <li><strong>Cochlear Implants:</strong> Indicated for severe-profound SNHL. <em>Golden window: 1.0 to 3.5 years old</em>[cite: 1].</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: INTELLECTUAL DISABILITY -->
+    <section id="tab-intellectual" class="tab-content">
+      <div class="card card-accent-left">
+        <div class="badge badge-must-know">⭐ High-Yield Genetic Pathology</div>
+        <h2 class="card-title">Intellectual Disability (ID) & Down Syndrome</h2>
+        <p>Intellectual Disability (formerly Mental Retardation) is defined by onset before 18 years, significant deficits in intellectual functioning (IQ &ge;2 SD below mean, typically &lt;70), and impaired adaptive functioning across conceptual, social, and practical domains[cite: 1].</p>
+
+        <div class="grid-2" style="margin-top: 16px;">
+          <div>
+            <h4>Diagnostic Criteria & Terminology</h4>
+            <ul style="margin-left: 20px; font-size: 0.9rem;">
+              <li><strong>Under 5 Years:</strong> Diagnosis of <em>Global Developmental Delay (GDD)</em> is applied when delay is present in &ge;2 developmental streams[cite: 1].</li>
+              <li><strong>Global Prevalence:</strong> ~2.5% of the general population[cite: 1].</li>
+              <li><strong>Etiology Spectrum:</strong> Chromosomal disorders (20%), Genetic syndromes (20%), Unknown/Multifactorial (20%), Environmental/Perinatal insults[cite: 1].</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Classification by IQ Level</h4>
+            <ul style="margin-left: 20px; font-size: 0.9rem;">
+              <li><strong>Borderline (IQ 70-84):</strong> "Slow learner"[cite: 1].</li>
+              <li><strong>Mild ID (IQ 50-69):</strong> "Educable" (85% of ID); can reach 6th-grade academic level, achieve self-support[cite: 1].</li>
+              <li><strong>Moderate ID (IQ 35-49):</strong> "Trainable"; can acquire self-help skills and simple supervised work[cite: 1].</li>
+              <li><strong>Severe (IQ 20-34) / Profound (IQ &lt;20):</strong> "Subtrainable"; requires continuous lifelong care & supervision[cite: 1].</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-accent-purple">
+        <div class="badge badge-must-know">⭐ Down Syndrome (Trisomy 21) Focus</div>
+        <h3 class="card-title">Down Syndrome: Cytogenetics & Clinical Manifestations</h3>
+        <p>Down syndrome is the <strong>most common genetic etiology of moderate intellectual disability</strong> (1 in 733 live births)[cite: 1].</p>
+
+        <div class="table-container" style="margin-top: 14px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Cytogenetic Subtype</th>
+                <th>Percentage</th>
+                <th>Genomic Mechanism & Recurrence Risk</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Full Trisomy 21</strong></td>
+                <td><strong>95%</strong>[cite: 1]</td>
+                <td>Meiotic nondisjunction (95% maternal origin). Strongly correlated with advanced maternal age[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Robertsonian Translocation</strong></td>
+                <td><strong>4%</strong>[cite: 1]</td>
+                <td>Translocation (usually t(14;21) or t(21;21)). <strong>Inherited from carrier parent!</strong> High recurrence risk in future pregnancies[cite: 1].</td>
+              </tr>
+              <tr>
+                <td><strong>Mosaicism</strong></td>
+                <td><strong>1%</strong>[cite: 1]</td>
+                <td>Post-zygotic mitotic error. Normal + Trisomy cell lines. Milder clinical phenotype and higher IQ potential[cite: 1].</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid-2" style="margin-top: 16px;">
+          <div style="background: var(--bg-subtle); padding: 16px; border-radius: var(--radius-sm);">
+            <h4 style="color: var(--accent-red);">Neonatal Signs & Dysmorphisms</h4>
+            <ul style="margin-left: 20px; font-size: 0.88rem;">
+              <li><strong>HYPOTONIA:</strong> Single most important physical finding in neonates[cite: 1]!</li>
+              <li>Poor Moro reflex, joint hyperflexibility, excess nuchal skin[cite: 1].</li>
+              <li>Flat facial profile, epicanthal folds, upward slanting palpebral fissures, flat nasal bridge, protruding tongue[cite: 1].</li>
+              <li>Clinodactyly (inward curving of 5th finger), Sandal gap toes (1st-2nd toe space), Simian crease (single palmar crease - NOT pathognomonic)[cite: 1].</li>
+            </ul>
+          </div>
+          <div style="background: var(--bg-subtle); padding: 16px; border-radius: var(--radius-sm);">
+            <h4 style="color: var(--primary);">Major Systemic Complications</h4>
+            <ul style="margin-left: 20px; font-size: 0.88rem;">
+              <li><strong>Congenital Heart Disease (40-50%):</strong> Most life-threatening! Endocardial cushion defect / AVSD, VSD[cite: 1].</li>
+              <li><strong>GI Anomalies (10%):</strong> Duodenal atresia ("double bubble"), Hirschsprung disease[cite: 1].</li>
+              <li><strong>Sensory Deficits (50%):</strong> Refractive errors, cataracts, conductive/SNHL hearing loss[cite: 1].</li>
+              <li><strong>Hematologic / Neuro:</strong> Acute Leukemia (ALL/AMKL), Early-onset Alzheimer's dementia by age 40 (15-20%)[cite: 1].</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="table-header-bar">
+          <h4>Table 4: Maternal Age vs. Down Syndrome Risk Breakdown</h4>
+          <button class="btn-copy" onclick="copyTableText('table-maternal-risk')">Copy Table</button>
+        </div>
+        <div class="table-container">
+          <table id="table-maternal-risk">
+            <thead>
+              <tr>
+                <th>Maternal Age Bracket</th>
+                <th>Incidence of Down Syndrome per Live Births</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>15 – 24 years</td><td>1 in 1,300[cite: 1]</td></tr>
+              <tr><td>25 – 29 years</td><td>1 in 1,100[cite: 1]</td></tr>
+              <tr><td>35 years (Advanced Maternal Age)</td><td><strong>1 in 350</strong>[cite: 1]</td></tr>
+              <tr><td>40 years</td><td><strong>1 in 100</strong>[cite: 1]</td></tr>
+              <tr><td>&gt; 45 years</td><td><strong>1 in 25</strong>[cite: 1]</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 7: COMPARISONS -->
+    <section id="tab-comparisons" class="tab-content">
+      <div class="card card-accent-left">
+        <div class="badge badge-must-know">⭐ Core Comparison Master Tables</div>
+        <h2 class="card-title">Side-by-Side High-Yield Comparisons</h2>
+        <p>Direct comparisons of easily confused conditions essential for board examinations and clinical differential diagnosis[cite: 1].</p>
+
+        <div class="table-header-bar" style="margin-top: 20px;">
+          <h4>1. Cerebral Palsy Topographic Subtypes</h4>
+          <button class="btn-copy" onclick="copyTableText('comp-cp-subtypes')">Copy Table</button>
+        </div>
+        <div class="table-container">
+          <table id="comp-cp-subtypes">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Spastic Diplegia</th>
+                <th>Spastic Quadriplegia</th>
+                <th>Spastic Hemiplegia</th>
+                <th>Dyskinetic / Athetoid</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Limb Distribution</strong></td>
+                <td>LE &gt; UE[cite: 1]</td>
+                <td>All 4 Limbs Equal[cite: 1]</td>
+                <td>Unilateral (UE &gt; LE)[cite: 1]</td>
+                <td>UE &gt; LE (Fluctuating)[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Primary Lesion Location</strong></td>
+                <td>Periventricular White Matter[cite: 1]</td>
+                <td>Cortex + Subcortex (Diffuse)[cite: 1]</td>
+                <td>Unilateral MCA Territory[cite: 1]</td>
+                <td>Basal Ganglia & Thalamus[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Predominant Etiology</strong></td>
+                <td>Prematurity (20-34w AOG)[cite: 1]</td>
+                <td>Term Birth Asphyxia / HIE[cite: 1]</td>
+                <td>In Utero / Perinatal Stroke[cite: 1]</td>
+                <td>Kernicterus / Asphyxia[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Intellectual Deficit Rate</strong></td>
+                <td>Low (~35% mild)[cite: 1]</td>
+                <td>Very High (93%)[cite: 1]</td>
+                <td>Moderate (~35%)[cite: 1]</td>
+                <td>Preserved IF no UMN signs[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Seizure Co-morbidity</strong></td>
+                <td>Uncommon[cite: 1]</td>
+                <td>Very High (93%)[cite: 1]</td>
+                <td>Moderate (33%)[cite: 1]</td>
+                <td>Rare IF no UMN signs[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Classic Clue</strong></td>
+                <td>Commando crawl, scissoring[cite: 1]</td>
+                <td>Bulbar palsy, persistent fisting[cite: 1]</td>
+                <td>Early hand preference &lt;18m[cite: 1]</td>
+                <td>Writhing dance-like movement[cite: 1]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-header-bar" style="margin-top: 24px;">
+          <h4>2. Spasticity vs. Rigidity</h4>
+          <button class="btn-copy" onclick="copyTableText('comp-tone')">Copy Table</button>
+        </div>
+        <div class="table-container">
+          <table id="comp-tone">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Spasticity</th>
+                <th>Rigidity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Velocity Dependence</strong></td>
+                <td><strong>Velocity-DEPENDENT</strong> (Resistance increases with speed of passive movement)[cite: 1]</td>
+                <td><strong>Velocity-INDEPENDENT</strong> (Constant resistance regardless of speed)[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Classic Phenomenon</strong></td>
+                <td><strong>Clasp-Knife Phenomenon</strong> (Sudden release after initial high resistance)[cite: 1]</td>
+                <td><strong>Lead-Pipe</strong> or <strong>Cogwheel Phenomenon</strong> (Uniform resistance throughout)[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Anatomic Origin</strong></td>
+                <td>Pyramidal Tract / Cerebral Cortex[cite: 1]</td>
+                <td>Extrapyramidal Tract / Basal Ganglia[cite: 1]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-header-bar" style="margin-top: 24px;">
+          <h4>3. Communication Disorders Comparison</h4>
+          <button class="btn-copy" onclick="copyTableText('comp-speech')">Copy Table</button>
+        </div>
+        <div class="table-container">
+          <table id="comp-speech">
+            <thead>
+              <tr>
+                <th>Condition</th>
+                <th>Receptive Skill</th>
+                <th>Expressive Skill</th>
+                <th>Social Interaction</th>
+                <th>Primary Intervention</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Language Disorder (DLD)</strong></td>
+                <td>Impaired[cite: 1]</td>
+                <td>Impaired[cite: 1]</td>
+                <td>Intact / Intention present[cite: 1]</td>
+                <td>Speech-Language Therapy[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Selective Mutism</strong></td>
+                <td>Normal[cite: 1]</td>
+                <td>Normal at home; Zero in specific social settings[cite: 1]</td>
+                <td>Anxiety-driven inhibition[cite: 1]</td>
+                <td>Behavioral Therapy / Psychotherapy[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Late Talker (Isolated Expressive)</strong></td>
+                <td>Normal[cite: 1]</td>
+                <td>Delayed single words[cite: 1]</td>
+                <td>Normal gestures & eye contact[cite: 1]</td>
+                <td>Observation / Early Schooling[cite: 1]</td>
+              </tr>
+              <tr>
+                <td><strong>Autism Spectrum (ASD)</strong></td>
+                <td>Impaired/Deviant[cite: 1]</td>
+                <td>Echolalia / Deviant[cite: 1]</td>
+                <td>Severe Pragmatic Deficit[cite: 1]</td>
+                <td>Multidisciplinary (OT, ST, ABA)[cite: 1]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 8: FLASHCARDS -->
+    <section id="tab-flashcards" class="tab-content">
+      <div class="flashcard-wrapper">
+        <div class="card card-accent-left" style="margin-bottom: 16px; padding: 16px;">
+          <h3 style="font-size: 1.1rem;">Interactive Active-Recall Flashcards</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Master key board facts. Click the card to flip between Question and Answer[cite: 1]. Use left/right arrow keys to navigate.</p>
+        </div>
+
+        <div class="flashcard-controls">
+          <div>
+            <label style="font-weight: 700; font-size: 0.85rem;">Filter Section: </label>
+            <select id="flashcard-filter" onchange="filterFlashcards()" style="padding: 6px 10px; border-radius: 4px; border: 1px solid var(--border-dark);">
+              <option value="ALL">All Topics (50 Cards)</option>
+              <option value="PARADIGM">Paradigm & Burden</option>
+              <option value="EVALUATION">Neurodev Evaluation</option>
+              <option value="CP">Motor Delay & CP</option>
+              <option value="LANGUAGE">Language & Hearing</option>
+              <option value="INTELLECTUAL">ID & Down Syndrome</option>
+            </select>
+          </div>
+          <div>
+            <button class="btn-action btn-outline" onclick="shuffleFlashcards()">🔀 Shuffle</button>
+          </div>
+        </div>
+
+        <div class="flashcard-card" id="flashcard-element" onclick="flipCard()">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <div class="flashcard-category" id="fc-category">Category</div>
+              <div class="flashcard-q" id="fc-question">Question text goes here...</div>
+              <p style="font-size: 0.75rem; color: var(--text-light); margin-top: 16px;">(Click to reveal answer)</p>
+            </div>
+            <div class="flashcard-back">
+              <div class="flashcard-category" id="fc-category-back">Answer</div>
+              <div class="flashcard-a" id="fc-answer">Answer text goes here...</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+          <button class="btn-action btn-outline" onclick="prevCard()">← Previous</button>
+          <span class="mono" id="fc-counter" style="font-weight: 700;">1 / 50</span>
+          <button class="btn-action" onclick="nextCard()">Next →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 9: SELF-ASSESSMENT MCQS -->
+    <section id="tab-self-test" class="tab-content">
+      <div class="card card-accent-left">
+        <h2 class="card-title">Board-Style Self-Assessment (50 MCQs)</h2>
+        <p>Test your clinical reasoning with board-exam-quality multiple choice questions[cite: 1]. Immediate explanations provided for correct choices and all distractors[cite: 1].</p>
+      </div>
+
+      <div class="quiz-scoreboard">
+        <div class="score-stat">
+          <h3 id="score-correct">0</h3>
+          <p>Correct</p>
+        </div>
+        <div class="score-stat">
+          <h3 id="score-answered">0 / 50</h3>
+          <p>Completed</p>
+        </div>
+        <div class="score-stat">
+          <h3 id="score-percentage">0%</h3>
+          <p>Score Percentage</p>
+        </div>
+      </div>
+
+      <div id="mcq-container">
+        <!-- MCQs injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- TAB 10: 10-MIN CRAM SHEET -->
+    <section id="tab-cram" class="tab-content">
+      <div class="card card-accent-red">
+        <div class="badge badge-must-know">⚡ Ultra-Condensed Last-Minute Reviewer</div>
+        <h2 class="card-title">10-Minute Rapid Board Cram Sheet</h2>
+        <p>High-yield buzzwords, immediate "If You See X → Think Y" associations, and non-negotiable exam numbers designed for pre-exam blitzing[cite: 1].</p>
+
+        <h3 style="margin-top: 20px; color: var(--accent-red);">🚨 "If You See X → Think Y" Clinical Reasoning Rules</h3>
+        <div class="cram-grid" style="margin-top: 12px;">
+          <div class="cram-card">
+            <div class="cram-rule">If you see: Premature infant crawling by dragging spastic legs like a rudder ("Commando Crawl")</div>
+            <p style="font-size: 0.88rem;"><strong>Think: Spastic Diplegic Cerebral Palsy</strong> (Periventricular Leukomalacia targeting lower extremities)[cite: 1].</p>
+          </div>
+          <div class="cram-card">
+            <div class="cram-rule">If you see: Strong hand preference or hand dominance BEFORE 18 months of age</div>
+            <p style="font-size: 0.88rem;"><strong>Think: Spastic Hemiplegic Cerebral Palsy</strong> (Unilateral stroke/MCA infarct; affected hand is weak)[cite: 1].</p>
+          </div>
+          <div class="cram-card">
+            <div class="cram-rule">If you see: Full-term neonate with severe asphyxia presenting with continuous writhing movements (athetosis)</div>
+            <p style="font-size: 0.88rem;"><strong>Think: Dyskinetic CP / Kernicterus</strong> (Bilateral Globus Pallidus & Thalamus injury)[cite: 1].</p>
+          </div>
+          <div class="cram-card">
+            <div class="cram-rule">If you see: Marked neonatal hypotonia, poor Moro, hyperflexibility, and flat facial profile</div>
+            <p style="font-size: 0.88rem;"><strong>Think: Down Syndrome (Trisomy 21)</strong> (Order karyotyping; check for endocardial cushion defect)[cite: 1].</p>
+          </div>
+          <div class="cram-card">
+            <div class="cram-rule">If you see: Child speaks fluently and normally at home but has total absence of speech at school</div>
+            <p style="font-size: 0.88rem;"><strong>Think: Selective Mutism</strong> (Anxiety disorder manifestation; needs behavioral therapy, not speech therapy)[cite: 1].</p>
+          </div>
+          <div class="cram-card">
+            <div class="cram-rule">If you see: Child reciting alphabets/numbers perfectly but unable to say "Mommy" or gesture</div>
+            <p style="font-size: 0.88rem;"><strong>Think: Developmental DEVIANCE in Autism Spectrum Disorder</strong>[cite: 1].</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 24px; color: var(--primary);">🔢 High-Yield Numbers & Cutoffs to Memorize</h3>
+        <div class="grid-3" style="margin-top: 12px;">
+          <div style="background: var(--bg-subtle); padding: 12px; border-radius: 6px;">
+            <p class="mono" style="color: var(--primary); font-weight: 700;">18 MONTHS</p>
+            <p style="font-size: 0.82rem;">Critical cutoff for independent walking[cite: 1]. Mandatory M-CHAT screening for ASD[cite: 1].</p>
+          </div>
+          <div style="background: var(--bg-subtle); padding: 12px; border-radius: 6px;">
+            <p class="mono" style="color: var(--primary); font-weight: 700;">9, 18, 30 MONTHS</p>
+            <p style="font-size: 0.82rem;">Standard AAP ages for mandatory developmental screening (PEDS/PEDS-DM)[cite: 1].</p>
+          </div>
+          <div style="background: var(--bg-subtle); padding: 12px; border-radius: 6px;">
+            <p class="mono" style="color: var(--primary); font-weight: 700;">1-3-6 RULE</p>
+            <p style="font-size: 0.82rem;">Hearing screening by 1 month, diagnosis by 3 months, intervention by 6 months[cite: 1].</p>
+          </div>
+          <div style="background: var(--bg-subtle); padding: 12px; border-radius: 6px;">
+            <p class="mono" style="color: var(--primary); font-weight: 700;">10 CM</p>
+            <p style="font-size: 0.82rem;">Average head circumference (HC) growth during the 1st year of life[cite: 1].</p>
+          </div>
+          <div style="background: var(--bg-subtle); padding: 12px; border-radius: 6px;">
+            <p class="mono" style="color: var(--primary); font-weight: 700;">MQ &lt; 70</p>
+            <p style="font-size: 0.82rem;">Definition of Motor Delay (&lt;50 is Moderate/Severe)[cite: 1].</p>
+          </div>
+          <div style="background: var(--bg-subtle); padding: 12px; border-radius: 6px;">
+            <p class="mono" style="color: var(--primary); font-weight: 700;">1 to 3.5 YEARS</p>
+            <p style="font-size: 0.82rem;">Golden window for Cochlear Implantation in severe/profound SNHL[cite: 1].</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <button id="btn-scroll-top" onclick="scrollToTop()">↑</button>
+
+  <script>
+    /* ================= TAB NAVIGATION ================= */
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+
+        btn.classList.add('active');
+        const targetTab = document.getElementById(btn.dataset.tab);
+        if (targetTab) targetTab.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    /* ================= SCROLL PROGRESS & TOP BUTTON ================= */
+    window.onscroll = function() {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById("progress-bar").style.width = scrolled + "%";
+
+      const btnTop = document.getElementById("btn-scroll-top");
+      if (winScroll > 300) btnTop.style.display = "flex";
+      else btnTop.style.display = "none";
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ================= ACCORDION TOGGLE ================= */
+    function toggleAccordion(header) {
+      const content = header.nextElementSibling;
+      content.classList.toggle('open');
+      const arrow = header.querySelector('span:last-child');
+      if (arrow) arrow.textContent = content.classList.contains('open') ? '▲' : '▼';
+    }
+
+    /* ================= COPY TABLE TEXT ================= */
+    function copyTableText(tableId) {
+      const table = document.getElementById(tableId);
+      if (!table) return;
+      let text = '';
+      for (let row of table.rows) {
+        let rowData = [];
+        for (let cell of row.cells) rowData.push(cell.innerText.replace(/\n/g, ' '));
+        text += rowData.join('\t') + '\n';
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Table data copied to clipboard!');
+      });
+    }
+
+    /* ================= GLOBAL SEARCH ================= */
+    document.getElementById('global-search').addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase().trim();
+      if (!query) return;
+      // Simple highlight search helper logic can be expanded
+    });
+
+    /* ================= FLASHCARD DATA & ENGINE ================= */
+    const flashcardsData = [
+      { cat: "PARADIGM", q: "What is a DALY and how is it calculated?", a: "DALY = Disability-Adjusted Life Year[cite: 1]. DALY = Years of Life Lost (YLL) due to premature death + Years Lived with Disability (YLD)[cite: 1]. 1 DALY = 1 lost year of healthy life[cite: 1]." },
+      { cat: "PARADIGM", q: "Why has the prevalence of neurodevelopmental disorders increased over the past 2 decades?", a: "Advances in NICU/medical tech increased survival of high-risk, low birth weight, and severely premature infants[cite: 1], alongside declining infectious disease mortality and societal changes[cite: 1]." },
+      { cat: "PARADIGM", q: "What is the shift in chief complaints during pediatric outpatient visits?", a: "Shifted from acute medical illnesses (fever, cough, diarrhea) to concerns regarding speech/language delay and atypical behaviors[cite: 1]." },
+      { cat: "EVALUATION", q: "What is the key principle governing gross motor milestone acquisition?", a: "Gross motor development follows a strict CEPHALOCAUDAL pattern (Head control → Trunk control/Sitting → Standing → Walking)[cite: 1]." },
+      { cat: "EVALUATION", q: "What is the average head circumference increase during the first year of life?", a: "Average increase is 10 cm in the 1st year[cite: 1]. (At birth ~35cm; HC=CC at 6 months; HC<CC at 12 months)[cite: 1]." },
+      { cat: "EVALUATION", q: "Differentiate Soft Neurologic Signs from Hard Neurologic Signs.", a: "Hard signs are fixed focal deficits (spasticity, paresis)[cite: 1]. Soft signs are minor motor/sensory integration deficits (finger apposition, left-right confusion >5y, letter mirroring)[cite: 1]." },
+      { cat: "EVALUATION", q: "Define Developmental Dissociation with a classic clinical example.", a: "Dissociation occurs when one developmental stream lags significantly behind other intact streams[cite: 1]. Example: Spastic Diplegic CP (motor lag with normal IQ)[cite: 1]." },
+      { cat: "EVALUATION", q: "Define Developmental Deviance with a classic clinical example.", a: "Deviance is non-sequential, atypical skill acquisition[cite: 1]. Example: Autism Spectrum Disorder (reciting alphabets perfectly while failing to say 'Mama' or make eye contact)[cite: 1]." },
+      { cat: "EVALUATION", q: "What is the most worrisome pattern identified on developmental screening?", a: "Developmental REGRESSION (loss of previously acquired skills)[cite: 1]. Suggests serious neurodegenerative disease, Rett Syndrome, or DMD[cite: 1]." },
+      { cat: "EVALUATION", q: "At what ages is formal developmental screening recommended by AAP/PPS?", a: "At 9, 18, and 30 months[cite: 1]. (Autism-specific M-CHAT screening at 18 and 24 months)[cite: 1]." },
+      { cat: "CP", q: "What is the definition of Cerebral Palsy?", a: "A group of permanent motor and posture disorders causing activity limitation, attributed to non-progressive disturbances (static encephalopathy) in the developing brain[cite: 1]." },
+      { cat: "CP", q: "What is the critical red flag age for independent walking in a full-term infant?", a: "18 months[cite: 1]! (Mean age of walking is 12 months; range 9-17m)[cite: 1]." },
+      { cat: "CP", q: "What is the most common topographic subtype of Cerebral Palsy?", a: "Spastic Diplegia (35% of CP cases)[cite: 1]." },
+      { cat: "CP", q: "Which brain lesion and gestational age are strongly linked to Spastic Diplegia?", a: "Periventricular Leukomalacia (PVL)[cite: 1] in premature infants born between 20 to 34 weeks AOG[cite: 1]." },
+      { cat: "CP", q: "Describe the classic early crawling pattern seen in Spastic Diplegia.", a: "Commando crawl: the infant uses normal arm movements to pull forward while dragging spastic lower extremities behind like a rudder[cite: 1]." },
+      { cat: "CP", q: "What physical exam finding in vertical suspension indicates spastic lower extremities?", a: "Scissoring of the legs (crossing of lower extremities due to adductor spasticity)[cite: 1]." },
+      { cat: "CP", q: "What is the most severe form of Cerebral Palsy and its primary cause?", a: "Spastic Quadriplegia[cite: 1], caused by severe hypoxemia/ischemia (HIE) in term infants[cite: 1]. 93% have intellectual disability and 93% have seizures[cite: 1]." },
+      { cat: "CP", q: "Early hand preference (hand dominance) before 18 months of age is a red flag for what?", a: "Spastic Hemiplegic Cerebral Palsy (the preferred hand is normal; the non-preferred limb is weak)[cite: 1]." },
+      { cat: "CP", q: "What cerebrovascular event is most commonly responsible for Spastic Hemiplegic CP?", a: "Unilateral Middle Cerebral Artery (MCA) Infarction / Stroke in utero or perinatally[cite: 1]." },
+      { cat: "CP", q: "What is the primary anatomical site of brain injury in Dyskinetic / Athetoid CP?", a: "Basal Ganglia and Thalamus (specifically Globus Pallidus)[cite: 1]." },
+      { cat: "CP", q: "What are the two most common etiologies of Athetoid Cerebral Palsy?", a: "Birth Asphyxia and Kernicterus (severe hyperbilirubinemia)[cite: 1]." },
+      { cat: "CP", q: "Differentiate Spasticity from Rigidity.", a: "Spasticity is velocity-dependent with a clasp-knife phenomenon[cite: 1]. Rigidity is velocity-independent with constant (lead-pipe/cogwheel) resistance[cite: 1]." },
+      { cat: "CP", q: "List the components of the Levine (POSTER) Criteria for diagnosing CP.", a: "P: Posture/abnormal movement, O: Oropharyngeal dysfunction, S: Strabismus, T: Tone alteration, E: Evolutional responses, R: Reflex abnormalities[cite: 1]." },
+      { cat: "CP", q: "Describe GMFCS Level I vs Level V in Cerebral Palsy.", a: "Level I: Walks in all settings without assistance[cite: 1]. Level V: Severely limited; completely dependent for mobility and transport[cite: 1]." },
+      { cat: "CP", q: "What drug mechanism does Baclofen utilize for spasticity?", a: "GABA-B receptor agonist that blocks spinal cord signals to contracting muscles[cite: 1]." },
+      { cat: "CP", q: "How does Botulinum Toxin (Botox) reduce muscle spasticity?", a: "Injected locally into spastic muscle groups to inhibit acetylcholine (ACh) release at the neuromuscular junction[cite: 1]." },
+      { cat: "LANGUAGE", q: "What is the #1 cause of language delay currently seen in pediatric clinics?", a: "Autism Spectrum Disorder (ASD)[cite: 1] (formerly Intellectual Disability)[cite: 1]." },
+      { cat: "LANGUAGE", q: "What mandatory initial diagnostic test must be ordered for any child with language delay?", a: "A formal AUDIOLOGICAL EVALUATION to rule out hearing impairment[cite: 1]." },
+      { cat: "LANGUAGE", q: "What are the language red flags at 18 months of age?", a: "No words other than mama/dada (<10 words), no pointing to wanted objects, and inability to follow simple directions[cite: 1]." },
+      { cat: "LANGUAGE", q: "What is the most common cause of mild hearing loss in pediatric patients?", a: "Chronic Otitis Media with Effusion (OME)[cite: 1]." },
+      { cat: "LANGUAGE", q: "What high-risk bacterial infection carries a 30% risk of sensorineural hearing loss?", a: "Bacterial Meningitis caused by Haemophilus influenzae[cite: 1]." },
+      { cat: "LANGUAGE", q: "What is the 1-3-6 benchmark rule for pediatric hearing loss?", a: "Screening by 1 month of age, formal Diagnostic evaluation by 3 months, and Intervention initiated by 6 months[cite: 1]." },
+      { cat: "LANGUAGE", q: "What is the golden age window for Cochlear Implantation?", a: "Between 1.0 and 3.5 years of age[cite: 1]." },
+      { cat: "LANGUAGE", q: "Describe Developmental Language Disorder (DLD / Specific Language Impairment).", a: "Significant discrepancy between normal nonverbal cognitive level and functional language age; diagnosis of exclusion with high genetic inheritance (62%)[cite: 1]." },
+      { cat: "LANGUAGE", q: "What is Selective Mutism and how is it managed?", a: "Failure to speak in specific social situations despite speaking normally at home; it is an Anxiety Disorder requiring behavioral/psychiatric therapy, not speech therapy[cite: 1]." },
+      { cat: "LANGUAGE", q: "What is 'Late Talker Syndrome' (Isolated Expressive Language Disorder)?", a: "A benign variation of normal where a child has normal receptive language and social interaction but limited spoken words; common in boys with positive family history[cite: 1]." },
+      { cat: "INTELLECTUAL", q: "Define Intellectual Disability according to DSM-5.", a: "Deficits in general intellectual functions (IQ ~2 SD below mean, <70) and adaptive functioning (conceptual, social, practical) with onset before 18 years[cite: 1]." },
+      { cat: "INTELLECTUAL", q: "What diagnostic term is used for children under 5 years with delays in ≥2 domains?", a: "Global Developmental Delay (GDD)[cite: 1]." },
+      { cat: "INTELLECTUAL", q: "What IQ range defines Mild Intellectual Disability and what is its educational category?", a: "IQ 50 – 70; termed 'Educable' (can achieve up to 6th-grade academic performance)[cite: 1]." },
+      { cat: "INTELLECTUAL", q: "What is the most common genetic cause of moderate intellectual disability?", a: "Down Syndrome (Trisomy 21)[cite: 1]." },
+      { cat: "INTELLECTUAL", q: "What is the overall live birth incidence of Down Syndrome?", a: "1 in 733 live births[cite: 1]." },
+      { cat: "INTELLECTUAL", q: "Which cytogenetic type accounts for 95% of Down Syndrome cases?", a: "Full Trisomy 21 (caused by meiotic nondisjunction, strongly linked to maternal age)[cite: 1]." },
+      { cat: "INTELLECTUAL", q: "Which cytogenetic subtype of Down Syndrome is inherited and carries high recurrence risk?", a: "Robertsonian Translocation (4% of cases)[cite: 1]." },
+      { cat: "INTELLECTUAL", q: "What is the single most important clinical finding in a neonate with Down Syndrome?", a: "HYPOTONIA (marked diminished muscle tone at birth)[cite: 1]." },
+      { cat: "INTELLECTUAL", q: "Is a Simian Crease pathognomonic for Down Syndrome?", a: "NO! A single palmar crease (Simian crease) is common in Down syndrome but is NOT pathognomonic[cite: 1]." },
+      { cat: "INTELLECTUAL", q: "What is the most common and life-threatening medical comorbidity in Down Syndrome?", a: "Congenital Heart Disease (40-50% of cases; most commonly Endocardial Cushion Defect / AVSD or VSD)[cite: 1]." },
+      { cat: "INTELLECTUAL", q: "What gastrointestinal anomaly is classically associated with Down Syndrome ('double bubble')?", a: "Duodenal Atresia (present in ~10% of GI malformations in DS)[cite: 1]." },
+      { cat: "INTELLECTUAL", q: "What neurodegenerative disorder develops in 15-20% of Down Syndrome patients by age 40?", a: "Early-onset Alzheimer's Disease / Dementia[cite: 1]." },
+      { cat: "INTELLECTUAL", q: "What is the risk of Down Syndrome in a mother aged 35 versus aged 45?", a: "At age 35: 1 in 350[cite: 1]. At age >45: 1 in 25[cite: 1]." },
+      { cat: "CP", q: "What orthopedic surgical procedure is indicated to reduce severe leg spasticity in CP?", a: "Selective Dorsal Rhizotomy (SDR), Achilles tenotomy, or adductor tenotomy[cite: 1]." }
+    ];
+
+    let currentFCList = [...flashcardsData];
+    let currentFCIndex = 0;
+
+    function renderFlashcard() {
+      if (currentFCList.length === 0) return;
+      const card = currentFCList[currentFCIndex];
+      document.getElementById('flashcard-element').classList.remove('flipped');
+      setTimeout(() => {
+        document.getElementById('fc-category').textContent = card.cat;
+        document.getElementById('fc-category-back').textContent = card.cat + " - ANSWER";
+        document.getElementById('fc-question').textContent = card.q;
+        document.getElementById('fc-answer').textContent = card.a;
+        document.getElementById('fc-counter').textContent = `${currentFCIndex + 1} / ${currentFCList.length}`;
+      }, 150);
+    }
+
+    function flipCard() {
+      document.getElementById('flashcard-element').classList.toggle('flipped');
+    }
+
+    function nextCard() {
+      if (currentFCIndex < currentFCList.length - 1) {
+        currentFCIndex++;
+        renderFlashcard();
+      }
+    }
+
+    function prevCard() {
+      if (currentFCIndex > 0) {
+        currentFCIndex--;
+        renderFlashcard();
+      }
+    }
+
+    function filterFlashcards() {
+      const val = document.getElementById('flashcard-filter').value;
+      if (val === 'ALL') currentFCList = [...flashcardsData];
+      else currentFCList = flashcardsData.filter(c => c.cat === val);
+      currentFCIndex = 0;
+      renderFlashcard();
+    }
+
+    function shuffleFlashcards() {
+      for (let i = currentFCList.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [currentFCList[i], currentFCList[j]] = [currentFCList[j], currentFCList[i]];
+      }
+      currentFCIndex = 0;
+      renderFlashcard();
+    }
+
+    // Keyboard Shortcuts for Flashcards
+    document.addEventListener('keydown', (e) => {
+      const flashTab = document.getElementById('tab-flashcards');
+      if (flashTab && flashTab.classList.contains('active')) {
+        if (e.key === 'ArrowRight') nextCard();
+        if (e.key === 'ArrowLeft') prevCard();
+        if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          flipCard();
+        }
+      }
+    });
+
+    /* ================= MCQ DATA & ENGINE (50 BOARD-STYLE MCQS) ================= */
+    const mcqsData = [
+      {
+        q: "A mother brings her 14-month-old premature infant (born at 30 weeks AOG) to the clinic. She notes the baby pulls forward with his arms while dragging both legs behind like a rudder. Reflexes reveal bilaterally hyperactive knee jerks, sustained ankle clonus, and leg scissoring on vertical suspension. Which brain pathology is most strongly associated with this condition?",
+        options: [
+          "A. Bilateral Globus Pallidus necrosis",
+          "B. Periventricular Leukomalacia (PVL)",
+          "C. Unilateral Middle Cerebral Artery stroke",
+          "D. Multicystic cortical encephalomalacia"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. Periventricular Leukomalacia (PVL)[cite: 1]. The patient presents with classic Spastic Diplegia (commando crawl, legs dragging, scissoring, hyperreflexia)[cite: 1]. Spastic diplegia is strongly linked to prematurity (20-34 weeks) and PVL due to vulnerability of immature oligodendroglia[cite: 1]. Distractors: A is associated with Dyskinetic/Athetoid CP (kernicterus)[cite: 1]; C causes Spastic Hemiplegia[cite: 1]; D causes Spastic Quadriplegia[cite: 1]."
+      },
+      {
+        q: "During a routine well-child checkup of an 8-month-old infant, you observe that the baby exclusively reaches for toys using her right hand while keeping her left hand flexed and fisted. The mother proudly states her daughter is 'right-handed.' What is the most appropriate interpretation of this finding?",
+        options: [
+          "A. Normal early manifestation of dominant hand preference",
+          "B. Advanced fine motor milestone acquisition",
+          "C. Red flag for Spastic Hemiplegic Cerebral Palsy",
+          "D. Expected feature of developmental deviance"
+        ],
+        correct: 2,
+        exp: "Correct Answer: C. Red flag for Spastic Hemiplegic Cerebral Palsy[cite: 1]. Hand preference before 18 months of age is PATHOLOGIC and indicates weakness in the non-preferred limb (hemiplegia)[cite: 1]. Normal infants are ambidextrous until at least 18 months[cite: 1]. Distractors: A and B are incorrect because hand dominance before 18m is never normal[cite: 1]; D is incorrect as hemiplegia is a dissociation/motor delay, not deviance[cite: 1]."
+      },
+      {
+        q: "A 4-year-old child with spastic quadriplegic CP is brought for tone management. The physician prescribes an oral agent that acts as a GABA-B receptor agonist to block spinal signal transmission to contracting muscles. Which medication was prescribed?",
+        options: [
+          "A. Dantrolene",
+          "B. Baclofen",
+          "C. Botulinum Toxin",
+          "D. Trihexyphenidyl"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. Baclofen[cite: 1]. Baclofen acts as a GABA-B agonist to inhibit spinal motor neuron transmission[cite: 1]. Distractors: A (Dantrolene) acts directly on muscle sarcoplasmic reticulum[cite: 1]; C (Botox) blocks ACh release locally at NMJ[cite: 1]; D is an anticholinergic used for dyskinesia/athetosis[cite: 1]."
+      },
+      {
+        q: "Which parameter accurately defines Disability-Adjusted Life Years (DALY)?",
+        options: [
+          "A. Total years lived with a disability divided by total population",
+          "B. Sum of Years of Life Lost (YLL) due to premature mortality plus Years Lived with Disability (YLD)",
+          "C. Total economic cost incurred by chronic illness per year",
+          "D. Total outpatient consultations for non-communicable diseases"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. DALY = YLL + YLD[cite: 1]. One DALY represents one lost year of healthy life[cite: 1]. Distractors: A, C, and D are incorrect definitions not representing DALY metrics[cite: 1]."
+      },
+      {
+        q: "A 3-year-old boy is brought due to lack of speech. He can recite the periodic table and count to 100 backwards, but does not make eye contact, does not respond when his name is called, and cannot ask for water. How is this pattern of development classified?",
+        options: [
+          "A. Developmental Delay",
+          "B. Developmental Dissociation",
+          "C. Developmental Deviance",
+          "D. Developmental Regression"
+        ],
+        correct: 2,
+        exp: "Correct Answer: C. Developmental Deviance[cite: 1]. Deviance is non-sequential, atypical milestone acquisition characteristic of Autism Spectrum Disorder[cite: 1]. Distractors: A is simple lag[cite: 1]; B is one stream lagging behind intact streams (e.g., motor lag in CP)[cite: 1]; D is loss of previously acquired skills[cite: 1]."
+      },
+      {
+        q: "At what ages does the American Academy of Pediatrics (AAP) recommend routine formal developmental screening using standardized tools during well-child visits?",
+        options: [
+          "A. 6, 12, and 24 months",
+          "B. 9, 18, and 30 months",
+          "C. 12, 24, and 36 months",
+          "D. 3, 6, and 12 months"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. 9, 18, and 30 months[cite: 1]. Standard screening (PEDS/PEDS-DM) is recommended at 9, 18, and 30 months, with autism-specific screening (M-CHAT) at 18 and 24 months[cite: 1]. Distractors: A, C, and D do not match established guidelines[cite: 1]."
+      },
+      {
+        q: "A full-term newborn presents with marked generalized hypotonia, a poor Moro reflex, hyperflexible joints, flat facial profile, upward slanting palpebral fissures, and a sandal gap between the 1st and 2nd toes. What is the most common genetic mechanism responsible for this child's condition?",
+        options: [
+          "A. Robertsonian Translocation t(14;21)",
+          "B. Post-zygotic Mitotic Nondisjunction",
+          "C. Meiotic Nondisjunction leading to Full Trisomy 21",
+          "D. Microdeletion on chromosome 22"
+        ],
+        correct: 2,
+        exp: "Correct Answer: C. Meiotic Nondisjunction (Full Trisomy 21)[cite: 1]. Full Trisomy 21 accounts for ~95% of Down syndrome cases[cite: 1]. Distractors: A (Translocation) accounts for 4%[cite: 1]; B (Mosaicism) accounts for 1%[cite: 1]; D causes DiGeorge syndrome."
+      },
+      {
+        q: "What is the single most common and life-threatening medical comorbidity found in infants with Down Syndrome?",
+        options: [
+          "A. Duodenal Atresia",
+          "B. Congenital Heart Disease (AVSD / VSD)",
+          "C. Acute Megakaryoblastic Leukemia",
+          "D. Early-Onset Alzheimer's Disease"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. Congenital Heart Disease (40-50% of cases)[cite: 1], most commonly Endocardial Cushion Defect / AVSD or VSD[cite: 1]. Distractors: A occurs in 10%[cite: 1]; C occurs at higher risk but lower absolute rate; D occurs later in adult life (15-20% by age 40)[cite: 1]."
+      },
+      {
+        q: "A 2-year-old child presents with speech delay. What is the mandatory FIRST diagnostic investigation that must be ordered?",
+        options: [
+          "A. Comprehensive Speech-Language Evaluation",
+          "B. Formal Audiological Evaluation",
+          "C. Brain MRI",
+          "D. Karyotyping and Chromosomal Microarray"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. Formal Audiological Evaluation[cite: 1]. Hearing impairment MUST be ruled out first in any child presenting with language delay[cite: 1]. Distractors: A is performed after hearing is assessed[cite: 1]; C and D are ordered based on specific neuro/dysmorphic indications[cite: 1]."
+      },
+      {
+        q: "What is the most common cause of mild hearing loss in pediatric patients?",
+        options: [
+          "A. Congenital Cytomegalovirus infection",
+          "B. Chronic Otitis Media with Effusion (OME)",
+          "C. Gentamicin toxicity",
+          "D. Temporal bone fracture"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. Chronic Otitis Media with Effusion (OME)[cite: 1]. OME is the leading cause of mild conductive hearing loss in children[cite: 1]. Distractors: A, C, and D cause sensorineural or severe hearing loss[cite: 1]."
+      },
+      {
+        q: "A 6-year-old girl speaks fluently, clearly, and expressively at home with her parents and siblings. However, at school and in public gatherings, she maintains absolute silence and refuses to speak. Her receptive language and intellect are normal. What is the diagnosis and primary management?",
+        options: [
+          "A. Developmental Language Disorder; Intensive Speech Therapy",
+          "B. Selective Mutism; Psychotherapy / Behavioral Therapy",
+          "C. Social Communication Disorder; Applied Behavior Analysis",
+          "D. Isolated Expressive Language Disorder; Observation"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. Selective Mutism; Psychotherapy / Behavioral Therapy[cite: 1]. Selective mutism is an Anxiety Disorder where speech therapy is NOT primary[cite: 1]. Distractors: A, C, and D misdiagnose the underlying anxiety disorder[cite: 1]."
+      },
+      {
+        q: "What is the definition of Global Developmental Delay (GDD)?",
+        options: [
+          "A. Motor delay lasting more than 6 months in a child of any age",
+          "B. Delay in ≥2 developmental domains in a child under 5 years of age",
+          "C. IQ score below 70 measured after 5 years of age",
+          "D. Speech and motor delay occurring after traumatic brain injury"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. Delay in ≥2 developmental domains under age 5[cite: 1]. Distractors: A is isolated motor delay[cite: 1]; C defines Intellectual Disability[cite: 1]; D describes acquired delay[cite: 1]."
+      },
+      {
+        q: "An infant born at term experienced severe intrapartum asphyxia (5-minute APGAR score of 2). At 18 months, he displays slow, continuous, involuntary writhing movements of his hands and feet, poor head control, and dysarthria. Cognitive testing reveals normal intelligence. What CP subtype does this represent?",
+        options: [
+          "A. Spastic Quadriplegia",
+          "B. Dyskinetic / Athetoid Cerebral Palsy",
+          "C. Ataxic Cerebral Palsy",
+          "D. Spastic Diplegia"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. Dyskinetic / Athetoid Cerebral Palsy[cite: 1]. Basal ganglia injury from asphyxia/kernicterus causes athetosis (slow writhing movements)[cite: 1]. In the absence of UMN signs, intellect is often preserved[cite: 1]. Distractors: A has severe ID and spasticity[cite: 1]; C has cerebellar ataxia[cite: 1]; D has spastic leg paralysis[cite: 1]."
+      },
+      {
+        q: "Which of the following is considered a SOFT neurological sign during pediatric examination?",
+        options: [
+          "A. Sustained ankle clonus (>5 beats)",
+          "B. Extensor plantar response (positive Babinski)",
+          "C. Inability to perform sequential finger-thumb apposition or right-left discrimination beyond age 5",
+          "D. Spastic hemiparesis of the right upper extremity"
+        ],
+        correct: 2,
+        exp: "Correct Answer: C. Soft neurological signs are subtle motor/sensory integration deficits[cite: 1]. Distractors: A, B, and D are HARD neurological signs indicating structural pyramidal pathway damage[cite: 1]."
+      },
+      {
+        q: "According to the Gross Motor Function Classification Scale (GMFCS) for Cerebral Palsy, how is Level III categorized?",
+        options: [
+          "A. Walks in all settings without mobility devices",
+          "B. Walks using hand-held mobility devices (crutches/walker)",
+          "C. Mobility requires manual wheelchair operated by an adult",
+          "D. Completely dependent; transported in a total body support wheelchair"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. GMFCS Level III: Walks with hand-held mobility devices[cite: 1]. Distractors: A is Level I/II[cite: 1]; C is Level IV[cite: 1]; D is Level V[cite: 1]."
+      },
+      {
+        q: "What is the golden age window for initiating Cochlear Implantation in a child with profound bilateral sensorineural hearing loss?",
+        options: [
+          "A. 0 to 6 months",
+          "B. 1.0 to 3.5 years",
+          "C. 5 to 7 years",
+          "D. After 10 years"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. 1.0 to 3.5 years[cite: 1]. This represents the critical neuroplastic window for auditory cortex development[cite: 1]. Distractors: A is too young for surgery[cite: 1]; C and D result in significantly poorer speech acquisition outcomes[cite: 1]."
+      },
+      {
+        q: "A mother of a 38-year-old pregnant woman asks about her risk of having a baby with Down Syndrome. What is the approximate risk at maternal age 35?",
+        options: [
+          "A. 1 in 1,300",
+          "B. 1 in 1,100",
+          "C. 1 in 350",
+          "D. 1 in 25"
+        ],
+        correct: 2,
+        exp: "Correct Answer: C. 1 in 350 at maternal age 35[cite: 1]. Distractors: A is age 15-24 (1/1300)[cite: 1]; B is age 25-29 (1/1100)[cite: 1]; D is age >45 (1/25)[cite: 1]."
+      },
+      {
+        q: "A child with an IQ of 45 is classified under which level of Intellectual Disability, and what is the corresponding educational term?",
+        options: [
+          "A. Mild ID; Educable",
+          "B. Moderate ID; Trainable",
+          "C. Severe ID; Subtrainable",
+          "D. Borderline; Slow Learner"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. Moderate ID (IQ 35-49); termed 'Trainable'[cite: 1]. Distractors: A is IQ 50-70 (Educable)[cite: 1]; C is IQ 20-34 (Subtrainable)[cite: 1]; D is IQ 70-84[cite: 1]."
+      },
+      {
+        q: "Which of the following describes the '1-3-6' recommendation rule for pediatric hearing loss?",
+        options: [
+          "A. Screen at 1 week, diagnose by 3 weeks, treat by 6 weeks",
+          "B. Screen by 1 month, formal diagnosis by 3 months, intervention by 6 months",
+          "C. Screen at 1 year, diagnose by 3 years, integrate into school by 6 years",
+          "D. Re-screen every 1, 3, and 6 months during early infancy"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. Screen by 1 month, Diagnosis by 3 months, Intervention by 6 months[cite: 1]. Distractors: A, C, and D are incorrect timelines[cite: 1]."
+      },
+      {
+        q: "Which physical finding in Down Syndrome is NOT pathognomonic?",
+        options: [
+          "A. Sandal gap toes",
+          "B. Single palmar crease (Simian crease)",
+          "C. Epicanthal folds",
+          "D. NONE of the above are pathognomonic"
+        ],
+        correct: 3,
+        exp: "Correct Answer: D. NONE of the individual physical signs (including Simian crease, sandal gap, or epicanthal folds) are pathognomonic for Down syndrome on their own[cite: 1]; diagnosis requires clinical cluster + karyotyping[cite: 1]."
+      },
+      // MCQs 21 to 50 generated below to complete full 50 MCQ set
+      {
+        q: "What is the critical red flag age for independent walking in a full-term infant?",
+        options: ["A. 12 months", "B. 15 months", "C. 18 months", "D. 24 months"],
+        correct: 2,
+        exp: "Correct Answer: C. 18 months is the critical red flag age for independent walking[cite: 1]. Mean is 12m[cite: 1]."
+      },
+      {
+        q: "What is the primary mechanism of action of Botulinum Toxin in managing CP spasticity?",
+        options: ["A. Inhibits calcium release in muscle", "B. GABA-B agonist", "C. Prevents presynaptic acetylcholine release", "D. Blocks dopamine receptors"],
+        correct: 2,
+        exp: "Correct Answer: C. Botox prevents presynaptic ACh release at the neuromuscular junction[cite: 1]."
+      },
+      {
+        q: "Which cranial nerve infection complication causes a 30% risk of sensorineural hearing loss?",
+        options: ["A. Pneumococcal otitis", "B. H. influenzae bacterial meningitis", "C. Viral mumps", "D. EBV mononucleosis"],
+        correct: 1,
+        exp: "Correct Answer: B. Bacterial meningitis from H. influenzae carries a 30% risk of SNHL[cite: 1]."
+      },
+      {
+        q: "A child with an IQ of 62 can complete 6th-grade education and live independently. What is the classification?",
+        options: ["A. Borderline", "B. Mild Intellectual Disability", "C. Moderate Intellectual Disability", "D. Severe Intellectual Disability"],
+        correct: 1,
+        exp: "Correct Answer: B. Mild ID (IQ 50-70) is 'Educable' up to 6th grade level[cite: 1]."
+      },
+      {
+        q: "What developmental pattern is exemplified by loss of previously acquired motor and language milestones?",
+        options: ["A. Delay", "B. Dissociation", "C. Deviance", "D. Regression"],
+        correct: 3,
+        exp: "Correct Answer: D. Regression represents loss of previously acquired milestones (most worrisome)[cite: 1]."
+      },
+      {
+        q: "Which cytogenetic subtype of Down syndrome has the highest risk of recurrence in future offspring?",
+        options: ["A. Meiotic Nondisjunction", "B. Robertsonian Translocation", "C. Mosaicism", "D. Isochromosome 21"],
+        correct: 1,
+        exp: "Correct Answer: B. Robertsonian Translocation (4%) is inherited from a carrier parent, carrying high recurrence risk[cite: 1]."
+      },
+      {
+        q: "What is the most common chief complaint in preschool children presenting with developmental concerns?",
+        options: ["A. Gross motor delay", "B. Language delay", "C. Hyperactivity", "D. Feeding difficulty"],
+        correct: 1,
+        exp: "Correct Answer: B. Speech and language delay is the #1 chief complaint during preschool years[cite: 1]."
+      },
+      {
+        q: "A premature baby presents with bilateral leg spasticity greater than arm involvement. What anatomical area is injured?",
+        options: ["A. Basal Ganglia", "B. Periventricular White Matter (PVL)", "C. Cerebellum", "D. Motor Cortex"],
+        correct: 1,
+        exp: "Correct Answer: B. Periventricular Leukomalacia (PVL) damages corticospinal fibers to lower extremities[cite: 1]."
+      },
+      {
+        q: "At what age should a child be able to combine 2 to 3 words into short meaningful phrases?",
+        options: ["A. 12 months", "B. 18 months", "C. 2.5 years (30 months)", "D. 4 years"],
+        correct: 2,
+        exp: "Correct Answer: C. At 2.5 years (30m), children combine 2-3 words into phrases[cite: 1]."
+      },
+      {
+        q: "What is the primary clinical feature of Selective Mutism?",
+        options: ["A. Inability to produce speech sounds", "B. Failure to speak in specific social situations despite speaking at home", "C. Complete loss of receptive language", "D. Pragmatic language impairment"],
+        correct: 1,
+        exp: "Correct Answer: B. Selective Mutism is social failure to speak driven by anxiety[cite: 1]."
+      },
+      {
+        q: "Which parameter is evaluated during Head Circumference monitoring in the first 2 years?",
+        options: ["A. Skull bone thickness", "B. Direct reflection of brain growth", "C. Visceral growth rate", "D. Subcutaneous fat storage"],
+        correct: 1,
+        exp: "Correct Answer: B. Head circumference directly reflects brain growth[cite: 1]."
+      },
+      {
+        q: "What is the classic gait abnormality seen in Spastic Hemiplegic Cerebral Palsy?",
+        options: ["A. Wide-based ataxic gait", "B. Scissoring gait", "C. Circumduction gait with toe-walking on affected side", "D. Waddling gait"],
+        correct: 2,
+        exp: "Correct Answer: C. Circumduction gait due to extensor tone and tight Achilles tendon[cite: 1]."
+      },
+      {
+        q: "What is the average head circumference at birth in a full-term infant?",
+        options: ["A. 30 cm", "B. 35 cm", "C. 40 cm", "D. 45 cm"],
+        correct: 1,
+        exp: "Correct Answer: B. Average head circumference at birth is approximately 35 cm[cite: 1]."
+      },
+      {
+        q: "At what age does Head Circumference equal Chest Circumference (HC = CC)?",
+        options: ["A. At birth", "B. 6 months", "C. 12 months", "D. 24 months"],
+        correct: 1,
+        exp: "Correct Answer: B. At 6 months, HC equals CC[cite: 1]. (At birth HC>CC; at 12m HC<CC)[cite: 1]."
+      },
+      {
+        q: "Which test is used for universal hearing screening in newborn infants?",
+        options: ["A. Behavioral Play Audiometry", "B. Otoacoustic Emission (OAE)", "C. Pure Tone Audiometry", "D. Tympanometry"],
+        correct: 1,
+        exp: "Correct Answer: B. Otoacoustic Emission (OAE) is used for rapid universal newborn screening[cite: 1]."
+      },
+      {
+        q: "Which neurodevelopmental disorder has shown the most dramatic increase in prevalence over the past 2 decades?",
+        options: ["A. Cerebral Palsy", "B. Autism Spectrum Disorder (ASD)", "C. Hearing Loss", "D. Spina Bifida"],
+        correct: 1,
+        exp: "Correct Answer: B. ASD has increased exponentially from 1/10,000 (1980) to 1 in 36 today[cite: 1]."
+      },
+      {
+        q: "What motor quotient (MQ) threshold defines Motor Delay?",
+        options: ["A. MQ < 90", "B. MQ < 70", "C. MQ < 50", "D. MQ < 30"],
+        correct: 1,
+        exp: "Correct Answer: B. MQ < 70 defines Motor Delay (MQ < 50 is Moderate/Severe)[cite: 1]."
+      },
+      {
+        q: "Which condition is an example of developmental dissociation?",
+        options: ["A. Rett Syndrome", "B. Spastic Diplegic Cerebral Palsy with normal IQ", "C. Severe Autism Spectrum Disorder", "D. Global Developmental Delay"],
+        correct: 1,
+        exp: "Correct Answer: B. Spastic Diplegia exemplifies dissociation (motor lag with preserved intelligence)[cite: 1]."
+      },
+      {
+        q: "What surgical procedure cuts selective sensory nerve fibers in the spinal cord to reduce CP spasticity?",
+        options: ["A. Achilles tenotomy", "B. Selective Dorsal Rhizotomy (SDR)", "C. Psoas transfer", "D. Adductor tenotomy"],
+        correct: 1,
+        exp: "Correct Answer: B. Selective Dorsal Rhizotomy (SDR) cuts dorsal sensory nerve roots to relieve spasticity[cite: 1]."
+      },
+      {
+        q: "What is the primary barrier preventing early identification of developmental disorders in primary care?",
+        options: ["A. Lack of effective treatment", "B. Time constraints, cost, and practitioner confidence in screening tools", "C. Absence of screening guidelines", "D. Low parental interest"],
+        correct: 1,
+        exp: "Correct Answer: B. Primary barriers are time, cost, and practice management constraints/confidence[cite: 1]."
+      },
+      {
+        q: "Which structural brain lesion on MRI is classic for Athetoid Cerebral Palsy?",
+        options: ["A. Periventricular cysts", "B. Bilateral Globus Pallidus lesions", "C. Cortical dysplasia", "D. Cerebellar atrophy"],
+        correct: 1,
+        exp: "Correct Answer: B. Bilateral lesions in the globus pallidus and thalamus are classic for athetoid CP[cite: 1]."
+      },
+      {
+        q: "A 3-year-old child cannot speak in simple sentences and has speech intelligibility <50%. Is this normal?",
+        options: ["A. Yes, normal variation", "B. No, red flag for language delay", "C. Normal for male children", "D. Expected in bilingual homes"],
+        correct: 1,
+        exp: "Correct Answer: B. By 3 years, a child should speak in simple sentences and be 75% intelligible[cite: 1]."
+      },
+      {
+        q: "What percentage of children with Spastic Quadriplegic CP have co-morbid Intellectual Disability?",
+        options: ["A. 10%", "B. 35%", "C. 60%", "D. 93%"],
+        correct: 3,
+        exp: "Correct Answer: D. 93% of spastic quadriplegic CP patients have intellectual disability[cite: 1]."
+      },
+      {
+        q: "What is 'Late Talker Syndrome' technically classified as?",
+        options: ["A. Language Disorder", "B. Isolated Expressive Language Disorder", "C. Autism Spectrum Disorder", "D. Social Communication Disorder"],
+        correct: 1,
+        exp: "Correct Answer: B. Isolated Expressive Language Disorder ('Late talker syndrome')[cite: 1]."
+      },
+      {
+        q: "Which maternal age group carries a 1 in 25 risk of Down Syndrome?",
+        options: ["A. 25-29 years", "B. 35 years", "C. 40 years", "D. >45 years"],
+        correct: 3,
+        exp: "Correct Answer: D. Maternal age >45 years carries a 1 in 25 risk of Down syndrome[cite: 1]."
+      },
+      {
+        q: "Which primitive reflex persistence beyond 6 months is a red flag for Cerebral Palsy?",
+        options: ["A. Asymmetric Tonic Neck Reflex (ATNR)", "B. Moro Reflex", "C. Plantar Extensor Response", "D. ALL of the above"],
+        correct: 3,
+        exp: "Correct Answer: D. Persistence of any primitive reflexes (ATNR, Moro, Babinski) beyond expected ages is pathologic[cite: 1]."
+      },
+      {
+        q: "What is the mean age of independent walking in normal children?",
+        options: ["A. 9 months", "B. 12 months", "C. 15 months", "D. 18 months"],
+        correct: 1,
+        exp: "Correct Answer: B. Mean age of independent walking is 12 months (range 9-17m)[cite: 1]."
+      },
+      {
+        q: "Which medication is an anticholinergic used to treat extrapyramidal/athetoid movements?",
+        options: ["A. Diazepam", "B. Trihexyphenidyl / Anticholinergics", "C. Baclofen", "D. Dantrolene"],
+        correct: 1,
+        exp: "Correct Answer: B. Anticholinergics block ACh signaling to reduce athetoid/dystonic movements[cite: 1]."
+      },
+      {
+        q: "At what decibel (dB) hearing loss level is a child classified as having MODERATE hearing loss?",
+        options: ["A. 16-25 dB", "B. 26-40 dB", "C. 41-55 dB", "D. 71-90 dB"],
+        correct: 2,
+        exp: "Correct Answer: C. 41 – 55 dB HL is Moderate hearing loss[cite: 1]."
+      },
+      {
+        q: "Which neurodevelopmental condition presents with wide-based unsteady gait and eye depth perception deficits?",
+        options: ["A. Spastic Diplegia", "B. Ataxic Cerebral Palsy", "C. Dyskinetic CP", "D. Spastic Hemiplegia"],
+        correct: 1,
+        exp: "Correct Answer: B. Ataxic CP involves cerebellar insult causing unsteady gait and depth perception loss[cite: 1]."
+      },
+      {
+        q: "What feature distinguishes Mosaic Down Syndrome from Full Trisomy 21?",
+        options: ["A. Mosaicism has worse clinical severity", "B. Mosaicism has milder physical manifestations and higher IQ potential", "C. Mosaicism is inherited from father", "D. Mosaicism is fatal in infancy"],
+        correct: 1,
+        exp: "Correct Answer: B. Mosaic Down syndrome has milder manifestations and better intellectual potential[cite: 1]."
+      },
+      {
+        q: "What is the primary goal of Physical Therapy in Cerebral Palsy management?",
+        options: ["A. Cure underlying brain injury", "B. Prevent contracture deformities and optimize functional mobility", "C. Replace surgical interventions", "D. Eradicate primitive reflexes"],
+        correct: 1,
+        exp: "Correct Answer: B. Secondary prevention: maintain function, prevent contractures, optimize mobility[cite: 1]."
+      },
+      {
+        q: "Which term describes errors in speech production that impair overall intelligibility?",
+        options: ["A. Articulation Disorder", "B. Phonological Disorder", "C. Selective Mutism", "D. Pragmatic Disorder"],
+        correct: 1,
+        exp: "Correct Answer: B. Phonological disorders involve speech production rules affecting intelligibility[cite: 1]."
+      },
+      {
+        q: "What percentage of children with developmental disabilities are NOT identified until school entry?",
+        options: ["A. 20%", "B. 50%", "C. 70%", "D. 90%"],
+        correct: 2,
+        exp: "Correct Answer: C. 70% of children with dev/mental health issues are missed until school entry[cite: 1]."
+      },
+      {
+        q: "What is the cornerstone diagnostic test for confirming Down Syndrome?",
+        options: ["A. Echocardiogram", "B. Karyotyping / Chromosomal Analysis", "C. Brain MRI", "D. Thyroid Panel"],
+        correct: 1,
+        exp: "Correct Answer: B. Karyotyping confirms Trisomy 21, Translocation, or Mosaicism[cite: 1]."
+      },
+      {
+        q: "Which condition exhibits hand preference before 1 year of age?",
+        options: ["A. Normal development", "B. Spastic Hemiplegic CP", "C. Dyskinetic CP", "D. Down Syndrome"],
+        correct: 1,
+        exp: "Correct Answer: B. Early hand preference (<18m) indicates hemiplegic CP[cite: 1]."
+      },
+      {
+        q: "What is the mean age of identification for profound sensorineural hearing loss without universal screening?",
+        options: ["A. 3 months", "B. 6 months", "C. 23 months", "D. 5 years"],
+        correct: 2,
+        exp: "Correct Answer: C. Mean identification age for moderate-profound SNHL was late (23 months)[cite: 1]."
+      },
+      {
+        q: "Which stream of development includes dressing, feeding, and personal interaction?",
+        options: ["A. Gross Motor", "B. Fine Motor", "C. Language", "D. Social & Self-Help"],
+        correct: 3,
+        exp: "Correct Answer: D. Social & Self-Help stream covers ADLs and social relating[cite: 1]."
+      },
+      {
+        q: "Which type of CP is most commonly associated with nuclear icterus (Kernicterus)?",
+        options: ["A. Spastic Diplegia", "B. Athetoid / Dyskinetic CP", "C. Spastic Quadriplegia", "D. Ataxic CP"],
+        correct: 1,
+        exp: "Correct Answer: B. Kernicterus targets basal ganglia causing Athetoid/Dyskinetic CP[cite: 1]."
+      },
+      {
+        q: "What is the main advantage of early identification during the first 6 years of life?",
+        options: ["A. Complete reversal of genetic mutations", "B. Capitalizing on neuroplasticity to forge new neural connections", "C. Avoidance of all medical checkups", "D. Elimination of need for special education"],
+        correct: 1,
+        exp: "Correct Answer: B. Early intervention takes advantage of peak brain plasticity in the first 6 years[cite: 1]."
+      }
+    ];
+
+    let userAnswers = new Array(mcqsData.length).fill(null);
+
+    function renderMCQs() {
+      const container = document.getElementById('mcq-container');
+      container.innerHTML = '';
+
+      mcqsData.forEach((mcq, idx) => {
+        const card = document.createElement('div');
+        card.className = 'mcq-card';
+        card.id = `mcq-card-${idx}`;
+
+        let optionsHTML = '';
+        mcq.options.forEach((opt, oIdx) => {
+          optionsHTML += `
+            <div class="mcq-option" id="opt-${idx}-${oIdx}" onclick="selectMCQOption(${idx}, ${oIdx})">
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="mcq-num">QUESTION ${idx + 1} OF ${mcqsData.length}</div>
+          <div class="mcq-q">${mcq.q}</div>
+          <div class="mcq-options">${optionsHTML}</div>
+          <div class="mcq-explanation" id="exp-${idx}">
+            <div class="explanation-title">EXPLANATION & ANALYSIS:</div>
+            <div>${mcq.exp}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function selectMCQOption(qIdx, oIdx) {
+      if (userAnswers[qIdx] !== null) return; // Prevent re-answering
+
+      userAnswers[qIdx] = oIdx;
+      const mcq = mcqsData[qIdx];
+      const selectedOptEl = document.getElementById(`opt-${qIdx}-${oIdx}`);
+      const expEl = document.getElementById(`exp-${qIdx}`);
+
+      if (oIdx === mcq.correct) {
+        selectedOptEl.classList.add('correct-choice');
+      } else {
+        selectedOptEl.classList.add('incorrect-choice');
+        document.getElementById(`opt-${qIdx}-${mcq.correct}`).classList.add('correct-choice');
+      }
+
+      expEl.classList.add('show');
+      updateScoreboard();
+    }
+
+    function updateScoreboard() {
+      let answered = 0;
+      let correct = 0;
+
+      userAnswers.forEach((ans, idx) => {
+        if (ans !== null) {
+          answered++;
+          if (ans === mcqsData[idx].correct) correct++;
+        }
+      });
+
+      document.getElementById('score-answered').textContent = `${answered} / ${mcqsData.length}`;
+      document.getElementById('score-correct').textContent = correct;
+      const pct = answered > 0 ? Math.round((correct / answered) * 100) : 0;
+      document.getElementById('score-percentage').textContent = `${pct}%`;
+    }
+
+    /* ================= INITIALIZATION ================= */
+    window.addEventListener('DOMContentLoaded', () => {
+      renderFlashcard();
+      renderMCQs();
+    });
+  </script>
+</body>
+</html>
