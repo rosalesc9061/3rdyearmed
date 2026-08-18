@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallbladder &amp; Biliary Tree | Interactive Reviewer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bile-yellow:#c98a1f;
+  --bile-yellow-deep:#8a5f12;
+  --teal:#0e6e6e;
+  --teal-deep:#0a4f4f;
+  --teal-pale:#e7f4f3;
+  --cream:#faf6ee;
+  --paper:#ffffff;
+  --ink:#20241f;
+  --ink-soft:#565f5a;
+  --line:#dfe4de;
+  --danger:#a3402f;
+  --danger-pale:#fbeae6;
+  --pearl:#f1ece0;
+  --shadow:0 4px 16px rgba(20,40,35,.07);
+  --radius:14px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--bile-yellow);color:#fff;}
+h1,h2,h3,h4{font-family:'Syne',sans-serif;font-weight:700;margin:0 0 .5em;color:var(--teal-deep);}
+h1{font-weight:800;}
+code,.mono{font-family:'Space Mono',monospace;}
+p{margin:0 0 .8em;}
+a{color:var(--teal);}
+button{font-family:inherit;cursor:pointer;}
+.hidden{display:none!important;}
+
+/* ---------- TOP BAR ---------- */
+#topbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(250,246,238,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:1280px;margin:0 auto;padding:10px 20px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--teal-deep);white-space:nowrap;}
+.brand .drop{
+  width:26px;height:26px;border-radius:50% 50% 50% 0;
+  background:linear-gradient(135deg,var(--bile-yellow),var(--bile-yellow-deep));
+  transform:rotate(45deg);flex:none;
+}
+#searchbox{
+  flex:1;min-width:160px;max-width:340px;
+  border:1px solid var(--line);border-radius:999px;
+  padding:8px 16px;font-size:.88rem;background:#fff;
+  font-family:'DM Sans',sans-serif;
+}
+#searchbox:focus{outline:2px solid var(--teal);}
+#progressWrap{flex:none;display:flex;align-items:center;gap:8px;font-size:.75rem;color:var(--ink-soft);}
+#progressBar{width:90px;height:6px;background:var(--pearl);border-radius:4px;overflow:hidden;}
+#progressFill{height:100%;width:0%;background:var(--teal);transition:width .3s;}
+#darkToggle{
+  border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:.8rem;font-weight:700;color:var(--teal-deep);
+}
+nav#tabnav{
+  max-width:1280px;margin:0 auto;padding:0 20px 10px;
+  display:flex;gap:6px;overflow-x:auto;
+  scrollbar-width:thin;
+}
+nav#tabnav::-webkit-scrollbar{height:5px;}
+nav#tabnav::-webkit-scrollbar-thumb{background:var(--line);border-radius:5px;}
+.tabbtn{
+  white-space:nowrap;border:1px solid var(--line);background:#fff;
+  padding:9px 16px;border-radius:999px;font-size:.82rem;font-weight:700;
+  color:var(--ink-soft);transition:all .18s;
+}
+.tabbtn:hover{border-color:var(--teal);color:var(--teal-deep);}
+.tabbtn.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+
+/* ---------- LAYOUT ---------- */
+main{max-width:1080px;margin:0 auto;padding:28px 20px 100px;}
+.panel{display:none;animation:fadein .35s ease;}
+.panel.active{display:block;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+.section-title{
+  font-size:1.9rem;border-bottom:3px solid var(--bile-yellow);
+  padding-bottom:10px;margin-bottom:22px;
+}
+.subhead{
+  font-size:1.15rem;color:var(--teal);margin-top:34px;
+  display:flex;align-items:center;gap:8px;
+}
+.subhead::before{content:"";width:5px;height:20px;background:var(--bile-yellow);border-radius:3px;display:inline-block;}
+
+.card{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 20px;margin:14px 0;box-shadow:var(--shadow);
+  border-left:5px solid var(--teal);
+}
+.card h4{color:var(--teal-deep);font-size:1.02rem;}
+.card ul,.card ol{margin:.3em 0 .3em 1.1em;padding:0;}
+.card li{margin-bottom:4px;}
+
+details.concept{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  margin:12px 0;overflow:hidden;box-shadow:var(--shadow);
+}
+details.concept summary{
+  cursor:pointer;list-style:none;padding:14px 18px;font-weight:700;
+  font-family:'Syne',sans-serif;color:var(--teal-deep);display:flex;justify-content:space-between;align-items:center;
+  background:var(--teal-pale);
+}
+details.concept summary::-webkit-details-marker{display:none;}
+details.concept summary::after{content:"+";font-size:1.3rem;color:var(--teal);transition:transform .2s;}
+details.concept[open] summary::after{transform:rotate(45deg);}
+details.concept .body{padding:16px 20px;}
+
+.callout{border-radius:12px;padding:14px 18px;margin:12px 0;font-size:.94rem;border:1px solid transparent;}
+.callout b{font-family:'Syne',sans-serif;}
+.callout.must{background:#fff7e0;border-color:#eecf83;}
+.callout.pitfall{background:var(--danger-pale);border-color:#e3b3a6;}
+.callout.pearl{background:var(--teal-pale);border-color:#a9d3d0;}
+.callout.tip{background:#eef2ff;border-color:#c3caf5;}
+
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.9rem;background:#fff;border-radius:10px;overflow:hidden;box-shadow:var(--shadow);}
+thead th{
+  background:var(--teal);color:#fff;text-align:left;padding:10px 12px;font-family:'Syne',sans-serif;
+  position:sticky;top:96px;
+}
+tbody td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+tbody tr:nth-child(even){background:#f7f5ec;}
+tbody tr:hover{background:var(--teal-pale);}
+.copy-btn{float:right;font-size:.7rem;border:1px solid var(--line);background:#fff;padding:3px 9px;border-radius:6px;color:var(--teal-deep);}
+
+.badge{display:inline-block;font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:5px;margin-right:4px;}
+.badge.imp{background:#fff1c2;color:#7a5800;}
+.badge.lec{background:var(--teal-pale);color:var(--teal-deep);}
+.badge.book{background:#e7e2f6;color:#4b3a86;}
+.badge.pearl2{background:#e0f2e9;color:#256645;}
+
+figure.diagram{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:16px 0;box-shadow:var(--shadow);}
+figure.diagram figcaption{font-size:.82rem;color:var(--ink-soft);margin-top:10px;}
+figure.diagram figcaption b{color:var(--ink);}
+
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:14px 0;}
+.flow .node{background:var(--teal-pale);border:1px solid #b7dcd9;border-radius:10px;padding:8px 14px;font-size:.84rem;font-weight:600;color:var(--teal-deep);}
+.flow .arrow{color:var(--bile-yellow-deep);font-weight:800;font-size:1.1rem;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+
+/* comparison table specific */
+.vs-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:14px 0;box-shadow:var(--shadow);}
+.vs-wrap>div{padding:16px 18px;}
+.vs-wrap>div:first-child{background:var(--teal-pale);border-right:1px solid var(--line);}
+.vs-wrap>div:last-child{background:#fff7ee;}
+.vs-wrap h4{margin-bottom:8px;}
+@media(max-width:640px){.vs-wrap{grid-template-columns:1fr;}.vs-wrap>div:first-child{border-right:none;border-bottom:1px solid var(--line);}}
+
+/* ---------- FLASHCARDS ---------- */
+#flashArea{max-width:640px;margin:0 auto;}
+.fc-controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:18px;}
+.fc-controls select,.fc-controls button{
+  border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font-size:.82rem;font-weight:700;color:var(--teal-deep);
+}
+.fc-controls button.primary{background:var(--teal);color:#fff;border-color:var(--teal);}
+#fcProgress{text-align:center;font-family:'Space Mono',monospace;font-size:.8rem;color:var(--ink-soft);margin-bottom:10px;}
+.flashcard{
+  perspective:1400px;height:300px;margin-bottom:18px;
+}
+.flashcard-inner{
+  position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;cursor:pointer;
+}
+.flashcard.flipped .flashcard-inner{transform:rotateY(180deg);}
+.fc-face{
+  position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;
+  padding:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  box-shadow:var(--shadow);border:1px solid var(--line);
+}
+.fc-front{background:linear-gradient(160deg,#fff,var(--teal-pale));}
+.fc-back{background:linear-gradient(160deg,#fff,#fff7e0);transform:rotateY(180deg);}
+.fc-tag{position:absolute;top:14px;left:18px;font-size:.68rem;font-family:'Space Mono',monospace;color:var(--teal);}
+.fc-hint{position:absolute;bottom:14px;font-size:.72rem;color:var(--ink-soft);}
+.fc-face h3{font-size:1.15rem;}
+.fc-face p{font-size:.92rem;}
+.fc-nav{display:flex;justify-content:center;gap:10px;}
+.fc-nav button{border:1px solid var(--line);background:#fff;padding:10px 20px;border-radius:999px;font-weight:700;color:var(--teal-deep);}
+.fc-nav button:hover{background:var(--teal);color:#fff;}
+
+/* ---------- QUIZ ---------- */
+#quizArea{max-width:700px;margin:0 auto;}
+#quizIntro{text-align:center;}
+.qcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+.qmeta{font-size:.75rem;color:var(--ink-soft);font-family:'Space Mono',monospace;margin-bottom:10px;}
+.qopt{
+  display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fdfcf8;
+  border-radius:10px;padding:11px 14px;margin:8px 0;font-size:.92rem;
+}
+.qopt:hover{border-color:var(--teal);}
+.qopt.correct{background:#e0f2e9;border-color:#4a9b6e;font-weight:700;}
+.qopt.incorrect{background:var(--danger-pale);border-color:var(--danger);}
+.qexplain{margin-top:14px;padding:14px;background:var(--teal-pale);border-radius:10px;font-size:.88rem;display:none;}
+.qexplain.show{display:block;}
+#quizFooter{display:flex;justify-content:space-between;margin-top:16px;}
+#quizFooter button{border:1px solid var(--line);background:#fff;padding:9px 18px;border-radius:999px;font-weight:700;color:var(--teal-deep);}
+#quizScoreScreen{text-align:center;}
+#quizScoreScreen .score-num{font-family:'Syne',sans-serif;font-size:3.2rem;color:var(--teal);}
+.review-item{text-align:left;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;background:#fff;}
+.review-item.wrong{border-left:4px solid var(--danger);}
+.review-item.right{border-left:4px solid #4a9b6e;}
+
+/* ---------- CRAM SHEET ---------- */
+.cram-grid{columns:2;column-gap:22px;}
+@media(max-width:760px){.cram-grid{columns:1;}}
+.cram-block{break-inside:avoid;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:16px;box-shadow:var(--shadow);}
+.cram-block h4{font-size:.95rem;color:var(--teal);border-bottom:1px dashed var(--line);padding-bottom:6px;}
+.cram-block ul{margin:.3em 0 0 1.05em;padding:0;font-size:.85rem;}
+.cram-block li{margin-bottom:3px;}
+.iyk{color:var(--bile-yellow-deep);font-weight:700;}
+
+/* ---------- SCROLL TOP ---------- */
+#toTop{
+  position:fixed;bottom:22px;right:22px;background:var(--teal);color:#fff;border:none;
+  width:44px;height:44px;border-radius:50%;font-size:1.2rem;box-shadow:var(--shadow);display:none;z-index:99;
+}
+#toTop.show{display:block;}
+
+footer{text-align:center;padding:30px 20px;color:var(--ink-soft);font-size:.78rem;}
+
+@media print{
+  #topbar,#toTop,nav#tabnav{display:none;}
+  .panel{display:block!important;}
+  body{background:#fff;}
+}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="drop"></span> HepatoBiliary Rx</div>
+    <input id="searchbox" type="text" placeholder="Search the reviewer…">
+    <div id="progressWrap">Progress <div id="progressBar"><div id="progressFill"></div></div></div>
+  </div>
+  <nav id="tabnav"></nav>
+</div>
+
+<main id="mainContent"></main>
+
+<button id="toTop" title="Back to top">↑</button>
+
+<footer>Built from UERM Surgery II · LE 03 — Gallbladder and Biliary Tree (J. Nolasco, MD) · Schwartz's Principles of Surgery, 11th ed. · For board-exam review only, not a substitute for clinical judgment.</footer>
+
+<script>
+/* =========================================================
+   TAB DEFINITIONS
+========================================================= */
+const TABS = [
+  {id:'overview', label:'Overview'},
+  {id:'anatomy', label:'1. Anatomy & Diagnostics'},
+  {id:'physio', label:'2. Bile Physiology'},
+  {id:'stones', label:'3. Cholelithiasis'},
+  {id:'cyst', label:'4. Choledochal Cyst'},
+  {id:'benign', label:'5. Benign & Inflammatory'},
+  {id:'neoplasm', label:'6. Neoplasms'},
+  {id:'compare', label:'Comparisons'},
+  {id:'flash', label:'Flashcards'},
+  {id:'quiz', label:'Self-Assessment'},
+  {id:'cram', label:'Cram Sheet'}
+];
+
+const nav = document.getElementById('tabnav');
+TABS.forEach(t=>{
+  const b = document.createElement('button');
+  b.className='tabbtn'; b.textContent=t.label; b.dataset.tab=t.id;
+  b.onclick=()=>showTab(t.id);
+  nav.appendChild(b);
+});
+
+function showTab(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  document.querySelectorAll('.tabbtn').forEach(b=>b.classList.toggle('active', b.dataset.tab===id));
+  window.scrollTo({top:0,behavior:'smooth'});
+  localStorage.setItem('gbtree_lasttab', id); // safe: not used for critical persistence, in-memory fallback ok
+  updateProgress();
+}
+</script>
+
+<!-- ============================================================
+     PANEL CONTENT (built as raw HTML strings injected via JS
+     to keep structure organized; content lives below)
+============================================================ -->
+<script id="content-data" type="text/plain">
+</script>
+
+<script>
+const main = document.getElementById('mainContent');
+
+/* ---------------- OVERVIEW ---------------- */
+main.insertAdjacentHTML('beforeend', `
+<section class="panel" id="panel-overview">
+<h2 class="section-title">Overview &amp; High-Yield Map</h2>
+
+<div class="card">
+<h4>Learning Objectives (per lecture)</h4>
+<ul>
+<li>Discuss relevant anatomy and physiology of the biliary system.</li>
+<li>Recognize common "surgical" diseases of the gallbladder/bile ducts encountered in everyday practice.</li>
+<li>Know the diagnostic options, their rationale, and how to interpret them.</li>
+<li>Know management — including urgency, triaging, and prognostication.</li>
+</ul>
+</div>
+
+<div class="callout must"><b>⭐ Must Know — The Big Picture</b><br>
+The gallbladder concentrates and stores bile made by the liver, releasing it into the duodenum in response to a fatty meal (via CCK). Almost every disease in this topic is a variation on one theme: <b>something blocks bile flow</b> — a stone, a stricture, or a tumor — at a specific level (gallbladder neck/cystic duct, common bile duct, ampulla, or intrahepatic ducts). Where the block sits determines the clinical picture, the imaging findings, and the operation.
+</div>
+
+<h3 class="subhead">Typical "3 F's" Patient Profile</h3>
+<div class="flow">
+<div class="node">Female</div><div class="arrow">+</div>
+<div class="node">Fat</div><div class="arrow">+</div>
+<div class="node">Forty (age)</div>
+</div>
+<p style="font-size:.85rem;color:var(--ink-soft)">Classic gallstone profile — but stones can occur in men, the elderly, and even patients &lt;20 years old.</p>
+
+<h3 class="subhead">Roadmap of the Lecture</h3>
+<table>
+<thead><tr><th>Section</th><th>Core Idea</th></tr></thead>
+<tbody>
+<tr><td><b>Anatomy &amp; Diagnostics</b></td><td>Gallbladder/biliary tree anatomy, Calot's triangle, and the imaging ladder (US → CT → MRCP → ERCP/PTC/IOC)</td></tr>
+<tr><td><b>Bile Physiology</b></td><td>Bile composition, secretion stimulants, and the "safe zone" that keeps cholesterol soluble</td></tr>
+<tr><td><b>Cholelithiasis</b></td><td>Gallstones — risk factors, presentation, diagnosis, complications, and treatment (timing of cholecystectomy)</td></tr>
+<tr><td><b>Choledochal Cyst</b></td><td>Congenital biliary dilations — 5 types, malignancy risk, management per type</td></tr>
+<tr><td><b>Benign &amp; Inflammatory / Cholangitis</b></td><td>Acalculous cholecystitis, GB polyp, choledocholithiasis, hepatolithiasis, cholangitis, PSC</td></tr>
+<tr><td><b>Neoplasms</b></td><td>Gallbladder carcinoma and cholangiocarcinoma — staging and resection strategy</td></tr>
+</tbody>
+</table>
+
+<h3 class="subhead">Key Definitions</h3>
+<div class="two-col">
+<div class="card"><h4>Cholelithiasis</h4><p>Stones anywhere in the biliary tree.</p></div>
+<div class="card"><h4>Cholecystolithiasis</h4><p>Stones specifically in the gallbladder.</p></div>
+<div class="card"><h4>Choledocholithiasis</h4><p>Stones in the common bile duct (CBD).</p></div>
+<div class="card"><h4>Hepatolithiasis</h4><p>Stones within the intrahepatic bile ducts.</p></div>
+<div class="card"><h4>Biliary Colic</h4><p>Intermittent RUQ/epigastric pain from transient cystic duct obstruction by a stone.</p></div>
+<div class="card"><h4>Cholangitis</h4><p>Infection of the biliary tree, usually from obstruction + bacterial contamination.</p></div>
+</div>
+
+<div class="callout tip"><b>🧠 Exam Tip</b><br>
+When a vignette gives you RUQ/epigastric pain, always ask: (1) Is there fever? (2) Is there jaundice? Presence of both (plus pain) = <b>Charcot's Triad</b> → think cholangitis. Fever alone with pain = acute cholecystitis. Painless jaundice in an older patient = think malignancy until proven otherwise.
+</div>
+</section>
+`);
+</script>
+
+<!-- ================= TAB 1: ANATOMY & DIAGNOSTICS ================= -->
+<script>
+main.insertAdjacentHTML('beforeend', `
+<section class="panel" id="panel-anatomy">
+<h2 class="section-title">1. Gallbladder &amp; Biliary Tree — Anatomy and Diagnostics</h2>
+
+<h3 class="subhead">A. Anatomy</h3>
+
+<details class="concept" open><summary>Surrounding Structures <span class="badge lec">Lecture</span></summary>
+<div class="body">
+<p><b>Gallbladder:</b> a small organ attached to the inferior surface of the liver, sitting in the <b>gallbladder fossa</b> — a depression that also marks the division between the right and left hemi-livers.</p>
+<p><b>Antrum:</b> distal part of the stomach; ends at the pylorus, which marks the start of the duodenum.</p>
+<p><b>Duodenum:</b> demarcated from the stomach by the pylorus and from the jejunum by the <b>Ligament of Treitz</b> <span class="badge book">Schwartz 11th ed.</span> It forms a "C loop" with four parts — <i>Superior, Descending, Horizontal, Ascending</i> — and the ascending part ends at the Ligament of Treitz. The head of the pancreas sits within the C loop; the body and tail pass behind the stomach.</p>
+</div></details>
+
+<details class="concept"><summary>The Four Parts of the Gallbladder</summary>
+<div class="body">
+<p>Fundus → Body → Neck (infundibulum) → Cystic duct.</p>
+<ul>
+<li>Configuration of the neck varies person to person (long/narrow, tortuous, or bulbous).</li>
+<li>The pouch at the neck is <b>Hartmann's pouch</b> — <span class="badge imp">⭐ clinically important</span>: this is where stones commonly lodge, causing obstruction, pain, or acute cholecystitis.</li>
+<li>The cystic duct is the entry <i>and</i> exit route for bile into/out of the gallbladder.</li>
+</ul>
+</div></details>
+
+<details class="concept"><summary>Biliary Drainage Pathway</summary>
+<div class="body">
+<p>Bile canaliculi (intrahepatic) → converge and enlarge → exit the liver at the <b>liver hilum</b> as the <b>right and left hepatic ducts</b> → join to form the <b>common hepatic duct (CHD)</b> → the <b>cystic duct</b> joins the CHD to form the <b>common bile duct (CBD)</b> → CBD travels down and empties at the <b>ampulla (of Vater)</b>.</p>
+<p>The <b>pancreatic duct</b> joins the distal CBD through a common channel within the ampulla, typically at the junction of the 2nd and 3rd portions of the duodenum.</p>
+<div class="flow">
+<div class="node">Intrahepatic ducts</div><div class="arrow">→</div>
+<div class="node">R + L hepatic ducts</div><div class="arrow">→</div>
+<div class="node">Common hepatic duct</div><div class="arrow">→</div>
+<div class="node">+ Cystic duct = CBD</div><div class="arrow">→</div>
+<div class="node">Ampulla of Vater</div><div class="arrow">→</div>
+<div class="node">Duodenum</div>
+</div>
+</div></details>
+
+<details class="concept"><summary>Sphincter of Oddi &amp; the Gallbladder as a Reservoir</summary>
+<div class="body">
+<p>The Sphincter of Oddi keeps the ducts closed during fasting. When closed, bile flowing down the bile duct backs up into the gallbladder, which stores/concentrates it. The longer the fast, the more distended the gallbladder becomes. With each meal, the gallbladder contracts and pushes bile into the duodenum. <b>This is why patients must fast (≥8 hours)</b> before biliary ultrasound — a distended, bile-filled gallbladder is much easier to evaluate than a contracted one.</p>
+</div></details>
+
+<details class="concept"><summary>Vascular Anatomy &amp; the Portal Triad</summary>
+<div class="body">
+<p><b>Portal vein</b> — lies behind the bile duct; the main inflow vasculature of the liver. In pancreatic surgery it divides the pancreatic head (right) from the body (left); the neck of the pancreas sits anterior/middle to the portal vein.</p>
+<p><b>Arterial supply:</b> celiac trunk → common hepatic artery → branches to duodenum/pancreas via the gastroduodenal artery → proper hepatic artery → divides into R and L hepatic arteries. The <b>cystic artery</b> arises off the right hepatic artery and is the artery divided during cholecystectomy.</p>
+<p><b>Portal triad</b> = artery + bile duct + portal vein, covered by fatty tissue called the <b>hepatoduodenal ligament</b> (connects liver to duodenum). In real surgery these structures are not as cleanly separated as in diagrams, especially in patients with more visceral fat.</p>
+</div></details>
+
+<details class="concept"><summary>Hepatocystic Triangle (Calot's Triangle) <span class="badge imp">⭐ High Yield</span></summary>
+<div class="body">
+<table>
+<thead><tr><th>Border</th><th>Structure</th></tr></thead>
+<tbody>
+<tr><td>Medial</td><td>Common Hepatic Duct</td></tr>
+<tr><td>Inferior</td><td>Cystic Duct</td></tr>
+<tr><td>Superior</td><td>Inferior surface of the Liver</td></tr>
+</tbody>
+</table>
+<p><b>Contents:</b></p>
+<ul>
+<li><b>Right hepatic artery</b> — formed by bifurcation of the proper hepatic artery.</li>
+<li><b>Cystic artery</b> — arises from the right hepatic artery, traverses the triangle to supply the gallbladder; runs parallel to and somewhat behind the cystic duct, often behind the lymph node of Lund.</li>
+<li><b>Lymph node of Lund (Calot's node)</b> — the sentinel node of the gallbladder.</li>
+<li>Lymphatics.</li>
+</ul>
+<p>The lateral border of the bile duct marks the lateral border of the dissection plane during cholecystectomy — opening this triangle lets the surgeon safely identify and ligate the cystic duct/artery while keeping the CBD/CHD out of harm's way.</p>
+</div></details>
+
+<figure class="diagram">
+<svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+<rect width="640" height="230" fill="#faf6ee"/>
+<text x="20" y="26" font-family="Syne,sans-serif" font-weight="700" font-size="15" fill="#0a4f4f">Biliary Drainage Schematic</text>
+<circle cx="90" cy="90" r="34" fill="#c98a1f" opacity=".85"/>
+<text x="90" y="94" text-anchor="middle" font-size="10" fill="#fff" font-family="DM Sans">Liver ducts</text>
+<line x1="124" y1="90" x2="200" y2="90" stroke="#0e6e6e" stroke-width="4"/>
+<text x="130" y="82" font-size="9" fill="#565f5a">R+L hepatic</text>
+<rect x="200" y="72" width="90" height="36" rx="8" fill="#e7f4f3" stroke="#0e6e6e"/>
+<text x="245" y="94" text-anchor="middle" font-size="10" fill="#0a4f4f">Common Hepatic Duct</text>
+<line x1="290" y1="90" x2="360" y2="90" stroke="#0e6e6e" stroke-width="4"/>
+<ellipse cx="245" cy="170" rx="42" ry="30" fill="#f1ece0" stroke="#c98a1f" stroke-width="2"/>
+<text x="245" y="174" text-anchor="middle" font-size="10" fill="#8a5f12">Gallbladder</text>
+<line x1="245" y1="140" x2="245" y2="108" stroke="#c98a1f" stroke-width="4"/>
+<text x="255" y="130" font-size="9" fill="#8a5f12">Cystic duct</text>
+<rect x="360" y="72" width="90" height="36" rx="8" fill="#e7f4f3" stroke="#0e6e6e"/>
+<text x="405" y="94" text-anchor="middle" font-size="10" fill="#0a4f4f">Common Bile Duct</text>
+<line x1="450" y1="90" x2="520" y2="90" stroke="#0e6e6e" stroke-width="4"/>
+<circle cx="555" cy="90" r="30" fill="#0e6e6e"/>
+<text x="555" y="94" text-anchor="middle" font-size="9" fill="#fff">Ampulla</text>
+<line x1="555" y1="120" x2="555" y2="170" stroke="#0e6e6e" stroke-width="4"/>
+<rect x="500" y="170" width="110" height="34" rx="8" fill="#fff7e0" stroke="#c98a1f"/>
+<text x="555" y="191" text-anchor="middle" font-size="10" fill="#8a5f12">Duodenum</text>
+<line x1="405" y1="150" x2="405" y2="108" stroke="#a3402f" stroke-width="3" stroke-dasharray="4,3"/>
+<text x="415" y="150" font-size="9" fill="#a3402f">Pancreatic duct joins here</text>
+</svg>
+<figcaption><b>Figure A1.</b> Simplified schematic of bile flow: liver → hepatic ducts → common hepatic duct (+ cystic duct/gallbladder) → common bile duct → ampulla (joined by the pancreatic duct) → duodenum.</figcaption>
+</figure>
+
+<div class="callout pearl"><b>💡 Clinical Pearl</b><br>
+Hartmann's pouch and the hepatocystic triangle are the two anatomic "hot spots" of biliary surgery: the pouch is where stones love to lodge (driving cholecystitis), and the triangle is where the surgeon must work carefully to avoid bile duct injury.
+</div>
+
+<div class="callout pitfall"><b>⚠️ Common Pitfall</b><br>
+Don't confuse the <i>cystic</i> artery (divided during cholecystectomy, found within Calot's triangle) with the <i>right hepatic</i> artery (from which it arises) — injuring the right hepatic artery instead of the cystic artery is a recognized cholecystectomy complication.
+</div>
+
+<h3 class="subhead">B. Diagnostics — Non-Invasive Imaging</h3>
+
+<div class="callout pearl"><b>💡 General Principle</b><br>
+In any pathologic condition of the body, always go <b>non-invasive first</b>. Common to all bile duct, gallbladder, liver, and pancreas imaging: Ultrasound, CT, and MRI; HIDA scan is rarely used.
+</div>
+
+<table>
+<thead><tr><th>Modality</th><th>Best For</th><th>Key Points</th></tr></thead>
+<tbody>
+<tr><td><b>Ultrasound</b></td><td>Gallbladder stones</td><td>Most widely available/cheapest; sensitivity &amp; specificity ~90% for GB stones. Poor for CBD stones (retroduodenal portion obscured by bowel gas). Stones = hyperechoic with posterior acoustic shadow. No radiation, no known side effects.</td></tr>
+<tr><td><b>CT Scan</b></td><td>Tumors, obscure abdominal pain, dilated ducts</td><td>Initial test for suspected GB/biliary malignancy. Good if ducts are dilated only. Less sensitive for GB stones (may miss non-calcified stones). White = hyperdense (calcified/contrast-enhanced); black = hypodense (fluid/fat/bowel gas). Useful in emergencies.</td></tr>
+<tr><td><b>MRI/MRCP</b></td><td>Bile duct stones</td><td>Best for choledocholithiasis (sensitivity 95%, specificity 89% <span class="badge book">Schwartz 11th</span>); preferred for precise biliary/pancreatic duct pathology; demonstrates strictures clearly. White = hyperintense, black = hypointense. No radiation but costly, cumbersome, and affected by claustrophobia/obesity/breath-hold ability.</td></tr>
+<tr><td><b>HIDA Scan</b></td><td>Acute cholecystitis (rarely used)</td><td>⭐ Very sensitive for diagnosing acute cholecystitis; NOT used to detect stones alone. Non-visualization of the gallbladder = cystic duct obstruction (suggests acute cholecystitis). Used only when the other 3 modalities are inconclusive but suspicion remains high.</td></tr>
+</tbody>
+</table>
+
+<h3 class="subhead">B. Diagnostics — Invasive Imaging</h3>
+<p>Common to all three: contrast is injected because fluid-filled luminal organs (bile ducts) don't normally appear on plain x-ray.</p>
+
+<table>
+<thead><tr><th>Modality</th><th>Role</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><b>ERCP</b></td><td>Diagnostic <i>and</i> therapeutic</td><td>Current recommendation: use ERCP if a therapeutic intervention (e.g. stone extraction) is intended, especially if a stone is highly suspected and confirmed on non-invasive imaging. Complications: pancreatitis (most common — ⭐ <b>Post-ERCP pancreatitis</b>), bleeding, perforation, infection, radiation, need for anesthesia.</td></tr>
+<tr><td><b>PTC / PTBD</b></td><td>PTC = diagnostic; PTBD = therapeutic</td><td>Percutaneous (through skin) + Transhepatic (through liver) + Cholangiography (visualize bile duct). Done if ERCP fails/obstruction is at the level of a bile duct tumor. PTBD = catheter placed for drainage if obstruction needs decompression.</td></tr>
+<tr><td><b>IOC</b> (Intraoperative Cholangiogram)</td><td>Done during laparoscopic cholecystectomy</td><td>Normal cholangiogram = non-dilated bile duct, smooth tapering of distal CBD into ampulla/duodenum, smooth contrast passage, non-dilated intrahepatic ducts.</td></tr>
+</tbody>
+</table>
+
+<div class="card">
+<h4>How ERCP Works</h4>
+<p>Contrast is passed orally → down the esophagus/stomach → antrum → C-loop of duodenum → junction of the 2nd/3rd portion (ampulla) → bile duct. If stones are seen, extraction can be done in the same sitting via <b>papillotomy/sphincterotomy</b> (widening the ampulla) followed by basket/balloon retrieval.</p>
+</div>
+
+<div class="callout must"><b>⭐ Summary — Typical Imaging Indications</b><br>
+<table style="margin-top:8px;">
+<thead><tr><th>Imaging</th><th>Indication</th></tr></thead>
+<tbody>
+<tr><td>Ultrasound</td><td>Typical biliary colic symptoms; documenting gallbladder stones</td></tr>
+<tr><td>MRI/MRCP</td><td>Abdominal pain + jaundice + suspecting duct stones; detailed bile duct imaging</td></tr>
+<tr><td>CT Scan</td><td>Elderly (~60 yo) with obscure abdominal pain, low suspicion for gallstones; assessing neoplasms and extent of involvement; emergencies</td></tr>
+<tr><td>ERCP</td><td>Documented stones on MRI/US, or high suspicion of gallstones (young male with h/o gallstones + abdominal pain + jaundice). Diagnostic AND therapeutic.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout tip"><b>🧠 Exam Tip</b><br>
+If a question gives you a patient with a normal alkaline phosphatase and no dilated ducts but classic RUQ pain/fever/leukocytosis → the answer is usually <b>ultrasound</b>, not ERCP or CT. Save ERCP for confirmed/highly suspicious CBD stones.
+</div>
+</section>
+`);
+</script>
+
+<!-- ================= TAB 2: BILE PHYSIOLOGY ================= -->
+<script>
+main.insertAdjacentHTML('beforeend', `
+<section class="panel" id="panel-physio">
+<h2 class="section-title">2. Bile Physiology</h2>
+
+<div class="two-col">
+<div class="card">
+<h4>Bile Components <span class="badge book">Schwartz 11th</span></h4>
+<ul>
+<li>Water, cholesterol, protein, bile pigment, phospholipids (lecithin), bilirubin.</li>
+<li><b>Bile salts:</b> cholate, chenodeoxycholate — synthesized in the liver from cholesterol.</li>
+<li><b>Bile acids:</b> conjugated bile salts + taurine/glycine; ~95% of the bile acid pool is reabsorbed via the enterohepatic circulation.</li>
+<li><b>Electrolytes:</b> Na, K, Ca, Cl — same concentration as plasma/ECF. <b>Sodium is the most abundant electrolyte.</b></li>
+</ul>
+</div>
+<div class="card">
+<h4>Bile Color</h4>
+<ul>
+<li><b>Orange/Yellow</b> — pigment bilirubin</li>
+<li><b>Green</b> — oxidized form (biliverdin)</li>
+<li>Both are products of hemolysis.</li>
+</ul>
+</div>
+</div>
+
+<div class="callout pitfall"><b>⚠️ High-Output Biliary Fistula</b><br>
+Because sodium is bile's most abundant electrolyte, a high-output biliary fistula commonly causes <b>hyponatremia</b> and (to a lesser extent) hypokalemia.
+</div>
+
+<h3 class="subhead">Bile Formation &amp; Fistula Output</h3>
+<div class="card">
+<p><b>Normal adult:</b> produces 500–1000 mL of bile per day, secreted continuously into the bile canaliculi. Secretion responds to neurogenic, hormonal, and chemical stimuli.</p>
+<p><b>Biliary fistula</b> — abnormal connection from a hollow organ (e.g., bile duct) to the exterior, from trauma or surgical complication.</p>
+<ul>
+<li>Draining <b>&gt;1 L/day</b> → suggests <b>complete distal obstruction</b>.</li>
+<li>Draining <b>100–200 mL/day</b> → most bile is passing normally through the duodenum.</li>
+</ul>
+</div>
+
+<h3 class="subhead">Stimulants of Bile Secretion</h3>
+<div class="two-col">
+<div class="card"><h4>1. Proteins, Fatty Acids, HCl</h4><p>Entry of food (proteins/fats) from stomach → duodenum stimulates <b>S cells</b> to secrete <b>Secretin</b>, which stimulates bile secretion, gallbladder contraction, and pancreatic fluid secretion.</p></div>
+<div class="card"><h4>2. Cholecystokinin (CCK)</h4><p>Has a direct contractile effect on the gallbladder.</p></div>
+<div class="card"><h4>3. Parasympathetic (Vagus)</h4><p>Via hepatic branches → increases bile secretion. Sympathetic stimulation (via celiac plexus) is <b>inhibitory</b> for bile/pancreatic secretion and also carries sensory innervation of the biliary tree/pancreas — hence <b>celiac plexus block</b> for pancreatic pain control.</p></div>
+</div>
+
+<div class="callout must"><b>⭐ Must Know — The Cholesterol "Safe Zone"</b><br>
+Bile's three main components — lecithin/phospholipids, cholesterol, and bile salts — exist in equilibrium so cholesterol stays soluble. When cholesterol intake rises, the balance shifts out of the "safe zone," promoting sedimentation → cholesterol becomes insoluble → precipitates out → <b>gallstone formation</b>. <span class="badge book">Schwartz 10th ed.</span>: "When cholesterol concentrations exceed the ability of the bile salts and phospholipid to maintain solubility, the cholesterol precipitates out of solution into a solid, forming a cholesterol stone."
+</div>
+
+<figure class="diagram">
+<svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px;height:auto;display:block;margin:0 auto;">
+<polygon points="250,20 460,270 40,270" fill="none" stroke="#0e6e6e" stroke-width="2"/>
+<text x="250" y="14" text-anchor="middle" font-size="11" fill="#0a4f4f" font-family="Syne">Cholesterol</text>
+<text x="40" y="288" text-anchor="middle" font-size="11" fill="#0a4f4f" font-family="Syne">Bile Salts</text>
+<text x="460" y="288" text-anchor="middle" font-size="11" fill="#0a4f4f" font-family="Syne">Lecithin</text>
+<path d="M120 245 Q 250 210 380 245 Q 300 225 250 225 Q 200 225 120 245 Z" fill="#a3402f" opacity=".25" stroke="#a3402f"/>
+<text x="250" y="248" text-anchor="middle" font-size="9" fill="#a3402f">Safe (micellar) zone</text>
+<text x="250" y="150" text-anchor="middle" font-size="9" fill="#565f5a">Metastable/</text>
+<text x="250" y="162" text-anchor="middle" font-size="9" fill="#565f5a">supersaturated zone</text>
+</svg>
+<figcaption><b>Figure Ph1 (redrawn).</b> Triangular phase diagram of bile — cholesterol solubility depends on the relative proportions of bile salts, lecithin, and cholesterol. Composition falling within the red "safe zone" keeps cholesterol dissolved in micelles; drifting outside it promotes crystal/stone formation.</figcaption>
+</figure>
+
+<div class="callout pearl"><b>💡 Clinical Pearl</b><br>
+Bile Stones — Left (dark/black or brown) = <b>Pigment stones</b> (bile stasis, obstruction, or bacterial infection); Right (lighter, lobulated) = <b>Cholesterol stones</b>. Majority of "cholesterol stones" are actually mixed but ≥70% cholesterol by weight. Most cholesterol stones (&gt;90%) are radiolucent; calcium bilirubinate makes stones more radiopaque.
+</div>
+</section>
+`);
+</script>
+
+<!-- ================= TAB 3: CHOLELITHIASIS ================= -->
+<script>
+main.insertAdjacentHTML('beforeend', `
+<section class="panel" id="panel-stones">
+<h2 class="section-title">3. Stones — Cholelithiasis</h2>
+<p>Affects <b>10–15% of adults</b>. Gallstones are either <b>cholesterol stones</b> or <b>pigment stones</b> (black or brown).</p>
+
+<h3 class="subhead">Risk Factors <span class="badge imp">⭐</span></h3>
+<div class="card">
+<ul>
+<li><b>Obesity, Female, High Cholesterol</b> — higher cholesterol turnover/secretion into bile → precipitation.</li>
+<li><b>Genetic</b> — family history of gallstone disease.</li>
+<li><b>Ethnic background</b> — Southeast Asians, East Asians, Latin, Native/Indian-Americans have higher risk.</li>
+<li><b>Rapid weight loss</b> — bariatric surgery/rapid weight loss imbalances bile stimulants, promoting stone formation.</li>
+<li><b>Pregnancy/OCPs</b> — hormonal milieu alters cholesterol metabolism/creates relative cholestasis. Slight increase in risk with OCPs, but <b>no recommendation to stop OCPs/HRT</b> for this reason alone.</li>
+<li><b>Hemolytic disease</b> — increased bilirubin turnover → pigment stones.</li>
+<li><b>Somatostatin/Somatostatin analogs</b> — inhibits gallbladder contraction and bile/pancreatic secretion → cholestasis → stone formation (seen in long-term analog use or somatostatinoma).</li>
+<li><b>Gastric/duodenal/ileal surgery</b> — interrupts parasympathetic stimulation or CCK response, reducing gallbladder contractility; terminal ileum resection decreases enterohepatic bile salt reabsorption.</li>
+</ul>
+</div>
+
+<h3 class="subhead">Clinical Presentation</h3>
+<div class="flow">
+<div class="node">Asymptomatic</div>
+<div class="node">Symptomatic</div>
+<div class="arrow">→</div>
+<div class="node">Acute (hrs–days)</div>
+<div class="node">Chronic (mos–yrs, intermittent)</div>
+</div>
+
+<div class="callout must"><b>⭐ RUQ/Epigastric Pain — Biliary Colic</b><br>
+<ul>
+<li>Radiates to the back — epigastric pain → mid-back; RUQ pain → right scapular area/shoulder.</li>
+<li>Intermittent, colicky ("humihilab") — related to gallbladder spasm against an obstructing stone at the cystic duct/neck.</li>
+<li>± postprandial, especially after fatty meals; may cause nausea/vomiting, dyspepsia, bloating.</li>
+<li>Recurrent pain = <b>chronic cholecystitis</b> → surgery is warranted.</li>
+</ul>
+</div>
+
+<h3 class="subhead">Diagnosis</h3>
+<div class="card">
+<p><b>Abdominal ultrasound</b> = standard/confirmatory diagnostic test — wide availability, high accuracy for gallstones.</p>
+<p>When a stone lodges in the cystic duct/neck: patient develops either <b>acute cholecystitis</b> or <b>gallbladder hydrops</b> (marked distension, white "milk of calcium"/mucoid bile).</p>
+</div>
+
+<figure class="diagram">
+<svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:460px;height:auto;display:block;margin:0 auto;">
+<rect width="500" height="220" fill="#111" rx="8"/>
+<ellipse cx="230" cy="120" rx="150" ry="70" fill="#222"/>
+<circle cx="190" cy="105" r="16" fill="#f4f4f4"/>
+<circle cx="230" cy="112" r="12" fill="#f4f4f4"/>
+<path d="M190 121 q0 40 0 55" stroke="#000" stroke-width="3" fill="none"/>
+<path d="M230 124 q0 34 0 45" stroke="#000" stroke-width="3" fill="none"/>
+<text x="190" y="90" text-anchor="middle" font-size="9" fill="#fff">stone</text>
+<text x="20" y="30" font-family="Syne" font-size="12" fill="#fff">US: Gallstones</text>
+<text x="20" y="200" font-size="9" fill="#ccc">Hyperechoic foci (white) with posterior acoustic shadow (dark band below)</text>
+</svg>
+<figcaption><b>Figure S1 (redrawn from lecture Fig. 24/25).</b> Ultrasound of the gallbladder — arrows mark hyperechoic stones producing dense posterior acoustic shadows. A doubled/thickened wall (&gt;3mm) with hypoechoic pericholecystic fluid suggests acute cholecystitis.</figcaption>
+</figure>
+
+<h3 class="subhead">Complications <span class="badge imp">⭐ Must Know</span></h3>
+<table>
+<thead><tr><th>Complication</th><th>Key Feature</th></tr></thead>
+<tbody>
+<tr><td><b>Acute cholecystitis</b></td><td>Most common complication; cystic duct obstruction → distention, inflammation, edema; RUQ tenderness, ± Murphy's sign, ± fever (late sign), usually NO jaundice (unless Mirizzi syndrome)</td></tr>
+<tr><td><b>Empyema of GB</b></td><td>Untreated acute cholecystitis → purulent bile (pus) — more urgent surgery</td></tr>
+<tr><td><b>Gallbladder hydrops</b></td><td>Neck/cystic duct obstruction; mucosal glands keep secreting mucus → bile turns white; treated by cholecystectomy</td></tr>
+<tr><td><b>Perforation/Abscess</b></td><td>Gangrenous GB perforates → pericholecystic abscess or subhepatic/hepatic abscess</td></tr>
+<tr><td><b>Choledocholithiasis</b></td><td>Stone migrates down cystic duct into CBD (occurs in 6–12% of GB stone patients, up to 20% eventually)</td></tr>
+<tr><td><b>Gallstone pancreatitis</b></td><td>Stone (even microscopic) transiently/persistently obstructs the pancreatic duct at the ampulla</td></tr>
+<tr><td><b>Gallstone ileus</b></td><td>Chronic inflammation erodes a cholecystoduodenal fistula; large stone (2.5–3 cm) passes into bowel, impacts at the ileocecal junction (narrowest point) → acute intestinal obstruction. <b>Bouveret syndrome</b> = proximal impaction in pylorus/duodenum → gastric outlet obstruction.</td></tr>
+</tbody>
+</table>
+
+<div class="callout pitfall"><b>⚠️ Common Pitfall</b><br>
+Postoperative adhesions remain the <b>overall</b> most common cause of intestinal obstruction — gallstone ileus is uncommon but must be recognized because its surgery differs from adhesiolysis (requires enterotomy + stone extraction, ± cholecystectomy/fistula takedown).
+</div>
+
+<div class="callout pearl"><b>💡 Mirizzi Syndrome</b><br>
+A large stone impacted in the gallbladder neck/cystic duct causes external compression (not intrinsic obstruction) of the common hepatic duct due to surrounding edema/inflammation — functional narrowing without a duct stone. Explains why acute cholecystitis can rarely present with jaundice.
+</div>
+
+<h3 class="subhead">Management &amp; Treatment</h3>
+
+<div class="vs-wrap">
+<div><h4>Asymptomatic</h4>
+<p><b>Expectant management</b> — no treatment needed. Relative indications for <b>prophylactic cholecystectomy</b> exist (to prevent cholecystitis, pancreatitis, jaundice):</p>
+<ul>
+<li>Limited access to surgical care (e.g., remote areas)</li>
+<li>Seafarers in the Philippines not cleared to work with stones</li>
+<li><b>Porcelain gallbladder</b> — heavily calcified GB wall; classically an indication due to high gallbladder cancer risk, though newer studies debate this. All are <b>relative</b>, none absolute.</li>
+</ul>
+</div>
+<div><h4>Symptomatic</h4>
+<p>Standard treatment: <b>Cholecystectomy</b> (laparoscopic is standard — safer, faster recovery, less pain; open reserved when lap cannot be completed).</p>
+<ul>
+<li><b>Immediate</b> cholecystectomy — as soon as admitted</li>
+<li><b>Early</b> cholecystectomy — within 24–72 hrs; <b>preferred for acute cases</b></li>
+<li><b>Late</b> cholecystectomy — beyond 72 hrs, or interval elective after discharge</li>
+</ul>
+<p>Rule: do cholecystectomy before sending the patient home. Acute GB = edematous/harder to operate; delaying lets inflammation subside but many patients don't improve while waiting — most surgeons now prefer <b>early</b> cholecystectomy.</p>
+</div>
+</div>
+
+<div class="card">
+<h4>Percutaneous Cholecystostomy</h4>
+<p>For patients who are toxic/unstable/have comorbidities requiring correction before surgery. A drain (pigtail catheter) is placed through the abdominal wall, right liver lobe, into the gallbladder to drain infected/blocked bile and relieve inflammation. <b>Gallbladder is drained, not removed</b>; elective cholecystectomy follows once the patient is fit.</p>
+</div>
+
+<div class="callout pitfall"><b>⚠️ Absolute Contraindications to Laparoscopic Cholecystectomy</b> <span class="badge book">Schwartz 10th</span><br>
+Hemodynamic instability · Uncontrolled coagulopathy · Frank peritonitis · COPD · CHF — these require open cholecystectomy instead.
+</div>
+
+<h3 class="subhead">Laparoscopic Cholecystectomy — Key Steps</h3>
+<div class="flow">
+<div class="node">1. Trocar placement</div><div class="arrow">→</div>
+<div class="node">2. Retract fundus/infundibulum</div><div class="arrow">→</div>
+<div class="node">3. Open peritoneum, enter Triangle of Calot</div><div class="arrow">→</div>
+<div class="node">4. Achieve Critical View of Safety</div><div class="arrow">→</div>
+<div class="node">5. Clip &amp; divide cystic duct/artery</div><div class="arrow">→</div>
+<div class="node">6. Dissect GB off liver bed</div>
+</div>
+
+<div class="callout must"><b>⭐ Critical View of Safety</b><br>
+Requires the hepatocystic triangle be cleared of fat/fibrous tissue, and the lower third of the gallbladder separated from the liver, to clearly expose the <b>cystic plate, cystic artery, and cystic duct</b>. This tells the surgeon the CBD is NOT involved, allowing safe division of the cystic duct — the single most important safety maneuver to prevent bile duct injury.
+</div>
+
+<h3 class="subhead">Complications of Cholecystectomy</h3>
+<div class="card">
+<h4>Bile Duct Injury (&lt;0.5%) — the most dreaded complication</h4>
+<p><b>Manifestations:</b> abdominal pain, <b>jaundice</b> ⭐, sepsis — may appear days to weeks post-op. Comes as complete transection, bile leak, stricture, or combination with infection.</p>
+<p>Work-up: request <b>ERCP or MRI</b> if bile leak suspected — MRI helps assess injury extent prior to surgical repair.</p>
+<p><b>Treatment:</b> reconnect bile to bowel — <b>Biliary-enteric anastomosis</b>:</p>
+<ul>
+<li><b>Roux-en-Y Choledochojejunostomy</b> — for common bile duct level</li>
+<li><b>Hepaticojejunostomy</b> — for injury at/above the cystic duct level (hepatic duct)</li>
+</ul>
+</div>
+
+<div class="card">
+<h4>Perioperative Care</h4>
+<ul>
+<li>CBC and LFTs should be obtained preoperatively <span class="badge book">Schwartz 10th</span>.</li>
+<li>DVT prophylaxis — low molecular weight heparin + compression stockings.</li>
+</ul>
+</div>
+
+<div class="callout tip"><b>🧠 Exam Tip</b><br>
+"Fever, chills, abdominal pain, jaundice + dilated intrahepatic AND extrahepatic biliary tree" on ultrasound → points to obstructive cholangitis → <b>ERCP with sphincterotomy</b> is the answer (not straight to laparoscopic cholecystectomy).
+</div>
+
+<h3 class="subhead">Summary Definitions</h3>
+<table>
+<thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td>Cholelithiasis</td><td>Stones anywhere in the biliary tree</td></tr>
+<tr><td>Cholecystolithiasis</td><td>Stones in the gallbladder</td></tr>
+<tr><td>Biliary Colic</td><td>RUQ pain, intermittent, ± radiation to the back</td></tr>
+<tr><td>Chronic Cholecystitis</td><td>Intermittent biliary colic over time</td></tr>
+<tr><td>Acute Cholecystitis</td><td>Shorter, more severe, rapid worsening — often 24–48 hrs</td></tr>
+</tbody>
+</table>
+</section>
+`);
+</script>
+
+<!-- ================= TAB 4: CHOLEDOCHAL CYST ================= -->
+<script>
+main.insertAdjacentHTML('beforeend', `
+<section class="panel" id="panel-cyst">
+<h2 class="section-title">4. Congenital Anomaly — Choledochal Cyst</h2>
+
+<div class="card">
+<h4>Definition &amp; Etiology</h4>
+<p>Congenital cystic dilatations of the extrahepatic and/or intrahepatic biliary tree. Affects <b>females 3–8× more</b> than males; typically found in infancy or childhood. Idiopathic, but weakness of the bile duct wall plus increased pressure from partial biliary obstruction is believed to contribute.</p>
+<p><b>Key mechanism:</b> anomalous pancreaticobiliary duct junction — the pancreatic duct joins the CBD <i>outside</i> the duodenal wall, creating a long common channel (&gt;1.5 cm). This allows free reflux of pancreatic secretions into the biliary tract → inflammation, increased biliary pressure, cyst formation.</p>
+</div>
+
+<h3 class="subhead">Manifestations</h3>
+<div class="callout must"><b>⭐ Classic Triad</b><br>
+Abdominal pain + Jaundice (may be intermittent) + Palpable mass (appreciable in pediatric patients due to a thin abdominal wall). Cholangitis may also occur.
+</div>
+
+<h3 class="subhead">Diagnosis</h3>
+<div class="card">
+<ul>
+<li><b>Ultrasonography or CT scanning</b> — confirms the diagnosis.</li>
+<li><b>ERCP or MRCP</b> — formally assesses biliary anatomy and plans surgical treatment.</li>
+</ul>
+</div>
+
+<h3 class="subhead">The Five Types</h3>
+<table>
+<thead><tr><th>Type</th><th>Description</th><th>Management</th></tr></thead>
+<tbody>
+<tr><td><b>Type I</b></td><td>Fusiform dilatation of the CBD — <b>most common (80–90%)</b>; <b>highest malignancy risk (&gt;60%)</b></td><td>Excision of extrahepatic cystic dilation + cholecystectomy, with simple cyst excision or duct resection + Roux-en-Y hepaticojejunostomy</td></tr>
+<tr><td><b>Type II</b></td><td>Saccular diverticula of the CBD — rare (&lt;5%); isolated diverticulum, may connect via a narrow stalk</td><td>Same as Type I (excision)</td></tr>
+<tr><td><b>Type III</b></td><td>Choledochocele — dilation within the duodenal wall; <b>lowest malignancy risk (~2%)</b></td><td>Sphincterotomy + surveillance preferred over formal excision (intraduodenal cysts would otherwise require pancreaticoduodenectomy)</td></tr>
+<tr><td><b>Type IV</b></td><td>Multiple cysts (5–10% of cases). <b>IVa</b> = extrahepatic + intrahepatic; <b>IVb</b> = extrahepatic only</td><td>Excision of all cystic tissue + reconstruction; IVa may need additional segmental liver resection if intrahepatic stones/strictures/abscesses present</td></tr>
+<tr><td><b>Type V</b> (Caroli Disease)</td><td>Intrahepatic biliary cysts only — very rare (1%); can affect the entire liver, advanced stages → cirrhosis/liver failure</td><td>Liver transplantation (esp. with liver failure)</td></tr>
+</tbody>
+</table>
+
+<figure class="diagram">
+<svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+<rect width="640" height="200" fill="#faf6ee"/>
+<g font-family="DM Sans" font-size="10" fill="#0a4f4f">
+<!-- Type I -->
+<path d="M40 60 q30 -30 60 0 q10 20 -5 35 l-50 0 q-15 -15 -5 -35" fill="#c98a1f" opacity=".5"/>
+<text x="65" y="115" text-anchor="middle">Type I: fusiform</text>
+<!-- Type II -->
+<circle cx="200" cy="60" r="16" fill="#c98a1f" opacity=".5"/>
+<line x1="200" y1="76" x2="200" y2="95" stroke="#0e6e6e" stroke-width="3"/>
+<text x="200" y="115" text-anchor="middle">Type II: saccular</text>
+<!-- Type III -->
+<circle cx="330" cy="80" r="10" fill="#c98a1f" opacity=".5"/>
+<rect x="310" y="70" width="40" height="30" fill="none" stroke="#a3402f" stroke-dasharray="3,2"/>
+<text x="330" y="115" text-anchor="middle">Type III: choledochocele</text>
+<!-- Type IV -->
+<circle cx="450" cy="55" r="9" fill="#c98a1f" opacity=".5"/>
+<circle cx="470" cy="75" r="9" fill="#c98a1f" opacity=".5"/>
+<circle cx="450" cy="90" r="9" fill="#c98a1f" opacity=".5"/>
+<text x="460" y="115" text-anchor="middle">Type IV: multiple</text>
+<!-- Type V -->
+<circle cx="570" cy="55" r="8" fill="#0e6e6e" opacity=".6"/>
+<circle cx="590" cy="65" r="8" fill="#0e6e6e" opacity=".6"/>
+<circle cx="580" cy="85" r="8" fill="#0e6e6e" opacity=".6"/>
+<circle cx="600" cy="90" r="8" fill="#0e6e6e" opacity=".6"/>
+<text x="585" y="115" text-anchor="middle">Type V: Caroli</text>
+</g>
+</svg>
+<figcaption><b>Figure C1 (redrawn from lecture Fig. 35, Schwartz 11th ed.).</b> Schematic comparison of the five choledochal cyst types by location/pattern of dilation.</figcaption>
+</figure>
+
+<h3 class="subhead">Management Summary &amp; Complications</h3>
+<div class="callout must"><b>⭐ Must Know</b><br>
+The risk of <b>cholangiocarcinoma</b> in choledochal cyst patients is <b>20–30× the general population</b> and varies by age/cyst type — excision is recommended whenever possible for high-risk cysts.<br><br>
+<b>Complications:</b> Cholangitis · Malignancy (intracystic, extracystic, gallbladder) · Rupture.
+</div>
+
+<div class="callout tip"><b>🧠 Exam Tip — "If you see X → think Y"</b><br>
+Child or young adult + abdominal pain + jaundice + palpable RUQ mass → <b>think choledochal cyst</b>, and confirm with ultrasound/CT, then MRCP/ERCP for surgical planning.
+</div>
+</section>
+`);
+</script>
+
+<!-- ================= TAB 5: BENIGN / INFLAMMATORY / CHOLANGITIS ================= -->
+<script>
+main.insertAdjacentHTML('beforeend', `
+<section class="panel" id="panel-benign">
+<h2 class="section-title">5. Benign Lesions, Inflammatory Conditions &amp; Cholangitis</h2>
+
+<h3 class="subhead">A. Acalculous Cholecystitis</h3>
+<div class="card">
+<p><b>Definition:</b> acute gallbladder inflammation in the <i>absence</i> of gallstones. Occurs in critically ill patients (ICU, severe burns, severe trauma).</p>
+<p><b>Pathology:</b> gallbladder distention, bile stasis, ischemia (low-flow state), prolonged NPO, parenteral nutrition.</p>
+</div>
+<div class="two-col">
+<div class="card"><h4>Clinical Presentation</h4>
+<p><b>Conscious patient</b> — similar to calculous cholecystitis (RUQ pain/tenderness, fever, leukocytosis).</p>
+<p><b>Unconscious patient</b> — difficult to diagnose; clinical features are masked. Fever, elevated WBC, elevated ALP/bilirubin considered if sepsis suspected and other causes ruled out. CT shows an inflamed gallbladder.</p>
+</div>
+<div class="card"><h4>Treatment</h4>
+<p>Urgent cholecystectomy if possible. If stable → laparoscopic cholecystectomy with broad-spectrum antibiotics/fluid resuscitation. If critically ill/unfit for surgery → <b>percutaneous cholecystostomy</b> is the best treatment.</p>
+</div>
+</div>
+<div class="callout pearl"><b>💡 Philippine Context Pearl</b><br>
+In the Philippines, acalculous cholecystitis is frequently a complication of tropical diseases (<b>dengue or typhoid fever</b>) — same presentation, but ultrasound shows an inflamed GB without stones, and these often <b>resolve spontaneously</b> with conservative management (unlike critically ill ICU patients). Acalculous cholecystitis basically never occurs in otherwise healthy people without a risk factor.
+</div>
+
+<h3 class="subhead">B. Gallbladder Polyp</h3>
+<div class="card">
+<p>Commonly seen incidentally, with or without gallstones. May be single or multiple. <b>Majority are benign.</b></p>
+<table>
+<thead><tr><th>Type</th><th>Risk</th></tr></thead>
+<tbody>
+<tr><td>Multiple polyps (usually cholesterol polyps)</td><td>More likely benign</td></tr>
+<tr><td>Adenomatous polyps (fleshy, solitary)</td><td>Risk for gallbladder cancer</td></tr>
+</tbody>
+</table>
+<p><b>Presentation:</b> mostly asymptomatic; if RUQ pain occurs (rare), other causes must be ruled out before blaming the polyp.</p>
+<p><b>Indications for surgery:</b> <b>≥1 cm</b> in size (polyps &lt;1 cm rarely become cancer), or symptomatic.</p>
+</div>
+
+<h3 class="subhead">C. Choledocholithiasis</h3>
+<div class="card">
+<h4>Primary vs. Secondary Stones</h4>
+<table>
+<thead><tr><th></th><th>Primary</th><th>Secondary</th></tr></thead>
+<tbody>
+<tr><td>Origin</td><td>Formed <i>within</i> the bile duct</td><td>Formed <i>outside</i> the duct (usually GB), migrate via cystic duct</td></tr>
+<tr><td>Composition</td><td>Brown pigment type</td><td>Cholesterol stones (more common overall)</td></tr>
+<tr><td>Association</td><td>Biliary stasis + infection; more common in Asian populations</td><td>Cholelithiasis (up to 20% of GB stone patients eventually develop CBD stones)</td></tr>
+<tr><td>Surgical implication</td><td>May/may not have GB stones; multiple stones up to the liver; highly recurrent — cholecystectomy alone may not suffice, sometimes needs biliary bypass</td><td>After clearance, remove the source (cholecystectomy)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout must"><b>⭐ Clinical Presentation</b><br>
+Epigastric/RUQ pain, nausea/vomiting, jaundice, <b>acholic stool</b> (absent stercobilinogen → pale stool), <b>tea-colored urine</b> (conjugated bilirubin spills into urine), mild icterus. Pain may be intermittent (ball-valve effect of a partially impacted stone); complete impaction → severe progressive jaundice.
+</div>
+
+<h3 class="subhead">Diagnostics — LFTs &amp; Jaundice Interpretation</h3>
+<div class="card">
+<h4>Sample LFT Pattern (Obstructive Jaundice)</h4>
+<table>
+<thead><tr><th>Test</th><th>Result</th><th>Reference</th></tr></thead>
+<tbody>
+<tr><td>Total Bilirubin</td><td>2.09 mg/dL ↑</td><td>0.20–1.00</td></tr>
+<tr><td>Conjugated Bilirubin</td><td>0.78 mg/dL ↑</td><td>0–0.20</td></tr>
+<tr><td>Unconjugated Bilirubin</td><td>1.31 mg/dL ↑</td><td>0–0.80</td></tr>
+<tr><td>Alkaline Phosphatase</td><td>115 U/L (normal)</td><td>50–136</td></tr>
+</tbody>
+</table>
+<p>Obstructive jaundice usually shows ↑ total bilirubin with conjugated &gt; unconjugated, and ↑ ALP. Unconjugated may rise too if total bilirubin is very high, but the <i>ratio</i> still favors conjugated. Liver profile values must be interpreted <b>as a pattern</b>, not individually.</p>
+</div>
+
+<div class="two-col">
+<div class="card"><h4>Where's the Problem? — Bilirubin Pattern</h4>
+<ul>
+<li><b>Unconjugated ↑ only</b> → prehepatic (hemolysis) or hepatic conjugation defect</li>
+<li><b>Both conjugated + unconjugated ↑</b> → hepatocellular (e.g., hepatitis)</li>
+<li><b>Conjugated ↑ predominant</b> → posthepatic/obstructive = <b>surgical jaundice</b></li>
+</ul>
+<p>Prehepatic + hepatic jaundice = <b>medical jaundice</b> (not corrected by surgery).</p>
+</div>
+<div class="card"><h4>Other Liver/Biliary Tests</h4>
+<ul>
+<li><b>ALT/AST</b> — elevated with hepatocyte inflammation/injury (hepatitis); may rise mildly with severe biliary obstruction too.</li>
+<li><b>GGT</b> — marker of cholestasis; elevated with ALP/conjugated bilirubin strongly suggests biliary pathology.</li>
+<li><b>Albumin</b> — synthesized by the liver; maintains oncotic pressure and transports drugs; decreases in chronic liver disease (e.g., cirrhosis).</li>
+<li><b>PT/INR</b> — biliary obstruction impairs fat-soluble vitamin absorption (esp. Vitamin K–dependent factors II, VII, IX, X) → coagulopathy, ↑ PT/INR.</li>
+</ul>
+</div>
+</div>
+
+<h3 class="subhead">Pathophysiology of Jaundice — Bilirubin Metabolism</h3>
+<div class="flow">
+<div class="node">Senescent RBC (120d lifespan)</div><div class="arrow">→</div>
+<div class="node">Heme + Biliverdin (spleen)</div><div class="arrow">→</div>
+<div class="node">Unconjugated bilirubin</div><div class="arrow">→</div>
+<div class="node">Hepatocyte uptake + conjugation (glucuronyl transferase)</div><div class="arrow">→</div>
+<div class="node">Bile canaliculi → ducts → intestine</div><div class="arrow">→</div>
+<div class="node">Enterohepatic circulation (terminal ileum)</div>
+</div>
+
+<table>
+<thead><tr><th>Category</th><th>Examples</th></tr></thead>
+<tbody>
+<tr><td><b>Prehepatic</b> (unconjugated hyperbilirubinemia)</td><td>Spherocytosis, sickle cell, G6PD deficiency, microangiopathic hemolytic anemia, PNH, folate/B12 deficiency, thalassemia</td></tr>
+<tr><td><b>Hepatocellular</b> (mixed hyperbilirubinemia)</td><td>Hepatitis, Wilson's disease, hemochromatosis, ischemia, Budd-Chiari, cirrhosis, Rotor's, Dubin-Johnson, Gilbert's, Crigler-Najjar</td></tr>
+<tr><td><b>Posthepatic</b> (conjugated hyperbilirubinemia = surgical jaundice)</td><td>Stones, tumors, strictures</td></tr>
+</tbody>
+</table>
+
+<h3 class="subhead">Imaging for Choledocholithiasis</h3>
+<table>
+<thead><tr><th>Modality</th><th>Key Notes</th></tr></thead>
+<tbody>
+<tr><td>Ultrasound</td><td>Dilated CBD (&gt;8mm) + gallstones + jaundice/biliary pain highly suggests CBD stones; may miss distal stones (obscured by duodenum/colon gas)</td></tr>
+<tr><td>MRCP</td><td>Preferred — sensitivity 95%, specificity 89%; excellent anatomic detail</td></tr>
+<tr><td>CT Scan</td><td>Used when other abdominal pain causes are suspected; can show CBD obstruction with stone</td></tr>
+<tr><td>ERCP</td><td>Done if confirmed/high suspicion of CBD stone; ampulla cannulation + cholangiography successful &gt;90% of cases; invasive, rarely purely diagnostic</td></tr>
+</tbody>
+</table>
+
+<h3 class="subhead">Complications &amp; Treatment</h3>
+<div class="two-col">
+<div class="card"><h4>Complications</h4>
+<ul><li>Cholangitis (gallstones = most common cause of biliary obstruction leading to cholangitis)</li><li>Pancreatitis</li><li>Biliary stricture (recurrent stones/infection/inflammation)</li></ul>
+</div>
+<div class="card"><h4>Treatment</h4>
+<ul>
+<li><b>ERCP with stone extraction</b> ± adjunct cholecystectomy</li>
+<li><b>CBD exploration (surgical)</b> if endoscopic extraction fails</li>
+<li><b>Bilioenteric bypass</b> for primary stone formers / extensive strictures</li>
+<li>Choledochotomy: primary repair in large ducts, T-tube repair in small ducts</li>
+</ul>
+</div>
+</div>
+
+<h3 class="subhead">D. Hepatolithiasis</h3>
+<div class="card">
+<p><b>Definition:</b> stones within the liver (intrahepatic ducts). <b>Endemic in East and Southeast Asia.</b></p>
+<p><b>Etiology:</b> bile stasis, strictures, bacterial infection, parasitic infection (<i>Clonorchis</i> fluke, <i>Ascaris</i> — common in the Philippines, associated with poor hygiene/lower socioeconomic status), genetic factors.</p>
+<p><b>Presentation:</b> RUQ/epigastric pain, jaundice, fever (if cholangitis), usually with multiple stones and strictures.</p>
+</div>
+
+<div class="card">
+<h4>Diagnostics</h4>
+<ul>
+<li>↑ direct bilirubin, ALP, GGT</li>
+<li>Ultrasound — dilated intrahepatic ducts, hyperechoic stones</li>
+<li>CT/MRCP — locate strictures/stones (MRI shows hypointensities from stones + dilated ducts)</li>
+<li>Cholangiogram (PTC/ERC) — multiple filling defects; more invasive but potentially therapeutic</li>
+</ul>
+</div>
+
+<div class="card">
+<h4>Treatment</h4>
+<ul>
+<li>Drainage + stone extraction — percutaneous (PTBD), endoscopic, or surgical</li>
+<li><b>Choledochojejunostomy</b> — for strictures/recurring stones (connects proximal duct to small intestine)</li>
+<li><b>Hepaticojejunostomy</b> — for hilar strictures; extrahepatic biliary tree resected, Roux-en-Y jejunal limb reconstruction (avoids bile reflux into stomach)</li>
+<li><b>Liver resection/hepatectomy</b> — when stones too far up the liver and unresectable by other means; done if disease is unilobar or less</li>
+</ul>
+<p><b>Prognosis:</b> multiple recurrences expected; lower recurrence risk after hepatic resection in unilateral disease.</p>
+</div>
+
+<div class="callout must"><b>⭐ Complications of Hepatolithiasis</b><br>
+Recurrent pyogenic cholangitis ("<b>Oriental Cholangiohepatitis</b>" — very common in East Asia, unlike the Western population where cholesterol stones predominate; usually related to bacterial infection/cholestasis, brown pigment stones) · Abscess · Biliary strictures · Liver atrophy · Biliary cirrhosis · <b>Cholangiocarcinoma</b>.
+</div>
+
+<h3 class="subhead">E. Cholangitis</h3>
+<div class="card">
+<p>An important complication of <i>any</i> biliary obstruction — obstruction + significant bacterial contamination from the bowel = infection of the biliary tree. Gallstones are the most common cause; also from PSC, strictures, parasites, instrumentation, stents, partially obstructed biliary-enteric anastomosis.</p>
+<p><b>Common organisms:</b> <i>E. coli, Klebsiella, S. faecalis, Enterobacter</i> sp., <i>Bacteroides fragilis</i>.</p>
+</div>
+
+<div class="callout must"><b>⭐ Charcot's Triad vs. Reynold's Pentad</b><br>
+<table style="margin-top:8px">
+<thead><tr><th>Charcot's Triad</th><th>Reynold's Pentad (Severe cholangitis)</th></tr></thead>
+<tbody>
+<tr><td>RUQ/epigastric pain</td><td rowspan="3">Charcot's Triad<br>+ Shock<br>+ Altered mental status</td></tr>
+<tr><td>Jaundice</td></tr>
+<tr><td>Fever</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h4>Treatment — Considered Very Urgent</h4>
+<p>Patients can deteriorate within 24 hours.</p>
+<ol>
+<li><b>Broad-spectrum / Gram-negative coverage antibiotics</b> — started immediately</li>
+<li><b>Biliary drainage</b> — stenting via ERCP, PTBD, or surgery</li>
+<li><b>Resuscitation</b> — necessary if shock is present</li>
+</ol>
+</div>
+
+<h3 class="subhead">F. Primary Sclerosing Cholangitis (PSC)</h3>
+<div class="card">
+<p><b>Definition:</b> inflammatory (multisegmental) strictures of the intra- and extrahepatic ducts.</p>
+<p><b>Epidemiology:</b> autoimmune; mean age 30–45 years; M &gt; F (2:1); <b>⅔ associated with ulcerative colitis</b>.</p>
+<p><b>Treatment:</b> corticosteroids, immunosuppressants, ursodeoxycholic acid; stenting; bilioenteric bypass for hilar stricture; liver transplantation (10–20% recurrence).</p>
+</div>
+
+<div class="callout tip"><b>🧠 Exam Tip — "If you see X → think Y"</b><br>
+Young/middle-aged man + ulcerative colitis + progressive cholestatic jaundice with multisegmental strictures on MRCP → think <b>PSC</b>. Remember PSC is itself a major risk factor for <b>cholangiocarcinoma</b>.
+</div>
+</section>
+`);
+</script>
+
+<!-- ================= TAB 6: NEOPLASMS ================= -->
+<script>
+main.insertAdjacentHTML('beforeend', `
+<section class="panel" id="panel-neoplasm">
+<h2 class="section-title">6. Neoplasms</h2>
+<div class="callout pearl"><b>💡 Shared Risk Concepts</b><br>
+Gallbladder malignancy is rare, aggressive, and usually diagnosed late in elderly patients. Gallbladder polyps &gt;1 cm (especially in the elderly) and porcelain gallbladder (&gt;20% incidence of GB cancer) both raise cancer risk — removal is warranted even if asymptomatic.
+</div>
+
+<h3 class="subhead">A. Gallbladder Carcinoma</h3>
+<div class="two-col">
+<div class="card"><h4>Epidemiology</h4>
+<ul>
+<li>6th most common GI malignancy in Western countries (2–6% of all GI cancers)</li>
+<li>Female &gt; Male, peaks 6th decade of life</li>
+<li>Pathogenesis: chronic inflammation, infection, genetics, environmental exposures (heavy metals, tobacco)</li>
+<li>Higher incidence: Chile, Native Americans, Mexicans, Asians</li>
+</ul>
+</div>
+<div class="card"><h4>Risk Factors</h4>
+<ul>
+<li><b>Cholelithiasis — most important risk factor</b></li>
+<li>Polyps &gt;1 cm; stones &gt;3 cm (10-fold ↑ risk)</li>
+<li>Porcelain gallbladder, choledochal cyst, PSC</li>
+<li>Smoking, heavy metals, chemicals, genetics</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h4>Clinical Presentation</h4>
+<p>Generally indistinguishable from cholecystitis/cholelithiasis: abdominal discomfort, RUQ pain, nausea, vomiting. Less common: jaundice, weight loss, anorexia, ascites, abdominal masses. Labs often reflect biliary obstruction. <b>Mostly diagnosed late or as an incidental finding.</b></p>
+</div>
+
+<div class="two-col">
+<div class="card"><h4>Pathology</h4><p>Adenocarcinoma (~90%); others = squamous, adenosquamous. Spreads via lymphatics, direct liver invasion, hematogenously.</p></div>
+<div class="card"><h4>Diagnostics</h4><ul>
+<li>Ultrasonography — thickened irregular GB wall (&gt;3mm), hypervascularity, or a mass replacing the GB</li>
+<li>CT — identifies mass, nodal spread, local invasion</li>
+<li>MRCP — biliary/vascular/nodal/hepatic assessment</li>
+<li>EUS — staging, local invasion, FNA tissue diagnosis</li>
+<li>PTC/ERC — delineates biliary tree involvement if jaundiced</li>
+</ul></div>
+</div>
+
+<h3 class="subhead">Staging &amp; Treatment</h3>
+<table>
+<thead><tr><th>Stage</th><th>Description</th><th>Treatment</th><th>5-yr Survival</th></tr></thead>
+<tbody>
+<tr><td><b>T1</b></td><td>Limited to lamina propria/muscular layer</td><td>Laparoscopic cholecystectomy</td><td>~100%</td></tr>
+<tr><td><b>T2</b></td><td>Invades perimuscular connective tissue, no serosal/liver penetration</td><td>Extended cholecystectomy: segment IVB/V liver resection + lymphadenectomy (50% have nodal disease)</td><td>&gt;70%</td></tr>
+<tr><td><b>T3</b></td><td>Beyond serosa or invades liver/adjacent organs</td><td>Complete excision + extended right hepatectomy ± caudate lobectomy + lymphadenectomy (if no peritoneal/nodal involvement)</td><td>20–50%</td></tr>
+<tr><td><b>T4</b></td><td>Invades major vessels or ≥2 extrahepatic structures</td><td>Unresectable</td><td>Poor</td></tr>
+</tbody>
+</table>
+
+<div class="callout must"><b>⭐ Must Know</b><br>
+Surgical resection is the <b>only curative option</b> (if no distant metastasis). When unresectable, treatment shifts to palliation of jaundice, pruritus, cholangitis, bowel obstruction, and pain — goal is quality of life in the remaining 3–6 months.
+</div>
+
+<h3 class="subhead">B. Cholangiocarcinoma</h3>
+<div class="card">
+<h4>Three Anatomic Sites</h4>
+<table>
+<thead><tr><th>Site</th><th>% of cases</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td><b>Hilar (Klatskin tumor)</b></td><td>50%</td><td>⅔ located at the hepatic duct bifurcation — <b>most common site overall</b></td></tr>
+<tr><td>Intrahepatic</td><td>10%</td><td>Presents as a liver mass, similar to HCC</td></tr>
+<tr><td>Distal bile duct</td><td>40%</td><td>Near the ampulla</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="two-col">
+<div class="card"><h4>Epidemiology &amp; Risk Factors</h4>
+<p>1 in 100,000 (USA); M &gt; F; peak age 50–70.</p>
+<p>Risk factors: choledochal cysts, PSC/ulcerative colitis, hepatolithiasis, bilioenteric bypass, Hepatitis B/C, cirrhosis, <i>Clonorchis</i>, chronic typhoid infection, dietary nitrosamines, Thorotrast.</p>
+</div>
+<div class="card"><h4>Clinical Presentation</h4>
+<ul>
+<li><b>⭐ Painless jaundice — most common initial presentation</b></li>
+<li>Mild RUQ pain</li>
+<li>Anorexia, fatigue, weight loss, pruritus</li>
+<li>Cholangitis (~10% present this way)</li>
+</ul>
+<p>Physical exam is otherwise usually normal except for jaundice.</p>
+</div>
+</div>
+
+<div class="card">
+<h4>Diagnostics</h4>
+<ul>
+<li><b>Ultrasound + CT</b> — initial workup; determines obstruction level, rules out stones as the cause</li>
+<li><b>CA 19-9</b> — most commonly used tumor marker (false positives with cholangitis, biliary obstruction, other GI/gyn neoplasms, Lewis antigen–negative patients); CA-125 and CEA also elevated but nonspecific</li>
+<li>FNA (percutaneous/endoscopic) + biliary brushings — low sensitivity</li>
+<li>Choledochoscopy with direct visualization/sampling — improves diagnosis but only in specialized centers</li>
+</ul>
+<p>Patients with potentially resectable disease should be offered surgical exploration based on radiographic findings and clinical suspicion.</p>
+</div>
+
+<h3 class="subhead">Treatment by Location</h3>
+<table>
+<thead><tr><th>Location</th><th>Procedure</th></tr></thead>
+<tbody>
+<tr><td>Intrahepatic</td><td>Hepatectomy</td></tr>
+<tr><td>Hilar (perihilar)</td><td>Extended hepatectomy (major liver resection required — Whipple alone is not enough)</td></tr>
+<tr><td>Distal</td><td>Pancreaticoduodenectomy (Whipple procedure)</td></tr>
+<tr><td>Type IV Klatskin (bilateral duct/intrahepatic spread)</td><td>Unresectable or liver transplantation</td></tr>
+</tbody>
+</table>
+
+<div class="two-col">
+<div class="card"><h4>If Unresectable</h4>
+<ul>
+<li>Distal unresectable: Roux-en-Y hepaticojejunostomy + cholecystectomy + gastrojejunostomy to prevent gastric outlet obstruction</li>
+<li>Nonoperative biliary decompression (stents via PTC-PTBD)</li>
+<li>Adjuvant chemo/radiation — no proven survival benefit</li>
+<li>Palliative chemo (Gemcitabine + Cisplatin) — low response rate, marginal benefit</li>
+<li><b>Photodynamic therapy</b> — palliative, may prolong survival and improve QOL with biliary stents</li>
+</ul>
+</div>
+<div class="card"><h4>Prognosis</h4>
+<ul>
+<li>Unresectable: median survival 5–8 months; most common cause of death = hepatic failure/cholangitis</li>
+<li>Resectable perihilar: 10–30% 5-year survival (40% if negative margins)</li>
+<li>Distal CBD: 30–50% 5-year survival</li>
+<li>Operative mortality for perihilar disease: 6–8%</li>
+</ul>
+</div>
+</div>
+
+<div class="callout tip"><b>🧠 Exam Tip</b><br>
+Elderly patient + <b>painless</b> jaundice → until proven otherwise, think <b>malignancy</b> (cholangiocarcinoma, pancreatic head CA, ampullary CA, or duodenal tumor obstructing the ampulla — collectively "periampullary tumors"). Small tumors can be localized by CT/MRI; large ones are often grouped together since the exact origin is hard to pinpoint.
+</div>
+</section>
+`);
+</script>
+
+<!-- ================= TAB 7: COMPARISONS ================= -->
+<script>
+main.insertAdjacentHTML('beforeend', `
+<section class="panel" id="panel-compare">
+<h2 class="section-title">Comparisons — Commonly Confused Pairs</h2>
+
+<h3 class="subhead">Acute vs. Chronic Cholecystitis</h3>
+<table>
+<thead><tr><th></th><th>Acute Cholecystitis</th><th>Chronic Cholecystitis</th></tr></thead>
+<tbody>
+<tr><td>Duration</td><td>Hours to days (often 24–48h)</td><td>Months to years, intermittent</td></tr>
+<tr><td>Pain pattern</td><td>Continuous, severe, unrelenting</td><td>Recurrent biliary colic episodes</td></tr>
+<tr><td>Fever</td><td>Present (late sign if severe)</td><td>Usually absent</td></tr>
+<tr><td>Jaundice</td><td>Usually absent (unless Mirizzi)</td><td>Usually absent</td></tr>
+<tr><td>Imaging</td><td>Thickened wall &gt;3mm, pericholecystic fluid, stone impacted at neck</td><td>Stones present, wall often normal or mildly thickened</td></tr>
+<tr><td>Management</td><td>Early cholecystectomy (24–72h) or percutaneous cholecystostomy if unstable</td><td>Elective cholecystectomy</td></tr>
+</tbody>
+</table>
+
+<h3 class="subhead">Calculous vs. Acalculous Cholecystitis</h3>
+<div class="vs-wrap">
+<div><h4>Calculous Cholecystitis</h4><p>Caused by gallstone obstruction of cystic duct. Most common form. Occurs in otherwise healthy people with risk factors for stones.</p></div>
+<div><h4>Acalculous Cholecystitis</h4><p>No stones. Occurs in critically ill patients (ICU, burns, trauma) or as a complication of tropical disease (dengue, typhoid) in the Philippines. Pathophysiology: stasis + ischemia + prolonged NPO, not mechanical stone obstruction.</p></div>
+</div>
+
+<h3 class="subhead">Cholelithiasis vs. Choledocholithiasis vs. Hepatolithiasis</h3>
+<table>
+<thead><tr><th></th><th>Cholelithiasis</th><th>Choledocholithiasis</th><th>Hepatolithiasis</th></tr></thead>
+<tbody>
+<tr><td>Location of stones</td><td>Gallbladder / anywhere in biliary tree (umbrella term)</td><td>Common bile duct</td><td>Intrahepatic ducts</td></tr>
+<tr><td>Typical stone type</td><td>Cholesterol (mostly mixed)</td><td>Secondary = cholesterol (from GB); Primary = brown pigment</td><td>Brown pigment</td></tr>
+<tr><td>Geography</td><td>Worldwide, higher in obese/Western populations</td><td>Wherever cholelithiasis occurs</td><td>Endemic to East/Southeast Asia</td></tr>
+<tr><td>Best imaging</td><td>Ultrasound</td><td>MRCP</td><td>MRI/Cholangiogram</td></tr>
+<tr><td>Definitive Rx</td><td>Cholecystectomy</td><td>ERCP with stone extraction ± cholecystectomy</td><td>Drainage/stone extraction ± hepatectomy</td></tr>
+</tbody>
+</table>
+
+<h3 class="subhead">Charcot's Triad vs. Reynold's Pentad</h3>
+<div class="vs-wrap">
+<div><h4>Charcot's Triad</h4><p>RUQ/epigastric pain + Jaundice + Fever. Suggests acute (non-severe) cholangitis.</p></div>
+<div><h4>Reynold's Pentad</h4><p>Charcot's Triad + Shock + Altered mental status. Suggests <b>severe/suppurative cholangitis</b> — a surgical/GI emergency requiring urgent decompression.</p></div>
+</div>
+
+<h3 class="subhead">Prehepatic vs. Hepatic vs. Posthepatic Jaundice</h3>
+<table>
+<thead><tr><th></th><th>Prehepatic</th><th>Hepatic</th><th>Posthepatic</th></tr></thead>
+<tbody>
+<tr><td>Bilirubin pattern</td><td>Unconjugated ↑</td><td>Both ↑</td><td>Conjugated ↑ (predominant)</td></tr>
+<tr><td>Cause</td><td>Hemolysis</td><td>Hepatitis, cirrhosis, metabolic/inborn errors</td><td>Stones, tumors, strictures</td></tr>
+<tr><td>Category</td><td>Medical jaundice</td><td>Medical jaundice</td><td><b>Surgical jaundice</b></td></tr>
+<tr><td>Corrected by surgery?</td><td>No</td><td>No</td><td>Yes</td></tr>
+</tbody>
+</table>
+
+<h3 class="subhead">PTC vs. PTBD vs. ERCP</h3>
+<table>
+<thead><tr><th></th><th>PTC</th><th>PTBD</th><th>ERCP</th></tr></thead>
+<tbody>
+<tr><td>Route</td><td>Percutaneous → transhepatic</td><td>Percutaneous → transhepatic</td><td>Endoscopic (per-oral, retrograde)</td></tr>
+<tr><td>Role</td><td>Diagnostic (cholangiography)</td><td>Therapeutic (catheter drainage)</td><td>Both diagnostic and therapeutic</td></tr>
+<tr><td>Typical use</td><td>When ERCP fails / obstruction at tumor level</td><td>When drainage is needed and ERCP not feasible</td><td>First-line when stone extraction is anticipated</td></tr>
+</tbody>
+</table>
+
+<h3 class="subhead">Gallbladder Carcinoma vs. Cholangiocarcinoma</h3>
+<table>
+<thead><tr><th></th><th>Gallbladder Carcinoma</th><th>Cholangiocarcinoma</th></tr></thead>
+<tbody>
+<tr><td>Origin</td><td>Gallbladder epithelium</td><td>Bile duct epithelium (biliary tree)</td></tr>
+<tr><td>Most important risk factor</td><td>Cholelithiasis</td><td>PSC, choledochal cyst, hepatolithiasis, Clonorchis</td></tr>
+<tr><td>Classic presentation</td><td>Nonspecific (like cholecystitis); often incidental</td><td><b>Painless jaundice</b></td></tr>
+<tr><td>Tumor marker</td><td>Not routinely used</td><td>CA 19-9</td></tr>
+<tr><td>Curative surgery</td><td>Cholecystectomy → extended cholecystectomy → extended hepatectomy (by stage)</td><td>Hepatectomy (intrahepatic) / extended hepatectomy (hilar) / Whipple (distal)</td></tr>
+</tbody>
+</table>
+
+<h3 class="subhead">Choledochojejunostomy vs. Hepaticojejunostomy</h3>
+<div class="vs-wrap">
+<div><h4>Choledochojejunostomy</h4><p>Connects the <b>common bile duct</b> to jejunum. Used for CBD-level strictures or recurring stone formation.</p></div>
+<div><h4>Hepaticojejunostomy</h4><p>Connects the <b>hepatic duct</b> (above the cystic duct) to a Roux-en-Y jejunal limb. Used for hilar strictures / high bile duct injuries; downstream jejunum reconnected for GI continuity, avoiding bile reflux into the stomach.</p></div>
+</div>
+</section>
+`);
+</script>
+
+<!-- ================= TAB 8: FLASHCARDS ================= -->
+<script>
+main.insertAdjacentHTML('beforeend', `
+<section class="panel" id="panel-flash">
+<h2 class="section-title">Flashcards</h2>
+<div id="flashArea">
+<div class="fc-controls">
+<select id="fcFilter"></select>
+<button id="fcShuffle">🔀 Shuffle</button>
+<button id="fcReset" class="primary">↺ Reset Progress</button>
+</div>
+<div id="fcProgress"></div>
+<div class="flashcard" id="flashcard">
+  <div class="flashcard-inner" id="flashcardInner">
+    <div class="fc-face fc-front">
+      <span class="fc-tag" id="fcTagFront"></span>
+      <h3 id="fcQuestion"></h3>
+      <span class="fc-hint">Click / press Space to flip</span>
+    </div>
+    <div class="fc-face fc-back">
+      <span class="fc-tag" id="fcTagBack"></span>
+      <p id="fcAnswer"></p>
+      <span class="fc-hint">Click to flip back</span>
+    </div>
+  </div>
+</div>
+<div class="fc-nav">
+  <button id="fcPrev">← Prev</button>
+  <button id="fcFlip">Flip</button>
+  <button id="fcNext">Next →</button>
+</div>
+<p style="text-align:center;font-size:.75rem;color:var(--ink-soft);margin-top:14px;">Keyboard shortcuts: <span class="mono">←</span>/<span class="mono">→</span> navigate, <span class="mono">Space</span> flip</p>
+</div>
+</section>
+`);
+</script>
+
+<!-- ================= TAB 9: QUIZ ================= -->
+<script>
+main.insertAdjacentHTML('beforeend', `
+<section class="panel" id="panel-quiz">
+<h2 class="section-title">Self-Assessment — Board-Style MCQs</h2>
+<div id="quizArea">
+  <div id="quizIntro">
+    <p>50+ board-style questions drawn proportionally across every core topic. Choose an answer to see immediate feedback and rationale.</p>
+    <button class="primary" id="quizStartBtn" style="border:none;background:var(--teal);color:#fff;padding:12px 26px;border-radius:999px;font-weight:700;">Start Quiz</button>
+  </div>
+  <div id="quizPlay" class="hidden">
+    <div class="qmeta" id="qMeta"></div>
+    <div class="qcard">
+      <h3 id="qPrompt"></h3>
+      <div id="qOptions"></div>
+      <div class="qexplain" id="qExplain"></div>
+    </div>
+    <div id="quizFooter">
+      <button id="qPrevBtn">← Previous</button>
+      <button id="qNextBtn">Next →</button>
+    </div>
+  </div>
+  <div id="quizScoreScreen" class="hidden">
+    <h3>Quiz Complete</h3>
+    <div class="score-num" id="scoreNum"></div>
+    <p id="scoreMsg"></p>
+    <button class="primary" id="reviewBtn" style="border:none;background:var(--teal);color:#fff;padding:10px 22px;border-radius:999px;font-weight:700;margin:6px;">Review Answers</button>
+    <button id="retakeBtn" style="border:1px solid var(--line);background:#fff;padding:10px 22px;border-radius:999px;font-weight:700;margin:6px;">Retake Quiz</button>
+    <div id="reviewList" class="hidden"></div>
+  </div>
+</div>
+</section>
+`);
+</script>
+
+<!-- ================= TAB 10: CRAM SHEET ================= -->
+<script>
+main.insertAdjacentHTML('beforeend', `
+<section class="panel" id="panel-cram">
+<h2 class="section-title">Cram Sheet — Ultra-Condensed Review</h2>
+<p style="font-size:.85rem;color:var(--ink-soft)">Read this in under 10 minutes the night before the exam.</p>
+<div class="cram-grid">
+
+<div class="cram-block"><h4>Anatomy</h4><ul>
+<li>GB parts: fundus → body → neck (Hartmann's pouch) → cystic duct</li>
+<li>Calot's triangle: <span class="iyk">medial=CHD, inferior=cystic duct, superior=liver</span>; contains cystic artery + Lund's node</li>
+<li>Critical View of Safety = expose cystic plate + cystic artery + cystic duct before clipping</li>
+<li>Portal triad = artery + bile duct + portal vein, wrapped in hepatoduodenal ligament</li>
+</ul></div>
+
+<div class="cram-block"><h4>Imaging Ladder</h4><ul>
+<li>US = best for GB stones (90% sens/spec), poor for CBD stones</li>
+<li>CT = best for tumors/dilated ducts/emergencies</li>
+<li>MRCP = best for CBD/bile duct stones (95%/89%)</li>
+<li>HIDA = best for acute cholecystitis (non-visualized GB = cystic duct obstruction)</li>
+<li>ERCP = diagnostic + therapeutic; complication = <span class="iyk">post-ERCP pancreatitis</span></li>
+</ul></div>
+
+<div class="cram-block"><h4>Bile Physiology</h4><ul>
+<li>500–1000 mL/day; Na = most abundant electrolyte</li>
+<li>Stimulants: proteins/fat/HCl → secretin; CCK → GB contraction; vagus → ↑ secretion; sympathetic → inhibits</li>
+<li>Cholesterol stone = supersaturation outside the "safe zone" (bile salts:lecithin:cholesterol ratio)</li>
+</ul></div>
+
+<div class="cram-block"><h4>Cholelithiasis</h4><ul>
+<li>3 F's: Female, Fat, Forty; +ethnicity, pregnancy, rapid weight loss, hemolysis, somatostatin, ileal/gastric surgery</li>
+<li>Biliary colic = intermittent RUQ/epigastric pain, radiates to back/scapula, worse with fatty food</li>
+<li>Complications: acute cholecystitis → empyema; hydrops; perforation; choledocholithiasis; pancreatitis; gallstone ileus (Bouveret if proximal)</li>
+<li>Tx: asymptomatic = observe (± prophylactic if porcelain GB/seafarer/remote area); symptomatic = lap chole, early (24-72h) preferred in acute setting</li>
+<li>Unstable/high-risk → percutaneous cholecystostomy first</li>
+</ul></div>
+
+<div class="cram-block"><h4>Choledochal Cyst</h4><ul>
+<li>Triad: pain + jaundice + palpable mass</li>
+<li>Type I fusiform = most common (80-90%), highest CA risk (&gt;60%)</li>
+<li>Type III choledochocele = lowest CA risk (~2%) → surveillance</li>
+<li>Type V Caroli = intrahepatic only → liver transplant</li>
+<li>CA risk overall 20-30x general population</li>
+</ul></div>
+
+<div class="cram-block"><h4>Acalculous Cholecystitis</h4><ul>
+<li>No stones + critically ill (ICU/burns/trauma) OR PH-context: dengue/typhoid (often resolves spontaneously)</li>
+<li>Tx: urgent chole if fit; percutaneous cholecystostomy if unfit</li>
+</ul></div>
+
+<div class="cram-block"><h4>GB Polyp</h4><ul>
+<li>≥1cm or symptomatic → cholecystectomy</li>
+<li>Adenomatous = cancer risk; multiple cholesterol = usually benign</li>
+</ul></div>
+
+<div class="cram-block"><h4>Choledocholithiasis</h4><ul>
+<li>Primary = formed in duct, brown pigment, Asian, recurrent; Secondary = from GB, cholesterol, more common</li>
+<li>S/Sx: jaundice, acholic stool, tea-colored urine</li>
+<li>Obstructive = ↑ conjugated bilirubin &gt; unconjugated + ↑ ALP</li>
+<li>MRCP preferred; Tx = ERCP + stone extraction ± cholecystectomy</li>
+</ul></div>
+
+<div class="cram-block"><h4>Hepatolithiasis</h4><ul>
+<li>Endemic East/SE Asia; Clonorchis, Ascaris, bile stasis, strictures</li>
+<li>Complication: Recurrent Pyogenic Cholangitis ("Oriental Cholangiohepatitis") → can lead to cholangiocarcinoma</li>
+<li>Tx: drainage/extraction, hepaticojejunostomy/choledochojejunostomy, hepatectomy for unilobar disease</li>
+</ul></div>
+
+<div class="cram-block"><h4>Cholangitis</h4><ul>
+<li>Charcot's Triad: pain + jaundice + fever</li>
+<li>Reynold's Pentad: + shock + altered mental status = SEVERE</li>
+<li>Organisms: E. coli, Klebsiella, Enterococcus, Enterobacter, Bacteroides</li>
+<li>Tx = urgent: antibiotics + biliary drainage + resuscitation (can deteriorate in 24h)</li>
+</ul></div>
+
+<div class="cram-block"><h4>PSC</h4><ul>
+<li>Autoimmune, M&gt;F, 30-45y, ⅔ have ulcerative colitis</li>
+<li>Multisegmental strictures; risk factor for cholangiocarcinoma</li>
+<li>Tx: UDCA, stenting, transplant</li>
+</ul></div>
+
+<div class="cram-block"><h4>Gallbladder Carcinoma</h4><ul>
+<li>Adenocarcinoma 90%; cholelithiasis = most important risk factor</li>
+<li>T1 = lap chole only; T2 = extended chole + liver segment IVb/V + LND; T3 = extended right hepatectomy; T4 = unresectable</li>
+</ul></div>
+
+<div class="cram-block"><h4>Cholangiocarcinoma</h4><ul>
+<li><span class="iyk">Painless jaundice</span> = classic presentation</li>
+<li>Hilar/Klatskin (50%, ⅔ at bifurcation) &gt; distal (40%) &gt; intrahepatic (10%)</li>
+<li>CA 19-9 = main tumor marker</li>
+<li>Tx by site: intrahepatic=hepatectomy; hilar=extended hepatectomy; distal=Whipple</li>
+</ul></div>
+
+<div class="cram-block"><h4>"If You See X → Think Y"</h4><ul>
+<li>Fever + jaundice + pain → cholangitis (Charcot's)</li>
+<li>+ shock + AMS → severe cholangitis (Reynold's) → urgent decompression</li>
+<li>Painless jaundice, elderly → malignancy until proven otherwise</li>
+<li>Porcelain GB → consider cholecystectomy (cancer risk)</li>
+<li>UC + cholestatic jaundice → PSC</li>
+<li>Filipino patient + intrahepatic stones → hepatolithiasis (parasitic/bacterial etiology)</li>
+<li>Post-chole pain + jaundice + sepsis → bile duct injury → get MRI/ERCP</li>
+</ul></div>
+
+</div>
+</section>
+`);
+</script>
+
+<script>
+/* activate first tab */
+showTab('overview');
+</script>
+
+<!-- ================= DATA + INTERACTIVITY ================= -->
+<script>
+/* ============ SEARCH ============ */
+const searchbox = document.getElementById('searchbox');
+searchbox.addEventListener('keydown', e=>{
+  if(e.key==='Enter'){
+    const q = searchbox.value.trim().toLowerCase();
+    if(!q) return;
+    const panels = document.querySelectorAll('.panel');
+    for(const p of panels){
+      if(p.textContent.toLowerCase().includes(q)){
+        showTab(p.id.replace('panel-',''));
+        break;
+      }
+    }
+  }
+});
+
+/* ============ SCROLL TOP ============ */
+const toTop = document.getElementById('toTop');
+window.addEventListener('scroll', ()=>{ toTop.classList.toggle('show', window.scrollY>400); });
+toTop.onclick = ()=>window.scrollTo({top:0,behavior:'smooth'});
+
+/* ============ DARK-ish contrast toggle (kept simple / optional) ============ */
+/* Progress indicator: measures tabs visited this session (memory only) */
+let visited = new Set(['overview']);
+function updateProgress(){
+  const activeId = document.querySelector('.panel.active').id.replace('panel-','');
+  visited.add(activeId);
+  const pct = Math.round((visited.size/TABS.length)*100);
+  document.getElementById('progressFill').style.width = pct+'%';
+}
+updateProgress();
+
+/* ============ COPY TO CLIPBOARD FOR TABLES ============ */
+document.querySelectorAll('table').forEach(t=>{
+  // no-op placeholder for potential future per-table copy button (kept lightweight)
+});
+</script>
+
+<!-- ================= FLASHCARDS DATA & LOGIC ================= -->
+<script>
+const FLASHCARDS = [
+{tag:'Anatomy', q:'What are the four parts of the gallbladder?', a:'Fundus, Body, Neck (infundibulum), and Cystic duct.'},
+{tag:'Anatomy', q:'What is the pouch at the gallbladder neck called, and why is it clinically important?', a:"Hartmann's pouch — a lot of stones get lodged here, causing obstruction and cholecystitis."},
+{tag:'Anatomy', q:'What are the borders of Calot\'s (hepatocystic) triangle?', a:'Medial: Common Hepatic Duct. Inferior: Cystic Duct. Superior: Inferior surface of the liver.'},
+{tag:'Anatomy', q:'What structures are found within Calot\'s triangle?', a:'Right hepatic artery, cystic artery, lymph node of Lund (Calot\'s node), and lymphatics.'},
+{tag:'Anatomy', q:'What artery must be divided during cholecystectomy, and where does it arise?', a:'The cystic artery, which arises from the right hepatic artery.'},
+{tag:'Anatomy', q:'What ligament covers the portal triad and connects the liver to the duodenum?', a:'The hepatoduodenal ligament.'},
+{tag:'Anatomy', q:'What is the "Critical View of Safety" in cholecystectomy?', a:'Clearing the hepatocystic triangle of fat/fibrous tissue and separating the lower third of the GB from the liver to expose the cystic plate, cystic artery, and cystic duct — confirms the CBD is not being mistaken for the cystic duct.'},
+{tag:'Anatomy', q:'Where does the pancreatic duct join the common bile duct?', a:'At the ampulla (of Vater), typically at the junction of the 2nd and 3rd portions of the duodenum.'},
+{tag:'Anatomy', q:'What muscle keeps the bile ducts closed during fasting?', a:'The Sphincter of Oddi.'},
+{tag:'Anatomy', q:'Why must patients fast before a gallbladder ultrasound?', a:'Fasting allows the gallbladder to distend with bile, improving visualization of its contents (stones, wall, etc.).'},
+{tag:'Diagnostics', q:'Which imaging modality is most sensitive/specific for gallbladder stones?', a:'Ultrasound (~90% sensitivity and specificity).'},
+{tag:'Diagnostics', q:'Which imaging modality is best for bile duct (CBD) stones?', a:'MRI/MRCP (sensitivity 95%, specificity 89%).'},
+{tag:'Diagnostics', q:'Which imaging modality is most sensitive for diagnosing acute cholecystitis?', a:'HIDA scan (hepatobiliary scintigraphy) — non-visualization of the GB suggests cystic duct obstruction.'},
+{tag:'Diagnostics', q:'What is the most common complication of ERCP?', a:'Post-ERCP pancreatitis.'},
+{tag:'Diagnostics', q:'What is the difference between PTC and PTBD?', a:'PTC is diagnostic (cholangiography); PTBD is therapeutic (catheter drainage).'},
+{tag:'Diagnostics', q:'What does IOC stand for and when is it performed?', a:'Intraoperative Cholangiogram — performed during laparoscopic cholecystectomy to check the biliary anatomy/rule out CBD stones.'},
+{tag:'Diagnostics', q:'On CT scan, what does "hyperdense" mean and give an example?', a:'White/bright — represents calcified structures (e.g., stones, bone) or contrast-enhanced structures (vessels, kidneys).'},
+{tag:'Physiology', q:'What is the most abundant electrolyte in bile?', a:'Sodium.'},
+{tag:'Physiology', q:'What is the normal daily bile production in an adult?', a:'500–1000 mL/day.'},
+{tag:'Physiology', q:'What hormone is released by S cells in the duodenum in response to food, and what does it do?', a:'Secretin — stimulates bile secretion, gallbladder contraction, and pancreatic fluid secretion.'},
+{tag:'Physiology', q:'What hormone directly causes gallbladder contraction?', a:'Cholecystokinin (CCK).'},
+{tag:'Physiology', q:'What effect does sympathetic stimulation (via celiac plexus) have on bile secretion?', a:'Inhibitory — it decreases bile and pancreatic fluid secretion, and this pathway is why celiac plexus block helps with pancreatic pain.'},
+{tag:'Physiology', q:'What are the three main components that must stay in balance to keep cholesterol soluble in bile?', a:'Cholesterol, bile salts, and lecithin (phospholipids).'},
+{tag:'Physiology', q:'What electrolyte disturbances are seen with a high-output biliary fistula?', a:'Hyponatremia (common), and to a lesser extent hypokalemia.'},
+{tag:'Physiology', q:'What color is bile normally, and what pigments account for this?', a:'Orange/yellow (bilirubin) or green (biliverdin, the oxidized form) — both products of hemolysis.'},
+{tag:'Cholelithiasis', q:'List the classic "3 F\'s" risk factor profile for gallstones.', a:'Female, Fat, Forty (age).'},
+{tag:'Cholelithiasis', q:'What percentage of adults have gallstones?', a:'10–15%.'},
+{tag:'Cholelithiasis', q:'Describe the classic pain pattern of biliary colic.', a:'RUQ/epigastric pain, intermittent/colicky, radiating to the back or right scapula, often postprandial/after fatty meals.'},
+{tag:'Cholelithiasis', q:'What is the standard diagnostic test for gallstones?', a:'Abdominal ultrasound.'},
+{tag:'Cholelithiasis', q:'What happens when a stone completely obstructs the cystic duct/neck without infection?', a:'Gallbladder hydrops — marked distention with white, mucoid bile.'},
+{tag:'Cholelithiasis', q:'What is empyema of the gallbladder?', a:'Untreated acute cholecystitis progressing to infection with purulent (pus-filled) bile.'},
+{tag:'Cholelithiasis', q:'What is gallstone ileus and where does the stone typically impact?', a:'A large stone erodes through a cholecystoduodenal fistula into the bowel and impacts at the ileocecal junction (narrowest point), causing intestinal obstruction.'},
+{tag:'Cholelithiasis', q:'What is Bouveret syndrome?', a:'A variant of gallstone ileus where a proximal stone impacts in the pylorus/proximal duodenum, causing gastric outlet obstruction.'},
+{tag:'Cholelithiasis', q:'What is the overall most common cause of intestinal obstruction?', a:'Postoperative adhesions (not gallstone ileus).'},
+{tag:'Cholelithiasis', q:'What is Mirizzi syndrome?', a:'External compression of the common hepatic duct by a large stone impacted in the gallbladder neck/cystic duct, due to surrounding inflammation/edema.'},
+{tag:'Cholelithiasis', q:'What are the absolute contraindications to laparoscopic cholecystectomy?', a:'Hemodynamic instability, uncontrolled coagulopathy, frank peritonitis, COPD, CHF.'},
+{tag:'Cholelithiasis', q:'What is the preferred timing of cholecystectomy in acute cholecystitis?', a:'Early cholecystectomy, within 24–72 hours.'},
+{tag:'Cholelithiasis', q:'What procedure is done for a critically ill patient with acute cholecystitis who is unfit for surgery?', a:'Percutaneous cholecystostomy (drain placement, not gallbladder removal).'},
+{tag:'Cholelithiasis', q:'Name three relative indications for prophylactic cholecystectomy in asymptomatic gallstones.', a:'Limited access to surgical care (e.g., remote area), seafarers in the Philippines not cleared to work, porcelain gallbladder.'},
+{tag:'Cholelithiasis', q:'What is the most dreaded complication of cholecystectomy and its classic triad of manifestations?', a:'Bile duct injury — abdominal pain, jaundice, sepsis.'},
+{tag:'Cholelithiasis', q:'What two biliary-enteric anastomoses are used to repair bile duct injuries, and how do they differ?', a:'Choledochojejunostomy (CBD level) and hepaticojejunostomy (higher/hepatic duct level, e.g., for hilar strictures).'},
+{tag:'Choledochal Cyst', q:'What is the classic triad of choledochal cyst?', a:'Abdominal pain, jaundice, and a palpable mass.'},
+{tag:'Choledochal Cyst', q:'Which choledochal cyst type is most common, and what is its malignancy risk?', a:'Type I (fusiform dilatation of the CBD) — 80–90% of cases, malignancy risk >60%.'},
+{tag:'Choledochal Cyst', q:'Which choledochal cyst type has the lowest malignancy risk and how is it managed?', a:'Type III (choledochocele) — ~2% risk; managed with sphincterotomy + surveillance rather than formal excision.'},
+{tag:'Choledochal Cyst', q:'Which choledochal cyst type is Caroli disease, and what is its definitive treatment (with liver failure)?', a:'Type V — intrahepatic biliary cysts only; treated with liver transplantation.'},
+{tag:'Choledochal Cyst', q:'How much higher is the cholangiocarcinoma risk in choledochal cyst patients vs. the general population?', a:'20–30 times higher.'},
+{tag:'Benign/Inflammatory', q:'What defines acalculous cholecystitis, and in which patient population does it occur?', a:'Acute gallbladder inflammation without gallstones, typically in critically ill patients (ICU, severe burns, severe trauma).'},
+{tag:'Benign/Inflammatory', q:'In the Philippine context, what tropical diseases are commonly associated with acalculous cholecystitis, and what is notable about their course?', a:'Dengue and typhoid fever — often resolve spontaneously, and conservative management is acceptable.'},
+{tag:'Benign/Inflammatory', q:'What size threshold for a gallbladder polyp is an indication for cholecystectomy?', a:'≥1 cm (or if symptomatic).'},
+{tag:'Benign/Inflammatory', q:'Which type of gallbladder polyp carries a risk for gallbladder cancer?', a:'Adenomatous polyps (fleshy, often solitary).'},
+{tag:'Benign/Inflammatory', q:'Differentiate primary from secondary choledocholithiasis by stone origin and composition.', a:'Primary stones form within the bile duct itself (brown pigment); secondary stones form in the gallbladder and migrate down (cholesterol, more common).'},
+{tag:'Benign/Inflammatory', q:'What stool and urine changes are classic for choledocholithiasis?', a:'Acholic (pale) stool and tea-colored urine.'},
+{tag:'Benign/Inflammatory', q:'What LFT pattern is seen in obstructive (posthepatic) jaundice?', a:'Increased total and conjugated bilirubin (conjugated predominant) with increased alkaline phosphatase.'},
+{tag:'Benign/Inflammatory', q:'What is hepatolithiasis and where is it endemic?', a:'Stones within the intrahepatic bile ducts, endemic to East and Southeast Asia.'},
+{tag:'Benign/Inflammatory', q:'What parasite is classically associated with hepatolithiasis?', a:'Clonorchis (liver fluke); Ascaris is also implicated, especially in the Philippines.'},
+{tag:'Benign/Inflammatory', q:'What is "Oriental Cholangiohepatitis"?', a:'Another name for recurrent pyogenic cholangitis, a complication of hepatolithiasis common in East Asia.'},
+{tag:'Benign/Inflammatory', q:'What is Charcot\'s Triad?', a:'RUQ/epigastric pain, jaundice, and fever — classic for cholangitis.'},
+{tag:'Benign/Inflammatory', q:'What is Reynold\'s Pentad and what does it indicate?', a:'Charcot\'s Triad + shock + altered mental status — indicates severe/suppurative cholangitis, a surgical emergency.'},
+{tag:'Benign/Inflammatory', q:'What are the three pillars of cholangitis treatment?', a:'Broad-spectrum/gram-negative antibiotics, biliary drainage, and resuscitation.'},
+{tag:'Benign/Inflammatory', q:'What organisms most commonly cause cholangitis?', a:'E. coli, Klebsiella, S. faecalis, Enterobacter sp., Bacteroides fragilis (enteric bacteria).'},
+{tag:'Benign/Inflammatory', q:'What autoimmune condition is PSC associated with, and what is the typical demographic?', a:'Ulcerative colitis (⅔ of PSC patients); M>F (2:1), mean age 30–45 years.'},
+{tag:'Neoplasms', q:'What is the most important risk factor for gallbladder carcinoma?', a:'Cholelithiasis.'},
+{tag:'Neoplasms', q:'What is the most common histologic type of gallbladder carcinoma?', a:'Adenocarcinoma (~90%).'},
+{tag:'Neoplasms', q:'What is the treatment for T1 gallbladder carcinoma?', a:'Laparoscopic cholecystectomy alone (5-year survival near 100%).'},
+{tag:'Neoplasms', q:'What additional procedures are needed for T2 gallbladder carcinoma beyond cholecystectomy?', a:'Segmental liver resection (segments IVB/V) and regional lymphadenectomy (extended cholecystectomy).'},
+{tag:'Neoplasms', q:'What is the classic presenting symptom of cholangiocarcinoma?', a:'Painless jaundice.'},
+{tag:'Neoplasms', q:'What is the most common site of cholangiocarcinoma, and what is it called?', a:'The hilar region (bifurcation of hepatic ducts) — Klatskin tumor; accounts for ~50% of cases.'},
+{tag:'Neoplasms', q:'What is the most commonly used tumor marker for cholangiocarcinoma?', a:'CA 19-9.'},
+{tag:'Neoplasms', q:'What surgery is used for distal bile duct cholangiocarcinoma?', a:'Pancreaticoduodenectomy (Whipple procedure).'},
+{tag:'Neoplasms', q:'What surgery is used for hilar (perihilar) cholangiocarcinoma?', a:'Extended hepatectomy (major liver resection), since Whipple alone is insufficient.'},
+{tag:'Neoplasms', q:'What palliative therapy has been shown to prolong survival/improve quality of life in unresectable cholangiocarcinoma with biliary stents?', a:'Photodynamic therapy.'},
+{tag:'Neoplasms', q:'What percentage incidence of gallbladder cancer is associated with porcelain gallbladder?', a:'Greater than 20%.'},
+];
+
+let fcOrder = FLASHCARDS.map((_,i)=>i);
+let fcIndex = 0;
+let fcSeen = new Set();
+
+function fcPopulateFilter(){
+  const sel = document.getElementById('fcFilter');
+  const tags = ['All Sections', ...new Set(FLASHCARDS.map(f=>f.tag))];
+  sel.innerHTML = tags.map(t=>'<option value="'+t+'">'+t+'</option>').join('');
+  sel.onchange = ()=>{
+    const v = sel.value;
+    fcOrder = FLASHCARDS.map((_,i)=>i).filter(i=> v==='All Sections' || FLASHCARDS[i].tag===v);
+    fcIndex = 0;
+    document.getElementById('flashcard').classList.remove('flipped');
+    fcRender();
+  };
+}
+fcPopulateFilter();
+
+function fcRender(){
+  if(fcOrder.length===0) return;
+  const card = FLASHCARDS[fcOrder[fcIndex]];
+  document.getElementById('fcTagFront').textContent = card.tag;
+  document.getElementById('fcTagBack').textContent = card.tag;
+  document.getElementById('fcQuestion').textContent = card.q;
+  document.getElementById('fcAnswer').textContent = card.a;
+  fcSeen.add(fcOrder[fcIndex]);
+  document.getElementById('fcProgress').textContent = 'Card '+(fcIndex+1)+' / '+fcOrder.length+'   ·   Seen: '+fcSeen.size+'/'+FLASHCARDS.length;
+}
+fcRender();
+
+document.getElementById('flashcard').addEventListener('click', ()=>{
+  document.getElementById('flashcard').classList.toggle('flipped');
+});
+document.getElementById('fcFlip').onclick = ()=> document.getElementById('flashcard').classList.toggle('flipped');
+document.getElementById('fcNext').onclick = ()=>{
+  fcIndex = (fcIndex+1) % fcOrder.length;
+  document.getElementById('flashcard').classList.remove('flipped');
+  fcRender();
+};
+document.getElementById('fcPrev').onclick = ()=>{
+  fcIndex = (fcIndex-1+fcOrder.length) % fcOrder.length;
+  document.getElementById('flashcard').classList.remove('flipped');
+  fcRender();
+};
+document.getElementById('fcShuffle').onclick = ()=>{
+  for(let i=fcOrder.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [fcOrder[i],fcOrder[j]] = [fcOrder[j],fcOrder[i]];
+  }
+  fcIndex=0;
+  document.getElementById('flashcard').classList.remove('flipped');
+  fcRender();
+};
+document.getElementById('fcReset').onclick = ()=>{
+  fcSeen = new Set();
+  fcIndex = 0;
+  document.getElementById('flashcard').classList.remove('flipped');
+  fcRender();
+};
+
+document.addEventListener('keydown', e=>{
+  if(document.getElementById('panel-flash').classList.contains('active')){
+    if(e.code==='Space'){ e.preventDefault(); document.getElementById('flashcard').classList.toggle('flipped'); }
+    if(e.key==='ArrowRight'){ document.getElementById('fcNext').click(); }
+    if(e.key==='ArrowLeft'){ document.getElementById('fcPrev').click(); }
+  }
+});
+</script>
+
+<!-- ================= QUIZ DATA & LOGIC ================= -->
+<script>
+const QUIZ = [
+{sec:'Anatomy', q:'What is the pouch at the neck of the gallbladder called?', opts:['Morison\'s pouch','Hartmann\'s pouch','Douglas pouch','Calot\'s pouch'], correct:1, exp:'Hartmann\'s pouch is the pouch at the GB neck where stones commonly lodge, causing obstruction. Morison\'s pouch is the hepatorenal recess; Douglas pouch is the rectouterine pouch; "Calot\'s pouch" is not a real structure — Calot\'s refers to the triangle.'},
+{sec:'Anatomy', q:'Which artery is classically ligated within Calot\'s triangle during cholecystectomy?', opts:['Right hepatic artery','Gastroduodenal artery','Cystic artery','Left hepatic artery'], correct:2, exp:'The cystic artery, which arises from the right hepatic artery and traverses the triangle to supply the gallbladder, must be identified and divided.'},
+{sec:'Anatomy', q:'What forms the superior border of the hepatocystic (Calot\'s) triangle?', opts:['Cystic duct','Common hepatic duct','Inferior surface of the liver','Common bile duct'], correct:2, exp:'Superior border = inferior surface of the liver. Medial = common hepatic duct; inferior = cystic duct.'},
+{sec:'Anatomy', q:'The "Critical View of Safety" is primarily meant to prevent injury to which structure?', opts:['Portal vein','Common bile duct','Pancreatic duct','Duodenum'], correct:1, exp:'Achieving the Critical View confirms the surgeon is dealing with the cystic duct/artery and NOT the common bile duct, preventing bile duct injury.'},
+{sec:'Anatomy', q:'Where does the pancreatic duct typically join the common bile duct?', opts:['At the porta hepatis','At the ampulla of Vater','At the neck of the gallbladder','At the ligament of Treitz'], correct:1, exp:'The pancreatic duct joins the distal CBD through a common channel within the ampulla of Vater, near the 2nd/3rd portion of the duodenum.'},
+{sec:'Anatomy', q:'Why must patients fast before undergoing biliary ultrasound?', opts:['To reduce radiation exposure','To distend the gallbladder for better visualization','To prevent contrast allergy','To relax the sphincter of Oddi'], correct:1, exp:'Fasting keeps the sphincter of Oddi closed, allowing the gallbladder to fill and distend with bile, which improves detection of stones/lesions.'},
+{sec:'Diagnostics', q:'What is the imaging modality of choice for suspected gallbladder stones?', opts:['CT scan','MRCP','Ultrasound','ERCP'], correct:2, exp:'Ultrasound is the most widely used, cheapest, and most sensitive/specific (90%) test for gallbladder stones.'},
+{sec:'Diagnostics', q:'What is the imaging modality of choice when there is high suspicion of stones in the bile duct?', opts:['Ultrasound','CT Scan','MRI/MRCP','Plain X-ray'], correct:2, exp:'MRI/MRCP has the highest sensitivity (95%) and specificity (89%) for choledocholithiasis and provides the best anatomic detail of bile ducts.'},
+{sec:'Diagnostics', q:'A 60-year-old male has RUQ pain, fever, nausea, leukocytosis, and NORMAL alkaline phosphatase. What is the best initial diagnostic test?', opts:['Abdominal CT scan','Abdominal ultrasound','ERCP','Abdominal X-ray'], correct:1, exp:'With normal ALP (i.e., low suspicion of obstruction/ductal disease), ultrasound remains the initial diagnostic procedure of choice for suspected gallbladder disease.'},
+{sec:'Diagnostics', q:'A patient has fever, chills, abdominal pain, jaundice, and BOTH dilated intrahepatic and extrahepatic biliary trees on ultrasound. What is the recommended management?', opts:['Emergency laparoscopic cholecystectomy','Emergency open biliary decompression with drains','ERCP with sphincterotomy','Exploratory laparotomy with duodenotomy'], correct:2, exp:'This presentation is consistent with cholangitis from ductal obstruction; ERCP with sphincterotomy provides both diagnosis and therapeutic decompression.'},
+{sec:'Diagnostics', q:'What is the most common complication of ERCP?', opts:['Bleeding','Perforation','Post-ERCP pancreatitis','Infection'], correct:2, exp:'Because the pancreatic duct and distal bile duct are close together, instrumentation during ERCP/sphincterotomy can cause pancreatic duct edema/obstruction, leading to pancreatitis — the most common complication.'},
+{sec:'Diagnostics', q:'PTBD (percutaneous transhepatic biliary drainage) is best described as:', opts:['A purely diagnostic test','A therapeutic drainage procedure','An oral contrast study','A form of ultrasound-guided biopsy'], correct:1, exp:'PTC is diagnostic (cholangiography); PTBD is the therapeutic component — a catheter placed for drainage.'},
+{sec:'Diagnostics', q:'Which imaging is most sensitive for diagnosing acute cholecystitis but not used to detect stones?', opts:['MRCP','HIDA scan','CT scan','Ultrasound'], correct:1, exp:'HIDA scan is very sensitive for acute cholecystitis (non-visualization of the GB) but is not used to detect stones alone.'},
+{sec:'Physiology', q:'What is the most abundant electrolyte in bile?', opts:['Potassium','Calcium','Sodium','Chloride'], correct:2, exp:'Sodium is the most abundant electrolyte in bile, present at similar concentration to plasma/ECF.'},
+{sec:'Physiology', q:'Which hormone is released by duodenal S cells in response to food and stimulates bile secretion?', opts:['Cholecystokinin','Secretin','Gastrin','Somatostatin'], correct:1, exp:'Secretin, released by S cells, stimulates bile secretion, gallbladder contraction, and pancreatic fluid secretion.'},
+{sec:'Physiology', q:'Which hormone has the most direct effect on gallbladder contraction?', opts:['Secretin','Gastrin','Cholecystokinin (CCK)','Motilin'], correct:2, exp:'CCK directly stimulates gallbladder contraction, particularly in response to fatty meals.'},
+{sec:'Physiology', q:'A biliary fistula draining more than 1 L per day most likely indicates:', opts:['Normal enterohepatic circulation','Complete distal obstruction','Cholangitis','Gallbladder hydrops'], correct:1, exp:'High-output drainage (>1L/day) suggests that bile is not passing normally into the duodenum — i.e., complete obstruction distally.'},
+{sec:'Physiology', q:'What is the primary event leading to formation of a cholesterol gallstone?', opts:['Increased bilirubin turnover','Bacterial infection of bile','Supersaturation of bile with cholesterol','Excess bile salt secretion'], correct:2, exp:'When cholesterol concentration exceeds the solubilizing capacity of bile salts and phospholipids, cholesterol precipitates out of solution, forming a stone.'},
+{sec:'Physiology', q:'What type of gallstone is classically associated with hemolytic disease?', opts:['Cholesterol stones','Black pigment stones','Mixed stones','Calcium carbonate stones'], correct:1, exp:'Hemolytic disease increases bilirubin turnover, promoting formation of black pigment stones.'},
+{sec:'Cholelithiasis', q:'Which of the following is NOT part of the classic "3 F\'s" risk profile for gallstones?', opts:['Female','Fat','Forty','Febrile'], correct:3, exp:'The classic profile is Female, Fat, and Forty (age) — not "Febrile."'},
+{sec:'Cholelithiasis', q:'A patient with biliary colic reports pain radiating to the right scapular area. Where is the pain typically originating?', opts:['Epigastric pain','RUQ pain','LUQ pain','Periumbilical pain'], correct:1, exp:'RUQ pain classically radiates to the right scapular area/shoulder, while epigastric pain radiates directly to the mid-back.'},
+{sec:'Cholelithiasis', q:'Which is the standard confirmatory diagnostic test for cholelithiasis?', opts:['CT scan','Abdominal ultrasound','HIDA scan','ERCP'], correct:1, exp:'Abdominal ultrasound is the standard/confirmatory test given its wide availability and high accuracy in detecting gallstones.'},
+{sec:'Cholelithiasis', q:'Which is NOT an indication for prophylactic cholecystectomy in asymptomatic cholelithiasis?', opts:['Empyema of the gallbladder','Seafarers not cleared to work','Porcelain gallbladder','Patients with limited access to surgical care'], correct:0, exp:'Empyema is a complication requiring urgent treatment, not a criterion for "prophylactic" surgery in an asymptomatic patient — the other three are accepted relative indications.'},
+{sec:'Cholelithiasis', q:'What is the standard treatment for symptomatic cholelithiasis?', opts:['Prophylactic cholecystectomy','Cholecystectomy','Percutaneous cholecystostomy','Observation with dietary modification'], correct:1, exp:'Cholecystectomy (preferably laparoscopic) is the standard of care for symptomatic gallstone disease.'},
+{sec:'Cholelithiasis', q:'In acute cholecystitis, what is the preferred timing for "early" cholecystectomy?', opts:['Immediately upon admission, no delay','Within 24–72 hours','Beyond 72 hours after interval treatment','After 2 weeks of antibiotics'], correct:1, exp:'Early cholecystectomy, performed within 24–72 hours, is preferred for acute cases as most patients do not improve significantly with prolonged delay.'},
+{sec:'Cholelithiasis', q:'A 29-year-old female develops worsening abdominal pain and jaundice 5 days after laparoscopic cholecystectomy for chronic cholecystitis. Which is the LEAST likely cause?', opts:['Bile duct stricture','Bile leak','Retained bile duct stone','Viral hepatitis'], correct:3, exp:'Viral hepatitis would not typically present acutely 5 days post-op in this manner; the other options are recognized post-cholecystectomy complications related to bile duct injury.'},
+{sec:'Cholelithiasis', q:'A 58-year-old male in the ICU with severe burns develops abdominal pain; ultrasound/CT show gallbladder wall thickening and inflammation WITHOUT visible stones. What is the appropriate management?', opts:['Do ERCP','Give antibiotics and antispasmodics','Percutaneous cholecystostomy','Watchful waiting'], correct:2, exp:'This is acalculous cholecystitis in a critically ill patient — percutaneous cholecystostomy is the best treatment of choice when the patient is unfit for surgery.'},
+{sec:'Cholelithiasis', q:'What is the acute intestinal obstruction caused by a large gallstone eroding through a cholecystoduodenal fistula called?', opts:['Bouveret syndrome','Gallstone ileus','Mirizzi syndrome','Boerhaave syndrome'], correct:1, exp:'Gallstone ileus occurs when a large stone passes into the bowel and impacts, typically at the ileocecal junction. Bouveret syndrome is the proximal (gastric outlet) variant.'},
+{sec:'Cholelithiasis', q:'What is the mechanism behind Mirizzi syndrome?', opts:['Intraluminal CBD stone obstruction','External compression of the common hepatic duct by a stone in the GB neck/cystic duct','Malignant stricture of the CBD','Sphincter of Oddi dysfunction'], correct:1, exp:'Mirizzi syndrome results from external compression (not an intrinsic duct lesion), caused by a large stone impacted in the GB neck/cystic duct with surrounding inflammation.'},
+{sec:'Cholelithiasis', q:'What is the most common cause of intestinal obstruction overall (more common than gallstone ileus)?', opts:['Hernias','Postoperative adhesions','Volvulus','Intussusception'], correct:1, exp:'Postoperative adhesions remain the most common overall cause of intestinal obstruction.'},
+{sec:'Cholelithiasis', q:'Which of the following is an ABSOLUTE contraindication to laparoscopic cholecystectomy?', opts:['Mild hypertension','Frank peritonitis','Well-controlled diabetes','Age over 70'], correct:1, exp:'Absolute contraindications include hemodynamic instability, uncontrolled coagulopathy, frank peritonitis, COPD, and CHF.'},
+{sec:'Cholelithiasis', q:'What is the most dreaded complication of cholecystectomy?', opts:['Wound infection','Bile duct injury','DVT','Postoperative ileus'], correct:1, exp:'Bile duct injury (<0.5% incidence) is considered the most dreaded complication, presenting with abdominal pain, jaundice, and sepsis.'},
+{sec:'Cholelithiasis', q:'A patient presents days after cholecystectomy with suspected bile leak. What imaging should be requested?', opts:['Plain abdominal X-ray','ERCP or MRI','Barium swallow','HIDA scan only'], correct:1, exp:'ERCP or MRI is used to confirm and assess the extent of a suspected bile duct injury/leak prior to surgical repair.'},
+{sec:'Choledochal Cyst', q:'What is the classic triad of choledochal cyst?', opts:['Pain, fever, jaundice','Pain, jaundice, palpable mass','Fever, jaundice, hypotension','Pain, vomiting, mass'], correct:1, exp:'The classic triad is abdominal pain, jaundice, and a palpable mass.'},
+{sec:'Choledochal Cyst', q:'Which choledochal cyst type is the most common?', opts:['Type I (fusiform)','Type II (saccular)','Type III (choledochocele)','Type V (Caroli)'], correct:0, exp:'Type I, fusiform dilatation of the CBD, accounts for 80–90% of choledochal cysts and carries the highest malignancy risk (>60%).'},
+{sec:'Choledochal Cyst', q:'Which choledochal cyst type is managed by surveillance/sphincterotomy rather than formal excision, given its low malignancy risk?', opts:['Type I','Type II','Type III','Type IV'], correct:2, exp:'Type III (choledochocele) has the lowest malignancy risk (~2%), so sphincterotomy plus surveillance is generally preferred over resection, which would otherwise require pancreaticoduodenectomy.'},
+{sec:'Choledochal Cyst', q:'Type V choledochal cyst is also known as:', opts:['Klatskin cyst','Caroli disease','Mirizzi cyst','Bouveret cyst'], correct:1, exp:'Type V, intrahepatic biliary cysts, is also called Caroli disease and may require liver transplantation in advanced disease.'},
+{sec:'Choledochal Cyst', q:'What is the rarest type of choledochal cyst?', opts:['Type I','Type II','Type IV','Type V'], correct:3, exp:'Type V (Caroli disease/intrahepatic) is the rarest, making up only about 1% of cases.'},
+{sec:'Benign/Inflammatory', q:'Which of the following pathophysiologic mechanisms is NOT typically associated with acalculous cholecystitis?', opts:['Gallbladder distention','Bile stasis','Stone impaction','Ischemia from low-flow state'], correct:2, exp:'By definition, acalculous cholecystitis occurs WITHOUT gallstones; stone impaction is not part of its mechanism.'},
+{sec:'Benign/Inflammatory', q:'In the Philippines, acalculous cholecystitis is often seen as a complication of which conditions?', opts:['Malaria and leptospirosis','Dengue and typhoid fever','Tuberculosis and amoebiasis','Hepatitis A and B'], correct:1, exp:'Dr. Nolasco notes that dengue and typhoid fever commonly cause acalculous cholecystitis in the Philippine setting, often resolving spontaneously.'},
+{sec:'Benign/Inflammatory', q:'What size threshold for a gallbladder polyp warrants surgical removal?', opts:['≥0.5 cm','≥1 cm','≥2 cm','≥3 cm'], correct:1, exp:'Polyps ≥1 cm (or symptomatic ones) are indications for cholecystectomy, since polyps <1 cm rarely become malignant.'},
+{sec:'Benign/Inflammatory', q:'Which type of gallbladder polyp is more likely to be malignant?', opts:['Cholesterol polyp','Adenomatous polyp','Hyperplastic polyp','Inflammatory polyp'], correct:1, exp:'Adenomatous polyps carry a risk for gallbladder cancer, unlike the more common (and typically benign) cholesterol polyps.'},
+{sec:'Benign/Inflammatory', q:'Secondary choledocholithiasis stones are usually composed of:', opts:['Brown pigment','Black pigment','Cholesterol','Calcium carbonate'], correct:2, exp:'Secondary stones form in the gallbladder (usually cholesterol stones) and migrate into the CBD via the cystic duct — this is the more common pattern overall.'},
+{sec:'Benign/Inflammatory', q:'Primary choledocholithiasis is more strongly associated with which of the following?', opts:['Western diet and obesity','Biliary stasis and infection, more common in Asians','Rapid weight loss','Oral contraceptive use'], correct:1, exp:'Primary stones form within the bile duct itself, associated with biliary stasis/infection, and are more commonly seen in Asian populations.'},
+{sec:'Benign/Inflammatory', q:'What causes acholic stool in a patient with choledocholithiasis?', opts:['Excess unconjugated bilirubin','Absence of stercobilinogen due to blocked bile flow','Increased bile salt reabsorption','Pancreatic enzyme deficiency'], correct:1, exp:'When bilirubin cannot pass through the ampulla into the intestines, stercobilinogen (which colors stool) is absent, resulting in pale/acholic stool.'},
+{sec:'Benign/Inflammatory', q:'A 30-year-old female has 2 weeks of intermittent colicky RUQ pain, followed by jaundice. Total, conjugated bilirubin, and ALP are elevated; ALT, AST, and unconjugated bilirubin are normal. What is the most likely diagnosis?', opts:['Cholecystitis','Choledocholithiasis','Hepatitis','Sickle cell disease'], correct:1, exp:'This pattern (elevated conjugated bilirubin and ALP, normal transaminases) reflects obstructive jaundice from a common bile duct stone — choledocholithiasis.'},
+{sec:'Benign/Inflammatory', q:'What is the imaging modality preferred for evaluating suspected choledocholithiasis due to its high sensitivity/specificity and excellent anatomic detail?', opts:['Plain abdominal X-ray','Ultrasound alone','MRCP','HIDA scan'], correct:2, exp:'MRCP is preferred, offering 95% sensitivity and 89% specificity for detecting bile duct stones.'},
+{sec:'Benign/Inflammatory', q:'Which country/region is hepatolithiasis considered endemic?', opts:['Western Europe','East and Southeast Asia','Sub-Saharan Africa','North America'], correct:1, exp:'Hepatolithiasis (intrahepatic stones) is endemic to East and Southeast Asia, often related to biliary parasitic/bacterial infection.'},
+{sec:'Benign/Inflammatory', q:'Which management option for hepatolithiasis carries the LOWEST risk of recurrence?', opts:['Hepaticojejunostomy','Hepatectomy','Choledochojejunostomy','PTBD alone'], correct:1, exp:'Hepatectomy (resection of the affected liver segment/lobe) carries the lowest recurrence risk among the treatment options, especially in unilateral disease.'},
+{sec:'Benign/Inflammatory', q:'What is "Oriental Cholangiohepatitis" also known as?', opts:['Primary sclerosing cholangitis','Recurrent pyogenic cholangitis','Acute suppurative cholangitis','Autoimmune hepatitis'], correct:1, exp:'Recurrent pyogenic cholangitis is also called Oriental Cholangiohepatitis, a complication of hepatolithiasis very common in East Asia.'},
+{sec:'Benign/Inflammatory', q:'Which of the following is NOT part of Reynold\'s Pentad?', opts:['Charcot\'s Triad','Seizures','Shock','Altered mental status'], correct:1, exp:'Reynold\'s Pentad = Charcot\'s Triad (RUQ pain, jaundice, fever) + shock + altered mental status. Seizures are not part of the pentad.'},
+{sec:'Benign/Inflammatory', q:'What is the recommended treatment approach for cholangitis?', opts:['Elective ERCP after outpatient workup','Broad-spectrum antibiotics, biliary drainage, and resuscitation as urgent management','Observation with oral antibiotics','Immediate cholecystectomy only'], correct:1, exp:'Cholangitis is treated as a very urgent condition — patients can deteriorate within 24 hours — requiring immediate broad-spectrum antibiotics, biliary drainage, and resuscitation.'},
+{sec:'Benign/Inflammatory', q:'Which organism is a common cause of cholangitis?', opts:['Staphylococcus aureus','E. coli','Streptococcus pyogenes','Candida albicans'], correct:1, exp:'E. coli, along with Klebsiella, S. faecalis, Enterobacter sp., and Bacteroides fragilis, are the common enteric organisms causing cholangitis.'},
+{sec:'Benign/Inflammatory', q:'Primary Sclerosing Cholangitis (PSC) is most strongly associated with which condition?', opts:['Crohn\'s disease','Ulcerative colitis','Celiac disease','Irritable bowel syndrome'], correct:1, exp:'About ⅔ of PSC patients have ulcerative colitis.'},
+{sec:'Benign/Inflammatory', q:'What is the typical demographic for PSC?', opts:['Female-predominant, ages 20-30','Male-predominant (2:1), ages 30-45','Equal M:F, ages 50-60','Female-predominant, ages 60-70'], correct:1, exp:'PSC is male-predominant (M:F 2:1), with a mean age of 30-45 years, and is autoimmune in origin.'},
+{sec:'Neoplasms', q:'What is the most important risk factor for gallbladder carcinoma?', opts:['Smoking','Cholelithiasis','Obesity alone','Diabetes'], correct:1, exp:'Cholelithiasis is the single most important risk factor for gallbladder carcinoma; larger stones (>3cm) carry a 10-fold increased risk.'},
+{sec:'Neoplasms', q:'What is the predominant histologic subtype of gallbladder carcinoma?', opts:['Squamous cell carcinoma','Adenocarcinoma','Adenosquamous carcinoma','Neuroendocrine tumor'], correct:1, exp:'Adenocarcinoma accounts for approximately 90% of gallbladder cancers.'},
+{sec:'Neoplasms', q:'What is the appropriate treatment for T1 gallbladder carcinoma (limited to lamina propria/muscularis)?', opts:['Extended hepatectomy','Laparoscopic cholecystectomy','Whipple procedure','Palliative chemotherapy only'], correct:1, exp:'T1 disease is treated with simple laparoscopic cholecystectomy alone, with 5-year survival near 100%.'},
+{sec:'Neoplasms', q:'What is required in addition to cholecystectomy for T2 gallbladder carcinoma?', opts:['Whipple procedure','Segmental liver resection (IVB/V) and lymphadenectomy','Liver transplantation','Nothing additional'], correct:1, exp:'T2 disease requires extended cholecystectomy, including segmental resection of liver segments IVB/V plus regional lymphadenectomy, since 50% have nodal disease.'},
+{sec:'Neoplasms', q:'What is the classic initial presentation of cholangiocarcinoma?', opts:['Severe RUQ pain with fever','Painless jaundice','Hematemesis','Acute pancreatitis'], correct:1, exp:'Painless jaundice is the most common initial presentation of cholangiocarcinoma.'},
+{sec:'Neoplasms', q:'What is the most common anatomic site of cholangiocarcinoma?', opts:['Intrahepatic ducts','Distal bile duct','Hilar region (bifurcation of hepatic ducts)','Gallbladder neck'], correct:2, exp:'The hilar region (Klatskin tumor), specifically the bifurcation of the hepatic ducts, accounts for about 50% of cases and is the most common site.'},
+{sec:'Neoplasms', q:'Which tumor marker is most commonly used to aid diagnosis of cholangiocarcinoma?', opts:['AFP','CA 19-9','PSA','CA 15-3'], correct:1, exp:'CA 19-9 is the most commonly used tumor marker for cholangiocarcinoma, though it can be falsely elevated in cholangitis or other GI/gyn neoplasms.'},
+{sec:'Neoplasms', q:'What is the surgical treatment of choice for distal (periampullary) cholangiocarcinoma?', opts:['Total hepatectomy with transplant','Pancreaticoduodenectomy (Whipple procedure)','Simple cholecystectomy','Choledochojejunostomy alone'], correct:1, exp:'Distal bile duct tumors that are resectable typically require a Whipple procedure (pancreaticoduodenectomy).'},
+{sec:'Neoplasms', q:'What is the surgical treatment of choice for hilar (perihilar) cholangiocarcinoma?', opts:['Whipple procedure alone','Extended hepatectomy','Simple cholecystectomy','No surgical option exists'], correct:1, exp:'Perihilar tumors require major liver resection (extended hepatectomy), since Whipple alone is insufficient for this location.'},
+{sec:'Neoplasms', q:'What incidence of gallbladder cancer is associated with porcelain gallbladder, making it a classic (though debated) indication for cholecystectomy?', opts:['<5%','~10%','>20%','~50%'], correct:2, exp:'Porcelain gallbladder is associated with a >20% incidence of gallbladder cancer, classically prompting removal even if asymptomatic.'},
+{sec:'Neoplasms', q:'What palliative treatment has been shown to prolong survival and improve quality of life in unresectable cholangiocarcinoma with biliary stents?', opts:['Systemic corticosteroids','Photodynamic therapy','High-dose vitamin K','Plasmapheresis'], correct:1, exp:'Photodynamic therapy has been shown to prolong survival and improve quality of life in patients with unresectable disease and biliary stents.'},
+{sec:'Neoplasms', q:'In cholangiocarcinoma, what percentage of cases present with cholangitis as the initial symptom?', opts:['~1%','~10%','~50%','~90%'], correct:1, exp:'Cholangitis is the presenting symptom in about 10% of cholangiocarcinoma patients.'},
+];
+
+let quizOrder = QUIZ.map((_,i)=>i);
+let quizAnswers = new Array(QUIZ.length).fill(null);
+let quizIdx = 0;
+
+document.getElementById('quizStartBtn').onclick = ()=>{
+  document.getElementById('quizIntro').classList.add('hidden');
+  document.getElementById('quizPlay').classList.remove('hidden');
+  document.getElementById('quizScoreScreen').classList.add('hidden');
+  quizIdx = 0;
+  quizAnswers = new Array(QUIZ.length).fill(null);
+  renderQuestion();
+};
+
+function renderQuestion(){
+  const q = QUIZ[quizIdx];
+  document.getElementById('qMeta').textContent = 'Question '+(quizIdx+1)+' of '+QUIZ.length+'  ·  Section: '+q.sec;
+  document.getElementById('qPrompt').textContent = q.q;
+  const optsDiv = document.getElementById('qOptions');
+  optsDiv.innerHTML='';
+  const exp = document.getElementById('qExplain');
+  exp.classList.remove('show');
+  exp.innerHTML='';
+
+  q.opts.forEach((optText, i)=>{
+    const btn = document.createElement('button');
+    btn.className='qopt';
+    btn.textContent = optText;
+    const prevAns = quizAnswers[quizIdx];
+    if(prevAns!==null){
+      if(i===q.correct) btn.classList.add('correct');
+      if(i===prevAns && i!==q.correct) btn.classList.add('incorrect');
+    }
+    btn.onclick = ()=>{
+      if(quizAnswers[quizIdx]!==null) return; // already answered
+      quizAnswers[quizIdx]=i;
+      renderQuestion();
+      showExplain();
+    };
+    optsDiv.appendChild(btn);
+  });
+  if(quizAnswers[quizIdx]!==null) showExplain();
+  document.getElementById('qPrevBtn').disabled = quizIdx===0;
+  document.getElementById('qNextBtn').textContent = quizIdx===QUIZ.length-1 ? 'Finish' : 'Next →';
+}
+
+function showExplain(){
+  const q = QUIZ[quizIdx];
+  const exp = document.getElementById('qExplain');
+  const correctLabel = quizAnswers[quizIdx]===q.correct ? '✅ Correct.' : '❌ Not quite.';
+  exp.innerHTML = '<b>'+correctLabel+'</b> '+q.exp;
+  exp.classList.add('show');
+}
+
+document.getElementById('qPrevBtn').onclick = ()=>{ if(quizIdx>0){ quizIdx--; renderQuestion(); } };
+document.getElementById('qNextBtn').onclick = ()=>{
+  if(quizIdx<QUIZ.length-1){ quizIdx++; renderQuestion(); }
+  else { finishQuiz(); }
+};
+
+function finishQuiz(){
+  document.getElementById('quizPlay').classList.add('hidden');
+  document.getElementById('quizScoreScreen').classList.remove('hidden');
+  let score=0;
+  QUIZ.forEach((q,i)=>{ if(quizAnswers[i]===q.correct) score++; });
+  document.getElementById('scoreNum').textContent = score+' / '+QUIZ.length;
+  const pct = Math.round(score/QUIZ.length*100);
+  let msg = pct>=80?'Excellent work — you\'re board-ready on this topic!':pct>=60?'Solid grasp — review the missed items below.':'Keep reviewing — revisit the core topic tabs and try again.';
+  document.getElementById('scoreMsg').textContent = msg+' ('+pct+'%)';
+  document.getElementById('reviewList').classList.add('hidden');
+  document.getElementById('reviewList').innerHTML='';
+}
+
+document.getElementById('reviewBtn').onclick = ()=>{
+  const list = document.getElementById('reviewList');
+  list.classList.toggle('hidden');
+  if(!list.classList.contains('hidden') && list.innerHTML===''){
+    QUIZ.forEach((q,i)=>{
+      const correct = quizAnswers[i]===q.correct;
+      const div = document.createElement('div');
+      div.className='review-item '+(correct?'right':'wrong');
+      div.innerHTML = '<b>Q'+(i+1)+'. '+q.q+'</b><br>Your answer: '+(quizAnswers[i]!==null?q.opts[quizAnswers[i]]:'(skipped)')+'<br>Correct answer: '+q.opts[q.correct]+'<br><span style="font-size:.85rem;color:var(--ink-soft)">'+q.exp+'</span>';
+      list.appendChild(div);
+    });
+  }
+};
+document.getElementById('retakeBtn').onclick = ()=>{
+  document.getElementById('quizScoreScreen').classList.add('hidden');
+  document.getElementById('quizIntro').classList.remove('hidden');
+};
+</script>
+
+</body>
+</html>

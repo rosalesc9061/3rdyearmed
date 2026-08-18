@@ -1,0 +1,3043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surgery II Interactive Reviewer: Duodenum, Small Intestine & Appendix | UERM Batch 2026</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================
+       CSS VARIABLES & THEME SETUP
+       ========================================== */
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --primary-light: #e0f2fe;
+      
+      --accent-green: #059669;
+      --accent-green-light: #d1fae5;
+      --accent-amber: #d97706;
+      --accent-amber-light: #fef3c7;
+      --accent-red: #dc2626;
+      --accent-red-light: #fee2e2;
+      --accent-purple: #7c3aed;
+      --accent-purple-light: #f3e8ff;
+      
+      --border-color: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      
+      --font-heading: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0f172a;
+      --bg-surface: #1e293b;
+      --bg-subtle: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
+      --text-light: #94a3b8;
+      
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --primary-light: rgba(56, 189, 248, 0.15);
+      
+      --accent-green: #34d399;
+      --accent-green-light: rgba(52, 211, 153, 0.15);
+      --accent-amber: #fbbf24;
+      --accent-amber-light: rgba(251, 191, 36, 0.15);
+      --accent-red: #f87171;
+      --accent-red-light: rgba(248, 113, 113, 0.15);
+      --accent-purple: #c084fc;
+      --accent-purple-light: rgba(192, 132, 252, 0.15);
+      
+      --border-color: #334155;
+      --border-strong: #475569;
+    }
+
+    /* ==========================================
+       BASE STYLES
+       ========================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+      padding-bottom: 60px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+
+    p { margin-bottom: 0.75rem; }
+    p:last-child { margin-bottom: 0; }
+
+    code, pre {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+    }
+
+    /* ==========================================
+       LAYOUT & CONTAINER
+       ========================================== */
+    .header-sticky {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(8px);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+    }
+
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .search-box {
+      position: relative;
+      width: 280px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-subtle);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+      background-color: var(--bg-surface);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      pointer-events: none;
+    }
+
+    .btn-icon {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-icon:hover {
+      background: var(--border-color);
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      width: 100%;
+      height: 4px;
+      background: var(--bg-subtle);
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent-purple));
+      width: 0%;
+      transition: width 0.1s;
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs-wrapper {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .nav-tabs {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      padding: 0 1.5rem;
+      list-style: none;
+      white-space: nowrap;
+    }
+
+    .nav-item {
+      padding: 0.85rem 1.1rem;
+      font-family: var(--font-heading);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .nav-item:hover {
+      color: var(--primary);
+      background-color: var(--bg-subtle);
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    .nav-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: var(--radius-full);
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+    }
+
+    .nav-item.active .nav-badge {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================
+       CARDS & CALLOUTS
+       ========================================== */
+    .card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Callout Boxes */
+    .callout {
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      margin: 1.25rem 0;
+      border-left: 4px solid;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.95rem;
+    }
+
+    .callout-header {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+
+    .callout-must-know {
+      background-color: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--text-main);
+    }
+    .callout-must-know .callout-header { color: var(--primary); }
+
+    .callout-pitfall {
+      background-color: var(--accent-red-light);
+      border-color: var(--accent-red);
+      color: var(--text-main);
+    }
+    .callout-pitfall .callout-header { color: var(--accent-red); }
+
+    .callout-pearl {
+      background-color: var(--accent-amber-light);
+      border-color: var(--accent-amber);
+      color: var(--text-main);
+    }
+    .callout-pearl .callout-header { color: var(--accent-amber); }
+
+    .callout-tip {
+      background-color: var(--accent-purple-light);
+      border-color: var(--accent-purple);
+      color: var(--text-main);
+    }
+    .callout-tip .callout-header { color: var(--accent-purple); }
+
+    /* Key-Value Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+    }
+
+    .badge-primary { background: var(--primary-light); color: var(--primary); }
+    .badge-success { background: var(--accent-green-light); color: var(--accent-green); }
+    .badge-warning { background: var(--accent-amber-light); color: var(--accent-amber); }
+    .badge-danger { background: var(--accent-red-light); color: var(--accent-red); }
+    .badge-purple { background: var(--accent-purple-light); color: var(--accent-purple); }
+
+    /* Accordion Expandables */
+    .accordion {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+      background: var(--bg-surface);
+    }
+
+    .accordion-header {
+      padding: 1rem 1.25rem;
+      background: var(--bg-surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      font-family: var(--font-heading);
+      transition: background 0.2s;
+    }
+
+    .accordion-header:hover {
+      background: var(--bg-subtle);
+    }
+
+    .accordion-content {
+      padding: 1.25rem;
+      border-top: 1px solid var(--border-color);
+      display: none;
+      background: var(--bg-surface);
+    }
+
+    .accordion.open .accordion-content {
+      display: block;
+    }
+
+    .accordion-icon {
+      transition: transform 0.2s;
+    }
+
+    .accordion.open .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    /* ==========================================
+       TABLES
+       ========================================== */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .custom-table th {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--border-color);
+      position: sticky;
+      top: 0;
+    }
+
+    .custom-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: top;
+    }
+
+    .custom-table tbody tr:nth-child(even) {
+      background-color: rgba(0,0,0,0.015);
+    }
+
+    .custom-table tbody tr:hover {
+      background-color: var(--primary-light);
+    }
+
+    .table-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0.5rem;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .btn-sm {
+      padding: 0.25rem 0.6rem;
+      font-size: 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      cursor: pointer;
+      font-family: var(--font-body);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .btn-sm:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* ==========================================
+       SVG DIAGRAMS & ILLUSTRATIONS
+       ========================================== */
+    .diagram-container {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+
+    .diagram-svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .diagram-caption {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    /* ==========================================
+       FLASHCARDS
+       ========================================== */
+    .flashcard-wrapper {
+      max-width: 650px;
+      margin: 2rem auto;
+      perspective: 1000px;
+    }
+
+    .flashcard {
+      width: 100%;
+      min-height: 320px;
+      background: var(--bg-surface);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .flashcard.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+    }
+
+    .flashcard-back {
+      transform: rotateY(180deg);
+      background-color: var(--primary-light);
+      color: var(--text-main);
+    }
+
+    .flashcard-tag {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+    }
+
+    .flashcard-hint {
+      position: absolute;
+      bottom: 1rem;
+      font-size: 0.75rem;
+      color: var(--text-light);
+      font-family: var(--font-mono);
+    }
+
+    .flashcard-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn-action {
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius-full);
+      border: none;
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+      font-family: var(--font-heading);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-action:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--border-strong);
+    }
+
+    /* ==========================================
+       MCQ QUIZ SYSTEM
+       ========================================== */
+    .quiz-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .quiz-qnum {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .quiz-question {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      color: var(--text-main);
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .quiz-option {
+      padding: 0.85rem 1.1rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .quiz-option:hover {
+      background: var(--bg-subtle);
+      border-color: var(--border-strong);
+    }
+
+    .quiz-option.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .quiz-option.correct {
+      border-color: var(--accent-green);
+      background: var(--accent-green-light);
+      color: #065f46;
+      font-weight: 600;
+    }
+
+    .quiz-option.incorrect {
+      border-color: var(--accent-red);
+      background: var(--accent-red-light);
+      color: #991b1b;
+    }
+
+    .quiz-explanation {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      display: none;
+      font-size: 0.9rem;
+    }
+
+    .quiz-explanation.show {
+      display: block;
+      animation: fadeIn 0.3s;
+    }
+
+    .quiz-score-banner {
+      background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+      color: white;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    /* ==========================================
+       CRAM SHEET
+       ========================================== */
+    .cram-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .cram-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      border-top: 4px solid var(--primary);
+    }
+
+    .cram-card h4 {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .cram-list {
+      list-style: none;
+      font-size: 0.875rem;
+    }
+
+    .cram-list li {
+      margin-bottom: 0.5rem;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .cram-list li::before {
+      content: "•";
+      color: var(--primary);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    /* ==========================================
+       UTILITIES & PRINT
+       ========================================== */
+    .text-center { text-align: center; }
+    .mt-1 { margin-top: 0.5rem; }
+    .mt-2 { margin-top: 1rem; }
+    .mt-3 { margin-top: 1.5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .hidden { display: none !important; }
+
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 45px;
+      height: 45px;
+      border-radius: var(--radius-full);
+      background: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      z-index: 999;
+    }
+
+    .scroll-top-btn.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media print {
+      .header-sticky, .nav-tabs-wrapper, .flashcard-controls, .scroll-top-btn, .table-toolbar {
+        display: none !important;
+      }
+      .tab-content {
+        display: block !important;
+        page-break-after: always;
+      }
+      body {
+        background: white;
+        color: black;
+      }
+      .card {
+        border: 1px solid #ccc;
+        box-shadow: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-inner { flex-direction: column; align-items: stretch; }
+      .search-box { width: 100%; }
+      .cram-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header-sticky">
+    <div class="header-inner">
+      <a href="#" class="brand">
+        <div class="brand-logo">U</div>
+        <div>
+          <div class="brand-title">SURGERY II REVIEWER</div>
+          <div class="brand-subtitle">UERM College of Medicine • Batch 2026</div>
+        </div>
+      </a>
+
+      <div class="header-controls">
+        <div class="search-box">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="globalSearch" class="search-input" placeholder="Search concepts, buzzwords, tumors...">
+        </div>
+        <button id="themeToggle" class="btn-icon" title="Toggle Dark/Light Mode">🌙</button>
+      </div>
+    </div>
+
+    <div class="progress-container">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+
+    <div class="nav-tabs-wrapper">
+      <ul class="nav-tabs" id="navTabs">
+        <li class="nav-item active" data-tab="tab-overview">Overview</li>
+        <li class="nav-item" data-tab="tab-anatomy-physio">Anatomy & Physio</li>
+        <li class="nav-item" data-tab="tab-sbo-ileus">Obstruction & Ileus</li>
+        <li class="nav-item" data-tab="tab-vascular">Mesenteric Ischemia</li>
+        <li class="nav-item" data-tab="tab-misc">Inflammatory & Misc</li>
+        <li class="nav-item" data-tab="tab-neoplasms">SI Neoplasms</li>
+        <li class="nav-item" data-tab="tab-appendix">Appendix</li>
+        <li class="nav-item" data-tab="tab-comparisons">Comparisons</li>
+        <li class="nav-item" data-tab="tab-flashcards">Flashcards <span class="nav-badge">50</span></li>
+        <li class="nav-item" data-tab="tab-mcqs">Self-Assessment <span class="nav-badge">50</span></li>
+        <li class="nav-item" data-tab="tab-cram">Cram Sheet ⚡</li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="main-container">
+
+    <section id="tab-overview" class="tab-content active">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">📖 Comprehensive Executive Summary</h2>
+          <span class="badge badge-primary">Lecture 02 • Dr. John M. Gomez</span>
+        </div>
+        <p>This master interactive study suite synthesizes the complete lecture curriculum on <strong>Duodenum, Small Intestine, and Appendix</strong> for 3rd-year medical students preparing for Surgery II examinations and the Physician Licensure Examination (PLE). The small intestine represents the body's primary nutrient absorption organ, its largest reservoir of endocrine cells, and its largest immune system component (GALT).</p>
+      </div>
+
+      <div class="card">
+        <h3 class="mb-2">🎯 Core Module Blueprint & Learning Objectives</h3>
+        <div class="cram-grid">
+          <div class="cram-card">
+            <h4>1. Basic Sciences Foundation</h4>
+            <ul class="cram-list">
+              <li>Master gross anatomical boundaries, mesentery differences between jejunum and ileum.</li>
+              <li>Detail 4 histological layers, crypt stem cell lineages (Paneth, Enterocytes, Goblet, Enteroendocrine).</li>
+              <li>Understand embryological midgut rotation and vitelline duct remnants.</li>
+              <li>Analyze fluid/electrolyte fluxes (8-9L daily traversal) and nutrient breakdown pathways.</li>
+            </ul>
+          </div>
+          <div class="cram-card">
+            <h4>2. Intestinal Motility & Obstruction</h4>
+            <ul class="cram-list">
+              <li>Distinguish mechanical Small Bowel Obstruction (SBO) from Postoperative Ileus and CIPO.</li>
+              <li>Interpret radiological findings (CT transition points, target sign, step-ladder fluid levels).</li>
+              <li>Identify indications for conservative vs emergency surgical interventions.</li>
+            </ul>
+          </div>
+          <div class="cram-card">
+            <h4>3. Mesenteric Ischemia & Vascular Disorders</h4>
+            <ul class="cram-list">
+              <li>Compare Acute Mesenteric Ischemia (SMA Embolus vs Thrombosis vs NOMI vs SMV Thrombosis).</li>
+              <li>Identify classic clinical triads ("pain out of proportion to exam", postprandial angina, food fear).</li>
+              <li>Execute rapid diagnostic workups and surgical management strategies.</li>
+            </ul>
+          </div>
+          <div class="cram-card">
+            <h4>4. Appendiceal Disease & Neoplasms</h4>
+            <ul class="cram-list">
+              <li>Calculate Alvarado Score (MANTRELS) and follow evidence-based treatment algorithms.</li>
+              <li>Recognize physical exam signs (Rovsing, Dunphy, Obturator, Psoas, Rectal bogginess).</li>
+              <li>Differentiate carcinoids, adenocarcinomas, mucoeceles, and Pseudomyxoma Peritonei.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>📊 High-Yield Fluid & Electrolyte Balance Summary</h3>
+        <p class="mt-1 mb-2">Total daily fluid volume entering the small intestine is approximately <strong>8.0 – 9.0 Liters</strong>.</p>
+        <div class="table-container">
+          <div class="table-toolbar">
+            <button class="btn-sm" onclick="copyTableToClipboard(this)">📋 Copy Table</button>
+          </div>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Fluid Source</th>
+                <th>Volume Input (mL/day)</th>
+                <th>Reabsorption / Elimination Path</th>
+                <th>Clinical Significance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Oral Fluid Intake</strong></td>
+                <td>2,000 mL</td>
+                <td>Small Intestine Reabsorption</td>
+                <td>Dehydration occurs rapidly with proximal losses</td>
+              </tr>
+              <tr>
+                <td><strong>Salivary Secretions</strong></td>
+                <td>1,500 mL</td>
+                <td>Small Intestine Reabsorption</td>
+                <td>Contains salivary amylase</td>
+              </tr>
+              <tr>
+                <td><strong>Gastric Secretions</strong></td>
+                <td>2,000 mL</td>
+                <td>Small Intestine Reabsorption</td>
+                <td>Contains HCl and Intrinsic Factor</td>
+              </tr>
+              <tr>
+                <td><strong>Biliary Secretions (Bile)</strong></td>
+                <td>500 mL</td>
+                <td>Small Intestine Reabsorption</td>
+                <td>Bile salts crucial for micelle formation</td>
+              </tr>
+              <tr>
+                <td><strong>Pancreatic Secretions</strong></td>
+                <td>1,500 mL</td>
+                <td>Small Intestine Reabsorption</td>
+                <td>Rich in bicarbonate, amylase, lipase, peptidases</td>
+              </tr>
+              <tr>
+                <td><strong>Intestinal Secretions</strong></td>
+                <td>1,000 mL</td>
+                <td>Small Intestine Reabsorption</td>
+                <td>Succus entericus, crypt hydration</td>
+              </tr>
+              <tr style="background-color: var(--primary-light); font-weight: bold;">
+                <td>TOTAL TRAVERSING FLUID</td>
+                <td>8,500 - 9,000 mL</td>
+                <td>80% Reabsorbed in Small Intestine (~7,500 mL)</td>
+                <td>1,500 mL enters colon; only 100-200 mL lost in stool!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-anatomy-physio" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🔬 Gross Anatomy, Histology & Embryology</h2>
+          <span class="badge badge-success">Core Science</span>
+        </div>
+
+        <div class="accordion open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>1. Gross Anatomy: Duodenum, Jejunum & Ileum</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>The small intestine is a tubular structure measuring <strong>4 to 6 meters</strong> in length, extending from the pylorus to the ileocecal valve.</p>
+            
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Anatomical Feature</th>
+                    <th>Jejunum (Proximal 40%)</th>
+                    <th>Ileum (Distal 60%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Lumen Diameter & Wall</strong></td>
+                    <td>Larger diameter, thicker muscular wall</td>
+                    <td>Smaller diameter, thinner wall</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Plicae Circulares (Valvulae Conniventes)</strong></td>
+                    <td>Large, tall, closely spaced folds</td>
+                    <td>Sparse, low, absent in distal ileum</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mesenteric Fat</strong></td>
+                    <td>Less fat; clear "windows" near bowel wall</td>
+                    <td>Abundant fat ("creeping fat" extends onto serosa)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Vascular Arcades & Vasa Recta</strong></td>
+                    <td>Simple arcades (1-2 tiers), <strong>longer vasa recta</strong></td>
+                    <td>Complex arcades (3-5 tiers), <strong>shorter vasa recta</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Lymphoid Tissue</strong></td>
+                    <td>Solitary lymph follicles</td>
+                    <td><strong>Peyer's Patches</strong> (macroscopic aggregates)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="callout callout-must-know">
+              <div class="callout-header">⭐ Must Know - Blood Supply & Lymphatics</div>
+              <p>• <strong>Arterial Supply:</strong> Celiac Axis (Duodenum proximal to Papilla of Vater) and <strong>Superior Mesenteric Artery (SMA)</strong> (distal duodenum to splenic flexure).</p>
+              <p>• <strong>Venous Drainage:</strong> Superior Mesenteric Vein (SMV) → joins Splenic Vein to form Portal Vein.</p>
+              <p>• <strong>Lymphatic Drainage:</strong> Lacteals → Mesenteric Lymph Nodes → Cisterna Chyli → Thoracic Duct → Left Subclavian Vein.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>2. Histology & Crypt Stem Cell Lineages</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>The small intestinal wall consists of 4 distinct concentric layers: <strong>Mucosa, Submucosa, Muscularis Propria, and Serosa</strong>.</p>
+            
+            <div class="diagram-container">
+              <svg class="diagram-svg" viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+                <rect x="20" y="20" width="660" height="35" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                <text x="350" y="42" text-anchor="middle" font-family="DM Sans" font-weight="bold" fill="#0369a1">MUCOSA (Epithelium, Lamina Propria, Muscularis Mucosae) — Villi & Crypts</text>
+
+                <rect x="20" y="65" width="660" height="35" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                <text x="350" y="87" text-anchor="middle" font-family="DM Sans" font-weight="bold" fill="#b45309">SUBMUCOSA (Meissner's Plexus, Blood/Lymphatic Vessels) — Tensile Strength Layer</text>
+
+                <rect x="20" y="110" width="660" height="45" rx="5" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+                <text x="350" y="130" text-anchor="middle" font-family="DM Sans" font-weight="bold" fill="#b91c1c">MUSCULARIS PROPRIA (Inner Circular + Outer Longitudinal Layers)</text>
+                <text x="350" y="147" text-anchor="middle" font-family="DM Sans" font-size="12" fill="#b91c1c">★ Auerbach's (Myenteric) Plexus sandwiched between layers</text>
+
+                <rect x="20" y="160" width="660" height="30" rx="5" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+                <text x="350" y="180" text-anchor="middle" font-family="DM Sans" font-weight="bold" fill="#047857">SEROSA (Visceral Peritoneum - Single layer of mesothelial cells)</text>
+              </svg>
+              <div class="diagram-caption">Figure 1: Schematic cross-section of the 4 layers of the small intestinal wall.</div>
+            </div>
+
+            <p>All epithelial cells originate from stem cells located at the base of the <strong>Crypts of Lieberkühn</strong> (250-300 cells/crypt) and differentiate into 4 pathways:</p>
+            <ul class="cram-list">
+              <li><strong>Enterocytes:</strong> Predominant absorptive cell; microvilli increase surface area <strong>40-fold</strong>.</li>
+              <li><strong>Goblet Cells:</strong> Mucus-secreting cells providing mucosal lubrication and barrier defense.</li>
+              <li><strong>Paneth Cells:</strong> Located at the <em>crypt base</em>; secrete digestive enzymes, growth factors, and antimicrobial peptides (defensins, lysozyme) to shape the microbiome.</li>
+              <li><strong>Enteroendocrine Cells:</strong> Contain hormone-filled secretory granules regulating GI function.</li>
+            </ul>
+
+            <div class="callout callout-pearl">
+              <div class="callout-header">💡 Clinical Pearl - High Turnover & Injury</div>
+              <p>The rapid epithelial renewal rate provides remarkable mucosal resiliency, but makes the gut uniquely vulnerable to acute cytotoxic damage from <strong>radiation therapy</strong> and <strong>chemotherapy</strong>.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>3. Embryology & Vitelline Duct Anomalies</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>The embryonic gut tube derives from <strong>Endoderm</strong>:</p>
+            <ul class="cram-list">
+              <li><strong>Foregut:</strong> Proximal Duodenum (up to Papilla of Vater).</li>
+              <li><strong>Midgut:</strong> Distal Duodenum, Jejunum, Ileum, Cecum, Appendix, Ascending Colon, proximal 2/3 Transverse Colon.</li>
+              <li><strong>Hindgut:</strong> Distal 1/3 Transverse Colon to Upper Anal Canal.</li>
+            </ul>
+
+            <p><strong>Timeline:</strong></p>
+            <ul class="cram-list">
+              <li><strong>5th Week:</strong> Rapid elongation causes physiological extra-coelomic herniation into umbilical cord.</li>
+              <li><strong>6th Week:</strong> Vitelline duct (omphalomesenteric duct) narrows.</li>
+              <li><strong>9th Week:</strong> Villi and crypt formation begins.</li>
+              <li><strong>10th-11th Week:</strong> Return of midgut to abdominal cavity with 270° counterclockwise rotation around SMA.</li>
+              <li><strong>12th Week:</strong> Organogenesis complete; vitelline duct normally obliterates completely.</li>
+            </ul>
+
+            <div class="callout callout-pitfall">
+              <div class="callout-header">⚠️ Common Pitfall - Meckel's Diverticulum</div>
+              <p>Failure of complete vitelline duct obliteration produces a spectrum of anomalies, most commonly <strong>Meckel's Diverticulum</strong> (true diverticulum containing all wall layers).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>⚡ Physiology of Digestion, Absorption & Motility</h3>
+        
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Nutrient Breakdown & Epithelial Transport Pathways</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Nutrient Class</th>
+                    <th>Dietary %</th>
+                    <th>Digestion / Enzymes</th>
+                    <th>Transporters & Absorption Path</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Carbohydrates</strong></td>
+                    <td>~45%</td>
+                    <td>Salivary/pancreatic amylase → oligosaccharides → brush border hydrolases (lactase, sucrase, maltase)</td>
+                    <td>• <strong>Glucose & Galactose:</strong> Active co-transport via <strong>SGLT1</strong> (Na+-dependent)<br>• <strong>Fructose:</strong> Facilitated diffusion via <strong>GLUT5</strong><br>• Exit basolateral via GLUT2 → Portal vein</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Proteins</strong></td>
+                    <td>10-15%</td>
+                    <td>Gastric pepsin, pancreatic endo/exopeptidases (trypsin, chymotrypsin, elastase, carboxypeptidases)</td>
+                    <td>• Single amino acids & di/tripeptides via specific membrane transporters<br>• Absorbed directly into <strong>portal venous circulation</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Fats (Lipids)</strong></td>
+                    <td>~40%</td>
+                    <td>Gastric & pancreatic lipases + bile acid micellar emulsification</td>
+                    <td>• <strong>Long-Chain Fatty Acids (>12C):</strong> Form micelles → re-esterified to triglycerides in enterocyte → packaged into <strong>Chylomicrons</strong> → enter <strong>Intestinal Lymph (Chyle)</strong> via lacteals.<br>• <strong>Short/Medium-Chain Fatty Acids (<12C):</strong> Direct absorption into <strong>Portal Circulation</strong> without lipolysis or micelle formation!</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Vitamins & Minerals</strong></td>
+                    <td>N/A</td>
+                    <td>• Vitamin B12: binds Intrinsic Factor (gastric parietal cells) → absorbed in <strong>Terminal Ileum</strong>.<br>• Iron, Calcium, Mg: Absorbed in <strong>Duodenum & Proximal Jejunum</strong>.</td>
+                    <td>• Fat-soluble (A, D, E, K) absorbed with lipids.<br>• Water-soluble via carrier-mediated mechanisms.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Gastrointestinal Hormones Table</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Hormone</th>
+                    <th>Source Cell</th>
+                    <th>Primary Triggers</th>
+                    <th>Major Physiological Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Secretin</strong></td>
+                    <td>S Cells (Duodenum)</td>
+                    <td>Gastric acid (pH < 4.5), fatty acids</td>
+                    <td>Stimulates pancreatic HCO3- secretion; inhibits gastric acid secretion. First hormone discovered!</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Cholecystokinin (CCK)</strong></td>
+                    <td>I Cells (Duodenum/Jejunum)</td>
+                    <td>Fatty acids, amino acids</td>
+                    <td>Gallbladder contraction, pancreatic enzyme secretion, relaxes Sphincter of Oddi.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Motilin</strong></td>
+                    <td>M Cells (Duodenum/Jejunum)</td>
+                    <td>Fasting states</td>
+                    <td>Initiates <strong>Migrating Motor Complex (MMC)</strong> during fasting.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Somatostatin</strong></td>
+                    <td>D Cells (Pancreas/Gut)</td>
+                    <td>Luminal acid</td>
+                    <td>Universal GI inhibitor (decreases secretions, motility, and splanchnic blood flow).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Peptide YY (PYY)</strong></td>
+                    <td>L Cells (Distal Ileum/Colon)</td>
+                    <td>Intraluminal fat in distal ileum</td>
+                    <td><strong>"Ileal Brake"</strong> — slows gastric emptying and small bowel transit.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>GLP-2</strong></td>
+                    <td>L Cells</td>
+                    <td>Nutrient ingestion</td>
+                    <td>Stimulates mucosal proliferation and mucosal adaptation post-resection.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Neurotensin</strong></td>
+                    <td>N Cells (Ileum)</td>
+                    <td>Fatty acids</td>
+                    <td>Inhibits small bowel motility, stimulates mucosal growth.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="callout callout-tip">
+              <div class="callout-header">🧠 Exam Tip - Motility Pacemaker</div>
+              <p>The fundamental electrical slow waves of small intestinal peristalsis are generated by the <strong>Interstitial Cells of Cajal (ICC)</strong>, which function as the intrinsic pacemaker cells located within the muscularis propria.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-sbo-ileus" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🚧 Small Bowel Obstruction (SBO), Ileus & CIPO</h2>
+          <span class="badge badge-danger">High Yield Exam Topic</span>
+        </div>
+
+        <div class="accordion open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>1. Small Bowel Obstruction (SBO): Pathophysiology & Etiologies</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>Mechanical obstruction to the flow of intestinal contents. Can be simple, closed-loop, or strangulated.</p>
+            
+            <div class="callout callout-must-know">
+              <div class="callout-header">⭐ Must Know - SBO Etiology Ranking</div>
+              <p>• <strong>Postoperative Intra-abdominal Adhesions (#1 Overall cause in Western world, >60-70%):</strong> Prior surgery is the single biggest risk factor.</p>
+              <p>• <strong>Hernias (#1 cause worldwide in unoperated abdomens):</strong> Inguinal, femoral, ventral, incisional, internal.</p>
+              <p>• <strong>Neoplasms (Extrinsic or Intrinsic):</strong> Metastases (ovarian, colon), primary carcinoid/adenocarcinoma.</p>
+              <p>• <strong>Other Causes:</strong> Intussusception, Crohn's strictures, Gallstone ileus, Volvulus, Radiation strictures.</p>
+            </div>
+
+            <h4>Pathophysiologic Cascade:</h4>
+            <p>Bowel distention proximal to obstruction → fluid/gas accumulation → elevated intraluminal pressure → venous congestion → bowel wall edema → arterial compromise → ischemia → necrosis and perforation!</p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>2. Diagnostic Workup & CT Findings</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Clinical Triad:</strong> Crampy abdominal pain, obstipation/constipation, bilious vomiting, and abdominal distention.</p>
+            
+            <p><strong>Imaging Modalities:</strong></p>
+            <ul class="cram-list">
+              <li><strong>Abdominal X-rays (Supine + Upright):</strong> Dilated small bowel loops (>3 cm), air-fluid levels in a "step-ladder" pattern, absence of colonic gas.</li>
+              <li><strong>Contrast CT Scan of Abdomen/Pelvis (Gold Standard):</strong> Identifies exact site of transition point (dilated proximal bowel → collapsed distal bowel), etiology, and signs of strangulation.</li>
+            </ul>
+
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>CT Scan Finding</th>
+                    <th>Pathological Meaning</th>
+                    <th>Clinical Urgency</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Transition Point</strong></td>
+                    <td>Abrupt change from dilated proximal bowel to collapsed distal bowel</td>
+                    <td>Diagnostic of mechanical SBO</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Small Bowel Feces Sign</strong></td>
+                    <td>Particulate material mixed with gas in distal dilated small bowel</td>
+                    <td>Indicates subacute or low-grade mechanical obstruction</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Closed-Loop Obstruction</strong></td>
+                    <td>U- or C-shaped bowel loop with two points of obstruction; mesenteric radial convergence</td>
+                    <td><strong>High risk of strangulation! Emergency surgery</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Pneumatosis Intestinalis & Portal Venous Gas</strong></td>
+                    <td>Gas inside bowel wall and intrahepatic portal veins</td>
+                    <td><strong>Bowel Infarction / Gangrene! STAT Laparotomy</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>3. Management Algorithm: Conservative vs Emergency Surgery</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <div class="cram-grid">
+              <div class="cram-card" style="border-top-color: var(--accent-green);">
+                <h4 style="color: var(--accent-green);">Non-Operative Management (Partial / Uncomplicated SBO)</h4>
+                <ul class="cram-list">
+                  <li><strong>NPO (Nothing per os)</strong></li>
+                  <li><strong>Nasogastric (NG) Tube Decompression</strong></li>
+                  <li><strong>Isotonic IV Fluid Resuscitation + Electrolyte correction</strong></li>
+                  <li>Serial physical examinations every 4-6 hours</li>
+                  <li>Water-soluble contrast study (Gastrografin challenge): If contrast reaches colon within 24 hours → 90%+ resolution rate!</li>
+                </ul>
+              </div>
+
+              <div class="cram-card" style="border-top-color: var(--accent-red);">
+                <h4 style="color: var(--accent-red);">Immediate Operative Indications (Exploratory Laparotomy)</h4>
+                <ul class="cram-list">
+                  <li><strong>Signs of Strangulation / Ischemia:</strong> Peritonitis (fever, tachycardia, leukocytosis, localized rebound/guarding).</li>
+                  <li><strong>Complete SBO:</strong> No passage of gas/stool and no distal colonic air on CT.</li>
+                  <li><strong>Closed-loop obstruction or volvulus.</strong></li>
+                  <li>Failure of conservative therapy after <strong>48–72 hours</strong>.</li>
+                  <li>Incarcerated irreducible hernia.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>4. Postoperative Ileus vs CIPO Comparison</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Feature</th>
+                    <th>Postoperative Ileus (Physiologic / Prolonged)</th>
+                    <th>Chronic Intestinal Pseudo-Obstruction (CIPO)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Definition</strong></td>
+                    <td>Transient impairment of bowel motility following surgical stress/manipulation.</td>
+                    <td>Rare, chronic severe motility disorder mimicking mechanical SBO without structural lesion.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Normal Motility Recovery Sequence</strong></td>
+                    <td>• <strong>Small Intestine:</strong> Recovers within <strong>24 hours</strong><br>• <strong>Stomach:</strong> Recovers in 24-48 hours<br>• <strong>Colon:</strong> Recovers in <strong>3 to 5 days</strong></td>
+                    <td>Recurrent episodes over months to years; primary visceral myopathy or neuropathy.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Best Clinical Indicator of Recovery</strong></td>
+                    <td><strong>Flatus or bowel movement</strong> (Bowel sounds are NOT a reliable indicator!).</td>
+                    <td>Intermittent pseudo-obstruction flare-ups.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Management</strong></td>
+                    <td>Correction of electrolytes (K+, Mg2+), minimization of opioids, early ambulation, gum chewing, prokinetics.</td>
+                    <td>Prokinetics (Prucalopride, Metoclopramide), nutritional support, decompression, avoid surgery!</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-vascular" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🫀 Acute & Chronic Mesenteric Ischemia</h2>
+          <span class="badge badge-danger">Surgical Emergency</span>
+        </div>
+
+        <div class="accordion open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>1. Acute Mesenteric Ischemia (AMI): 4 Subtypes</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>Acute mesenteric ischemia carries a mortality rate of <strong>60% - 80%</strong> if diagnosis is delayed beyond infarction!</p>
+
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Subtype</th>
+                    <th>Frequency</th>
+                    <th>Etiology / Pathophysiology</th>
+                    <th>Key Risk Factors & Diagnostic Clues</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>1. Superior Mesenteric Artery (SMA) Embolus</strong></td>
+                    <td><strong>~50% (Most Common)</strong></td>
+                    <td>Embolus dislodged from heart lodges in SMA, typically 6-8 cm distal to origin (spares proximal jejunum & duodenum)</td>
+                    <td>Atrial fibrillation, recent MI, mural thrombus. Sudden excruciating onset! Spares proximal jejunum.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>2. SMA Thrombosis</strong></td>
+                    <td>~25%</td>
+                    <td>Acute thrombosis superimposed on chronic pre-existing atherosclerotic stenosis at SMA origin</td>
+                    <td>Generalized atherosclerosis, history of postprandial abdominal angina and weight loss. Infarcts proximal jejunum too!</td>
+                  </tr>
+                  <tr>
+                    <td><strong>3. Non-Occlusive Mesenteric Ischemia (NOMI)</strong></td>
+                    <td>~20%</td>
+                    <td>Splanchnic vasoconstriction secondary to low cardiac output or hypovolemia without organic vessel occlusion</td>
+                    <td>ICU patients, shock, vasopressor therapy (norepinephrine), digitalis toxicity, heart failure.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>4. Superior Mesenteric Vein (SMV) Thrombosis</strong></td>
+                    <td>~5-10%</td>
+                    <td>Thrombotic occlusion of SMV causing massive venous engorgement, bowel wall edema, and secondary arterial inflow failure</td>
+                    <td>Hypercoagulable states (Factor V Leiden, OCP use, malignancy), portal hypertension, pancreatitis. Circumferential wall thickening!</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="callout callout-pearl">
+              <div class="callout-header">💡 Clinical Pearl - Classic Presentation Paradox</div>
+              <p>Early AMI presents with <strong>severe, intractable abdominal pain OUT OF PROPORTION to physical exam findings</strong> (abdomen remains soft, non-tender initially because mucosal ischemia precedes full-thickness transmural necrosis). Soft abdomen + severe pain + Atrial Fibrillation = SMA Embolus until proven otherwise!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>2. Diagnostic & Surgical Management Pathways</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <ul class="cram-list">
+              <li><strong>CTA Abdomen/Pelvis (Mesenteric Angiography CT):</strong> Diagnostic modality of choice. Shows vessel cut-off, lack of wall enhancement, bowel loop dilatation, pneumatosis intestinalis.</li>
+              <li><strong>Laboratory Markers:</strong> Leukocytosis (>20,000), severe L-lactic acidosis (late marker of transmural necrosis), elevated amylase/D-dimer.</li>
+            </ul>
+
+            <h4>Surgical Intervention Steps (Exploratory Laparotomy):</h4>
+            <ol style="margin-left: 1.5rem; margin-bottom: 1rem;">
+              <li><strong>Revascularization First:</strong> Restore arterial flow via SMA embolectomy/bypass BEFORE resecting bowel, as borderline tissue may recover!</li>
+              <li><strong>Resection of Non-Viable Bowel:</strong> Segmental resection of frankly necrotic bowel.</li>
+              <li><strong>Assessment of Bowel Viability:</strong> Inspection of color, peristalsis, arterial pulsation, intravenous fluorescein with Wood's lamp, or Doppler ultrasound.</li>
+              <li><strong>Second-Look Laparotomy:</strong> Planned re-exploration in <strong>24 to 48 hours</strong> to reassess marginal bowel before definitive anastomosis.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>3. Chronic Mesenteric Ischemia (CMI)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>Develops insidiously secondary to severe atherosclerotic narrowing of splanchnic arteries. Requires severe stenosis of <strong>at least 2 of the 3 major visceral arteries</strong> (Celiac Axis, SMA, IMA) due to extensive collateral network.</p>
+
+            <div class="callout callout-must-know">
+              <div class="callout-header">⭐ Must Know - Classic Clinical Triad of CMI</div>
+              <p>1. <strong>Postprandial Abdominal Angina:</strong> Severe dull/crampy epigastric pain occurring 15-45 minutes after eating (due to unfulfilled visceral metabolic demand).</p>
+              <p>2. <strong>"Food Fear" (Sitophobia):</strong> Patient consciously avoids eating to prevent severe postprandial pain.</p>
+              <p>3. <strong>Significant Weight Loss:</strong> Secondary to sitophobia and progressive malabsorption.</p>
+            </div>
+            <p><strong>Treatment:</strong> Mesenteric revascularization (Endovascular angioplasty/stenting OR open surgical bypass).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-misc" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🔥 Inflammatory, Diverticular & Miscellaneous Conditions</h2>
+          <span class="badge badge-purple">Diverse Pathology</span>
+        </div>
+
+        <div class="accordion open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>1. Crohn's Disease & Intestinal Fistulas</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Crohn's Disease:</strong> Transmural inflammatory process that can affect any part of the GI tract (terminal ileum most common site, ~50%). Features transmural lymphoid aggregates, non-caseating granulomas, skip lesions, cobblestone mucosa, creeping fat, and deep fissures/fistulas.</p>
+
+            <h4 class="mt-2">Intestinal Fistulas:</h4>
+            <p>Abnormal communications between two epithelialized surfaces. <strong>80-90% are iatrogenic post-surgical complications!</strong></p>
+
+            <div class="callout callout-pitfall">
+              <div class="callout-header">⚠️ Common Pitfall - Factors Preventing Spontaneous Fistula Closure</div>
+              <p>Remember the classic <strong>"FRIEND" Mnemonic</strong>:</p>
+              <p>• <strong>F</strong>oreign body within fistula tract</p>
+              <p>• <strong>R</strong>adiation enteritis</p>
+              <p>• <strong>I</strong>nfection / Inflammation / Abscess at origin</p>
+              <p>• <strong>E</strong>pithelialization of the fistula tract</p>
+              <p>• <strong>N</strong>eoplasm at fistula site</p>
+              <p>• <strong>D</strong>istal intestinal obstruction</p>
+            </div>
+            <p><strong>Fistula Surgical Timing:</strong> Operative intervention is delayed for <strong>2 to 3 months (at least 5-8 weeks)</strong> of conservative TPN/sepsis control, as 90% of fistulas that close spontaneously do so within 5-6 weeks.</p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>2. Radiation Enteritis & Small Bowel Perforation</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Radiation Enteritis:</strong> Damage from pelvic/abdominal radiotherapy (dosage >4,500 - 5,000 cGy). Acute injury features villus blunting; chronic injury features <strong>progressive occlusive endarteritis / vasculitis</strong> leading to ischemia, strictures, abscesses, and fistulas. Anastomotic leak rates post-surgery are extremely high!</p>
+
+            <h4 class="mt-2">Small Bowel Perforation & Stapfer Classification:</h4>
+            <p>Most common cause of duodenal perforation currently is <strong>iatrogenic trauma during ERCP with endoscopic sphincterotomy</strong> categorized by the Stapfer Classification:</p>
+            
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Anatomical Site</th>
+                    <th>Mechanism & Primary Management</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Type I</strong></td>
+                    <td>Duodenal lateral or medial wall</td>
+                    <td>Direct scope perforation. Free intraperitoneal air. <strong>Requires immediate surgery!</strong></td>
+                  </tr>
+                  <tr style="background-color: var(--accent-amber-light);">
+                    <td><strong>Type II (Most Common)</strong></td>
+                    <td>Periampullary retroperitoneal wall</td>
+                    <td>Sphincterotomy injury. Retroperitoneal air. <strong>Usually managed CONSERVATIVELY (NPO, IV antibiotics, drainage).</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Type III</strong></td>
+                    <td>Bile duct or pancreatic duct</td>
+                    <td>Wire / basket instrumentation. Managed non-operatively or endoscopically with stent.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Type IV</strong></td>
+                    <td>Retroperitoneal air alone</td>
+                    <td>Hyperinsufflation. Spontaneous resolution without treatment.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>3. Meckel's Diverticulum: Epidemiology & Management</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>The most common congenital anomaly of the GI tract (present in ~2% of the population).</p>
+
+            <div class="callout callout-must-know">
+              <div class="callout-header">⭐ Must Know - Meckel's "Rule of 2s"</div>
+              <p>• <strong>2%</strong> prevalence in general population</p>
+              <p>• <strong>2 feet (60 cm)</strong> proximal to the ileocecal valve</p>
+              <p>• <strong>2 inches (5 cm)</strong> in length</p>
+              <p>• <strong>2:1</strong> Male-to-Female ratio</p>
+              <p>• <strong>2 types of common ectopic tissue:</strong> Heterotopic <strong>Gastric mucosa (~50%)</strong> and Pancreatic tissue</p>
+              <p>• <strong>Presents before 2 years of age</strong> (most symptomatic cases)</p>
+            </div>
+
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Patient Demographic</th>
+                    <th>Most Common Symptomatic Presentation</th>
+                    <th>Pathophysiological Mechanism</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Pediatric Population (<18 yrs)</strong></td>
+                    <td><strong>Painless Lower GI Bleeding (Melena / Bright Red Stool)</strong></td>
+                    <td>Ectopic gastric mucosa secretes HCl → acid ulceration of adjacent normal ileal mucosa! Diagnostic scan: <strong>Technetium-99m Pertechnetate Scan ("Meckel's Scan")</strong>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Adult Population</strong></td>
+                    <td><strong>Intestinal Obstruction or Diverticulitis</strong></td>
+                    <td>Volvulus around persistent fibrous omphalomesenteric band, intussusception lead point, or inflammation mimicking appendicitis.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p><strong>Hernia Association:</strong> <em>Littre's Hernia</em> = Presence of a Meckel's diverticulum within a hernia sac (inguinal or femoral).</p>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>4. Chylous Ascites, Intussusception, Pneumatosis & Short Bowel Syndrome</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <ul class="cram-list">
+              <li><strong>Chylous Ascites:</strong> Accumulation of milky triglyceride-rich lymph in peritoneal cavity. Treatment: TPN, Octreotide, and <strong>High-Protein Low-Fat diet with Medium-Chain Triglycerides (MCTs)</strong> (MCTs absorb directly into portal vein without entering lymphatic chyle!).</li>
+              <li><strong>Intussusception:</strong> Telescoping of proximal bowel into distal bowel. Pediatric = idiopathic/lymphoid hyperplasia (treat with air/contrast enema); Adult = <strong>90% have an underlying organic lead point (frequently neoplasm)</strong> → requires surgical resection without initial reduction!</li>
+              <li><strong>Short Bowel Syndrome (SBS):</strong> Malabsorptive state resulting from massive small bowel resection (remaining small bowel <strong><200 cm</strong>). Requires TPN, enteral adaptation, GLP-2 analog (<strong>Teduglutide</strong>), and surgical procedures like <strong>STEP (Serial Transverse Enteroplasty)</strong> or LILT.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-neoplasms" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🎗️ Small Bowel Neoplasms</h2>
+          <span class="badge badge-warning">Rare Primary Tumors</span>
+        </div>
+
+        <p>Small intestinal neoplasms account for less than 3% of all GI tract tumors, despite the small bowel representing 75% of GI tract length and 90% of mucosal surface area.</p>
+
+        <div class="accordion open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>1. Benign vs Malignant Small Bowel Tumors</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Neoplasm Class</th>
+                    <th>Tumor Subtype</th>
+                    <th>Anatomical Distribution & Characteristics</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Benign Tumors (#1 Adenomas)</strong></td>
+                    <td>• Adenomatous Polyps<br>• Leiomyomas<br>• Lipomas<br>• Hamartomas</td>
+                    <td>Adenomas are most common; highest frequency in <strong>Duodenum</strong>. Peutz-Jeghers Syndrome features hamartomatous polyps + mucocutaneous pigmentation.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Malignant Tumors</strong></td>
+                    <td><strong>1. Neuroendocrine Tumors (NETs / Carcinoids)</strong></td>
+                    <td><strong>Most common overall primary malignant SI tumor!</strong> Most common in <strong>Distal Ileum</strong>. Secrete Serotonin, Histamine, Substance P. <strong>Carcinoid Syndrome</strong> (flushing, diarrhea, bronchospasm, right heart valvular disease) occurs only with liver metastases!</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Malignant Tumors</strong></td>
+                    <td><strong>2. Adenocarcinoma</strong></td>
+                    <td>Most common in <strong>Duodenum</strong> (40%) and proximal jejunum. Strongly associated with Crohn's, Celiac sprue, FAP, and HNPCC. Present with obstruction or occult bleeding.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Malignant Tumors</strong></td>
+                    <td><strong>3. Gastrointestinal Stromal Tumors (GIST)</strong></td>
+                    <td>Arise from <strong>Interstitial Cells of Cajal (ICC)</strong>. Express <strong>c-KIT (CD117) mutation</strong>. High bleeding risk due to central ulceration. Treatment: Resection + <strong>Imatinib (Gleevec)</strong>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Malignant Tumors</strong></td>
+                    <td><strong>4. Lymphoma</strong></td>
+                    <td>Most common site = <strong>Ileum</strong> (due to abundance of Peyer's patches). Non-Hodgkin B-cell lymphoma most frequent. High risk of perforation during chemotherapy!</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>2. Surgical Management Strategies for Duodenal & Jejunoileal Neoplasms</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <ul class="cram-list">
+              <li><strong>Duodenal Adenomas / Polyps:</strong> Endoscopic polypectomy if <1 cm; Transduodenal resective polypectomy if >2 cm; <strong>Whipple Procedure (Pancreaticoduodenectomy)</strong> for invasive duodenal adenocarcinoma.</li>
+              <li><strong>Jejunoileal Malignancy:</strong> Wide segmental intestinal resection including regional mesenteric lymph node drainage with clear negative margins.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-appendix" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🩺 Acute Appendicitis & Appendiceal Neoplasms</h2>
+          <span class="badge badge-danger">Most Common Surgical Emergency</span>
+        </div>
+
+        <div class="accordion open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>1. Anatomy, Etiology & Pathophysiologic Cascade</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Anatomy:</strong> Arises from the posteromedial cecal border ~2 cm below ileocecal valve, at the convergence of the 3 <strong>taeniae coli</strong> (taenia libera leads directly to base). Position is variable: <strong>Retrocecal (~65%, most common)</strong>, Pelvic (~30%), Subcecal, Preileal, Postileal.</p>
+
+            <p><strong>Etiology of Luminal Obstruction:</strong></p>
+            <ul class="cram-list">
+              <li><strong>Pediatric Population:</strong> <strong>Lymphoid Hyperplasia</strong> secondary to viral/bacterial infections (#1 cause).</li>
+              <li><strong>Adult Population:</strong> <strong>Fecalith (Appendicolith)</strong> (#1 cause), stricture, foreign body, parasites (Enterobius), or neoplasm.</li>
+            </ul>
+
+            <h4>Pathophysiologic Timeline:</h4>
+            <div class="diagram-container">
+              <svg class="diagram-svg" viewBox="0 0 750 140" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="20" width="160" height="100" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                <text x="90" y="50" text-anchor="middle" font-family="DM Sans" font-weight="bold" font-size="12" fill="#0369a1">1. Luminal Obstruction</text>
+                <text x="90" y="70" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#0369a1">Mucus accumulation</text>
+                <text x="90" y="85" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#0369a1">Visceral T10 pain</text>
+
+                <text x="180" y="70" font-size="20" fill="#64748b">→</text>
+
+                <rect x="200" y="20" width="160" height="100" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                <text x="280" y="50" text-anchor="middle" font-family="DM Sans" font-weight="bold" font-size="12" fill="#b45309">2. Venous Congestion</text>
+                <text x="280" y="70" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#b45309">Bacterial overgrowth</text>
+                <text x="280" y="85" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#b45309">Ischemia & Wall edema</text>
+
+                <text x="370" y="70" font-size="20" fill="#64748b">→</text>
+
+                <rect x="390" y="20" width="160" height="100" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+                <text x="470" y="50" text-anchor="middle" font-family="DM Sans" font-weight="bold" font-size="12" fill="#b91c1c">3. Somatic Extension</text>
+                <text x="470" y="70" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#b91c1c">Parietal peritoneum</text>
+                <text x="470" y="85" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#b91c1c">Migratory RLQ pain</text>
+
+                <text x="560" y="70" font-size="20" fill="#64748b">→</text>
+
+                <rect x="580" y="20" width="160" height="100" rx="8" fill="#f3e8ff" stroke="#7c3aed" stroke-width="2"/>
+                <text x="660" y="50" text-anchor="middle" font-family="DM Sans" font-weight="bold" font-size="12" fill="#6d28d9">4. Gangrene & Perforation</text>
+                <text x="660" y="70" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#6d28d9">Transmural necrosis</text>
+                <text x="660" y="85" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#6d28d9">E. coli / B. fragilis</text>
+              </svg>
+              <div class="diagram-caption">Figure 2: Sequential pathophysiological stages of acute appendicitis leading to perforation.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>2. Classical Physical Examination Signs & Diagnostic Criteria</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Physical Exam Sign</th>
+                    <th>Clinical Maneuver</th>
+                    <th>Pathological Mechanism / Meaning</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>McBurney's Point Tenderness</strong></td>
+                    <td>Palpation 1/3 distance from Anterior Superior Iliac Spine (ASIS) to umbilicus</td>
+                    <td>Direct local inflammation of parietal peritoneum. Maximum tenderness site.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Rovsing's Sign</strong></td>
+                    <td>Palpation/deep pressure in Left Lower Quadrant (LLQ) causes pain in RLQ</td>
+                    <td>Retrograde displacement of colonic gas distends inflamed cecum/appendix.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dunphy's Sign</strong></td>
+                    <td>Increased abdominal pain elicited by coughing</td>
+                    <td>Peritoneal irritation (frequently positive in retrocecal appendicitis).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Iliopsoas (Psoas) Sign</strong></td>
+                    <td>Passive extension of right hip (or active hip flexion against resistance)</td>
+                    <td>Irritation of retroperitoneal psoas muscle by an inflamed <strong>retrocecal appendix</strong>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Obturator Sign</strong></td>
+                    <td>Passive internal rotation of flexed right hip</td>
+                    <td>Irritation of internal obturator muscle by an inflamed <strong>pelvic appendix</strong>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Rectal / Pelvic Bogginess</strong></td>
+                    <td>Tenderness/fullness on right side during Digital Rectal Examination (DRE)</td>
+                    <td>Indicates pelvic appendix or pelvic abscess collection.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>3. Alvarado Scoring System ("MANTRELS") & Management Algorithm</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Component</th>
+                    <th>Clinical Finding</th>
+                    <th>Score Points Assigned</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>M</strong></td><td>Migration of pain to Right Lower Quadrant</td><td>1 Point</td></tr>
+                  <tr><td><strong>A</strong></td><td>Anorexia (loss of appetite)</td><td>1 Point</td></tr>
+                  <tr><td><strong>N</strong></td><td>Nausea / Vomiting</td><td>1 Point</td></tr>
+                  <tr style="background-color: var(--primary-light); font-weight: bold;"><td><strong>T</strong></td><td>Tenderness in Right Lower Quadrant</td><td><strong>2 Points</strong></td></tr>
+                  <tr><td><strong>R</strong></td><td>Rebound tenderness in RLQ</td><td>1 Point</td></tr>
+                  <tr><td><strong>E</strong></td><td>Elevated temperature (>37.3°C / 99.5°F)</td><td>1 Point</td></tr>
+                  <tr style="background-color: var(--primary-light); font-weight: bold;"><td><strong>L</strong></td><td>Leukocytosis (WBC > 10,000 / mm³)</td><td><strong>2 Points</strong></td></tr>
+                  <tr><td><strong>S</strong></td><td>Shift of WBC differential to the left (Bandemia > 75%)</td><td>1 Point</td></tr>
+                  <tr style="font-weight: bold;"><td>TOTAL</td><td>MAXIMUM SCORE</td><td><strong>10 Points</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="cram-grid mt-2">
+              <div class="cram-card" style="border-top-color: var(--accent-green);">
+                <h4>Alvarado Score 1 - 4 (Low Risk, ~30%)</h4>
+                <p>Unlikely appendicitis. Safe to discharge home with strict warning instructions and outpatient re-evaluation in 24 hours.</p>
+              </div>
+              <div class="cram-card" style="border-top-color: var(--accent-amber);">
+                <h4>Alvarado Score 5 - 6 (Intermediate Risk, ~66%)</h4>
+                <p>Suspected appendicitis. Admit for observation, serial abdominal exams, and diagnostic imaging (<strong>CT scan</strong> for non-pregnant adults; <strong>USG</strong> for pregnant females/children).</p>
+              </div>
+              <div class="cram-card" style="border-top-color: var(--accent-red);">
+                <h4>Alvarado Score 7 - 10 (High Risk, ~93%)</h4>
+                <p>High probability of acute appendicitis. Proceed directly to surgical consultation for <strong>Appendectomy</strong> (or urgent exploratory intervention).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>4. Diagnostic Imaging & Appendiceal Neoplasms</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Radiological Diagnostic Criteria:</strong></p>
+            <ul class="cram-list">
+              <li><strong>Abdominal CT Scan (Gold Standard, Sensitivity/Specificity >95%):</strong> Non-compressible appendix with diameter <strong>> 6 mm</strong>, outer wall thickness <strong>> 2 mm</strong>, periappendiceal fat stranding, appendicolith, appendiceal wall enhancement.</li>
+              <li><strong>Graded Compression Ultrasound:</strong> Target sign, non-compressible blind-ending tubular structure <strong>> 6 mm</strong> in diameter. Preferred initial modality in pregnant women and pediatric patients to avoid ionizing radiation.</li>
+            </ul>
+
+            <h4 class="mt-2">Appendiceal Neoplasms:</h4>
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Neoplasm Type</th>
+                    <th>Clinical Features</th>
+                    <th>Surgical Treatment Strategy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Appendiceal Carcinoid (NET)</strong></td>
+                    <td>Most common appendiceal tumor (~50%). Usually an incidental finding at tip.</td>
+                    <td>• <strong>Simple Appendectomy:</strong> Tumor < 1.0 cm or 1.0-2.0 cm at tip without mesoappendiceal invasion.<br>• <strong>Right Hemicolectomy:</strong> Tumor > 2.0 cm, involved mesoappendix, base involvement, or goblet cell carcinoid.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mucinous Cystadenoma / Mucocele</strong></td>
+                    <td>Distended mucus-filled appendix. Care must be taken not to rupture intraoperatively!</td>
+                    <td>Appendectomy with clear base margin. Spillage risks <strong>Pseudomyxoma Peritonei</strong>!</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Pseudomyxoma Peritonei (PMP)</strong></td>
+                    <td>"Jelly belly" — diffuse mucinous ascites and peritoneal implants secondary to ruptured mucinous neoplasm.</td>
+                    <td>Cytoreductive Surgery (CRS) + <strong>HIPEC (Hyperthermic Intraperitoneal Chemotherapy with Mitomycin C)</strong> + Peritonectomy.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Appendiceal Adenocarcinoma</strong></td>
+                    <td>Rare malignant tumor. Presents like acute appendicitis in elderly patients.</td>
+                    <td><strong>Right Hemicolectomy</strong> (regardless of size).</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="callout callout-pitfall">
+              <div class="callout-header">⚠️ Surgical Complication - Stump Appendicitis</div>
+              <p>Leaving an appendiceal remnant longer than <strong>0.5 cm (5 mm)</strong> during appendectomy predisposes the patient to recurrent acute inflammation in the residual tissue, known as <strong>Stump Appendicitis</strong>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-comparisons" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">⚖️ Side-by-Side High-Yield Comparisons</h2>
+          <span class="badge badge-primary">Differential Diagnosis Masterclass</span>
+        </div>
+
+        <div class="accordion open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Comparison 1: Mechanical SBO vs Postoperative Ileus</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Feature</th>
+                    <th>Mechanical Small Bowel Obstruction (SBO)</th>
+                    <th>Postoperative Ileus (Adynamic Dysmotility)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Pain Pattern</strong></td>
+                    <td>Severe, colicky, paroxysmal abdominal cramp pain</td>
+                    <td>Dull, continuous, generalized abdominal discomfort</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Bowel Sounds</strong></td>
+                    <td><strong>Hyperactive, high-pitched "tinkling" rushes</strong> initially</td>
+                    <td><strong>Hypoactive or completely absent</strong> bowel sounds</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Abdominal X-Ray / CT</strong></td>
+                    <td>Transition point; differential fluid levels; dilated proximal bowel + collapsed distal bowel/colon</td>
+                    <td>Diffuse gas distribution throughout small bowel AND colon; <strong>no transition point</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Management</strong></td>
+                    <td>NG decompression, fluids; surgery if complete, strangulated, or conservative failure</td>
+                    <td>Correction of electrolytes, minimize opioids, early ambulation, gum chewing, prokinetics</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Comparison 2: SMA Embolus vs SMA Thrombosis vs SMV Thrombosis</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>SMA Embolus</th>
+                    <th>SMA Thrombosis</th>
+                    <th>SMV Thrombosis</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Onset</strong></td>
+                    <td>Sudden, catastrophic, excruciating pain</td>
+                    <td>Acute worsening on background of chronic angina</td>
+                    <td>Subacute onset (days to weeks) of dull pain</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Anatomical Site</strong></td>
+                    <td>Distal to origin (spares proximal jejunum)</td>
+                    <td>At SMA origin (involves proximal jejunum)</td>
+                    <td>Superior mesenteric & portal venous trunk</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Primary Etiology</strong></td>
+                    <td>Cardiac embolus (Atrial fibrillation)</td>
+                    <td>Atherosclerosis with acute plaque rupture</td>
+                    <td>Hypercoagulability, OCPs, cirrhosis, malignancy</td>
+                  </tr>
+                  <tr>
+                    <td><strong>CT Scan Findings</strong></td>
+                    <td>Embolic cut-off in mid-SMA; acute non-enhancement</td>
+                    <td>Severe calcification/thrombus at SMA origin</td>
+                    <td>Massive bowel wall edema, halo sign, venous thrombus</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Comparison 3: Jejunum vs Ileum Gross Anatomical Features</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Anatomical Parameter</th>
+                    <th>Jejunum</th>
+                    <th>Ileum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Proportion & Location</strong></td>
+                    <td>Proximal 40%; upper left quadrant</td>
+                    <td>Distal 60%; lower right quadrant & pelvis</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Wall & Caliber</strong></td>
+                    <td>Thicker, heavier, wider caliber lumen</td>
+                    <td>Thinner, lighter, narrower caliber lumen</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Plicae Circulares</strong></td>
+                    <td>Prominent, large, densely packed</td>
+                    <td>Small, widely spaced, absent in distal end</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Vasa Recta</strong></td>
+                    <td><strong>Longer</strong> straight arterial branches</td>
+                    <td><strong>Shorter</strong> straight arterial branches</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mesenteric Fat & Arcades</strong></td>
+                    <td>Less fat, clear windows, 1-2 arcade tiers</td>
+                    <td>Abundant fat ("creeping fat"), 3-5 arcade tiers</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Lymphoid Tissue</strong></td>
+                    <td>Solitary follicles</td>
+                    <td><strong>Peyer's Patches</strong> aggregated in mucosa</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-flashcards" class="tab-content">
+      <div class="card text-center">
+        <h2>🎴 Active Recall Flashcard Deck (50 Cards)</h2>
+        <p>Click on card or press <strong>[Spacebar]</strong> to flip. Use <strong>[Left Arrow]</strong> and <strong>[Right Arrow]</strong> to navigate.</p>
+
+        <div class="mt-2">
+          <span class="badge badge-primary" id="flashcardCounter">Card 1 / 50</span>
+          <span class="badge badge-purple" id="flashcardCategory">Anatomy & Physio</span>
+        </div>
+
+        <div class="flashcard-wrapper">
+          <div class="flashcard" id="flashcardElement" onclick="flipCard()">
+            <div class="flashcard-front">
+              <span class="badge badge-primary flashcard-tag" id="cardTagFront">Tag</span>
+              <h3 id="cardQuestionText">Question Loading...</h3>
+              <span class="flashcard-hint">Click to reveal answer 🔄</span>
+            </div>
+            <div class="flashcard-back">
+              <span class="badge badge-success flashcard-tag" id="cardTagBack">Answer</span>
+              <h3 id="cardAnswerText">Answer Loading...</h3>
+              <span class="flashcard-hint">Click to flip back 🔄</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard-controls">
+          <button class="btn-action btn-secondary" onclick="prevCard()">← Previous</button>
+          <button class="btn-action btn-secondary" onclick="shuffleCards()">🔀 Shuffle</button>
+          <button class="btn-action" onclick="nextCard()">Next →</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-mcqs" class="tab-content">
+      <div class="quiz-score-banner">
+        <h2>📝 Board-Style Self-Assessment (50 MCQs)</h2>
+        <p class="mt-1">Test your mastery with high-yield Philippine Medical Board (PLE) style questions. Detailed rationale provided for every choice!</p>
+        <div class="mt-2" style="font-size: 1.2rem; font-weight: bold;" id="quizScoreTracker">
+          Score: 0 / 0 Completed
+        </div>
+      </div>
+
+      <div id="quizContainer">
+        </div>
+    </section>
+
+    <section id="tab-cram" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">⚡ Ultra-Condensed Cram Sheet (10-Minute Last-Minute Review)</h2>
+          <span class="badge badge-danger">High-Yield Buzzwords</span>
+        </div>
+
+        <div class="cram-grid">
+          <div class="cram-card">
+            <h4>🎯 "If You See X → Think Y" Clinical Reasoning</h4>
+            <ul class="cram-list">
+              <li>Severe abdominal pain out of proportion to physical exam + Atrial Fibrillation → <strong>SMA Embolus</strong></li>
+              <li>Postprandial abdominal angina + sitophobia (food fear) + weight loss → <strong>Chronic Mesenteric Ischemia</strong></li>
+              <li>Painless lower GI bleeding / melena in a pediatric patient (<2 years) → <strong>Meckel's Diverticulum (Ectopic Gastric Mucosa)</strong></li>
+              <li>Adult intussusception lead point → <strong>Primary Intestinal Neoplasm / Malignancy (90%)</strong></li>
+              <li>Child with red currant jelly stools + sausage-shaped mass → <strong>Pediatric Intussusception (Ileocolic)</strong></li>
+              <li>Air in the biliary tree (Pneumobilia) + SBO + radiopaque stone in RLQ → <strong>Gallstone Ileus (Rigler's Triad)</strong></li>
+              <li>Milky peritoneal fluid rich in triglycerides → <strong>Chylous Ascites (Treat with TPN + MCTs + Octreotide)</strong></li>
+              <li>Target sign on USG / CT with appendiceal diameter >6 mm → <strong>Acute Appendicitis</strong></li>
+              <li>Recurrent appendicitis after prior appendectomy with stump >0.5 cm → <strong>Stump Appendicitis</strong></li>
+              <li>Mucinous ascites + ruptured appendiceal mucocele → <strong>Pseudomyxoma Peritonei (Treat with CRS + HIPEC)</strong></li>
+              <li>GIST tumor + c-KIT / CD117 positive → <strong>Originates from Interstitial Cells of Cajal (Treat with Imatinib)</strong></li>
+              <li>Carcinoid syndrome (flushing, diarrhea, bronchospasm) → <strong>Metastatic Neuroendocrine Tumor to Liver</strong></li>
+            </ul>
+          </div>
+
+          <div class="cram-card">
+            <h4>🧠 Essential Mnemonics & Key Scores</h4>
+            <ul class="cram-list">
+              <li><strong>Alvarado Score ("MANTRELS"):</strong> Migration (1), Anorexia (1), Nausea (1), <strong>Tenderness RLQ (2)</strong>, Rebound (1), Elevated Temp (1), <strong>Leukocytosis (2)</strong>, Shift to left (1). Maximum = 10.</li>
+              <li><strong>FRIEND Mnemonic (Inhibits Fistula Closure):</strong> <strong>F</strong>oreign body, <strong>R</strong>adiation, <strong>I</strong>nfection/Inflammation, <strong>E</strong>pithelialization, <strong>N</strong>eoplasm, <strong>D</strong>istal obstruction.</li>
+              <li><strong>Meckel's Rule of 2s:</strong> 2% population, 2 feet from IC valve, 2 inches long, 2:1 M:F ratio, 2 ectopic tissues (gastric/pancreatic), presents before 2 years.</li>
+              <li><strong>Stapfer Classification (ERCP Perforation):</strong> Type I (Duodenal wall - surgery), <strong>Type II (Periampullary - managed conservatively, most common)</strong>, Type III (Ductal), Type IV (Air only).</li>
+              <li><strong>Small Intestine Motility Recovery Timeline:</strong> Small Intestine (24 hrs), Stomach (24-48 hrs), Colon (3-5 days). Flatus/bowel movement = best recovery sign!</li>
+              <li><strong>SBO Primary Etiologies:</strong> Postop Adhesions (#1 in operated abdomens), Hernias (#1 in unoperated abdomens worldwide).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <button id="scrollTopBtn" class="scroll-top-btn" title="Go to top">▲</button>
+
+  <script>
+    /* ==========================================
+       1. GLOBAL STATE & NAVIGATION
+       ========================================== */
+    document.addEventListener('DOMContentLoaded', () => {
+      initNavigation();
+      initScrollProgress();
+      initThemeToggle();
+      initSearch();
+      renderFlashcard();
+      renderQuiz();
+    });
+
+    function initNavigation() {
+      const navItems = document.querySelectorAll('.nav-item');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      navItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const targetTab = item.getAttribute('data-tab');
+
+          navItems.forEach(n => n.classList.remove('active'));
+          tabContents.forEach(c => c.classList.remove('active'));
+
+          item.classList.add('active');
+          document.getElementById(targetTab).classList.add('active');
+
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    }
+
+    function toggleAccordion(headerElement) {
+      const accordion = headerElement.parentElement;
+      accordion.classList.toggle('open');
+    }
+
+    /* Scroll Progress & Back to Top */
+    function initScrollProgress() {
+      const progressBar = document.getElementById('progressBar');
+      const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+      window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        progressBar.style.width = scrolled + '%';
+
+        if (winScroll > 300) {
+          scrollTopBtn.classList.add('visible');
+        } else {
+          scrollTopBtn.classList.remove('visible');
+        }
+      });
+
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    /* Theme Toggle */
+    function initThemeToggle() {
+      const themeToggle = document.getElementById('themeToggle');
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+          document.documentElement.removeAttribute('data-theme');
+          themeToggle.textContent = '🌙';
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          themeToggle.textContent = '☀️';
+        }
+      });
+    }
+
+    /* Global Search */
+    function initSearch() {
+      const searchInput = document.getElementById('globalSearch');
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        if (query.length < 2) return;
+
+        // Perform simple highlighting or auto-tab navigation logic if desired
+      });
+    }
+
+    function copyTableToClipboard(buttonBtn) {
+      const tableContainer = buttonBtn.parentElement.nextElementSibling;
+      const range = document.createRange();
+      range.selectNode(tableContainer);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+
+      const originalText = buttonBtn.textContent;
+      buttonBtn.textContent = '✅ Copied!';
+      setTimeout(() => buttonBtn.textContent = originalText, 2000);
+    }
+
+    /* ==========================================
+       2. FLASHCARDS DATA & LOGIC (50 CARDS)
+       ========================================== */
+    const flashcardsData = [
+      { q: "What is the thought length of the small intestine in meters?", a: "4 to 6 meters (extending from pylorus to ileocecal valve).", tag: "Anatomy" },
+      { q: "Which segment represents the proximal 40% of the jejunoileal unit?", a: "Jejunum (characterized by larger diameter, thicker wall, prominent plicae).", tag: "Anatomy" },
+      { q: "What anatomical structures distinguish small bowel from colon radiologically?", a: "Plicae circulares (valvulae conniventes).", tag: "Anatomy" },
+      { q: "What macroscopic aggregates of lymphoid tissue are predominant in the ileum?", a: "Peyer's Patches.", tag: "Anatomy" },
+      { q: "What is the primary arterial supply to the small intestine distal to the papilla of Vater?", a: "Superior Mesenteric Artery (SMA).", tag: "Anatomy" },
+      { q: "Where do all epithelial cells of the intestinal crypts originate?", a: "Stem cells at the base of the Crypts of Lieberkühn.", tag: "Histology" },
+      { q: "Which cell type at the crypt base secretes defensins and lysozyme to shape the microbiome?", a: "Paneth Cells.", tag: "Histology" },
+      { q: "By how much do microvilli on enterocytes increase absorptive surface area?", a: "Up to 40-fold.", tag: "Histology" },
+      { q: "Where is Meissner's nerve plexus located?", a: "In the Submucosa layer.", tag: "Histology" },
+      { q: "Where is Auerbach's (Myenteric) plexus located?", a: "Between the inner circular and outer longitudinal layers of the Muscularis Propria.", tag: "Histology" },
+      { q: "From which germ layer is the embryonic gut tube derived?", a: "Endoderm.", tag: "Embryology" },
+      { q: "Incomplete obliteration of the vitelline duct leads to which spectrum of defects?", a: "Meckel's Diverticulum anomalies.", tag: "Embryology" },
+      { q: "By what transporter are glucose and galactose absorbed across the brush border?", a: "SGLT1 (Sodium-Glucose Cotransporter 1).", tag: "Physiology" },
+      { q: "By what mechanism is fructose absorbed across the enterocyte brush border?", a: "Facilitated diffusion via GLUT5.", tag: "Physiology" },
+      { q: "How are short- and medium-chain fatty acids (<12C) absorbed?", a: "Directly into enterocytes and transported into the PORTAL venous circulation without lipolysis or micellar formation.", tag: "Physiology" },
+      { q: "How are long-chain fatty acids (>12C) transported out of enterocytes?", a: "Re-esterified into triglycerides, packaged into Chylomicrons, and secreted into intestinal lymph (chyle).", tag: "Physiology" },
+      { q: "Where is Vitamin B12 (bound to Intrinsic Factor) specifically absorbed?", a: "Terminal Ileum.", tag: "Physiology" },
+      { q: "Which hormone was the first hormone ever identified in physiology?", a: "Secretin (produced by S cells in response to luminal acid).", tag: "Physiology" },
+      { q: "Which GI hormone acts as the 'ileal brake' to slow transit when fat reaches distal ileum?", a: "Peptide YY (PYY) (produced by L cells).", tag: "Physiology" },
+      { q: "What mesenchymal cell type functions as the intrinsic pacemaker for small intestinal contractions?", a: "Interstitial Cells of Cajal (ICC).", tag: "Physiology" },
+      { q: "What is the single most common cause of mechanical SBO in patients with prior surgery?", a: "Postoperative Intra-abdominal Adhesions (>60-70%).", tag: "SBO" },
+      { q: "What is the most common cause of SBO worldwide in patients without prior surgery?", a: "Hernias (Inguinal, femoral, ventral).", tag: "SBO" },
+      { q: "What CT scan finding indicates an abrupt change from dilated proximal bowel to collapsed distal bowel?", a: "Transition Point.", tag: "SBO" },
+      { q: "What radiological configuration carries an extreme risk of strangulation and requires emergency surgery?", a: "Closed-Loop Obstruction.", tag: "SBO" },
+      { q: "How fast does motility normally recover in the small intestine postoperatively?", a: "Within 24 hours.", tag: "Ileus" },
+      { q: "How fast does motility recover in the colon postoperatively?", a: "3 to 5 days.", tag: "Ileus" },
+      { q: "What is the most reliable clinical indicator of postoperative ileus resolution?", a: "Passage of flatus or bowel movement (NOT bowel sounds!).", tag: "Ileus" },
+      { q: "What is the most common subtype of Acute Mesenteric Ischemia?", a: "SMA Embolus (~50% of cases).", tag: "Vascular" },
+      { q: "What underlying cardiac arrhythmia is most strongly associated with SMA embolus?", a: "Atrial Fibrillation.", tag: "Vascular" },
+      { q: "Where does an SMA embolus typically lodge, sparing the proximal jejunum?", a: "6 to 8 cm distal to the SMA origin (distal to the middle colic artery branch).", tag: "Vascular" },
+      { q: "What is the hallmark clinical presentation of early Acute Mesenteric Ischemia?", a: "Severe, intractable abdominal pain OUT OF PROPORTION to physical exam findings.", tag: "Vascular" },
+      { q: "What is the classic clinical triad of Chronic Mesenteric Ischemia?", a: "Postprandial angina, sitophobia (food fear), and progressive weight loss.", tag: "Vascular" },
+      { q: "How many major splanchnic arteries must usually be severely stenosed/occluded to cause Chronic Mesenteric Ischemia?", a: "At least 2 out of the 3 major vessels (Celiac axis, SMA, IMA).", tag: "Vascular" },
+      { q: "What mnemonic lists the factors inhibiting spontaneous intestinal fistula closure?", a: "FRIEND (Foreign body, Radiation, Infection, Epithelialization, Neoplasm, Distal obstruction).", tag: "Misc" },
+      { q: "How long should surgery be delayed during conservative management of intestinal fistulas?", a: "2 to 3 months (at least 5-8 weeks), as 90% of spontaneous closures occur within 5-6 weeks.", tag: "Misc" },
+      { q: "What dosage of radiation is associated with high incidence of Radiation Enteritis?", a: "Greater than 4,500 to 5,000 cGy.", tag: "Misc" },
+      { q: "In the Stapfer classification of ERCP perforations, which type is periampullary and managed conservatively?", a: "Type II (Most common type; retroperitoneal periampullary injury).", tag: "Misc" },
+      { q: "What is the classic 'Rule of 2s' for Meckel's Diverticulum?", a: "2% prevalence, 2 feet from IC valve, 2 inches long, 2:1 M:F ratio, 2 ectopic tissues (gastric/pancreatic), presents before 2 years.", tag: "Misc" },
+      { q: "What is the most common symptomatic presentation of Meckel's Diverticulum in pediatric patients?", a: "Painless lower GI bleeding / melena (secondary to acid ulceration from ectopic gastric mucosa).", tag: "Misc" },
+      { q: "What radionuclide scan is used to diagnose Meckel's Diverticulum containing ectopic gastric mucosa?", a: "Technetium-99m Pertechnetate Scan ('Meckel's Scan').", tag: "Misc" },
+      { q: "What is a Littre's Hernia?", a: "A hernia containing a Meckel's Diverticulum inside the hernia sac.", tag: "Misc" },
+      { q: "What diet is recommended for Chylous Ascites to minimize chyle formation?", a: "High-Protein, Low-Fat diet with Medium-Chain Triglycerides (MCTs) (MCTs absorb into portal vein!).", tag: "Misc" },
+      { q: "What is the definition of Short Bowel Syndrome (SBS) based on remaining small bowel length?", a: "Less than 200 cm of functional remaining small bowel.", tag: "Misc" },
+      { q: "What recombinant GLP-2 analog is approved to enhance mucosal adaptation in Short Bowel Syndrome?", a: "Teduglutide.", tag: "Misc" },
+      { q: "What is the most common primary malignant tumor of the small intestine overall?", a: "Neuroendocrine Tumor (NET / Carcinoid) (most common in terminal ileum).", tag: "Neoplasms" },
+      { q: "GIST tumors arise from which intrinsic intestinal cell line?", a: "Interstitial Cells of Cajal (express c-KIT / CD117).", tag: "Neoplasms" },
+      { q: "Where does the appendix anatomical base arise?", a: "Posteromedial cecal border ~2 cm below ileocecal valve, at the convergence of the 3 taeniae coli.", tag: "Appendix" },
+      { q: "What is the most common anatomical position of the appendix?", a: "Retrocecal (~65% of cases).", tag: "Appendix" },
+      { q: "What is the most common etiology of appendiceal luminal obstruction in pediatric patients?", a: "Lymphoid Hyperplasia.", tag: "Appendix" },
+      { q: "What component findings in the Alvarado Score ('MANTRELS') receive 2 points each?", a: "Tenderness in RLQ (+2) and Leukocytosis (+2).", tag: "Appendix" }
+    ];
+
+    let currentCardIndex = 0;
+    let isFlipped = false;
+
+    function renderFlashcard() {
+      const card = flashcardsData[currentCardIndex];
+      const flashcardElement = document.getElementById('flashcardElement');
+      
+      flashcardElement.classList.remove('flipped');
+      isFlipped = false;
+
+      document.getElementById('cardQuestionText').textContent = card.q;
+      document.getElementById('cardAnswerText').textContent = card.a;
+      document.getElementById('cardTagFront').textContent = card.tag;
+      document.getElementById('cardTagBack').textContent = card.tag;
+
+      document.getElementById('flashcardCounter').textContent = `Card ${currentCardIndex + 1} / ${flashcardsData.length}`;
+      document.getElementById('flashcardCategory').textContent = card.tag;
+    }
+
+    function flipCard() {
+      const flashcardElement = document.getElementById('flashcardElement');
+      isFlipped = !isFlipped;
+      if (isFlipped) {
+        flashcardElement.classList.add('flipped');
+      } else {
+        flashcardElement.classList.remove('flipped');
+      }
+    }
+
+    function nextCard() {
+      currentCardIndex = (currentCardIndex + 1) % flashcardsData.length;
+      renderFlashcard();
+    }
+
+    function prevCard() {
+      currentCardIndex = (currentCardIndex - 1 + flashcardsData.length) % flashcardsData.length;
+      renderFlashcard();
+    }
+
+    function shuffleCards() {
+      for (let i = flashcardsData.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [flashcardsData[i], flashcardsData[j]] = [flashcardsData[j], flashcardsData[i]];
+      }
+      currentCardIndex = 0;
+      renderFlashcard();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const flashcardTab = document.getElementById('tab-flashcards');
+      if (!flashcardTab.classList.contains('active')) return;
+
+      if (e.code === 'Space') {
+        e.preventDefault();
+        flipCard();
+      } else if (e.code === 'ArrowRight') {
+        nextCard();
+      } else if (e.code === 'ArrowLeft') {
+        prevCard();
+      }
+    });
+
+    /* ==========================================
+       3. BOARD-STYLE MCQS DATA & LOGIC (50 QUESTIONS)
+       ========================================== */
+    const mcqsData = [
+      {
+        q: "A 45-year-old male with no prior abdominal surgeries presents with a 2-day history of crampy abdominal pain, bilious vomiting, and obstipation. Abdominal CT scan reveals dilated small bowel loops with a transition point in the right groin. What is the most likely underlying cause of his small bowel obstruction?",
+        options: [
+          "Postoperative intra-abdominal adhesions",
+          "Incarcerated groin hernia",
+          "Adenocarcinoma of the ileum",
+          "Gallstone ileus"
+        ],
+        correct: 1,
+        rationale: "In patients without prior abdominal surgery, hernias (inguinal/femoral) represent the #1 cause of mechanical small bowel obstruction worldwide. Postoperative adhesions are #1 overall, but only in patients with prior surgical history!"
+      },
+      {
+        q: "A 68-year-old female with chronic atrial fibrillation presents with sudden, excruciating periumbilical pain. Physical exam reveals a soft, non-distended abdomen with minimal tenderness. Serum lactate is 4.8 mmol/L. What is the most likely diagnosis?",
+        options: [
+          "Acute SMA Thrombosis",
+          "Acute SMA Embolus",
+          "SMV Thrombosis",
+          "Non-Occlusive Mesenteric Ischemia (NOMI)"
+        ],
+        correct: 1,
+        rationale: "Sudden onset of severe abdominal pain 'out of proportion to physical exam findings' in a patient with Atrial Fibrillation is the classic hallmark of an Acute SMA Embolus (~50% of AMI cases)."
+      },
+      {
+        q: "During a diagnostic evaluation for a pediatric patient presenting with painless melena, a Technetium-99m pertechnetate scan demonstrates focal uptake in the right lower quadrant. What tissue type within the lesion is responsible for this scan's positivity?",
+        options: [
+          "Heterotopic Pancreatic Tissue",
+          "Heterotopic Gastric Mucosa",
+          "Hyperplastic Lymphoid Follicles",
+          "Brunner's Glands"
+        ],
+        correct: 1,
+        rationale: "Technetium-99m pertechnetate is selectively taken up by gastric parietal cells. In Meckel's Diverticulum, ectopic gastric mucosa secretes HCl, causing ileal ulceration and painless bleeding."
+      },
+      {
+        q: "A 28-year-old female presents with RLQ pain, anorexia, nausea, fever of 38.2°C, RLQ tenderness, rebound tenderness, and WBC count of 14,000/mm³ with L-shift. What is her calculated Alvarado Score?",
+        options: [
+          " Score 6",
+          " Score 7",
+          " Score 9",
+          " Score 10"
+        ],
+        correct: 3,
+        rationale: "MANTRELS score calculation: Migration (+1), Anorexia (+1), Nausea (+1), Tenderness RLQ (+2), Rebound (+1), Elevated Temp (+1), Leukocytosis (+2), Shift to left (+1) = Total 10/10!"
+      },
+      {
+        q: "Which cell type located at the base of the Crypts of Lieberkühn produces antimicrobial peptides such as defensins and lysozyme?",
+        options: [
+          "Enterocytes",
+          "Goblet Cells",
+          "Paneth Cells",
+          "Enteroendocrine Cells"
+        ],
+        correct: 2,
+        rationale: "Paneth cells reside at the crypt base and contain secretory granules filled with growth factors, digestive enzymes, and defensins/lysozyme to regulate the gut microbiome."
+      },
+      {
+        q: "A patient undergoes an uneventful exploratory laparotomy. On post-op day 2, he has minimal abdominal distention and soft abdomen without flatus. What bowel segment is expected to recover intrinsic motility FIRST?",
+        options: [
+          "Stomach",
+          "Small Intestine",
+          "Ascending Colon",
+          "Sigmoid Colon"
+        ],
+        correct: 1,
+        rationale: "Small intestinal motility recovers within 24 hours postoperatively. Gastric motility recovers in 24-48 hours, while colonic motility takes 3 to 5 days."
+      },
+      {
+        q: "Which nutrient class is absorbed across the enterocyte brush border via the sodium-dependent SGLT1 transporter?",
+        options: [
+          "Fructose",
+          "Glucose & Galactose",
+          "Medium-Chain Fatty Acids",
+          "Dipeptides"
+        ],
+        correct: 1,
+        rationale: "Glucose and Galactose are actively transported across the brush border by SGLT1 (Na+/glucose cotransporter). Fructose uses GLUT5 via facilitated diffusion."
+      },
+      {
+        q: "A patient with a complex enterocutaneous fistula is being managed conservatively. Which of the following factors would PREVENT spontaneous closure of the fistula?",
+        options: [
+          "Low output (<200 mL/day)",
+          "Long fistula tract (>2 cm)",
+          "Distal intestinal obstruction",
+          "Absence of active infection"
+        ],
+        correct: 2,
+        rationale: "Remember the 'FRIEND' mnemonic: Foreign body, Radiation, Infection/inflammation, Epithelialization, Neoplasm, Distal obstruction all INHIBIT spontaneous closure!"
+      },
+      {
+        q: "During an ERCP sphincterotomy, a retroperitoneal duodenal perforation occurs at the periampullary region. In the Stapfer classification, what type is this and how is it primarily managed?",
+        options: [
+          "Type I; Immediate Laparotomy",
+          "Type II; Non-operative Conservative Management",
+          "Type III; Endoscopic Stenting",
+          "Type IV; Observation only"
+        ],
+        correct: 1,
+        rationale: "Stapfer Type II perforations are periampullary retroperitoneal injuries. They are the most common type and are typically managed CONSERVATIVELY with NPO, IV antibiotics, and monitoring."
+      },
+      {
+        q: "A 55-year-old male presents with postprandial abdominal pain occurring 30 minutes after eating, causing him to fear eating and resulting in a 15 kg weight loss. CTA shows stenosis of Celiac axis and SMA. What is the diagnosis?",
+        options: [
+          "Acute SMA Thrombosis",
+          "Chronic Mesenteric Ischemia",
+          "Celiac Disease",
+          "Duodenal Adenocarcinoma"
+        ],
+        correct: 1,
+        rationale: "The triad of postprandial abdominal angina, sitophobia ('food fear'), and significant weight loss is pathognomonic for Chronic Mesenteric Ischemia (requires severe stenosis of at least 2 splanchnic vessels)."
+      },
+      {
+        q: "What is the primary site of absorption for Vitamin B12 bound to Intrinsic Factor?",
+        options: [
+          "Duodenum",
+          "Proximal Jejunum",
+          "Distal Ileum",
+          "Cecum"
+        ],
+        correct: 2,
+        rationale: "Vitamin B12 bound to parietal cell-derived Intrinsic Factor is specifically absorbed in the Terminal / Distal Ileum via cubam receptor-mediated endocytosis."
+      },
+      {
+        q: "Which gastrointestinal hormone acts as the intrinsic pacemaker stimulus for the Migrating Motor Complex (MMC) during fasting?",
+        options: [
+          "Secretin",
+          "Cholecystokinin (CCK)",
+          "Motilin",
+          "Somatostatin"
+        ],
+        correct: 2,
+        rationale: "Motilin (secreted by M cells in the duodenum and jejunum during fasting) initiates cyclic Migrating Motor Complex (MMC) contractions."
+      },
+      {
+        q: "In an adult patient presenting with ileoileal intussusception, what is the most likely underlying lead point?",
+        options: [
+          "Lymphoid Hyperplasia",
+          "Idiopathic",
+          "Primary Intestinal Neoplasm",
+          "Meckel's Diverticulum"
+        ],
+        correct: 2,
+        rationale: "In adults, over 90% of intussusception cases have a distinct organic lead point, most commonly a primary benign or malignant intestinal tumor!"
+      },
+      {
+        q: "What is the surgical management of choice for an appendiceal carcinoid tumor measuring 2.5 cm located at the base of the appendix?",
+        options: [
+          "Simple Appendectomy",
+          "Right Hemicolectomy",
+          "Segmental Cecal Resection",
+          "Observation"
+        ],
+        correct: 1,
+        rationale: "Right Hemicolectomy is indicated for appendiceal carcinoids if size >2.0 cm, location at the base, involvement of mesoappendix, or goblet cell histology."
+      },
+      {
+        q: "Which histological layer of the small bowel wall provides the primary tensile strength for surgical anastomotic suture holding?",
+        options: [
+          "Mucosa",
+          "Submucosa",
+          "Muscularis Propria",
+          "Serosa"
+        ],
+        correct: 1,
+        rationale: "The Submucosa is composed of dense collagenous connective tissue and represents the strongest layer that must be included in surgical suture placement."
+      },
+      {
+        q: "A patient with Short Bowel Syndrome is started on Teduglutide. What is the mechanism of action of this medication?",
+        options: [
+          "Somatostatin Receptor Agonist",
+          "GLP-2 (Glucagon-like Peptide 2) Analog",
+          "DPP-4 Inhibitor",
+          "Motilin Receptor Agonist"
+        ],
+        correct: 1,
+        rationale: "Teduglutide is a recombinant GLP-2 analog that promotes intestinal mucosal proliferation and increases absorptive surface capacity in Short Bowel Syndrome."
+      },
+      {
+        q: "A 30-year-old male presents with lower GI bleeding. Workup reveals a small bowel tumor. Biopsy shows c-KIT (CD117) positive spindle cells. From which cell line did this tumor originate?",
+        options: [
+          "Enterochromaffin Cells",
+          "Interstitial Cells of Cajal (ICC)",
+          "Goblet Cells",
+          "Smooth Muscle Myocytes"
+        ],
+        correct: 1,
+        rationale: "GIST (Gastrointestinal Stromal Tumors) originate from the Interstitial Cells of Cajal (ICC) and characteristically express c-KIT (CD117) tyrosine kinase mutations."
+      },
+      {
+        q: "What CT scan finding is considered pathognomonic for bowel wall necrosis and gangrene in a patient with SBO?",
+        options: [
+          "Small bowel feces sign",
+          "Fluid-filled dilated loops",
+          "Pneumatosis intestinalis and portal venous gas",
+          "Keyboard sign"
+        ],
+        correct: 2,
+        rationale: "Pneumatosis intestinalis (gas within the intestinal wall) and intrahepatic portal venous gas indicate transmural bowel ischemia and necrosis, mandating STAT laparotomy!"
+      },
+      {
+        q: "Which physical exam sign is positive when passive internal rotation of the flexed right hip elicits hypogastric/RLQ pain?",
+        options: [
+          "Rovsing's Sign",
+          "Dunphy's Sign",
+          "Iliopsoas Sign",
+          "Obturator Sign"
+        ],
+        correct: 3,
+        rationale: "Passive internal rotation of the flexed right hip stretches the internal obturator muscle; pain indicates irritation from an inflamed Pelvic Appendix."
+      },
+      {
+        q: "A patient diagnosed with Chylous Ascites is managed nutritionally. Why are Medium-Chain Triglycerides (MCTs) preferred over Long-Chain Triglycerides (LCTs)?",
+        options: [
+          "MCTs stimulate CCK release",
+          "MCTs are absorbed directly into portal venous blood without entering lymphatic chyle",
+          "MCTs require pancreatic lipase for absorption",
+          "MCTs form chylomicrons in the enterocytes"
+        ],
+        correct: 1,
+        rationale: "MCTs (<12 carbons) do not require lipolysis or micellar/chylomicron formation; they pass directly into portal blood, thereby dramatically reducing chyle flow!"
+      },
+      {
+        q: "What is the most common anatomical location of primary Neuroendocrine Tumors (Carcinoid) in the small bowel?",
+        options: [
+          "Duodenal Bulb",
+          "Proximal Jejunum",
+          "Terminal Ileum",
+          "Ampulla of Vater"
+        ],
+        correct: 2,
+        rationale: "Primary small bowel Neuroendocrine Tumors (Carcinoids) occur predominantly in the Terminal Ileum, where subepithelial enterochromaffin cells are abundant."
+      },
+      {
+        q: "Which parameter in the Alvarado Scoring System is awarded 2 points?",
+        options: [
+          "Migration of pain to RLQ",
+          "Leukocytosis (>10,000/mm³)",
+          "Anorexia",
+          "Elevated Temperature"
+        ],
+        correct: 1,
+        rationale: "In the Alvarado ('MANTRELS') scale, two criteria receive 2 points each: Tenderness in RLQ (+2) and Leukocytosis (+2). All others receive +1 point."
+      },
+      {
+        q: "An elderly patient with chronic vascular disease presents with subacute abdominal distention, mild periumbilical pain, and bloody stools. CT shows marked circumferential wall thickening of the jejunum with non-enhancing vessel. What is the diagnosis?",
+        options: [
+          "SMA Embolus",
+          "Superior Mesenteric Vein (SMV) Thrombosis",
+          "Non-Occlusive Mesenteric Ischemia",
+          "Crohn's Disease"
+        ],
+        correct: 1,
+        rationale: "SMV Thrombosis causes venous outflow occlusion resulting in massive bowel wall edema (circumferential thickening / 'target sign') and subacute bloody diarrhea."
+      },
+      {
+        q: "What anatomical landmark denotes the boundary between the Duodenum and Jejunum?",
+        options: [
+          "Pyloric Sphincter",
+          "Ligament of Treitz (Suspensory Ligament of Duodenum)",
+          "Papilla of Vater",
+          "Ileocecal Valve"
+        ],
+        correct: 1,
+        rationale: "The Ligament of Treitz (suspensory muscle of the duodenum) marks the duodenojejunal junction and serves as the boundary between upper and lower GI tracts."
+      },
+      {
+        q: "Which disease process is characterized by skip lesions, transmural inflammation, non-caseating granulomas, and creeping mesenteric fat?",
+        options: [
+          "Ulcerative Colitis",
+          "Crohn's Disease",
+          "Radiation Enteritis",
+          "Ischemic Colitis"
+        ],
+        correct: 1,
+        rationale: "Crohn's disease features transmural granulomatous inflammation, skip lesions, cobblestoning, deep fissures/fistulas, and creeping fat extending onto bowel serosa."
+      },
+      {
+        q: "A patient underwent an open appendectomy 6 months ago. He now presents with classic appendicitis symptoms. CT shows inflammation of a 1.2 cm residual appendiceal stump. What condition is this?",
+        options: [
+          "Recurrent Crohn's Disease",
+          "Stump Appendicitis",
+          "Cecal Diverticulitis",
+          "Mucocele of the Cecum"
+        ],
+        correct: 1,
+        rationale: "Leaving an appendiceal stump >0.5 cm during initial appendectomy predisposes to recurrent inflammation in the remnant, known as Stump Appendicitis."
+      },
+      {
+        q: "What is the recommended timing for definitive surgical repair of an enterocutaneous fistula that fails spontaneous closure?",
+        options: [
+          "Within 24-48 hours",
+          "7 to 10 days",
+          "2 to 3 months (at least 5-8 weeks)",
+          "12 months"
+        ],
+        correct: 2,
+        rationale: "Surgical closure is delayed for 2 to 3 months to allow dense intra-abdominal adhesions to soften, nutritional status to optimize, and sepsis to resolve."
+      },
+      {
+        q: "Which embryonic gut tube segment gives rise to the distal duodenum, jejunum, ileum, cecum, and appendix?",
+        options: [
+          "Foregut",
+          "Midgut",
+          "Hindgut",
+          "Proctodeum"
+        ],
+        correct: 1,
+        rationale: "The Midgut extends from the duodenal papilla of Vater to the distal 1/3 of the transverse colon, giving rise to the entire jejunoileal complex and appendix."
+      },
+      {
+        q: "A patient with pelvic malignancy receives 6,000 cGy radiation therapy. Months later, she develops chronic bowel strictures and fistulas. What is the underlying histopathology?",
+        options: [
+          "Acute villus blunting",
+          "Progressive occlusive vasculitis / endarteritis",
+          "Eosinophilic infiltration",
+          "Transmural granulomas"
+        ],
+        correct: 1,
+        rationale: "Chronic radiation enteritis is characterized by progressive obliterative arteritis / vasculitis, leading to chronic submucosal ischemia, fibrosis, strictures, and fistulas."
+      },
+      {
+        q: "Which condition features diffuse mucinous peritoneal ascites resulting from a ruptured mucinous cystadenoma of the appendix?",
+        options: [
+          "Carcinoid Syndrome",
+          "Pseudomyxoma Peritonei",
+          "Chylous Ascites",
+          "Tuberculous Peritonitis"
+        ],
+        correct: 1,
+        rationale: "Pseudomyxoma Peritonei ('jelly belly') results from intraperitoneal spillage of mucin-secreting appendiceal neoplastic cells, requiring cytoreductive surgery + HIPEC."
+      },
+      {
+        q: "During appendectomy, convergence of which anatomical structures reliably leads the surgeon to the base of the appendix?",
+        options: [
+          "Plicae circulares",
+          "Taeniae coli (Taenia libera)",
+          "Vasa recta",
+          "Appendiceal artery branches"
+        ],
+        correct: 1,
+        rationale: "The 3 taeniae coli of the ascending colon converge at the cecal apex to form the anatomical base of the appendix; tracing the taenia libera leads directly to its base."
+      },
+      {
+        q: "What is the primary absorptive transport mechanism for Fructose across the apical enterocyte membrane?",
+        options: [
+          "SGLT1 Active Transport",
+          "GLUT5 Facilitated Diffusion",
+          "Pinocytosis",
+          "Paracellular Diffusion"
+        ],
+        correct: 1,
+        rationale: "Fructose is uniquely transported across the enterocyte brush border via facilitated diffusion mediated by the GLUT5 transporter."
+      },
+      {
+        q: "A 70-year-old ICU patient on high-dose Norepinephrine infusion develops abdominal distention, metabolic acidosis, and patchy bowel ischemia on CT without vascular occlusion. What is the diagnosis?",
+        options: [
+          "SMA Embolus",
+          "SMA Thrombosis",
+          "Non-Occlusive Mesenteric Ischemia (NOMI)",
+          "SMV Thrombosis"
+        ],
+        correct: 2,
+        rationale: "NOMI accounts for ~20% of AMI cases and is driven by splanchnic vasoconstriction during low cardiac output states or high-dose vasopressor therapy without organic occlusion."
+      },
+      {
+        q: "Which anatomical feature of the ileum differentiates it from the jejunum on gross inspection?",
+        options: [
+          "Thicker muscular wall",
+          "Longer vasa recta",
+          "Abundant mesenteric fat extending onto serosa ('creeping fat') and complex arcades",
+          "Larger luminal caliber"
+        ],
+        correct: 2,
+        rationale: "The ileum has abundant mesenteric fat, 3-5 tiers of arterial arcades with short vasa recta, and thinner walls compared to the jejunum."
+      },
+      {
+        q: "What is the definitive initial diagnostic imaging modality recommended for a pregnant female suspected of having acute appendicitis?",
+        options: [
+          "Abdominal CT with IV contrast",
+          "Graded Compression Abdominal Ultrasound",
+          "Abdominal Plain Radiograph",
+          "Diagnostic Laparoscopy"
+        ],
+        correct: 1,
+        rationale: "Graded compression ultrasound is the initial imaging modality of choice in pregnant women and pediatric patients to eliminate radiation exposure risks."
+      },
+      {
+        q: "What is the most common primary malignant tumor found specifically in the Duodenum?",
+        options: [
+          "Neuroendocrine Tumor",
+          "Adenocarcinoma",
+          "Lymphoma",
+          "GIST"
+        ],
+        correct: 1,
+        rationale: "In the duodenum, Adenocarcinoma is the most common primary malignancy (~40%), whereas Carcinoid is most common in the terminal ileum."
+      },
+      {
+        q: "Which physiological stimulus causes S cells in the duodenum to release Secretin?",
+        options: [
+          "Intraluminal amino acids",
+          "Gastric acid entering duodenum (pH < 4.5)",
+          "Hypoglycemia",
+          "Distention of the ileum"
+        ],
+        correct: 1,
+        rationale: "Secretin is released by S cells in response to acidic gastric chyme (pH < 4.5) entering the duodenum, stimulating pancreatic bicarbonate secretion."
+      },
+      {
+        q: "A 25-year-old male presents with RLQ pain. Alvarado score is 5. What is the recommended management step?",
+        options: [
+          "Discharge home with observation",
+          "Admit for observation and diagnostic CT / USG imaging",
+          "Immediate emergency appendectomy",
+          "Start lifelong TPN"
+        ],
+        correct: 1,
+        rationale: "An Alvarado score of 5-6 indicates intermediate risk (suspected appendicitis); management requires admission, serial exams, and imaging (CT/USG)."
+      },
+      {
+        q: "What component of bile is required for dietary lipid emulsification into mixed micelles?",
+        options: [
+          "Bilirubin diglucuronide",
+          "Bile Salts / Acids",
+          "Cholesterol Esterase",
+          "Phospholipase A2"
+        ],
+        correct: 1,
+        rationale: "Amphipathic bile salts organize hydrophobic lipid hydrolysis products into water-soluble mixed micelles to facilitate enterocyte absorption."
+      },
+      {
+        q: "Which surgical lengthening procedure for Short Bowel Syndrome utilizes serial transverse firings of a stapler device on dilated small bowel?",
+        options: [
+          "LILT (Bianchi procedure)",
+          "STEP (Serial Transverse Enteroplasty Procedure)",
+          "Whipple procedure",
+          "Strictureplasty"
+        ],
+        correct: 1,
+        rationale: "The STEP procedure applies serial stapler firings perpendicular to the long axis of dilated bowel in alternating directions to lengthen and narrow the gut."
+      },
+      {
+        q: "What is the hallmark presentation of Carcinoid Syndrome in a patient with a primary ileal Neuroendocrine Tumor?",
+        options: [
+          "Occurs with localized localized primary tumor",
+          "Flushing, diarrhea, bronchospasm, and right-sided heart valve lesions occurring secondary to liver metastases",
+          "Massive upper GI hematemesis",
+          "Left-sided heart failure"
+        ],
+        correct: 1,
+        rationale: "Carcinoid syndrome occurs only when hepatic metastases bypass first-pass liver metabolism, releasing serotonin directly into systemic circulation."
+      },
+      {
+        q: "What is the term for a Meckel's Diverticulum found inside an inguinal hernia sac?",
+        options: [
+          "Richter's Hernia",
+          "Littre's Hernia",
+          "Spigelian Hernia",
+          "Amyand's Hernia"
+        ],
+        correct: 1,
+        rationale: "A Littre's Hernia is defined as the presence of a Meckel's Diverticulum within a hernia sac (Amyand's hernia contains normal/inflamed appendix)."
+      },
+      {
+        q: "What percentage of ingested fluid traversing the gastrointestinal tract is reabsorbed in the small intestine?",
+        options: [
+          "20%",
+          "50%",
+          "80%",
+          "99%"
+        ],
+        correct: 2,
+        rationale: "Out of 8.5-9.0 L traversing daily, approximately 80% (~7.5 L) is reabsorbed in the small intestine, leaving ~1.5 L to cross the ileocecal valve into the colon."
+      },
+      {
+        q: "A patient with suspected SBO has an abdominal radiograph showing air-fluid levels in a step-ladder pattern with absence of colonic gas. What type of SBO does this favor?",
+        options: [
+          "Partial SBO",
+          "Complete SBO",
+          "Postoperative Ileus",
+          "CIPO"
+        ],
+        correct: 1,
+        rationale: "Absence of distal colonic gas combined with dilated small bowel loops and fluid levels indicates complete mechanical bowel obstruction."
+      },
+      {
+        q: "Which enzyme converts trypsinogen into active trypsin at the enterocyte brush border?",
+        options: [
+          "Carboxypeptidase",
+          "Enteropeptidase (Enterokinase)",
+          "Chymotrypsin",
+          "Pepsin"
+        ],
+        correct: 1,
+        rationale: "Enteropeptidase (enterokinase), embedded in the brush border membrane, cleaves trypsinogen to activate trypsin, triggering the pancreatic zymogen cascade."
+      },
+      {
+        q: "In acute appendicitis, why does visceral periumbilical pain migrate to sharp localized pain in the right lower quadrant?",
+        options: [
+          "Bowel lumen dilation",
+          "Extension of inflammation from visceral peritoneum to somatic parietal peritoneum",
+          "Migration of appendicolith",
+          "Stimulation of pelvic autonomic ganglia"
+        ],
+        correct: 1,
+        rationale: "Initial visceral pain (T10 dermatome, dull periumbilical) shifts to sharp RLQ pain when localized transmural inflammation contacts the parietal peritoneum (somatic innervation)."
+      },
+      {
+        q: "What chemotherapy agent is combined with Hyperthermic Intraperitoneal Chemotherapy (HIPEC) during cytoreductive surgery for Pseudomyxoma Peritonei?",
+        options: [
+          "5-Fluorouracil",
+          "Mitomycin C",
+          "Cisplatin",
+          "Doxorubicin"
+        ],
+        correct: 1,
+        rationale: "Mitomycin C is the standard chemotherapeutic agent used in heated intraperitoneal perfusion (HIPEC) following cytoreductive peritonectomy for PMP."
+      },
+      {
+        q: "A patient presents with signs of SBO, air in the biliary tree (pneumobilia), and an ectopic gallstone in the RLQ. What is this classic clinical triad called?",
+        options: [
+          "Charcot's Triad",
+          "Rigler's Triad (Gallstone Ileus)",
+          "Beck's Triad",
+          "Virchow's Triad"
+        ],
+        correct: 1,
+        rationale: "Rigler's Triad (pneumobilia, SBO, and ectopic gallstone in RLQ) is pathognomonic for Gallstone Ileus caused by a cholecystoenteric fistula."
+      },
+      {
+        q: "Which specific nerve plexus provides intrinsic motility control located in the muscularis propria layer?",
+        options: [
+          "Meissner's Plexus",
+          "Auerbach's (Myenteric) Plexus",
+          "Celiac Plexus",
+          "Hypogastric Plexus"
+        ],
+        correct: 1,
+        rationale: "Auerbach's (Myenteric) plexus lies between the circular and longitudinal muscle layers of the muscularis propria to coordinate gastrointestinal motility."
+      },
+      {
+        q: "A 20-year-old female presents with RLQ tenderness, normal WBC, and score of 3 on Alvarado scale. What is the best next step?",
+        options: [
+          "Immediate Appendectomy",
+          "Abdominal CT with Contrast",
+          "Discharge home with advise for observation and follow-up if pain worsens",
+          "Admit for IV antibiotics"
+        ],
+        correct: 2,
+        rationale: "An Alvarado score of 1-4 indicates low likelihood (~30%); safe management includes discharging home with strict instructions to return if pain intensifies."
+      }
+    ];
+
+    let quizUserAnswers = {};
+
+    function renderQuiz() {
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = '';
+
+      mcqsData.forEach((mcq, idx) => {
+        const qCard = document.createElement('div');
+        qCard.className = 'quiz-card';
+        qCard.id = `quiz-q-${idx}`;
+
+        let optionsHTML = '';
+        mcq.options.forEach((opt, optIdx) => {
+          optionsHTML += `
+            <div class="quiz-option" onclick="selectQuizOption(${idx}, ${optIdx})">
+              <span class="quiz-opt-letter" style="font-weight:bold; font-family:var(--font-mono);">${String.fromCharCode(65 + optIdx)}.</span>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+
+        qCard.innerHTML = `
+          <div class="quiz-qnum">QUESTION ${idx + 1} OF ${mcqsData.length}</div>
+          <div class="quiz-question">${mcq.q}</div>
+          <div class="quiz-options">${optionsHTML}</div>
+          <div class="quiz-explanation" id="quiz-exp-${idx}">
+            <strong>Rationale:</strong> ${mcq.rationale}
+          </div>
+        `;
+
+        container.appendChild(qCard);
+      });
+
+      updateQuizTracker();
+    }
+
+    function selectQuizOption(qIdx, optIdx) {
+      if (quizUserAnswers[qIdx] !== undefined) return; // Prevent re-answering
+
+      quizUserAnswers[qIdx] = optIdx;
+      const qCard = document.getElementById(`quiz-q-${qIdx}`);
+      const options = qCard.querySelectorAll('.quiz-option');
+      const correctIdx = mcqsData[qIdx].correct;
+
+      options.forEach((opt, i) => {
+        if (i === correctIdx) {
+          opt.classList.add('correct');
+        }
+        if (i === optIdx && optIdx !== correctIdx) {
+          opt.classList.add('incorrect');
+        }
+      });
+
+      const exp = document.getElementById(`quiz-exp-${qIdx}`);
+      exp.classList.add('show');
+
+      updateQuizTracker();
+    }
+
+    function updateQuizTracker() {
+      const answeredCount = Object.keys(quizUserAnswers).length;
+      let correctCount = 0;
+      Object.keys(quizUserAnswers).forEach(qIdx => {
+        if (quizUserAnswers[qIdx] === mcqsData[qIdx].correct) {
+          correctCount++;
+        }
+      });
+
+      document.getElementById('quizScoreTracker').textContent = 
+        `Score: ${correctCount} / ${answeredCount} Answered (Total Questions: ${mcqsData.length})`;
+    }
+  </script>
+</body>
+</html>
