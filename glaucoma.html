@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glaucoma Masterclass: Board-Exam Reviewer | Ophthalmology LE 2</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --brand-primary: #0f4c81;
+            --brand-primary-light: #eef5fc;
+            --brand-secondary: #00a896;
+            --brand-secondary-light: #e6f7f5;
+            --accent-danger: #e63946;
+            --accent-danger-light: #fde8e8;
+            --accent-warning: #f77f00;
+            --accent-warning-light: #fff4e5;
+            --accent-success: #2a9d8f;
+            --accent-success-light: #e6f4f1;
+            --border-color: #e2e8f0;
+            --border-highlight: #cbd5e1;
+            --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-code: 'Space Mono', monospace;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+        }
+
+        body.dark-mode {
+            --bg-primary: #0b1120;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --brand-primary: #38bdf8;
+            --brand-primary-light: #1e293b;
+            --brand-secondary: #2dd4bf;
+            --brand-secondary-light: #134e4a;
+            --accent-danger: #f87171;
+            --accent-danger-light: #451a1a;
+            --accent-warning: #fbbf24;
+            --accent-warning-light: #451a03;
+            --accent-success: #34d399;
+            --accent-success-light: #064e3b;
+            --border-color: #334155;
+            --border-highlight: #475569;
+            --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color var(--transition-normal), color var(--transition-normal);
+            padding-bottom: 60px;
+        }
+
+        /* Top Progress Indicator */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--brand-primary);
+            color: white;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .controls-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 260px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 12px 8px 36px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            outline: none;
+            transition: var(--transition-fast);
+        }
+
+        .search-box input:focus {
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.15);
+            background-color: var(--bg-secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .btn-icon {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-size: 1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--border-color);
+            color: var(--brand-primary);
+        }
+
+        /* Nav Tabs */
+        .nav-tabs-wrapper {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-tabs-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-tabs {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 24px;
+            gap: 4px;
+        }
+
+        .tab-btn {
+            padding: 12px 18px;
+            border: none;
+            background: none;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--brand-primary);
+            background-color: var(--bg-tertiary);
+        }
+
+        .tab-btn.active {
+            color: var(--brand-primary);
+            border-bottom-color: var(--brand-primary);
+            background-color: var(--brand-primary-light);
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1400px;
+            margin: 24px auto;
+            padding: 0 24px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Layout Grids */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-1-2 {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-2, .grid-3, .grid-1-2 { grid-template-columns: 1fr; }
+            .header-container { flex-direction: column; align-items: stretch; }
+            .search-box { width: 100%; }
+        }
+
+        /* Callout Badges & Cards */
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 20px;
+            transition: var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .card-accent-left {
+            border-left: 5px solid var(--brand-primary);
+        }
+
+        .card-accent-teal {
+            border-left: 5px solid var(--brand-secondary);
+        }
+
+        .card-accent-danger {
+            border-left: 5px solid var(--accent-danger);
+        }
+
+        .card-accent-warning {
+            border-left: 5px solid var(--accent-warning);
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-must-know {
+            background-color: var(--accent-danger-light);
+            color: var(--accent-danger);
+            border: 1px solid var(--accent-danger);
+        }
+
+        .badge-pitfall {
+            background-color: var(--accent-warning-light);
+            color: var(--accent-warning);
+            border: 1px solid var(--accent-warning);
+        }
+
+        .badge-pearl {
+            background-color: var(--brand-secondary-light);
+            color: var(--brand-secondary);
+            border: 1px solid var(--brand-secondary);
+        }
+
+        .badge-tip {
+            background-color: var(--brand-primary-light);
+            color: var(--brand-primary);
+            border: 1px solid var(--brand-primary);
+        }
+
+        /* Callout Box Component */
+        .callout-box {
+            padding: 14px 16px;
+            border-radius: var(--radius-md);
+            margin: 14px 0;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .callout-box .icon {
+            font-size: 1.25rem;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .callout-must-know {
+            background-color: var(--accent-danger-light);
+            border: 1px solid var(--accent-danger);
+            color: var(--text-primary);
+        }
+
+        .callout-pitfall {
+            background-color: var(--accent-warning-light);
+            border: 1px solid var(--accent-warning);
+            color: var(--text-primary);
+        }
+
+        .callout-pearl {
+            background-color: var(--brand-secondary-light);
+            border: 1px solid var(--brand-secondary);
+            color: var(--text-primary);
+        }
+
+        .callout-tip {
+            background-color: var(--brand-primary-light);
+            border: 1px solid var(--brand-primary);
+            color: var(--text-primary);
+        }
+
+        /* High-Yield Tables */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 16px 0;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            position: relative;
+        }
+
+        .table-header-tools {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background-color: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .btn-copy-table {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+        }
+
+        .btn-copy-table:hover {
+            background: var(--brand-primary);
+            color: white;
+            border-color: var(--brand-primary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.875rem;
+        }
+
+        th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            padding: 12px 16px;
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) td {
+            background-color: rgba(0,0,0,0.015);
+        }
+
+        body.dark-mode tr:nth-child(even) td {
+            background-color: rgba(255,255,255,0.02);
+        }
+
+        tr:hover td {
+            background-color: var(--brand-primary-light);
+        }
+
+        /* SVG & CSS Recreated Diagrams */
+        .diagram-container {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .diagram-title {
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .diagram-caption {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Flashcard Component */
+        .flashcard-wrapper {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 650px;
+            height: 380px;
+            margin: 20px auto;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background-color: var(--brand-primary-light);
+            border-color: var(--brand-primary);
+        }
+
+        .flashcard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .flashcard-topic {
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            color: var(--brand-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .flashcard-body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-grow: 1;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            padding: 10px 0;
+        }
+
+        .flashcard-footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-code);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .btn-action {
+            background-color: var(--brand-primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-action:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-action-outline {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-action-outline:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        /* Quiz Component */
+        .quiz-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .quiz-question {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .quiz-option {
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--brand-primary);
+            background-color: var(--brand-primary-light);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--brand-primary);
+            background-color: var(--brand-primary-light);
+            font-weight: 600;
+        }
+
+        .quiz-option.correct {
+            border-color: var(--accent-success) !important;
+            background-color: var(--accent-success-light) !important;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--accent-danger) !important;
+            background-color: var(--accent-danger-light) !important;
+            color: var(--text-primary);
+        }
+
+        .quiz-explanation {
+            display: none;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            background-color: var(--bg-tertiary);
+            border-left: 4px solid var(--brand-primary);
+            font-size: 0.875rem;
+            margin-top: 12px;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .quiz-score-header {
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            color: white;
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .quiz-score-header h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        /* Cram Sheet List Styling */
+        .cram-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cram-item {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.875rem;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .cram-item:last-child {
+            border-bottom: none;
+        }
+
+        .cram-trigger {
+            font-weight: 700;
+            color: var(--brand-primary);
+            font-family: var(--font-code);
+            min-width: 180px;
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-muted { color: var(--text-muted); }
+        .font-code { font-family: var(--font-code); }
+        .mt-1 { margin-top: 4px; }
+        .mt-2 { margin-top: 8px; }
+        .mt-4 { margin-top: 16px; }
+        .mb-2 { margin-bottom: 8px; }
+        .mb-4 { margin-bottom: 16px; }
+
+        /* Scroll to Top Floating Button */
+        #btn-scroll-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            background-color: var(--brand-primary);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 800;
+            transition: var(--transition-fast);
+        }
+
+        #btn-scroll-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+        }
+
+        /* Print Styling */
+        @media print {
+            header, .nav-tabs-wrapper, .controls-group, #btn-scroll-top, .flashcard-controls, .btn-copy-table {
+                display: none !important;
+            }
+            .tab-content { display: block !important; opacity: 1 !important; }
+            body { background: white; color: black; }
+            .card { border: 1px solid #ccc; box-shadow: none; break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div id="progress-bar"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-group">
+                <div class="logo-icon">Gx</div>
+                <div class="logo-text">
+                    <h1>Glaucoma Board Reviewer</h1>
+                    <p>Ophthalmology LE 2 • Dr. Edgar U. Leuenberger • UST-FMS</p>
+                </div>
+            </div>
+            <div class="controls-group">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" placeholder="Search concepts, drugs, findings..." oninput="handleSearch()">
+                </div>
+                <button class="btn-icon" id="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+                <button class="btn-icon" onclick="window.print()" title="Print Reviewer">🖨️</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sticky Navigation Tabs -->
+    <div class="nav-tabs-wrapper">
+        <nav class="nav-tabs" id="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('overview')">📌 Overview</button>
+            <button class="tab-btn" onclick="switchTab('basics')">🩺 Basics & Diagnosis</button>
+            <button class="tab-btn" onclick="switchTab('exam')">👁️ Clinical Exam</button>
+            <button class="tab-btn" onclick="switchTab('poag')">💧 POAG & Management</button>
+            <button class="tab-btn" onclick="switchTab('pacg')">🚨 PACG & Emergency</button>
+            <button class="tab-btn" onclick="switchTab('special')">👶 Secondary & Childhood</button>
+            <button class="tab-btn" onclick="switchTab('cases')">📋 Case Scenarios</button>
+            <button class="tab-btn" onclick="switchTab('comparisons')">⚖️ Side-by-Side</button>
+            <button class="tab-btn" onclick="switchTab('flashcards')">🎴 Flashcards (54)</button>
+            <button class="tab-btn" onclick="switchTab('quiz')">📝 Self-Assessment (54)</button>
+            <button class="tab-btn" onclick="switchTab('cram')">⚡ Cram Sheet</button>
+        </nav>
+    </div>
+
+    <!-- Main Content Container -->
+    <main>
+
+        <!-- TAB 1: OVERVIEW -->
+        <section id="tab-overview" class="tab-content active">
+            <div class="card card-accent-left">
+                <div class="card-title">
+                    <span>Glaucoma: Disease Definition & High-Yield Summary</span>
+                    <span class="badge badge-must-know">Must Know</span>
+                </div>
+                <p><strong>Glaucoma</strong> is a progressive, neurodegenerative eye disease that results in visual field disturbance and irreversible blindness. It is characteristically associated with the death of <strong>retinal ganglion cells</strong>, characteristic <strong>optic nerve cupping</strong>, and a corresponding <strong>visual field defect</strong> respecting the horizontal meridian.</p>
+                
+                <div class="callout-box callout-must-know">
+                    <span class="icon">❗</span>
+                    <div>
+                        <strong>Diagnostic Triad Rule (2 out of 3 Criteria):</strong> To establish a formal diagnosis of glaucoma, a patient must satisfy at least <strong>2 out of the following 3 criteria</strong> (with changes being gradual and progressive):
+                        <ol class="mt-1" style="margin-left: 20px;">
+                            <li><strong>Abnormal Eye Pressure:</strong> IOP elevated beyond normal limits (Normal: 10 – 21 mmHg).</li>
+                            <li><strong>Optic Nerve Damage:</strong> Characteristic structural loss (e.g., vCDR &gt; 0.5, rim notching, ISNT rule violation).</li>
+                            <li><strong>Visual Field Damage:</strong> Functional visual loss matching optic nerve structural loss (e.g., Bjerrum arcuate scotoma).</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="grid-3 mt-4">
+                    <div class="card" style="margin-bottom:0; background:var(--bg-tertiary);">
+                        <h4 style="color:var(--brand-primary); font-family:var(--font-heading);">Global Impact</h4>
+                        <p class="font-code" style="font-size:1.25rem; font-weight:700;">#1 Irreversible</p>
+                        <p style="font-size:0.8rem; color:var(--text-muted);">Leading cause of irreversible blindness worldwide.</p>
+                    </div>
+                    <div class="card" style="margin-bottom:0; background:var(--bg-tertiary);">
+                        <h4 style="color:var(--brand-primary); font-family:var(--font-heading);">Philippine Burden</h4>
+                        <p class="font-code" style="font-size:1.25rem; font-weight:700;">Top 3 Cause</p>
+                        <p style="font-size:0.8rem; color:var(--text-muted);">One of the top 3 primary causes of blindness in the Philippines.</p>
+                    </div>
+                    <div class="card" style="margin-bottom:0; background:var(--bg-tertiary);">
+                        <h4 style="color:var(--brand-primary); font-family:var(--font-heading);">Only Modifiable Factor</h4>
+                        <p class="font-code" style="font-size:1.25rem; font-weight:700;">IOP Control</p>
+                        <p style="font-size:0.8rem; color:var(--text-muted);">Intraocular Pressure is the ONLY modifiable risk factor (1:6 ratio).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Master High-Yield Summary Table -->
+            <div class="card">
+                <div class="card-title">
+                    <span>Master Glaucoma Classification & Spectrum Summary</span>
+                    <button class="btn-copy-table" onclick="copyTableText('master-table')">📋 Copy Table</button>
+                </div>
+                <div class="table-container">
+                    <table id="master-table">
+                        <thead>
+                            <tr>
+                                <th>Glaucoma Type</th>
+                                <th>IOP Range (mmHg)</th>
+                                <th>Primary Mechanism</th>
+                                <th>Key Risk Factors / Features</th>
+                                <th>First-Line Management</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>POAG (High Tension)</strong></td>
+                                <td>21 – 50 mmHg</td>
+                                <td>Trabecular meshwork flow resistance (Open angles)</td>
+                                <td>Myopia, steroids, thin cornea, family hx</td>
+                                <td>PG analogues (Latanoprost) or SLT Laser</td>
+                            </tr>
+                            <tr>
+                                <td><strong>POAG (Low Tension)</strong></td>
+                                <td>&le; 21 mmHg</td>
+                                <td>Vascular insufficiency / optic nerve hypersensitivity</td>
+                                <td>Japanese/Korean, Disc hemorrhages (hallmark)</td>
+                                <td>IOP reduction (target 30% drop), neuroprotection</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Primary Angle Closure (PACG)</strong></td>
+                                <td>40 – 70 mmHg</td>
+                                <td>Pupillary block &rarr; Iris bow &rarr; Trabecular closure</td>
+                                <td>Hyperopia, middle-aged Chinese women, reading/TV</td>
+                                <td>Laser Peripheral Iridotomy (LPI)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Acute Angle Closure (PAACG)</strong></td>
+                                <td>&gt; 50 to &gt; 70 mmHg</td>
+                                <td>Sudden total pupillary block emergency</td>
+                                <td>Severe pain, steamy cornea, mid-dilated oval pupil, N/V</td>
+                                <td>Stat IOP lowering (Mannitol/glycerine) + Stat LPI</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Secondary Glaucoma</strong></td>
+                                <td>21 – 70 mmHg</td>
+                                <td>Ocular pathology (trauma, NVG, uveitis, steroids)</td>
+                                <td>Steroid use, diabetic ROP/NVG, blunt trauma</td>
+                                <td>Treat underlying cause + IOP lowering drops/shunts</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Childhood / Congenital</strong></td>
+                                <td>21 – 70 mmHg</td>
+                                <td>Trabeculodysgenesis (Barkan's membrane / Angle dysgenesis)</td>
+                                <td>Triad (tearing, photophobia, blepharospasm), Haab's striae</td>
+                                <td>Surgical: Goniotomy / Trabeculotomy</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: BASICS & DIAGNOSIS -->
+        <section id="tab-basics" class="tab-content">
+            <div class="card card-accent-left">
+                <div class="card-title">
+                    <span>Glaucoma Suspects & Diagnostic Criteria</span>
+                    <span class="badge badge-tip">Exam Tip</span>
+                </div>
+                <p><strong>Glaucoma Suspects</strong> are individuals with no confirmed glaucoma but present with suspicious clinical findings that put them at risk of converting to definitive glaucoma:</p>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>No definitive glaucoma established yet.</li>
+                    <li>Pressure suspiciously high for the individual eye (&gt;21 mmHg).</li>
+                    <li>Suspicious optic nerve damage (e.g., asymmetric cupping, vCDR &gt; 0.5).</li>
+                    <li>Suspicious visual field damage (e.g., early localized scotoma).</li>
+                </ul>
+
+                <div class="callout-box callout-pitfall">
+                    <span class="icon">⚠️</span>
+                    <div>
+                        <strong>Board Exam Trap (Formative Quiz #3):</strong> A patient with Normal IOP, Normal CDR (0.2), but a Nasal Step on Visual Field exam satisfies ONLY 1 criterion. They do NOT meet the 2 out of 3 rule required for a definitive glaucoma diagnosis or classification as a high-probability suspect without structural correlation!
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-teal">
+                <div class="card-title">
+                    <span>Risk Factors Matrix: Modifiable vs Non-Modifiable</span>
+                    <span class="badge badge-must-know">Ratio 1:6</span>
+                </div>
+                <div class="grid-2">
+                    <div style="background:var(--accent-success-light); padding:16px; border-radius:var(--radius-md); border:1px solid var(--accent-success);">
+                        <h4 style="color:var(--accent-success); font-family:var(--font-heading);">Modifiable Risk Factor (Only 1)</h4>
+                        <ul style="margin-left:20px; margin-top:8px;">
+                            <li><strong>Intraocular Pressure (IOP):</strong> The single primary modifiable risk factor. Lowering IOP slows or halts progressive optic nerve degeneration.</li>
+                        </ul>
+                    </div>
+                    <div style="background:var(--accent-danger-light); padding:16px; border-radius:var(--radius-md); border:1px solid var(--accent-danger);">
+                        <h4 style="color:var(--accent-danger); font-family:var(--font-heading);">Non-Modifiable Risk Factors (6+)</h4>
+                        <ul style="margin-left:20px; margin-top:8px;">
+                            <li><strong>Family History:</strong> Blindness from glaucoma in first-degree relatives.</li>
+                            <li><strong>Refractive Status:</strong> High Myopia (POAG) vs High Hyperopia (PACG).</li>
+                            <li><strong>Corneal Thickness:</strong> Thin central corneas (&lt;555 &mu;m).</li>
+                            <li><strong>Steroid Intake:</strong> Oral, inhalational, eyedrop, or extensive topical steroids.</li>
+                            <li><strong>Systemic/Trauma:</strong> Diabetes, prior eye trauma (e.g., shuttlecock injury), blood transfusions, smoking, metastatic tumors.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Focused Medical History Taking Protocol in Glaucoma</div>
+                <p>Patients rarely present stating "I have glaucoma." Doctors must use <strong>pattern recognition</strong> during consultation:</p>
+                <div class="grid-2 mt-2">
+                    <div>
+                        <strong>Key Historical Enquiries:</strong>
+                        <ul style="margin-left: 20px; margin-top: 6px;">
+                            <li><strong>Mobility/Function:</strong> Bumping into doorframes, missing side objects, difficulty driving.</li>
+                            <li><strong>Visual Symptoms:</strong> Intermittent blurring, halos around lights, eye pain, headaches.</li>
+                            <li><strong>Medication Review:</strong> Steroids, anti-Kochs (Ethambutol &rarr; toxic optic neuropathy), antivirals, anticonvulsants.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Observational Cues:</strong>
+                        <ul style="margin-left: 20px; margin-top: 6px;">
+                            <li>Observe mobility while patient walks into the clinic and sits down.</li>
+                            <li>Check eyeglass prescription (Myopic glasses = POAG risk; Hyperopic = PACG risk).</li>
+                            <li>Family history of blindness or ocular surgeries.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: CLINICAL EXAMINATION -->
+        <section id="tab-exam" class="tab-content">
+            <div class="card card-accent-left">
+                <div class="card-title">
+                    <span>1. Tonometry & Pachymetry</span>
+                    <span class="badge badge-pearl">Clinical Pearl</span>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <h4>Digital Tonometry (Crude Estimation)</h4>
+                        <p style="font-size:0.875rem;" class="mt-1">Examiner asks patient to look down without closing eyes. Gently alternate pressure with two index fingers on upper sclera.</p>
+                        <ul style="margin-left:20px; font-size:0.85rem;" class="mt-1">
+                            <li><strong>Normal Pressure:</strong> Feels firm, like the <em>tip of the nose</em>.</li>
+                            <li><strong>High Pressure:</strong> Hard, rigid like the <em>forehead</em>.</li>
+                            <li><strong>Low Pressure:</strong> Soft like the <em>lips</em>.</li>
+                        </ul>
+                        <div class="callout-box callout-pitfall mt-2">
+                            <span class="icon">⚠️</span>
+                            <div><strong>Contraindications:</strong> Absolute NO in penetrating eye injuries or active eye infections! NEVER percuss the eye.</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Goldmann Applanation Tonometry (Gold Standard)</h4>
+                        <p style="font-size:0.875rem;" class="mt-1">Fluorescein dye instilled. Biprism touches cornea. Dial rotated until inner margins of semicircular mires touch.</p>
+                        <p class="font-code mt-1"><strong>IOP Result = Dial Reading &times; 10</strong></p>
+                        <h4 class="mt-2">Pachymetry (Corneal Thickness)</h4>
+                        <ul style="margin-left:20px; font-size:0.85rem;" class="mt-1">
+                            <li><strong>Thick Corneas:</strong> Require more force to flatten &rarr; Falsely HIGH IOP readings.</li>
+                            <li><strong>Thin Corneas:</strong> Require less force &rarr; Falsely LOW IOP readings.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-teal">
+                <div class="card-title">
+                    <span>2. Gonioscopy & Angle Landmarks</span>
+                    <span class="badge badge-must-know">Must Know</span>
+                </div>
+                <p>Gonioscopy overcomes <strong>total internal reflection</strong> of the cornea using a mirrored lens to visualize the anterior chamber drainage angle.</p>
+                
+                <div class="diagram-container">
+                    <div class="diagram-title">Gonioscopic Landmarks (Posterior to Anterior / Top to Bottom)</div>
+                    <div style="display:flex; flex-direction:column; gap:6px; max-width:400px; margin:10px auto;">
+                        <div style="background:#4a5568; color:white; padding:8px; border-radius:4px; font-weight:700;">1. Ciliary Body Band (CBB) - Most Posterior</div>
+                        <div style="background:#718096; color:white; padding:8px; border-radius:4px; font-weight:700;">2. Scleral Spur (SS)</div>
+                        <div style="background:#a0aec0; color:black; padding:8px; border-radius:4px; font-weight:700;">3. Trabecular Meshwork (TM) - Pigmented Band</div>
+                        <div style="background:#e2e8f0; color:black; padding:8px; border-radius:4px; font-weight:700;">4. Schwalbe's Line (SL) - Most Anterior</div>
+                    </div>
+                    <div class="diagram-caption">Mnemonic: <strong>CSTS</strong> ("Can See Till Schwalbe's Line") - Lists structures from Posterior to Anterior.</div>
+                </div>
+            </div>
+
+            <div class="card card-accent-left">
+                <div class="card-title">
+                    <span>3. Optic Nerve Features in Glaucoma</span>
+                    <span class="badge badge-must-know">90% Violation Rule</span>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <h4>Normal vs Glaucomatous Disc</h4>
+                        <ul style="margin-left:20px; font-size:0.875rem;" class="mt-1">
+                            <li><strong>Normal vCDR:</strong> 0.2 to 0.5. Asymmetry between eyes &gt; 0.2 is highly suspicious!</li>
+                            <li><strong>ISNT Rule (Normal Eyes):</strong> Neuroretinal rim thickness order: <strong>I</strong>nferior &gt; <strong>S</strong>uperior &gt; <strong>N</strong>asal &gt; <strong>T</strong>emporal.</li>
+                            <li><strong>ISNT Rule Violation:</strong> Present in 90% of glaucoma cases (e.g., N &gt; S &gt; T &gt; I due to inferior/superior rim thinning). <em>Note: 10-20% may still follow ISNT rule!</em></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Hallmark Signs of Glaucomatous Damage</h4>
+                        <ul style="margin-left:20px; font-size:0.875rem;" class="mt-1">
+                            <li><strong>Rim Notching:</strong> Focal thinning of neuroretinal rim (arrowhead sign).</li>
+                            <li><strong>Baring of Vessels:</strong> Thinning of supporting connective tissue exposing vessel borders.</li>
+                            <li><strong>Nasalization:</strong> Retinal vessels pushed nasally by expanding central cup.</li>
+                            <li><strong>Disc Hemorrhage (Splinter/Flame):</strong> Hallmark of <em>worsening/progression</em>; very common in Low Tension Glaucoma!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span>4. Visual Field Defect Mapping</span>
+                    <span class="badge badge-tip">Meridian Rule</span>
+                </div>
+                <p>Structural optic nerve damage translates directly into functional visual field defects. Glaucomatous defects <strong>respect the horizontal meridian</strong> (whereas neurological lesions respect the vertical meridian).</p>
+                
+                <div class="grid-3 mt-2">
+                    <div style="background:var(--bg-tertiary); padding:12px; border-radius:var(--radius-md);">
+                        <strong style="color:var(--brand-primary);">Bjerrum's Scotoma</strong>
+                        <p style="font-size:0.8rem;" class="mt-1">Classic arcuate defect extending from blind spot around fixation (10–20°) to the horizontal raphe.</p>
+                    </div>
+                    <div style="background:var(--bg-tertiary); padding:12px; border-radius:var(--radius-md);">
+                        <strong style="color:var(--brand-primary);">Seidel Scotoma</strong>
+                        <p style="font-size:0.8rem;" class="mt-1">Sickle-shaped arcuate extension attached directly to the blind spot.</p>
+                    </div>
+                    <div style="background:var(--bg-tertiary); padding:12px; border-radius:var(--radius-md);">
+                        <strong style="color:var(--brand-primary);">Nasal Step</strong>
+                        <p style="font-size:0.8rem;" class="mt-1">Asymmetric loss respecting the horizontal meridian in the nasal visual field.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: POAG & MANAGEMENT -->
+        <section id="tab-poag" class="tab-content">
+            <div class="card card-accent-left">
+                <div class="card-title">
+                    <span>Primary Open Angle Glaucoma (POAG) Pathophysiology</span>
+                    <span class="badge badge-must-know">Must Know</span>
+                </div>
+                <p>In POAG, the anterior chamber angle is open on gonioscopy, but aqueous outflow is obstructed by high resistance at the level of the <strong>Trabecular Meshwork</strong>. Volume buildup leads to elevated IOP, chronic optic nerve compression, and insidiously progressive visual field loss.</p>
+                
+                <div class="callout-box callout-pearl">
+                    <span class="icon">💡</span>
+                    <div>
+                        <strong>Classic Patient Complaints in POAG:</strong> "I bump into doorframes," "I can't drive well," "My progressive lenses aren't working," "I keep knocking over my glass of water," or "I can't see the side of your face."
+                    </div>
+                </div>
+            </div>
+
+            <!-- Management Staging Table -->
+            <div class="card">
+                <div class="card-title">Severity-Based Treatment Algorithm for POAG</div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Disease Stage</th>
+                                <th>Visual Field Status</th>
+                                <th>Primary Interventions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Mild POAG</strong></td>
+                                <td>Early localized scotoma / mild nasal step</td>
+                                <td>Eyedrops OR Selective Laser Trabeculoplasty (SLT)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Moderate POAG</strong></td>
+                                <td>Arcuate defect / Bjerrum scotoma</td>
+                                <td>Eyedrops + Laser Trabeculoplasty + Consideration of Surgery</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Severe POAG</strong></td>
+                                <td>Advanced field loss / Tunnel vision</td>
+                                <td>Eyedrops + Filtering Surgery (Trabeculectomy / GDD)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>End-Stage / Blind Painful</strong></td>
+                                <td>No light perception / severe pain</td>
+                                <td>Diode Trans-Scleral Cyclophotocoagulation (Diode TSCP)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Glaucoma Drugs Table -->
+            <div class="card card-accent-teal">
+                <div class="card-title">
+                    <span>Glaucoma Pharmacotherapy Master Table</span>
+                    <button class="btn-copy-table" onclick="copyTableText('pharm-table')">📋 Copy Table</button>
+                </div>
+                <div class="table-container">
+                    <table id="pharm-table">
+                        <thead>
+                            <tr>
+                                <th>Class & Mechanism</th>
+                                <th>Drug Examples</th>
+                                <th>Primary Side Effects</th>
+                                <th>Absolute Contraindications</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Parasympathomimetic</strong><br>(Pupil constriction &rarr; opens TM)</td>
+                                <td>Pilocarpine</td>
+                                <td>Headache, brow ache, induced myopia</td>
+                                <td><strong>High Myopia</strong> (retinal detachment risk)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Prostaglandin Analogues</strong><br>(Enhance uveoscleral outflow)</td>
+                                <td>Latanoprost<br>Bimatoprost<br>Travoprost</td>
+                                <td>Red eye, eyelash growth, dark raccoon eyes, orbital fat volume depletion</td>
+                                <td><strong>Macular Edema, Uveitis, Pregnancy</strong> (uterine contractions)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Beta-Blockers</strong><br>(Suppress aqueous production)</td>
+                                <td>Timolol</td>
+                                <td>Bradycardia, bronchospasm, fatigue</td>
+                                <td><strong>Bronchial Asthma, Heart Block / Severe Bradycardia</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Alpha-2 Agonists</strong><br>(Suppress production + outflow)</td>
+                                <td>Brimonidine</td>
+                                <td>Drowsiness, dry mouth, systemic hypotension</td>
+                                <td><strong>Children &lt; 2–4 Years</strong> (Crosses BBB &rarr; respiratory depression!)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Carbonic Anhydrase Inhibitors</strong><br>(Suppress aqueous production)</td>
+                                <td>Dorzolamide<br>Brinzolamide</td>
+                                <td>Stinging, metallic taste, corneal edema</td>
+                                <td><strong>Sulfonamide Allergy, Severe Corneal Endothelial Failure</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Interventions Cards -->
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Selective Laser Trabeculoplasty (SLT)</div>
+                    <ul style="margin-left: 20px; font-size: 0.875rem;">
+                        <li><strong>Indication:</strong> Open Angle Glaucoma ONLY (never in angle closure!).</li>
+                        <li><strong>Mechanism:</strong> Cool laser selectively absorbed by pigmented melanin TM cells. <strong>Biological Effect &gt; Mechanical Effect</strong>. Stimulates macrophages to clean TM debris.</li>
+                        <li><strong>Efficacy:</strong> Drops-free for 6–8 years; 75–80% success rate; repeatable ~3x.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Surgical Options: Trabeculectomy vs GDD</div>
+                    <ul style="margin-left: 20px; font-size: 0.875rem;">
+                        <li><strong>Trabeculectomy:</strong> Creates subconjunctival drainage canal (bleb). Uses bridle sutures, scleral flap, punch. High risk of scarring.</li>
+                        <li><strong>Glaucoma Drainage Device (GDD):</strong> Implanted silicon tube + plate valve. Maintains 8–14 mmHg pressure. Indicated in failed trab, NVG, or inflammatory glaucoma.</li>
+                        <li><strong>Diode TSCP:</strong> Laser destroys ciliary body ("turning off faucet"). Reserved as last resort for blind, painful eyes.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: PACG & EMERGENCY -->
+        <section id="tab-pacg" class="tab-content">
+            <div class="card card-accent-danger">
+                <div class="card-title">
+                    <span>Primary Angle Closure Glaucoma (PACG) Pathophysiology</span>
+                    <span class="badge badge-must-know">Must Know</span>
+                </div>
+                <p>PACG is driven by <strong>Pupillary Block</strong>. Blockade between lens and posterior iris traps aqueous humor behind the pupil, bowing the iris forward (iris bombé) to occlude the trabecular meshwork (<em>"sarado ang drainage canal"</em>). IOP spikes to <strong>40 – 70 mmHg</strong>.</p>
+                
+                <div class="grid-2 mt-2">
+                    <div>
+                        <strong>Epidemiological Profile:</strong>
+                        <ul style="margin-left:20px; font-size:0.875rem;" class="mt-1">
+                            <li>3x more common in <strong>Females</strong>.</li>
+                            <li>High prevalence in <strong>Chinese / East Asians</strong> (smaller eyes).</li>
+                            <li>Predominantly affects <strong>Hyperopes</strong> aged 55–65.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Dynamic Imaging Cues:</strong>
+                        <ul style="margin-left:20px; font-size:0.875rem;" class="mt-1">
+                            <li><strong>UBM & AS-OCT:</strong> Demonstrate angle closure in dark rooms.</li>
+                            <li><strong>Lights OFF (Dark):</strong> Pupils dilate &rarr; Angles CLOSE.</li>
+                            <li><strong>Lights ON (Bright):</strong> Pupils constrict &rarr; Angles OPEN.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Primary Intermittent Angle Closure & Triggers</div>
+                <p>Characterized by recurrent, self-limiting (&lt;1 hour) episodes of blurry vision, eye ache, and <strong>halos around lights</strong>. Almost always <strong>relieved by sleep</strong> (decreased aqueous production during sleep).</p>
+                
+                <div class="callout-box callout-tip mt-2">
+                    <span class="icon">📊</span>
+                    <div>
+                        <strong>Trigger Mechanism Rankings (Lowe & Lim 1989 Study):</strong><br>
+                        1. Watching TV (Highest - 13) &bull; 2. Fatigue (12) &bull; 3. Reading (8) &bull; 4. Sewing (7) &bull; 5. Excitement/Worry (6) &bull; 6. Night out (4) &bull; 7. Heat / Sickness (Lowest - 1).
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-danger">
+                <div class="card-title">
+                    <span>Primary Acute Angle Closure Glaucoma (PAACG) Ocular Emergency</span>
+                    <span class="badge badge-must-know">Ocular Emergency</span>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <h4>Clinical Presentation & Findings</h4>
+                        <ul style="margin-left:20px; font-size:0.875rem;" class="mt-1">
+                            <li><strong>Symptoms:</strong> Sudden severe eye pain, headache, severe blurring, rainbow halos, <strong>nausea and vomiting</strong>.</li>
+                            <li><strong>IOP:</strong> Massively elevated (&gt;50 to &gt;70 mmHg).</li>
+                            <li><strong>Cornea:</strong> Hazy/edematous (causes halos).</li>
+                            <li><strong>Pupil:</strong> Mid-dilated, vertically oval, unreactive.</li>
+                            <li><strong>Vessels:</strong> Ciliary and conjunctival injection, chemosis.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Emergency Management Pathway</h4>
+                        <ol style="margin-left:20px; font-size:0.875rem;" class="mt-1">
+                            <li><strong>Immediate IOP Reduction:</strong> Stat topical drops (Timolol, Brimonidine).</li>
+                            <li><strong>Systemic Hyperosmotics:</strong> IV Mannitol or Oral Glycerine. <em>(CAUTION: Mannitol increases intravascular volume &rarr; avoid in CHF!).</em></li>
+                            <li><strong>Oral CAI Note:</strong> Acetazolamide NOT given in ER if patient is actively vomiting.</li>
+                            <li><strong>Definitive Surgical Cure:</strong> <strong>Laser Peripheral Iridotomy (LPI)</strong> creates through-and-through bypass hole. Followed by Laser Peripheral Iridoplasty (ALPI) if angle remains narrow.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: SECONDARY & CHILDHOOD -->
+        <section id="tab-special" class="tab-content">
+            <div class="card card-accent-left">
+                <div class="card-title">Secondary Glaucoma Spectrum</div>
+                <p>IOP ranges between <strong>21 – 70 mmHg</strong> secondary to identifiable underlying ocular or systemic pathologies:</p>
+                <div class="grid-3 mt-2">
+                    <div style="background:var(--bg-tertiary); padding:12px; border-radius:var(--radius-md);">
+                        <strong>Steroid-Induced</strong>
+                        <p style="font-size:0.8rem;" class="mt-1">Prolonged topical, oral, or inhalational steroids increase TM outflow resistance.</p>
+                    </div>
+                    <div style="background:var(--bg-tertiary); padding:12px; border-radius:var(--radius-md);">
+                        <strong>Neovascular (NVG)</strong>
+                        <p style="font-size:0.8rem;" class="mt-1">Retinal ischemia (Diabetic retinopathy/CRVO) &rarr; fibrovascular membrane over TM.</p>
+                    </div>
+                    <div style="background:var(--bg-tertiary); padding:12px; border-radius:var(--radius-md);">
+                        <strong>Trauma / Phacomorphic</strong>
+                        <p style="font-size:0.8rem;" class="mt-1">Blunt injury (shuttlecock) or intumescent cataract swollen lens blocking pupil.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-accent-teal">
+                <div class="card-title">
+                    <span>Childhood / Congenital Glaucoma</span>
+                    <span class="badge badge-must-know">Must Know</span>
+                </div>
+                <p>Rare condition (1:10,000 births; higher in Middle East due to consanguinity) resulting from <strong>Trabeculodysgenesis / Angle Dysgenesis</strong> ("factory defect" of TM / Barkan's membrane).</p>
+                
+                <div class="grid-2 mt-2">
+                    <div>
+                        <h4>Clinical Triad & Physical Signs</h4>
+                        <ul style="margin-left:20px; font-size:0.875rem;" class="mt-1">
+                            <li><strong>Classic Triad:</strong> <strong>Tearing (Epiphora), Photophobia, Blepharospasm</strong> (child hides head in pillow).</li>
+                            <li><strong>Corneal Enlargement:</strong> Corneal diameter <strong>&ge; 13 mm</strong> is highly suspicious! Causes progressive myopia in older children as eyeball expands like a balloon.</li>
+                            <li><strong>Haab's Striae (Hallmark):</strong> Horizontal white lines on cornea representing breaks in Descemet's membrane. <em>(Contrast: Birth trauma from forceps causes VERTICAL breaks!).</em></li>
+                            <li><strong>Optic Cupping:</strong> Pathognomonic and uniquely <strong>REVERSIBLE</strong> in infants once IOP is normalized!</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Classification & Management</h4>
+                        <ul style="margin-left:20px; font-size:0.875rem;" class="mt-1">
+                            <li><strong>Congenital / Infantile:</strong> Onset &lt; 3 years of age.</li>
+                            <li><strong>Juvenile Open Angle:</strong> Onset &gt; 3 years to 30 years of age.</li>
+                            <li><strong>Primary Treatment:</strong> SURGICAL! <strong>Goniotomy</strong> or <strong>Trabeculotomy</strong> (clears corneal opacity and opens dysgenetic angle).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: CASE SCENARIOS -->
+        <section id="tab-cases" class="tab-content">
+            <div class="card card-accent-left">
+                <div class="card-title">
+                    <span>Clinical Case Walkthrough: 51/M District Engineer</span>
+                    <span class="badge badge-tip">Board Exam Pattern</span>
+                </div>
+                <p><strong>Chief Complaint:</strong> Frequently bumping into objects on the left side for 7 months. Gradual onset, painless. Wears eyeglasses since high school (-6.00 Myopia). Screen time 12 hrs/day. Maintenance for borderline diabetes.</p>
+                
+                <div class="grid-2 mt-2">
+                    <div style="background:var(--bg-tertiary); padding:14px; border-radius:var(--radius-md);">
+                        <h4 style="color:var(--brand-primary);">Clinical Examination Findings</h4>
+                        <ul style="margin-left:20px; font-size:0.85rem;" class="mt-1">
+                            <li><strong>Visual Acuity:</strong> 20/20 OU with myopia correction.</li>
+                            <li><strong>Tonometry (IOP):</strong> Right Eye (OD): 15 mmHg (Normal) | <strong>Left Eye (OS): 42 mmHg (ABNORMAL!)</strong></li>
+                            <li><strong>Fundoscopy (vCDR):</strong> OD: 0.5 (Normal margins) | <strong>OS: 0.8–0.9 with marked cupping & notching</strong>.</li>
+                            <li><strong>Gonioscopy:</strong> Open angles OU (All bands visible: SL, TM, SS, CBB).</li>
+                            <li><strong>Visual Field:</strong> OD Normal | <strong>OS Severe Tunnel Vision</strong>.</li>
+                        </ul>
+                    </div>
+                    <div style="background:var(--brand-primary-light); padding:14px; border-radius:var(--radius-md); border:1px solid var(--brand-primary);">
+                        <h4 style="color:var(--brand-primary);">Definitive Diagnosis & Reasoning</h4>
+                        <p class="font-code mt-1"><strong>DIAGNOSIS: Primary Open Angle Glaucoma (POAG) - OS</strong></p>
+                        <p style="font-size:0.85rem;" class="mt-1"><strong>Reasoning Chain:</strong> High IOP (42 mmHg) + High vCDR (0.9) + Tunnel Vision VF defect + Open Angles on Gonioscopy + High Myopia history = Classic POAG pattern.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ER Differential Table -->
+            <div class="card card-accent-danger">
+                <div class="card-title">
+                    <span>ER Differential Diagnosis Matrix for Acute Red Eye</span>
+                    <button class="btn-copy-table" onclick="copyTableText('er-table')">📋 Copy Table</button>
+                </div>
+                <div class="table-container">
+                    <table id="er-table">
+                        <thead>
+                            <tr>
+                                <th>Clinical Feature</th>
+                                <th>Acute PACG</th>
+                                <th>Acute Anterior Uveitis</th>
+                                <th>Viral Conjunctivitis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Pupil Appearance</strong></td>
+                                <td><strong>Mid-dilated, vertically oval</strong>, unreactive</td>
+                                <td><strong>Constricted (miotic)</strong>, irregular borders</td>
+                                <td>Normal size and reactivity</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cornea / AC</strong></td>
+                                <td>Hazy, steamy edematous cornea</td>
+                                <td>Posterior synechiae, aqueous cell/flare</td>
+                                <td>Clear cornea</td>
+                            </tr>
+                            <tr>
+                                <td><strong>IOP Level</strong></td>
+                                <td>Markedly elevated (&gt;50 – 70 mmHg)</td>
+                                <td>Normal or Low (or elevated in uveitic Gx)</td>
+                                <td>Normal (10–21 mmHg)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pain & Symptoms</strong></td>
+                                <td>Severe ocular/head pain + Nausea/Vomiting</td>
+                                <td>Moderate pain + Severe photophobia</td>
+                                <td>Grittiness, watery discharge, no severe pain</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 8: SIDE-BY-SIDE COMPARISONS -->
+        <section id="tab-comparisons" class="tab-content">
+            <div class="card">
+                <div class="card-title">
+                    <span>High-Yield Side-by-Side Diagnostic Comparisons</span>
+                    <button class="btn-copy-table" onclick="copyTableText('comp-table')">📋 Copy Table</button>
+                </div>
+                <div class="table-container">
+                    <table id="comp-table">
+                        <thead>
+                            <tr>
+                                <th>Feature Domain</th>
+                                <th>Glaucomatous Defects</th>
+                                <th>Neurological Defects</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Meridian Respect</strong></td>
+                                <td><strong>Respects Horizontal Meridian</strong></td>
+                                <td><strong>Respects Vertical Meridian</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Typical Patterns</strong></td>
+                                <td>Bjerrum arcuate, Seidel, Nasal step, Tunnel vision</td>
+                                <td>Bitemporal hemianopia, Homonymous hemianopia</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anatomic Site</strong></td>
+                                <td>Retinal nerve fiber layer / Optic nerve head</td>
+                                <td>Optic chiasm / Post-chiasmic visual pathways</td>
+                            </tr>
+                            <tr>
+                                <th>Laser Procedure</th>
+                                <th>Selective Laser Trabeculoplasty (SLT)</th>
+                                <th>Laser Peripheral Iridotomy (LPI)</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Primary Indication</strong></td>
+                                <td>Open Angle Glaucoma (POAG)</td>
+                                <td>Angle Closure Glaucoma (PACG)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Target Structure</strong></td>
+                                <td>Trabecular Meshwork (Melanin cells)</td>
+                                <td>Peripheral Iris (10 or 2 o'clock through-and-through)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mechanism</strong></td>
+                                <td>Biological macrophage activation & TM cleanup</td>
+                                <td>Anatomic bypass hole relieving pupillary block</td>
+                            </tr>
+                            <tr>
+                                <th>Corneal Break Type</th>
+                                <th>Haab's Striae (Congenital Glaucoma)</th>
+                                <th>Forceps Birth Trauma</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Orientation</strong></td>
+                                <td><strong>Horizontal</strong> white lines</td>
+                                <td><strong>Vertical</strong> or oblique lines</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mechanism</strong></td>
+                                <td>Descemet's membrane stretch from high IOP</td>
+                                <td>Direct mechanical compression during delivery</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 9: FLASHCARDS (54 Active Recall Cards) -->
+        <section id="tab-flashcards" class="tab-content">
+            <div class="flashcard-controls mb-4">
+                <select id="flashcard-filter" onchange="filterFlashcards()" class="search-box" style="width: auto; padding: 8px 16px;">
+                    <option value="all">All Topics (54 Cards)</option>
+                    <option value="basics">Basics & Diagnosis</option>
+                    <option value="exam">Clinical Examination</option>
+                    <option value="poag">POAG & Management</option>
+                    <option value="pacg">PACG & Emergency</option>
+                    <option value="special">Secondary & Childhood</option>
+                </select>
+                <button class="btn-action btn-action-outline" onclick="shuffleFlashcards()">🔀 Shuffle</button>
+            </div>
+
+            <div class="flashcard-wrapper">
+                <div class="flashcard" id="flashcard" onclick="flipCard()">
+                    <div class="flashcard-front">
+                        <div class="flashcard-header">
+                            <span class="flashcard-topic" id="card-topic">Topic</span>
+                            <span id="card-counter" class="font-code">1 / 54</span>
+                        </div>
+                        <div class="flashcard-body" id="card-question">
+                            Loading flashcard question...
+                        </div>
+                        <div class="flashcard-footer">
+                            Click or press Spacebar to flip 🔄
+                        </div>
+                    </div>
+                    <div class="flashcard-back">
+                        <div class="flashcard-header">
+                            <span class="flashcard-topic">Answer Rationale</span>
+                            <span class="font-code">Correct Answer</span>
+                        </div>
+                        <div class="flashcard-body" id="card-answer">
+                            Loading answer...
+                        </div>
+                        <div class="flashcard-footer">
+                            Click or press Spacebar to flip back 🔄
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-controls mt-4">
+                <button class="btn-action btn-action-outline" onclick="prevCard()">⬅️ Previous</button>
+                <button class="btn-action" onclick="nextCard()">Next ➡️</button>
+            </div>
+        </section>
+
+        <!-- TAB 10: SELF-ASSESSMENT (54 MCQs) -->
+        <section id="tab-quiz" class="tab-content">
+            <div class="quiz-score-header">
+                <h2>Board-Style Self-Assessment</h2>
+                <p>54 Exam-Quality Multiple Choice Questions with Full Distractor Explanations</p>
+                <div id="quiz-score-display" class="mt-2 font-code" style="font-size:1.25rem;">Score: 0 / 54</div>
+            </div>
+
+            <div id="quiz-container">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </section>
+
+        <!-- TAB 11: CRAM SHEET -->
+        <section id="tab-cram" class="tab-content">
+            <div class="card card-accent-left">
+                <div class="card-title">
+                    <span>Ultra-Condensed Rapid Review Cram Sheet</span>
+                    <span class="badge badge-must-know">10-Minute Review</span>
+                </div>
+                
+                <h4 class="mb-2" style="color:var(--brand-primary);">"If You See X &rarr; Think Y" Clinical Reasoning Chains</h4>
+                <div class="card" style="padding:0; overflow:hidden;">
+                    <ul class="cram-list">
+                        <li class="cram-item">
+                            <span class="cram-trigger">Mid-dilated oval pupil + Pain + N/V</span>
+                            <span>&rarr; <strong>Primary Acute Angle Closure Glaucoma (PAACG)</strong></span>
+                        </li>
+                        <li class="cram-item">
+                            <span class="cram-trigger">Horizontal corneal white lines</span>
+                            <span>&rarr; <strong>Haab's Striae</strong> (Descemet's breaks in Congenital Glaucoma)</span>
+                        </li>
+                        <li class="cram-item">
+                            <span class="cram-trigger">Vertical corneal lines in newborn</span>
+                            <span>&rarr; <strong>Forceps delivery birth trauma</strong> (NOT glaucoma)</span>
+                        </li>
+                        <li class="cram-item">
+                            <span class="cram-trigger">Splinter/Flame disc hemorrhage</span>
+                            <span>&rarr; <strong>Glaucoma Worsening / Progression</strong> (or Low Tension Gx)</span>
+                        </li>
+                        <li class="cram-item">
+                            <span class="cram-trigger">Reversible optic nerve cupping</span>
+                            <span>&rarr; <strong>Infantile / Childhood Glaucoma</strong> post-IOP normalization</span>
+                        </li>
+                        <li class="cram-item">
+                            <span class="cram-trigger">Visual field respects horizontal line</span>
+                            <span>&rarr; <strong>Glaucomatous RNFL defect</strong></span>
+                        </li>
+                        <li class="cram-item">
+                            <span class="cram-trigger">Visual field respects vertical line</span>
+                            <span>&rarr; <strong>Neurological lesion</strong> (e.g. pituitary adenoma)</span>
+                        </li>
+                        <li class="cram-item">
+                            <span class="cram-trigger">Brimonidine in toddler</span>
+                            <span>&rarr; <strong>CONTRAINDICATED!</strong> Crosses BBB &rarr; CNS/Respiratory depression</span>
+                        </li>
+                        <li class="cram-item">
+                            <span class="cram-trigger">Pilocarpine in myope</span>
+                            <span>&rarr; <strong>CONTRAINDICATED!</strong> Risk of retinal detachment</span>
+                        </li>
+                        <li class="cram-item">
+                            <span class="cram-trigger">Timolol in asthmatic</span>
+                            <span>&rarr; <strong>CONTRAINDICATED!</strong> Beta-blocker induced bronchospasm</span>
+                        </li>
+                        <li class="cram-item">
+                            <span class="cram-trigger">Halos around lights + Sleep relief</span>
+                            <span>&rarr; <strong>Primary Intermittent Angle Closure Glaucoma</strong></span>
+                        </li>
+                        <li class="cram-item">
+                            <span class="cram-trigger">Corneal diameter &ge; 13 mm</span>
+                            <span>&rarr; <strong>Childhood Glaucoma suspect</strong></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <h4 class="mt-4 mb-2" style="color:var(--brand-primary);">Rapid Formula & Mnemonic Cheatsheet</h4>
+                <div class="grid-2">
+                    <div class="card" style="margin-bottom:0; background:var(--bg-tertiary);">
+                        <strong>CSTS Mnemonic (Gonioscopy)</strong>
+                        <p style="font-size:0.85rem;" class="mt-1">Order from Posterior to Anterior:</p>
+                        <p class="font-code"><strong>C</strong>iliary Body Band &rarr; <strong>S</strong>cleral Spur &rarr; <strong>T</strong>rabecular Meshwork &rarr; <strong>S</strong>chwalbe's Line</p>
+                    </div>
+                    <div class="card" style="margin-bottom:0; background:var(--bg-tertiary);">
+                        <strong>Goldmann Tonometry Formula</strong>
+                        <p style="font-size:0.85rem;" class="mt-1">Convert applanation dial reading to IOP:</p>
+                        <p class="font-code"><strong>IOP (mmHg) = Dial Reading &times; 10</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button id="btn-scroll-top" onclick="scrollToTop()" title="Scroll to top">⬆️</button>
+
+    <!-- JavaScript Core Engine -->
+    <script>
+        /* ----------------------------------------------------
+           1. FLASHCARD DATA (54 Active Recall Cards)
+        ---------------------------------------------------- */
+        const flashcardsData = [
+            { topic: "basics", q: "What is the primary defining pathological feature of Glaucoma?", a: "Progressive death of retinal ganglion cells causing characteristic optic nerve cupping and corresponding visual field defects." },
+            { topic: "basics", q: "What are the 3 diagnostic criteria for Glaucoma? How many are needed?", a: "1. Elevated IOP (>21 mmHg), 2. Optic nerve damage, 3. Visual field defect. At least 2 out of 3 are required." },
+            { topic: "basics", q: "What defines a Glaucoma Suspect?", a: "A patient with no confirmed glaucoma but has suspicious IOP (>21 mmHg), optic nerve asymmetry, or early VF changes that may convert to glaucoma." },
+            { topic: "basics", q: "What is the ONLY modifiable risk factor in Glaucoma?", a: "Intraocular Pressure (IOP)." },
+            { topic: "basics", q: "What refractive error is predisposed to POAG vs PACG?", a: "Myopia is predisposed to POAG; Hyperopia is predisposed to PACG." },
+            { topic: "basics", q: "What is the normal IOP range in humans?", a: "10 to 21 mmHg." },
+            { topic: "exam", q: "What does Pachymetry measure and why is it clinically vital?", a: "Measures corneal thickness. Thick corneas give falsely HIGH IOP readings; thin corneas give falsely LOW IOP readings." },
+            { topic: "exam", q: "How do you calculate true IOP from Goldmann Applanation Tonometry?", a: "Multiply the dial reading on the tonometer by 10." },
+            { topic: "exam", q: "How does Digital Tonometry feel for normal, high, and low IOP?", a: "Normal feels firm like the tip of the nose; High feels rigid like the forehead; Low feels soft like the lips." },
+            { topic: "exam", q: "What is an absolute contraindication to Digital Tonometry?", a: "Penetrating eye injury or active infectious ocular disease. Never percuss!" },
+            { topic: "exam", q: "What phenomenon requires placing a contact lens on the eye during Gonioscopy?", a: "Total Internal Reflection of the cornea." },
+            { topic: "exam", q: "State the CSTS mnemonic and the angle structures in order from posterior to anterior.", a: "Can See Till Schwalbe's Line: Ciliary Body Band (CBB) -> Scleral Spur (SS) -> Trabecular Meshwork (TM) -> Schwalbe's Line (SL)." },
+            { topic: "exam", q: "What is normal vertical Cup-Disc Ratio (vCDR) and what asymmetry is suspicious?", a: "Normal is 0.2 to 0.5. Asymmetry > 0.2 between eyes is highly suspicious." },
+            { topic: "exam", q: "What is the ISNT rule for optic nerve rims? What % of glaucoma patients violate it?", a: "Inferior rim is thickest > Superior > Nasal > Temporal. Violated in 90% of glaucoma patients." },
+            { topic: "exam", q: "What does a splinter or flame-shaped disc hemorrhage signify?", a: "Worsening or progressive glaucoma (classic hallmark in Low Tension Glaucoma)." },
+            { topic: "exam", q: "How do glaucomatous visual field defects differ from neurological field defects?", a: "Glaucomatous defects respect the HORIZONTAL meridian; Neurological defects respect the VERTICAL meridian." },
+            { topic: "exam", q: "Describe Bjerrum's Scotoma.", a: "An arcuate visual field defect extending from the blind spot around fixation (10-20°) to the horizontal raphe." },
+            { topic: "exam", q: "Is a Central Scotoma typical of Glaucoma?", a: "No! Central scotoma is typical of macular disease or optic neuritis, NOT glaucoma." },
+            { topic: "poag", q: "Where is the primary site of outflow resistance in POAG?", a: "At the level of the Trabecular Meshwork." },
+            { topic: "poag", q: "What is the mechanism and main contraindication of Pilocarpine?", a: "Parasympathomimetic that constricts pupil to open TM. Contraindicated in Myopia (risk of retinal detachment)." },
+            { topic: "poag", q: "Name 3 Prostaglandin Analogues and their signature side effects.", a: "Latanoprost, Bimatoprost, Travoprost. Side effects: Lash growth, red eye, darkening of orbital sulcus (raccoon eyes), fat depletion." },
+            { topic: "poag", q: "Why is Timolol contraindicated in asthmatic patients?", a: "It is a non-selective beta-blocker that can induce severe bronchospasm and heart block." },
+            { topic: "poag", q: "Why is Brimonidine strictly contraindicated in children under 2-4 years old?", a: "It crosses the blood-brain barrier causing CNS depression, somnolence, and fatal respiratory depression." },
+            { topic: "poag", q: "What is the primary mechanism of Selective Laser Trabeculoplasty (SLT)?", a: "Biological effect: Cool laser targets melanin cells in TM, activating macrophages to clear debris." },
+            { topic: "poag", q: "Is SLT indicated for Angle Closure Glaucoma?", a: "No! SLT is strictly indicated for Open Angle Glaucoma only." },
+            { topic: "poag", q: "What is Trabeculectomy?", a: "Filtering surgery creating a canal connecting the anterior chamber to the subconjunctival space (bleb formation)." },
+            { topic: "poag", q: "When is a Glaucoma Drainage Device (GDD) preferred over Trabeculectomy?", a: "When trabeculectomy fails, risk of scarring is high, or in secondary glaucomas (e.g. Neovascular Glaucoma)." },
+            { topic: "poag", q: "What pressure range does a GDD valve maintain?", a: "Between 8 and 14 mmHg (closes at <8 mmHg to prevent hypotony)." },
+            { topic: "poag", q: "What is Diode TSCP and when is it used?", a: "Trans-scleral laser destruction of the ciliary body ('turning off faucet'). Last resort for blind, painful eyes." },
+            { topic: "pacg", q: "What is the primary anatomical mechanism of PACG?", a: "Pupillary Block trapping aqueous in the posterior chamber, bowing iris forward to block the TM." },
+            { topic: "pacg", q: "Which demographic group has the highest risk for PACG?", a: "Middle-aged Chinese females (due to smaller anterior chamber volume)." },
+            { topic: "pacg", q: "How do room lights affect anterior chamber angle width in PACG suspects?", a: "Lights OFF (dark) -> Pupils dilate -> Angles CLOSE. Lights ON (bright) -> Pupils constrict -> Angles OPEN." },
+            { topic: "pacg", q: "What is the #1 trigger for intermittent angle closure attacks according to Lowe & Lim?", a: "Watching TV." },
+            { topic: "pacg", q: "Why are intermittent angle closure attacks typically relieved by sleep?", a: "Sleep reduces aqueous humor production, lowering IOP and allowing the iris to fall back." },
+            { topic: "pacg", q: "What pupil appearance is classic for Primary Acute Angle Closure Glaucoma?", a: "Mid-dilated, vertically oval, unreactive pupil." },
+            { topic: "pacg", q: "Why are halos around light bulbs seen in acute angle closure?", a: "Due to corneal edema caused by high IOP pushing fluid into the cornea." },
+            { topic: "pacg", q: "What hyperosmotic agent is used in acute PACG and what is its systemic risk?", a: "IV Mannitol. Risk: Increases intravascular volume and can precipitate Congestive Heart Failure (CHF)." },
+            { topic: "pacg", q: "Why is Acetazolamide avoided in the ER for acute PACG patients with vomiting?", a: "Because severe pain/headache causes nausea/vomiting, making oral administration impossible." },
+            { topic: "pacg", q: "What is the definitive surgical cure for Pupillary Block in PACG?", a: "Laser Peripheral Iridotomy (LPI) - creates a through-and-through bypass hole in the iris." },
+            { topic: "special", q: "What IOP range defines Secondary Glaucoma?", a: "21 to 70 mmHg." },
+            { topic: "special", q: "What is the primary etiology of Neovascular Glaucoma?", a: "Retinal ischemia (e.g. Diabetic Retinopathy, CRVO) stimulating fibrovascular membrane growth over the TM." },
+            { topic: "special", q: "What is the underlying histopathogenesis of Primary Childhood Glaucoma?", a: "Angle Dysgenesis / Trabeculodysgenesis ('factory defect' of TM or Barkan's membrane)." },
+            { topic: "special", q: "What is the classic clinical triad of Childhood Glaucoma?", a: "1. Epiphora (Tearing), 2. Photophobia, 3. Blepharospasm." },
+            { topic: "special", q: "What corneal diameter threshold raises high suspicion for Childhood Glaucoma?", a: "Corneal diameter >= 13 mm." },
+            { topic: "special", q: "What are Haab's Striae?", a: "Horizontal white lines on the cornea caused by breaks in Descemet's membrane due to high IOP stretching." },
+            { topic: "special", q: "How do Haab's striae differ from corneal breaks due to forceps birth trauma?", a: "Haab's striae are HORIZONTAL; forceps birth trauma breaks are VERTICAL or oblique." },
+            { topic: "special", q: "What unique phenomenon occurs to optic nerve cupping in infants after IOP is controlled?", a: "Optic cupping is REVERSIBLE in infants!" },
+            { topic: "special", q: "What age range defines Congenital/Infantile vs Juvenile Open Angle Glaucoma?", a: "Infantile < 3 years old; Juvenile Open Angle = 3 to 30 years old." },
+            { topic: "special", q: "What is the primary treatment modality for Congenital Glaucoma?", a: "Surgical intervention: Goniotomy or Trabeculotomy." },
+            { topic: "basics", q: "Is High-Tension POAG IOP greater or less than 50 mmHg?", a: "It ranges from 21 to 50 mmHg (does NOT exceed 50 mmHg)." },
+            { topic: "exam", q: "What visual field perimetry method uses a moving light target?", a: "Kinetic Visual Field testing (Goldmann Perimeter)." },
+            { topic: "poag", q: "What double combination eyedrop contains an Alpha-2 agonist and a CAI?", a: "Brimonidine + Brinzolamide." },
+            { topic: "pacg", q: "What laser procedure is performed if LPI fails to pull peripheral iris from the angle?", a: "Laser Peripheral Iridoplasty (ALPI)." },
+            { topic: "special", q: "Why do older children with untreated childhood glaucoma experience high eyeglasses grades?", a: "High IOP expands the elastic juvenile sclera like a balloon, lengthening axial length and inducing progressive myopia." }
+        ];
+
+        /* ----------------------------------------------------
+           2. SELF-ASSESSMENT MCQ DATA (54 Board-Style Questions)
+        ---------------------------------------------------- */
+        const mcqData = [
+            {
+                q: "A 58-year-old male is evaluated during a routine health check. His IOP is 18 mmHg in both eyes. Fundoscopy reveals vertical CDR of 0.3 OD and 0.8 OS with inferior rim notching. Visual field shows a superior arcuate scotoma OS. Which statement is correct?",
+                options: ["He cannot have glaucoma because his IOP is under 21 mmHg", "He meets the diagnostic criteria for Glaucoma (2 out of 3 satisfied)", "He is classified as a Glaucoma Suspect only", "He requires urgent Diode TSCP"],
+                correct: 1,
+                exp: "Glaucoma diagnosis requires 2 out of 3 criteria: 1) Elevated IOP, 2) Optic nerve damage, 3) VF defect. Even with normal IOP (18 mmHg), satisfying criteria #2 and #3 confirms Low-Tension Glaucoma.",
+                distractors: ["A is wrong because Low-Tension Glaucoma occurs with IOP <= 21 mmHg.", "C is wrong because having 2 definitive criteria confirms glaucoma, not just suspect status.", "D is wrong because Diode TSCP is reserved as a last resort for blind painful eyes."]
+            },
+            {
+                q: "Which of the following represents the single primary MODIFIABLE risk factor in Primary Open Angle Glaucoma?",
+                options: ["Central Corneal Thickness", "Family History of Blindness", "Intraocular Pressure (IOP)", "High Myopic Refractive Error"],
+                correct: 2,
+                exp: "IOP is the only modifiable risk factor. Lowering IOP slows optic nerve degeneration.",
+                distractors: ["A is non-modifiable.", "B is non-modifiable.", "D is non-modifiable."]
+            },
+            {
+                q: "During Goldmann Applanation Tonometry, a reading of '2.4' is displayed on the instrument dial. What is the patient's measured Intraocular Pressure?",
+                options: ["2.4 mmHg", "12.0 mmHg", "24.0 mmHg", "48.0 mmHg"],
+                correct: 2,
+                exp: "Goldmann Applanation IOP formula = Dial reading multiplied by 10 (2.4 x 10 = 24.0 mmHg).",
+                distractors: ["A forgets to multiply by 10.", "B divides by 2.", "D multiplies by 20."]
+            },
+            {
+                q: "A patient's pachymetry report indicates extremely THICK central corneas (620 &mu;m). How does this impact Goldmann Applanation Tonometry readings?",
+                options: ["Gives falsely LOW IOP readings", "Gives falsely HIGH IOP readings", "Has no effect on tonometry", "Causes complete obliteration of semicircular mires"],
+                correct: 1,
+                exp: "Thick corneas require more mechanical force to flatten during applanation, producing falsely elevated/high pressure readings.",
+                distractors: ["A describes thin corneas.", "C is false because corneal resistance alters applanation force.", "D is incorrect."]
+            },
+            {
+                q: "You perform gonioscopy and observe the following structures from top to bottom: Schwalbe's Line, Trabecular Meshwork, and Scleral Spur. Ciliary body band is NOT visible. What is the angle status?",
+                options: ["Wide Open Angle", "Narrow / Partially Closed Angle", "Complete 360 Synedial Closure", "Normal Childhood Dysgenetic Angle"],
+                correct: 1,
+                exp: "Per the CSTS rule (Posterior to Anterior: CBB -> SS -> TM -> SL), if CBB is hidden by a forward-bowing iris, the angle is narrow.",
+                distractors: ["A is wrong because all 4 bands must be seen in a wide open angle.", "C is wrong because SL, TM, and SS are still visible.", "D is incorrect."]
+            },
+            {
+                q: "A 4-year-old child with open-angle glaucoma is brought to the clinic. Which anti-glaucoma eyedrop is STRICTLY CONTRAINDICATED?",
+                options: ["Timolol 0.5%", "Latanoprost 0.005%", "Brimonidine 0.2%", "Dorzolamide 2%"],
+                correct: 2,
+                exp: "Brimonidine (Alpha-2 agonist) crosses the blood-brain barrier in children under 2-4 years, causing severe CNS depression, somnolence, and life-threatening respiratory arrest.",
+                distractors: ["A is wrong though caution is needed for asthma.", "B is wrong.", "D is wrong."]
+            },
+            {
+                q: "A 62-year-old myopic patient with mild POAG is prescribed Pilocarpine eye drops. What major ocular adverse effect must he be warned about?",
+                options: ["Retinal Detachment", "Ischemic Optic Neuropathy", "Severe Conjunctival Scarring", "Permanent Iris Color Change"],
+                correct: 0,
+                exp: "Pilocarpine induces ciliary muscle contraction and pupillary miosis, putting traction on the peripheral retina, which carries a high risk of Retinal Detachment in myopic eyes.",
+                distractors: ["B is incorrect.", "C is incorrect.", "D is a side effect of Prostaglandin analogues, not pilocarpine."]
+            },
+            {
+                q: "Selective Laser Trabeculoplasty (SLT) achieves IOP reduction primarily through which mechanism?",
+                options: ["Mechanical puncturing of 360 degrees of Schlemm's canal", "Biological activation of macrophages to clear trabecular debris", "Thermal destruction of the ciliary body epithelium", "Creation of a direct subconjunctival drainage bleb"],
+                correct: 1,
+                exp: "SLT utilizes cool laser light selectively absorbed by pigmented TM cells, triggering a biological cytokine response that recruits macrophages to clear extracellular debris.",
+                distractors: ["A describes ALT/mechanical trabeculotomy.", "C describes Diode TSCP.", "D describes Trabeculectomy."]
+            },
+            {
+                q: "A 57-year-old female presents to the ER with severe left eye pain, nausea, vomiting, and steamy vision after watching a movie in a dark theater. IOP OS is 62 mmHg. Pupil is mid-dilated and oval. Which medication should NOT be administered orally in the ER?",
+                options: ["Oral Glycerine", "Oral Acetazolamide", "Topical Timolol", "IV Mannitol"],
+                correct: 1,
+                exp: "Oral Acetazolamide is not feasible in the emergency setting when the patient is actively vomiting due to severe pain and high IOP.",
+                distractors: ["A is an osmotic agent.", "C is topical.", "D is given intravenously."]
+            },
+            {
+                q: "In the ER management of acute angle closure, IV Mannitol is ordered. What pre-existing systemic condition requires extreme caution or contraindicates Mannitol?",
+                options: ["Bronchial Asthma", "Congestive Heart Failure (CHF)", "Sulfonamide Hypersensitivity", "Peptic Ulcer Disease"],
+                correct: 1,
+                exp: "Mannitol is a hyperosmotic agent that rapidly expands intravascular blood volume, which can precipitate acute pulmonary edema and heart failure exacerbation in CHF patients.",
+                distractors: ["A is a contraindication for Timolol.", "C is a contraindication for Dorzolamide.", "D is incorrect."]
+            },
+            {
+                q: "What is the definitive, curative surgical procedure for relieving Pupillary Block in Primary Angle Closure Glaucoma?",
+                options: ["Selective Laser Trabeculoplasty (SLT)", "Laser Peripheral Iridotomy (LPI)", "Diode Trans-Scleral Cyclophotocoagulation", "Pachymetric Corneal Crosslinking"],
+                correct: 1,
+                exp: "Laser Peripheral Iridotomy (LPI) creates a full-thickness bypass hole in the peripheral iris, allowing trapped posterior chamber aqueous to flow into the AC, relieving pupillary block.",
+                distractors: ["A is for POAG only.", "C is a last resort destructive procedure.", "D is for keratoconus."]
+            },
+            {
+                q: "A 6-month-old infant is brought in for tearing, photophobia, and blepharospasm. Examination under sedation reveals corneal diameter of 14 mm OU and horizontal white corneal lines. What are these lines called?",
+                options: ["Vogt's Striae", "Haab's Striae", "Arlt's Line", "Kayser-Fleischer Rings"],
+                correct: 1,
+                exp: "Haab's Striae are horizontal white lines on the cornea representing healed breaks in Descemet's membrane resulting from corneal stretching in childhood glaucoma.",
+                distractors: ["A is seen in keratoconus.", "C is seen in trachoma.", "D is seen in Wilson's disease."]
+            },
+            {
+                q: "How do corneal breaks from forceps birth trauma visually differ from Haab's striae of congenital glaucoma?",
+                options: ["Forceps breaks are horizontal; Haab's striae are vertical", "Forceps breaks are vertical/oblique; Haab's striae are horizontal", "Forceps breaks are always star-shaped", "There is no visual difference"],
+                correct: 1,
+                exp: "Forceps delivery causes mechanical compression leading to VERTICAL or oblique Descemet's tears, whereas high IOP stretching in glaucoma produces HORIZONTAL Haab's striae.",
+                distractors: ["A is reversed.", "C is false.", "D is false."]
+            },
+            {
+                q: "Which optic nerve finding is uniquely REVERSIBLE in infants following successful IOP lowering surgery for congenital glaucoma?",
+                options: ["Optic nerve head cupping", "Nasalization of vessels", "Scleral spur insertion", "Ciliary body detachment"],
+                correct: 0,
+                exp: "Because infant elastic scleral collagen can remold once high IOP is relieved, optic cup enlarged dimensions (cupping) can remarkably regress/reverse back to normal.",
+                distractors: ["B is incorrect.", "C is an anatomical feature.", "D is incorrect."]
+            },
+            {
+                q: "A 51-year-old engineer with POAG presents with tunnel vision in his left eye. Gonioscopy confirms open angles. Which visual field defect characteristically respects the horizontal meridian?",
+                options: ["Bitemporal Hemianopia", "Bjerrum Arcuate Scotoma", "Homonymous Hemianopia", "Central Scotoma"],
+                correct: 1,
+                exp: "Bjerrum arcuate scotomas reflect arcuate nerve fiber layer damage and strictly respect the horizontal meridian raphe.",
+                distractors: ["A & C respect the vertical meridian (neurological).", "D is macular/optic neuritis."]
+            },
+            {
+                q: "What is the primary mechanism of action of Prostaglandin Analogues (e.g., Latanoprost) in lowering IOP?",
+                options: ["Decreasing aqueous humor production at ciliary body", "Increasing uveoscleral outflow of aqueous humor", "Constricting the pupil to open the trabecular meshwork", "Osmotically drawing fluid from vitreous cavity"],
+                correct: 1,
+                exp: "Prostaglandin analogues enhance matrix metalloproteinase activity in the ciliary muscle, significantly increasing uveoscleral outflow.",
+                distractors: ["A describes Beta-blockers/CAIs.", "C describes Pilocarpine.", "D describes hyperosmotics."]
+            },
+            {
+                q: "A patient using Latanoprost for 1 year notices cosmesis changes around her eyes. Which set of side effects is associated with Prostaglandin Analogues?",
+                options: ["Eyelash elongation, iris hyperpigmentation, raccoon eyes (orbital fat loss)", "Corneal clouding, severe myopic shift, cataract", "Optic nerve atrophy, retinal detachment, vitreous hemorrhage", "Dry mouth, systemic hypertension, bradycardia"],
+                correct: 0,
+                exp: "Prostaglandin analogues cause hypertrichosis (lash growth), increased melanin pigmentation in iris/periorbital skin, and prostaglandin-associated perorbitopathy (fat atrophy).",
+                distractors: ["B is incorrect.", "C is incorrect.", "D describes clonidine/sympathomimetics."]
+            },
+            {
+                q: "According to the 1989 Lowe & Lim study, what activity had the HIGHEST correlation as a trigger mechanism for Primary Intermittent Angle Closure attacks?",
+                options: ["Reading books", "Watching Television", "Physical Exercise", "Bright sunlight exposure"],
+                correct: 1,
+                exp: "Watching TV was ranked #1 (correlation score 13) due to prolonged mid-dilated pupil state in dim room light while looking at a light source.",
+                distractors: ["A was ranked lower (#4).", "C & D were among the lowest."]
+            },
+            {
+                q: "Why do attacks of Primary Intermittent Angle Closure Glaucoma almost always resolve after the patient falls asleep?",
+                options: ["Pupils become maximally dilated during sleep", "Aqueous humor production decreases significantly during sleep", "Episcleral venous pressure drops to zero", "The lens shifts posteriorly into the vitreous body"],
+                correct: 1,
+                exp: "During sleep, ciliary body aqueous secretion naturally decreases, allowing accumulated pressure to subside and pupillary block to spontaneously break.",
+                distractors: ["A is wrong because pupils constrict in sleep.", "C & D are biologically false."]
+            },
+            {
+                q: "Which patient demographic exhibits the highest epidemiological incidence of Primary Angle Closure Glaucoma?",
+                options: ["Young myopic Caucasian males", "Middle-aged hyperopic Chinese females", "Elderly African American males", "Pediatric Middle Eastern males"],
+                correct: 1,
+                exp: "PACG is 3x more common in females, with peak incidence in middle-aged Chinese women owing to shallower anterior chambers and smaller ocular axial lengths.",
+                distractors: ["A is POAG risk.", "C is POAG risk.", "D is congenital Gx risk."]
+            },
+            {
+                q: "A patient presents to the emergency clinic with a painful red eye. On examination, you observe a CONSTRICTED, irregular pupil, posterior synechiae, and photophobia. IOP is 14 mmHg. What is the diagnosis?",
+                options: ["Primary Acute Angle Closure Glaucoma", "Acute Anterior Uveitis", "Viral Conjunctivitis", "Carotid-Cavernous Fistula"],
+                correct: 1,
+                exp: "Acute Anterior Uveitis features a constricted (miotic) pupil, cell/flare, posterior synechiae, photophobia, and normal/low IOP. Acute PACG has a MID-DILATED oval pupil and high IOP.",
+                distractors: ["A has a mid-dilated oval pupil and IOP >50.", "C has normal pupil and watery discharge.", "D is vascular."]
+            },
+            {
+                q: "What pressure valve threshold is built into a Glaucoma Drainage Device (e.g., Ahmed Valve) to prevent ocular hypotony?",
+                options: ["2 to 4 mmHg", "8 to 14 mmHg", "21 to 30 mmHg", "40 to 50 mmHg"],
+                correct: 1,
+                exp: "GDD valves are engineered to open when IOP exceeds ~8-14 mmHg and close if IOP drops below 8 mmHg to prevent ocular collapse/hypotony.",
+                distractors: ["A is too low (causes hypotony).", "C & D are too high."]
+            },
+            {
+                q: "What laser procedure is performed as a last resort in blind, painful eyes with intractable elevated IOP?",
+                options: ["Selective Laser Trabeculoplasty", "Laser Peripheral Iridotomy", "Diode Trans-Scleral Cyclophotocoagulation (Diode TSCP)", "Argon Laser Peripheral Iridoplasty"],
+                correct: 2,
+                exp: "Diode TSCP uses trans-scleral laser energy to ablate the non-pigmented ciliary epithelium, permanently reducing aqueous production ('turning off the faucet').",
+                distractors: ["A is for POAG.", "B is for pupillary block.", "D is for narrow angles."]
+            },
+            {
+                q: "A 9-year-old child presents with rapidly worsening nearsightedness (myopia) and high eyeglass grade changes every few months. IOP is elevated. What is the underlying physical mechanism?",
+                options: ["Progressive nuclear sclerosis of the crystalline lens", "High IOP causing balloon-like expansion of the elastic juvenile sclera", "Corneal steepening due to keratoconus", "Ciliary muscle spasm induced by screen time"],
+                correct: 1,
+                exp: "In children and young adults, high IOP expands the elastic scleral coat, increasing axial length and inducing progressive high myopia.",
+                distractors: ["A occurs in elderly.", "C & D do not cause axial elongation from pressure."]
+            },
+            {
+                q: "Which optic nerve rim thinning pattern indicates ISNT rule violation?",
+                options: ["Inferior > Superior > Nasal > Temporal", "Nasal > Superior > Temporal > Inferior", "Inferior = Superior > Nasal = Temporal", "Temporal = 0"],
+                correct: 1,
+                exp: "Normal ISNT rule is Inferior thickest > Superior > Nasal > Temporal. Any deviation (such as Nasal > Superior > Temporal > Inferior due to inferior rim loss) represents a violation.",
+                distractors: ["A is the normal ISNT rule.", "C & D are non-standard."]
+            },
+            {
+                q: "What is the hallmark visual field defect associated with damage to the inferior neuroretinal rim of the optic nerve?",
+                options: ["Inferior Arcuate Scotoma", "Superior Arcuate Scotoma", "Bitemporal Hemianopia", "Central Blindness"],
+                correct: 1,
+                exp: "Due to retinotopic inverted projection, damage to the inferior retinal nerve fibers / inferior rim produces a SUPERIOR visual field arcuate defect.",
+                distractors: ["A would result from superior rim damage.", "C is chiasmal.", "D is macular."]
+            },
+            {
+                q: "Which diagnostic perimetry instrument uses a STATIONARY light target with varying light intensities?",
+                options: ["Goldmann Perimeter", "Humphrey Automated Static Perimeter", "Confrontation Test", "Schiotz Tonometer"],
+                correct: 1,
+                exp: "Humphrey and Octopus perimeters are static perimeters where the light target location is fixed while stimulus intensity varies.",
+                distractors: ["A is kinetic perimetry (moving light).", "C is uninstrumented.", "D measures pressure."]
+            },
+            {
+                q: "What is the primary histopathological defect in Barkan's theory of Congenital Glaucoma?",
+                options: ["Presence of a persistent avascular membrane over the TM (Barkan's membrane)", "Complete absence of the iris root", "Thrombosis of Schlemm's canal", "Premature closure of episcleral veins"],
+                correct: 0,
+                exp: "Barkan postulated that primary congenital glaucoma is caused by failure of embryological resorption of an avascular membrane (Barkan's membrane) overlying the TM.",
+                distractors: ["B, C, and D are incorrect."]
+            },
+            {
+                q: "Which class of topical anti-glaucoma eyedrops is CONTRAINDICATED in patients with active Uveitis or Macular Edema?",
+                options: ["Beta-blockers", "Prostaglandin Analogues", "Carbonic Anhydrase Inhibitors", "Alpha-2 Agonists"],
+                correct: 1,
+                exp: "Prostaglandin analogues induce low-grade intraocular inflammation, which can exacerbate uveitis and cystoid macular edema (CME).",
+                distractors: ["A, C, and D do not carry this specific CME/uveitis risk."]
+            },
+            {
+                q: "During digital tonometry, the patient's eyeball tension feels rigid, similar to touching one's forehead. What does this signify?",
+                options: ["Normal Intraocular Pressure (~15 mmHg)", "Significantly Elevated Intraocular Pressure", "Hypotony / Low Intraocular Pressure (<6 mmHg)", "Corneal Dystrophy"],
+                correct: 1,
+                exp: "In digital tonometry, a hard eyeball feeling like the forehead correlates with dangerously high IOP.",
+                distractors: ["Normal feels like tip of nose; Low feels like lips."]
+            },
+            {
+                q: "What visual field defect is described as a arcuate loss attached to the blind spot and extending 10–20 degrees around fixation?",
+                options: ["Seidel Scotoma", "Bjerrum Scotoma", "Temporal Wedge", "Nasal Step"],
+                correct: 1,
+                exp: "Bjerrum scotoma is the classic full arcuate defect sweeping around fixation (10-20°) from the blind spot to the horizontal raphe.",
+                distractors: ["Seidel scotoma is a smaller sickle extension from blind spot.", "Temporal wedge is in temporal field.", "Nasal step is at horizontal line nasally."]
+            },
+            {
+                q: "A 65-year-old female experiences intermittent eye aching when sewing or reading late at night. What mechanism explains reading as a trigger for angle closure?",
+                options: ["Accommodation and pupil miosis bowing the lens-iris diaphragm forward", "Increased lacrimal gland fluid production", "Elevated episcleral venous pressure from sitting", "Retinal rod photoreceptor fatigue"],
+                correct: 0,
+                exp: "Accommodative effort during reading involves pupil constriction and anterior lens movement, which in shallow eyes can worsen pupillary block.",
+                distractors: ["B, C, and D do not cause pupillary block."]
+            },
+            {
+                q: "Which systemic medication class, when taken long-term via inhalational, oral, or eyedrop routes, is a major cause of secondary open-angle glaucoma?",
+                options: ["Beta-lactam Antibiotics", "Corticosteroids", "Non-Steroidal Anti-Inflammatory Drugs (NSAIDs)", "Calcium Channel Blockers"],
+                correct: 1,
+                exp: "Prolonged steroid intake increases TM extracellular matrix accumulation, raising outflow resistance and inducing steroid-induced glaucoma.",
+                distractors: ["A, C, and D do not cause steroid responder pressure spikes."]
+            },
+            {
+                q: "What optic disc feature describes retinal blood vessels being pushed towards the nasal side of the optic disc due to expanding cupping?",
+                options: ["Baring of vessels", "Nasalization", "Rim Notching", "Splinter Hemorrhage"],
+                correct: 1,
+                exp: "As glaucomatous cupping expands and tissue thins, retinal vessels are displaced nasally, termed nasalization.",
+                distractors: ["Baring reveals vessel borders.", "Notching is rim loss.", "Splinter hemorrhage is microvascular."]
+            },
+            {
+                q: "A patient with High-Tension POAG has an IOP typically within what range?",
+                options: ["10 to 20 mmHg", "21 to 50 mmHg", "50 to 90 mmHg", "100 to 120 mmHg"],
+                correct: 1,
+                exp: "High-Tension POAG elevated pressure ranges between 21 and 50 mmHg (does not typically exceed 50 mmHg).",
+                distractors: ["A is normal.", "C is acute PACG.", "D is non-physiological."]
+            },
+            {
+                q: "Which condition is classified under Secondary Glaucoma?",
+                options: ["High-Tension POAG", "Low-Tension POAG", "Neovascular Glaucoma from Diabetic Retinopathy", "Primary Congenital Glaucoma"],
+                correct: 2,
+                exp: "Neovascular Glaucoma stems from retinal ischemia secondary to diabetes, making it a secondary glaucoma.",
+                distractors: ["A, B, and D are primary glaucomas."]
+            },
+            {
+                q: "Why is Visante Anterior Segment Optical Coherence Tomography (OCT) superior to Ultrasound Biomicroscopy (UBM) for angle imaging?",
+                options: ["It requires direct gel contact on the cornea", "It offers significantly higher spatial resolution without touching the eye", "It uses ionizing X-rays", "It can only be performed in bright light"],
+                correct: 1,
+                exp: "AS-OCT is a non-contact optical imaging modality providing superior resolution compared to acoustic ultrasound.",
+                distractors: ["A describes UBM.", "C is false.", "D is false."]
+            },
+            {
+                q: "What is the primary action of Carbonic Anhydrase Inhibitors (e.g., Dorzolamide) in the eye?",
+                options: ["Inhibiting aqueous humor production at the non-pigmented ciliary epithelium", "Increasing TM pore diameter", "Surgically incising Schwalbe's line", "Relaxing ciliary body zonules"],
+                correct: 0,
+                exp: "CAIs block carbonic anhydrase enzymes in the ciliary processes, decreasing HCO3- transport and aqueous fluid production.",
+                distractors: ["B, C, and D are incorrect."]
+            },
+            {
+                q: "A 45-year-old male suffers a severe blunt eye injury from a badminton shuttlecock. He is at risk for developing what type of glaucoma?",
+                options: ["Primary Open Angle Glaucoma", "Angle Recession / Secondary Traumatic Glaucoma", "Primary Congenital Glaucoma", "Low Tension Glaucoma"],
+                correct: 1,
+                exp: "Blunt ocular trauma (shuttlecock injury) can tear the anterior chamber angle (angle recession) causing secondary glaucoma.",
+                distractors: ["A, C, and D are primary conditions."]
+            },
+            {
+                q: "Which visual field defect is NOT characteristic of Glaucoma?",
+                options: ["Nasal Step", "Bjerrum Scotoma", "Central Scotoma", "Seidel Scotoma"],
+                correct: 2,
+                exp: "Central scotoma involves loss of central foveal vision, characteristic of macular disease or optic neuritis, NOT typical glaucoma.",
+                distractors: ["A, B, and D are classic glaucomatous defects."]
+            },
+            {
+                q: "What anatomical structure forms the most ANTERIOR landmark visible during gonioscopy?",
+                options: ["Ciliary Body Band", "Scleral Spur", "Trabecular Meshwork", "Schwalbe's Line"],
+                correct: 3,
+                exp: "Schwalbe's Line is the most anterior landmark (termination of Descemet's membrane).",
+                distractors: ["CBB is most posterior.", "SS and TM are middle structures."]
+            },
+            {
+                q: "In Trabeculectomy surgery, what function do preplaced sutures serve?",
+                options: ["To fixate the extraocular muscles", "To allow quick, controlled tension closure of the scleral flap", "To tie off the ciliary body arteries", "To attach the GDD tube to the cornea"],
+                correct: 1,
+                exp: "Preplaced sutures are placed in the scleral flap prior to entering the AC to allow rapid, controlled closure once fluid flow is established.",
+                distractors: ["A describes bridle sutures.", "C & D are incorrect."]
+            },
+            {
+                q: "What key systemic side effect must be monitored when prescribing Timolol eyedrops?",
+                options: ["Hypertension and tachycardia", "Bradycardia and severe asthma exacerbation", "Renal calculus formation", "Aplastic anemia"],
+                correct: 1,
+                exp: "Systemic absorption of topically applied Timolol (beta-blocker) can cause systemic beta-blockade: bradycardia, heart block, and bronchospasm.",
+                distractors: ["A is opposite.", "C & D are CAI/aplastic risks."]
+            },
+            {
+                q: "In an eye with a vertical Cup-Disc Ratio of 0.8, what percentage of the vertical disc diameter is occupied by the central cup?",
+                options: ["8%", "20%", "80%", "98%"],
+                correct: 2,
+                exp: "CDR represents cup diameter divided by disc diameter. A CDR of 0.8 means the cup occupies 80% of the total disc diameter.",
+                distractors: ["A, B, and D are math errors."]
+            },
+            {
+                q: "Which diagnostic method provides 3D stereoscopic magnified visualization of the optic nerve head in clinic?",
+                options: ["Direct Ophthalmoscope", "Slit Lamp examination with a Fundus Volk Lens", "Digital Tonometry", "Confrontation visual field"],
+                correct: 1,
+                exp: "Slit lamp examination using a fundus lens provides high-magnification, 3D stereoscopic visualization superior to direct ophthalmoscopy.",
+                distractors: ["A is non-stereoscopic (2D).", "C & D do not view optic nerve."]
+            },
+            {
+                q: "What happens to the anterior chamber angle when room lights are turned ON in a patient with narrow angles?",
+                options: ["Angles CLOSE further due to pupil dilation", "Angles OPEN because the pupil constricts", "No change occurs", "The cornea becomes opacified"],
+                correct: 1,
+                exp: "Bright light induces miosis (pupil constriction), pulling peripheral iris tissue away from the trabecular meshwork and opening the angle.",
+                distractors: ["A describes lights OFF.", "C & D are false."]
+            },
+            {
+                q: "What is the primary objective of Laser Peripheral Iridoplasty (ALPI)?",
+                options: ["To punch a hole through the iris center", "To burn and contract peripheral iris stroma, pulling it away from the angle", "To destroy the ciliary body processes", "To clean debris from trabecular meshwork"],
+                correct: 1,
+                exp: "ALPI applies argon laser burns to the far peripheral iris, causing stromal contraction that pulls the iris root away from the TM.",
+                distractors: ["A describes LPI.", "C describes TSCP.", "D describes SLT."]
+            },
+            {
+                q: "A mother with primary congenital glaucoma asks about genetic transmission to her children. What is the correct advice?",
+                options: ["There is zero genetic transmission risk", "There is a strong genetic basis and high transmission risk for angle dysgenesis", "Glaucoma is solely caused by poor birth nutrition", "Only male children can inherit it"],
+                correct: 1,
+                exp: "Primary congenital glaucoma has a strong genetic basis (autosomal recessive inheritance with variable penetrance), presenting a high transmission risk.",
+                distractors: ["A, C, and D are factually false."]
+            },
+            {
+                q: "Which optic nerve change describes connective tissue thinning around blood vessels, making vessel margins clearly visible at the cup edge?",
+                options: ["Nasalization", "Baring of vessels", "Haab's striae", "Bjerrum defect"],
+                correct: 1,
+                exp: "Baring of vessels occurs as neuroretinal rim tissue recedes, leaving retinal vessels unsupported at the cup margin.",
+                distractors: ["Nasalization is nasal displacement.", "Haab's striae are corneal.", "Bjerrum is field loss."]
+            },
+            {
+                q: "What is the primary mechanism of action of Alpha-2 Agonists (e.g., Brimonidine) in glaucoma?",
+                options: ["Dual action: suppresses aqueous production and increases uveoscleral outflow", "Direct mechanical stretching of Schlemm's canal", "Osmotic dehydration of the cornea", "Inhibition of corneal endothelial cells"],
+                correct: 0,
+                exp: "Brimonidine provides dual lowering by decreasing aqueous humor production and increasing uveoscleral outflow.",
+                distractors: ["B, C, and D are incorrect."]
+            },
+            {
+                q: "A patient presents with high IOP, corneal edema, and a mid-dilated pupil. Gonioscopy reveals total absence of visible TM. What is the immediate treatment goal?",
+                options: ["Immediate IOP reduction followed by Laser Peripheral Iridotomy", "Immediate long-term steroid therapy", "Observation for 6 months", "Immediate prescription of high-dose mydriatics"],
+                correct: 0,
+                exp: "Immediate emergency lowering of IOP with medical agents followed by LPI is required to break acute pupillary block.",
+                distractors: ["B worsens pressure.", "C leads to permanent blindness.", "D dilates pupil further, worsening closure."]
+            },
+            {
+                q: "Why are fixed combination eyedrops (e.g., Latanoprost + Timolol) widely utilized in glaucoma management?",
+                options: ["They eliminate all drug side effects completely", "They improve patient compliance by reducing daily drop bottle frequency", "They cure glaucoma permanently", "They allow direct laser delivery through the bottle"],
+                correct: 1,
+                exp: "Combining two anti-glaucoma classes into a single bottle simplifies dosing regimens and significantly enhances patient compliance.",
+                distractors: ["A, C, and D are false claims."]
+            },
+            {
+                q: "Which parameter assessed on Humphrey Visual Field reports correlates directly with overall anatomical ganglion cell loss?",
+                options: ["Mean Deviation (MD) and Pattern Standard Deviation (PSD)", "Corneal Pachymetry value", "Scleral spur thickness", "Anterior chamber depth millimeter reading"],
+                correct: 0,
+                exp: "Visual field perimetry indices like MD and PSD quantify functional loss that directly correlates with structural optic nerve damage.",
+                distractors: ["B, C, and D are anatomical measurements, not perimetry indices."]
+            },
+            {
+                q: "What is the key takeaway regarding the ISNT rule in glaucoma diagnosis?",
+                options: ["100% of glaucoma patients violate the ISNT rule", "90% of glaucoma patients violate the ISNT rule, but 10-20% may still follow it", "The ISNT rule applies only to children", "The ISNT rule measures corneal thickness"],
+                correct: 1,
+                exp: "While 90% of glaucoma cases violate the ISNT rule, 10-20% of glaucoma patients may still preserve normal rim proportion (ISNT), requiring full clinical correlation.",
+                distractors: ["A is false.", "C & D are false."]
+            }
+        ];
+
+        /* ----------------------------------------------------
+           3. APPLICATION ENGINE & STATE MANAGEMENT
+        ---------------------------------------------------- */
+        let currentFlashcardIndex = 0;
+        let filteredCards = [...flashcardsData];
+        let userQuizAnswers = {};
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initScrollProgress();
+            renderFlashcard();
+            renderQuiz();
+        });
+
+        // Tab Switcher
+        function switchTab(tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+            
+            const targetTab = document.getElementById(`tab-${tabId}`);
+            if (targetTab) {
+                targetTab.classList.add("active");
+            }
+            
+            // Highlight active button
+            const btns = document.querySelectorAll(".tab-btn");
+            btns.forEach(btn => {
+                if (btn.getAttribute("onclick").includes(tabId)) {
+                    btn.classList.add("active");
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Theme Toggle (Light / Dark Mode)
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+            const btn = document.getElementById("theme-toggle");
+            if (document.body.classList.contains("dark-mode")) {
+                btn.textContent = "☀️";
+            } else {
+                btn.textContent = "🌙";
+            }
+        }
+
+        // Search Engine
+        function handleSearch() {
+            const query = document.getElementById("search-input").value.toLowerCase().trim();
+            if (!query) {
+                // Reset visibility
+                document.querySelectorAll(".card, .quiz-card").forEach(el => el.style.display = "block");
+                return;
+            }
+
+            document.querySelectorAll(".card").forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // Copy Table to Clipboard
+        function copyTableText(tableId) {
+            const table = document.getElementById(tableId);
+            if (!table) return;
+            
+            let range, selection;
+            if (document.createRange && window.getSelection) {
+                range = document.createRange();
+                selection = window.getSelection();
+                selection.removeAllRanges();
+                try {
+                    range.selectNodeContents(table);
+                    selection.addRange(range);
+                } catch (e) {
+                    range.selectNode(table);
+                    selection.addRange(range);
+                }
+            }
+            document.execCommand("copy");
+            window.getSelection().removeAllRanges();
+            alert("Table content copied to clipboard!");
+        }
+
+        // Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function initScrollProgress() {
+            window.addEventListener("scroll", () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("progress-bar").style.width = scrolled + "%";
+
+                const btnScroll = document.getElementById("btn-scroll-top");
+                if (winScroll > 300) {
+                    btnScroll.style.display = "flex";
+                } else {
+                    btnScroll.style.display = "none";
+                }
+            });
+        }
+
+        /* ----------------------------------------------------
+           4. FLASHCARD SYSTEM
+        ---------------------------------------------------- */
+        function renderFlashcard() {
+            if (filteredCards.length === 0) {
+                document.getElementById("card-question").textContent = "No flashcards match the selected filter.";
+                document.getElementById("card-answer").textContent = "N/A";
+                document.getElementById("card-counter").textContent = "0 / 0";
+                return;
+            }
+
+            const card = filteredCards[currentFlashcardIndex];
+            const flashcardEl = document.getElementById("flashcard");
+            flashcardEl.classList.remove("flipped");
+
+            document.getElementById("card-topic").textContent = card.topic.toUpperCase();
+            document.getElementById("card-counter").textContent = `${currentFlashcardIndex + 1} / ${filteredCards.length}`;
+            document.getElementById("card-question").textContent = card.q;
+            document.getElementById("card-answer").textContent = card.a;
+        }
+
+        function flipCard() {
+            document.getElementById("flashcard").classList.toggle("flipped");
+        }
+
+        function nextCard() {
+            if (filteredCards.length === 0) return;
+            currentFlashcardIndex = (currentFlashcardIndex + 1) % filteredCards.length;
+            renderFlashcard();
+        }
+
+        function prevCard() {
+            if (filteredCards.length === 0) return;
+            currentFlashcardIndex = (currentFlashcardIndex - 1 + filteredCards.length) % filteredCards.length;
+            renderFlashcard();
+        }
+
+        function shuffleFlashcards() {
+            for (let i = filteredCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
+            }
+            currentFlashcardIndex = 0;
+            renderFlashcard();
+        }
+
+        function filterFlashcards() {
+            const filter = document.getElementById("flashcard-filter").value;
+            if (filter === "all") {
+                filteredCards = [...flashcardsData];
+            } else {
+                filteredCards = flashcardsData.filter(c => c.topic === filter);
+            }
+            currentFlashcardIndex = 0;
+            renderFlashcard();
+        }
+
+        // Keyboard navigation for Flashcards
+        document.addEventListener("keydown", (e) => {
+            const flashcardsTab = document.getElementById("tab-flashcards");
+            if (flashcardsTab && flashcardsTab.classList.contains("active")) {
+                if (e.code === "Space") {
+                    e.preventDefault();
+                    flipCard();
+                } else if (e.code === "ArrowRight") {
+                    nextCard();
+                } else if (e.code === "ArrowLeft") {
+                    prevCard();
+                }
+            }
+        });
+
+        /* ----------------------------------------------------
+           5. SELF-ASSESSMENT MCQ SYSTEM
+        ---------------------------------------------------- */
+        function renderQuiz() {
+            const container = document.getElementById("quiz-container");
+            container.innerHTML = "";
+
+            mcqData.forEach((item, index) => {
+                const card = document.createElement("div");
+                card.className = "quiz-card";
+                card.id = `mcq-card-${index}`;
+
+                let optionsHTML = "";
+                item.options.forEach((opt, optIndex) => {
+                    optionsHTML += `
+                        <div class="quiz-option" id="opt-${index}-${optIndex}" onclick="selectOption(${index}, ${optIndex})">
+                            <strong>${String.fromCharCode(65 + optIndex)}.</strong> ${opt}
+                        </div>
+                    `;
+                });
+
+                let distractorsHTML = "";
+                if (item.distractors) {
+                    distractorsHTML = `<div style="margin-top:8px; font-size:0.8rem; color:var(--text-muted);">
+                        <strong>Distractor Rationales:</strong>
+                        <ul style="margin-left:16px;">
+                            ${item.distractors.map(d => `<li>${d}</li>`).join('')}
+                        </ul>
+                    </div>`;
+                }
+
+                card.innerHTML = `
+                    <div class="quiz-question">Question ${index + 1}: ${item.q}</div>
+                    <div class="quiz-options">${optionsHTML}</div>
+                    <div class="quiz-explanation" id="exp-${index}">
+                        <strong style="color:var(--accent-success);">Correct Answer: Option ${String.fromCharCode(65 + item.correct)}</strong>
+                        <p class="mt-1">${item.exp}</p>
+                        ${distractorsHTML}
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function selectOption(qIndex, optIndex) {
+            if (userQuizAnswers[qIndex] !== undefined) return; // Prevent re-answering
+
+            userQuizAnswers[qIndex] = optIndex;
+            const qData = mcqData[qIndex];
+            const correctOpt = qData.correct;
+
+            // Highlight selected option
+            const selectedEl = document.getElementById(`opt-${qIndex}-${optIndex}`);
+            if (optIndex === correctOpt) {
+                selectedEl.classList.add("correct");
+            } else {
+                selectedEl.classList.add("incorrect");
+                // Highlight correct option as well
+                document.getElementById(`opt-${qIndex}-${correctOpt}`).classList.add("correct");
+            }
+
+            // Show explanation
+            const expEl = document.getElementById(`exp-${qIndex}`);
+            expEl.classList.add("show");
+
+            updateQuizScore();
+        }
+
+        function updateQuizScore() {
+            let score = 0;
+            const answeredCount = Object.keys(userQuizAnswers).length;
+
+            Object.keys(userQuizAnswers).forEach(qIndex => {
+                if (userQuizAnswers[qIndex] === mcqData[qIndex].correct) {
+                    score++;
+                }
+            });
+
+            document.getElementById("quiz-score-display").textContent = `Score: ${score} / ${mcqData.length} (${answeredCount} Answered)`;
+        }
+    </script>
+</body>
+</html>
