@@ -1,0 +1,2602 @@
+<style>
+    :root {
+        --bg-primary: #f8fafc;
+        --bg-secondary: #ffffff;
+        --bg-card: #ffffff;
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #64748b;
+        --accent-blue: #2563eb;
+        --accent-teal: #0d9488;
+        --accent-indigo: #4f46e5;
+        --accent-amber: #d97706;
+        --accent-red: #dc2626;
+        --accent-green: #16a34a;
+        --border-color: #e2e8f0;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        --font-heading: 'Syne', sans-serif;
+        --font-body: 'DM Sans', sans-serif;
+        --font-mono: 'Space Mono', monospace;
+    }
+
+    .dark-mode {
+        --bg-primary: #0f172a;
+        --bg-secondary: #1e293b;
+        --bg-card: #1e293b;
+        --text-primary: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+        --border-color: #334155;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+        --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4);
+        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.5);
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    body {
+        font-family: var(--font-body);
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        padding-bottom: 60px;
+    }
+
+    /* Header & Navigation */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: var(--bg-secondary);
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .logo-title {
+        font-family: var(--font-heading);
+        font-weight: 800;
+        font-size: 1.4rem;
+        color: var(--accent-blue);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo-badge {
+        background: #dbeafe;
+        color: #1e40af;
+        font-size: 0.75rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-family: var(--font-mono);
+    }
+
+    .controls-group {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .search-box {
+        position: relative;
+    }
+
+    .search-box input {
+        padding: 0.5rem 1rem 0.5rem 2.2rem;
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        width: 250px;
+    }
+
+    .search-box input:focus {
+        outline: 2px solid var(--accent-blue);
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 0.8rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    .btn-toggle {
+        background: none;
+        border: 1px solid var(--border-color);
+        padding: 0.5rem 0.8rem;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--text-primary);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .btn-toggle:hover {
+        background-color: var(--border-color);
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs-container {
+        overflow-x: auto;
+        background-color: var(--bg-secondary);
+        border-top: 1px solid var(--border-color);
+        padding: 0 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        scrollbar-width: thin;
+    }
+
+    .nav-tabs {
+        display: flex;
+        list-style: none;
+        gap: 0.5rem;
+        white-space: nowrap;
+    }
+
+    .nav-tab {
+        padding: 0.8rem 1.2rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+    }
+
+    .nav-tab:hover {
+        color: var(--accent-blue);
+    }
+
+    .nav-tab.active {
+        color: var(--accent-blue);
+        border-bottom-color: var(--accent-blue);
+    }
+
+    .progress-bar-container {
+        height: 4px;
+        width: 100%;
+        background-color: var(--border-color);
+    }
+
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background-color: var(--accent-blue);
+        transition: width 0.3s;
+    }
+
+    /* Container Layout */
+    .container {
+        max-width: 1400px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+    }
+
+    .tab-content {
+        display: none;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Section Scaffolding & Cards */
+    .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .card {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+        font-family: var(--font-heading);
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 0.5rem;
+    }
+
+    .section-bold-title {
+        font-family: var(--font-heading);
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin: 1.2rem 0 0.6rem 0;
+        color: var(--accent-indigo);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Callout Boxes */
+    .callout {
+        padding: 1rem 1.2rem;
+        border-radius: 8px;
+        margin: 1rem 0;
+        border-left: 5px solid;
+        font-size: 0.95rem;
+    }
+
+    .callout-must-know {
+        background-color: rgba(217, 119, 6, 0.1);
+        border-color: var(--accent-amber);
+        color: var(--text-primary);
+    }
+
+    .callout-pitfall {
+        background-color: rgba(220, 38, 38, 0.1);
+        border-color: var(--accent-red);
+        color: var(--text-primary);
+    }
+
+    .callout-pearl {
+        background-color: rgba(13, 148, 136, 0.1);
+        border-color: var(--accent-teal);
+        color: var(--text-primary);
+    }
+
+    .callout-exam-tip {
+        background-color: rgba(37, 99, 235, 0.1);
+        border-color: var(--accent-blue);
+        color: var(--text-primary);
+    }
+
+    .callout-title {
+        font-weight: 700;
+        font-family: var(--font-heading);
+        margin-bottom: 0.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    /* Reconstructed CSS Flowcharts & Diagrams */
+    .diagram-container {
+        background-color: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        text-align: center;
+    }
+
+    .diagram-flow {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        margin: 1rem 0;
+    }
+
+    .diagram-box {
+        background-color: var(--bg-card);
+        border: 2px solid var(--accent-blue);
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        box-shadow: var(--shadow-sm);
+        max-width: 220px;
+    }
+
+    .diagram-arrow {
+        font-size: 1.4rem;
+        color: var(--accent-blue);
+        font-weight: bold;
+    }
+
+    .diagram-caption {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-top: 0.8rem;
+        font-style: italic;
+    }
+
+    /* Tables Styling */
+    .table-wrapper {
+        overflow-x: auto;
+        margin: 1rem 0 1.5rem 0;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-sm);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        text-align: left;
+        background-color: var(--bg-card);
+    }
+
+    th {
+        background-color: var(--accent-indigo);
+        color: #ffffff;
+        padding: 0.8rem 1rem;
+        font-family: var(--font-heading);
+        font-weight: 600;
+        position: sticky;
+        top: 0;
+    }
+
+    td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: top;
+    }
+
+    tr:nth-child(even) {
+        background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    .dark-mode tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    tr:hover {
+        background-color: rgba(37, 99, 235, 0.05);
+    }
+
+    .btn-copy {
+        background-color: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        font-family: var(--font-mono);
+        color: var(--text-secondary);
+    }
+
+    .btn-copy:hover {
+        background-color: var(--accent-blue);
+        color: #fff;
+    }
+
+    /* Badges & Tags */
+    .badge {
+        display: inline-block;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-family: var(--font-mono);
+        font-weight: 700;
+        margin-right: 0.3rem;
+    }
+
+    .badge-red { background-color: rgba(220, 38, 38, 0.15); color: var(--accent-red); }
+    .badge-blue { background-color: rgba(37, 99, 235, 0.15); color: var(--accent-blue); }
+    .badge-amber { background-color: rgba(217, 119, 6, 0.15); color: var(--accent-amber); }
+    .badge-green { background-color: rgba(22, 163, 74, 0.15); color: var(--accent-green); }
+
+    /* Lists & Reasoning Chains */
+    ul, ol {
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    li {
+        margin-bottom: 0.4rem;
+    }
+
+    .reasoning-chain {
+        background-color: rgba(79, 70, 229, 0.05);
+        border-left: 4px solid var(--accent-indigo);
+        padding: 0.8rem 1rem;
+        margin: 0.8rem 0;
+        border-radius: 0 8px 8px 0;
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+    }
+
+    /* Flashcard Component */
+    .flashcard-container {
+        max-width: 650px;
+        margin: 2rem auto;
+        perspective: 1000px;
+    }
+
+    .flashcard {
+        width: 100%;
+        height: 350px;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+    }
+
+    .flashcard.flipped {
+        transform: rotateY(180deg);
+    }
+
+    .card-face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+        background-color: var(--bg-card);
+        box-shadow: var(--shadow-lg);
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+    }
+
+    .card-back {
+        transform: rotateY(180deg);
+        background-color: var(--bg-secondary);
+        border-color: var(--accent-blue);
+    }
+
+    .card-tag {
+        align-self: flex-start;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        color: var(--accent-blue);
+        background: rgba(37, 99, 235, 0.1);
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+    }
+
+    .card-prompt {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: auto 0;
+    }
+
+    .card-hint {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-style: italic;
+    }
+
+    .flashcard-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .btn-fc {
+        background-color: var(--accent-blue);
+        color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .btn-fc:hover {
+        opacity: 0.9;
+    }
+
+    /* MCQ Quiz Component */
+    .quiz-container {
+        max-width: 850px;
+        margin: 0 auto;
+    }
+
+    .quiz-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        background: var(--bg-card);
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+    }
+
+    .mcq-card {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .mcq-question {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .mcq-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .mcq-option {
+        padding: 0.8rem 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 0.95rem;
+        background-color: var(--bg-primary);
+    }
+
+    .mcq-option:hover {
+        border-color: var(--accent-blue);
+        background-color: rgba(37, 99, 235, 0.05);
+    }
+
+    .mcq-option.selected {
+        border-color: var(--accent-blue);
+        background-color: rgba(37, 99, 235, 0.1);
+    }
+
+    .mcq-option.correct {
+        border-color: var(--accent-green) !important;
+        background-color: rgba(22, 163, 74, 0.15) !important;
+        color: var(--accent-green);
+        font-weight: 700;
+    }
+
+    .mcq-option.incorrect {
+        border-color: var(--accent-red) !important;
+        background-color: rgba(220, 38, 38, 0.15) !important;
+        color: var(--accent-red);
+    }
+
+    .mcq-explanation {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: rgba(15, 23, 42, 0.03);
+        border: 1px solid var(--border-color);
+        display: none;
+        font-size: 0.9rem;
+    }
+
+    .mcq-explanation.visible {
+        display: block;
+    }
+
+    /* Cram Sheet Styling */
+    .cram-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .cram-box {
+        background-color: var(--bg-card);
+        border-top: 4px solid var(--accent-blue);
+        border-radius: 8px;
+        padding: 1.2rem;
+        box-shadow: var(--shadow-sm);
+        border-left: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Floating Scroll Top Button */
+    .btn-scroll-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--accent-blue);
+        color: white;
+        border: none;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s;
+        z-index: 99;
+    }
+
+    .btn-scroll-top.visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* Print Optimization */
+    @media print {
+        header, .btn-toggle, .search-box, .flashcard-controls, .quiz-header, .btn-scroll-top {
+            display: none !important;
+        }
+        .tab-content {
+            display: block !important;
+            page-break-after: always;
+        }
+        body {
+            background: #fff;
+            color: #000;
+        }
+        .card {
+            box-shadow: none;
+            border: 1px solid #ccc;
+        }
+    }
+</style>
+<!-- Sticky Header -->
+<header>
+    <div class="header-top">
+        <div class="logo-title">
+            <span>MED2: SYNDROMIC INFECTIONS</span>
+            <span class="logo-badge">PLE / LE2 ULTRA-REVIEWER</span>
+        </div>
+        <div class="controls-group">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="globalSearch" placeholder="Search keywords..." onkeyup="handleSearch()">
+            </div>
+            <button class="btn-toggle" onclick="toggleDarkMode()">
+                <span id="themeIcon">🌙</span> <span id="themeLabel">Dark</span>
+            </button>
+        </div>
+    </div>
+    <div class="nav-tabs-container">
+        <ul class="nav-tabs" id="navTabs">
+            <li class="nav-tab active" onclick="switchTab('overview')">1. Overview</li>
+            <li class="nav-tab" onclick="switchTab('ssti')">2. SSTI & Bites</li>
+            <li class="nav-tab" onclick="switchTab('diarrhea')">3. Diarrheal Diseases</li>
+            <li class="nav-tab" onclick="switchTab('intra')">4. Intra-Abdominal</li>
+            <li class="nav-tab" onclick="switchTab('ie')">5. Infective Endocarditis</li>
+            <li class="nav-tab" onclick="switchTab('comparisons')">6. High-Yield Comparisons</li>
+            <li class="nav-tab" onclick="switchTab('flashcards')">7. Flashcards (50)</li>
+            <li class="nav-tab" onclick="switchTab('self-assessment')">8. Self-Assessment (50)</li>
+            <li class="nav-tab" onclick="switchTab('cramsheet')">9. Cram Sheet</li>
+        </ul>
+    </div>
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+</header>
+
+<!-- Scroll Top Button -->
+<button class="btn-scroll-top" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+<main class="container">
+
+    <!-- ==================== TAB 1: OVERVIEW ==================== -->
+    <div id="overview" class="tab-content active">
+        <div class="card">
+            <div class="card-header">
+                <span>📚 Module Overview & Learning Objectives</span>
+                <span class="badge badge-blue">Sole Source: Lecturer's Trans</span>
+            </div>
+            <p>Welcome to the <strong>Syndromic Approach to Infections</strong> comprehensive interactive reviewer. This resource is strictly synthesized from the <em>Medicine 2 Trans (Dr. Jed Cedric SJ. Reyes, FPCP, FPSMID)</em>, fully structured for long examinations and the Physician Licensure Examination (PLE).</p>
+            
+            <div class="grid-2" style="margin-top: 1.5rem;">
+                <div>
+                    <div class="section-bold-title">🎯 Core Learning Objectives</div>
+                    <ul>
+                        <li>Analyze distinct clinical manifestations of major infectious syndromes (SSTI, Acute Diarrhea, Intra-abdominal, Endocarditis).</li>
+                        <li>Identify the exact etiologic agent based on patient presentation, exposure history, and diagnostic findings.</li>
+                        <li>Formulate accurate empiric and definitive antimicrobial regimens according to DOH National Antibiotic Guidelines 2018 and lecture specifications.</li>
+                        <li>Distinguish surgical emergencies (e.g., Necrotizing Fasciitis, Pneumoperitoneum, Left Lobe Liver Abscess, Valve Dehiscence) from medical conditions.</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="section-bold-title">🔑 High-Yield Module Map</div>
+                    <ul>
+                        <li><strong>SSTI & Bites:</strong> Skin layer anatomy, Necrotizing Fasciitis (Type 1 vs 2), Cellulitis pathogens, DOH bite guidelines (Cat, Dog, Human, Rat).</li>
+                        <li><strong>Diarrhea & Food Poisoning:</strong> Incubation breakdown (1-6h, 8-16h, >16h), stool characteristics, selective culture media, traveler's diarrhea.</li>
+                        <li><strong>Intra-Abdominal:</strong> Primary/SBP (bacteriostatic ascitic fluid, ANC cutoff, prophylaxis) vs Secondary Peritonitis (pneumoperitoneum), Visceral Abscesses (Pyogenic/Amebic Liver, Splenic, Psoas, Perinephric).</li>
+                        <li><strong>Infective Endocarditis:</strong> Pathophysiology (NBTE), Duke's Criteria 2000, TTE vs TEE decision trees, organism-specific regimens, surgical indications.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>⚡ Quick Summary Matrix of Core Infectious Syndromes</span>
+                <button class="btn-copy" onclick="copyTable('summaryTable')">Copy Table</button>
+            </div>
+            <div class="table-wrapper">
+                <table id="summaryTable">
+                    <thead>
+                        <tr>
+                            <th>Syndrome / Entity</th>
+                            <th>Key Etiologic Pathogens</th>
+                            <th>Hallmark Physical / Lab Clues</th>
+                            <th>Empiric First-Line Therapy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Necrotizing Fasciitis (Type 1)</strong></td>
+                            <td>Mixed aerobes + anaerobes (polymicrobial)</td>
+                            <td>Pain out of proportion, violaceous/bronze discoloration, hyponatremia, elevated Cr</td>
+                            <td>Pip-Tazo 4.5g IV q8h + Vancomycin 15-20 mg/kg IV q8-12h</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Necrotizing Fasciitis (Type 2)</strong></td>
+                            <td>Group A Streptococcus (<em>S. pyogenes</em>)</td>
+                            <td>Rapid progression, toxic shock syndrome, non-purulent monomicrobial invasion</td>
+                            <td>Penicillin G 4 MU IV q4h + Clindamycin 600-900 mg IV q8h (toxin inhibitor)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cat Bite Infection</strong></td>
+                            <td><em>Pasteurella multocida</em>, <em>S. aureus</em></td>
+                            <td>Rapid onset (<24h), severe erythema, pain; 80% infection rate</td>
+                            <td>Co-amoxiclav 875/125 mg PO bid (Resistant to Clindamycin/Cephalexin!)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bacterial Food Poisoning (1-6h)</strong></td>
+                            <td><em>S. aureus</em>, <em>B. cereus</em> (emetic)</td>
+                            <td>Preformed enterotoxin: rapid nausea, vomiting, non-bloody diarrhea; potato/egg salad, fried rice</td>
+                            <td>Symptomatic rehydration (Oral/IV); Antibiotics strictly NOT indicated</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Spontaneous Bacterial Peritonitis (SBP)</strong></td>
+                            <td><em>E. coli</em>, <em>Klebsiella pneumoniae</em> (monomicrobial)</td>
+                            <td>Cirrhosis + fever + ascites; <strong>ANC ≥ 250 PMNs/µL</strong> in peritoneal fluid</td>
+                            <td>Cefotaxime 2g IV q4-8h or Ceftriaxone 2g IV q24h (No anaerobic coverage needed!)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pyogenic Liver Abscess</strong></td>
+                            <td>Enterobacterales (<em>E. coli</em>, <em>K. pneumoniae</em>), <em>B. fragilis</em></td>
+                            <td>RUQ pain, fever, markedly elevated Alkaline Phosphatase (ALP); CT rim-enhancing</td>
+                            <td>3rd Gen Cephalosporin / Pip-Tazo + Drainage (Mandatory if >5cm or Left Lobe!)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infective Endocarditis (Native)</strong></td>
+                            <td><em>S. aureus</em>, Viridans Strep, <em>S. gallolyticus</em>, <em>E. faecalis</em></td>
+                            <td>Fever, new regurgitant murmur, vascular/immunologic phenomena; Modified Duke's</td>
+                            <td>Vancomycin IV (Empiric native valve); target trough 15-20 µg/mL</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 2: SSTI & BITES ==================== -->
+    <div id="ssti" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <span>🩺 Skin Layers & Depth of Soft Tissue Infections</span>
+            </div>
+            <p>Infection depth directly dictates clinical severity, systemic symptoms, and treatment duration. As infection penetrates from the avascular epidermis into the vascular dermis, subcutaneous tissue, fascia, and muscle, systemic cytokine release intensifies.</p>
+            
+            <!-- Reconstructed Diagram -->
+            <div class="diagram-container">
+                <div style="font-weight: 700; margin-bottom: 0.8rem;">Anatomic Layer Depth vs Clinical Entity Spectrum</div>
+                <div class="diagram-flow">
+                    <div class="diagram-box" style="border-color: #10b981;">
+                        <strong>Epidermis</strong><br><small>(Avascular)</small><br>Impetigo (Bullous/Nonbullous), Erysipelas
+                    </div>
+                    <div class="diagram-arrow">→</div>
+                    <div class="diagram-box" style="border-color: #f59e0b;">
+                        <strong>Upper Dermis</strong><br><small>(Vascular Bundle)</small><br>Folliculitis, Furuncle, Carbuncle
+                    </div>
+                    <div class="diagram-arrow">→</div>
+                    <div class="diagram-box" style="border-color: #3b82f6;">
+                        <strong>Deep Dermis / Subq</strong><br><small>(Fat & Vessels)</small><br>Cellulitis, Subcutaneous Abscess
+                    </div>
+                    <div class="diagram-arrow">→</div>
+                    <div class="diagram-box" style="border-color: #ef4444;">
+                        <strong>Fascia & Muscle</strong><br><small>(Deep Planes)</small><br>Necrotizing Fasciitis, Pyomyositis
+                    </div>
+                </div>
+                <div class="diagram-caption">Figure 1 & 2 Adaptation: Vascular access in deep layers triggers systemic toxicity, cytokine surge, and requires longer treatment courses.</div>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="section-bold-title">📌 Key SSTI Entities Breakdown</div>
+                    <ul>
+                        <li><strong>Impetigo:</strong> Nonbullous (GAS / <em>S. pyogenes</em> - honey-colored crusts) vs Bullous (<em>S. aureus</em> - exotoxin degrades epidermal layer).</li>
+                        <li><strong>Erysipelas:</strong> Superficial dermis infection caused by GAS. Characterized by <strong>well-demarcated, raised, indurated margins</strong>. Common on facial areas in pediatrics.</li>
+                        <li><strong>Cellulitis:</strong> Deeper dermis/subcutaneous fat involvement. Characterized by <strong>poorly demarcated erythema</strong>, warmth, swelling, and systemic symptoms (fever, malaise).</li>
+                        <li><strong>Folliculitis / Furuncle / Carbuncle:</strong> Hair follicle infections predominantly caused by <em>S. aureus</em>. Carbuncles are clusters of furuncles common in diabetics.</li>
+                        <li><strong>Pyomyositis:</strong> Pus accumulation within muscle tissue, predominantly caused by <em>S. aureus</em>. Non-purulent myositis is associated with GAS or Coxsackie B virus.</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="callout callout-must-know">
+                        <div class="callout-title">⭐ Must Know: Erysipelas vs Cellulitis Margins</div>
+                        Erysipelas is superficial, presenting with <strong>sharply demarcated, well-defined indurated borders</strong>.<br>
+                        Cellulitis involves deeper subcutaneous tissue, presenting with <strong>poorly demarcated, diffuse borders</strong>.
+                    </div>
+                    <div class="callout callout-pearl">
+                        <div class="callout-title">💡 Clinical Pearl: Purulent vs Non-Purulent</div>
+                        <strong>Staphylococcus aureus</strong> = Pus-forming (abscesses, furuncles, pyomyositis, purulent cellulitis).<br>
+                        <strong>Streptococcus pyogenes (GAS)</strong> = Non-pus-forming (spreading non-purulent cellulitis, erysipelas).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Necrotizing Fasciitis -->
+        <div class="card">
+            <div class="card-header">
+                <span>⚠️ Necrotizing Fasciitis (Myonecrosis / Gas Gangrene)</span>
+                <span class="badge badge-red">Surgical Emergency</span>
+            </div>
+            <p>A rapidly progressive, life-threatening infection of the fascial planes and subcutaneous tissue driven by bacterial exotoxins.</p>
+
+            <div class="reasoning-chain">
+                <strong>Pathophysiology Chain:</strong> Mucosal/Skin Breach → Exotoxin release (PVL, Streptolysin, SPE) → Subcutaneous fat degradation → Vascular thrombosis & hypercoagulable state → Ischemia & Tissue Necrosis → Skin color progression (Erythema → Violaceous → Dark Bronze) → Gas/Bullae formation & Septic Shock.
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="section-bold-title">Clinical Presentation & Diagnostic Clues</div>
+                    <ul>
+                        <li><strong>Hallmark Clue:</strong> <strong>Severe pain OUT OF PROPORTION</strong> to physical examination findings.</li>
+                        <li>Discoloration: Rapid progression from red to violaceous, then dark bronze-colored patches.</li>
+                        <li>Bullae & Crepitus: Bullae (seropurulent or hemorrhagic) and gas production (crepitus on palpation).</li>
+                        <li>Systemic Toxicity: High-grade fever, confusion, obtundation, rapid hemodynamic collapse.</li>
+                        <li><strong>Laboratory Clues:</strong> Markedly elevated WBC with neutrophilia, <strong>hyponatremia</strong>, decreased Hb, and elevated Serum Creatinine (sepsis-associated AKI).</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="callout callout-pitfall">
+                        <div class="callout-title">⚠️ Common Pitfall: Diagnostic Delay</div>
+                        Necrotizing fasciitis is a <strong>surgical diagnosis</strong>! Never delay urgent surgical exploration and debridement while waiting for imaging (MRI/CT).
+                    </div>
+                    <div class="callout callout-exam-tip">
+                        <div class="callout-title">🧠 Exam Tip: Why Clindamycin in Type 2 GAS?</div>
+                        In Type 2 (GAS) Necrotizing Fasciitis, Clindamycin is added to Penicillin G NOT just for bactericidal action, but to <strong>suppress exotoxin synthesis (PVL & SPE)</strong> at the ribosomal level!
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-bold-title">Classification & Specific Treatment Regimens (DOH Guidelines 2018)</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type / Organism</th>
+                            <th>Microbiology & Features</th>
+                            <th>First-Line Antimicrobial Regimen</th>
+                            <th>Second-Line / Alternative</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Type 1 (Mixed / Polymicrobial)</strong></td>
+                            <td>Aerobic Gram-negative bacilli + Anaerobes; most common type, fast moving.</td>
+                            <td><strong>Piperacillin-Tazobactam 4.5g IV q8h + Vancomycin 15-20 mg/kg IV q8-12h</strong></td>
+                            <td>Meropenem 1g IV q8h + Vancomycin 15-20 mg/kg IV q8-12h</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Type 2 (Monomicrobial - GAS)</strong></td>
+                            <td><em>Streptococcus pyogenes</em> (GAS); associated with Toxic Shock Syndrome / Varicella.</td>
+                            <td><strong>Penicillin G 4 MU IV q4h + Clindamycin 600-900 mg IV q8h</strong></td>
+                            <td>Vancomycin 1g IV q12h (if Penicillin allergic)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Clostridial (Gas Gangrene)</strong></td>
+                            <td><em>Clostridium perfringens</em>; severe pain, rapid crepitus, muscle necrosis.</td>
+                            <td><strong>Penicillin G 4 MU IV q4h + Clindamycin 600-900 mg IV q8h</strong></td>
+                            <td>Variable susceptibility (e.g., C. tertium)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CA-MRSA Suspected</strong></td>
+                            <td><em>Staphylococcus aureus</em> producing PVL toxin.</td>
+                            <td><strong>Vancomycin 15-20 mg/kg IV q8-12h</strong> (Target trough: 15-20 µg/mL)</td>
+                            <td>Linezolid 600 mg IV/PO bid or Daptomycin</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Specific Pathogens & Animal/Human Bites -->
+        <div class="card">
+            <div class="card-header">
+                <span>🐾 Pathogen Clues & Bite Management (DOH Guidelines 2018)</span>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="section-bold-title">Environmental Exposure Clues</div>
+                    <ul>
+                        <li><strong>Freshwater exposure + trauma:</strong> <em>Aeromonas hydrophila</em> (aggressive necrotizing cellulitis).</li>
+                        <li><strong>Saltwater / Marine / Shellfish:</strong> <em>Vibrio vulnificus</em> (bullous skin lesions, necrotizing vasculitis, septic shock).</li>
+                        <li><strong>Fisherman / Handling Fish/Poultry:</strong> <em>Erysipelothrix rhusiopathiae</em>. <span class="badge badge-red">Exam Key:</span> Naturally resistant to <strong>Vancomycin, Cotrimoxazole, and Chloramphenicol!</strong></li>
+                        <li><strong>Neutropenic patient (ANC &lt; 500):</strong> <em>Pseudomonas aeruginosa</em> (Ecthyma gangrenosum, hot-tub folliculitis).</li>
+                        <li><strong>Penetrating nail injury through sneaker:</strong> <em>Pseudomonas aeruginosa</em>.</li>
+                        <li><strong>Black eschar skin ulcer:</strong> <em>Bacillus anthracis</em>.</li>
+                        <li><strong>Swimmer's itch (Samar, Leyte, Agusan):</strong> <em>Schistosoma</em> spp.</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="section-bold-title">Bite Infection Principles</div>
+                    <ul>
+                        <li><strong>Cat Bites:</strong> 80% infection rate! Rapid onset (&lt;24h). Dominant pathogen: <em>Pasteurella multocida</em>.
+                            <br><span class="badge badge-amber">CRITICAL RESISTANCE:</span> <em>P. multocida</em> is <strong>RESISTANT to Dicloxacillin, Cephalexin, and Clindamycin!</strong></li>
+                        <li><strong>Dog Bites:</strong> Only 5% infected. Treat if severe or in diabetics. Pathogens: <em>Pasteurella canis</em>, <em>Capnocytophaga</em>, anaerobes.</li>
+                        <li><strong>Human Bites:</strong> High risk of deep tissue/tendon space infection. <em>Viridans streptococci</em> (100%), <em>Eikenella corrodens</em> (15%).
+                            <br><span class="badge badge-amber">EIKENELLA RESISTANCE:</span> Resistant to Clindamycin, Metronidazole, Nafcillin, Cephalexin, Cotrimoxazole! Sensitive to Beta-lactamase inhibitors & Fluoroquinolones.</li>
+                        <li><strong>Rat Bites:</strong> <em>Spirillum minus</em>, <em>Streptobacillus moniliformis</em>. Causes Rat Bite Fever. Note: Rabies post-exposure prophylaxis is <strong>NOT indicated</strong> for rat bites!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section-bold-title">DOH 2018 Empiric Management of Animal & Human Bites</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Bite Source</th>
+                            <th>Primary Organisms</th>
+                            <th>First-Line Treatment</th>
+                            <th>Second-Line / Penicillin Allergy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cat Bite</strong></td>
+                            <td><em>Pasteurella multocida</em>, <em>S. aureus</em></td>
+                            <td><strong>Co-amoxiclav 875/125 mg PO bid</strong> or 500/125 mg PO tid</td>
+                            <td>Cefuroxime axetil 500mg PO q12h OR Doxycycline 100mg PO bid</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dog Bite</strong></td>
+                            <td><em>Pasteurella canis</em>, <em>Capnocytophaga</em>, anaerobes</td>
+                            <td><strong>Co-amoxiclav 875/125 mg PO bid</strong> OR Ampicillin-sulbactam 3g IV q6h</td>
+                            <td>Clindamycin 300 mg PO qid</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Human Bite</strong> (Occlusional / Clenched-fist)</td>
+                            <td><em>Viridans strep</em>, <em>S. aureus</em>, <em>Eikenella corrodens</em>, anaerobes</td>
+                            <td>Oral: <strong>Co-amoxiclav</strong><br>Parenteral: <strong>Ampicillin-sulbactam</strong> (Mild: 100-200mg/kg/d; Severe: 200mg/kg/d)</td>
+                            <td>Piperacillin-tazobactam IV OR Clindamycin / Metronidazole (Note: add Cipro for Eikenella)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rat Bite Prophylaxis</strong> (Asymptomatic)</td>
+                            <td><em>Spirillum minus</em>, <em>Streptobacillus moniliformis</em></td>
+                            <td><strong>Amoxicillin 25-50 mg/kg/day</strong> PO (3 days)</td>
+                            <td>Doxycycline 2-4 mg/kg/day PO (Max 200 mg/day)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rat Bite Fever</strong> (Symptomatic)</td>
+                            <td><em>S. minus</em>, <em>S. moniliformis</em></td>
+                            <td><strong>Penicillin G IV</strong> (100k-150k U/kg/d mild; 200k-300k U/kg/d severe) x 10-14 days</td>
+                            <td>Doxycycline PO OR Erythromycin / Clindamycin</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 3: DIARRHEAL DISEASES ==================== -->
+    <div id="diarrhea" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <span>🍲 Bacterial Food Poisoning & Incubation Stratification</span>
+            </div>
+            <p>Approaching acute infectious diarrhea requires evaluating three key parameters: <strong>Incubation time</strong>, <strong>Stool characteristics</strong> (Watery vs Inflammatory/Bloody), and <strong>Food/Travel Exposure</strong>.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Incubation Period</th>
+                            <th>Organism</th>
+                            <th>Predominant Symptoms</th>
+                            <th>Common Associated Foods</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2"><strong>1–6 Hours</strong><br><small>(Preformed Toxin)</small></td>
+                            <td><em>Staphylococcus aureus</em></td>
+                            <td>Nausea, severe vomiting, watery diarrhea, abdominal cramps</td>
+                            <td>Ham, poultry, potato or egg salad, mayonnaise, cream pastries</td>
+                        </tr>
+                        <tr>
+                            <td><em>Bacillus cereus</em> (Emetic type)</td>
+                            <td>Nausea, acute vomiting, diarrhea</td>
+                            <td>Fried rice, re-heated rice</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><strong>8–16 Hours</strong><br><small>(In Vivo Toxin)</small></td>
+                            <td><em>Clostridium perfringens</em></td>
+                            <td>Abdominal cramps, watery diarrhea (vomiting is rare)</td>
+                            <td>Beef, poultry, legumes, gravies, reheated meats</td>
+                        </tr>
+                        <tr>
+                            <td><em>Bacillus cereus</em> (Diarrheal type)</td>
+                            <td>Abdominal cramps, watery diarrhea (vomiting is rare)</td>
+                            <td>Meats, vegetables, dried beans, cereals</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5"><strong>&gt;16 Hours</strong><br><small>(Invasive / Colonization)</small></td>
+                            <td><em>Vibrio cholerae</em></td>
+                            <td>Profuse non-bloody "rice-water" stool, rapid dehydration</td>
+                            <td>Shellfish, contaminated water</td>
+                        </tr>
+                        <tr>
+                            <td>Enterotoxigenic <em>E. coli</em> (ETEC)</td>
+                            <td>Watery diarrhea, cramps (Traveler's diarrhea #1 cause)</td>
+                            <td>Salads, cheese, meats, unpasteurized water</td>
+                        </tr>
+                        <tr>
+                            <td>Enterohemorrhagic <em>E. coli</em> (EHEC / STEC O157:H7)</td>
+                            <td>Bloody diarrhea, severe cramps, NO fever, <strong>NO fecal WBCs</strong> (HUS risk)</td>
+                            <td>Ground beef, raw milk, unpasteurized apple juice</td>
+                        </tr>
+                        <tr>
+                            <td><em>Salmonella</em> spp. / <em>Shigella</em> spp.</td>
+                            <td>Inflammatory diarrhea, fever, bloody dysentery, tenesmus</td>
+                            <td>Poultry, eggs, dairy (Salmonella); Potato/egg salad, lettuce (Shigella)</td>
+                        </tr>
+                        <tr>
+                            <td><em>Campylobacter jejuni</em></td>
+                            <td>Inflammatory bloody diarrhea, fever, severe abdominal pain</td>
+                            <td>Undercooked poultry, raw milk; SE Asia travel</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="callout callout-must-know">
+                        <div class="callout-title">⭐ Must Know: Toxin vs Invasive Diarrhea</div>
+                        Vomiting within 1-6 hours is driven by <strong>preformed bacterial exotoxins</strong>. Antibiotics are completely useless against preformed toxins! Management is strictly volume replacement.
+                    </div>
+                </div>
+                <div>
+                    <div class="callout callout-exam-tip">
+                        <div class="callout-title">🧠 Exam Tip: Specific Parasitic Clues</div>
+                        • <strong>Giardia lamblia:</strong> Hikers drinking stream water; greasy, foul-smelling, bulky, whitish/soap-like stool with bloating. DOC: Metronidazole.<br>
+                        • <strong>Cryptosporidium:</strong> Immunocompromised / PLHIV with low CD4; voluminous watery diarrhea. Chlorine resistant.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>🧫 Diagnostic Stool Examination & Selective Culture Media</span>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="section-bold-title">Stool Findings & Localization</div>
+                    <ul>
+                        <li><strong>Non-Inflammatory (No Fecal WBCs):</strong> Proximal small bowel location. Watery stool. Pathogens: <em>V. cholerae</em>, ETEC, <em>S. aureus</em>, <em>B. cereus</em>, Viruses (Norovirus, Rotavirus), <em>Giardia</em>.</li>
+                        <li><strong>Inflammatory (Fecal WBCs / Neutrophils Present):</strong> Colon / Distal ileum. Mucosal destruction & invasion. Pathogens: <em>Shigella</em>, <em>Salmonella</em>, <em>Campylobacter jejuni</em>, <em>C. difficile</em>, <em>E. histolytica</em>.</li>
+                        <li><strong>Pseudoappendicitis:</strong> <em>Yersinia enterocolitica</em> causes RLQ ileocecal colitis mimicking acute appendicitis.</li>
+                        <li><strong>Tenesmus (Painful rectal spasms):</strong> Hallmark of <em>Shigellosis</em> or Amebic colitis.</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="section-bold-title">High-Yield Culture Media Matrix</div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Organism</th>
+                                    <th>Selective Isolation Culture Medium</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><em>Vibrio cholerae</em></td>
+                                    <td><strong>TCBS Agar</strong> (Thiosulfate-Citrate-Bile Salts-Sucrose)</td>
+                                </tr>
+                                <tr>
+                                    <td>ETEC / Enterics</td>
+                                    <td><strong>MacConkey (MAC) Agar</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><em>Salmonella</em> & <em>Shigella</em></td>
+                                    <td><strong>XLD Agar</strong> (Xylose-Lysine-Deoxycholate) & Hektoen Enteric Agar</td>
+                                </tr>
+                                <tr>
+                                    <td><em>Campylobacter jejuni</em></td>
+                                    <td><strong>Campy Blood Agar (CVA)</strong>, Skirrow's, or Charcoal Cefoperazone Deoxycholate</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-bold-title">DOH 2018 Empiric Antibiotic Regimens for Infectious Diarrhea</div>
+            <ul>
+                <li><strong>Mild (&lt;3 unformed stools/day):</strong> Oral rehydration therapy alone.</li>
+                <li><strong>Moderate (3-4 unformed stools/day with symptoms):</strong> Oral or parenteral hydration.</li>
+                <li><strong>Severe / Inflammatory / Dysentery (Fever, tenesmus, blood, fecal WBCs):</strong>
+                    <br>• <em>Shigella / Bacillary Dysentery:</em> <strong>Ciprofloxacin 500mg PO q12h</strong> OR Levofloxacin 500mg PO q24h x 3-5 days.
+                    <br>• <em>Campylobacter jejuni (SE Asia travel):</em> <strong>Azithromycin 500mg PO q24h x 3 days</strong> (Preferred due to high fluoroquinolone resistance in SE Asia).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 4: INTRA-ABDOMINAL INFECTIONS ==================== -->
+    <div id="intra" class="tab-content">
+        <!-- SBP -->
+        <div class="card">
+            <div class="card-header">
+                <span>🌊 Spontaneous / Primary Bacterial Peritonitis (SBP / PBP)</span>
+                <span class="badge badge-amber">Monomicrobial Entity</span>
+            </div>
+            <p>Infection of the peritoneal fluid without any evident intra-abdominal surface rupture or viscus perforation. Occurs predominantly in patients with liver cirrhosis and ascites.</p>
+
+            <div class="grid-2">
+                <div>
+                    <div class="section-bold-title">Diagnostic Criteria & Paracentesis</div>
+                    <ul>
+                        <li><strong>Gold Standard Diagnostic Test:</strong> Diagnostic Paracentesis.</li>
+                        <li><strong>Diagnostic Cutoff:</strong> Absolute Neutrophil Count <strong>(ANC) ≥ 250 PMNs/µL</strong>.
+                            <br><span class="font-mono">Formula: ANC = Total WBC count × % PMNs</span></li>
+                        <li><strong>Microbiology:</strong> Almost strictly <strong>MONOMICROBIAL</strong>. Dominant pathogens are Gram-negative enteric bacilli: <em>E. coli</em> and <em>Klebsiella pneumoniae</em>.</li>
+                    </ul>
+
+                    <div class="callout callout-must-know">
+                        <div class="callout-title">⭐ MUST KNOW EXAM FACT: NO Anaerobic Coverage in SBP!</div>
+                        Unlike secondary peritonitis, <strong>SBP DOES NOT require anaerobic coverage</strong>.
+                        <br><em>Why?</em> Peritoneal ascitic fluid possesses intrinsic <strong>bacteriostatic activity against Bacteroides fragilis</strong>, and the partial pressure of oxygen (PO2) in ascitic fluid is too high for obligate anaerobes to survive.
+                    </div>
+                </div>
+                <div>
+                    <div class="section-bold-title">SBP Diagnostic Variants</div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Variant Entity</th>
+                                    <th>Culture</th>
+                                    <th>ANC Cutoff</th>
+                                    <th>Management</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Classic SBP</strong></td>
+                                    <td>Positive</td>
+                                    <td>≥ 250 PMNs/µL</td>
+                                    <td><strong>Treat immediately</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Culture-Negative Neutrocytic Ascites</strong></td>
+                                    <td>Negative</td>
+                                    <td>≥ 250 PMNs/µL</td>
+                                    <td><strong>Treat immediately</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Monomicrobial Non-neutrocytic Bacterascites</strong></td>
+                                    <td>Positive (1 organism)</td>
+                                    <td>&lt; 250 PMNs/µL</td>
+                                    <td>Treat <em>IF symptomatic</em>; Observe if asymptomatic</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Polymicrobial Bacterascites</strong></td>
+                                    <td>Multiple organisms</td>
+                                    <td>Variable</td>
+                                    <td>Suspicious for traumatic tap or <strong>Secondary Peritonitis</strong>! Work up perforation.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="section-bold-title">Empiric Treatment (DOH 2018)</div>
+                    <ul>
+                        <li><strong>First-line Therapy:</strong> <strong>Cefotaxime 2g IV q4-8h</strong> OR Ceftriaxone 2g IV q24h x 5 days.
+                            <br><span class="badge badge-amber">Caution:</span> Ceftriaxone may induce biliary sludge and worsen cholestatic jaundice in severe cirrhosis. Cefotaxime is preferred.</li>
+                        <li><strong>If Penicillin/Cephalosporin Allergic:</strong> Ampicillin-sulbactam, Piperacillin-tazobactam, or Ertapenem.</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="section-bold-title">Indications for SBP Prophylaxis</div>
+                    <div class="callout callout-pearl">
+                        <div class="callout-title">💡 High-Yield Prophylaxis Indications</div>
+                        1. <strong>Previous episode of SBP</strong> (Secondary prophylaxis).<br>
+                        2. <strong>Low protein ascites (&lt;15 g/L)</strong>.<br>
+                        3. <strong>Cirrhosis + Acute Upper GI / Variceal Bleeding</strong> (Norfloxacin 400mg PO bid or Ceftriaxone 1g IV daily x 7 days).<br>
+                        4. <strong>Advanced Liver Failure</strong> (Child-Pugh &gt; 9, Bilirubin &gt; 3 mg/dL) + <strong>Renal Dysfunction</strong> (Cr &gt; 1.2, BUN &gt; 25, Na &lt; 130).<br>
+                        • <em>Prophylactic Drugs:</em> Norfloxacin 400mg PO daily, Ciprofloxacin, or Co-trimoxazole.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary Peritonitis -->
+        <div class="card">
+            <div class="card-header">
+                <span>⚡ Secondary Peritonitis & Intra-Abdominal Abscesses</span>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="section-bold-title">Secondary Peritonitis Principles</div>
+                    <ul>
+                        <li>Caused by direct acute contamination via <strong>perforated hollow viscus</strong>, trauma, or surgical breakdown.</li>
+                        <li><strong>Radiologic Pathognomonic Sign:</strong> <strong>Pneumoperitoneum</strong> (Air under the diaphragm on upright chest X-ray) = Immediate <strong>Surgical Emergency</strong>!</li>
+                        <li><strong>Microbiology:</strong> Strictly <strong>POLYMICROBIAL</strong>. Mixed facultative Gram-negative bacilli (<em>E. coli</em>, <em>Klebsiella</em>) + Anaerobes (<strong>Bacteroides fragilis</strong>).</li>
+                        <li><strong>Empiric Treatment:</strong> Surgical source control + Broad-spectrum coverage. <strong>Pip-Tazo</strong> OR 3rd Gen Cephalosporin / Fluoroquinolone <strong>PLUS Metronidazole</strong> (to add B. fragilis coverage!).</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="section-bold-title">Pathophysiology of Intra-Abdominal Abscesses</div>
+                    <div class="reasoning-chain">
+                        Bacterial Contamination → Intense Local Inflammation → Coagulation Cascade Activation → Fibrin Localization → Tissue Ischemia & Liquefactive Necrosis → Encapsulated Fluid Collection.
+                    </div>
+                    <p><em>Why Antibiotics Alone Fail:</em> High bacterial load, necrotic debris, acidic pH inactivating drugs, and the thick fibrin capsule preventing antibiotic penetration.</p>
+                </div>
+            </div>
+
+            <div class="section-bold-title">Comprehensive Comparison of Visceral Abscess Types</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Abscess Type</th>
+                            <th>Etiology & Sources</th>
+                            <th>Clinical & Laboratory Features</th>
+                            <th>Management Cutoffs & Pearls</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Pyogenic Liver Abscess</strong></td>
+                            <td>Biliary obstruction (stones/stricture), Pyelophlebitis (portal vein thrombosis from appendicitis/diverticulitis). Polymicrobial enterics.</td>
+                            <td>Fever, RUQ pain, jaundice. <strong>Markedly elevated Alkaline Phosphatase (ALP)</strong>. CT shows rim-enhancing lesion.</td>
+                            <td>• Right Lobe <strong>&gt;5 cm</strong>: Percutaneous / Surgical Drainage + Antibiotics.<br>• <strong>LEFT LOBE (ANY SIZE): MANDATORY URGENT DRAINAGE!</strong> Risk of rupture into pericardium → Purulent Pericarditis (100% mortality!).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amebic Liver Abscess</strong></td>
+                            <td><em>Entamoeba histolytica</em> (trophozoite invasion). Male-to-Female ratio <strong>5–18:1</strong> (testosterone effect). Solitary right lobe.</td>
+                            <td>Fever, severe RUQ pain. Aspiration yields "anchovy paste" / chocolate pus. Serology positive.</td>
+                            <td><strong>Metronidazole 750mg PO/IV tid x 7-10 days</strong> + <strong>Luminal agent</strong> (e.g., Paromomycin / Diloxanide) to clear intestinal cysts. Surgical drainage rarely needed.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Splenic Abscess</strong></td>
+                            <td>Hematogenous seeding from <strong>Infective Endocarditis</strong> with bacteremia, IVDU, or trauma. Pathogen: <em>S. aureus</em>, Streptococci.</td>
+                            <td>Classic Triad: Fever + LUQ Abdominal Pain + Splenomegaly. CT imaging diagnostic.</td>
+                            <td>Antibiotics + Percutaneous drainage (if <strong>&lt;4 cm, solitary, unilocular</strong>). <strong>Splenectomy</strong> indicated if multiloculated, &gt;4 cm, or failed drainage.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Psoas Abscess</strong></td>
+                            <td>• Primary (Hematogenous): <em>S. aureus</em>.<br>• Secondary (Contiguous): <em>M. tuberculosis</em> (Pott's disease - subacute/chronic), Crohn's, appendicitis.</td>
+                            <td>Classic Triad: <strong>Fever + Lower Back/Flank Pain + Limp / Painful Hip Movement</strong>. Positive Psoas Sign (pain on passive hip extension).</td>
+                            <td>CT with IV contrast. Drainage (cut-off <strong>&gt;5 cm</strong>) + Targeted Antibiotics. Evaluate spine for vertebral osteomyelitis / Potts disease if subacute.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Perinephric / Renal Abscess</strong></td>
+                            <td>• Ascending UTI (<em>E. coli</em>, <em>K. pneumoniae</em>, <em>Proteus</em>).<br>• Hematogenous (<em>S. aureus</em>). Common in diabetics.</td>
+                            <td>Fever, flank pain, costovertebral angle tenderness, pyuria, non-responsive to simple UTI therapy.</td>
+                            <td>Percutaneous image-guided drainage for collections <strong>&gt;3–5 cm</strong> + IV Antibiotics for 2–4 weeks. Relieve urinary tract obstruction.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 5: INFECTIVE ENDOCARDITIS ==================== -->
+    <div id="ie" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <span>🫀 Pathophysiology & Clinical Manifestations of Infective Endocarditis</span>
+            </div>
+
+            <div class="reasoning-chain">
+                <strong>Pathogenesis Sequence:</strong> Endothelial Injury (turbulence, VSD, RHD) → Exposure of Subendothelial Tissue Factor → Platelet & Fibrin Deposition → Non-Bacterial Thrombotic Endocarditis (NBTE) → Transient Bacteremia → Bacterial Adherence & Colonization → Mature Vegetation Formation → Local Tissue Destruction & Distal Septic Embolization.
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="section-bold-title">Core Pathogen Associations</div>
+                    <ul>
+                        <li><strong>Staphylococcus aureus:</strong> Most virulent pathogen. <span class="badge badge-red">Sole Exception:</span> Can infect <strong>NORMAL, UNDAMAGED</strong> heart valves! Forms large vegetations (&ge;10mm) with high risk of distal septic arterial embolization. Common in IV drug users (Tricuspid valve).</li>
+                        <li><strong>Viridans Group Streptococci:</strong> Subacute presentation on pre-damaged or rheumatic valves following <strong>dental procedures</strong> or oral manipulation.</li>
+                        <li><strong>Streptococcus gallolyticus (formerly S. bovis):</strong> Strong, high-yield association with <strong>UNDERLYING COLONIC MALIGNANCY / COLON CANCER</strong>! Colonoscopy with biopsy indicated.</li>
+                        <li><strong>Enterococcus faecalis:</strong> Associated with urologic manipulation, catheterization, or lower GI endoscopy in elderly patients.</li>
+                        <li><strong>HACEK Group:</strong> Fastidious Gram-negative bacilli from oral flora, associated with culture-negative endocarditis.</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="section-bold-title">Peripheral Manifestations & Emboli</div>
+                    <ul>
+                        <li><strong>Janeway Lesions:</strong> Non-tender, erythematous macules on palms and soles (septic microemboli, strongly associated with <em>S. aureus</em>).</li>
+                        <li><strong>Osler Nodes:</strong> Painful, tender, raised erythematous nodules on the pads of fingers and toes (immunologic complex deposition).</li>
+                        <li><strong>Roth Spots:</strong> Retinal hemorrhages with pale, central microinfarcts (immunologic).</li>
+                        <li><strong>Splinter Hemorrhages:</strong> Subungual dark linear streaks on nail beds.</li>
+                        <li><strong>Septic Pulmonary Infarcts:</strong> Right-sided (tricuspid) IE in IVDU presenting with cough, hemoptysis, and chest pain.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>📋 Modified Duke Criteria (2000) for Infective Endocarditis</span>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="section-bold-title">MAJOR CRITERIA</div>
+                    <ul>
+                        <li><strong>1. Positive Blood Cultures for IE:</strong>
+                            <br>• Typical microorganism from 2 separate blood cultures (Viridans strep, <em>S. gallolyticus</em>, HACEK, <em>S. aureus</em>, community Enterococci); OR
+                            <br>• Persistently positive blood cultures (&ge;2 cultures drawn &gt;12 hours apart, or majority of &ge;4 separate cultures).</li>
+                        <li><strong>2. Evidence of Endocardial Involvement:</strong>
+                            <br>• Positive Echocardiogram (oscillating intracardiac mass/vegetation on valve, perivalvular abscess, or new partial dehiscence of prosthetic valve); OR
+                            <br>• New valvular regurgitation murmur on physical exam; OR
+                            <br>• Abnormal activity around prosthetic valve site on 18F-FDG PET/CT or cardiac CT.</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="section-bold-title">MINOR CRITERIA</div>
+                    <ol>
+                        <li><strong>Predisposition:</strong> Predisposing heart condition (RHD, VSD, prosthetic valve) or IV drug use.</li>
+                        <li><strong>Fever:</strong> Temperature &ge; 38.0°C (100.4°F).</li>
+                        <li><strong>Vascular Phenomena:</strong> Major arterial emboli, septic pulmonary infarcts, mycotic aneurysm, intracranial hemorrhage, Janeway lesions.</li>
+                        <li><strong>Immunologic Phenomena:</strong> Glomerulonephritis, Osler nodes, Roth spots, positive Rheumatoid Factor.</li>
+                        <li><strong>Microbiologic Evidence:</strong> Positive blood culture not meeting major criterion or serologic evidence of active infection.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ Diagnostic Cutoffs for Modified Duke Criteria</div>
+                • <strong>DEFINITIVE IE:</strong> 2 Major Criteria OR 1 Major + 3 Minor Criteria OR 5 Minor Criteria.<br>
+                • <strong>POSSIBLE IE:</strong> 1 Major + 1 Minor Criterion OR 3 Minor Criteria.<br>
+                • <strong>REJECTED IE:</strong> Firm alternative diagnosis OR resolution with &le;4 days of antibiotics OR no pathologic evidence at surgery/autopsy with &le;4 days of antibiotics.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>🔊 Echocardiography & Treatment Guidelines</span>
+            </div>
+
+            <!-- Reconstructed TTE vs TEE Decision Flowchart -->
+            <div class="diagram-container">
+                <div style="font-weight: 700; margin-bottom: 0.8rem;">Echocardiographic Assessment Decision Pathway</div>
+                <div class="diagram-flow">
+                    <div class="diagram-box">
+                        <strong>Suspected IE Patient</strong>
+                    </div>
+                    <div class="diagram-arrow">→</div>
+                    <div class="diagram-box" style="border-color: #dc2626;">
+                        <strong>High Patient Risk / Intracardiac Complications?</strong><br><small>(Prosthetic valve, New Regurgitant Murmur, Heart Failure, ECG Block)</small>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-around; margin-top: 1rem;">
+                    <div style="text-align: center; max-width: 45%;">
+                        <span class="badge badge-red">YES</span>
+                        <div class="diagram-box" style="margin-top:0.5rem; border-color: #dc2626;"><strong>DIRECT TO TEE</strong><br>(Transesophageal Echo)</div>
+                    </div>
+                    <div style="text-align: center; max-width: 45%;">
+                        <span class="badge badge-green">NO (Low Risk)</span>
+                        <div class="diagram-box" style="margin-top:0.5rem; border-color: #16a34a;"><strong>START WITH TTE</strong><br>(Transthoracic 2D Echo)</div>
+                    </div>
+                </div>
+                <div class="diagram-caption">High-risk echo features (&ge;1cm vegetation, perivalvular abscess, acute dysfunction) warrant immediate TEE assessment.</div>
+            </div>
+
+            <div class="section-bold-title">Definitive Antimicrobial Regimens & Durations</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Organism & Susceptibility</th>
+                            <th>Definitive Regimen & Duration</th>
+                            <th>Penicillin-Allergic Alternative</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Penicillin-Susceptible Streptococci / S. gallolyticus</strong> (MIC &le; 0.12 µg/mL)</td>
+                            <td><strong>Penicillin G IV</strong> (12-18 MU/day) x 4 weeks OR <strong>Ceftriaxone 2g IV q24h</strong> x 4 weeks (Shorter 2-week course if combined with Gentamicin)</td>
+                            <td>Vancomycin 15-20 mg/kg IV q8-12h x 4 weeks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Moderately Penicillin-Resistant Streptococci</strong> (MIC &gt; 0.12 to &lt; 0.5 µg/mL)</td>
+                            <td><strong>Penicillin G IV OR Ceftriaxone IV</strong> x 4 weeks PLUS <strong>Gentamicin</strong> x 2 weeks</td>
+                            <td>Vancomycin IV x 4 weeks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Enterococcus faecalis</strong></td>
+                            <td><strong>Ampicillin 2g IV q4h + Ceftriaxone 2g IV q12h</strong> x 6 weeks OR Ampicillin + Gentamicin x 4-6 weeks</td>
+                            <td>Vancomycin IV + Gentamicin IV x 6 weeks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MSSA (Native Valve)</strong></td>
+                            <td><strong>Nafcillin / Oxacillin 2g IV q4h</strong> x 4-6 weeks</td>
+                            <td>Cefazolin 2g IV q8h (non-immediate allergy) OR Vancomycin IV (severe IgE allergy)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MRSA (Native Valve)</strong></td>
+                            <td><strong>Vancomycin 15-20 mg/kg IV q8-12h</strong> x 4-6 weeks (Trough: 15-20 µg/mL) OR Daptomycin</td>
+                            <td>Daptomycin 8-10 mg/kg IV q24h</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card" style="border-left: 5px solid var(--accent-red); margin-top: 1.5rem;">
+                <div class="section-bold-title" style="color: var(--accent-red);">🚨 Indications for Emergency / Urgent Surgical Intervention in IE</div>
+                <ul>
+                    <li><strong>1. ACUTE HEART FAILURE (NUMBER 1 MOST URGENT EMEGENCY INDICATION):</strong> Severe acute aortic or mitral regurgitation leading to pulmonary edema or cardiogenic shock. Immediate valve repair/replacement required.</li>
+                    <li><strong>2. UNCONTROLLED INFECTION:</strong> Perivalvular extension, annular abscess, pseudoaneurysm, new AV conduction block/ECG changes, persistent bacteremia or fever &ge; 5–7 days despite appropriate antibiotics, or fungal/MDR IE.</li>
+                    <li><strong>3. EMBOLISM PREVENTION:</strong> Large vegetation <strong>&ge; 10 mm (&ge; 1 cm)</strong> combined with a prior embolic event or severe valve dysfunction (Urgent 3-5 days).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 6: COMPARISONS ==================== -->
+    <div id="comparisons" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <span>⚖️ High-Yield Side-by-Side Diagnostic Comparisons</span>
+            </div>
+
+            <div class="section-bold-title">1. Erysipelas vs Cellulitis</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Erysipelas</th>
+                            <th>Cellulitis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Anatomic Layer</strong></td>
+                            <td>Upper dermis and superficial lymphatics</td>
+                            <td>Deep dermis and subcutaneous fat layer</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Border Demarcation</strong></td>
+                            <td><strong>Sharply demarcated, well-defined indurated borders</strong></td>
+                            <td><strong>Poorly demarcated, diffuse, blending borders</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary Pathogen</strong></td>
+                            <td>Group A Streptococcus (<em>S. pyogenes</em>)</td>
+                            <td>GAS (non-purulent) or <em>S. aureus</em> (purulent)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Typical Location</strong></td>
+                            <td>Face, lower extremities (common in pediatrics)</td>
+                            <td>Lower limbs, hand, trauma sites (adults/diabetics)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-bold-title">2. Pyogenic vs Amebic Liver Abscess</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Pyogenic Liver Abscess</th>
+                            <th>Amebic Liver Abscess</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Etiology</strong></td>
+                            <td>Polymicrobial enterics (<em>E. coli</em>, <em>Klebsiella</em>, anaerobes)</td>
+                            <td><em>Entamoeba histolytica</em> (protozoan trophozoite)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sex Ratio (M:F)</strong></td>
+                            <td>1:1 (Equal incidence)</td>
+                            <td><strong>5:1 to 18:1 (Striking male predominance - testosterone effect)</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Clinical Pain</strong></td>
+                            <td>Only 50% have RUQ pain; many present with fever alone</td>
+                            <td>Almost always presents with intense RUQ pain & fever</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lab Hallmark</strong></td>
+                            <td>Markedly elevated <strong>Alkaline Phosphatase (ALP)</strong></td>
+                            <td>Positive amebic serology; trophozoites on tissue smear</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aspirate Fluid</strong></td>
+                            <td>Purulent, foul-smelling pus</td>
+                            <td><strong>"Anchovy paste" / chocolate-colored fluid</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary Therapy</strong></td>
+                            <td>Antibiotics + Drainage (if &gt;5cm or Left lobe)</td>
+                            <td>Metronidazole 750mg PO tid x 10d + Luminal agent (No drainage)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-bold-title">3. Primary (SBP) vs Secondary Peritonitis</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Spontaneous / Primary Bacterial Peritonitis</th>
+                            <th>Secondary Peritonitis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Viscus Perforation</strong></td>
+                            <td>ABSENT (Intact mucosal barriers; translocation)</td>
+                            <td><strong>PRESENT (Ruptured organ, trauma, surgical leak)</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Microbiology</strong></td>
+                            <td><strong>Monomicrobial</strong> (<em>E. coli</em>, <em>K. pneumoniae</em>)</td>
+                            <td><strong>Polymicrobial</strong> (Enterics + <em>Bacteroides fragilis</em>)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Anaerobic Coverage</strong></td>
+                            <td><strong>NOT required</strong> (Ascitic fluid is bacteriostatic to B. fragilis)</td>
+                            <td><strong>MANDATORY</strong> (Add Metronidazole to Cephalosporins)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>X-Ray Findings</strong></td>
+                            <td>No free air (Ascites present)</td>
+                            <td><strong>Pneumoperitoneum</strong> (Air under diaphragm)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary Management</strong></td>
+                            <td>Medical management (IV Cefotaxime 5 days)</td>
+                            <td><strong>Immediate Emergency Surgery</strong> + Source Control</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 7: FLASHCARDS ==================== -->
+    <div id="flashcards" class="tab-content">
+        <div class="card" style="text-align: center;">
+            <div class="card-header">
+                <span>🧠 Active-Recall Flashcards (50 Cards)</span>
+                <div style="font-size: 0.85rem; font-family: var(--font-mono);">
+                    Filter: 
+                    <select id="fcFilter" onchange="filterFlashcards()">
+                        <option value="all">All Topics (50)</option>
+                        <option value="SSTI">SSTI & Bites (13)</option>
+                        <option value="Diarrhea">Diarrhea & Food Poisoning (12)</option>
+                        <option value="Intra">Intra-Abdominal (13)</option>
+                        <option value="IE">Infective Endocarditis (12)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard" id="flashcard" onclick="flipCard()">
+                    <div class="card-face card-front">
+                        <span class="card-tag" id="fcTag">SSTI</span>
+                        <div class="card-prompt" id="fcPrompt">Click or press Spacebar to flip</div>
+                        <div class="card-hint">Card <span id="fcIndex">1</span> of <span id="fcTotal">50</span></div>
+                    </div>
+                    <div class="card-face card-back">
+                        <span class="card-tag">ANSWER</span>
+                        <div class="card-prompt" id="fcAnswer">Answer appears here</div>
+                        <div class="card-hint">Click to flip back</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-controls">
+                <button class="btn-fc" onclick="prevCard()">← Previous</button>
+                <button class="btn-fc" onclick="shuffleCards()">🔀 Shuffle</button>
+                <button class="btn-fc" onclick="nextCard()">Next →</button>
+            </div>
+            <div style="margin-top: 0.8rem; font-size: 0.8rem; color: var(--text-muted);">
+                Keyboard Shortcuts: <strong>Space</strong> = Flip | <strong>Left Arrow</strong> = Prev | <strong>Right Arrow</strong> = Next
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 8: SELF-ASSESSMENT ==================== -->
+    <div id="self-assessment" class="tab-content">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <div>
+                    <strong style="font-family: var(--font-heading); font-size: 1.1rem;">📝 Board-Style Self-Assessment Engine</strong>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">50 Comprehensive MCQs with Distractor Rationale</div>
+                </div>
+                <div style="text-align: right;">
+                    <span id="quizScore" style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-blue); font-size: 1.1rem;">Score: 0 / 50</span>
+                    <br>
+                    <button class="btn-copy" onclick="resetQuiz()">Reset Quiz</button>
+                </div>
+            </div>
+
+            <div id="mcqContainer">
+                <!-- MCQs will be populated dynamically via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 9: CRAM SHEET ==================== -->
+    <div id="cramsheet" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <span>⚡ Ultra-Condensed Last-Minute Cram Sheet (&lt;10 Minute Read)</span>
+            </div>
+
+            <div class="cram-grid">
+                <!-- Box 1 -->
+                <div class="cram-box">
+                    <div class="section-bold-title">🚀 "IF YOU SEE X → THINK Y" Clinical Chains</div>
+                    <ul>
+                        <li><strong>Pain out of proportion to PE:</strong> Necrotizing Fasciitis → Urgent Surgical Exploration!</li>
+                        <li><strong>Hyponatremia + Elevated Cr + Bronze skin:</strong> Sepsis from Necrotizing Fasciitis.</li>
+                        <li><strong>Pus when muscle is cut:</strong> <em>Staphylococcus aureus</em> Pyomyositis.</li>
+                        <li><strong>Freshwater trauma + aggressive cellulitis:</strong> <em>Aeromonas hydrophila</em>.</li>
+                        <li><strong>Saltwater / Shellfish + bullae:</strong> <em>Vibrio vulnificus</em>.</li>
+                        <li><strong>Fisherman resistant to Vancomycin:</strong> <em>Erysipelothrix rhusiopathiae</em>.</li>
+                        <li><strong>Sneaker puncture through nail:</strong> <em>Pseudomonas aeruginosa</em>.</li>
+                        <li><strong>Cat bite (&lt;24h onset):</strong> <em>Pasteurella multocida</em> (Co-amoxiclav; NO Clindamycin!).</li>
+                        <li><strong>Human bite + Eikenella:</strong> Resistance to Clindamycin/Metro; Give Amp-sulbactam.</li>
+                        <li><strong>1-6h vomiting after fried rice:</strong> <em>B. cereus</em> emetic toxin (Rehydrate, NO antibiotics).</li>
+                        <li><strong>1-6h vomiting after potato/egg salad:</strong> <em>S. aureus</em> preformed enterotoxin.</li>
+                        <li><strong>Greasy foul stool in stream hiker:</strong> <em>Giardia lamblia</em> → Metronidazole.</li>
+                        <li><strong>SE Asia travel + bloody dysentery:</strong> <em>Campylobacter jejuni</em> → Azithromycin.</li>
+                        <li><strong>RLQ pain mimicking appendicitis:</strong> <em>Yersinia enterocolitica</em> pseudoappendicitis.</li>
+                        <li><strong>Cirrhotic + ascites + ANC ≥ 250:</strong> SBP → Cefotaxime 2g IV (NO anaerobic coverage!).</li>
+                        <li><strong>Air under diaphragm (Pneumoperitoneum):</strong> Perforated viscus / Secondary Peritonitis → SURGERY!</li>
+                        <li><strong>Liver abscess + High ALP + Left Lobe:</strong> Pyogenic Liver Abscess → MANDATORY DRAINAGE!</li>
+                        <li><strong>Male + RUQ pain + "Anchovy paste" pus:</strong> Amebic Liver Abscess → Metronidazole.</li>
+                        <li><strong>Fever + LUQ pain + Splenomegaly:</strong> Splenic Abscess secondary to Infective Endocarditis.</li>
+                        <li><strong>Fever + Back Pain + Limp (Psoas sign):</strong> Psoas Abscess (Primary S. aureus / Secondary TB).</li>
+                        <li><strong>New murmur + Colon Cancer:</strong> <em>Streptococcus gallolyticus</em> (bovis) Endocarditis.</li>
+                        <li><strong>IVDU + Hemoptysis + Pulmonary Infarcts:</strong> Tricuspid Valve <em>S. aureus</em> Endocarditis.</li>
+                        <li><strong>IE + Acute Heart Failure:</strong> EMERGENCY SURGICAL VALVE REPLACEMENT!</li>
+                    </ul>
+                </div>
+
+                <!-- Box 2 -->
+                <div class="cram-box">
+                    <div class="section-bold-title">🎯 Key Numbers & Diagnostic Cutoffs</div>
+                    <ul>
+                        <li><strong>Neutropenia Cutoff:</strong> Absolute Neutrophil Count (ANC) &lt; 500 /µL.</li>
+                        <li><strong>SBP Paracentesis Cutoff:</strong> <strong>ANC ≥ 250 PMNs/µL</strong> is diagnostic.</li>
+                        <li><strong>SBP Low Protein Ascites:</strong> Ascitic protein <strong>&lt; 15 g/L (&lt; 1.5 g/dL)</strong> = Indication for Prophylaxis!</li>
+                        <li><strong>Pyogenic Liver Abscess Drainage Cutoff:</strong> <strong>&gt; 5 cm</strong> in Right Lobe (Left Lobe = Always Drain!).</li>
+                        <li><strong>Splenic Abscess Drainage Cutoff:</strong> <strong>&lt; 4 cm</strong>, solitary, unilocular for percutaneous drainage; else splenectomy.</li>
+                        <li><strong>Psoas Abscess Drainage Cutoff:</strong> <strong>&gt; 5 cm</strong> collection.</li>
+                        <li><strong>Perinephric Abscess Drainage Cutoff:</strong> <strong>&gt; 3–5 cm</strong> collection.</li>
+                        <li><strong>Endocarditis Vegetation Size Cutoff:</strong> <strong>&ge; 10 mm (&ge; 1 cm)</strong> = High risk for systemic embolization; indication for surgery if prior embolus.</li>
+                        <li><strong>Vancomycin Trough Target (SSTI / IE):</strong> <strong>15–20 µg/mL</strong>.</li>
+                    </ul>
+                </div>
+
+                <!-- Box 3 -->
+                <div class="cram-box">
+                    <div class="section-bold-title">💊 Rapid Antimicrobial Drug of Choice (DOC) Matrix</div>
+                    <ul>
+                        <li><strong>Type 1 Nec Fasciitis:</strong> Pip-Tazo + Vancomycin</li>
+                        <li><strong>Type 2 Nec Fasciitis (GAS):</strong> Penicillin G + Clindamycin (toxin block)</li>
+                        <li><strong>Cat / Dog Bite:</strong> Co-amoxiclav PO or Ampicillin-sulbactam IV</li>
+                        <li><strong>Rat Bite Fever:</strong> Penicillin G IV x 10-14 days</li>
+                        <li><strong>Shigellosis / Bacillary Dysentery:</strong> Ciprofloxacin 500mg PO bid</li>
+                        <li><strong>Campylobacter Enteritis:</strong> Azithromycin 500mg PO daily x 3 days</li>
+                        <li><strong>SBP Empiric:</strong> Cefotaxime 2g IV q4-8h (or Ceftriaxone 2g IV)</li>
+                        <li><strong>SBP Prophylaxis:</strong> Norfloxacin 400mg PO daily or Co-trimoxazole</li>
+                        <li><strong>Secondary Peritonitis:</strong> Pip-Tazo OR Ceftriaxone + Metronidazole</li>
+                        <li><strong>Amebic Liver Abscess:</strong> Metronidazole 750mg PO tid + Paromomycin</li>
+                        <li><strong>Infective Endocarditis (Empiric Native):</strong> Vancomycin IV</li>
+                        <li><strong>IE (Enterococcus faecalis):</strong> Ampicillin + Ceftriaxone (6 weeks)</li>
+                        <li><strong>IE (MSSA):</strong> Nafcillin / Oxacillin IV (or Cefazolin)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Vanilla JavaScript Data & Engine -->
+<script>
+    /* Modern Dark Mode Toggle */
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        document.getElementById('themeIcon').textContent = isDark ? '☀️' : '🌙';
+        document.getElementById('themeLabel').textContent = isDark ? 'Light' : 'Dark';
+    }
+
+    /* Smooth Tab Navigation */
+    function switchTab(tabId) {
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => content.classList.remove('active'));
+        
+        const tabs = document.querySelectorAll('.nav-tab');
+        tabs.forEach(tab => tab.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+        
+        // Highlight active tab in nav
+        const tabMap = {
+            'overview': 0, 'ssti': 1, 'diarrhea': 2, 'intra': 3,
+            'ie': 4, 'comparisons': 5, 'flashcards': 6, 'self-assessment': 7, 'cramsheet': 8
+        };
+        if(tabMap[tabId] !== undefined) {
+            tabs[tabMap[tabId]].classList.add('active');
+        }
+
+        // Update Progress Bar
+        const totalTabs = 9;
+        const progress = ((tabMap[tabId] + 1) / totalTabs) * 100;
+        document.getElementById('progressBar').style.width = progress + '%';
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* Scroll Top Button Visibility */
+    window.onscroll = function() {
+        const btn = document.getElementById('scrollTopBtn');
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    };
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* Table Copying Functionality */
+    function copyTable(tableId) {
+        const table = document.getElementById(tableId);
+        let range = document.createRange();
+        range.selectNode(table);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+        alert('Table copied to clipboard!');
+    }
+
+    /* Live Search Filter */
+    function handleSearch() {
+        const query = document.getElementById('globalSearch').value.toLowerCase();
+        if (query.length < 2) return;
+
+        // Highlight matches or search text within cards
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            const text = card.innerText.toLowerCase();
+            if (text.includes(query)) {
+                card.style.display = 'block';
+                card.style.border = '2px solid var(--accent-blue)';
+            } else {
+                card.style.border = '1px solid var(--border-color)';
+            }
+        });
+    }
+
+    /* ==================== FLASHCARDS DATA (50) ==================== */
+    const flashcardData = [
+        // SSTI (13)
+        { tag: "SSTI", q: "What is the key clinical feature that distinguishes erysipelas from cellulitis on physical exam?", a: "Erysipelas has sharply demarcated, well-defined indurated borders, while cellulitis has poorly demarcated, diffuse borders." },
+        { tag: "SSTI", q: "What is the hallmark physical exam finding in Necrotizing Fasciitis?", a: "Severe pain OUT OF PROPORTION to physical examination findings." },
+        { tag: "SSTI", q: "What laboratory triad provides a strong clue for Sepsis secondary to Necrotizing Fasciitis?", a: "Elevated WBC with neutrophilia, Hyponatremia, and Elevated Serum Creatinine (Sepsis-associated AKI)." },
+        { tag: "SSTI", q: "Why is Clindamycin mandatory in Type 2 (GAS) Necrotizing Fasciitis alongside Penicillin G?", a: "Clindamycin acts on ribosomes to suppress exotoxin synthesis (PVL and Streptococcal Pyogenic Exotoxin)." },
+        { tag: "SSTI", q: "What is the first-line antimicrobial regimen for Type 1 (Polymicrobial) Necrotizing Fasciitis?", a: "Piperacillin-Tazobactam 4.5g IV q8h PLUS Vancomycin 15-20 mg/kg IV q8-12h." },
+        { tag: "SSTI", q: "What is the predominant organism causing purulent cellulitis and pyomyositis?", a: "Staphylococcus aureus (specifically MRSA)." },
+        { tag: "SSTI", q: "Which bite pathogen is resistant to Dicloxacillin, Cephalexin, and Clindamycin?", a: "Pasteurella multocida (isolated in 80% of cat bites)." },
+        { tag: "SSTI", q: "What is the empiric drug of choice for cat and dog bite infections per DOH 2018 guidelines?", a: "Co-amoxiclav (Amoxicillin-clavulanic acid) 875/125 mg PO bid or 500/125 mg PO tid." },
+        { tag: "SSTI", q: "Which organism isolated from human bites is resistant to Clindamycin, Metronidazole, and Cephalexin?", a: "Eikenella corrodens (susceptible to Fluoroquinolones and Ampicillin-sulbactam)." },
+        { tag: "SSTI", q: "What organism causes aggressive necrotizing cellulitis after freshwater injury?", a: "Aeromonas hydrophila." },
+        { tag: "SSTI", q: "What organism produces bullous skin lesions and sepsis after marine/shellfish exposure?", a: "Vibrio vulnificus." },
+        { tag: "SSTI", q: "Which organism causing skin infection in fishermen is intrinsically resistant to Vancomycin?", a: "Erysipelothrix rhusiopathiae." },
+        { tag: "SSTI", q: "Is Rabies Post-Exposure Prophylaxis indicated for rat bites?", a: "NO. Rabies PEP is NOT indicated for rat bites per DOH guidelines." },
+
+        // Diarrhea & Food Poisoning (12)
+        { tag: "Diarrhea", q: "What two organisms cause bacterial food poisoning with an incubation period of 1–6 hours?", a: "Staphylococcus aureus and Bacillus cereus (Emetic type)." },
+        { tag: "Diarrhea", q: "What food source is classically associated with Bacillus cereus emetic food poisoning?", a: "Fried rice / Re-heated rice." },
+        { tag: "Diarrhea", q: "Why are antibiotics ineffective for food poisoning presenting 1–6 hours after food intake?", a: "The illness is caused by preformed bacterial enterotoxins; antibiotics cannot neutralize toxins." },
+        { tag: "Diarrhea", q: "Which organisms cause food poisoning with an incubation period of 8–16 hours?", a: "Clostridium perfringens and Bacillus cereus (Diarrheal type)." },
+        { tag: "Diarrhea", q: "What is the single most common cause of Traveler's Diarrhea worldwide?", a: "Enterotoxigenic E. coli (ETEC)." },
+        { tag: "Diarrhea", q: "Which E. coli strain causes bloody diarrhea without fever or fecal WBCs, and risks HUS?", a: "Enterohemorrhagic E. coli (EHEC / STEC O157:H7)." },
+        { tag: "Diarrhea", q: "What is the selective isolation culture medium for Vibrio cholerae?", a: "TCBS Agar (Thiosulfate-Citrate-Bile Salts-Sucrose)." },
+        { tag: "Diarrhea", q: "What selective culture media are used for Salmonella and Shigella?", a: "XLD (Xylose-Lysine-Deoxycholate) Agar and Hektoen Enteric Agar." },
+        { tag: "Diarrhea", q: "Which antibiotic is preferred for severe Campylobacter jejuni enteritis in SE Asia?", a: "Azithromycin 500mg PO daily x 3 days (due to high fluoroquinolone resistance)." },
+        { tag: "Diarrhea", q: "What parasitic cause of diarrhea affects stream hikers, producing greasy, bulky, foul stool?", a: "Giardia lamblia (DOC: Metronidazole)." },
+        { tag: "Diarrhea", q: "Which organism causes RLQ colitis mimicking acute appendicitis (pseudoappendicitis)?", a: "Yersinia enterocolitica." },
+        { tag: "Diarrhea", q: "What symptom represents painful rectal spasms with little stool passage in dysentery?", a: "Tenesmus (hallmark of Shigellosis or Amebic colitis)." },
+
+        // Intra-Abdominal Infections (13)
+        { tag: "Intra", q: "What is the paracentesis Absolute Neutrophil Count (ANC) cutoff diagnostic for SBP?", a: "ANC ≥ 250 PMNs/µL." },
+        { tag: "Intra", q: "Why is anaerobic coverage NOT required in Spontaneous Bacterial Peritonitis (SBP)?", a: "Ascitic fluid is bacteriostatic to Bacteroides fragilis, and high PO2 prevents anaerobic growth." },
+        { tag: "Intra", q: "What is the empiric first-line antibiotic for SBP per DOH 2018 guidelines?", a: "Cefotaxime 2g IV q4-8h (or Ceftriaxone 2g IV q24h) for 5 days." },
+        { tag: "Intra", q: "What ascitic fluid protein level indicates a high risk for SBP warranting prophylaxis?", a: "Low protein ascites (<15 g/L or <1.5 g/dL)." },
+        { tag: "Intra", q: "What is the pathognomonic X-ray finding in Secondary Peritonitis?", a: "Pneumoperitoneum (Air under the diaphragm on upright CXR) = Immediate Surgical Emergency." },
+        { tag: "Intra", q: "What is the microbiology difference between SBP and Secondary Peritonitis?", a: "SBP is MONOMICROBIAL (enterics); Secondary Peritonitis is POLYMICROBIAL (enterics + B. fragilis)." },
+        { tag: "Intra", q: "Which liver enzyme is markedly and characteristically elevated in Pyogenic Liver Abscess?", a: "Alkaline Phosphatase (ALP)." },
+        { tag: "Intra", q: "What is the drainage management rule for a Pyogenic Liver Abscess in the Left Lobe?", a: "MANDATORY DRAINAGE regardless of size! (Risk of rupture into pericardium → Purulent Pericarditis)." },
+        { tag: "Intra", q: "What is the size cutoff for percutaneous drainage of a Right Lobe Pyogenic Liver Abscess?", a: "Greater than 5 cm (>5 cm)." },
+        { tag: "Intra", q: "What is the striking male-to-female ratio in Amebic Liver Abscess, and why?", a: "5:1 to 18:1 male predominance, due to testosterone effects and immune response differences." },
+        { tag: "Intra", q: "What is the drug of choice for Amebic Liver Abscess?", a: "Metronidazole 750mg PO/IV tid for 7–10 days PLUS a luminal agent (e.g., Paromomycin)." },
+        { tag: "Intra", q: "What is the classic physical triad of a Psoas Abscess?", a: "Fever + Lower Back/Flank Pain + Limp / Painful Hip Movement (Positive Psoas Sign)." },
+        { tag: "Intra", q: "What underlying condition is classic for Splenic Abscess formation?", a: "Infective Endocarditis with bacteremia and septic arterial embolization." },
+
+        // Infective Endocarditis (12)
+        { tag: "IE", q: "Which bacterial pathogen can infect NORMAL, UNDAMAGED heart valves?", a: "Staphylococcus aureus." },
+        { tag: "IE", q: "Isolation of Streptococcus gallolyticus (bovis) in blood cultures requires what evaluation?", a: "Colonoscopy to evaluate for underlying colonic malignancy / colon cancer." },
+        { tag: "IE", q: "What are Janeway lesions, and what organism are they classic for?", a: "Non-tender, erythematous macules on palms/soles caused by septic microemboli from S. aureus." },
+        { tag: "IE", q: "What are Osler nodes?", a: "Painful, tender, raised erythematous nodules on pads of fingers/toes (immunologic phenomenon)." },
+        { tag: "IE", q: "What are the requirements for Definitive IE diagnosis using Modified Duke Criteria?", a: "2 Major Criteria OR 1 Major + 3 Minor Criteria OR 5 Minor Criteria." },
+        { tag: "IE", q: "When should a clinician proceed DIRECTLY to Transesophageal Echo (TEE) instead of TTE?", a: "High initial risk (prosthetic valve, complex heart disease) or intracardiac complications (new murmur, heart failure, ECG block)." },
+        { tag: "IE", q: "What is the empiric first-line antibiotic regimen for Native Valve Endocarditis?", a: "Vancomycin IV (Target trough: 15–20 µg/mL)." },
+        { tag: "IE", q: "What is the treatment duration for Enterococcus faecalis endocarditis using Ampicillin + Ceftriaxone?", a: "6 weeks." },
+        { tag: "IE", q: "What is the drug of choice for MSSA Native Valve Endocarditis?", a: "Nafcillin or Oxacillin 2g IV q4h for 4–6 weeks (or Cefazolin)." },
+        { tag: "IE", q: "What is the NUMBER ONE most urgent emergent indication for surgery in Infective Endocarditis?", a: "ACUTE HEART FAILURE due to severe valve dysfunction / regurgitation." },
+        { tag: "IE", q: "What vegetation size combined with a prior embolic event warrants urgent surgical referral?", a: "Vegetation size ≥ 10 mm (≥ 1 cm)." },
+        { tag: "IE", q: "What right-sided heart valve is most commonly affected in IV drug users with endocarditis?", a: "Tricuspid Valve (presenting with septic pulmonary infarcts)." }
+    ];
+
+    let currentFcIndex = 0;
+    let filteredFc = [...flashcardData];
+
+    function renderFlashcard() {
+        const card = filteredFc[currentFcIndex];
+        document.getElementById('fcTag').textContent = card.tag;
+        document.getElementById('fcPrompt').textContent = card.q;
+        document.getElementById('fcAnswer').textContent = card.a;
+        document.getElementById('fcIndex').textContent = currentFcIndex + 1;
+        document.getElementById('fcTotal').textContent = filteredFc.length;
+        document.getElementById('flashcard').classList.remove('flipped');
+    }
+
+    function flipCard() {
+        document.getElementById('flashcard').classList.toggle('flipped');
+    }
+
+    function nextCard() {
+        currentFcIndex = (currentFcIndex + 1) % filteredFc.length;
+        renderFlashcard();
+    }
+
+    function prevCard() {
+        currentFcIndex = (currentFcIndex - 1 + filteredFc.length) % filteredFc.length;
+        renderFlashcard();
+    }
+
+    function shuffleCards() {
+        for (let i = filteredFc.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [filteredFc[i], filteredFc[j]] = [filteredFc[j], filteredFc[i]];
+        }
+        currentFcIndex = 0;
+        renderFlashcard();
+    }
+
+    function filterFlashcards() {
+        const cat = document.getElementById('fcFilter').value;
+        if (cat === 'all') {
+            filteredFc = [...flashcardData];
+        } else {
+            filteredFc = flashcardData.filter(item => item.tag === cat);
+        }
+        currentFcIndex = 0;
+        renderFlashcard();
+    }
+
+    /* Keyboard listener for flashcards */
+    document.addEventListener('keydown', function(e) {
+        if (document.getElementById('flashcards').classList.contains('active')) {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                flipCard();
+            } else if (e.code === 'ArrowRight') {
+                nextCard();
+            } else if (e.code === 'ArrowLeft') {
+                prevCard();
+            }
+        }
+    });
+
+    /* ==================== MCQS DATA (50) ==================== */
+    const mcqData = [
+        // SSTI (13)
+        {
+            q: "1. A 54-year-old diabetic male presents with right foot pain, high fever (40°C), and confusion 24 hours after stepping on a rusted nail. Physical exam shows dark bronze skin discoloration, hemorrhagic bullae, and crepitus. BP is 90/50 mmHg. What is the NEXT best step in management?",
+            options: [
+                "A. Request STAT MRI of the foot to evaluate fascial involvement",
+                "B. Obtain blood cultures and wait for sensitivity results before intervention",
+                "C. Start oral Clindamycin and discharge with close follow-up",
+                "D. Refer immediately to Surgery service for urgent surgical exploration and debridement"
+            ],
+            correct: 3,
+            rationale: "Correct Answer: D. Necrotizing fasciitis is a surgical emergency! Clinical clue is rapid bronze skin discoloration, crepitus, and systemic shock. Surgical exploration confirms diagnosis and source control.<br>• Distractor A is WRONG because imaging must never delay urgent surgery.<br>• Distractor B is WRONG because delaying intervention for cultures leads to high mortality.<br>• Distractor C is WRONG because oral outpatient antibiotics are entirely inadequate for septic shock and deep fascial necrosis."
+        },
+        {
+            q: "2. A 34-year-old female presents with increasing right hand pain, swelling, and mild purulent drainage 24 hours after being bitten by her pet cat. There is no crepitus or bullae. What is the most appropriate first-line oral antibiotic regimen per DOH 2018 guidelines?",
+            options: [
+                "A. Oral Cephalexin 500mg QID",
+                "B. Oral Clindamycin 300mg QID",
+                "C. Oral Amoxicillin-Clavulanic Acid (Co-amoxiclav) 875/125mg BID",
+                "D. Oral Dicloxacillin 500mg QID"
+            ],
+            correct: 2,
+            rationale: "Correct Answer: C. Per DOH 2018 guidelines, Co-amoxiclav is the 1st line empiric drug for cat bites covering Pasteurella multocida and S. aureus.<br>• Distractor A is WRONG because P. multocida is intrinsically RESISTANT to Cephalexin.<br>• Distractor B is WRONG because P. multocida is intrinsically RESISTANT to Clindamycin.<br>• Distractor C is WRONG because P. multocida is intrinsically RESISTANT to Dicloxacillin."
+        },
+        {
+            q: "3. A 46-year-old male is diagnosed with Type 2 (GAS) Necrotizing Fasciitis. In addition to high-dose Penicillin G IV, Clindamycin IV is added to the regimen. What is the primary mechanism and reason for adding Clindamycin?",
+            options: [
+                "A. To provide coverage against Gram-negative Enterobacterales",
+                "B. To suppress streptococcal exotoxin production at the ribosomal level",
+                "C. To prevent secondary fungal superinfections",
+                "D. To act synergistically in destroying the cell wall of Enterococcus"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Clindamycin is an 50S ribosomal inhibitor that suppresses synthesis of streptococcal pyogenic exotoxins and Panton-Valentine Leukocidin (PVL).<br>• Distractor A is WRONG because Clindamycin has no activity against Gram-negative bacilli.<br>• Distractor C is WRONG because Clindamycin is an antibacterial, not an antifungal.<br>• Distractor D is WRONG because this describes cell wall synergism for Enterococci (e.g. Ampicillin + Gentamicin)."
+        },
+        {
+            q: "4. A 28-year-old fisherman presents with a well-demarcated violaceous skin lesion on his hand after handling raw fish. Culture reveals Erysipelothrix rhusiopathiae. Which of the following antibiotics will FAIL due to intrinsic bacterial resistance?",
+            options: [
+                "A. Penicillin VK",
+                "B. Cefazolin",
+                "C. Ciprofloxacin",
+                "D. Vancomycin"
+            ],
+            correct: 3,
+            rationale: "Correct Answer: D. Erysipelothrix rhusiopathiae is a Gram-positive rod intrinsically RESISTANT to Vancomycin, Cotrimoxazole, and Chloramphenicol.<br>• Distractor A is WRONG because Erysipelothrix is highly sensitive to Penicillins.<br>• Distractor B is WRONG because Cephalosporins are effective.<br>• Distractor C is WRONG because Fluoroquinolones exhibit good in vitro activity."
+        },
+        {
+            q: "5. A patient presents with facial erythema featuring sharply demarcated, raised, indurated borders. What is the most likely diagnosis and primary pathogen?",
+            options: [
+                "A. Deep Cellulitis caused by Staphylococcus aureus",
+                "B. Erysipelas caused by Group A Streptococcus (S. pyogenes)",
+                "C. Pyomyositis caused by Coxsackie B virus",
+                "D. Ecthyma gangrenosum caused by Pseudomonas aeruginosa"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Erysipelas is a superficial dermal infection characterized by sharply demarcated, well-defined indurated borders, caused primarily by GAS.<br>• Distractor A is WRONG because cellulitis has poorly demarcated borders.<br>• Distractor C is WRONG because pyomyositis involves deep muscle pus.<br>• Distractor D is WRONG because ecthyma gangrenosum produces necrotic ulcers in neutropenic patients."
+        },
+        {
+            q: "6. A patient who sustained a punch injury to an opponent's teeth (clenched-fist human bite) develops hand infection. Cultures yield Eikenella corrodens. Which antibiotic regimen is MOST appropriate?",
+            options: [
+                "A. Clindamycin IV monotherapy",
+                "B. Metronidazole IV monotherapy",
+                "C. Ampicillin-Sulbactam IV",
+                "D. Cefazolin IV monotherapy"
+            ],
+            correct: 2,
+            rationale: "Correct Answer: C. Eikenella corrodens is resistant to Clindamycin, Metronidazole, and 1st gen Cephalosporins, but highly susceptible to Beta-lactamase inhibitor combinations (Ampicillin-sulbactam).<br>• Distractors A, B, and D are WRONG because Eikenella is intrinsically resistant to all three."
+        },
+        {
+            q: "7. A 60-year-old diabetic male presents with a large carbuncle on his upper back. Surgical incision yields abundant frank pus. What is the most likely etiologic agent?",
+            options: [
+                "A. Streptococcus pyogenes",
+                "B. Staphylococcus aureus",
+                "C. Pseudomonas aeruginosa",
+                "D. Clostridium perfringens"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Staphylococcus aureus is the classic pyogenic (pus-forming) organism responsible for furuncles, carbuncles, and abscesses.<br>• Distractor A is WRONG because GAS typically causes non-purulent, spreading inflammation.<br>• Distractors C & D produce non-purulent necrotizing lesions or gas gangrene."
+        },
+        {
+            q: "8. A child presents with nonbullous impetigo featuring honey-colored crusted lesions around the mouth. What is the primary etiologic agent?",
+            options: [
+                "A. Streptococcus pyogenes (GAS)",
+                "B. Staphylococcus epidermidis",
+                "C. Propionibacterium acnes",
+                "D. Haemophilus influenzae"
+            ],
+            correct: 0,
+            rationale: "Correct Answer: A. Nonbullous impetigo with honey-colored crusts is caused by Group A Streptococcus (S. pyogenes). Bullous impetigo is caused by S. aureus."
+        },
+        {
+            q: "9. A 22-year-old male presents with deep quadriceps muscle pain, fever, and leukocytosis. MRI shows fluid accumulation within the muscle belly. Needle aspiration yields purulent material. What is this condition?",
+            options: [
+                "A. Viral Myositis",
+                "B. Pyomyositis caused by S. aureus",
+                "C. Necrotizing Fasciitis",
+                "D. Erysipelas"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Pyomyositis is pus accumulation in muscle tissue, overwhelmingly caused by Staphylococcus aureus."
+        },
+        {
+            q: "10. What is the empiric first-line intravenous antibiotic regimen for Type 1 (Mixed Aerobic-Anaerobic) Necrotizing Fasciitis?",
+            options: [
+                "A. Cefazolin 1g IV q8h",
+                "B. Piperacillin-Tazobactam 4.5g IV q8h + Vancomycin 15-20 mg/kg IV q8-12h",
+                "C. Penicillin G 4 MU IV q4h alone",
+                "D. Metronidazole 500mg IV q8h alone"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Type 1 Nec Fasciitis requires broad Gram-negative, Gram-positive, MRSA, and anaerobic coverage with Pip-Tazo + Vancomycin."
+        },
+        {
+            q: "11. A patient presents with a rat bite wound. He is asymptomatic. What is the recommended prophylactic regimen per DOH guidelines?",
+            options: [
+                "A. Administer Rabies Post-Exposure Prophylaxis immediately",
+                "B. Amoxicillin 25-50 mg/kg/day PO for 3 days",
+                "C. Vancomycin IV for 14 days",
+                "D. No intervention or antibiotics needed"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Asymptomatic rat bites require oral Amoxicillin prophylaxis for 3 days. Rabies PEP is NOT indicated for rat bites."
+        },
+        {
+            q: "12. A trauma patient who fell into a saltwater bay presents with rapidly progressive hemorrhagic bullae and septic shock. What pathogen should be suspected?",
+            options: [
+                "A. Vibrio vulnificus",
+                "B. Aeromonas hydrophila",
+                "C. Streptococcus agalactiae",
+                "D. Pasteurella multocida"
+            ],
+            correct: 0,
+            rationale: "Correct Answer: A. Saltwater/marine exposure + bullous skin necrosis + sepsis is classic for Vibrio vulnificus. (Freshwater = Aeromonas)."
+        },
+        {
+            q: "13. What is the target serum Vancomycin trough concentration for severe SSTI or Necrotizing Fasciitis?",
+            options: [
+                "A. 5–10 µg/mL",
+                "B. 10–12 µg/mL",
+                "C. 15–20 µg/mL",
+                "D. 25–30 µg/mL"
+            ],
+            correct: 2,
+            rationale: "Correct Answer: C. Target trough concentration for severe MRSA infections, Nec Fasciitis, and Endocarditis is 15–20 µg/mL."
+        },
+
+        // Diarrhea (12)
+        {
+            q: "14. A 38-year-old male develops 10 episodes of severe vomiting and watery diarrhea 4 hours after eating potato salad at a picnic. Vital signs show mild tachycardia. What is the most likely pathogen?",
+            options: [
+                "A. Vibrio cholerae",
+                "B. Preformed enterotoxin of Staphylococcus aureus",
+                "C. Clostridium perfringens",
+                "D. Enterohemorrhagic E. coli"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Incubation <6 hours with acute vomiting after potato/egg salad/mayo is classic for S. aureus preformed enterotoxin."
+        },
+        {
+            q: "15. A group of college students develop acute nausea and vomiting 2 hours after eating re-heated fried rice at a buffet. What is the culprit?",
+            options: [
+                "A. Bacillus cereus (Emetic type)",
+                "B. Bacillus cereus (Diarrheal type)",
+                "C. Salmonella enteritidis",
+                "D. Shigella flexneri"
+            ],
+            correct: 0,
+            rationale: "Correct Answer: A. B. cereus emetic toxin produces short incubation (1-6h) vomiting associated with fried rice."
+        },
+        {
+            q: "16. A hiker returning from the mountains presents with 3 weeks of greasy, foul-smelling, bulky diarrhea and abdominal distention after drinking stream water. Stool shows no WBCs. What is the DOC?",
+            options: [
+                "A. Ciprofloxacin",
+                "B. Metronidazole",
+                "C. Azithromycin",
+                "D. Vancomycin"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Giardiasis presents with greasy, foul stool in stream drinkers. Drug of choice is Metronidazole."
+        },
+        {
+            q: "17. A patient with HIV and low CD4 count presents with chronic, high-volume watery diarrhea. Stool acid-fast stain reveals oocysts. What is the organism?",
+            options: [
+                "A. Cryptosporidium",
+                "B. Entamoeba histolytica",
+                "C. Shigella dysenteriae",
+                "D. Clostridioides difficile"
+            ],
+            correct: 0,
+            rationale: "Correct Answer: A. Cryptosporidium causes voluminous watery diarrhea in immunocompromised/PLHIV patients."
+        },
+        {
+            q: "18. A traveler returning from Thailand presents with fever, severe abdominal cramps, and inflammatory bloody diarrhea. What is the preferred empiric antibiotic?",
+            options: [
+                "A. Ciprofloxacin 500mg PO BID",
+                "B. Azithromycin 500mg PO daily for 3 days",
+                "C. Metronidazole 500mg PO TID",
+                "D. Rifaximin 200mg PO TID"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Campylobacter jejuni is prevalent in SE Asia and exhibits high fluoroquinolone resistance; Azithromycin is preferred."
+        },
+        {
+            q: "19. What selective agar medium is specifically used to isolate Vibrio cholerae from stool samples?",
+            options: [
+                "A. MacConkey Agar",
+                "B. Thiosulfate-Citrate-Bile Salts-Sucrose (TCBS) Agar",
+                "C. Xylose-Lysine-Deoxycholate (XLD) Agar",
+                "D. Sabouraud Dextrose Agar"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. TCBS Agar is the selective isolation medium for Vibrio cholerae."
+        },
+        {
+            q: "20. What selective culture media are standard for isolating Salmonella and Shigella?",
+            options: [
+                "A. XLD Agar and Hektoen Enteric Agar",
+                "B. TCBS Agar and Skirrow Medium",
+                "C. Blood Agar and Chocolate Agar",
+                "D. Lowenstein-Jensen Medium"
+            ],
+            correct: 0,
+            rationale: "Correct Answer: A. XLD and Hektoen enteric agar isolate Salmonella and Shigella species."
+        },
+        {
+            q: "21. A patient presents with acute bloody diarrhea and severe abdominal cramps after eating undercooked ground beef. Fecal WBCs are ABSENT. What organism and severe complication are associated?",
+            options: [
+                "A. Shigella dysenteriae → Toxic Megacolon",
+                "B. EHEC O157:H7 → Hemolytic Uremic Syndrome (HUS)",
+                "C. ETEC → Hypovolemic Shock",
+                "D. Salmonella typhi → Intestinal Perforation"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. EHEC (STEC O157:H7) produces Shiga toxin causing bloody diarrhea without fecal WBCs, linked to HUS."
+        },
+        {
+            q: "22. A child presents with right lower quadrant abdominal pain, fever, and inflammatory diarrhea. Ultrasound shows terminal ileitis and mesenteric adenitis. What organism causes this pseudoappendicitis?",
+            options: [
+                "A. Yersinia enterocolitica",
+                "B. Helicobacter pylori",
+                "C. Vibrio parahaemolyticus",
+                "D. Enterococcus faecalis"
+            ],
+            correct: 0,
+            rationale: "Correct Answer: A. Yersinia enterocolitica causes RLQ ileocecal colitis/adenitis mimicking acute appendicitis."
+        },
+        {
+            q: "23. What term describes painful rectal spasms with frequent urge but passage of little stool?",
+            options: [
+                "A. Dysphagia",
+                "B. Borborygmi",
+                "C. Tenesmus",
+                "D. Steatorrhea"
+            ],
+            correct: 2,
+            rationale: "Correct Answer: C. Tenesmus is painful rectal tenesmus, characteristic of dysentery (Shigella / Amebiasis)."
+        },
+        {
+            q: "24. Food poisoning occurring 8-16 hours after consuming reheated meat and gravies is primarily caused by:",
+            options: [
+                "A. Clostridium perfringens",
+                "B. Staphylococcus aureus",
+                "C. Vibrio vulnificus",
+                "D. Rotavirus"
+            ],
+            correct: 0,
+            rationale: "Correct Answer: A. C. perfringens has an 8-16h incubation, producing watery diarrhea and cramps after eating gravies/meats."
+        },
+        {
+            q: "25. What is the single most important component of managing 1-6 hour toxin-mediated bacterial food poisoning?",
+            options: [
+                "A. High-dose Intravenous Ciprofloxacin",
+                "B. Fluid and electrolyte rehydration therapy",
+                "C. Empiric Metronidazole",
+                "D. Immediate surgical exploration"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Toxin-mediated food poisoning requires fluid/electrolyte replacement; antibiotics have no role."
+        },
+
+        // Intra-Abdominal (13)
+        {
+            q: "26. A 47-year-old cirrhotic male presents with fever, diffuse abdominal tenderness, and ascites. Paracentesis reveals 1,000 WBCs/µL with 80% PMNs. What is the ANC and management?",
+            options: [
+                "A. ANC = 80 PMNs/µL; Do not treat",
+                "B. ANC = 800 PMNs/µL; Start IV Cefotaxime 2g",
+                "C. ANC = 800 PMNs/µL; Start IV Metronidazole + Vancomycin",
+                "D. ANC = 1000 PMNs/µL; Refer for urgent laparotomy"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. ANC = 1,000 × 80% = 800 PMNs/µL (≥250 cutoff for SBP). DOC is IV Cefotaxime. Anaerobic coverage is NOT needed."
+        },
+        {
+            q: "27. Why is empiric anaerobic antibiotic coverage NOT required when treating Spontaneous Bacterial Peritonitis (SBP)?",
+            options: [
+                "A. Anaerobes never infect the abdominal cavity",
+                "B. Ascitic fluid is bacteriostatic to B. fragilis and high PO2 inhibits anaerobes",
+                "C. Cefotaxime naturally kills all obligate anaerobes",
+                "D. SBP is caused strictly by Staphylococcus aureus"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Peritoneal fluid has intrinsic bacteriostatic action against B. fragilis and high PO2 prevents obligate anaerobic growth."
+        },
+        {
+            q: "28. A cirrhotic patient with ascites undergoes paracentesis showing ANC = 120 PMNs/µL. Ascitic culture grows E. coli. The patient has fever and abdominal pain. What is the diagnosis and management?",
+            options: [
+                "A. Asymptomatic Bacterascites; Do not treat",
+                "B. Monomicrobial Non-neutrocytic Bacterascites; TREAT with antibiotics",
+                "C. Secondary Peritonitis; Send for surgery",
+                "D. Culture-negative neutrocytic ascites; Observe"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Symptomatic monomicrobial non-neutrocytic bacterascites requires antibiotic treatment despite ANC <250."
+        },
+        {
+            q: "29. An upright chest X-ray of a trauma patient with severe abdominal pain demonstrates air under the diaphragm (pneumoperitoneum). What is the diagnosis and immediate step?",
+            options: [
+                "A. Primary Bacterial Peritonitis; Start IV Cefotaxime",
+                "B. Secondary Peritonitis from perforated viscus; Immediate Surgical Emergency",
+                "C. Amebic Liver Abscess; Start Metronidazole",
+                "D. Splenic Abscess; Schedule elective CT"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Pneumoperitoneum indicates perforated hollow viscus (Secondary Peritonitis), requiring immediate emergency surgery."
+        },
+        {
+            q: "30. Which of the following cirrhotic patients has an explicit indication for long-term SBP antibiotic prophylaxis?",
+            options: [
+                "A. Ascitic fluid protein level of 25 g/L",
+                "B. Patient admitted with acute variceal upper GI bleeding",
+                "C. Serum Sodium of 142 mEq/L",
+                "D. Child-Pugh Score of 5 (Class A)"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Acute GI/variceal bleeding in cirrhosis is a high-yield indication for SBP prophylaxis (Norfloxacin or Ceftriaxone)."
+        },
+        {
+            q: "31. Ultrasound of a febrile diabetic male shows a 6-cm hypoechoic lesion in the LEFT lobe of the liver. CT confirms a rim-enhancing pyogenic abscess. What is the management rule?",
+            options: [
+                "A. Treat with oral antibiotics alone since it is in the liver",
+                "B. MANDATORY DRAINAGE regardless of size due to risk of purulent pericarditis",
+                "C. Perform splenectomy immediately",
+                "D. Observe for 2 weeks before re-imaging"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Left lobe liver abscesses must ALWAYS be drained regardless of size, due to proximity to the pericardium."
+        },
+        {
+            q: "32. A 35-year-old male presents with fever and RUQ pain. Aspiration of a solitary right hepatic lobe abscess yields 'anchovy paste' brown fluid. Serology for Entamoeba histolytica is positive. What is the DOC?",
+            options: [
+                "A. IV Vancomycin",
+                "B. Metronidazole 750mg PO TID for 10 days PLUS a luminal agent",
+                "C. Immediate open surgical drainage",
+                "D. Ciprofloxacin monotherapy"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Amebic liver abscess is treated medically with Metronidazole + Luminal agent (Paromomycin). Surgery is rarely needed."
+        },
+        {
+            q: "33. What laboratory test abnormality is most consistently and characteristically elevated in Pyogenic Liver Abscess?",
+            options: [
+                "A. Serum Amylase",
+                "B. Alkaline Phosphatase (ALP)",
+                "C. Blood Urea Nitrogen",
+                "D. Serum Creatine Kinase"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Elevated Alkaline Phosphatase (ALP) is highly associated with pyogenic liver abscess."
+        },
+        {
+            q: "34. A patient with Infective Endocarditis presents with LUQ abdominal pain, fever, and splenomegaly. CT reveals a 3-cm solitary unilocular splenic collection. What is the optimal treatment?",
+            options: [
+                "A. Total Splenectomy",
+                "B. Antibiotics PLUS Percutaneous Drainage",
+                "C. Metronidazole monotherapy",
+                "D. Paracentesis"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Solitary, unilocular splenic abscesses <4 cm can be managed with antibiotics + percutaneous drainage."
+        },
+        {
+            q: "35. A diabetic patient presents with fever, lower back pain, and a limp. Passive extension of the right hip produces severe pain (positive Psoas sign). CT shows an 6-cm psoas collection. What is the management?",
+            options: [
+                "A. Percutaneous drainage PLUS IV antibiotics targeting S. aureus / enterics",
+                "B. Oral Analgesics alone",
+                "C. Immediate Appendectomy",
+                "D. Lumbar Spine Fusion"
+            ],
+            correct: 0,
+            rationale: "Correct Answer: A. Psoas abscess >5cm requires image-guided drainage + broad spectrum IV antibiotics."
+        },
+        {
+            q: "36. A diabetic female treated for UTI 5 days ago remains febrile with flank pain and costovertebral angle tenderness. CT shows a 5-cm fluid collection surrounding the right kidney within Gerota's fascia. Diagnosis?",
+            options: [
+                "A. Acute Cystitis",
+                "B. Perinephric Abscess secondary to ascending uropathogen",
+                "C. Amebic Liver Abscess",
+                "D. Psoas Abscess"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Fluid collection between renal capsule and Gerota's fascia non-responsive to simple UTI therapy is a Perinephric Abscess."
+        },
+        {
+            q: "37. What pathogen causes primary hematogenous psoas abscesses in IV drug users?",
+            options: [
+                "A. Staphylococcus aureus",
+                "B. Bacteroides fragilis",
+                "C. Enterobius vermicularis",
+                "D. Giardia lamblia"
+            ],
+            correct: 0,
+            rationale: "Correct Answer: A. Primary hematogenous psoas abscesses are caused by Staphylococcus aureus."
+        },
+        {
+            q: "38. Subacute or chronic psoas abscesses in endemic areas with spinal involvement (Pott's disease) are caused by:",
+            options: [
+                "A. Mycobacterium tuberculosis",
+                "B. Streptococcus pneumoniae",
+                "C. Neisseria meningitidis",
+                "D. Dengue Virus"
+            ],
+            correct: 0,
+            rationale: "Correct Answer: A. Tuberculous spondylitis (Pott's disease) leads to secondary tuberculous psoas abscesses."
+        },
+
+        // IE (12)
+        {
+            q: "39. A 65-year-old male with a new grade 2/6 diastolic murmur and fever has blood cultures positive for Streptococcus gallolyticus (S. bovis). What diagnostic follow-up is mandatory?",
+            options: [
+                "A. Bronchoscopy",
+                "B. Colonoscopy to screen for colonic malignancy",
+                "C. Diagnostic Paracentesis",
+                "D. Brain MRI"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Streptococcus gallolyticus bacteremia/endocarditis has a strong association with colonic polyps and colon cancer."
+        },
+        {
+            q: "40. Which microorganism can cause infective endocarditis on completely NORMAL, undamaged heart valves?",
+            options: [
+                "A. Viridans Group Streptococci",
+                "B. Staphylococcus aureus",
+                "C. HACEK organisms",
+                "D. Enterococcus faecalis"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. S. aureus possesses aggressive virulence factors allowing it to adhere to and destroy undamaged valve endothelium."
+        },
+        {
+            q: "41. A patient with fever presents with non-tender erythematous macules on his palms and soles. What are these lesions called, and what do they represent?",
+            options: [
+                "A. Osler Nodes (Immunologic complex deposition)",
+                "B. Janeway Lesions (Septic microemboli from S. aureus endocarditis)",
+                "C. Roth Spots (Retinal hemorrhage)",
+                "D. Splinter Hemorrhages"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Janeway lesions are non-tender palmar/plantar macules caused by septic emboli in S. aureus IE. Osler nodes are tender."
+        },
+        {
+            q: "42. According to Modified Duke Criteria (2000), which of the following satisfies the requirements for DEFINITIVE Infective Endocarditis?",
+            options: [
+                "A. 1 Major Criterion + 1 Minor Criterion",
+                "B. 2 Major Criteria",
+                "C. 2 Minor Criteria",
+                "D. Resolution of illness after 2 days of antibiotics"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Definitive IE requires 2 Major, 1 Major + 3 Minor, or 5 Minor criteria."
+        },
+        {
+            q: "43. A patient with suspected IE has a new regurgitant murmur and acute heart failure. What echocardiographic approach should be ordered FIRST?",
+            options: [
+                "A. Transthoracic 2D Echo (TTE) and wait 1 week",
+                "B. Direct Transesophageal Echocardiogram (TEE)",
+                "C. Exercise Stress Test Echo",
+                "D. No Echo needed"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Patients with high initial risk or intracardiac complications (heart failure, new regurgitant murmur) go directly to TEE."
+        },
+        {
+            q: "44. What is the NUMBER ONE, most urgent emergent indication for surgical valve replacement in Infective Endocarditis?",
+            options: [
+                "A. Presence of Janeway lesions",
+                "B. Acute Heart Failure secondary to severe valvular regurgitation",
+                "C. Low-grade fever lasting 2 days",
+                "D. Positive Rheumatoid Factor"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Acute Heart Failure from valve destruction is the single most urgent emergency surgical indication in IE."
+        },
+        {
+            q: "45. An IV drug user presents with fever, dyspnea, and hemoptysis. Chest X-ray shows multiple bilateral cavity lesions. Which heart valve is most likely infected?",
+            options: [
+                "A. Mitral Valve",
+                "B. Aortic Valve",
+                "C. Tricuspid Valve",
+                "D. Pulmonic Valve"
+            ],
+            correct: 2,
+            rationale: "Correct Answer: C. IVDU endocarditis primarily affects right-sided valves (Tricuspid Valve), sending septic emboli to the lungs."
+        },
+        {
+            q: "46. What is the empiric first-line antibiotic choice for Native Valve Endocarditis while awaiting blood cultures?",
+            options: [
+                "A. Oral Amoxicillin",
+                "B. IV Vancomycin",
+                "C. IV Metronidazole",
+                "D. Oral Ciprofloxacin"
+            ],
+            correct: 1,
+            rationale: "Correct Answer: B. Empiric therapy for native valve IE must cover MRSA and Streptococci with IV Vancomycin."
+        },
+        {
+            q: "47. A 70-year-old male develops Enterococcus faecalis endocarditis following a urologic procedure. What is the recommended synergistic antibiotic combination?",
+            options: [
+                "A. Ampicillin 2g IV q4h + Ceftriaxone 2g IV q12h (or Gentamicin)",
+                "B. Vancomycin IV monotherapy for 1 week",
+                "C. Clindamycin PO + Metronidazole PO",
+                "D. Penicillin G IV alone for 2 weeks"
+            ],
+            correct: 0,
+            rationale: "Correct Answer: A. Enterococcal IE is treated with Ampicillin + Ceftriaxone (or Ampicillin + Gentamicin) for 6 weeks."
+        },
+        {
+            q: "48. What is the definitive treatment duration for native valve endocarditis caused by MSSA treated with Nafcillin?",
+            options: [
+                "A. 5 days",
+                "B. 10 days",
+                "C. 14 days",
+                "D. 4 to 6 weeks"
+            ],
+            correct: 3,
+            rationale: "Correct Answer: D. Staphylococcal native valve endocarditis requires 4 to 6 weeks of intravenous antibiotic therapy."
+        },
+        {
+            q: "49. Which immunologic phenomenon in Duke's criteria presents as retinal hemorrhages with pale centers?",
+            options: [
+                "A. Janeway Lesions",
+                "B. Osler Nodes",
+                "C. Roth Spots",
+                "D. Splinter Hemorrhages"
+            ],
+            correct: 2,
+            rationale: "Correct Answer: C. Roth spots are retinal microvascular pale-centered hemorrhages."
+        },
+        {
+            q: "50. What echocardiographic vegetation size cutoff combined with a prior embolic event indicates urgent surgical intervention (within 3–5 days)?",
+            options: [
+                "A. ≥ 2 mm",
+                "B. ≥ 5 mm",
+                "C. ≥ 10 mm (1 cm)",
+                "D. ≥ 30 mm"
+            ],
+            correct: 2,
+            rationale: "Correct Answer: C. Vegetations ≥10 mm (1 cm) with embolic events pose high persistent embolization risk, warranting urgent surgery."
+        }
+    ];
+
+    let userAnswers = {};
+
+    function renderMCQs() {
+        const container = document.getElementById('mcqContainer');
+        container.innerHTML = '';
+
+        mcqData.forEach((qObj, index) => {
+            const card = document.createElement('div');
+            card.className = 'mcq-card';
+            
+            let optionsHTML = '';
+            qObj.options.forEach((opt, optIdx) => {
+                optionsHTML += `
+                    <div class="mcq-option" id="opt_${index}_${optIdx}" onclick="selectMCQOption(${index}, ${optIdx})">
+                        ${opt}
+                    </div>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="mcq-question">${qObj.q}</div>
+                <div class="mcq-options">${optionsHTML}</div>
+                <div class="mcq-explanation" id="exp_${index}">
+                    <strong>Explanation & Rationale:</strong><br>
+                    ${qObj.rationale}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function selectMCQOption(qIdx, optIdx) {
+        if (userAnswers[qIdx] !== undefined) return; // Prevent re-selection
+        userAnswers[qIdx] = optIdx;
+
+        const qObj = mcqData[qIdx];
+        const correctIdx = qObj.correct;
+
+        const selectedElem = document.getElementById(`opt_${qIdx}_${optIdx}`);
+        const correctElem = document.getElementById(`opt_${qIdx}_${correctIdx}`);
+
+        if (optIdx === correctIdx) {
+            selectedElem.classList.add('correct');
+        } else {
+            selectedElem.classList.add('incorrect');
+            correctElem.classList.add('correct');
+        }
+
+        document.getElementById(`exp_${qIdx}`).classList.add('visible');
+        updateScore();
+    }
+
+    function updateScore() {
+        let score = 0;
+        Object.keys(userAnswers).forEach(qIdx => {
+            if (userAnswers[qIdx] === mcqData[qIdx].correct) {
+                score++;
+            }
+        });
+        document.getElementById('quizScore').textContent = `Score: ${score} / ${mcqData.length}`;
+    }
+
+    function resetQuiz() {
+        userAnswers = {};
+        document.getElementById('quizScore').textContent = `Score: 0 / ${mcqData.length}`;
+        renderMCQs();
+    }
+
+    /* Initial Load Setup */
+    window.onload = function() {
+        renderFlashcard();
+        renderMCQs();
+    };
+</script>

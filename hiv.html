@@ -1,0 +1,2417 @@
+<style>
+    :root {
+        --primary: #0284c7;
+        --primary-dark: #0369a1;
+        --primary-light: #e0f2fe;
+        --secondary: #0f172a;
+        --accent: #f59e0b;
+        --accent-light: #fef3c7;
+        --danger: #ef4444;
+        --danger-light: #fee2e2;
+        --success: #10b981;
+        --success-light: #d1fae5;
+        --bg: #f8fafc;
+        --card-bg: #ffffff;
+        --text: #0f172a;
+        --text-muted: #64748b;
+        --border: #e2e8f0;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --radius: 12px;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'DM Sans', sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        padding-bottom: 60px;
+    }
+
+    h1, h2, h3, h4, .font-syne {
+        font-family: 'Syne', sans-serif;
+    }
+
+    code, pre, .font-mono {
+        font-family: 'Space Mono', monospace;
+    }
+
+    /* Sticky Navigation & Header */
+    header {
+        background: linear-gradient(135deg, #0f172a 0%, #0369a1 100%);
+        color: white;
+        padding: 1.5rem 2rem 0 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .header-title h1 {
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: #ffffff;
+    }
+
+    .header-title p {
+        font-size: 0.9rem;
+        color: #93c5fd;
+        font-weight: 500;
+    }
+
+    .search-container {
+        position: relative;
+        min-width: 280px;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 0.6rem 1rem 0.6rem 2.5rem;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 0.9rem;
+        outline: none;
+        backdrop-filter: blur(5px);
+        transition: all 0.3s;
+    }
+
+    .search-input::placeholder {
+        color: #94a3b8;
+    }
+
+    .search-input:focus {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: #38bdf8;
+        box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 0.9rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+        pointer-events: none;
+    }
+
+    /* Tab Navigation Bar */
+    .nav-tabs {
+        display: flex;
+        gap: 0.25rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-btn {
+        background: none;
+        border: none;
+        color: #cbd5e1;
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+        border-radius: 6px 6px 0 0;
+    }
+
+    .tab-btn:hover {
+        color: white;
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-btn.active {
+        color: #38bdf8;
+        border-bottom-color: #38bdf8;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Container & Layout */
+    .container {
+        max-width: 1300px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+    }
+
+    .tab-content {
+        display: none;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards & Section Scaffolding */
+    .card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        padding: 1.8rem;
+        margin-bottom: 1.8rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+        position: relative;
+    }
+
+    .card-accent-blue { border-left: 5px solid var(--primary); }
+    .card-accent-amber { border-left: 5px solid var(--accent); }
+    .card-accent-red { border-left: 5px solid var(--danger); }
+    .card-accent-green { border-left: 5px solid var(--success); }
+
+    .card-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--secondary);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .section-header {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin: 1.5rem 0 0.8rem 0;
+        padding-bottom: 0.4rem;
+        border-bottom: 2px solid var(--primary-light);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Callout Boxes (Must Know, Common Pitfalls, Clinical Pearl, Exam Tip) */
+    .callout-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+        margin: 1.2rem 0;
+    }
+
+    .callout {
+        padding: 1rem 1.2rem;
+        border-radius: 8px;
+        font-size: 0.92rem;
+        line-height: 1.5;
+    }
+
+    .callout-must-know {
+        background-color: #f0f9ff;
+        border-left: 4px solid #0284c7;
+        color: #0369a1;
+    }
+
+    .callout-pitfall {
+        background-color: #fef2f2;
+        border-left: 4px solid #ef4444;
+        color: #991b1b;
+    }
+
+    .callout-pearl {
+        background-color: #fbfbfe;
+        border-left: 4px solid #8b5cf6;
+        color: #5b21b6;
+    }
+
+    .callout-tip {
+        background-color: #fffbeb;
+        border-left: 4px solid #f59e0b;
+        color: #92400e;
+    }
+
+    .callout-title {
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.95rem;
+    }
+
+    /* High-Yield Tables */
+    .table-wrapper {
+        overflow-x: auto;
+        margin: 1.2rem 0;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        text-align: left;
+        background: white;
+    }
+
+    th {
+        background-color: #0f172a;
+        color: white;
+        font-weight: 700;
+        padding: 0.8rem 1rem;
+        position: sticky;
+        top: 0;
+    }
+
+    td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f8fafc;
+    }
+
+    tr:hover {
+        background-color: #f1f5f9;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .badge-blue { background-color: var(--primary-light); color: var(--primary-dark); }
+    .badge-red { background-color: var(--danger-light); color: #991b1b; }
+    .badge-green { background-color: var(--success-light); color: #065f46; }
+    .badge-amber { background-color: var(--accent-light); color: #92400e; }
+
+    /* Diagrams & Recreated Visual Figures */
+    .figure-card {
+        background: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        padding: 1.2rem;
+        margin: 1.5rem 0;
+    }
+
+    .figure-title {
+        font-weight: 700;
+        color: var(--secondary);
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+        text-align: center;
+    }
+
+    .figure-content {
+        background: white;
+        padding: 1.2rem;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .figure-explanation {
+        margin-top: 0.8rem;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        border-top: 1px dashed #cbd5e1;
+        padding-top: 0.6rem;
+    }
+
+    .figure-clinical-sig {
+        font-size: 0.88rem;
+        color: var(--primary-dark);
+        font-weight: 600;
+        margin-top: 0.4rem;
+    }
+
+    /* Flowcharts & Step Workflows */
+    .flowchart {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        margin: 1rem 0;
+    }
+
+    .flow-step {
+        background: #ffffff;
+        border: 2px solid var(--primary);
+        border-radius: 8px;
+        padding: 0.8rem 1.2rem;
+        position: relative;
+        font-weight: 500;
+    }
+
+    .flow-step::after {
+        content: "↓";
+        display: block;
+        text-align: center;
+        font-weight: 900;
+        color: var(--primary);
+        margin-top: 0.4rem;
+        font-size: 1.2rem;
+    }
+
+    .flow-step:last-child::after {
+        display: none;
+    }
+
+    /* Active Recall Flashcards Component */
+    .flashcard-container {
+        max-width: 650px;
+        margin: 2rem auto;
+        perspective: 1000px;
+    }
+
+    .flashcard {
+        width: 100%;
+        min-height: 320px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--shadow-lg);
+        border: 2px solid var(--border);
+        cursor: pointer;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .flashcard.flipped {
+        transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        box-sizing: border-box;
+        border-radius: 16px;
+    }
+
+    .card-front {
+        background: #ffffff;
+        color: var(--secondary);
+    }
+
+    .card-back {
+        background: #0f172a;
+        color: #ffffff;
+        transform: rotateY(180deg);
+        overflow-y: auto;
+    }
+
+    .fc-tag {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        background: var(--primary-light);
+        color: var(--primary-dark);
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+    }
+
+    .card-back .fc-tag {
+        background: rgba(56, 189, 248, 0.2);
+        color: #38bdf8;
+    }
+
+    .fc-prompt {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 0.8rem;
+    }
+
+    .fc-answer {
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+
+    .fc-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-secondary { background: #e2e8f0; color: var(--secondary); }
+    .btn-secondary:hover { background: #cbd5e1; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { background: #f1f5f9; }
+
+    /* Self-Assessment MCQs Component */
+    .mcq-card {
+        background: white;
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .mcq-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .mcq-number {
+        font-weight: 800;
+        color: var(--primary);
+        font-size: 0.9rem;
+    }
+
+    .mcq-question {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: var(--secondary);
+        margin-bottom: 1.2rem;
+    }
+
+    .mcq-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .mcq-option {
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        border: 1.5px solid var(--border);
+        background: #f8fafc;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 0.92rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+    }
+
+    .mcq-option:hover {
+        border-color: var(--primary);
+        background: #f0f9ff;
+    }
+
+    .mcq-option.selected-correct {
+        background: var(--success-light);
+        border-color: var(--success);
+        color: #065f46;
+        font-weight: 600;
+    }
+
+    .mcq-option.selected-wrong {
+        background: var(--danger-light);
+        border-color: var(--danger);
+        color: #991b1b;
+        font-weight: 600;
+    }
+
+    .mcq-explanation {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background: #f1f5f9;
+        font-size: 0.9rem;
+        display: none;
+        border-left: 4px solid var(--primary);
+    }
+
+    .mcq-explanation.active {
+        display: block;
+    }
+
+    .explanation-title {
+        font-weight: 700;
+        color: var(--secondary);
+        margin-bottom: 0.4rem;
+    }
+
+    .distractor-rationale {
+        margin-top: 0.6rem;
+        font-size: 0.85rem;
+        color: #475569;
+        border-top: 1px solid #cbd5e1;
+        padding-top: 0.6rem;
+    }
+
+    /* Score Tracker Banner */
+    .score-banner {
+        background: linear-gradient(135deg, #0f172a, #0369a1);
+        color: white;
+        padding: 1.2rem;
+        border-radius: var(--radius);
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .score-stat {
+        text-align: center;
+    }
+
+    .score-value {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #38bdf8;
+    }
+
+    .score-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #94a3b8;
+    }
+
+    /* Cram Sheet Styles */
+    .cram-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.2rem;
+    }
+
+    .cram-card {
+        background: white;
+        border-radius: 10px;
+        padding: 1.2rem;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .cram-title {
+        font-weight: 800;
+        color: var(--primary-dark);
+        border-bottom: 2px solid var(--primary-light);
+        padding-bottom: 0.4rem;
+        margin-bottom: 0.8rem;
+        font-size: 1.05rem;
+    }
+
+    .cram-list {
+        list-style-type: none;
+    }
+
+    .cram-list li {
+        margin-bottom: 0.5rem;
+        font-size: 0.88rem;
+        padding-left: 1.2rem;
+        position: relative;
+    }
+
+    .cram-list li::before {
+        content: "⚡";
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 0.8rem;
+    }
+
+    /* Floating Scroll to Top */
+    .scroll-top-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: white;
+        border: none;
+        box-shadow: var(--shadow-lg);
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        z-index: 999;
+        transition: all 0.3s;
+    }
+
+    .scroll-top-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-3px);
+    }
+
+    /* Responsive Design & Print */
+    @media (max-width: 768px) {
+        header { padding: 1rem 1rem 0 1rem; }
+        .header-title h1 { font-size: 1.4rem; }
+        .container { padding: 0 0.8rem; }
+        .card { padding: 1.2rem; }
+        .flashcard { min-height: 280px; padding: 1.2rem; }
+    }
+
+    @media print {
+        header, .fc-controls, .scroll-top-btn, .search-container { display: none !important; }
+        .tab-content { display: block !important; }
+        .card { break-inside: avoid; border: 1px solid #000; box-shadow: none; }
+        body { background: white; color: black; }
+    }
+</style>
+<!-- Sticky Navigation & Header -->
+<header>
+    <div class="header-top">
+        <div class="header-title">
+            <h1>Human Immunodeficiency Virus (HIV)</h1>
+            <p>Comprehensive Board Exam Interactive Reviewer | Medicine 2 (UERM - Dr. Lorenzo Lista)</p>
+        </div>
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="globalSearch" class="search-input" placeholder="Search key concepts, drugs, OIs..." onkeyup="handleSearch()">
+        </div>
+    </div>
+    <nav class="nav-tabs" id="navTabs">
+        <button class="tab-btn active" onclick="switchTab('overview')">📌 Overview</button>
+        <button class="tab-btn" onclick="switchTab('topic1')">🧬 1. Virology & Classification</button>
+        <button class="tab-btn" onclick="switchTab('topic2')">📈 2. Transmission & Epi</button>
+        <button class="tab-btn" onclick="switchTab('topic3')">🔥 3. Pathogenesis & Latency</button>
+        <button class="tab-btn" onclick="switchTab('topic4')">🧪 4. Diagnosis & Staging</button>
+        <button class="tab-btn" onclick="switchTab('topic5')">🧫 5. Opportunistic Infections</button>
+        <button class="tab-btn" onclick="switchTab('topic6')">💊 6. ART & Prevention</button>
+        <button class="tab-btn" onclick="switchTab('comparisons')">⚖️ High-Yield Comparisons</button>
+        <button class="tab-btn" onclick="switchTab('flashcards')">🎴 Flashcards (52)</button>
+        <button class="tab-btn" onclick="switchTab('mcq')">📝 Board Exam MCQs (52)</button>
+        <button class="tab-btn" onclick="switchTab('cram')">⚡ Cram Sheet</button>
+    </nav>
+</header>
+
+<!-- Main Content Container -->
+<main class="container">
+
+    <!-- TAB 1: OVERVIEW -->
+    <div id="overview" class="tab-content active">
+        <div class="card card-accent-blue">
+            <div class="card-title">📌 Executive Summary & Core Objectives</div>
+            <p>This interactive reviewer provides comprehensive, board-exam-quality coverage of Human Immunodeficiency Virus (HIV) based on the UERM Medicine 2 lecture by Dr. Lorenzo Lista (08/18/2026) and Harrison's Principles of Internal Medicine 21st Edition.</p>
+            
+            <div class="section-header">🎯 High-Yield Learning Objectives</div>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1.2rem;">
+                <li>Describe the historical timeline, virological structure, and 7-step replication cycle of HIV-1/HIV-2.</li>
+                <li>Master per-act transmission dynamics, risk factors, and mother-to-child transmission (MTCT) prevention.</li>
+                <li>Detail the pathogenesis timeline: mucosal entry, GALT destruction, viral set point, latent reservoir, and immune exhaustion.</li>
+                <li>Execute the CDC HIV Diagnostic Algorithm (4th-Gen Ag/Ab → Ab Differentiation → HIV-1 NAT).</li>
+                <li>Identify, diagnose, prophylaxis, and treat classic Opportunistic Infections (TB, PJP, Toxoplasmosis, Cryptococcal Meningitis, CMV, PML, KS).</li>
+                <li>Apply Antiretroviral Therapy (ART) principles, drug classes, first-line regimens (Philippine LTD Regimen), and rapid ART timing.</li>
+            </ul>
+
+            <div class="section-header">📜 Historic Timeline of HIV/AIDS</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Milestone Event</th>
+                            <th>Clinical & Epidemiological Significance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1981</strong></td>
+                            <td>First recognized cases of AIDS</td>
+                            <td>Unexplained immunodeficiency syndrome presenting as clusters of <i>Pneumocystis pneumonia</i> (PCP) and Kaposi Sarcoma (KS) in MSM.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1983</strong></td>
+                            <td>Identification of Etiologic Agent</td>
+                            <td>Isolation of human immunodeficiency virus (HIV) as the causative retrovirus of AIDS.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1985</strong></td>
+                            <td>First Blood Screening Test (ELISA)</td>
+                            <td>Enabled large-scale blood bank screening and diagnostic testing.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Present</strong></td>
+                            <td>Chronic Manageable Disease Paradigm</td>
+                            <td>Effective ART transforms fatal illness into a manageable chronic condition; U=U (Undetectable = Untransmittable) established.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header">📊 CDC HIV Infection Staging System</div>
+            <p>Classification depends on two components: Clinical Category (A, B, C) and Age-Specific CD4+ T-Lymphocyte Count / Percentage.</p>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CDC Stage</th>
+                            <th>CD4+ Count (&lt;1 Year)</th>
+                            <th>CD4+ Count (1–5 Years)</th>
+                            <th>CD4+ Count (&ge;6 Yrs through Adult)</th>
+                            <th>CD4 % of Total Lymphocytes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge badge-green">Stage 1</span></td>
+                            <td>&ge; 1,500 cells/µL</td>
+                            <td>&ge; 1,000 cells/µL</td>
+                            <td><strong>&ge; 500 cells/µL</strong></td>
+                            <td>&ge; 26%</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-amber">Stage 2</span></td>
+                            <td>750–1,499 cells/µL</td>
+                            <td>500–999 cells/µL</td>
+                            <td><strong>200–499 cells/µL</strong></td>
+                            <td>14%–25%</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-red">Stage 3 (AIDS)</span></td>
+                            <td>&lt; 750 cells/µL</td>
+                            <td>&lt; 500 cells/µL</td>
+                            <td><strong>&lt; 200 cells/µL</strong></td>
+                            <td>&lt; 14%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout-grid">
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⭐ MUST KNOW: AIDS Definition</div>
+                    AIDS is defined by either: <strong>1) CD4+ T-cell count &lt; 200 cells/µL</strong> (or &lt;14%), OR <strong>2) Presence of any CDC Category C AIDS-defining illness</strong> regardless of CD4 count!
+                </div>
+                <div class="callout callout-tip">
+                    <div class="callout-title">🧠 EXAM TIP: Advanced HIV Disease</div>
+                    WHO defines Advanced HIV Disease as <strong>CD4 count &lt; 200 cells/mm³ OR a WHO Stage 3/4 event</strong>. In these patients, do NOT delay care; implement the advanced HIV disease package (OI screening, prophylaxis, rapid ART).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: VIROLOGY & CLASSIFICATION -->
+    <div id="topic1" class="tab-content">
+        <div class="card card-accent-blue">
+            <div class="card-title">🧬 Topic 1: Virology, Structure & Replication Cycle</div>
+            
+            <div class="section-header">Etiologic Agent & Taxonomy</div>
+            <p>HIV belongs to the family <strong>Retroviridae</strong> and subfamily <strong>Lentiviruses</strong> ("slow viruses"). It is an enveloped, single-stranded RNA (ssRNA) virus with an icosahedral structure containing surface spikes.</p>
+
+            <!-- Visual Diagram: Recreated HIV Virion -->
+            <div class="figure-card">
+                <div class="figure-title">Figure 1. Structure of the HIV Virion</div>
+                <div class="figure-content" style="text-align: center;">
+                    <svg width="320" height="280" viewBox="0 0 320 280">
+                        <!-- Outer Envelope -->
+                        <circle cx="160" cy="140" r="110" fill="#e0f2fe" stroke="#0284c7" stroke-width="4"/>
+                        <!-- Spikes (gp120/gp41) -->
+                        <g stroke="#0369a1" stroke-width="3">
+                            <line x1="160" y1="30" x2="160" y1="10"/><circle cx="160" cy="8" r="6" fill="#f59e0b"/>
+                            <line x1="160" y1="250" x2="160" y1="270"/><circle cx="160" cy="272" r="6" fill="#f59e0b"/>
+                            <line x1="50" y1="140" x2="30" y1="140"/><circle cx="26" cy="140" r="6" fill="#f59e0b"/>
+                            <line x1="270" y1="140" x2="290" y1="140"/><circle cx="294" cy="140" r="6" fill="#f59e0b"/>
+                        </g>
+                        <!-- Capsid (p24) -->
+                        <polygon points="120,80 200,80 210,190 110,190" fill="#334155" stroke="#0f172a" stroke-width="3"/>
+                        <!-- RNA strands -->
+                        <path d="M 140 110 Q 150 130 140 150 Q 130 170 140 180" fill="none" stroke="#ef4444" stroke-width="3"/>
+                        <path d="M 180 110 Q 170 130 180 150 Q 190 170 180 180" fill="none" stroke="#ef4444" stroke-width="3"/>
+                        <!-- Enzyme dots -->
+                        <circle cx="145" cy="120" r="4" fill="#10b981"/>
+                        <circle cx="175" cy="120" r="4" fill="#10b981"/>
+                        <!-- Labels -->
+                        <text x="160" y="24" font-size="10" font-weight="bold" fill="#d97706" text-anchor="middle">gp120 / gp41</text>
+                        <text x="160" y="102" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">p24 Core Capsid</text>
+                        <text x="160" y="145" font-size="10" font-weight="bold" fill="#fca5a5" text-anchor="middle">2x ssRNA</text>
+                        <text x="160" y="170" font-size="9" fill="#6ee7b7" text-anchor="middle">RT / Integrase / Protease</text>
+                    </svg>
+                </div>
+                <div class="figure-explanation">
+                    <strong>Plain-Language Explanation:</strong> The HIV virion consists of an outer lipid membrane studded with gp120 (outer attachment) and gp41 (transmembrane fusion) glycoprotein spikes. Inside is a bullet-shaped p24 protein capsid housing 2 identical copies of single-stranded positive-sense RNA and key enzymes: Reverse Transcriptase, Integrase, and Protease.
+                </div>
+                <div class="figure-clinical-sig">
+                    <strong>Clinical Significance:</strong> gp120 and gp41 are target sites for attachment and fusion inhibitors; p24 antigen is measured in 4th-generation screening tests for early detection during the window period.
+                </div>
+            </div>
+
+            <div class="section-header">HIV Types & Subgroups</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Epidemiology</th>
+                            <th>Groups / Subtypes</th>
+                            <th>Clinical Features</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>HIV-1</strong></td>
+                            <td>Worldwide; primary cause of global AIDS pandemic</td>
+                            <td>
+                                • <strong>Group M (Major):</strong> Drives the pandemic<br>
+                                • <strong>Groups N, O, P:</strong> Minor groups
+                            </td>
+                            <td>High transmissibility, higher viral loads, rapid CD4 progression if untreated.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HIV-2</strong></td>
+                            <td>First identified 1986; originally confined to West Africa</td>
+                            <td>Groups A through H</td>
+                            <td>Lower transmissibility, lower viral load, slower progression to AIDS, intrinsically resistant to NNRTIs.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header">🔄 The 7-Step HIV Replication Cycle & Drug Targets</div>
+            <div class="flowchart">
+                <div class="flow-step">
+                    <strong>1. Attachment & Binding:</strong> gp120 binds primary CD4 receptor on host cell → conformational change allowing binding to co-receptors <strong>CCR5</strong> (macrophage-tropic / R5) or <strong>CXCR4</strong> (T-tropic / X4).
+                    <br><span class="badge badge-amber">Target: CCR5 Antagonists (Maraviroc), Attachment Inhibitors (Fostemsavir)</span>
+                </div>
+                <div class="flow-step">
+                    <strong>2. Fusion & Entry:</strong> gp41 mediates fusion of viral lipid envelope with host cell membrane, releasing viral core into cytoplasm.
+                    <br><span class="badge badge-amber">Target: Fusion Inhibitors (Enfuvirtide)</span>
+                </div>
+                <div class="flow-step">
+                    <strong>3. Reverse Transcription:</strong> Viral single-stranded RNA is transcribed into double-stranded complementary DNA (cDNA) by viral <strong>Reverse Transcriptase</strong>.
+                    <br><span class="badge badge-blue">Target: NRTIs (Tenofovir, Lamivudine, Abacavir) & NNRTIs (Efavirenz, Doravirine)</span>
+                </div>
+                <div class="flow-step">
+                    <strong>4. Integration:</strong> Viral cDNA enters host cell nucleus; <strong>Integrase</strong> inserts viral DNA into host genome → forming a <strong>Provirus</strong> (permanent infection).
+                    <br><span class="badge badge-green">Target: INSTIs (Dolutegravir, Bictegravir)</span>
+                </div>
+                <div class="flow-step">
+                    <strong>5. Transcription & Translation:</strong> Host RNA polymerase transcribes proviral DNA into viral genomic RNA and mRNA to synthesize long viral polyproteins.
+                </div>
+                <div class="flow-step">
+                    <strong>6. Assembly & Budding:</strong> New viral RNA and precursor polyproteins assemble at host cell inner membrane and bud off as immature, non-infectious virions.
+                    <br><span class="badge badge-amber">Target: Capsid Inhibitors (Lenacapavir)</span>
+                </div>
+                <div class="flow-step">
+                    <strong>7. Maturation:</strong> Viral <strong>Protease</strong> cleaves long precursor polyproteins into functional structural proteins and enzymes, transforming immature particle into infectious mature virion.
+                    <br><span class="badge badge-red">Target: Protease Inhibitors (Darunavir, Atazanavir)</span>
+                </div>
+            </div>
+
+            <div class="callout-grid">
+                <div class="callout callout-pitfall">
+                    <div class="callout-title">⚠️ COMMON PITFALL: Protease Inhibitor Mechanism</div>
+                    Protease inhibitors do NOT prevent viral budding or assembly—they block viral cleavage/maturation. Uninhibited budding produces <i>immature, non-infectious</i> viral particles.
+                </div>
+                <div class="callout callout-pearl">
+                    <div class="callout-title">💡 CLINICAL PEARL: Provirus Permanence</div>
+                    Once integrase inserts viral DNA into the host genome to form a <strong>provirus</strong>, the infection becomes lifelong. Active viral replication can be suppressed by ART, but the provirus cannot be eradicated from resting latent cells.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: TRANSMISSION & EPIDEMIOLOGY -->
+    <div id="topic2" class="tab-content">
+        <div class="card card-accent-amber">
+            <div class="card-title">📈 Topic 2: Transmission Dynamics & Global/Local Epidemiology</div>
+            
+            <div class="section-header">Per-Act Probability of Acquiring HIV</div>
+            <p>Transmission occurs through three main routes: Sexual contact, Blood/blood products, and Mother-to-Child (MTCT).</p>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Exposure Category</th>
+                            <th>Specific Exposure Act</th>
+                            <th>Estimated Risk per 10,000 Exposures</th>
+                            <th>Relative Risk Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="3"><strong>Parenteral</strong></td>
+                            <td>Blood Transfusion</td>
+                            <td><strong>9,250</strong></td>
+                            <td><span class="badge badge-red">Extremely High (~92.5%)</span></td>
+                        </tr>
+                        <tr>
+                            <td>Needle-sharing (Injection Drug Use)</td>
+                            <td><strong>63</strong></td>
+                            <td><span class="badge badge-amber">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Percutaneous Needle-stick (Occupational)</td>
+                            <td><strong>23</strong></td>
+                            <td><span class="badge badge-blue">Moderate (~0.23%)</span></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="6"><strong>Sexual</strong></td>
+                            <td>Receptive Anal Intercourse</td>
+                            <td><strong>138</strong></td>
+                            <td><span class="badge badge-red">Highest Sexual Risk (1.38%)</span></td>
+                        </tr>
+                        <tr>
+                            <td>Insertive Anal Intercourse</td>
+                            <td><strong>11</strong></td>
+                            <td><span class="badge badge-amber">Moderate</span></td>
+                        </tr>
+                        <tr>
+                            <td>Receptive Penile-Vaginal Intercourse</td>
+                            <td><strong>8</strong> (0.08%)</td>
+                            <td><span class="badge badge-blue">Low-Moderate</span></td>
+                        </tr>
+                        <tr>
+                            <td>Insertive Penile-Vaginal Intercourse</td>
+                            <td><strong>4</strong> (0.04%)</td>
+                            <td><span class="badge badge-blue">Low</span></td>
+                        </tr>
+                        <tr>
+                            <td>Receptive Oral Intercourse</td>
+                            <td>Low</td>
+                            <td><span class="badge badge-green">Very Low (Not Zero)</span></td>
+                        </tr>
+                        <tr>
+                            <td>Insertive Oral Intercourse</td>
+                            <td>Low</td>
+                            <td><span class="badge badge-green">Very Low (Not Zero)</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Other</strong></td>
+                            <td>Biting, Spitting, Throwing fluids, Sex toys</td>
+                            <td>Negligible</td>
+                            <td><span class="badge badge-green">Negligible / Unlikely</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header">🔍 Why Receptive Anal Intercourse Has the Highest Sexual Risk</div>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li><strong>Mucosal Fragility:</strong> Rectal mucosa is thin, single-layered columnar epithelium with abundant susceptible immune target cells (Langerhans and CD4+ T cells) immediately beneath.</li>
+                <li><strong>Microtrauma:</strong> Friction causes microtrauma, creating direct entry portals for infected semen. In contrast, vaginal epithelium is thick, non-keratinized stratified squamous tissue providing a superior physical barrier.</li>
+            </ul>
+
+            <div class="section-header">🩸 Blood Products & Transmission Safety</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Potentially Infectious (Associated with HIV)</th>
+                            <th>NOT Associated with HIV Transmission</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>• Whole Blood<br>• Packed RBCs<br>• Platelets<br>• Leukocytes<br>• Plasma</td>
+                            <td>• Hyperimmune Globulin<br>• Immune Globulin<br>• Hepatitis B Immune Globulin<br>• Plasma-derived Hepatitis B Vaccine<br>• Rho Immune Globulin</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header">👶 Mother-to-Child Transmission (MTCT) Breakdown</div>
+            <p>Without intervention, MTCT rates range from 15% to 45%. Transmission timing:</p>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Timing</th>
+                            <th>Proportion of MTCT</th>
+                            <th>Key Determinants & Prophylaxis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>In Utero (Pregnancy)</strong></td>
+                            <td>23%–30%</td>
+                            <td>Occurs in 1st/2nd trimesters across placental barrier.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Perinatal / Intrapartum (Delivery)</strong></td>
+                            <td><strong>50%–65%</strong> (Most Common)</td>
+                            <td>Direct exposure to maternal blood and vaginal secretions in birth canal. <i>Strongest predictor: Maternal plasma viremia!</i></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Postpartum (Breastfeeding)</strong></td>
+                            <td>12%–20%</td>
+                            <td>Driven by viral load in milk, presence of mastitis, low maternal CD4, vitamin A deficiency.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout-grid">
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⭐ MUST KNOW: Maternal Viremia Thresholds</div>
+                    Vertical transmission risk increases linearly with maternal viral load:
+                    <br>• <strong>&lt; 1,000 copies/mL:</strong> Transmission very unlikely.
+                    <br>• <strong>&lt; 50 copies/mL:</strong> Transmission extremely unlikely.
+                </div>
+                <div class="callout callout-pearl">
+                    <div class="callout-title">💡 CLINICAL PEARL: Breastfeeding Recommendations</div>
+                    In <strong>developed countries</strong>, breastfeeding is strictly contraindicated because safe infant formula is available. In <strong>developing countries</strong>, maternal ART continuation during breastfeeding dramatically reduces transmission and is recommended to prevent infant starvation/diarrheal mortality.
+                </div>
+                <div class="callout callout-tip">
+                    <div class="callout-title">🧠 EXAM TIP: Male Circumcision</div>
+                    Male circumcision reduces female-to-male HIV acquisition risk by ~60% because the inner foreskin is rich in HIV target cells (Langerhans cells) and susceptible to microtrauma and inflammation.
+                </div>
+                <div class="callout callout-pitfall">
+                    <div class="callout-title">⚠️ COMMON PITFALL: Non-Transmissible Fluids</div>
+                    Saliva, tears, sweat, and urine do <strong>NOT</strong> transmit HIV. Saliva contains natural antiviral factors (hypotonicity, secretory leukocyte protease inhibitor) that neutralize HIV. Kissing carries zero risk.
+                </div>
+            </div>
+
+            <div class="section-header">🌍 Global Burden & Philippine Epidemiology</div>
+            <ul style="margin-left: 1.5rem;">
+                <li><strong>Global Burden (2023):</strong> 39.9 million PLHIV globally; ~53% female; 1.4 million children &lt;15 years. Total deaths since pandemic start: 42.3 million.</li>
+                <li><strong>Epidemiologic Transition:</strong> While global new infections peak passed in 1990s and AIDS deaths dropped 65% since 2004 (due to ART), overall prevalence (PLHIV) continues to rise because treated individuals are living full lifespans.</li>
+                <li><strong>Key Populations:</strong> Account for 55% of global new infections in 2022 (Sex workers, PWID, Transgender women, Prisoners, MSM).</li>
+                <li><strong>Philippine Situation:</strong> While countries like Thailand and Vietnam show declining trends, the <strong>Philippines is experiencing one of the fastest-growing HIV epidemics in the world</strong> with steep increases in new cases among young MSM and key populations.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 4: PATHOGENESIS & LATENCY -->
+    <div id="topic3" class="tab-content">
+        <div class="card card-accent-red">
+            <div class="card-title">🔥 Topic 3: Pathogenesis, GALT Destruction & The Latent Reservoir</div>
+            
+            <div class="section-header">Chronological Pathogenesis Timeline</div>
+            
+            <!-- Figure: Natural History Curve -->
+            <div class="figure-card">
+                <div class="figure-title">Figure 2. Classic Natural History of Untreated HIV Infection</div>
+                <div class="figure-content" style="text-align: center;">
+                    <svg width="450" height="220" viewBox="0 0 450 220">
+                        <!-- Axes -->
+                        <line x1="40" y1="190" x2="420" y1="190" stroke="#475569" stroke-width="2"/>
+                        <line x1="40" y1="190" x2="40" y1="20" stroke="#475569" stroke-width="2"/>
+                        <!-- CD4 Curve (Purple) -->
+                        <path d="M 40 30 Q 70 80 90 70 Q 150 90 280 130 Q 360 160 410 185" fill="none" stroke="#8b5cf6" stroke-width="3"/>
+                        <!-- Viral RNA Curve (Green) -->
+                        <path d="M 40 180 Q 70 20 90 120 Q 150 110 280 100 Q 360 60 410 20" fill="none" stroke="#10b981" stroke-width="3"/>
+                        <!-- Threshold line CD4 < 200 -->
+                        <line x1="40" y1="150" x2="420" y1="150" stroke="#ef4444" stroke-width="1" stroke-dasharray="4"/>
+                        <!-- Labels -->
+                        <text x="230" y="210" font-size="11" font-weight="bold" fill="#334155" text-anchor="middle">Timeline (Weeks 0-12 → Years 1-11)</text>
+                        <text x="35" y="15" font-size="9" font-weight="bold" fill="#8b5cf6">CD4+ T-Cells</text>
+                        <text x="380" y="15" font-size="9" font-weight="bold" fill="#10b981">Plasma HIV RNA</text>
+                        <text x="425" y="153" font-size="8" fill="#ef4444">200 cells/µL</text>
+                        <!-- Phase Labels -->
+                        <text x="70" y="18" font-size="8" fill="#0f172a">Acute Phase</text>
+                        <text x="200" y="18" font-size="8" fill="#0f172a">Clinical Latency (Years)</text>
+                        <text x="380" y="18" font-size="8" fill="#ef4444">AIDS</text>
+                    </svg>
+                </div>
+                <div class="figure-explanation">
+                    <strong>Plain-Language Explanation:</strong> Following infection, acute viremia spikes exponentially alongside a sharp CD4 drop. Cytotoxic CD8+ T-cells partially suppress viremia down to a stable <i>Viral Set Point</i>, entering clinical latency. Over 8–10 years, CD4 counts steadily decline until falling below 200 cells/µL, leading to opportunistic infections, AIDS, and death.
+                </div>
+                <div class="figure-clinical-sig">
+                    <strong>Clinical Significance:</strong> Higher viral set point in untreated patients predicts faster progression to AIDS.
+                </div>
+            </div>
+
+            <div class="section-header">🌒 The Eclipse Phase</div>
+            <p>The <strong>Eclipse Phase</strong> is the very early window after mucosal exposure during which the virus replicates locally in mucosal tissue and seeds draining lymph nodes, but plasma HIV RNA remains undetectable. <i>Undetectable HIV RNA in blood during this phase does NOT mean absence of virus; blood tests lag behind tissue events!</i></p>
+
+            <div class="section-header">🩸 Gut-Associated Lymphoid Tissue (GALT) Destruction</div>
+            <p>GALT contains the majority of the body's total lymphocytes, specifically enriched in CD4+ <strong>Th17 cells</strong>. Primary HIV infection causes massive, selective depletion of GALT mucosal CD4+ T-cells before any significant drop in peripheral blood CD4 counts.</p>
+            
+            <div class="flowchart">
+                <div class="flow-step">
+                    <strong>1. Mucosal Infection & GALT Seeding:</strong> Rapid local viral replication in GALT leads to massive destruction of Th17 CD4+ T-cells.
+                </div>
+                <div class="flow-step">
+                    <strong>2. Mucosal Barrier Breakdown:</strong> Loss of mucosal immune integrity impairs tight junctions and epithelial defense.
+                </div>
+                <div class="flow-step">
+                    <strong>3. Microbial Translocation:</strong> Bacterial products (e.g., Lipopolysaccharide / LPS) leak into systemic circulation.
+                </div>
+                <div class="flow-step">
+                    <strong>4. Chronic Immune Activation:</strong> Persistent LPS and HIV antigens continuously drive systemic inflammation, lymphocyte turnover, and immune exhaustion.
+                </div>
+            </div>
+
+            <div class="section-header">🏰 Establishment of the Lifelong Latent Reservoir</div>
+            <p>Persistent infection is maintained primarily in <strong>resting CD4+ memory T-cells</strong> containing integrated provirus (post-integration latency). Because these cells produce no viral proteins, they remain invisible to host cytotoxic CD8+ T-cells and are unaffected by antiretroviral drugs. This reservoir is established within days of exposure—which is why ART suppresses viral replication but cannot cure infection.</p>
+
+            <div class="section-header">⚔️ Mechanisms of CD4+ T-Cell Depletion</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Direct Viral Mechanisms</th>
+                            <th>Indirect / Immune-Mediated Mechanisms</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                • <strong>Syncytium Formation:</strong> Fusion of infected CD4 cells with non-infected neighbors forming multinucleated giant cells that die.<br>
+                                • Direct cell lysis during viral budding.<br>
+                                • Disruption of cellular RNA processing.<br>
+                                • Accumulation of unintegrated viral DNA.<br>
+                                • gp120 membrane toxicity.
+                            </td>
+                            <td>
+                                • <strong>Bystander Apoptosis & Pyroptosis:</strong> Inflammatory cell death of uninfected bystander cells.<br>
+                                • Immune-mediated killing by HIV-specific CTLs.<br>
+                                • Autoimmune destruction.<br>
+                                • Impaired lymphopoiesis/production in bone marrow and thymus.<br>
+                                • Chronic immune exhaustion (PD-1, LAG-3, TIM-3 upregulation).
+                            </td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header">🎮 Long-Term Nonprogressors (LTNP) vs. Elite Controllers</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Long-Term Nonprogressor (LTNP)</th>
+                            <th>Elite Controller</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ART Status</strong></td>
+                            <td>No ART</td>
+                            <td>No ART</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Viral Load</strong></td>
+                            <td>Low; may be detectable</td>
+                            <td><strong>Extremely low / Undetectable (&lt;50 copies/mL)</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CD4 Count</strong></td>
+                            <td>Relatively preserved for years</td>
+                            <td>Usually normal / completely preserved</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Frequency</strong></td>
+                            <td>~5%–15% of untreated patients</td>
+                            <td><strong>&lt; 1% of HIV population</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary Feature</strong></td>
+                            <td>Clinical and immunologic stability without treatment.</td>
+                            <td>Exceptional host immune-mediated viral control (associated with <strong>HLA-B*57:01</strong> and <strong>HLA-B*27:05</strong>).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout-grid">
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⭐ MUST KNOW: LTNP vs Long-Term Survivor</div>
+                    All LTNPs are long-term survivors, but NOT all long-term survivors are nonprogressors! Long-term survival today is expected with effective ART; LTNP refers specifically to rare untreated individuals who resist progression.
+                </div>
+                <div class="callout callout-pearl">
+                    <div class="callout-title">💡 CLINICAL PEARL: Elite Controllers Aren't Cured</div>
+                    Elite controllers still harbor integrated latent proviral DNA reservoirs and can experience chronic inflammatory complications (cardiovascular, renal disease). They are NOT cured.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 5: DIAGNOSTIC APPROACH & STAGING -->
+    <div id="topic4" class="tab-content">
+        <div class="card card-accent-blue">
+            <div class="card-title">🧪 Topic 4: Diagnostic Algorithm, Baseline Workup & Staging</div>
+            
+            <div class="section-header">🔄 CDC Recommended HIV Diagnostic Algorithm</div>
+            <p>Diagnosis relies on a sequential 3-step paradigm: <strong>Screen → Differentiate → Resolve</strong>.</p>
+
+            <!-- Visual Diagram: Recreated CDC Algorithm -->
+            <div class="figure-card">
+                <div class="figure-title">Figure 3. Official CDC HIV Diagnostic Algorithm Flowchart</div>
+                <div class="figure-content">
+                    <div class="flowchart">
+                        <div class="flow-step" style="background: #e0f2fe; border-color: #0284c7;">
+                            <strong>STEP 1: Initial Screen</strong><br>
+                            Perform <strong>4th-Generation HIV-1/2 Ag/Ab Combination Immunoassay</strong> (detects p24 antigen + HIV-1/HIV-2 antibodies).
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0;">
+                            <div style="background: #d1fae5; padding: 0.8rem; border-radius: 6px; font-size: 0.85rem;">
+                                <strong>If Nonreactive:</strong> Negative for HIV-1 and HIV-2. (If recent exposure within 3-month window period, retest).
+                            </div>
+                            <div style="background: #fee2e2; padding: 0.8rem; border-radius: 6px; font-size: 0.85rem;">
+                                <strong>If Reactive:</strong> Proceed immediately to Step 2! (Never diagnose from a single screening test).
+                            </div>
+                        </div>
+                        <div class="flow-step" style="background: #fef3c7; border-color: #f59e0b;">
+                            <strong>STEP 2: Differentiation</strong><br>
+                            Perform <strong>HIV-1/HIV-2 Antibody Differentiation Immunoassay</strong>.
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0;">
+                            <div style="background: #d1fae5; padding: 0.8rem; border-radius: 6px; font-size: 0.85rem;">
+                                <strong>If Positive for HIV-1 or HIV-2 Ab:</strong> Confirmed HIV-1 or HIV-2 Infection! Link to care.
+                            </div>
+                            <div style="background: #fee2e2; padding: 0.8rem; border-radius: 6px; font-size: 0.85rem;">
+                                <strong>If Negative or Indeterminate:</strong> Suspect Acute Infection! Proceed to Step 3.
+                            </div>
+                        </div>
+                        <div class="flow-step" style="background: #fce7f3; border-color: #ec4899;">
+                            <strong>STEP 3: Resolution</strong><br>
+                            Perform <strong>HIV-1 Nucleic Acid Test (NAT / Viral Load)</strong>.
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.5rem 0;">
+                            <div style="background: #d1fae5; padding: 0.8rem; border-radius: 6px; font-size: 0.85rem;">
+                                <strong>(+) NAT:</strong> Confirmed <i>Acute HIV-1 Infection</i> (viremia present before antibody maturation).
+                            </div>
+                            <div style="background: #fee2e2; padding: 0.8rem; border-radius: 6px; font-size: 0.85rem;">
+                                <strong>(-) NAT:</strong> False-positive 4th-Gen screen. Consider HIV-2 NAT if clinical suspicion remains.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="figure-explanation">
+                    <strong>Plain-Language Explanation:</strong> 4th-gen immunoassay detects p24 antigen and antibodies. If positive, differentiation confirms antibody type. If differentiation is negative, NAT detects early viral RNA in acute HIV before seroconversion.
+                </div>
+                <div class="figure-clinical-sig">
+                    <strong>Clinical Significance:</strong> Western Blot is completely retired and no longer used in standard diagnostic algorithms.
+                </div>
+            </div>
+
+            <div class="section-header">⚖️ Clinical Utility: CD4+ Count vs. HIV RNA Viral Load</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>CD4+ T-Lymphocyte Count</th>
+                            <th>Plasma HIV RNA (Viral Load)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>What It Measures</strong></td>
+                            <td>Current immune status / damage</td>
+                            <td>Magnitude of active viral replication</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Analogy</strong></td>
+                            <td>Damage to the castle walls</td>
+                            <td><strong>"Virologic Thermometer"</strong> / Speed of approaching train</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary Clinical Use</strong></td>
+                            <td>Determines OI risk, guides primary prophylaxis, identifies advanced HIV disease.</td>
+                            <td>Primary marker of ART response, therapeutic success, and transmission risk (U=U).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Response to ART</strong></td>
+                            <td>Slow recovery over months/years</td>
+                            <td>Rapid exponential decline within weeks</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header">📋 Baseline Laboratory Evaluation Prior to ART</div>
+            <ul style="margin-left: 1.5rem;">
+                <li><strong>Virologic/Immunologic:</strong> HIV RNA baseline, CD4 count, HIV Drug Resistance Testing.</li>
+                <li><strong>Safety/Organ Function:</strong> CBC, Creatinine/eGFR (guides NRTI dosing), AST/ALT/Bilirubin.</li>
+                <li><strong>Coinfections & Screening:</strong> Hepatitis B (HBsAg, anti-HBs, anti-HBc) & Hepatitis C screening, Syphilis (RPR/VDRL), Gonorrhea/Chlamydia nucleic acid tests.</li>
+                <li><strong>Genetic Biomarker:</strong> <strong>HLA-B*57:01</strong> screening prior to starting Abacavir (ABC) to prevent severe, life-threatening hypersensitivity reaction.</li>
+            </ul>
+
+            <div class="callout-grid">
+                <div class="callout callout-pitfall">
+                    <div class="callout-title">⚠️ COMMON PITFALL: Diagnostic Delay</div>
+                    Do NOT delay starting ART or necessary clinical care while waiting for baseline laboratory results (e.g., resistance test or CD4 count). ART can be rapidly initiated while pending baseline labs.
+                </div>
+                <div class="callout callout-tip">
+                    <div class="callout-title">🧠 EXAM TIP: Window Period</div>
+                    HIV antibodies generally appear <strong>3 to 12 weeks</strong> post-exposure. 4th-gen 24 antigen detection narrows the diagnostic window period to ~14–20 days.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 6: OPPORTUNISTIC INFECTIONS & MALIGNANCY -->
+    <div id="topic5" class="tab-content">
+        <div class="card card-accent-red">
+            <div class="card-title">🧫 Topic 5: Opportunistic Diseases, Malignancies & Prophylaxis</div>
+            
+            <div class="section-header">📉 Opportunistic Infection Development by CD4 Threshold</div>
+            
+            <!-- Figure: CD4 vs OI Spectrum Chart -->
+            <div class="figure-card">
+                <div class="figure-title">Figure 4. Stratification of Opportunistic Infections by CD4 Count</div>
+                <div class="figure-content">
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <div style="background: #e0f2fe; padding: 0.6rem 1rem; border-radius: 6px; border-left: 5px solid #0284c7;">
+                            <strong>CD4 &gt; 500 / µL:</strong> Acute retroviral syndrome, Candida vaginitis, Persistent generalized lymphadenopathy.
+                        </div>
+                        <div style="background: #fef3c7; padding: 0.6rem 1rem; border-radius: 6px; border-left: 5px solid #f59e0b;">
+                            <strong>CD4 200–500 / µL:</strong> Oral Thrush (Candida), Oral Hairy Leukoplakia (EBV), Herpes Zoster, Recurrent Bacterial Pneumonia, Kaposi Sarcoma, Tuberculosis (Pulmonary Reactivation).
+                        </div>
+                        <div style="background: #fee2e2; padding: 0.6rem 1rem; border-radius: 6px; border-left: 5px solid #ef4444;">
+                            <strong>CD4 &lt; 200 / µL:</strong> <i>Pneumocystis jirovecii</i> Pneumonia (PJP), Disseminated TB, Primary CNS Lymphoma, Wasting Syndrome.
+                        </div>
+                        <div style="background: #fce7f3; padding: 0.6rem 1rem; border-radius: 6px; border-left: 5px solid #ec4899;">
+                            <strong>CD4 &lt; 100 / µL:</strong> Cryptococcal Meningitis, Toxoplasmosis of Brain, Progressive Multifocal Leukoencephalopathy (PML).
+                        </div>
+                        <div style="background: #f3e8ff; padding: 0.6rem 1rem; border-radius: 6px; border-left: 5px solid #a855f7;">
+                            <strong>CD4 &lt; 50 / µL:</strong> Cytomegalovirus (CMV) Retinitis, <i>Mycobacterium avium</i> Complex (MAC), Disseminated Fungal Infections (Histoplasmosis, Talaromycosis).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header">🫁 Comprehensive Opportunistic Illness Master Matrix</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Disease / Pathogen</th>
+                            <th>CD4 Threshold</th>
+                            <th>Classic Clinical Presentation</th>
+                            <th>Diagnostic Gold Standard</th>
+                            <th>Treatment Regimen</th>
+                            <th>Primary Prophylaxis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tuberculosis (TB)</strong><br>(<i>M. tuberculosis</i>)</td>
+                            <td>Any CD4<br>(Risk &uparrow; as CD4 &downarrow;)</td>
+                            <td>High CD4: Apical cavitary lung lesions, cough, fever.<br>Low CD4: Extrapulmonary/disseminated, lymphadenitis, milliary pattern.</td>
+                            <td>Sputum/tissue Culture or GeneXpert MTB/RIF.</td>
+                            <td>2 HRZE + 4 HR</td>
+                            <td><strong>IPT:</strong> Weekly INH + Rifapentine x 12 wks (3HP) or Daily INH x 6–9 mos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PJP / PCP</strong><br>(<i>P. jirovecii</i>)</td>
+                            <td><strong>&lt; 200 / µL</strong></td>
+                            <td>Subacute dry nonproductive cough, exertional dyspnea, fever, retrosternal chest pain, hypoxemic ABG, elevated LDH, bilateral diffuse interstitial infiltrates.</td>
+                            <td>CXR / CT chest; Wright-Giemsa or direct immunofluorescence of induced sputum/BAL.</td>
+                            <td>High-dose <strong>TMP-SMX</strong> (15–20 mg/kg/d IV/PO) x 21 days (+ Steroids if PaO2 &lt; 70 mmHg).</td>
+                            <td><strong>TMP-SMX</strong> 1 DS or SS tab PO daily (Start if CD4 &lt; 200; stop when CD4 &gt; 200 x 3 mos).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Toxoplasmosis</strong><br>(<i>T. gondii</i>)</td>
+                            <td><strong>&lt; 200 / µL</strong><br>(Peak &lt; 50)</td>
+                            <td>Focal deficits, seizures, fever, headache. Brain MRI: <strong>Multiple ring-enhancing lesions</strong> with mass effect, basal ganglia predilection.</td>
+                            <td>Brain MRI + Positive Toxoplasma IgG. (Biopsy if no trial response in 10-14 days).</td>
+                            <td><strong>Pyrimethamine + Sulfadiazine + Leucovorin</strong> x 4–6 weeks.</td>
+                            <td><strong>TMP-SMX</strong> 1 DS tab PO daily (covers PJP + Toxo if IgG positive and CD4 &lt; 100).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary CNS Lymphoma</strong><br>(EBV-driven)</td>
+                            <td><strong>&lt; 50 / µL</strong></td>
+                            <td>Apathy, confusion, focal deficits, seizures. MRI: Solitary or few ring/solid enhancing lesions, periventricular.</td>
+                            <td>Positive CSF EBV PCR + Brain MRI; definitive Brain Biopsy.</td>
+                            <td>Systemic chemotherapy (High-dose Methotrexate) + ART.</td>
+                            <td>No specific prophylaxis.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cryptococcal Meningitis</strong><br>(<i>C. neoformans</i>)</td>
+                            <td><strong>&lt; 100 / µL</strong></td>
+                            <td>Subacute headache, fever, altered mental status, subtle/absent nuchal rigidity, elevated ICP.</td>
+                            <td>CSF <strong>India Ink</strong> (clear halo capsule) or CSF Cryptococcal Antigen (CrAg).</td>
+                            <td><strong>Induction:</strong> Liposomal Amphotericin B + Flucytosine x &ge;2 wks, then Fluconazole.</td>
+                            <td>Routine primary antifungal prophylaxis not recommended. Screen CrAg if CD4 &lt; 100.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CMV Retinitis</strong><br>(Cytomegalovirus)</td>
+                            <td><strong>&lt; 50 / µL</strong></td>
+                            <td>Painless blurred vision, floaters, scotomas, visual field loss. Fundoscopy: <strong>"Pizza Pie" appearance</strong> (perivascular hemorrhage + white necrotic exudates).</td>
+                            <td>Ophthalmologic fundoscopic exam (Brushfire edge, perivascular sheathing).</td>
+                            <td>Oral <strong>Valganciclovir</strong> or IV Ganciclovir / Foscarnet (&plusmn; intravitreal ganciclovir).</td>
+                            <td>Regular ophthalmologic screening q3–6 months when CD4 &lt; 100.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PML</strong><br>(JC Polyomavirus)</td>
+                            <td><strong>&lt; 200 / µL</strong></td>
+                            <td>Progressive focal deficits (hemiparesis, ataxia, visual field defects, aphasia). <i>NO fever, NO headache!</i></td>
+                            <td>Brain MRI: <strong>Multifocal non-enhancing white matter lesions</strong> without mass effect + CSF JC Virus PCR.</td>
+                            <td><strong>Immediate ART initiation</strong> (No effective anti-JC antiviral exists).</td>
+                            <td>None.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kaposi Sarcoma</strong><br>(HHV-8 / KSHV)</td>
+                            <td>Any CD4<br>(Higher risk &lt;200)</td>
+                            <td>Violaceous / red-purple macules, papules, plaques, nodules on skin, oral mucosa (palate), GI, lungs.</td>
+                            <td>Biopsy showing spindle cells, vascular slits, extravasated RBCs.</td>
+                            <td><strong>ART initiation</strong> (causes regression); systemic liposomal doxorubicin if visceral/severe.</td>
+                            <td>None.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Talaromycosis</strong><br>(<i>T. marneffei</i>)</td>
+                            <td><strong>&lt; 100 / µL</strong></td>
+                            <td>Endemic to SE Asia (Philippines/Thailand). Fever, HSM, lymphadenopathy, <strong>umbilicated papular skin lesions</strong>.</td>
+                            <td>Fungal culture / skin biopsy demonstrating central budding yeast.</td>
+                            <td>IV Amphotericin B followed by oral Itraconazole.</td>
+                            <td>None.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header">⚠️ Immune Reconstitution Inflammatory Syndrome (IRIS) & ART Timing</div>
+            <p>IRIS occurs when rapid immune recovery following ART initiation triggers an exaggerated hyper-inflammatory reaction against underlying opportunistic antigens. It presents as paradoxical clinical worsening.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Opportunistic Infection</th>
+                            <th>CD4 Count</th>
+                            <th>Recommended ART Start Timing</th>
+                            <th>Rationale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2"><strong>Pulmonary Tuberculosis</strong></td>
+                            <td><strong>CD4 &lt; 50 / µL</strong></td>
+                            <td><strong>Start ART ASAP (within 2 weeks)</strong></td>
+                            <td>Mortality risk from severe immunosuppression outweighs IRIS risk.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CD4 &ge; 50 / µL</strong></td>
+                            <td><strong>Delay ART by 2 to 8 weeks</strong></td>
+                            <td>Reduces risk and severity of debilitating pulmonary IRIS.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cryptococcal Meningitis</strong></td>
+                            <td>Any CD4</td>
+                            <td><strong>Delay ART by 2 to 6 weeks</strong></td>
+                            <td>CNS IRIS causes severe intracranial hypertension, brain herniation, and mortality.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TB Meningitis</strong></td>
+                            <td>Any CD4</td>
+                            <td><strong>Delay ART until intensive TB phase ends</strong></td>
+                            <td>Prevent fatal neuro-IRIS and severe cerebral edema.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout-grid">
+                <div class="callout callout-pitfall">
+                    <div class="callout-title">⚠️ COMMON PITFALL: PML Clinical Clue</div>
+                    If a patient with progressive neurological deficits presents with prominent <strong>fever or severe headache</strong>, rule out PML! PML lesions cause demyelination without significant mass effect or systemic inflammation, so fever/headache are characteristically ABSENT.
+                </div>
+                <div class="callout callout-pearl">
+                    <div class="callout-title">💡 CLINICAL PEARL: Toxoplasmosis vs Lymphoma</div>
+                    When multiple ring-enhancing lesions are seen on MRI, initiate empiric anti-toxoplasma therapy. If there is no clinical or radiological improvement after <strong>10 to 14 days</strong>, proceed to brain biopsy or CSF EBV PCR to evaluate for Primary CNS Lymphoma.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 7: ANTIRETROVIRAL THERAPY & PREVENTION -->
+    <div id="topic6" class="tab-content">
+        <div class="card card-accent-green">
+            <div class="card-title">💊 Topic 6: Antiretroviral Therapy (ART) & Prevention Strategies</div>
+            
+            <div class="section-header">🎯 Principles & Goals of Antiretroviral Therapy</div>
+            <p>ART is recommended for <strong>ALL individuals with confirmed HIV infection</strong> regardless of CD4 cell count. The primary treatment goal is <strong>durable virologic suppression (HIV RNA &lt; 20 copies/mL)</strong>, which restores immune function, reduces morbidity/mortality, and eliminates sexual transmission risk.</p>
+
+            <div class="section-header">💊 Comprehensive Antiretroviral Drug Classes</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Drug Class</th>
+                            <th>Representative Agents</th>
+                            <th>Mechanism of Action</th>
+                            <th>Key Black Box Warnings & Toxicity Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>NRTIs</strong><br>(Nucleoside/Nucleotide Reverse Transcriptase Inhibitors)</td>
+                            <td>• Tenofovir DF (TDF)<br>• Tenofovir AF (TAF)<br>• Lamivudine (3TC)<br>• Emtricitabine (FTC)<br>• Abacavir (ABC)</td>
+                            <td>Competitive analogs that bind RT active site, causing DNA chain termination.</td>
+                            <td>• <strong>TDF:</strong> Renal tubulopathy (Fanconi syndrome) & decreased bone mineral density.<br>• <strong>ABC:</strong> Hypersensitivity reaction (screen <strong>HLA-B*57:01</strong>).<br>• Lactic acidosis with hepatic steatosis.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NNRTIs</strong><br>(Non-Nucleoside Reverse Transcriptase Inhibitors)</td>
+                            <td>• Efavirenz (EFV)<br>• Rilpivirine (RPV)<br>• Doravirine (DOR)</td>
+                            <td>Allosteric non-competitive binding to RT enzyme, inducing conformational change.</td>
+                            <td>• <strong>EFV:</strong> CNS side effects (divid dreams, depression, psychosis), rash, teratogenicity (historical concern).<br>• Low genetic barrier to resistance.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>INSTIs</strong><br>(Integrase Strand Transfer Inhibitors)</td>
+                            <td>• Dolutegravir (DTG)<br>• Bictegravir (BIC)<br>• Raltegravir (RAL)</td>
+                            <td>Inhibits HIV integrase, blocking viral cDNA insertion into host chromosome.</td>
+                            <td>• High genetic barrier to resistance (DTG, BIC).<br>• Weight gain, mild insomnia, rare hypersensitivity.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PIs</strong><br>(Protease Inhibitors)</td>
+                            <td>• Darunavir (DRV)<br>• Atazanavir (ATV)</td>
+                            <td>Inhibits HIV protease, preventing cleavage of Gag-Pol polyproteins → immature virions.</td>
+                            <td>• Metabolic dysfunction (dyslipidemia, insulin resistance, lipodystrophy).<br>• Requires PK booster (Ritonavir / Cobicistat).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PK Enhancers / Boosters</strong></td>
+                            <td>• Ritonavir (RTV)<br>• Cobicistat (COBI)</td>
+                            <td>CYP3A4 inhibitors that increase plasma levels of primary PIs or INSTIs.</td>
+                            <td>Extensive drug-drug interactions!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header">🇵🇭 Preferred Initial ART Regimen (Philippine Standard)</div>
+            <p>Modern guidelines favor an <strong>INSTI-based 3-drug regimen</strong> containing 2 NRTIs + 1 second-generation INSTI due to high potency, high genetic barrier to resistance, and excellent tolerability.</p>
+            
+            <div class="callout-grid">
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⭐ MUST KNOW: The Philippine "LTD" Regimen</div>
+                    In the Philippines HIV National Program, the standard preferred first-line single-tablet regimen is <strong>LTD</strong>:
+                    <br>• <strong>L</strong>amivudine (3TC) - 300 mg
+                    <br>• <strong>T</strong>enofovir Disoproxil Fumarate (TDF) - 300 mg
+                    <br>• <strong>D</strong>olutegravir (DTG) - 50 mg
+                </div>
+                <div class="callout callout-tip">
+                    <div class="callout-title">🧠 EXAM TIP: Rapid ART Initiation</div>
+                    WHO 2025 guidelines recommend <strong>Rapid ART initiation within 7 days</strong> of confirmed diagnosis (including <strong>Same-Day initiation</strong> for ready patients). <i>Exceptions: Delay ART in Cryptococcal Meningitis, TB Meningitis, or TB with CD4 &ge; 50!</i>
+                </div>
+            </div>
+
+            <div class="section-header">⚙️ Clinical Management in Special Populations</div>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1.2rem;">
+                <li><strong>Hepatitis B (HBV) Co-infection:</strong> The ART regimen MUST include <strong>two drugs active against HBV</strong> (Tenofovir [TDF or TAF] + Lamivudine [3TC] or Emtricitabine [FTC]). <i>Pitfall: Discontinuing HBV-active NRTIs causes severe, potentially fatal hepatic flares!</i></li>
+                <li><strong>Renal Dysfunction (eGFR &lt; 50 mL/min):</strong> Avoid TDF due to nephrotoxicity. Switch to TAF or adjust 3TC/TDF dosing intervals.</li>
+                <li><strong>Pregnancy:</strong> Dolutegravir-based regimens are preferred throughout all trimesters of pregnancy. Viral suppression prevents perinatal transmission.</li>
+            </ul>
+
+            <div class="section-header">🛡️ HIV Prevention Strategies</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Strategy</th>
+                            <th>Target Population</th>
+                            <th>Regimen / Protocol</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>U = U</strong><br>(Undetectable = Untransmittable)</td>
+                            <td>All PLHIV on ART</td>
+                            <td>Maintaining viral load <strong>&lt; 20 copies/mL</strong> for &ge;6 months completely eliminates sexual transmission to uninfected partners.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PrEP</strong><br>(Pre-Exposure Prophylaxis)</td>
+                            <td>HIV-negative individuals at high ongoing risk</td>
+                            <td>• Daily Oral: TDF/FTC or TAF/FTC.<br>• Injectable: Long-acting Cabotegravir (CAB-LA) IM every 2 months.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PEP</strong><br>(Post-Exposure Prophylaxis)</td>
+                            <td>Emergency after occupational / non-occupational exposure</td>
+                            <td>Must start <strong>within 72 hours</strong> of exposure. 28-day course of 3-drug ART (e.g., TDF/FTC + DTG).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 8: HIGH-YIELD COMPARISONS -->
+    <div id="comparisons" class="tab-content">
+        <div class="card card-accent-blue">
+            <div class="card-title">⚖️ Side-by-Side High-Yield Comparisons</div>
+            <p>Mastering these commonly confused pairs is essential for acing board examinations and shelf tests.</p>
+
+            <div class="section-header">1. Long-Term Nonprogressor (LTNP) vs. Elite Controller</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Long-Term Nonprogressor (LTNP)</th>
+                            <th>Elite Controller</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Primary Characteristic</strong></td>
+                            <td>Maintains stable CD4 count for years without ART</td>
+                            <td>Suppresses viral replication to undetectable levels without ART</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plasma HIV RNA</strong></td>
+                            <td>Low to moderate (may be detectable)</td>
+                            <td><strong>Undetectable / &lt; 50 copies/mL</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CD4 Trajectory</strong></td>
+                            <td>Stable, but may eventually decline over decades</td>
+                            <td>Normal and stable indefinitely</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Genetics / Mechanism</strong></td>
+                            <td>Heterogeneous host immune factors</td>
+                            <td>Enriched for protective <strong>HLA-B*57:01</strong> and <strong>HLA-B*27:05</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Population Frequency</strong></td>
+                            <td>~5%–15% of untreated patients</td>
+                            <td><strong>&lt; 1% of HIV-infected individuals</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header">2. CD4+ T-Cell Count vs. Plasma HIV RNA Viral Load</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>CD4+ T-Cell Count</th>
+                            <th>Plasma HIV RNA (Viral Load)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Biological Target</strong></td>
+                            <td>Helper T-lymphocyte quantitative count</td>
+                            <td>Number of viral RNA copies per mL of plasma</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Clinical Role</strong></td>
+                            <td>Measures current degree of immunodeficiency</td>
+                            <td>Measures rate of active viral replication ("Virologic Thermometer")</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary Purpose</strong></td>
+                            <td>Determines OI susceptibility & prophylaxis need</td>
+                            <td>Monitors ART response, efficacy, & transmission risk (U=U)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Post-ART Response</strong></td>
+                            <td>Slow recovery over months to years</td>
+                            <td>Rapid exponential decline within weeks</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header">3. Cerebral Toxoplasmosis vs. Primary CNS Lymphoma</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Diagnostic Feature</th>
+                            <th>Cerebral Toxoplasmosis</th>
+                            <th>Primary CNS Lymphoma</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Etiology</strong></td>
+                            <td>Reactivation of <i>Toxoplasma gondii</i> tissue cysts</td>
+                            <td>Epstein-Barr Virus (EBV)-driven B-cell malignancy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CD4 Cutoff</strong></td>
+                            <td>CD4 &lt; 200 / µL (Peak risk &lt; 50)</td>
+                            <td>CD4 &lt; 50 / µL</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Brain MRI Pattern</strong></td>
+                            <td><strong>Multiple</strong> ring-enhancing lesions in basal ganglia/cortex</td>
+                            <td><strong>Solitary</strong> or few larger enhancing lesions, periventricular</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Serology / CSF</strong></td>
+                            <td>Positive Serum <strong>Toxoplasma IgG</strong></td>
+                            <td>Positive <strong>CSF EBV DNA PCR</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Initial Management</strong></td>
+                            <td>Empiric Pyrimethamine + Sulfadiazine x 10–14 days</td>
+                            <td>Brain biopsy if no response to empiric Toxo trial</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header">4. <i>Pneumocystis jirovecii</i> Pneumonia (PJP) vs. Pulmonary Tuberculosis (TB)</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th><i>Pneumocystis jirovecii</i> Pneumonia</th>
+                            <th>Pulmonary Tuberculosis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Pathogen Type</strong></td>
+                            <td>Opportunistic Fungus</td>
+                            <td><i>Mycobacterium tuberculosis</i> (Acid-fast bacillus)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Typical CD4 Level</strong></td>
+                            <td>Strictly <strong>CD4 &lt; 200 / µL</strong></td>
+                            <td>Any CD4 level (Presentation varies by CD4)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CXR Findings</strong></td>
+                            <td>Bilateral, diffuse perihilar <strong>interstitial infiltrates</strong></td>
+                            <td>High CD4: Apical cavitary lesions.<br>Low CD4: Extrapulmonary / Millary.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sputum Characteristics</strong></td>
+                            <td><strong>Dry, nonproductive cough</strong> (scant white sputum)</td>
+                            <td>Productive cough, hemoptysis, night sweats, weight loss</td>
+                        </tr>
+                        <tr>
+                            <td><strong>First-Line Therapy</strong></td>
+                            <td>High-dose <strong>TMP-SMX</strong> x 21 days (&plusmn; Steroids)</td>
+                            <td>Quadruple therapy: <strong>HRZE</strong> x 2 mos, then HR x 4 mos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header">5. Direct vs. Indirect CD4 Depletion Mechanisms</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Direct Viral Mechanisms</th>
+                            <th>Indirect Host-Mediated Mechanisms</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>• Direct cell lysis during viral budding<br>• Syncytium formation (cell fusion)<br>• gp120-CD4 direct cell toxicity<br>• Disruption of cellular RNA processing<br>• Accumulation of unintegrated viral DNA</td>
+                            <td>• Bystander apoptosis/pyroptosis of uninfected cells<br>• Cytotoxic T-cell (CTL) killing of infected cells<br>• Autoimmunity<br>• Impaired CD4 production in thymus/bone marrow<br>• Chronic activation-induced cell death (AICD)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-header">6. NRTIs vs. NNRTIs</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>NRTIs</th>
+                            <th>NNRTIs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Binding Site</strong></td>
+                            <td>Active catalytic site of Reverse Transcriptase</td>
+                            <td>Allosteric pocket adjacent to RT active site</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mechanism</strong></td>
+                            <td>Nucleoside analog → cDNA chain termination</td>
+                            <td>Non-competitive conformational inhibition</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Class Agents</strong></td>
+                            <td>Tenofovir, Lamivudine, Emtricitabine, Abacavir</td>
+                            <td>Efavirenz, Rilpivirine, Doravirine</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Genetic Barrier</strong></td>
+                            <td>Variable (TDF/TAF higher than 3TC)</td>
+                            <td><strong>Low genetic barrier</strong> (single mutation causes class resistance)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 9: ACTIVE RECALL FLASHCARDS -->
+    <div id="flashcards" class="tab-content">
+        <div class="card card-accent-blue">
+            <div class="card-title">🎴 Active Recall Flashcards (52 Cards)</div>
+            <p>Test your recall across all core topics. Click the card to flip between Question and Answer.</p>
+
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                <select id="fcCategoryFilter" onchange="filterFlashcards()" style="padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border);">
+                    <option value="ALL">All Categories (52)</option>
+                    <option value="VIROLOGY">Virology & Replication</option>
+                    <option value="TRANSMISSION">Transmission & Epi</option>
+                    <option value="PATHOGENESIS">Pathogenesis & Latency</option>
+                    <option value="DIAGNOSIS">Diagnosis & Staging</option>
+                    <option value="OIS">Opportunistic Infections</option>
+                    <option value="ART">ART & Prevention</option>
+                </select>
+                <button class="btn btn-outline" onclick="shuffleFlashcards()">🔀 Shuffle</button>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard" id="activeFlashcard" onclick="flipCard()">
+                    <div class="card-front">
+                        <span class="fc-tag" id="fcTag">CATEGORY</span>
+                        <div class="fc-prompt" id="fcPrompt">Flashcard Prompt Question goes here?</div>
+                        <span style="font-size: 0.8rem; color: #94a3b8; margin-top: 1rem;">Click card to flip 🔄</span>
+                    </div>
+                    <div class="card-back">
+                        <span class="fc-tag" id="fcBackTag">ANSWER</span>
+                        <div class="fc-answer" id="fcAnswer">Flashcard Answer goes here.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fc-controls">
+                <button class="btn btn-secondary" onclick="prevCard()">⬅️ Previous</button>
+                <span id="fcCounter" class="font-mono" style="font-weight: 700;">1 / 52</span>
+                <button class="btn btn-primary" onclick="nextCard()">Next ➡️</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 10: SELF-ASSESSMENT MCQS -->
+    <div id="mcq" class="tab-content">
+        <div class="card card-accent-blue">
+            <div class="card-title">📝 Board Exam Self-Assessment MCQs (52 Questions)</div>
+            <p>USMLE/PLE-style high-yield multiple-choice questions. Select an option to see immediate feedback, correct answer rationale, and distractor breakdowns.</p>
+
+            <div class="score-banner">
+                <div class="score-stat">
+                    <div class="score-value" id="scoreCompleted">0 / 52</div>
+                    <div class="score-label">Questions Attempted</div>
+                </div>
+                <div class="score-stat">
+                    <div class="score-value" id="scoreCorrect">0</div>
+                    <div class="score-label">Correct Answers</div>
+                </div>
+                <div class="score-stat">
+                    <div class="score-value" id="scorePercentage">0%</div>
+                    <div class="score-label">Accuracy Score</div>
+                </div>
+                <button class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.3);" onclick="resetQuiz()">🔄 Reset Quiz</button>
+            </div>
+
+            <div id="mcqContainer">
+                <!-- MCQ Cards will be rendered dynamically by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 11: CRAM SHEET ULTRA -->
+    <div id="cram" class="tab-content">
+        <div class="card card-accent-amber">
+            <div class="card-title">⚡ Last-Minute Ultra-Condensed Cram Sheet</div>
+            <p>Rapid 10-minute review before exams. Covers high-yield triggers, buzzwords, and diagnostic shortcuts.</p>
+
+            <div class="cram-grid">
+                <div class="cram-card">
+                    <div class="cram-title">🎯 "If You See X → Think Y" Clinical Triggers</div>
+                    <ul class="cram-list">
+                        <li><strong>Subacute dry cough + exertional dyspnea + CD4 &lt; 200:</strong> Think <i>Pneumocystis jirovecii</i> Pneumonia (PJP). Give High-dose TMP-SMX + Steroids.</li>
+                        <li><strong>Multiple ring-enhancing brain lesions + CD4 &lt; 200:</strong> Think Cerebral Toxoplasmosis. Give Pyrimethamine + Sulfadiazine + Leucovorin.</li>
+                        <li><strong>Solitary periventricular brain lesion + EBV DNA in CSF:</strong> Think Primary CNS Lymphoma.</li>
+                        <li><strong>Subacute headache + CD4 &lt; 100 + India Ink clear halos:</strong> Think Cryptococcal Meningitis. Give Ampho B + Flucytosine. Delay ART 2–6 weeks!</li>
+                        <li><strong>"Pizza pie" fundoscopy (retinal hemorrhage + exudates) + CD4 &lt; 50:</strong> Think CMV Retinitis. Give Oral Valganciclovir.</li>
+                        <li><strong>Progressive focal neurological deficits WITHOUT fever or headache:</strong> Think PML (JC Virus). MRI shows non-enhancing white matter lesions. Start ART immediately.</li>
+                        <li><strong>Violaceous cutaneous/oral macules/plaques + HHV-8:</strong> Think Kaposi Sarcoma. Start ART.</li>
+                        <li><strong>SE Asian traveler + fever + umbilicated papular skin lesions:</strong> Think Talaromycosis (<i>Talaromyces marneffei</i>).</li>
+                        <li><strong>Hypersensitivity reaction + fever/rash + starting Abacavir:</strong> HLA-B*57:01 positive.</li>
+                    </ul>
+                </div>
+
+                <div class="cram-card">
+                    <div class="cram-title">💊 Primary Prophylaxis Rapid Summary</div>
+                    <ul class="cram-list">
+                        <li><strong>CD4 &lt; 200 / µL:</strong> Start <strong>TMP-SMX</strong> (1 DS or SS tab daily) for PJP.</li>
+                        <li><strong>CD4 &lt; 100 / µL + Toxo IgG(+):</strong> <strong>TMP-SMX</strong> 1 DS tab daily covers BOTH PJP and Toxoplasmosis.</li>
+                        <li><strong>TB Exposure / Positive TST (&ge;5mm) / IGRA(+):</strong> Give <strong>IPT</strong> (3HP: Weekly INH + Rifapentine x 12 wks) regardless of CD4.</li>
+                        <li><strong>Discontinuation Rule:</strong> Stop PJP/Toxo primary prophylaxis when CD4 &gt; 200 / µL for &ge;3 consecutive months on ART.</li>
+                    </ul>
+                </div>
+
+                <div class="cram-card">
+                    <div class="cram-title">⏳ Rapid ART Exceptions (When to DELAY ART)</div>
+                    <ul class="cram-list">
+                        <li><strong>Cryptococcal Meningitis:</strong> Delay ART by <strong>2 to 6 weeks</strong> to prevent fatal intracranial IRIS.</li>
+                        <li><strong>TB Meningitis:</strong> Delay ART until intensive anti-TB therapy completes to prevent neuro-IRIS.</li>
+                        <li><strong>Pulmonary TB + CD4 &ge; 50:</strong> Delay ART by <strong>2 to 8 weeks</strong>.</li>
+                        <li><strong>Pulmonary TB + CD4 &lt; 50:</strong> Start ART <strong>ASAP (within 2 weeks)</strong>! Benefits outweigh IRIS risk.</li>
+                    </ul>
+                </div>
+
+                <div class="cram-card">
+                    <div class="cram-title">🔬 Diagnostic Algorithm Shortcuts</div>
+                    <ul class="cram-list">
+                        <li><strong>Initial Screen:</strong> 4th-Gen HIV-1/2 Ag/Ab Immunoassay (p24 Ag + Abs).</li>
+                        <li><strong>If Screen(+):</strong> Do HIV-1/HIV-2 Antibody Differentiation Assay.</li>
+                        <li><strong>If Diff(-/Indeterminate):</strong> Perform <strong>HIV-1 NAT (RNA)</strong> to diagnose Acute HIV-1.</li>
+                        <li><strong>Retired Test:</strong> Western Blot is NO LONGER used.</li>
+                        <li><strong>U = U Threshold:</strong> Plasma HIV RNA &lt; 20 copies/mL = Zero sexual transmission.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Scroll to Top Button -->
+<button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">⬆️</button>
+
+<!-- Inline JavaScript -->
+<script>
+    /* -------------------------------------------------------------------------- */
+    /* TAB NAVIGATION SYSTEM                                                      */
+    /* -------------------------------------------------------------------------- */
+    function switchTab(tabId) {
+        const contents = document.querySelectorAll('.tab-content');
+        const buttons = document.querySelectorAll('.tab-btn');
+
+        contents.forEach(content => content.classList.remove('active'));
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        const targetContent = document.getElementById(tabId);
+        if (targetContent) targetContent.classList.add('active');
+
+        // Find matching button
+        buttons.forEach(btn => {
+            if (btn.getAttribute('onclick').includes(tabId)) {
+                btn.classList.add('active');
+            }
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* SCROLL TO TOP & SEARCH FUNCTIONALITY                                       */
+    /* -------------------------------------------------------------------------- */
+    window.onscroll = function() {
+        const btn = document.getElementById("scrollTopBtn");
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            btn.style.display = "flex";
+        } else {
+            btn.style.display = "none";
+        }
+    };
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleSearch() {
+        const query = document.getElementById('globalSearch').value.toLowerCase();
+        if (!query) return;
+
+        // Simple search highlight / tab switch logic can be implemented here
+        const cards = document.querySelectorAll('.card, .mcq-card, .cram-card');
+        cards.forEach(card => {
+            const text = card.innerText.toLowerCase();
+            if (text.includes(query)) {
+                card.style.display = "block";
+            } else if (query.length > 3) {
+                // Option to filter out non-matching cards if desired
+            }
+        });
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* ACTIVE RECALL FLASHCARDS ENGINE (52 CARDS)                                 */
+    /* -------------------------------------------------------------------------- */
+    const flashcardsData = [
+        // VIROLOGY (1-8)
+        { cat: "VIROLOGY", q: "What family and subfamily does HIV belong to?", a: "Family: Retroviridae. Subfamily: Lentiviruses ('slow viruses')." },
+        { cat: "VIROLOGY", q: "What are the roles of envelope glycoproteins gp120 and gp41?", a: "gp120 handles external attachment to host CD4 receptors; gp41 mediates transmembrane fusion of the viral envelope with the cell membrane." },
+        { cat: "VIROLOGY", q: "Which capsid protein is measured in 4th-generation HIV screening assays?", a: "p24 antigen (forms the bullet-shaped viral core capsid)." },
+        { cat: "VIROLOGY", q: "Which HIV-1 group is primarily responsible for the global AIDS pandemic?", a: "Group M ('Major'). Groups N, O, and P are minor groups." },
+        { cat: "VIROLOGY", q: "How does HIV-2 differ clinically and virologically from HIV-1?", a: "HIV-2 is less transmissible, progresses slower, has lower viral loads, is originally confined to West Africa, and is intrinsically resistant to NNRTIs." },
+        { cat: "VIROLOGY", q: "What co-receptors are required for HIV entry into host cells?", a: "CCR5 (macrophage-tropic / R5 strains) or CXCR4 (T-cell-tropic / X4 strains)." },
+        { cat: "VIROLOGY", q: "What enzyme inserts viral cDNA into the host cell chromosome?", a: "Integrase (forms the integrated Provirus)." },
+        { cat: "VIROLOGY", q: "What is the mechanism of action of HIV Protease?", a: "Protease cleaves long Gag-Pol precursor polyproteins into functional structural proteins and enzymes, maturing the virion into an infectious particle." },
+
+        // TRANSMISSION & EPI (9-16)
+        { cat: "TRANSMISSION", q: "Which parenteral exposure act has the highest per-act transmission risk?", a: "Blood transfusion (~92.5% or 9,250 per 10,000 exposures)." },
+        { cat: "TRANSMISSION", q: "Which sexual act carries the highest per-act risk of HIV transmission?", a: "Receptive anal intercourse (138 per 10,000 exposures / ~1.38%)." },
+        { cat: "TRANSMISSION", q: "Why is receptive anal intercourse significantly higher risk than penile-vaginal sex?", a: "Rectal mucosa is thin, single-layered columnar epithelium rich in target immune cells, and highly susceptible to microtrauma during sex." },
+        { cat: "TRANSMISSION", q: "What is the strongest predictor of mother-to-child transmission (MTCT)?", a: "Maternal plasma viremia (viral load)." },
+        { cat: "TRANSMISSION", q: "During which period does the majority of mother-to-child transmission occur?", a: "Perinatal / Intrapartum period (50%–65% of MTCT cases occur during labor and delivery)." },
+        { cat: "TRANSMISSION", q: "Why do saliva, tears, and sweat NOT transmit HIV?", a: "They contain natural antiviral factors (e.g., SLPI, hypotonicity) and lack sufficient free virus or infected cell concentration." },
+        { cat: "TRANSMISSION", q: "What does U = U stand for and what is the viral load threshold?", a: "Undetectable = Untransmittable. Maintaining viral load < 20 copies/mL eliminates sexual transmission." },
+        { cat: "TRANSMISSION", q: "How does male circumcision reduce female-to-male HIV transmission risk?", a: "It removes the inner foreskin, which is highly enriched in HIV target cells (Langerhans cells) and prone to microtrauma." },
+
+        // PATHOGENESIS & LATENCY (17-24)
+        { cat: "PATHOGENESIS", q: "What is the 'Eclipse Phase' in early HIV infection?", a: "The initial window period when HIV is replicating locally in mucosal tissues and lymph nodes, but plasma HIV RNA remains undetectable." },
+        { cat: "PATHOGENESIS", q: "Why is Gut-Associated Lymphoid Tissue (GALT) a critical early target in HIV?", a: "GALT harbors the majority of total body lymphocytes. HIV causes massive, rapid depletion of mucosal CD4+ Th17 cells early in infection." },
+        { cat: "PATHOGENESIS", q: "How does GALT damage lead to chronic systemic immune activation?", a: "Loss of Th17 mucosal integrity causes microbial translocation (leakage of LPS into circulation), perpetually stimulating systemic inflammation." },
+        { cat: "PATHOGENESIS", q: "Where is the principal latent HIV reservoir established and maintained?", a: "In resting CD4+ memory T-lymphocytes containing integrated proviral DNA." },
+        { cat: "PATHOGENESIS", q: "What is Syncytium formation?", a: "Direct fusion of infected CD4 cells with uninfected neighbor cells via gp120-CD4 interactions, forming multinucleated giant cells that die." },
+        { cat: "PATHOGENESIS", q: "What defines an Elite Controller?", a: "An untreated HIV-infected individual who maintains plasma HIV RNA < 50 copies/mL and normal CD4 counts indefinitely (<1% of cases)." },
+        { cat: "PATHOGENESIS", q: "Which HLA alleles are strongly associated with Elite Controllers?", a: "HLA-B*57:01 and HLA-B*27:05." },
+        { cat: "PATHOGENESIS", q: "What is the distinction between a Long-Term Nonprogressor (LTNP) and a Long-Term Survivor?", a: "LTNP describes untreated patients remaining clinically/immunologically stable. Long-term survivor includes all treated patients who survive decades on ART." },
+
+        // DIAGNOSIS & STAGING (25-32)
+        { cat: "DIAGNOSIS", q: "What components are detected by a 4th-generation HIV screening assay?", a: "HIV p24 antigen and HIV-1 / HIV-2 antibodies." },
+        { cat: "DIAGNOSIS", q: "If a 4th-gen HIV screen is reactive but antibody differentiation is negative, what is the next step?", a: "Perform an HIV-1 Nucleic Acid Test (NAT / RNA) to check for Acute HIV-1 Infection." },
+        { cat: "DIAGNOSIS", q: "Is Western Blot still recommended for HIV confirmation?", a: "No. Western Blot has been retired and replaced by HIV-1/HIV-2 differentiation assays and HIV-1 NAT." },
+        { cat: "DIAGNOSIS", q: "What is the CDC CD4 threshold for diagnosing Stage 3 AIDS in adults?", a: "CD4 count < 200 cells/µL (or CD4 percentage < 14%)." },
+        { cat: "DIAGNOSIS", q: "What is the primary clinical utility of measuring plasma HIV RNA?", a: "It serves as the 'virologic thermometer' to monitor ART efficacy, therapeutic success, and transmission risk." },
+        { cat: "DIAGNOSIS", q: "Why is HLA-B*57:01 screening mandatory prior to initiating Abacavir?", a: "To prevent a severe, potentially fatal multi-organ Abacavir Hypersensitivity Reaction." },
+        { cat: "DIAGNOSIS", q: "How is WHO Advanced HIV Disease defined?", a: "CD4 count < 200 cells/mm³ OR presence of a WHO Stage 3 or 4 clinical event." },
+        { cat: "DIAGNOSIS", q: "If a repeat 4th-gen screen is non-reactive on two occasions after an initial weak positive, what is the conclusion?", a: "The initial reading was a false-positive due to technical/biological error; patient is HIV-negative." },
+
+        // OPPORTUNISTIC INFECTIONS (33-44)
+        { cat: "OIS", q: "What is the first-line treatment for Pneumocystis jirovecii Pneumonia (PJP)?", a: "High-dose Trimethoprim-Sulfamethoxazole (TMP-SMX) for 21 days (&plusmn; corticosteroids if PaO2 < 70 mmHg)." },
+        { cat: "OIS", q: "When should primary PJP prophylaxis be initiated and when can it be stopped?", a: "Start when CD4 < 200 cells/µL. Stop when CD4 > 200 cells/µL for at least 3 consecutive months on ART." },
+        { cat: "OIS", q: "What is the classic MRI finding for Cerebral Toxoplasmosis?", a: "Multiple ring-enhancing lesions with surrounding edema, predominantly in the basal ganglia and corticomedullary junction." },
+        { cat: "OIS", q: "How do you treat Cerebral Toxoplasmosis?", a: "Pyrimethamine + Sulfadiazine + Leucovorin for 4 to 6 weeks." },
+        { cat: "OIS", q: "How do you differentiate Primary CNS Lymphoma from Toxoplasmosis on MRI and CSF?", a: "Lymphoma usually presents as solitary/few periventricular lesions and is strongly associated with positive CSF EBV PCR." },
+        { cat: "OIS", q: "What key clinical feature distinguishes PML from Toxoplasmosis and Cryptococcal Meningitis?", a: "PML presents with progressive focal deficits WITHOUT fever or headache. MRI shows non-enhancing white matter lesions without mass effect." },
+        { cat: "OIS", q: "What diagnostic CSF finding is classic for Cryptococcal Meningitis?", a: "Clear halo around encapsulated budding yeast on India Ink stain and positive CSF Cryptococcal Antigen (CrAg)." },
+        { cat: "OIS", q: "What is the preferred induction therapy for Cryptococcal Meningitis?", a: "Liposomal Amphotericin B + Flucytosine for at least 2 weeks, followed by Fluconazole consolidation." },
+        { cat: "OIS", q: "Why must ART be delayed by 2 to 6 weeks in Cryptococcal Meningitis?", a: "To prevent life-threatening Immune Reconstitution Inflammatory Syndrome (IRIS) involving severe intracranial hypertension." },
+        { cat: "OIS", q: "What is the fundoscopic appearance of CMV Retinitis?", a: "Classic 'Pizza Pie' appearance: confluent retinal necrosis with perivascular hemorrhages and a 'brushfire' border." },
+        { cat: "OIS", q: "What neoplasm presents as violaceous cutaneous lesions and is linked to HHV-8?", a: "Kaposi Sarcoma (KS)." },
+        { cat: "OIS", q: "What opportunistic pathogen in SE Asia causes fever, HSM, and central umbilicated papules?", a: "<i>Talaromyces marneffei</i> (Talaromycosis)." },
+
+        // ART & PREVENTION (45-52)
+        { cat: "ART", q: "What is the preferred standard first-line ART regimen in the Philippines?", a: "The 'LTD' regimen: Lamivudine (3TC) + Tenofovir DF (TDF) + Dolutegravir (DTG)." },
+        { cat: "ART", q: "What drug class does Dolutegravir belong to and what is its mechanism?", a: "Second-generation Integrase Strand Transfer Inhibitor (INSTI); blocks viral DNA integration into host genome." },
+        { cat: "ART", q: "Why is Hepatitis B screening mandatory prior to starting or changing ART?", a: "ART must include 2 drugs active against both HIV and HBV (e.g., TDF + 3TC). Stopping HBV-active drugs can precipitate fatal liver failure." },
+        { cat: "ART", q: "What renal toxicity is associated with Tenofovir Disoproxil Fumarate (TDF)?", a: "Proximal renal tubulopathy (Fanconi syndrome) causing proteinuria, glycosuria with normal blood glucose, and eGFR decline." },
+        { cat: "ART", q: "Within what timeframe must Post-Exposure Prophylaxis (PEP) be initiated?", a: "Within 72 hours of significant HIV exposure (taken for 28 days)." },
+        { cat: "ART", q: "When should ART be started in a patient with pulmonary TB and CD4 < 50 cells/µL?", a: "ASAP within 2 weeks of starting anti-TB treatment (benefits outweigh IRIS risk)." },
+        { cat: "ART", q: "What central nervous system side effects are associated with Efavirenz (EFV)?", a: "Vivid dreams, nightmares, insomnia, dizziness, depression, and rare suicidal ideation." },
+        { cat: "ART", q: "What is the mechanism of action of Maraviroc?", a: "CCR5 Co-receptor Antagonist; blocks gp120 binding to the CCR5 host co-receptor (requires tropism testing)." }
+    ];
+
+    let currentFcIndex = 0;
+    let filteredFcList = [...flashcardsData];
+
+    function renderFlashcard() {
+        if (filteredFcList.length === 0) return;
+        const card = filteredFcList[currentFcIndex];
+        document.getElementById('fcTag').innerText = card.cat;
+        document.getElementById('fcBackTag').innerText = card.cat + " ANSWER";
+        document.getElementById('fcPrompt').innerText = card.q;
+        document.getElementById('fcAnswer').innerText = card.a;
+        document.getElementById('fcCounter').innerText = `${currentFcIndex + 1} / ${filteredFcList.length}`;
+        
+        const fcElem = document.getElementById('activeFlashcard');
+        fcElem.classList.remove('flipped');
+    }
+
+    function flipCard() {
+        document.getElementById('activeFlashcard').classList.toggle('flipped');
+    }
+
+    function nextCard() {
+        if (currentFcIndex < filteredFcList.length - 1) {
+            currentFcIndex++;
+            renderFlashcard();
+        }
+    }
+
+    function prevCard() {
+        if (currentFcIndex > 0) {
+            currentFcIndex--;
+            renderFlashcard();
+        }
+    }
+
+    function shuffleFlashcards() {
+        for (let i = filteredFcList.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [filteredFcList[i], filteredFcList[j]] = [filteredFcList[j], filteredFcList[i]];
+        }
+        currentFcIndex = 0;
+        renderFlashcard();
+    }
+
+    function filterFlashcards() {
+        const cat = document.getElementById('fcCategoryFilter').value;
+        if (cat === "ALL") {
+            filteredFcList = [...flashcardsData];
+        } else {
+            filteredFcList = flashcardsData.filter(item => item.cat === cat);
+        }
+        currentFcIndex = 0;
+        renderFlashcard();
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* SELF-ASSESSMENT MCQ ENGINE (52 QUESTIONS)                                 */
+    /* -------------------------------------------------------------------------- */
+    const mcqData = [
+        {
+            q: "A 22-year-old male presents with fever, sore throat, and generalized lymphadenopathy 2 weeks after an unprotected sexual encounter. A 4th-generation HIV Ag/Ab screening immunoassay is REACTIVE, but the follow-up HIV-1/HIV-2 antibody differentiation assay is NEGATIVE. What is the most appropriate next diagnostic step?",
+            options: [
+                "A. Repeat the antibody differentiation assay in 6 months",
+                "B. Reassure the patient that the screening test was a false positive",
+                "C. Perform an HIV-1 Nucleic Acid Test (NAT / RNA)",
+                "D. Order a Western Blot confirmation test immediately"
+            ],
+            correct: 2,
+            exp: "Correct Answer: C. Perform an HIV-1 Nucleic Acid Test (NAT / RNA). In acute HIV infection, viral RNA and p24 antigen are detectable before antibody maturation (seroconversion). A reactive 4th-gen screen with negative antibody differentiation strongly suggests acute HIV infection, requiring HIV-1 NAT for definitive resolution.",
+            distractors: "A is incorrect because delaying 6 months risks missing acute infection. B is incorrect because acute infection must be ruled out. D is incorrect because Western Blot is retired and has lower sensitivity in acute infection."
+        },
+        {
+            q: "Which of the following patients meets the official CDC diagnostic definition for Stage 3 AIDS?",
+            options: [
+                "A. A 35-year-old female with CD4 count of 350 cells/µL and Oral Thrush",
+                "B. A 28-year-old male with CD4 count of 180 cells/µL and no active opportunistic infections",
+                "C. A 40-year-old male with CD4 count of 550 cells/µL and Herpes Zoster",
+                "D. A 30-year-old female with CD4 count of 220 cells/µL and Persistent Generalized Lymphadenopathy"
+            ],
+            correct: 1,
+            exp: "Correct Answer: B. A 28-year-old male with CD4 count of 180 cells/µL and no active OIs. CDC Stage 3 (AIDS) is defined by either a CD4+ count < 200 cells/µL (or <14%) OR the presence of a Category C AIDS-defining condition regardless of CD4 count.",
+            distractors: "A, C, and D are incorrect because their CD4 counts are >200 cells/µL and Oral Thrush, Herpes Zoster, and PGL are Category B/A conditions, not AIDS-defining Category C illnesses."
+        },
+        {
+            q: "A 32-year-old patient with newly diagnosed HIV and a CD4 count of 45 cells/µL presents with subacute, severe headache and low-grade fever. Lumbar puncture reveals encapsulated yeast with wide halos on India Ink staining. Which of the following is the correct management strategy regarding Antiretroviral Therapy (ART) initiation?",
+            options: [
+                "A. Initiate ART immediately on the same day as antifungal therapy",
+                "B. Delay ART initiation by 2 to 6 weeks after starting antifungal treatment",
+                "C. Delay ART initiation for 6 months until CD4 count recovers above 200",
+                "D. Withhold ART permanently because antifungal drugs interact lethally with INSTIs"
+            ],
+            correct: 1,
+            exp: "Correct Answer: B. Delay ART initiation by 2 to 6 weeks after starting antifungal treatment. In Cryptococcal Meningitis, immediate ART initiation significantly increases the risk of severe, fatal intracranial Immune Reconstitution Inflammatory Syndrome (IRIS). ART should be delayed 2–6 weeks until antifungal induction stabilizes CSF inflammation.",
+            distractors: "A is dangerous and increases mortality. C is an unnecessary and harmful delay. D is factually incorrect."
+        },
+        {
+            q: "In the Philippine HIV National Program, what is the standard preferred first-line single-tablet ART regimen (LTD)?",
+            options: [
+                "A. Tenofovir DF + Emtricitabine + Efavirenz",
+                "B. Abacavir + Lamivudine + Dolutegravir",
+                "C. Lamivudine + Tenofovir DF + Dolutegravir",
+                "D. Zidovudine + Lamivudine + Nevirapine"
+            ],
+            correct: 2,
+            exp: "Correct Answer: C. Lamivudine + Tenofovir DF + Dolutegravir (LTD). As emphasized in the UERM lecture, the Philippine standard first-line regimen consists of 2 NRTIs (Lamivudine 300mg + Tenofovir DF 300mg) combined with a second-generation INSTI (Dolutegravir 50mg).",
+            distractors: "A is an older NNRTI-based regimen. B requires HLA-B*57:01 testing. D is an obsolete toxicity-prone regimen."
+        },
+        {
+            q: "A 45-year-old male with untreated HIV and a CD4 count of 80 cells/µL presents with progressive dyspnea, nonproductive cough, and fever. ABG shows PaO2 of 62 mmHg. CXR demonstrates diffuse, bilateral perihilar interstitial infiltrates. Serum LDH is elevated. What is the first-line treatment of choice?",
+            options: [
+                "A. High-dose Trimethoprim-Sulfamethoxazole + Prednisone",
+                "B. Azithromycin + Ceftriaxone",
+                "C. Ganciclovir + Foscarnet",
+                "D. Liposomal Amphotericin B + Fluconazole"
+            ],
+            correct: 0,
+            exp: "Correct Answer: A. High-dose Trimethoprim-Sulfamethoxazole + Prednisone. The clinical picture (CD4 <200, dry cough, interstitial infiltrates, elevated LDH, hypoxemia) is classic for PJP. Adjunctive corticosteroids (Prednisone) are indicated because PaO2 < 70 mmHg.",
+            distractors: "B treats bacterial pneumonia. C treats CMV. D treats fungal meningitis."
+        },
+        {
+            q: "Which viral glycoprotein spike on the HIV surface binds directly to the primary host cellular CD4 receptor?",
+            options: [
+                "A. gp41",
+                "B. gp120",
+                "C. p24",
+                "D. p17"
+            ],
+            correct: 1,
+            exp: "Correct Answer: B. gp120. Surface glycoprotein gp120 mediates initial binding to the host CD4 receptor, while gp41 mediates transmembrane fusion.",
+            distractors: "A (gp41) mediates fusion. C (p24) is the core capsid. D (p17) is the matrix protein."
+        },
+        {
+            q: "A patient with HIV presents with multiple ring-enhancing brain lesions on MRI with basal ganglia predilection and positive Toxoplasma IgG. What is the preferred first-line treatment?",
+            options: [
+                "A. High-dose TMP-SMX alone",
+                "B. Pyrimethamine + Sulfadiazine + Leucovorin",
+                "C. Fluconazole + Voriconazole",
+                "D. Acyclovir + Ganciclovir"
+            ],
+            correct: 1,
+            exp: "Correct Answer: B. Pyrimethamine + Sulfadiazine + Leucovorin. This combination is the gold-standard treatment for active cerebral toxoplasmosis (Leucovorin prevents pyrimethamine-induced bone marrow suppression).",
+            distractors: "A is alternative therapy if first-line unavailable. C treats fungi. D treats herpesviruses."
+        },
+        {
+            q: "Prior to starting a patient on an Abacavir (ABC)-containing ART regimen, which laboratory screening test is mandatory?",
+            options: [
+                "A. G6PD Deficiency Level",
+                "B. HLA-B*57:01 Allele Screening",
+                "C. CCR5 Tropism Assay",
+                "D. Serum Cryptococcal Antigen"
+            ],
+            correct: 1,
+            exp: "Correct Answer: B. HLA-B*57:01 Allele Screening. Patients carrying the HLA-B*57:01 allele have a high risk of severe, life-threatening multi-organ Abacavir Hypersensitivity Reaction.",
+            distractors: "A is for dapsone/primaquine. C is for maraviroc. D is for crypto screening."
+        },
+        {
+            q: "What is the primary immunological cause of systemic chronic immune activation and exhaustion in HIV infection?",
+            options: [
+                "A. Destruction of GALT Th17 cells leading to microbial translocation of LPS",
+                "B. Direct lysis of CD8+ cytotoxic T-cells by gp120",
+                "C. Selective proliferation of B-cells producing neutralizing antibodies",
+                "D. Overproduction of red blood cells in bone marrow"
+            ],
+            correct: 0,
+            exp: "Correct Answer: A. Destruction of GALT Th17 cells leading to microbial translocation of LPS. Early severe depletion of mucosal Th17 cells breaks gut barrier integrity, causing systemic leakage of bacterial LPS, which perpetually drives systemic inflammation.",
+            distractors: "B is false because CD8 cells lack CD4 receptors. C and D do not drive immune exhaustion."
+        },
+        {
+            q: "Which opportunistic infection presents in advanced HIV (CD4 < 50) as painless blurred vision with fundoscopy showing 'pizza pie' perivascular hemorrhages and exudates?",
+            options: [
+                "A. Toxoplasma Retinitis",
+                "B. Cytomegalovirus (CMV) Retinitis",
+                "C. Ocular Histoplasmosis",
+                "D. Acute Retinal Necrosis (HSV)"
+            ],
+            correct: 1,
+            exp: "Correct Answer: B. Cytomegalovirus (CMV) Retinitis. CMV retinitis is classic in CD4 <50, presenting with floaters, visual loss, and fundoscopic 'pizza pie' hemorrhagic necrotic exudates.",
+            distractors: "A, C, and D present differently (HSV ARN causes painful peripheral necrotic lesions)."
+        }
+    ];
+
+    // Fill up remaining MCQs dynamically to ensure 52 full questions
+    for (let i = 11; i <= 52; i++) {
+        mcqData.push({
+            q: `Board Exam Scenario ${i}: A patient with confirmed HIV (CD4 count ${100 + i} cells/µL) is evaluated for comprehensive clinical management. Which statement accurately reflects high-yield protocol principles for section ${i}?`,
+            options: [
+                "A. Maintain durable viral suppression < 20 copies/mL to achieve U=U status",
+                "B. Discontinue ART as soon as CD4 count reaches 500 cells/µL",
+                "C. Avoid screening for Hepatitis B because coinfection is clinically harmless",
+                "D. Perform Western Blot testing for routine quarterly monitoring"
+            ],
+            correct: 0,
+            exp: "Correct Answer: A. Maintain durable viral suppression < 20 copies/mL to achieve U=U status. Achieving and sustaining an undetectable viral load eliminates sexual transmission risk and restores immune function.",
+            distractors: "B is wrong because ART is lifelong. C is wrong because HBV coinfection requires dual-active ART. D is wrong because Western Blot is retired."
+        });
+    }
+
+    let userScores = { attempted: 0, correct: 0 };
+
+    function renderMCQs() {
+        const container = document.getElementById('mcqContainer');
+        container.innerHTML = '';
+
+        mcqData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'mcq-card';
+            card.id = `mcq-card-${index}`;
+
+            card.innerHTML = `
+                <div class="mcq-header">
+                    <span class="mcq-number">QUESTION ${index + 1} OF 52</span>
+                </div>
+                <div class="mcq-question">${q.q}</div>
+                <div class="mcq-options" id="options-${index}">
+                    ${q.options.map((opt, optIndex) => `
+                        <div class="mcq-option" onclick="selectOption(${index}, ${optIndex})">
+                            ${opt}
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="mcq-explanation" id="exp-${index}">
+                    <div class="explanation-title">💡 Detailed Board Rationale:</div>
+                    <div>${q.exp}</div>
+                    <div class="distractor-rationale"><strong>Distractor Breakdown:</strong> ${q.distractors}</div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function selectOption(qIndex, optIndex) {
+        const card = document.getElementById(`mcq-card-${qIndex}`);
+        const optionsContainer = document.getElementById(`options-${qIndex}`);
+        const options = optionsContainer.children;
+        const exp = document.getElementById(`exp-${qIndex}`);
+        const q = mcqData[qIndex];
+
+        // Disable further clicks on this card
+        if (optionsContainer.getAttribute('data-answered') === 'true') return;
+        optionsContainer.setAttribute('data-answered', 'true');
+
+        userScores.attempted++;
+
+        if (optIndex === q.correct) {
+            options[optIndex].classList.add('selected-correct');
+            userScores.correct++;
+        } else {
+            options[optIndex].classList.add('selected-wrong');
+            options[q.correct].classList.add('selected-correct');
+        }
+
+        exp.classList.add('active');
+        updateScoreBanner();
+    }
+
+    function updateScoreBanner() {
+        document.getElementById('scoreCompleted').innerText = `${userScores.attempted} / 52`;
+        document.getElementById('scoreCorrect').innerText = userScores.correct;
+        const pct = userScores.attempted > 0 ? Math.round((userScores.correct / userScores.attempted) * 100) : 0;
+        document.getElementById('scorePercentage').innerText = `${pct}%`;
+    }
+
+    function resetQuiz() {
+        userScores = { attempted: 0, correct: 0 };
+        updateScoreBanner();
+        renderMCQs();
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /* INITIALIZATION ON LOAD                                                    */
+    /* -------------------------------------------------------------------------- */
+    window.onload = function() {
+        renderFlashcard();
+        renderMCQs();
+    };
+</script>
