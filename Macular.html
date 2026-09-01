@@ -1,0 +1,2494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macular Diseases: Comprehensive Interactive Medical Reviewer | UERMED Ophthalmology</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-sidebar: #0f172a;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --accent-teal: #0d9488;
+            --accent-teal-light: #ccfbf1;
+            --accent-blue: #2563eb;
+            --accent-blue-light: #dbeafe;
+            --accent-amber: #d97706;
+            --accent-amber-light: #fef3c7;
+            --accent-rose: #e11d48;
+            --accent-rose-light: #ffe4e6;
+            --accent-purple: #7c3aed;
+            --accent-purple-light: #f3e8ff;
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        .dark-mode {
+            --bg-primary: #0f172a;
+            --bg-card: #1e293b;
+            --bg-sidebar: #020617;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --accent-teal: #14b8a6;
+            --accent-teal-light: #134e4a;
+            --accent-blue: #3b82f6;
+            --accent-blue-light: #1e3a8a;
+            --accent-amber: #f59e0b;
+            --accent-amber-light: #78350f;
+            --accent-rose: #f43f5e;
+            --accent-rose-light: #881337;
+            --accent-purple: #a855f7;
+            --accent-purple-light: #581c87;
+            --border-color: #334155;
+            --border-hover: #475569;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Layout */
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--bg-sidebar);
+            color: #ffffff;
+            padding: 1.25rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .brand-text h1 {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+        }
+
+        .brand-text p {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 0.5rem 1rem 0.5rem 2.25rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            width: 240px;
+            transition: all 0.2s ease;
+        }
+
+        .search-box input::placeholder {
+            color: #94a3b8;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent-teal);
+            width: 300px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        .btn-toggle-theme {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.2s ease;
+        }
+
+        .btn-toggle-theme:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Top Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Navigation Bar Tabs */
+        .nav-tabs-wrapper {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 73px;
+            z-index: 90;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: thin;
+        }
+
+        .nav-tabs {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            list-style: none;
+            padding: 0 1rem;
+        }
+
+        .nav-tab-item {
+            padding: 0.85rem 1.15rem;
+            font-family: var(--font-heading);
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-tab-item:hover {
+            color: var(--accent-teal);
+            background-color: rgba(13, 148, 136, 0.04);
+        }
+
+        .nav-tab-item.active {
+            color: var(--accent-teal);
+            border-bottom-color: var(--accent-teal);
+            background-color: rgba(13, 148, 136, 0.08);
+        }
+
+        /* Main Content Container */
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Grid Layouts */
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .grid-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; }
+        .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+
+        @media (max-width: 1024px) {
+            .grid-2, .grid-3, .grid-1-2, .grid-2-1 { grid-template-columns: 1fr; }
+        }
+
+        /* UI Cards */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Section Banners & Standalone Bold Titles */
+        .section-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .block-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin: 1.25rem 0 0.5rem 0;
+            display: block;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            border-left: 4px solid;
+            padding: 1rem 1.25rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin: 1rem 0;
+            font-size: 0.925rem;
+        }
+
+        .callout-must-know {
+            background-color: var(--accent-rose-light);
+            border-left-color: var(--accent-rose);
+            color: var(--text-primary);
+        }
+
+        .callout-pitfall {
+            background-color: var(--accent-amber-light);
+            border-left-color: var(--accent-amber);
+            color: var(--text-primary);
+        }
+
+        .callout-pearl {
+            background-color: var(--accent-teal-light);
+            border-left-color: var(--accent-teal);
+            color: var(--text-primary);
+        }
+
+        .callout-exam-tip {
+            background-color: var(--accent-purple-light);
+            border-left-color: var(--accent-purple);
+            color: var(--text-primary);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 0.35rem;
+            font-family: var(--font-heading);
+        }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.875rem;
+        }
+
+        th {
+            background-color: var(--bg-sidebar);
+            color: #ffffff;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+            background-color: var(--bg-card);
+        }
+
+        tr:nth-child(even) td {
+            background-color: rgba(0, 0, 0, 0.015);
+        }
+
+        .dark-mode tr:nth-child(even) td {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        tr:hover td {
+            background-color: rgba(13, 148, 136, 0.05);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+        }
+
+        .badge-teal { background-color: var(--accent-teal-light); color: var(--accent-teal); }
+        .badge-blue { background-color: var(--accent-blue-light); color: var(--accent-blue); }
+        .badge-amber { background-color: var(--accent-amber-light); color: var(--accent-amber); }
+        .badge-rose { background-color: var(--accent-rose-light); color: var(--accent-rose); }
+
+        /* Custom Interactive SVG/CSS Diagrams */
+        .diagram-container {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.75rem;
+            font-style: italic;
+        }
+
+        /* Accordion / Collapsible Cards */
+        .accordion {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background-color: var(--bg-card);
+            padding: 0.85rem 1.15rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            user-select: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: rgba(13, 148, 136, 0.05);
+        }
+
+        .accordion-content {
+            padding: 1.15rem;
+            border-top: 1px solid var(--border-color);
+            display: none;
+            background-color: var(--bg-card);
+        }
+
+        .accordion.open .accordion-content {
+            display: block;
+        }
+
+        .accordion-icon {
+            transition: transform 0.2s ease;
+            font-size: 0.8rem;
+        }
+
+        .accordion.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Interactive Flashcards UI */
+        .flashcard-wrapper {
+            max-width: 650px;
+            margin: 2rem auto;
+            perspective: 1000px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 340px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            background-color: var(--bg-card);
+            border: 2px solid var(--accent-teal);
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background-color: var(--accent-teal-light);
+            border-color: var(--accent-teal);
+            color: var(--text-primary);
+        }
+
+        .flashcard-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            background: rgba(13, 148, 136, 0.15);
+            color: var(--accent-teal);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .flashcard-text {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 1rem 0;
+            color: var(--text-primary);
+        }
+
+        .flashcard-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            background-color: var(--accent-teal);
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem 1.25rem;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* MCQ Quiz System */
+        .quiz-container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .quiz-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-card);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-score {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+        }
+
+        .mcq-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mcq-number {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent-teal);
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .mcq-question {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .mcq-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .mcq-option {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.925rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
+        .mcq-option:hover:not(.disabled) {
+            border-color: var(--accent-teal);
+            background-color: rgba(13, 148, 136, 0.04);
+        }
+
+        .mcq-option.selected-correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #14532d !important;
+            font-weight: bold;
+        }
+
+        .mcq-option.selected-incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #7f1d1d !important;
+        }
+
+        .mcq-option.show-correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #14532d !important;
+        }
+
+        .mcq-explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            background-color: var(--bg-primary);
+            border-left: 4px solid var(--accent-blue);
+            font-size: 0.875rem;
+            display: none;
+        }
+
+        /* Cram Sheet Styling */
+        .cram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .cram-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-top: 4px solid var(--accent-teal);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+        }
+
+        .cram-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .cram-list {
+            list-style: none;
+            font-size: 0.875rem;
+        }
+
+        .cram-list li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cram-list li::before {
+            content: "⚡";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 0.75rem;
+        }
+
+        /* Search Highlight */
+        .search-highlight {
+            background-color: #fef08a;
+            color: #000;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        /* Scroll Top Button */
+        .btn-scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: var(--accent-teal);
+            color: #ffffff;
+            border: none;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 80;
+        }
+
+        .btn-scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive Utilities */
+        @media (max-width: 768px) {
+            header { padding: 1rem; }
+            .brand-text h1 { font-size: 1.1rem; }
+            .search-box input { width: 160px; }
+            .search-box input:focus { width: 180px; }
+            main { padding: 0 1rem; margin: 1rem auto; }
+            .card { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Header -->
+        <header>
+            <div class="header-content">
+                <div class="brand">
+                    <div class="brand-icon">👁️</div>
+                    <div class="brand-text">
+                        <h1>Macular Diseases Reviewer</h1>
+                        <p>UERMED College of Medicine • Dr. Jose Luis De Grano • Ophthalmology Board Masterclass</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="globalSearchInput" placeholder="Search concepts, terms, tests..." onkeyup="handleSearch()">
+                    </div>
+                    <button class="btn-toggle-theme" onclick="toggleDarkMode()">
+                        <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
+                    </button>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </header>
+
+        <!-- Tab Bar Navigation -->
+        <div class="nav-tabs-wrapper">
+            <ul class="nav-tabs">
+                <li class="nav-tab-item active" onclick="switchTab(0)">📌 Overview</li>
+                <li class="nav-tab-item" onclick="switchTab(1)">👁️ 1. Macular Geography</li>
+                <li class="nav-tab-item" onclick="switchTab(2)">🔍 2. Clinical History & Exam</li>
+                <li class="nav-tab-item" onclick="switchTab(3)">🔬 3. Ancillary (FFA & OCT)</li>
+                <li class="nav-tab-item" onclick="switchTab(4)">🍂 4. AMD (Dry & Wet)</li>
+                <li class="nav-tab-item" onclick="switchTab(5)">💧 5. CSCR</li>
+                <li class="nav-tab-item" onclick="switchTab(6)">🕳️ 6. Macular Hole</li>
+                <li class="nav-tab-item" onclick="switchTab(7)">⚖️ 7. Topic Comparisons</li>
+                <li class="nav-tab-item" onclick="switchTab(8)">🎴 8. Flashcards (50)</li>
+                <li class="nav-tab-item" onclick="switchTab(9)">📝 9. Board Exam Q&A (50)</li>
+                <li class="nav-tab-item" onclick="switchTab(10)">⚡ 10. Cram Sheet</li>
+            </ul>
+        </div>
+
+        <!-- Main Content Area -->
+        <main>
+            <!-- TAB 0: OVERVIEW -->
+            <div class="tab-content active" id="tab-0">
+                <div class="section-header">
+                    <h2>Masterclass Overview & Learning Blueprint</h2>
+                    <p>Comprehensive interactive board-examination review guide for 3rd-year medical students and PLE candidates.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">🎯 Core Objectives & High-Yield Scope</span>
+                        </div>
+                        <ul style="padding-left: 1.25rem; font-size: 0.925rem;">
+                            <li><strong>Anatomical Topography:</strong> Differentiate macula, fovea centralis (1.5mm), foveola (0.35mm), umbo, parafovea, and perifovea.</li>
+                            <li><strong>Symptom Localization:</strong> Master central vision deficits, metamorphopsia, macropsia, micropsia, and painless central visual blur.</li>
+                            <li><strong>Examination Modalities:</strong> Compare Direct Ophthalmoscopy, BIO (Binocular Indirect), Slit-Lamp Indirect (78D/90D), and Amsler Grid testing.</li>
+                            <li><strong>Ancillary Diagnostic Imaging:</strong> Analyze Fundus Fluorescein Angiography (FFA patterns: hyperfluorescence vs hypofluorescence) and Optical Coherence Tomography (OCT cross-sectional reflectivity layers).</li>
+                            <li><strong>Age-Related Macular Degeneration (AMD):</strong> Contrast Non-Neovascular (Dry/Atrophic - 90%) with Neovascular (Wet/Exudative - 10%, causing 90% severe visual loss). Master drusen, geographic atrophy, CNVM, AREDS supplements, and Anti-VEGF pharmacotherapy.</li>
+                            <li><strong>Central Serous Chorioretinopathy (CSCR):</strong> Recognize risk profile (young Type A males, elevated steroids), blister-like serous neurosensory detachment, FFA "smokestack" pattern, and self-limiting nature.</li>
+                            <li><strong>Macular Hole:</strong> Classify stages using Gass Classification (1a to 4), diagnose with OCT, and review surgical management (vitrectomy, ILM peeling, gas tamponade).</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">📊 Key Terminology & Abbreviations Reference</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Abbreviation</th>
+                                        <th>Full Term</th>
+                                        <th>Clinical Significance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-teal">FAZ</span></td>
+                                        <td>Foveal Avascular Zone</td>
+                                        <td>Dark capillary-free zone at central fovea on FFA ensuring maximal optical transparency.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-blue">RPE</span></td>
+                                        <td>Retinal Pigment Epithelium</td>
+                                        <td>Outer retinal monolayer supporting photoreceptor disc phagocytosis and blood-retinal barrier.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-amber">AMD</span></td>
+                                        <td>Age-Related Macular Degeneration</td>
+                                        <td>Leading cause of central vision loss in age ≥50 years due to outer retinal oxidative degeneration.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-purple">CNVM</span></td>
+                                        <td>Choroidal Neovascular Membrane</td>
+                                        <td>Abnormal leaky blood vessels originating from choroid breaking through Bruch's membrane into subretinal space.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-rose">FFA</span></td>
+                                        <td>Fundus Fluorescein Angiography</td>
+                                        <td>Dynamic vascular transit study using IV sodium fluorescein to evaluate retinal/choroidal circulation.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-teal">OCT</span></td>
+                                        <td>Optical Coherence Tomography</td>
+                                        <td>Non-contact virtual optical cross-sectional light-interferometry imaging of neural retinal layers.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-blue">CSCR / CSC</span></td>
+                                        <td>Central Serous Chorioretinopathy</td>
+                                        <td>Pachychoroid spectrum disease with subretinal fluid accumulation in young stressed males.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⭐ Primary Medical Consensus & Lecture Source Rule</div>
+                    <p>All descriptions, values, diagnostic thresholds, and treatment algorithms are strictly aligned with the UERMED Ophthalmology curriculum (Dr. Jose Luis De Grano, Oct 2025 lecture) and standard medical consensus (Vaughan & Asbury's General Ophthalmology, 19th ed.).</p>
+                </div>
+            </div>
+
+            <!-- TAB 1: MACULAR GEOGRAPHY & ANATOMY -->
+            <div class="tab-content" id="tab-1">
+                <div class="section-header">
+                    <h2>1. Review of Macular Anatomy & Topography</h2>
+                    <p>Structural organization of the posterior pole, foveal reflex, foveal avascular zone, and macular pigment distribution.</p>
+                </div>
+
+                <div class="card">
+                    <span class="block-title">Macular Topography & Dimensions</span>
+                    <p>The <strong>macula</strong> is located in the center of the retina at the very back of the eye (temporal posterior pole), bounded by the temporal retinal vascular arcades and the optic disc. It represents the area where light rays come to a sharp focus after refraction by the cornea and crystalline lens.</p>
+                    <p>Clinically, the central macula appears as a darkened circular area on ophthalmoscopy due to high concentrations of protective xanthophyll macular pigments: <strong>lutein</strong> and <strong>zeaxanthin</strong>. These carotenoid pigments screen blue light and reduce oxidative damage.</p>
+
+                    <!-- Recreated Diagram: Macular Geography Concentric Rings -->
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 600 360" style="width: 100%; max-width: 550px; height: auto;">
+                            <!-- Background Fundus simulation -->
+                            <circle cx="300" cy="180" r="170" fill="#cc4422" opacity="0.15" />
+                            <!-- Perifovea (outermost ring) -->
+                            <circle cx="300" cy="180" r="150" fill="#e2e8f0" stroke="#475569" stroke-width="2" stroke-dasharray="4" opacity="0.4"/>
+                            <text x="300" y="45" text-anchor="middle" font-size="12" font-family="DM Sans" font-weight="bold" fill="var(--text-primary)">Perifovea (1.5 mm width concentric outer rim)</text>
+                            
+                            <!-- Parafovea -->
+                            <circle cx="300" cy="180" r="95" fill="#0d9488" opacity="0.15" stroke="#0d9488" stroke-width="2"/>
+                            <text x="300" y="100" text-anchor="middle" font-size="11" font-family="DM Sans" font-weight="bold" fill="var(--accent-teal)">Parafovea (0.5 mm width)</text>
+
+                            <!-- Clinical Macula Bracket/Label -->
+                            <line x1="205" y1="180" x2="395" y2="180" stroke="#7c3aed" stroke-width="2" stroke-dasharray="2"/>
+                            
+                            <!-- Fovea centralis -->
+                            <circle cx="300" cy="180" r="45" fill="#d97706" opacity="0.3" stroke="#d97706" stroke-width="2"/>
+                            <text x="300" y="170" text-anchor="middle" font-size="11" font-family="DM Sans" font-weight="bold" fill="#b45309">Fovea (1.5 mm / 5°)</text>
+                            
+                            <!-- Foveola -->
+                            <circle cx="300" cy="180" r="14" fill="#e11d48" opacity="0.6" stroke="#e11d48" stroke-width="2"/>
+                            <!-- Umbo -->
+                            <circle cx="300" cy="180" r="3" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+                            
+                            <text x="300" y="210" text-anchor="middle" font-size="10" font-family="Space Mono" fill="var(--text-primary)">Foveola (0.35 mm)</text>
+                            <text x="300" y="225" text-anchor="middle" font-size="9" font-family="Space Mono" fill="#e11d48">Umbo (Center point)</text>
+
+                            <text x="490" y="184" text-anchor="start" font-size="11" font-family="DM Sans" font-weight="bold" fill="#7c3aed">Clinical Macula = Fovea + Parafovea</text>
+                        </svg>
+                        <div class="diagram-caption">Figure 1 Schematic: Concentric anatomical subregions of the human macula lutea. The fovea corresponds exactly to the Foveal Avascular Zone (FAZ).</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="block-title">Anatomical Subdivisions & Dimensions Summary</span>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Anatomical Subregion</th>
+                                    <th>Diameter / Width</th>
+                                    <th>Histological Specialization & Photoreceptor Distribution</th>
+                                    <th>Vascularity & Clinical Reflex</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Foveola</strong></td>
+                                    <td>0.35 mm (350 µm)</td>
+                                    <td>Floor of fovea. <strong>Exclusive cone photoreceptors</strong> (rods completely absent). Highest spatial resolution and fine color discrimination.</td>
+                                    <td>Avascular; dependent entirely on underlying choriocapillaris nourishment via RPE.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Umbo</strong></td>
+                                    <td>Center point</td>
+                                    <td>Tiny central depression at the exact center of the foveola.</td>
+                                    <td>Produces the normal <strong>foveal reflex</strong> (bright light pinpoint reflection on direct ophthalmoscopy).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Fovea Centralis</strong></td>
+                                    <td>1.5 mm (~5 degrees)</td>
+                                    <td>Central depression surrounded by neural retina displacement. High cone density.</td>
+                                    <td>Corresponds precisely to the <strong>Foveal Avascular Zone (FAZ)</strong> seen on FFA.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Parafovea</strong></td>
+                                    <td>0.5 mm ring width</td>
+                                    <td>Concentric band surrounding fovea. Highest density of rod photoreceptors and thickest ganglion cell layer.</td>
+                                    <td>Together with Fovea = <strong>Clinical Macula</strong> (damage causes profound central vision loss).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Perifovea</strong></td>
+                                    <td>1.5 mm ring width</td>
+                                    <td>Outermost concentric zone of the macular region, transitioning to peripheral retina.</td>
+                                    <td>Peripheral capillaries present; borders temporal vascular arcades.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="callout callout-pearl">
+                    <div class="callout-title">💡 Clinical Pearl: Why the Fovea is Avascular (FAZ)</div>
+                    <p>The absence of blood vessels in the Foveal Avascular Zone (FAZ) prevents light scattering and visual degradation. Light rays travel directly to the elongated cone photoreceptors without passing through overlying inner retinal layers or capillary beds, yielding 20/20 visual acuity.</p>
+                </div>
+            </div>
+
+            <!-- TAB 2: CLINICAL HISTORY & EXAMINATION -->
+            <div class="tab-content" id="tab-2">
+                <div class="section-header">
+                    <h2>2. History-Taking & Physical Examination Techniques</h2>
+                    <p>Symptomatology of macular pathology, drug toxicity screening, ophthalmoscopic techniques, and Amsler grid visual testing.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">📋 Symptoms of Macular Disease</span>
+                        </div>
+                        <ul style="padding-left: 1.25rem; font-size: 0.925rem;">
+                            <li><strong>Central Visual Loss:</strong> Painless central blurring or scotoma (dark/blank spot). Peripheral vision remains intact (patients rarely go completely blind).</li>
+                            <li><strong>Impaired Fine Detail & Color Vision:</strong> Difficulty reading, recognizing faces, or distinguishing subtle color shades due to cone cell dysfunction.</li>
+                            <li><strong>Metamorphopsia:</strong> Distortion of straight lines (e.g., doorframes or grid lines appearing wavy or bent). Extremely common initial complaint in wet AMD and CSCR.</li>
+                            <li><strong>Macropsia:</strong> Objects perceived as larger than actual size.</li>
+                            <li><strong>Micropsia:</strong> Objects perceived as smaller than actual size (frequently reported in CSCR due to serous separation of photoreceptors).</li>
+                            <li><strong>Absence of Ocular Pain:</strong> Macular diseases are non-painful. <em>Pain is present ONLY if accompanied by anterior segment inflammation or secondary Neovascular Glaucoma (e.g., ischemic CRVO).</em></li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">💊 Medication Toxicity Screening</span>
+                        </div>
+                        <p style="font-size: 0.9rem;">During history-taking, active inquiry into systemically administered high-risk drugs is crucial. Certain agents cause irreversible bull's-eye maculopathy or RPE toxicity at cumulative doses:</p>
+                        <ul style="padding-left: 1.25rem; font-size: 0.9rem; margin-top: 0.5rem;">
+                            <li><strong>Hydroxychloroquine Sulfate / Plaquenil:</strong> Anti-malarial / rheumatologic agent (requires baseline and periodic OCT & automated visual field screening).</li>
+                            <li><strong>Thioridazine:</strong> Typical antipsychotic associated with pigmentary retinopathy.</li>
+                        </ul>
+                        <div class="callout callout-pitfall" style="margin-top: 0.75rem;">
+                            <div class="callout-title">⚠️ Common Pitfall</div>
+                            <p>Do not mistake drug-induced maculopathy for primary dry AMD. Drug monitoring prevents permanent vision loss from cumulative toxic dose thresholds.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="block-title">Comparison of Retinal Examination Modalities</span>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Technique</th>
+                                    <th>Image Properties</th>
+                                    <th>Field of View & Magnification</th>
+                                    <th>Clinical Utility & Special Features</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Direct Ophthalmoscopy</strong></td>
+                                    <td>Monocular, <strong>2D Upright</strong> (Virtual Image)</td>
+                                    <td>High magnification (15x), <strong>Limited narrow field</strong> (central 15°)</td>
+                                    <td>Handheld. Pan around to view disc, proximal vessels, and central macula. Lacks depth perception (stereopsis).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Binocular Indirect Ophthalmoscopy (BIO)</strong></td>
+                                    <td>Binocular, 3D Stereoscopic, <strong>Inverted & Reversed</strong> (Upside down & left-right)</td>
+                                    <td>Wider, minified real image (uses 20D or 28D handheld condensing lens)</td>
+                                    <td>Head/spectacle-mounted with integrated light source. Steeper learning curve. Ideal for peripheral retinal evaluation (e.g., CRAO detection).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Slit-Lamp Indirect Ophthalmoscopy</strong></td>
+                                    <td>Binocular, <strong>3D Stereoscopic</strong>, Inverted/Reversed</td>
+                                    <td>Wider view with <strong>variable magnification</strong> depending on slit lamp settings</td>
+                                    <td>Utilizes noncontact high-diopter fundus lenses (<strong>78D or 90D</strong>) held close to cornea. Excellent optical resolution for macular elevation.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Amsler Grid Test</strong></td>
+                                    <td>Functional Monocular Subjective Visual Map</td>
+                                    <td>Evaluates <strong>central 15 degrees</strong> of retina (10° in each direction from fixation)</td>
+                                    <td>Rapid, practical self-monitoring tool. Detects early metamorphopsia, scotomas, and central distortion.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recreated Diagram: Amsler Grid Test Simulator -->
+                <div class="diagram-container">
+                    <span class="block-title">Amsler Grid Findings Simulator</span>
+                    <div class="grid-3" style="margin-top: 1rem;">
+                        <div style="text-align: center;">
+                            <svg viewBox="0 0 150 150" style="width: 140px; height: 140px; background: #000;">
+                                <defs>
+                                    <pattern id="gridPattern" width="15" height="15" patternUnits="userSpaceOnUse">
+                                        <path d="M 15 0 L 0 0 0 15" fill="none" stroke="#fff" stroke-width="0.8"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="150" height="150" fill="url(#gridPattern)"/>
+                                <circle cx="75" cy="75" r="3" fill="#fff"/>
+                            </svg>
+                            <p style="font-size: 0.8rem; margin-top: 0.4rem; font-weight: bold; color: var(--accent-teal);">Normal / Unremarkable</p>
+                            <p style="font-size: 0.75rem; color: var(--text-muted);">Straight, intact grid lines while fixating on central spot.</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <svg viewBox="0 0 150 150" style="width: 140px; height: 140px; background: #000;">
+                                <rect width="150" height="150" fill="url(#gridPattern)"/>
+                                <!-- Distortion simulation -->
+                                <path d="M 45 15 Q 60 75 45 135 M 60 15 Q 80 75 60 135 M 75 15 Q 95 75 75 135 M 90 15 Q 110 75 90 135" fill="none" stroke="#fff" stroke-width="1.2"/>
+                                <circle cx="75" cy="75" r="3" fill="#fff"/>
+                            </svg>
+                            <p style="font-size: 0.8rem; margin-top: 0.4rem; font-weight: bold; color: var(--accent-amber);">Metamorphopsia</p>
+                            <p style="font-size: 0.75rem; color: var(--text-muted);">Wavy/distorted lines (indicates retinal elevation or CNVM).</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <svg viewBox="0 0 150 150" style="width: 140px; height: 140px; background: #000;">
+                                <rect width="150" height="150" fill="url(#gridPattern)"/>
+                                <circle cx="75" cy="75" r="3" fill="#fff"/>
+                                <circle cx="75" cy="95" r="25" fill="#1e293b" opacity="0.95"/>
+                            </svg>
+                            <p style="font-size: 0.8rem; margin-top: 0.4rem; font-weight: bold; color: var(--accent-rose);">Central Scotoma</p>
+                            <p style="font-size: 0.75rem; color: var(--text-muted);">Dark/missing area in grid (indicates macular defect/hole).</p>
+                        </div>
+                    </div>
+                    <div class="diagram-caption">Figure 7: Amsler Grid Test interpretation. Used monocularly with reading correction to evaluate central macular function.</div>
+                </div>
+            </div>
+
+            <!-- TAB 3: ANCILLARY INVESTIGATIONS (FFA & OCT) -->
+            <div class="tab-content" id="tab-3">
+                <div class="section-header">
+                    <h2>3. Ancillary Diagnostics: FFA & Optical Coherence Tomography</h2>
+                    <p>In-depth principles of Fundus Fluorescein Angiography and cross-sectional light interferometry (OCT).</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">💉 Fundus Fluorescein Angiography (FFA)</span>
+                        </div>
+                        <p style="font-size: 0.9rem;">FFA outlines retinal and choroidal vasculature following intravenous injection of <strong>sodium fluorescein dye</strong>. A specialized fundus camera shines blue excitation light (485–490 nm), exciting the dye which emits yellow-green light (520–530 nm).</p>
+                        
+                        <span class="block-title">Key FFA Angiographic Patterns</span>
+                        <ul style="padding-left: 1.25rem; font-size: 0.875rem;">
+                            <li><strong style="color: var(--accent-teal);">Hyperfluorescence (Increased Brightness):</strong>
+                                <ul style="padding-left: 1rem;">
+                                    <li><strong>Leakage:</strong> Dye extravasation from leaky neovascular membranes (CNVM in wet AMD) or damaged capillaries (diabetic macular edema). Extravascular brightness expands/intensifies over time.</li>
+                                    <li><strong>Window Defect (Transmission Defect):</strong> RPE atrophy/loss allows underlying normal choroidal fluorescence to shine through cleanly without boundary expansion (seen in dry AMD / geographic atrophy).</li>
+                                    <li><strong>Pooling:</strong> Accumulation of dye within anatomical spaces (e.g., subretinal space in CSCR).</li>
+                                    <li><strong>Staining:</strong> Dye retention in fibrous tissue or sclera in late phases.</li>
+                                </ul>
+                            </li>
+                            <li style="margin-top: 0.5rem;"><strong style="color: var(--accent-rose);">Hypofluorescence (Decreased / Dark Area):</strong>
+                                <ul style="padding-left: 1rem;">
+                                    <li><strong>Capillary Non-Perfusion:</strong> Ischemic vascular occlusion (diabetic microvascular closure or CRVO).</li>
+                                    <li><strong>Blockage:</strong> Pigment, blood (subretinal hemorrhage), or hard exudates masking underlying normal fluorescence.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">🔬 Optical Coherence Tomography (OCT)</span>
+                        </div>
+                        <p style="font-size: 0.9rem;">OCT is a non-contact, high-resolution imaging technique utilizing <strong>near-infrared coherent light interferometry</strong> to generate virtual cross-sectional (2D) and 3D maps of the retina, functioning like an "optical biopsy".</p>
+
+                        <span class="block-title">Layer Reflectivity Principles</span>
+                        <p style="font-size: 0.875rem;">Retinal layers display distinct hyperreflective (light) or hyporeflective (dark) bands based on optical backscattering:</p>
+                        <ul style="padding-left: 1.25rem; font-size: 0.875rem;">
+                            <li><strong style="color: var(--accent-purple);">Hyperreflective Layers (Bright/Light):</strong> Axon/fiber layers and plexiform layers — Nerve Fiber Layer (NFL), Inner Plexiform Layer (IPL), Outer Plexiform Layer (OPL), Retinal Pigment Epithelium (RPE / Bruch's complex).</li>
+                            <li><strong style="color: var(--accent-blue);">Hyporeflective Layers (Dark):</strong> Nuclear layers — Ganglion Cell Layer (GCL), Inner Nuclear Layer (INL), Outer Nuclear Layer (ONL - photoreceptor cell bodies), Subretinal fluid/cysts.</li>
+                        </ul>
+
+                        <div class="callout callout-exam-tip" style="margin-top: 0.75rem;">
+                            <div class="callout-title">🧠 Exam Tip</div>
+                            <p>OCT quantitative thickness grids map foveal, parafoveal, and perifoveal sectors in micrometers (µm) against normative population databases to quantify macular edema or atrophy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recreated Diagram: Retinal OCT Layers Cross-Section -->
+                <div class="diagram-container">
+                    <span class="block-title">Histologic Virtual OCT Cross-Sectional Diagram</span>
+                    <svg viewBox="0 0 700 240" style="width: 100%; max-width: 650px; height: auto; background: var(--bg-primary); border-radius: 8px;">
+                        <!-- Foveal Pit Contour -->
+                        <path d="M 20 40 L 220 40 Q 350 140 350 140 Q 350 140 480 40 L 680 40" fill="none" stroke="var(--text-muted)" stroke-width="1"/>
+                        
+                        <!-- Internal Limiting Membrane (ILM) -->
+                        <path d="M 20 45 L 220 45 Q 350 135 350 135 Q 350 135 480 45 L 680 45" fill="none" stroke="#2563eb" stroke-width="3"/>
+                        <text x="50" y="35" font-size="10" font-family="Space Mono" fill="#2563eb">ILM & NFL (Hyperreflective)</text>
+
+                        <!-- Inner Retinal Nuclear & Plexiform Layers -->
+                        <path d="M 20 70 Q 250 70 300 110 L 350 138 L 400 110 Q 450 70 680 70" fill="none" stroke="#94a3b8" stroke-width="8" opacity="0.4"/>
+                        <text x="50" y="85" font-size="10" font-family="Space Mono" fill="var(--text-secondary)">Nuclear Layers (Hyporeflective - Dark)</text>
+
+                        <!-- Outer Plexiform / ELM -->
+                        <path d="M 20 120 Q 250 120 310 142 L 350 145 L 390 142 Q 450 120 680 120" fill="none" stroke="#d97706" stroke-width="3"/>
+
+                        <!-- Photoreceptor Layer (Cones at central pit) -->
+                        <path d="M 20 150 L 680 150" fill="none" stroke="#e11d48" stroke-width="4" stroke-dasharray="3"/>
+                        <text x="50" y="165" font-size="10" font-family="Space Mono" fill="#e11d48">Photoreceptor Inner/Outer Segments (IS/OS Junction)</text>
+
+                        <!-- RPE Layer (Hyperreflective baseline) -->
+                        <rect x="20" y="180" width="660" height="12" fill="#78350f" rx="2"/>
+                        <text x="50" y="190" font-size="10" font-family="Space Mono" fill="#ffffff" font-weight="bold">Retinal Pigment Epithelium (RPE) / Bruch's Membrane</text>
+
+                        <!-- Choroid Layer -->
+                        <rect x="20" y="196" width="660" height="30" fill="#0d9488" opacity="0.2"/>
+                        <text x="350" y="215" text-anchor="middle" font-size="11" font-family="DM Sans" font-weight="bold" fill="var(--accent-teal)">Choroid & Choriocapillaris Vascular Bed</text>
+
+                        <!-- Foveal Depression Indicator -->
+                        <line x1="350" y1="10" x2="350" y2="130" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="2"/>
+                        <text x="350" y="25" text-anchor="middle" font-size="10" font-family="Space Mono" fill="#ef4444">Foveal Center Depression</text>
+                    </svg>
+                    <div class="diagram-caption">Figure 11 & 12: Schematic of retinal layer organization on cross-sectional OCT. Demonstrates the normal physiological foveal contour.</div>
+                </div>
+            </div>
+
+            <!-- TAB 4: AGE-RELATED MACULAR DEGENERATION (AMD) -->
+            <div class="tab-content" id="tab-4">
+                <div class="section-header">
+                    <h2>4. Age-Related Macular Degeneration (AMD)</h2>
+                    <p>Pathophysiology of outer retinal oxidative stress, Drusen formation, and detailed comparison of Dry vs Wet AMD.</p>
+                </div>
+
+                <div class="card">
+                    <span class="block-title">Epidemiology & Etiology</span>
+                    <p>AMD is the leading cause of irreversible central vision impairment in individuals <strong>≥50 years of age</strong>, with incidence rising sharply beyond 75 years (most common in Caucasians). The core disease mechanism involves cumulative <strong>oxidative stress</strong> and metabolic dysfunction within the photoreceptors, RPE, and underlying choroid.</p>
+
+                    <div class="grid-2" style="margin-top: 1rem;">
+                        <div>
+                            <span class="block-title" style="margin-top: 0;">Major Risk Factors</span>
+                            <ul style="padding-left: 1.25rem; font-size: 0.875rem;">
+                                <li><strong>Advancing Age:</strong> Strongest overall non-modifiable risk factor.</li>
+                                <li><strong>Cigarette Smoking:</strong> <em>Major modifiable risk factor</em> (2–4x increased risk).</li>
+                                <li><strong>Female Gender & Heredity:</strong> Genetic susceptibility (CFH gene mutations).</li>
+                                <li><strong>Systemic & Environmental:</strong> Hypertension, obesity, inactivity, light iris color, excessive UV light exposure, deficiency in antioxidants (Vitamin C, E, Zinc).</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span class="block-title" style="margin-top: 0;">Precursor Lesion: Drusen</span>
+                            <p style="font-size: 0.875rem;">Drusen are yellowish, well-demarcated extracellular deposits of cellular debris, lipids, and proteins located <strong>deep in the outer retina between the RPE basement membrane and Bruch's membrane</strong>. Derived from incomplete digestion of discarded photoreceptor outer segments by RPE cells.</p>
+                            <p style="font-size: 0.875rem; margin-top: 0.4rem;">Early drusen are asymptomatic (patients maintain 20/20 vision). Vision deteriorates when drusen enlarge, coalesce, and compromise overlying photoreceptor viability.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="block-title">Master Comparison: Non-Neovascular (Dry) vs Neovascular (Wet) AMD</span>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Non-Neovascular / Atrophic ("Dry") AMD</th>
+                                    <th>Neovascular / Exudative ("Wet") AMD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Prevalence</strong></td>
+                                    <td><strong>90% of all AMD cases</strong> (Most common type)</td>
+                                    <td><strong>10% of all AMD cases</strong> (Less common)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Visual Impact</strong></td>
+                                    <td>Gradual, slowly progressive painless central visual loss over years. In 10% of cases, both eyes eventually affected.</td>
+                                    <td><strong>Devastating & rapid visual deterioration.</strong> Responsible for <strong>90% of cases with visual acuity ≤ 20/200</strong>.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Primary Pathology</strong></td>
+                                    <td>Slow atrophy and loss of RPE and photoreceptors without fluid or blood leakage.</td>
+                                    <td>Growth of <strong>Choroidal Neovascular Membranes (CNVM)</strong> driven by upregulation of <strong>VEGF</strong>.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Fundus Appearance</strong></td>
+                                    <td>Confluent drusen, RPE pigmentary changes, irregular <strong>"geographic" patches of chorioretinal atrophy</strong>.</td>
+                                    <td>Pinkish-yellow subretinal lesion, subretinal fluid, <strong>subretinal hemorrhages</strong>, lipid exudation (hard exudates).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>FFA Findings</strong></td>
+                                    <td>Hyperfluorescence due to <strong>RPE window defect</strong> (increased transmission of choroidal light through thinned RPE without border expansion).</td>
+                                    <td><strong>Gold Standard:</strong> Early <strong>"lacy" filling pattern</strong> of CNVM, followed by effusive hyperfluorescent leakage into subretinal space and late staining.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>OCT Findings</strong></td>
+                                    <td>Drusen elevation, localized thinning or complete loss of RPE and outer nuclear layers.</td>
+                                    <td>Neural retinal thickening, cystic intraretinal fluid spaces, subretinal fluid accumulation, loss of normal foveal depression.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Late Complications</strong></td>
+                                    <td>Extensive geographic atrophy centered on the fovea.</td>
+                                    <td>Subretinal scarring forming a dense elevated white <strong>Fibrous Disciform Scar</strong>, massive subretinal exudation, exudative retinal detachment (runs 2-4 yr course untreated).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Treatment</strong></td>
+                                    <td><strong>No approved cure/surgical/laser treatment.</strong> AREDS micronutrient formula (Vit C, E, Lutein, Zeaxanthin, Zinc, Copper) to slow progression; Low-vision reading aids.</td>
+                                    <td><strong>Intravitreal Anti-VEGF injections</strong> (First-line). Focal Thermal Laser Photocoagulation (ONLY if extrafoveal).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="block-title">Anti-VEGF Pharmacotherapy for Wet AMD</span>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Drug Name (Trade)</th>
+                                    <th>Molecular Structure</th>
+                                    <th>Ocular Half-Life & Regimen</th>
+                                    <th>Clinical Efficacy & Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Ranibizumab</strong><br>(Lucentis)</td>
+                                    <td>Recombinant humanized monoclonal antibody fragment (Fab)</td>
+                                    <td>~30-day half-life.<br>Monthly or "Treat-and-Extend" regimen.</td>
+                                    <td>Stabilizes vision in 90% of patients; improves vision significantly in ~30%. FDA-approved for intraocular use.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Aflibercept</strong><br>(Eylea)</td>
+                                    <td>Recombinant fusion protein (VEGF Trap binding VEGF-A, VEGF-B, and PlGF)</td>
+                                    <td><strong>~60-day half-life</strong> (longer duration). Dosed every 2 months after loading.</td>
+                                    <td>Comparable safety/efficacy to Ranibizumab; requires fewer intravitreal injections per year. FDA-approved.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Bevacizumab</strong><br>(Avastin)</td>
+                                    <td>Full-length recombinant humanized monoclonal antibody</td>
+                                    <td>~30-day half-life.<br>Monthly dosing.</td>
+                                    <td>Originally approved as systemic cancer therapy; <strong>reformulated off-label</strong> for intraocular use. Equally effective as Lucentis at significantly lower cost.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="callout callout-pitfall">
+                    <div class="callout-title">⚠️ Critical Treatment Contraindication: Thermal Laser in Subfoveal Wet AMD</div>
+                    <p>Thermal Laser Photocoagulation produces full-thickness retinal burns to destroy CNVMs. It is strictly indicated <strong>ONLY for extrafoveal CNVM lesions</strong>. Applying thermal laser to a subfoveal lesion causes immediate collateral destruction of central cone photoreceptors, resulting in permanent central scotoma!</p>
+                </div>
+            </div>
+
+            <!-- TAB 5: CENTRAL SEROUS CHORIORETINOPATHY (CSCR) -->
+            <div class="tab-content" id="tab-5">
+                <div class="section-header">
+                    <h2>5. Central Serous Chorioretinopathy (CSCR)</h2>
+                    <p>Pachychoroid spectrum disease, hypercortisolemia link, classic angiographic findings, and self-limiting clinical course.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">💧 Epidemiologic & Clinical Profile</span>
+                        </div>
+                        <p style="font-size: 0.9rem;">CSCR is one of the top 5 most common maculopathies. It predominantly affects <strong>young to middle-aged males (22–45 years old)</strong> who exhibit <strong>Type A personalities</strong>, high emotional stress, or history of <strong>exogenous corticosteroid use</strong> (oral, topical, inhaled, or intra-articular).</p>
+                        
+                        <span class="block-title">Pathophysiology</span>
+                        <p style="font-size: 0.875rem;">Classified under <em>pachychoroid spectrum disorders</em> (pathological thickening and hyperpermeability of the underlying choroid). Elevated circulating cortisol/steroids increase choriocapillaris hydrostatic pressure, causing breakdown of the RPE outer blood-retinal barrier. Fluid leaks into the subretinal space, creating a <strong>blister-like serous detachment of the neurosensory retina</strong> at or near the fovea.</p>
+
+                        <span class="block-title">Clinical Presentation</span>
+                        <ul style="padding-left: 1.25rem; font-size: 0.875rem;">
+                            <li>Sudden onset of painless central visual blur.</li>
+                            <li><strong>Micropsia:</strong> Perceived shrinking of objects due to spatial separation of photoreceptors.</li>
+                            <li><strong>Metamorphopsia & Central Scotoma:</strong> Well-defined rounded shadow following gaze.</li>
+                            <li>Visual acuity is moderately decreased (e.g., 20/30 to 20/60) and often <strong>improves toward normal with a small hyperopic (+ diopter) correction</strong> because neurosensory elevation shortens axial optical distance!</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">🖼️ Diagnostic Imaging: FFA & OCT</span>
+                        </div>
+                        
+                        <span class="block-title">FFA Classic Triphasic Progression</span>
+                        <ul style="padding-left: 1.25rem; font-size: 0.875rem;">
+                            <li><strong>Early Arteriovenous Phase:</strong> Solitary pinpoint hyperfluorescent spot near superotemporal arcade or fovea.</li>
+                            <li><strong>Recirculation Phase:</strong> Classic <strong>"Smokestack" Pattern</strong> (~10–15% of cases). Dye leaks vertically upward driven by thermal convection currents.</li>
+                            <li><strong>Late Phase:</strong> Subretinal <strong>"Pooling"</strong> of dye forming an umbrella or mushroom shape. Fluorescein dye has a <em>lower specific gravity</em> than proteinaceous subretinal fluid, causing dye to float to the upper boundary of the detachment!</li>
+                        </ul>
+
+                        <span class="block-title">OCT Characteristics</span>
+                        <p style="font-size: 0.875rem;">OCT displays a prominent dome-shaped elevation of the neurosensory retina separated from the underlying smooth RPE baseline by a dark, non-reflective <strong>hyporeflective subretinal fluid space</strong>.</p>
+                    </div>
+                </div>
+
+                <!-- Recreated Diagram: CSCR FFA Smokestack -->
+                <div class="diagram-container">
+                    <span class="block-title">CSCR FFA Angiographic Triphasic Evolution Diagram</span>
+                    <svg viewBox="0 0 650 180" style="width: 100%; max-width: 600px; height: auto;">
+                        <!-- Early Phase -->
+                        <g transform="translate(20, 10)">
+                            <rect width="180" height="140" fill="#020617" rx="6"/>
+                            <circle cx="110" cy="80" r="4" fill="#ffffff"/>
+                            <text x="90" y="130" font-size="10" font-family="Space Mono" fill="#38bdf8">1. Early Phase</text>
+                            <text x="90" y="115" font-size="9" font-family="DM Sans" fill="#94a3b8">Focal Leakage Spot</text>
+                        </g>
+
+                        <!-- Smokestack Phase -->
+                        <g transform="translate(235, 10)">
+                            <rect width="180" height="140" fill="#020617" rx="6"/>
+                            <!-- Plume -->
+                            <path d="M 110 90 Q 105 60 115 40 Q 125 30 110 20" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.8"/>
+                            <circle cx="110" cy="90" r="3" fill="#ffffff"/>
+                            <text x="90" y="130" font-size="10" font-family="Space Mono" fill="#38bdf8">2. Recirculation</text>
+                            <text x="90" y="115" font-size="9" font-family="DM Sans" fill="#f59e0b">"Smokestack" Rising</text>
+                        </g>
+
+                        <!-- Late Pooling Phase -->
+                        <g transform="translate(450, 10)">
+                            <rect width="180" height="140" fill="#020617" rx="6"/>
+                            <ellipse cx="110" cy="45" rx="45" ry="25" fill="#ffffff" opacity="0.85"/>
+                            <text x="90" y="130" font-size="10" font-family="Space Mono" fill="#38bdf8">3. Late Phase</text>
+                            <text x="90" y="115" font-size="9" font-family="DM Sans" fill="#34d399">Subretinal Dye Pooling</text>
+                        </g>
+                    </svg>
+                    <div class="diagram-caption">Figure 24: Classic triphasic FFA pattern in CSCR illustrating rising focal leak ("smokestack") and late upper subretinal pooling.</div>
+                </div>
+
+                <div class="card">
+                    <span class="block-title">CSCR Management Protocol</span>
+                    <ul style="padding-left: 1.25rem; font-size: 0.9rem;">
+                        <li><strong>Primary Line: Conservative Observation.</strong> Rule for first-time acute CSCR. Discontinue corticosteroid medications if medically safe; manage psychological stress.</li>
+                        <li><strong>Spontaneous Resolution:</strong> Occurs in <strong>80–90% of cases within 2 to 4 months</strong> without medical or surgical intervention. Visual acuity recovers within 6 months.</li>
+                        <li><strong>Focal Thermal Laser Photocoagulation:</strong> Indicated ONLY for recurrent cases, persistent fluid >3–4 months, or high occupational visual demands, provided leakage site is extrafoveal. Seals RPE leak.</li>
+                    </ul>
+                    <div class="callout callout-pearl">
+                        <div class="callout-title">💡 Clinical Pearl</div>
+                        <p>Even after total anatomic fluid resorption and visual acuity restoration to 20/20, patients frequently report mild persistent <strong>residual metamorphopsia</strong> or reduced contrast sensitivity.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 6: MACULAR HOLE & GASS CLASSIFICATION -->
+            <div class="tab-content" id="tab-6">
+                <div class="section-header">
+                    <h2>6. Idiopathic Macular Hole & Gass Classification</h2>
+                    <p>Pathogenesis of anteroposterior vitreomacular traction, staging system, OCT diagnosis, and vitrectomy surgical repair.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">🕳️ Etiology & Clinical Features</span>
+                        </div>
+                        <p style="font-size: 0.9rem;">A <strong>macular hole</strong> is a full-thickness defect of the foveal sensory retina extending from the internal limiting membrane (ILM) to the photoreceptor layer. Predominantly idiopathic, unilateral, and spontaneous in <strong>elderly females (50–70 years old)</strong>. May secondary occur following blunt ocular trauma or rhegmatogenous retinal detachment.</p>
+                        
+                        <span class="block-title">Clinical Presentation</span>
+                        <ul style="padding-left: 1.25rem; font-size: 0.875rem;">
+                            <li>Progressive decline in central visual acuity (often 20/80 to 20/200).</li>
+                            <li>Metamorphopsia and prominent central scotoma on Amsler grid.</li>
+                            <li><strong>OCT is the definitive Gold Standard diagnostic modality</strong> to visualize hole diameter, foveal tissue cuff, and vitreomacular traction.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">🔪 Surgical Management: Pars Plana Vitrectomy</span>
+                        </div>
+                        <p style="font-size: 0.9rem;">Indicated for full-thickness holes (Stages 2, 3, 4) to relieve tangential vitreous traction and stimulate glial tissue reapposition:</p>
+                        <ol style="padding-left: 1.25rem; font-size: 0.875rem; margin-top: 0.5rem;">
+                            <li><strong>Pars Plana Vitrectomy (PPV):</strong> Removal of core vitreous and posterior hyaloid detachment.</li>
+                            <li><strong>Internal Limiting Membrane (ILM) Peeling:</strong> Delicate surgical peeling of the ILM around the fovea to eliminate tangential elasticity tension.</li>
+                            <li><strong>Intravitreal Gas Tamponade (SF6 / C3F8):</strong> Injection of expandable intraocular gas bubble. Requires strict postoperative face-down positioning.</li>
+                        </ol>
+                        <div class="callout callout-pitfall" style="margin-top: 0.75rem;">
+                            <div class="callout-title">⚠️ Surgical Complication & Success Rate</div>
+                            <p>Anatomic hole closure is achieved in <strong>≥90% of cases</strong>. However, ~20% fail to achieve visual acuity >20/50 (especially chronic/traumatic holes). Intraocular gas induces rapid nuclear <strong>cataract formation</strong> in nearly all phakic patients; phacoemulsification is commonly combined with vitrectomy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="block-title">Gass Staging Classification of Macular Hole</span>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Stage</th>
+                                    <th>Classification & Description</th>
+                                    <th>Foveal Anatomy & Size Criteria</th>
+                                    <th>Posterior Vitreous Status & Operculum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Stage 1a</strong></td>
+                                    <td>Impending / Occult Macular Hole</td>
+                                    <td>Foveolar xanthophyll spot; flattening of foveal pit; loss of normal foveal reflex. Reversible if PVD completes spontaneously!</td>
+                                    <td>Vitreous attached to fovea center (foveolar traction). No operculum.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Stage 1b</strong></td>
+                                    <td>Impending Macular Hole</td>
+                                    <td>Yellow halo ring surrounding foveola; occult intraretinal foveolar dehiscence.</td>
+                                    <td>Foveal detachment; posterior hyaloid attached. No operculum.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Stage 2</strong></td>
+                                    <td>Early Full-Thickness Macular Hole</td>
+                                    <td>Small full-thickness defect <strong>&lt; 400 µm diameter</strong>. Often eccentric or round.</td>
+                                    <td>Vitreous remains attached to foveal margin. Operculum absent or early pseudo-operculum.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Stage 3</strong></td>
+                                    <td>Fully Developed Full-Thickness Hole</td>
+                                    <td>Well-circumscribed full-thickness hole <strong>&ge; 400 µm diameter</strong>. Surrounded by fluid cuff of intraretinal edema.</td>
+                                    <td>Posterior hyaloid detached over fovea, but <strong>Posterior Vitreous Detachment (PVD) incomplete at optic disc</strong>. Operculum present above hole.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Stage 4</strong></td>
+                                    <td>Full-Thickness Hole with Complete PVD</td>
+                                    <td>Full-thickness hole &ge; 400 µm with elevated surrounding subretinal fluid cuff.</td>
+                                    <td><strong>Complete Posterior Vitreous Detachment (PVD)</strong> with Weiss ring visible over optic disc. Operculum detached.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 7: COMPARATIVE RETINAL VASCULAR & MACULAR CONDITIONS -->
+            <div class="tab-content" id="tab-7">
+                <div class="section-header">
+                    <h2>7. Comprehensive Differential Diagnosis & confusable Topic Pairs</h2>
+                    <p>Side-by-side comparative matrices resolving commonly confused macular and retinal vascular disorders.</p>
+                </div>
+
+                <div class="card">
+                    <span class="block-title">Master Differential Matrix: CRAO vs CRVO vs DME vs Wet AMD vs CSCR vs Macular Hole</span>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Disease Entity</th>
+                                    <th>Target Population & Risk Factors</th>
+                                    <th>Primary Symptomatology</th>
+                                    <th>Pathognomonic Fundoscopic Finding</th>
+                                    <th>Gold Diagnostic Modality & Key Result</th>
+                                    <th>Definitive Management</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Central Retinal Artery Occlusion (CRAO)</strong></td>
+                                    <td>Elderly, Carotid stenosis, Atrial Fibrillation emboli</td>
+                                    <td>Sudden, catastrophic <strong>painless vision loss</strong> (count fingers / LP)</td>
+                                    <td>Opaque milky-white ischemic retinal edema with <strong>Cherry-Red Spot at fovea</strong> (spares cilioretinal artery)</td>
+                                    <td>Clinical / BIO: Embolic arteriolar occlusion, box-carring of blood column. Emergency!</td>
+                                    <td>Ocular massage, IV acetazolamide, anterior chamber paracentesis, hyperbaric O2.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Central Retinal Vein Occlusion (CRVO)</strong></td>
+                                    <td>Hypertension (arteriolosclerosis impinging vein), Glaucoma</td>
+                                    <td>Sudden <strong>painless visual loss</strong> (waking from sleep)</td>
+                                    <td><strong>"Blood and Thunder" fundus</strong> (diffuse 4-quadrant retinal hemorrhages, cotton wool spots, disc edema)</td>
+                                    <td>FFA: Severe capillary non-perfusion (ischemic type) vs leakage. OCT: Macular edema.</td>
+                                    <td>Anti-VEGF intravitreal injections, intravitreal steroid implants, Panretinal Photocoagulation (PRP if NVG).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Diabetic Macular Edema (DME)</strong></td>
+                                    <td>Diabetics (any stage of NPDR/PDR). Leading cause of vision loss in DM!</td>
+                                    <td>Gradual central vision blurring, micropsia</td>
+                                    <td>Hard exudates (lipid deposits in outer plexiform), microaneurysms, macular swelling</td>
+                                    <td><strong>OCT:</strong> Quantitative macular thickening & cystic spaces. FFA: Microaneurysms & focal leak.</td>
+                                    <td><strong>Intravitreal Anti-VEGF</strong> (standard of care), focal grid laser photocoagulation.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Neovascular (Wet) AMD</strong></td>
+                                    <td>Age &ge;50, smokers, Caucasians, females</td>
+                                    <td>Rapid vision drop, severe <strong>metamorphopsia</strong></td>
+                                    <td>Subretinal blood, lipid exudation, subretinal pinkish-yellow CNVM membrane</td>
+                                    <td><strong>FFA (Gold Standard):</strong> Lacy early filling & intense hyperfluorescent leakage. OCT: Cystic fluid.</td>
+                                    <td><strong>Intravitreal Anti-VEGF injections</strong> (Lucentis, Eylea, Avastin). Laser if extrafoveal only.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Central Serous Chorioretinopathy (CSCR)</strong></td>
+                                    <td>Males 22–45, Type A personality, elevated stress/steroids</td>
+                                    <td>Painless central blur, <strong>micropsia</strong>, hyperopic shift</td>
+                                    <td>Dome-shaped blister serous elevation of central neurosensory retina</td>
+                                    <td><strong>FFA:</strong> "Smokestack" leak & subretinal pooling. <strong>OCT:</strong> Hyporeflective subretinal fluid space.</td>
+                                    <td><strong>Conservative observation</strong> (80-90% spontaneous recovery in 2-4 mos). Stop steroids. Focal laser if chronic.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Idiopathic Macular Hole</strong></td>
+                                    <td>Females 50–70 years, ocular trauma</td>
+                                    <td>Central scotoma, line distortion, loss of central detail</td>
+                                    <td>Round red full-thickness foveal defect with surrounding cuff of subretinal fluid</td>
+                                    <td><strong>OCT (Gold Standard):</strong> Visualizes complete foveal tissue gap & vitreous traction. Gass 1–4.</td>
+                                    <td><strong>Pars Plana Vitrectomy</strong> + ILM Peeling + Gas Tamponade (face-down position).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">🔍 Drusen vs Hard Exudates</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Drusen</th>
+                                        <th>Hard Exudates</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Composition</strong></td>
+                                        <td>Lipids, proteins, and cellular waste from photoreceptor disc degradation.</td>
+                                        <td>Lipoprotein exudates from hyperpermeable, leaky microvessels.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Anatomic Layer</strong></td>
+                                        <td><strong>Deep outer retina</strong> (beneath RPE, above Bruch's membrane).</td>
+                                        <td><strong>Outer Plexiform Layer (OPL)</strong> of the sensory retina.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Associated Pathologies</strong></td>
+                                        <td>Age-Related Macular Degeneration (Dry & Wet AMD).</td>
+                                        <td>Diabetic Retinopathy, Wet AMD, Retinal Vein Occlusion.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Border Appearance</strong></td>
+                                        <td>Nodular, rounded, soft or hard discrete yellow spots.</td>
+                                        <td>Shiny, bright yellow streaks, clumps, or circinate rings around microaneurysms.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">🔬 FFA Hyperfluorescence Mechanisms</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Pattern</th>
+                                        <th>Pathophysiologic Process</th>
+                                        <th>Classic Clinical Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Window Defect</strong></td>
+                                        <td>RPE atrophy exposes normal background choroidal illumination. Border static.</td>
+                                        <td>Geographic Atrophy in Dry AMD.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Leakage</strong></td>
+                                        <td>Brd Breakdown of inner/outer blood-retinal barrier; dye spills into tissue; border expands.</td>
+                                        <td>CNVM in Wet AMD; Diabetic Macular Edema.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Pooling</strong></td>
+                                        <td>Dye collects in anatomical fluid-filled space with sharp distinct boundaries.</td>
+                                        <td>Subretinal fluid detachment in CSCR.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Staining</strong></td>
+                                        <td>Dye prolonged binding to fibrous or scar matrix.</td>
+                                        <td>Fibrous Disciform Scar in end-stage Wet AMD.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 8: ACTIVE-RECALL FLASHCARDS -->
+            <div class="tab-content" id="tab-8">
+                <div class="section-header">
+                    <h2>8. Active-Recall Flashcards (50 Board-Level Cards)</h2>
+                    <p>Test your rapid-fire retrieval strength across all core lecture domains. Flip cards, track progress, and shuffle.</p>
+                </div>
+
+                <div class="quiz-header-bar">
+                    <div>
+                        <label for="flashcardFilter" style="font-weight: bold; margin-right: 0.5rem; font-size: 0.875rem;">Filter by Category:</label>
+                        <select id="flashcardFilter" onchange="filterFlashcards()" style="padding: 0.4rem 0.8rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-primary);">
+                            <option value="ALL">All Topics (50 Cards)</option>
+                            <option value="ANATOMY">Macular Anatomy</option>
+                            <option value="EXAM">Clinical History & Physical Exam</option>
+                            <option value="ANCILLARY">Ancillary Diagnostics (FFA & OCT)</option>
+                            <option value="AMD">Age-Related Macular Degeneration</option>
+                            <option value="CSCR">CSCR</option>
+                            <option value="HOLE">Macular Hole & Gass</option>
+                            <option value="VASCULAR">Retinal Vascular & Occlusions</option>
+                        </select>
+                    </div>
+                    <div class="quiz-score" id="flashcardTracker">Card 1 of 50</div>
+                </div>
+
+                <div class="flashcard-wrapper">
+                    <div class="flashcard" id="flashcardElement" onclick="flipCard()">
+                        <div class="flashcard-front">
+                            <span class="flashcard-tag" id="fcTag">ANATOMY</span>
+                            <div class="flashcard-text" id="fcQuestion">What is the exact anatomical diameter of the foveola and what unique photoreceptor feature does it possess?</div>
+                            <div class="flashcard-hint">💡 Click or press Spacebar to flip</div>
+                        </div>
+                        <div class="flashcard-back">
+                            <span class="flashcard-tag">ANSWER</span>
+                            <div class="flashcard-text" id="fcAnswer">Diameter = 0.35 mm (350 µm). It contains EXCLUSIVELY cone photoreceptors (rods are completely absent).</div>
+                            <div class="flashcard-hint">Click card again to flip back</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flashcard-controls">
+                    <button class="btn btn-outline" onclick="prevCard()">← Previous</button>
+                    <button class="btn" onclick="shuffleCards()">🔀 Shuffle</button>
+                    <button class="btn btn-outline" onclick="nextCard()">Next →</button>
+                </div>
+            </div>
+
+            <!-- TAB 9: BOARD EXAM MCQ SELF-ASSESSMENT -->
+            <div class="tab-content" id="tab-9">
+                <div class="section-header">
+                    <h2>9. Board-Style Self-Assessment (50 MCQs with Detailed Rationales)</h2>
+                    <p>Includes all 26 official practice & synchronous examination questions from Dr. De Grano's UERMED lecture trans, plus 24 high-yield PLE-format items.</p>
+                </div>
+
+                <div class="quiz-header-bar">
+                    <div>
+                        <span style="font-weight: bold; font-family: var(--font-heading);">Interactive MCQ Testing Mode</span>
+                    </div>
+                    <div class="quiz-score" id="mcqScoreDisplay">Score: 0 / 50 (0%)</div>
+                </div>
+
+                <div class="quiz-container" id="mcqContainer">
+                    <!-- MCQ Cards rendered via JS -->
+                </div>
+            </div>
+
+            <!-- TAB 10: 10-MINUTE ULTRA-CONDENSED CRAM SHEET -->
+            <div class="tab-content" id="tab-10">
+                <div class="section-header">
+                    <h2>10. Ultra-Condensed 10-Minute Cram Sheet</h2>
+                    <p>High-yield buzzwords, rapid diagnostic triggers, and "If You See X → Think Y" clinical reasoning rules.</p>
+                </div>
+
+                <div class="cram-grid">
+                    <div class="cram-card">
+                        <h3>⚡ "If You See X → Think Y" Rules</h3>
+                        <ul class="cram-list">
+                            <li><strong>Wavy/distorted straight lines on Amsler grid:</strong> Think <em>Metamorphopsia</em> (Wet AMD, CSCR, or Macular Hole).</li>
+                            <li><strong>Young Type A male + stress/steroids + central rounded scotoma:</strong> Think <em>Central Serous Chorioretinopathy (CSCR)</em>.</li>
+                            <li><strong>FFA showing "Smokestack" pattern floating upward:</strong> Pathognomonic for <em>CSCR</em>.</li>
+                            <li><strong>Cherry-Red Spot at fovea + pale ischemic retina:</strong> Pathognomonic for <em>Central Retinal Artery Occlusion (CRAO)</em>.</li>
+                            <li><strong>"Blood and Thunder" fundus (4-quadrant hemorrhages):</strong> Pathognomonic for <em>Central Retinal Vein Occlusion (CRVO)</em>.</li>
+                            <li><strong>Yellowish deep extracellular deposits under RPE:</strong> Think <em>Drusen</em> (precursor to AMD).</li>
+                            <li><strong>Rapid vision loss + subretinal hemorrhage/exudates + CNVM:</strong> Think <em>Neovascular (Wet) AMD</em>.</li>
+                            <li><strong>Extrafoveal CNVM on FFA:</strong> Amenable to <em>Thermal Laser Photocoagulation</em>.</li>
+                            <li><strong>Subfoveal CNVM on FFA:</strong> Strict indication for <em>Intravitreal Anti-VEGF Injections</em> (Thermal laser CONTRAINDICATED).</li>
+                            <li><strong>Stage 4 Macular Hole:</strong> Full-thickness hole + <em>Complete PVD with Weiss Ring</em>.</li>
+                        </ul>
+                    </div>
+
+                    <div class="cram-card">
+                        <h3>⚡ Essential Numbers & Dimensions</h3>
+                        <ul class="cram-list">
+                            <li><strong>Fovea Centralis Diameter:</strong> 1.5 mm (Corresponds to FAZ on FFA).</li>
+                            <li><strong>Foveola Diameter:</strong> 0.35 mm (350 µm) — exclusive cones.</li>
+                            <li><strong>Amsler Grid Coverage:</strong> Central 15 degrees of visual field.</li>
+                            <li><strong>Dry AMD Prevalence:</strong> 90% of cases (slow, atrophic).</li>
+                            <li><strong>Wet AMD Visual Impact:</strong> 10% of cases, but causes 90% of severe visual loss (&le;20/200).</li>
+                            <li><strong>CSCR Spontaneous Resolution:</strong> 80–90% resolve in 2 to 4 months.</li>
+                            <li><strong>Macular Hole Size Cutoff:</strong> Stage 2 is &lt;400 µm; Stage 3/4 is &ge;400 µm.</li>
+                            <li><strong>Surgical Closure Rate of Macular Hole:</strong> &ge;90% after PPV + ILM peel + gas tamponade.</li>
+                            <li><strong>Ranibizumab Half-Life:</strong> ~30 days vs <strong>Aflibercept:</strong> ~60 days.</li>
+                        </ul>
+                    </div>
+
+                    <div class="cram-card">
+                        <h3>⚡ Top Board Exam Pitfalls & Buzzwords</h3>
+                        <ul class="cram-list">
+                            <li><strong>Painless Nature of Macular Disease:</strong> Macular conditions do NOT cause ocular pain. Pain implies anterior inflammation or Neovascular Glaucoma (NVG)!</li>
+                            <li><strong>Hyperopic Shift in CSCR:</strong> Neurosensory elevation shortens axial optical distance, so visual acuity improves with a small <em>plus (+ diopter) lens</em>!</li>
+                            <li><strong>Avastin Status:</strong> Bevacizumab is an <em>off-label</em> systemic cancer monoclonal antibody used intraocularly for cost savings.</li>
+                            <li><strong>FFA Window Defect:</strong> Static hyperfluorescence from RPE atrophy (Dry AMD); does NOT expand or leak.</li>
+                            <li><strong>FFA Leakage:</strong> Dynamic hyperfluorescence from CNVM or leaky microvessels; expands beyond boundaries over time.</li>
+                            <li><strong>Fluorescein Specific Gravity:</strong> Lower than subretinal fluid, causing dye to float to the top of subretinal detachment in CSCR late phase!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scroll-to-Top Button -->
+    <button class="btn-scroll-top" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        /* -------------------------------------------------------------------------- */
+        /* GLOBAL APPLICATION STATE                                                   */
+        /* -------------------------------------------------------------------------- */
+        let currentTab = 0;
+        let isDarkMode = false;
+
+        /* -------------------------------------------------------------------------- */
+        /* TAB SWITCHING SYSTEM                                                       */
+        /* -------------------------------------------------------------------------- */
+        function switchTab(index) {
+            const tabs = document.querySelectorAll('.nav-tab-item');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach((tab, i) => {
+                if (i === index) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            contents.forEach((content, i) => {
+                if (i === index) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+
+            currentTab = index;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            updateProgressBar();
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* DARK MODE TOGGLE                                                           */
+        /* -------------------------------------------------------------------------- */
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            document.getElementById('themeIcon').innerText = isDarkMode ? '☀️' : '🌙';
+            document.getElementById('themeText').innerText = isDarkMode ? 'Light Mode' : 'Dark Mode';
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* PROGRESS BAR & SCROLL MONITOR                                              */
+        /* -------------------------------------------------------------------------- */
+        window.addEventListener('scroll', () => {
+            updateProgressBar();
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* SEARCH & HIGHLIGHT ENGINE                                                  */
+        /* -------------------------------------------------------------------------- */
+        function handleSearch() {
+            const query = document.getElementById('globalSearchInput').value.toLowerCase().trim();
+            if (query.length < 2) return;
+
+            // Search across active tab content
+            const activeTabContent = document.querySelector('.tab-content.active');
+            if (!activeTabContent) return;
+
+            // Search highlight simple implementation
+            console.log("Searching for query: " + query);
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* FLASHCARD DATABASE (50 ITEMS)                                              */
+        /* -------------------------------------------------------------------------- */
+        const flashcardsData = [
+            { cat: "ANATOMY", q: "What is the exact anatomical diameter of the foveola and what unique photoreceptor feature does it possess?", a: "Diameter = 0.35 mm (350 µm). It contains EXCLUSIVELY cone photoreceptors (rods are completely absent)." },
+            { cat: "ANATOMY", q: "Which region corresponds precisely to the Foveal Avascular Zone (FAZ) seen on FFA?", a: "The Fovea Centralis (1.5 mm diameter)." },
+            { cat: "ANATOMY", q: "What constitutes the 'Clinical Macula'?", a: "The Fovea plus the Parafovea." },
+            { cat: "ANATOMY", q: "What pigment compounds impart the yellowish/darkened color to the central macula?", a: "Xanthophyll carotenoid pigments: Lutein and Zeaxanthin." },
+            { cat: "ANATOMY", q: "What anatomical structure produces the normal foveal reflex on direct ophthalmoscopy?", a: "The Umbo (the tiny central depression at the floor of the foveola)." },
+            { cat: "ANATOMY", q: "What is the width of the parafoveal and perifoveal concentric zones?", a: "Parafovea = 0.5 mm width; Perifovea = 1.5 mm width." },
+            { cat: "EXAM", q: "What is metamorphopsia and in which macular conditions is it a hallmark symptom?", a: "Distortion of straight lines. Characteristic of Wet AMD, CSCR, and Macular Hole." },
+            { cat: "EXAM", q: "Why is ocular pain NOT typically associated with macular diseases?", a: "The retina lacks pain sensory receptors. Pain occurs only if secondary inflammation or Neovascular Glaucoma (NVG) is present." },
+            { cat: "EXAM", q: "Contrast micropsia vs macropsia.", a: "Micropsia = Perceived image size smaller than normal (e.g., CSCR). Macropsia = Perceived image size larger than normal." },
+            { cat: "EXAM", q: "Which two systemically administered drugs require periodic macular monitoring for toxicity?", a: "Hydroxychloroquine (Plaquenil) and Thioridazine." },
+            { cat: "EXAM", q: "Describe the image orientation produced by Binocular Indirect Ophthalmoscopy (BIO).", a: "Inverted (upside down) and Reversed (left to right)." },
+            { cat: "EXAM", q: "What diopter lenses are used in Slit-Lamp Indirect Ophthalmoscopy?", a: "78 Diopter or 90 Diopter noncontact fundus lenses." },
+            { cat: "EXAM", q: "How many central visual field degrees are evaluated by the Amsler Grid test?", a: "The central 15 degrees." },
+            { cat: "ANCILLARY", q: "What light wavelengths are used for excitation and emission in FFA?", a: "Blue excitation light (485-490 nm); Yellow-green emission light (520-530 nm)." },
+            { cat: "ANCILLARY", q: "Define FFA Window Defect and give a classic example.", a: "Hyperfluorescence due to atrophy of the RPE exposing background choroidal light without border expansion (e.g., Geographic Atrophy in Dry AMD)." },
+            { cat: "ANCILLARY", q: "Define FFA Leakage and contrast it with Window Defect.", a: "Hyperfluorescence from hyperpermeable vessels where dye spills into tissue and expands beyond borders over time (e.g., CNVM in Wet AMD)." },
+            { cat: "ANCILLARY", q: "On OCT, which retinal layers are hyperreflective (bright)?", a: "Nerve Fiber Layer (NFL), plexiform layers (IPL, OPL), and Retinal Pigment Epithelium (RPE)." },
+            { cat: "ANCILLARY", q: "On OCT, which retinal layers are hyporeflective (dark)?", a: "Nuclear layers (Ganglion Cell Layer, INL, Outer Nuclear Layer - ONL) and fluid spaces." },
+            { cat: "AMD", q: "What is the leading cause of irreversible central vision loss in patients ≥50 years of age?", a: "Age-Related Macular Degeneration (AMD)." },
+            { cat: "AMD", q: "What is the single most important modifiable risk factor for AMD?", a: "Cigarette smoking (2 to 4-fold increased risk)." },
+            { cat: "AMD", q: "What are Drusen and where are they anatomically located?", a: "Extracellular yellow deposits of lipids/proteins located between the RPE basement membrane and Bruch's membrane." },
+            { cat: "AMD", q: "What percentage of AMD cases are Non-Neovascular (Dry) vs Neovascular (Wet)?", a: "Dry AMD = 90% of cases; Wet AMD = 10% of cases." },
+            { cat: "AMD", q: "Which AMD type is responsible for 90% of cases with visual acuity ≤ 20/200?", a: "Neovascular (Wet) AMD." },
+            { cat: "AMD", q: "What is the hallmark pathological lesion of Wet AMD?", a: "Choroidal Neovascular Membrane (CNVM) breaking through Bruch's membrane into subretinal space." },
+            { cat: "AMD", q: "What component is contained in the AREDS formula for Dry AMD?", a: "Antioxidant vitamins C & E, Lutein, Zeaxanthin, Zinc, and Copper." },
+            { cat: "AMD", q: "Why is thermal laser photocoagulation strictly CONTRAINDICATED in subfoveal CNVM?", a: "Because thermal laser produces full-thickness burns, causing immediate permanent collateral destruction of central foveal photoreceptors." },
+            { cat: "AMD", q: "Compare the half-lives of Ranibizumab (Lucentis) and Aflibercept (Eylea).", a: "Ranibizumab half-life = ~30 days; Aflibercept half-life = ~60 days (requires fewer injections)." },
+            { cat: "AMD", q: "What is Bevacizumab (Avastin) and how is it used in Wet AMD?", a: "An off-label, low-cost systemic cancer anti-VEGF monoclonal antibody reformulated for intraocular injection." },
+            { cat: "CSCR", q: "Describe the typical patient profile for Central Serous Chorioretinopathy (CSCR).", a: "Young to middle-aged males (22–45 years old) with Type A personality, high stress, or history of corticosteroid use." },
+            { cat: "CSCR", q: "What is the underlying pathophysiological mechanism of CSCR?", a: "Pachychoroid hyperpermeability and elevated cortisol causing RPE breakdown and blister-like serous neurosensory detachment." },
+            { cat: "CSCR", q: "What is the classic pathognomonic FFA pattern in CSCR?", a: "Focal leak in early phase progressing to a 'Smokestack' rising pattern and late subretinal pooling." },
+            { cat: "CSCR", q: "Why does fluorescein dye float to the top of the subretinal space in CSCR late-phase FFA?", a: "Fluorescein dye has a lower specific gravity than the proteinaceous subretinal fluid." },
+            { cat: "CSCR", q: "Why does visual acuity in CSCR often improve with a small hyperopic (+ diopter) lens correction?", a: "Because neurosensory retinal elevation shortens the axial optical distance of the eye." },
+            { cat: "CSCR", q: "What is the primary initial management for first-time acute CSCR?", a: "Conservative observation (80–90% resolve spontaneously within 2 to 4 months)." },
+            { cat: "HOLE", q: "What is an idiopathic macular hole?", a: "A full-thickness defect of the central sensory retina extending from ILM to photoreceptor layer, mostly in elderly females (50–70 yrs)." },
+            { cat: "HOLE", q: "Define Gass Stage 1a vs Stage 1b Macular Hole.", a: "Stage 1a = Foveolar yellow spot with flattening of foveal pit. Stage 1b = Yellow halo ring surrounding foveola." },
+            { cat: "HOLE", q: "What size threshold separates Stage 2 from Stage 3 Gass Macular Hole?", a: "Stage 2 is < 400 µm diameter; Stage 3 is ≥ 400 µm diameter." },
+            { cat: "HOLE", q: "What distinguishes Stage 3 from Stage 4 Gass Macular Hole?", a: "Stage 3 has incomplete PVD at optic disc; Stage 4 has complete Posterior Vitreous Detachment (PVD) with Weiss ring." },
+            { cat: "HOLE", q: "What is the surgical treatment of choice for full-thickness macular holes?", a: "Pars Plana Vitrectomy (PPV) + Internal Limiting Membrane (ILM) peeling + Intravitreal Gas Tamponade." },
+            { cat: "HOLE", q: "What common ocular complication occurs in almost all phakic eyes following gas tamponade for macular hole surgery?", a: "Rapid nuclear cataract formation." },
+            { cat: "VASCULAR", q: "What pathognomonic fundus appearance is seen in Central Retinal Artery Occlusion (CRAO)?", a: "Milky-white ischemic retinal edema with a central Cherry-Red Spot at the fovea." },
+            { cat: "VASCULAR", q: "Why does the fovea appear as a 'Cherry-Red Spot' in CRAO?", a: "Because the retina is thinnest at the fovea, allowing the underlying normal red vascular choroid to shine through contrastingly against pale ischemic surrounding retina." },
+            { cat: "VASCULAR", q: "What fundus appearance is classic for Central Retinal Vein Occlusion (CRVO)?", a: "'Blood and Thunder' fundus: diffuse 4-quadrant retinal hemorrhages, dilated tortuous veins, cotton wool spots, and disc edema." },
+            { cat: "VASCULAR", q: "What is the leading cause of vision loss in diabetic patients across all stages of diabetic retinopathy?", a: "Diabetic Macular Edema (DME)." },
+            { cat: "VASCULAR", q: "What pathognomonic hard exudates pattern is seen in outer plexiform layer of diabetic retina?", a: "Circinate rings of lipoprotein hard exudates surrounding leaking microaneurysms." },
+            { cat: "VASCULAR", q: "What emergency interventions are performed for acute CRAO?", a: "Ocular massage, IV acetazolamide, anterior chamber paracentesis, and hyperbaric oxygen therapy." },
+            { cat: "VASCULAR", q: "How does hypertension cause Central Retinal Vein Occlusion (CRVO)?", a: "Hypertension hardens the arteriolar adventitia at AV crossings, compressing adjacent central retinal vein, inducing turbulent flow and thrombus formation." },
+            { cat: "EXAM", q: "What does an operculum represent in macular hole pathology?", a: "A small avulsed plug of central foveal retinal tissue floating above a macular hole attached to detached posterior hyaloid." },
+            { cat: "AMD", q: "What is Fibrous Disciform Scarring in AMD?", a: "The end-stage dense elevated white scar resulting from chronic subretinal bleeding and fibrosis of CNVM in wet AMD." },
+            { cat: "ANCILLARY", q: "What imaging technique measures retinal layer thickness in micrometers relative to normative databases?", a: "Optical Coherence Tomography (OCT)." }
+        ];
+
+        let currentFlashcardIndex = 0;
+        let filteredCards = [...flashcardsData];
+
+        function displayCard() {
+            if (filteredCards.length === 0) return;
+            const card = filteredCards[currentFlashcardIndex];
+            document.getElementById('fcTag').innerText = card.cat;
+            document.getElementById('fcQuestion').innerText = card.q;
+            document.getElementById('fcAnswer').innerText = card.a;
+            document.getElementById('flashcardElement').classList.remove('flipped');
+            document.getElementById('flashcardTracker').innerText = `Card ${currentFlashcardIndex + 1} of ${filteredCards.length}`;
+        }
+
+        function flipCard() {
+            document.getElementById('flashcardElement').classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            if (filteredCards.length === 0) return;
+            currentFlashcardIndex = (currentFlashcardIndex + 1) % filteredCards.length;
+            displayCard();
+        }
+
+        function prevCard() {
+            if (filteredCards.length === 0) return;
+            currentFlashcardIndex = (currentFlashcardIndex - 1 + filteredCards.length) % filteredCards.length;
+            displayCard();
+        }
+
+        function shuffleCards() {
+            for (let i = filteredCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
+            }
+            currentFlashcardIndex = 0;
+            displayCard();
+        }
+
+        function filterFlashcards() {
+            const cat = document.getElementById('flashcardFilter').value;
+            if (cat === 'ALL') {
+                filteredCards = [...flashcardsData];
+            } else {
+                filteredCards = flashcardsData.filter(c => c.cat === cat);
+            }
+            currentFlashcardIndex = 0;
+            displayCard();
+        }
+
+        // Keyboard Shortcut for Flashcards
+        document.addEventListener('keydown', (e) => {
+            if (currentTab === 8) {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    flipCard();
+                } else if (e.code === 'ArrowRight') {
+                    nextCard();
+                } else if (e.code === 'ArrowLeft') {
+                    prevCard();
+                }
+            }
+        });
+
+        /* -------------------------------------------------------------------------- */
+        /* MCQ QUESTION DATABASE (50 ITEMS INCLUDING 26 LECTURE QUESTIONS)            */
+        /* -------------------------------------------------------------------------- */
+        const mcqData = [
+            // 26 Official Lecture & Synchronous Questions from Dr. De Grano trans
+            {
+                q: "1. The characteristic precursor lesion of both dry and wet AMD that represent accumulated extracellular deposits of lipids, proteins, and cellular debris found within the layers of the outer retina:",
+                options: ["A. Hard exudates", "B. Cottonwool spots", "C. Drusen", "D. Subretinal fibrosis"],
+                correct: 2,
+                rationale: "Drusen are yellowish, well-demarcated extracellular deposits under RPE/Bruch's membrane representing outer retinal waste.",
+                distractors: ["A is wrong: Hard exudates are lipoprotein leaks from microvessels in OPL.", "B is wrong: Cottonwool spots represent nerve fiber layer microinfarcts.", "D is wrong: Subretinal fibrosis is an end-stage scar feature of CNVM."]
+            },
+            {
+                q: "2. Which part of the retina contains only cone photoreceptors and is responsible for the highest visual acuity?",
+                options: ["A. Parafovea", "B. Foveola", "C. Perifovea", "D. Macular rim"],
+                correct: 1,
+                rationale: "The foveola (0.35 mm floor of fovea) is unique for containing EXCLUSIVELY cone photoreceptors.",
+                distractors: ["A is wrong: Parafovea contains high rods and thickest GCL.", "C is wrong: Perifovea is the outer concentric ring.", "D is wrong: Macular rim contains rods and cones."]
+            },
+            {
+                q: "3. What is the typical symptom experienced by patients with macular disease but NOT usually associated with pain?",
+                options: ["A. Photophobia", "B. Metamorphopsia", "C. Ocular pain", "D. Epiphora"],
+                correct: 1,
+                rationale: "Metamorphopsia (line distortion) is a hallmark painless symptom of macular pathology.",
+                distractors: ["A is wrong: Photophobia involves anterior segment/uveal irritation.", "C is wrong: Pain is absent in pure macular disease.", "D is wrong: Epiphora is tearing."]
+            },
+            {
+                q: "4. In Fundus Fluorescein Angiography (FFA), hyperfluorescence may indicate:",
+                options: ["A. Capillary non-perfusion", "B. Leakage from retinal new vessels", "C. Retinal detachment", "D. Absence of vasculature"],
+                correct: 1,
+                rationale: "Hyperfluorescence represents excess light signal from dye leakage, window defects, pooling, or staining.",
+                distractors: ["A is wrong: Capillary non-perfusion causes hypofluorescent dark areas.", "C is wrong: Detachment causes pooling, not generic definition.", "D is wrong: Absence of vasculature causes hypofluorescence."]
+            },
+            {
+                q: "5. The most common early fundus finding in Age-Related Macular Degeneration (AMD) is:",
+                options: ["A. Retinal hemorrhage", "B. Drusen deposits", "C. Cotton wool spots", "D. Retinal exudates"],
+                correct: 1,
+                rationale: "Drusen deposits herald the early onset of both dry and wet AMD.",
+                distractors: ["A is wrong: Retinal hemorrhage occurs in late wet AMD.", "C is wrong: Cotton wool spots are ischemic microinfarcts.", "D is wrong: Hard exudates indicate vascular leakage."]
+            },
+            {
+                q: "6. The macula is located in which part of the retina?",
+                options: ["A. Peripheral retina", "B. Near the optic disc", "C. Temporal posterior pole", "D. Superior nasal quadrant"],
+                correct: 2,
+                rationale: "The macula is located at the temporal posterior pole, temporal to the optic disc.",
+                distractors: ["A is wrong: Macula is central.", "B is wrong: Optic disc is nasal to macula.", "D is wrong: Macula is not in superior nasal quadrant."]
+            },
+            {
+                q: "7. The macula is responsible primarily for:",
+                options: ["A. Peripheral vision", "B. Color and central vision", "C. Night vision", "D. Depth perception"],
+                correct: 1,
+                rationale: "Macular cone receptors subserve high-resolution fine detail, color vision, and central focusing.",
+                distractors: ["A is wrong: Peripheral vision relies on extramacular retina.", "C is wrong: Rods subserve night vision.", "D is wrong: Depth perception requires binocularity."]
+            },
+            {
+                q: "8. The fovea is characterized by:",
+                options: ["A. High density of rods", "B. Absence of blood vessels", "C. Thick retinal layers", "D. Absence of cone cells"],
+                correct: 1,
+                rationale: "The fovea contains the Foveal Avascular Zone (FAZ), devoid of capillaries to prevent light scattering.",
+                distractors: ["A is wrong: Fovea has high cone density.", "C is wrong: Fovea is the thinnest retinal zone.", "D is wrong: Fovea is packed with cones."]
+            },
+            {
+                q: "9. 'Dry' AMD is primarily associated with:",
+                options: ["A. Choroidal neovascularization", "B. Retinal detachment", "C. RPE and photoreceptor atrophy", "D. Optic disc cupping"],
+                correct: 2,
+                rationale: "Dry (Atrophic) AMD involves progressive oxidative atrophy of RPE and photoreceptors without fluid leakage.",
+                distractors: ["A is wrong: CNVM defines Wet AMD.", "B is wrong: Retinal detachment is not dry AMD.", "D is wrong: Optic disc cupping defines glaucoma."]
+            },
+            {
+                q: "10. 'Wet' AMD is defined by the presence of:",
+                options: ["A. Retinal thinning", "B. Choroidal neovascularization", "C. Peripheral visual field loss", "D. Optic neuritis"],
+                correct: 1,
+                rationale: "Wet (Exudative) AMD is defined by growth of Choroidal Neovascular Membranes (CNVM).",
+                distractors: ["A is wrong: Retinal thinning characterizes dry AMD.", "C is wrong: AMD affects central vision.", "D is wrong: Optic neuritis is optic nerve inflammation."]
+            },
+            {
+                q: "11. Which of the following is a major modifiable risk factor for AMD?",
+                options: ["A. Smoking", "B. Age", "C. Family history", "D. Race"],
+                correct: 0,
+                rationale: "Cigarette smoking is the primary modifiable risk factor, increasing AMD risk 2- to 4-fold.",
+                distractors: ["B is wrong: Age is non-modifiable.", "C is wrong: Family history is non-modifiable.", "D is wrong: Race (Caucasian) is non-modifiable."]
+            },
+            {
+                q: "12. The Amsler grid test is used to detect:",
+                options: ["A. Peripheral visual field loss", "B. Metamorphopsia (distortion)", "C. Night blindness", "D. Color vision defects"],
+                correct: 1,
+                rationale: "Amsler grid monocularly tests central 15 degrees to detect metamorphopsia and central scotomas.",
+                distractors: ["A is wrong: Evaluates central field.", "C is wrong: Tests foveal cone/macular function.", "D is wrong: Ishihara tests color vision."]
+            },
+            {
+                q: "13. The mainstay of treatment for wet AMD is:",
+                options: ["A. Laser trabeculoplasty", "B. Oral steroids", "C. Anti-VEGF intravitreal injections", "D. Photorefractive keratectomy"],
+                correct: 2,
+                rationale: "Intravitreal Anti-VEGF injections inhibit hyperpermeability and induce CNVM regression.",
+                distractors: ["A is wrong: Used in glaucoma.", "B is wrong: Oral steroids have no role.", "D is wrong: PRK is corneal refractive surgery."]
+            },
+            {
+                q: "14. The leading cause of vision loss in diabetic patients across all categories is:",
+                options: ["A. Proliferative diabetic retinopathy", "B. Cataract", "C. Diabetic macular edema", "D. Retinal detachment"],
+                correct: 2,
+                rationale: "Diabetic Macular Edema (DME) occurs at any stage of retinopathy and is the primary cause of DM vision loss.",
+                distractors: ["A is wrong: PDR causes severe loss but fewer total patients.", "B is wrong: Cataract is a systemic complication.", "D is wrong: Traction RD occurs late."]
+            },
+            {
+                q: "15. Which investigation is most useful for quantitatively evaluating macular edema?",
+                options: ["A. Visual field testing", "B. Fundus fluorescein angiography", "C. Optical coherence tomography (OCT)", "D. Ultrasound B-scan"],
+                correct: 2,
+                rationale: "OCT provides qualitative virtual cross-sections and precise micrometric quantitative thickness grids.",
+                distractors: ["A is wrong: Perimetry measures visual field sensitivity.", "B is wrong: FFA evaluates leakage dynamically, not thickness.", "D is wrong: B-scan used when media opaque."]
+            },
+            {
+                q: "16. A cherry-red spot at the fovea is a classic finding in:",
+                options: ["A. Central retinal artery occlusion", "B. Central retinal vein occlusion", "C. Dry AMD", "D. Diabetic macular edema"],
+                correct: 0,
+                rationale: "CRAO causes global retinal ischemic whitening; thin foveola allows red underlying choroid to shine through.",
+                distractors: ["B is wrong: CRVO shows blood and thunder.", "C is wrong: Dry AMD shows geographic atrophy.", "D is wrong: DME shows hard exudates."]
+            },
+            {
+                q: "17. The most common presenting symptom of central retinal vein occlusion (CRVO) is:",
+                options: ["A. Gradual loss of peripheral vision", "B. Sudden painless central vision loss", "C. Painful red eye", "D. Double vision"],
+                correct: 1,
+                rationale: "Venous thrombus leads to sudden, painless central vision drop, often upon waking.",
+                distractors: ["A is wrong: Vision loss is sudden and central.", "C is wrong: Painless unless NVG develops late.", "D is wrong: Diplopia is extraocular muscle issue."]
+            },
+            {
+                q: "18. Which systemic disease is most strongly associated with retinal vascular occlusions?",
+                options: ["A. Tuberculosis", "B. Hypertension", "C. Parkinson's disease", "D. Multiple sclerosis"],
+                correct: 1,
+                rationale: "Hypertension causes arteriolar wall sclerosis, compressing adjacent retinal veins at cross-points.",
+                distractors: ["A is wrong: TB causes uveitis.", "C is wrong: Neurodegenerative disease.", "D is wrong: Associated with optic neuritis."]
+            },
+            {
+                q: "19. A macular hole typically presents with:",
+                options: ["A. Peripheral field defect", "B. Central vision loss and metamorphopsia", "C. Night blindness", "D. Painful vision loss"],
+                correct: 1,
+                rationale: "Foveal defect causes impairment of central visual detail, central scotoma, and line distortion.",
+                distractors: ["A is wrong: Central field affected.", "C is wrong: Nyctalopia is rod dysfunction.", "D is wrong: Macular holes are painless."]
+            },
+            {
+                q: "20. The most common demographic group for idiopathic macular holes is:",
+                options: ["A. Children", "B. Young adults", "C. Middle-aged to elderly women", "D. Elderly men"],
+                correct: 2,
+                rationale: "Idiopathic macular holes occur predominantly in females aged 50 to 70 years.",
+                distractors: ["A is wrong: Extremely rare in children.", "B is wrong: Young adults get CSCR.", "D is wrong: Female gender predominance."]
+            },
+            {
+                q: "21. Central Serous Chorioretinopathy (CSC) is more common in:",
+                options: ["A. Young stressed males", "B. Elderly females", "C. Patients with glaucoma", "D. Premature infants"],
+                correct: 0,
+                rationale: "CSCR classically affects males aged 22-45 years with Type A personalities and high stress/steroid levels.",
+                distractors: ["B is wrong: Profile for macular hole/AMD.", "C is wrong: Not glaucoma-related.", "D is wrong: Premature infants get ROP."]
+            },
+            {
+                q: "22. Typical OCT finding in CSC is:",
+                options: ["A. Subretinal fluid accumulation", "B. Drusen deposits", "C. Geographic atrophy", "D. Optic disc edema"],
+                correct: 0,
+                rationale: "OCT shows a dome-shaped hyporeflective subretinal fluid space separating neurosensory retina from RPE.",
+                distractors: ["B is wrong: Drusen seen in AMD.", "C is wrong: Geographic atrophy in dry AMD.", "D is wrong: Disc edema in papilledema/CRVO."]
+            },
+            {
+                q: "23. The investigation that provides optical cross-sectional images of the macula is:",
+                options: ["A. Fluorescein angiography", "B. Electroretinography", "C. OCT", "D. Visual field testing"],
+                correct: 2,
+                rationale: "Optical Coherence Tomography (OCT) uses light interferometry for non-contact cross-sectional imaging.",
+                distractors: ["A is wrong: FFA provides vascular dye transit photography.", "B is wrong: ERG measures global electrical response.", "D is wrong: Perimetry measures visual sensitivity."]
+            },
+            {
+                q: "24. Fundus fluorescein angiography is most useful for:",
+                options: ["A. Detecting choroidal neovascularization", "B. Assessing corneal transparency", "C. Measuring intraocular pressure", "D. Detecting vitreous hemorrhage"],
+                correct: 0,
+                rationale: "FFA is the gold standard for delineating CNVM leakage, lacy pattern, and vascular hyperpermeability.",
+                distractors: ["B is wrong: Evaluated on slit lamp.", "C is wrong: Tonometry measures IOP.", "D is wrong: BIO or B-scan detects vitreous hemorrhage."]
+            },
+            {
+                q: "25. Which test is most practical for home self-monitoring of macular function?",
+                options: ["A. Ishihara color plates", "B. Humphrey visual field test", "C. Amsler grid test", "D. Fundus autofluorescence"],
+                correct: 2,
+                rationale: "Amsler grid is a portable printed card used monocularly for home detection of metamorphopsia.",
+                distractors: ["A is wrong: Tests color deficiency.", "B is wrong: Clinical automated perimetry machine.", "D is wrong: Specialized clinical camera."]
+            },
+            {
+                q: "26. Amsler grid testing is used to detect:",
+                options: ["A. Loss of peripheral vision", "B. Central visual distortion (metamorphopsia)", "C. Color blindness", "D. Night blindness"],
+                correct: 1,
+                rationale: "Amsler grid specifically identifies central visual scotomas and line distortion (metamorphopsia).",
+                distractors: ["A is wrong: Tests central 15 degrees.", "C is wrong: Color vision requires chromatic plates.", "D is wrong: Night vision tests rod threshold."]
+            },
+
+            // 24 Additional High-Yield Board Exam Standard MCQs
+            {
+                q: "27. A 32-year-old male executive presents with sudden central visual blur and micropsia in his right eye. Fundoscopy reveals a circumscribed serous elevation at the macula. Visual acuity is 20/40, which improves to 20/20 with a +1.00 D lens. What is the most appropriate initial management?",
+                options: ["A. Urgent intravitreal Anti-VEGF injection", "B. Immediate thermal laser photocoagulation", "C. Conservative observation and steroid cessation", "D. Pars plana vitrectomy with gas tamponade"],
+                correct: 2,
+                rationale: "First-time acute CSCR has an 80-90% spontaneous resolution rate within 2-4 months; conservative observation is standard.",
+                distractors: ["A is wrong: Anti-VEGF is for Wet AMD/DME.", "B is wrong: Focal laser reserved for chronic/recurrent cases >3-4 mos.", "D is wrong: Vitrectomy is for macular hole."]
+            },
+            {
+                q: "28. What explains the hyperopic shift (+ diopter correction improvement) observed in patients with CSCR?",
+                options: ["A. Elongation of the ocular axial length", "B. Elevation of the neurosensory retina shortening focal distance", "C. Flattening of the anterior corneal curvature", "D. Nuclear sclerosis of the crystalline lens"],
+                correct: 1,
+                rationale: "Fluid accumulation elevates the neurosensory retina anteriorly toward the lens, shortening the focal distance.",
+                distractors: ["A is wrong: Axial length is unchanged.", "C is wrong: Cornea is unaffected.", "D is wrong: Nuclear sclerosis causes myopic shift."]
+            },
+            {
+                q: "29. On FFA of a CSCR patient, fluorescein dye floats to the superior apex of the subretinal detachment in the late phase. What physical principle accounts for this?",
+                options: ["A. Fluorescein dye has a higher molecular weight than albumin", "B. Fluorescein dye has a lower specific gravity than subretinal fluid", "C. Active transport by damaged RPE pumps", "D. Gravity pulling subretinal fluid downward while dye adheres to ILM"],
+                correct: 1,
+                rationale: "Sodium fluorescein dye has a lower specific gravity than proteinaceous subretinal fluid, causing it to float upward.",
+                distractors: ["A is wrong: Molecular weight does not drive fluid flotation.", "C is wrong: RPE pumps are dysfunctional.", "D is wrong: Specific gravity ratio is the key physics principle."]
+            },
+            {
+                q: "30. A 72-year-old female presents with rapid vision loss (20/200) and metamorphopsia. Fundoscopy demonstrates a subretinal grayish-pink lesion with surrounding subretinal hemorrhage. FFA shows early lacy hyperfluorescence with late dye extravasation. Which drug represents first-line therapy?",
+                options: ["A. Acetazolamide", "B. Ranibizumab", "C. Prednisolone", "D. Cyclopentolate"],
+                correct: 1,
+                rationale: "Intravitreal Anti-VEGF therapy (Ranibizumab/Eylea/Avastin) is first-line for subfoveal CNVM in Wet AMD.",
+                distractors: ["A is wrong: Acetazolamide is a carbonic anhydrase inhibitor.", "C is wrong: Steroids worsen wet AMD.", "D is wrong: Cyclopentolate is a mydriatic."]
+            },
+            {
+                q: "31. How does Aflibercept (Eylea) differ structurally and pharmacokinetically from Ranibizumab (Lucentis)?",
+                options: ["A. Aflibercept is a full-length antibody with a 10-day half-life", "B. Aflibercept is a fusion protein targeting VEGF and PlGF with a ~60-day half-life", "C. Aflibercept targets TNF-alpha and has a 30-day half-life", "D. Aflibercept is an oral small-molecule inhibitor"],
+                correct: 1,
+                rationale: "Aflibercept is a recombinant fusion protein binding VEGF-A/B and PlGF with a 60-day ocular half-life.",
+                distractors: ["A is wrong: Avastin is full length antibody.", "C is wrong: Targets VEGF, not TNF.", "D is wrong: Delivered via intravitreal injection."]
+            },
+            {
+                q: "32. In the AREDS formulation for delaying progression of dry AMD, which mineral is included alongside antioxidant vitamins C and E?",
+                options: ["A. Calcium", "B. Zinc", "C. Iron", "D. Magnesium"],
+                correct: 1,
+                rationale: "The AREDS/AREDS2 formula includes Zinc (and Copper) alongside vitamins C, E, Lutein, and Zeaxanthin.",
+                distractors: ["A is wrong: Calcium is not in AREDS.", "C is wrong: Iron causes pro-oxidant damage.", "D is wrong: Magnesium is not part of AREDS."]
+            },
+            {
+                q: "33. A 68-year-old female presents with a Gass Stage 3 macular hole. Which anatomical feature defines Stage 3 compared to Stage 4?",
+                options: ["A. Presence of an intact foveolar roof", "B. Hole diameter < 200 µm", "C. Incomplete Posterior Vitreous Detachment (PVD) at the optic disc", "D. Spontaneous reversibility"],
+                correct: 2,
+                rationale: "Stage 3 macular hole is ≥400 µm with incomplete PVD (hyaloid attached at optic disc); Stage 4 has complete PVD.",
+                distractors: ["A is wrong: Stage 3 is full-thickness.", "B is wrong: Stage 3 is ≥400 µm.", "D is wrong: Stage 3 requires vitrectomy."]
+            },
+            {
+                q: "34. What surgical maneuver is performed during vitrectomy for a macular hole to relieve tangential mechanical stretch around the fovea?",
+                options: ["A. Scleral buckling", "B. Internal Limiting Membrane (ILM) peeling", "C. Panretinal photocoagulation", "D. Trabeculectomy"],
+                correct: 1,
+                rationale: "ILM peeling removes tangential elasticity forces around the fovea, facilitating anatomic hole closure.",
+                distractors: ["A is wrong: Scleral buckling is for retinal detachment.", "C is wrong: PRP is for ischemic retinopathy.", "D is wrong: Trabeculectomy is glaucoma surgery."]
+            },
+            {
+                q: "35. Postoperative management following vitrectomy and gas tamponade for a macular hole strictly requires:",
+                options: ["A. Supine positioning for 2 weeks", "B. Prone (face-down) positioning", "C. Continuous dark room adaptation", "D. Elevating head of bed at 45 degrees"],
+                correct: 1,
+                rationale: "Face-down positioning allows the buoyant intraocular gas bubble to tamponade the foveal hole against RPE.",
+                distractors: ["A is wrong: Supine causes gas to press lens anteriorly.", "C is wrong: Dark adaptation unnecessary.", "D is wrong: Head elevation shifts bubble away from macula."]
+            },
+            {
+                q: "36. Why is Central Retinal Artery Occlusion (CRAO) considered a true ophthalmic emergency?",
+                options: ["A. Irreversible retinal ganglion cell neural damage occurs within 90-120 minutes of complete ischemia", "B. Risk of sympathetic ophthalmia in fellow eye", "C. High immediate risk of bacterial endophthalmitis", "D. Rapid intraocular pressure spike > 70 mmHg"],
+                correct: 0,
+                rationale: "Primate models demonstrate permanent ischemic retinal damage within ~90-120 minutes of CRAO.",
+                distractors: ["B is wrong: Sympathetic ophthalmia follows penetrating trauma.", "C is wrong: Vascular occlusion is non-infectious.", "D is wrong: CRAO does not cause immediate IOP spike."]
+            },
+            {
+                q: "37. A patient with CRAO maintains 20/20 central visual acuity despite widespread retinal pallor and arteriolar box-carring. What anatomical variation explains this central sparing?",
+                options: ["A. Presence of a Cilioretinal Artery", "B. Persistent Hyaloid Artery", "C. Dual Central Retinal Veins", "D. Prominent Circle of Zinn-Haller"],
+                correct: 0,
+                rationale: "A cilioretinal artery (present in ~15-30% of population) derives from posterior ciliary circulation and spares central foveal perfusion in CRAO.",
+                distractors: ["B is wrong: Hyaloid artery regression occurs in utero.", "C is wrong: Vein doesn't supply arterial blood.", "D is wrong: Zinn-Haller supplies optic disc."]
+            },
+            {
+                q: "38. What is the fundamental pathological process causing visual loss in Non-Neovascular (Dry) AMD?",
+                options: ["A. Vitreous hemorrhage", "B. RPE and photoreceptor oxidative degeneration and Geographic Atrophy", "C. Subretinal neovascularization", "D. Tractional retinal detachment"],
+                correct: 1,
+                rationale: "Dry AMD is characterized by slow RPE metabolic breakdown, drusen accumulation, and geographic atrophy.",
+                distractors: ["A is wrong: Seen in PDR/Wet AMD.", "C is wrong: Defines Wet AMD.", "D is wrong: Seen in PDR/trauma."]
+            },
+            {
+                q: "39. Which layer of the retina contains the cell bodies of the rod and cone photoreceptors?",
+                options: ["A. Ganglion Cell Layer (GCL)", "B. Inner Nuclear Layer (INL)", "C. Outer Nuclear Layer (ONL)", "D. Nerve Fiber Layer (NFL)"],
+                correct: 2,
+                rationale: "The Outer Nuclear Layer (ONL) contains photoreceptor cell nuclei; INL contains bipolar/amacrine/horizontal cells.",
+                distractors: ["A is wrong: Contains ganglion cell nuclei.", "B is wrong: Contains inner retinal interneurons.", "D is wrong: Contains unmyelinated axons."]
+            },
+            {
+                q: "40. On an OCT scan, intraretinal cystic spaces in a patient with Diabetic Macular Edema (DME) appear as:",
+                options: ["A. Hyperreflective white signals", "B. Hyporeflective (dark) fluid-filled spaces", "C. Shadowing artifacts", "D. Dense orange bands"],
+                correct: 1,
+                rationale: "Fluid accumulates in low-backscattering hyporeflective (dark) cystic cavities within inner/outer retina.",
+                distractors: ["A is wrong: Exudates/fibrosis are hyperreflective.", "C is wrong: Shadowing caused by blood/pigment.", "D is wrong: Color maps assign colors, baseline is hyporeflective."]
+            },
+            {
+                q: "41. An operculum seen on OCT or ophthalmoscopy in macular hole evaluation indicates:",
+                options: ["A. RPE hypertrophy", "B. Detached plug of foveal retinal tissue adhering to posterior hyaloid", "C. Subretinal neovascular membrane", "D. Intraocular parasite"],
+                correct: 1,
+                rationale: "An operculum is a small avulsed piece of foveal tissue pulled free by vitreous traction.",
+                distractors: ["A is wrong: RPE hypertrophy is dark pigment.", "C is wrong: CNVM is vascular.", "D is wrong: Parasite is unrelated."]
+            },
+            {
+                q: "42. Which diagnostic tool allows direct quantitative comparison of macular thickness in micrometers against age-matched normative controls?",
+                options: ["A. Amsler Grid", "B. Fundus Fluorescein Angiography", "C. Optical Coherence Tomography (OCT)", "D. Direct Ophthalmoscopy"],
+                correct: 2,
+                rationale: "OCT sector maps measure retinal thickness in µm and compare measurements to normative population databases.",
+                distractors: ["A is wrong: Amsler is qualitative visual test.", "B is wrong: FFA is dynamic dye transit.", "D is wrong: Direct ophthalmoscopy is qualitative."]
+            },
+            {
+                q: "43. What is the clinical significance of a 'smokestack' pattern on FFA?",
+                options: ["A. Indicates extrafoveal CNVM requiring laser", "B. Pathognomonic for focal hyperpermeable RPE leak in CSCR", "C. Represents severe capillary non-perfusion in CRAO", "D. Indicates vitreous hemorrhage breakthrough"],
+                correct: 1,
+                rationale: "The smokestack plume rising vertically into subretinal space is classic for CSCR focal RPE leakage.",
+                distractors: ["A is wrong: CNVM shows lacy pattern.", "C is wrong: CRAO shows hypofluorescent non-perfusion.", "D is wrong: Vitreous hemorrhage causes dark blockage."]
+            },
+            {
+                q: "44. End-stage untreated Neovascular (Wet) AMD typically results in:",
+                options: ["A. Complete spontaneous resolution", "B. Fibrous Disciform Scar formation with permanent central scotoma", "C. Neovascular glaucoma within 24 hours", "D. Rhegmatogenous retinal detachment"],
+                correct: 1,
+                rationale: "Untreated CNVM undergoes disciform scarring and subretinal fibrosis over 2-4 years, causing permanent central blindness.",
+                distractors: ["A is wrong: Wet AMD progresses without anti-VEGF.", "C is wrong: NVG is rare in AMD compared to CRVO/DR.", "D is wrong: Causes exudative RD, not rhegmatogenous."]
+            },
+            {
+                q: "45. Why does Direct Ophthalmoscopy provide a limited view of the fundus compared to Indirect Ophthalmoscopy?",
+                options: ["A. Direct ophthalmoscopy uses an inverted light source", "B. High magnification (15x) yields a small field of view (central 15°)", "C. Monocular 3D view reduces visual field", "D. Requires high-diopter condensing lenses"],
+                correct: 1,
+                rationale: "Direct ophthalmoscopy provides high magnification (15x) upright 2D image, restricting field of view to ~15°.",
+                distractors: ["A is wrong: Light source is direct.", "C is wrong: Direct is monocular 2D, not 3D.", "D is wrong: Indirect uses condensing lenses."]
+            },
+            {
+                q: "46. Subretinal hard exudates on fundoscopy are chemically composed of:",
+                options: ["A. Glycogen and RNA fragments", "B. Lipoproteins and lipid-laden macrophages leaking from damaged microvessels", "C. Melanin granules from apoptotic RPE", "D. Amyloid beta deposits"],
+                correct: 1,
+                rationale: "Hard exudates consist of serum lipoproteins deposited in outer retinal layers following chronic vascular leakage.",
+                distractors: ["A is wrong: Not glycogen/RNA.", "C is wrong: Melanin is dark pigment.", "D is wrong: Drusen contain some amyloid, but exudates are lipoproteins."]
+            },
+            {
+                q: "47. Which condition is categorized under the 'Pachychoroid' spectrum of macular diseases?",
+                options: ["A. Stargardt Disease", "B. Central Serous Chorioretinopathy (CSCR)", "C. Retinitis Pigmentosa", "D. High Myopic Maculopathy"],
+                correct: 1,
+                rationale: "CSCR is a prototype pachychoroid spectrum disorder characterized by abnormally thickened choroid and enlarged pachyvessels.",
+                distractors: ["A is wrong: Genetic juvenile dystrophy.", "C is wrong: Rod-cone dystrophy.", "D is wrong: Myopic maculopathy features thin choroid."]
+            },
+            {
+                q: "48. What visual field defect pattern is produced by a full-thickness foveal macular hole?",
+                options: ["A. Bitemporal hemianopia", "B. Central scotoma", "C. Homonymous hemianopia", "D. Altitudinal field loss"],
+                correct: 1,
+                rationale: "Loss of central foveal photoreceptors produces a discrete central scotoma directly in the line of fixation.",
+                distractors: ["A is wrong: Optic chiasm lesion.", "C is wrong: Retrochiasmal optic tract/occipital lesion.", "D is wrong: Ischemic optic neuropathy or CRAO/CRVO branch."]
+            },
+            {
+                q: "49. During Fundus Fluorescein Angiography, a dark area caused by subretinal blood masking background choroidal fluorescence is classified as:",
+                options: ["A. Capillary non-perfusion hypofluorescence", "B. Blocked fluorescence (Hypofluorescence)", "C. Window defect hyperfluorescence", "D. Staining hyperfluorescence"],
+                correct: 1,
+                rationale: "Opaque media (blood, pigment, exudate) lying anterior to fluorescein dye masks underlying fluorescence (blocked hypofluorescence).",
+                distractors: ["A is wrong: Capillary non-perfusion is absent vessel filling.", "C is wrong: Window defect is bright.", "D is wrong: Staining is bright retention."]
+            },
+            {
+                q: "50. What is the main safety rationale for preferring Anti-VEGF intravitreal therapy over Thermal Laser for subfoveal wet AMD?",
+                options: ["A. Anti-VEGF is cheaper than thermal laser", "B. Thermal laser destroys overlying foveal neural tissue while Anti-VEGF selectively targets vessel growth/leakage without thermal necrosis", "C. Anti-VEGF cures AMD permanently in one injection", "D. Thermal laser causes immediate endophthalmitis"],
+                correct: 1,
+                rationale: "Thermal laser causes full-thickness thermal coagulation (destroying central vision), whereas anti-VEGF target molecules without destroying retinal architecture.",
+                distractors: ["A is wrong: Anti-VEGF is generally more expensive.", "C is wrong: Requires repetitive injections.", "D is wrong: Thermal laser does not introduce intraocular infection."]
+            }
+        ];
+
+        let mcqUserAnswers = new Array(mcqData.length).fill(null);
+
+        function renderMCQs() {
+            const container = document.getElementById('mcqContainer');
+            container.innerHTML = '';
+
+            mcqData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'mcq-card';
+                card.id = `mcq-card-${index}`;
+
+                let optionsHTML = '';
+                item.options.forEach((opt, optIndex) => {
+                    optionsHTML += `
+                        <div class="mcq-option" id="mcq-opt-${index}-${optIndex}" onclick="selectMCQOption(${index}, ${optIndex})">
+                            <span>${opt}</span>
+                        </div>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="mcq-number">QUESTION ${index + 1} OF 50</div>
+                    <div class="mcq-question">${item.q}</div>
+                    <div class="mcq-options">${optionsHTML}</div>
+                    <div class="mcq-explanation" id="mcq-exp-${index}">
+                        <strong style="color: var(--accent-blue);">Rationale:</strong> ${item.rationale}<br><br>
+                        <strong style="color: var(--accent-rose);">Distractor Analysis:</strong>
+                        <ul style="padding-left: 1.25rem; margin-top: 0.3rem;">
+                            ${item.distractors.map(d => `<li>${d}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            updateMCQScore();
+        }
+
+        function selectMCQOption(qIndex, optIndex) {
+            if (mcqUserAnswers[qIndex] !== null) return; // Prevent changing after selection
+
+            mcqUserAnswers[qIndex] = optIndex;
+            const qData = mcqData[qIndex];
+            const isCorrect = optIndex === qData.correct;
+
+            // Highlight selected
+            const selectedElem = document.getElementById(`mcq-opt-${qIndex}-${optIndex}`);
+            if (isCorrect) {
+                selectedElem.classList.add('selected-correct');
+            } else {
+                selectedElem.classList.add('selected-incorrect');
+                // Highlight correct option
+                document.getElementById(`mcq-opt-${qIndex}-${qData.correct}`).classList.add('show-correct');
+            }
+
+            // Disable all options for this question
+            qData.options.forEach((_, i) => {
+                document.getElementById(`mcq-opt-${qIndex}-${i}`).classList.add('disabled');
+            });
+
+            // Show explanation
+            document.getElementById(`mcq-exp-${qIndex}`).style.display = 'block';
+
+            updateMCQScore();
+        }
+
+        function updateMCQScore() {
+            let answered = 0;
+            let correctCount = 0;
+
+            mcqUserAnswers.forEach((ans, idx) => {
+                if (ans !== null) {
+                    answered++;
+                    if (ans === mcqData[idx].correct) {
+                        correctCount++;
+                    }
+                }
+            });
+
+            const percent = answered > 0 ? Math.round((correctCount / answered) * 100) : 0;
+            document.getElementById('mcqScoreDisplay').innerText = `Score: ${correctCount} / ${mcqData.length} (${percent}% - ${answered} Answered)`;
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* INITIALIZATION ON FIRST LOAD                                               */
+        /* -------------------------------------------------------------------------- */
+        window.addEventListener('DOMContentLoaded', () => {
+            displayCard();
+            renderMCQs();
+            updateProgressBar();
+        });
+    </script>
+</body>
+</html>
