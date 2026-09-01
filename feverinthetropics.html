@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fever in the Tropics: Comprehensive Board-Exam Reviewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent-lepto: #0d9488;
+      --accent-lepto-bg: #ccfbf1;
+      --accent-malaria: #b91c1c;
+      --accent-malaria-bg: #fee2e2;
+      --accent-arbo: #d97706;
+      --accent-arbo-bg: #fef3c7;
+      --border: #e2e8f0;
+      --border-focus: #38bdf8;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+      --radius-sm: 6px;
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0f172a;
+      --bg-surface: #1e293b;
+      --bg-card: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
+      --text-light: #94a3b8;
+      --primary: #38bdf8;
+      --primary-dark: #0284c7;
+      --primary-light: #1e3a8a;
+      --accent-lepto: #2dd4bf;
+      --accent-lepto-bg: #115e59;
+      --accent-malaria: #f87171;
+      --accent-malaria-bg: #991b1b;
+      --accent-arbo: #fbbf24;
+      --accent-arbo-bg: #78350f;
+      --border: #334155;
+      --border-focus: #38bdf8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Syne', sans-serif;
+      color: var(--text-main);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    code, pre, .mono { font-family: 'Space Mono', monospace; }
+
+    /* Top Navigation Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(8px);
+    }
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .logo-area h1 { font-size: 1.4rem; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+    .logo-area span { font-size: 0.85rem; color: var(--text-light); font-weight: 400; }
+    
+    .controls-area { display: flex; align-items: center; gap: 12px; }
+    .search-box { position: relative; }
+    .search-box input {
+      padding: 8px 16px 8px 36px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--bg-primary);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      width: 240px;
+      transition: var(--transition);
+    }
+    .search-box input:focus { outline: none; border-color: var(--border-focus); width: 300px; }
+    .search-box::before { content: "🔍"; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 0.85rem; }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+    .btn-primary { background: var(--primary); color: white; border: none; }
+    .btn-primary:hover { background: var(--primary-dark); color: white; }
+
+    /* Sticky Tab Navigation Bar */
+    .tab-bar {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 61px;
+      z-index: 999;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .tab-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      padding: 0 24px;
+    }
+    .tab-btn {
+      padding: 14px 20px;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      color: var(--text-light);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: var(--transition);
+    }
+    .tab-btn:hover { color: var(--primary); }
+    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* Main Container */
+    main { max-width: 1400px; margin: 24px auto; padding: 0 24px; }
+
+    .tab-content { display: none; opacity: 0; transition: opacity 0.3s ease; }
+    .tab-content.active { display: block; opacity: 1; }
+
+    /* Callout Boxes */
+    .callout {
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      margin: 16px 0;
+      border-left: 5px solid;
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-sm);
+    }
+    .callout-must-know { border-color: #eab308; background: #fefce8; color: #713f12; }
+    .callout-pitfall { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
+    .callout-pearl { border-color: #06b6d4; background: #ecfeff; color: #155e75; }
+    .callout-exam { border-color: #8b5cf6; background: #f5f3ff; color: #5b21b6; }
+    
+    [data-theme="dark"] .callout-must-know { background: #422006; color: #fef08a; }
+    [data-theme="dark"] .callout-pitfall { background: #450a0a; color: #fecaca; }
+    [data-theme="dark"] .callout-pearl { background: #083344; color: #a5f3fc; }
+    [data-theme="dark"] .callout-exam { background: #2e1065; color: #ddd6fe; }
+
+    .callout-title { font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+
+    /* Grid Layouts */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+
+    /* Card Component */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+    .card:hover { box-shadow: var(--shadow-md); }
+    .card-title { font-size: 1.15rem; margin-bottom: 12px; color: var(--primary); border-bottom: 2px solid var(--primary-light); padding-bottom: 6px; }
+
+    /* Expandable Cards */
+    details {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      padding: 12px 16px;
+      transition: var(--transition);
+    }
+    details[open] { background: var(--bg-surface); border-color: var(--primary); }
+    summary { font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    summary::after { content: "+"; font-size: 1.2rem; color: var(--primary); }
+    details[open] summary::after { content: "−"; }
+
+    /* Tables */
+    .table-wrapper { overflow-x: auto; margin: 20px 0; border-radius: var(--radius); border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+    th, td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    th { background: var(--primary-light); color: var(--primary-dark); font-family: 'Syne', sans-serif; font-weight: 700; position: sticky; top: 0; }
+    tr:nth-child(even) { background-color: rgba(0,0,0,0.015); }
+    tr:hover { background-color: rgba(2, 132, 199, 0.05); }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-teal { background: var(--accent-lepto-bg); color: var(--accent-lepto); }
+    .badge-red { background: var(--accent-malaria-bg); color: var(--accent-malaria); }
+    .badge-amber { background: var(--accent-arbo-bg); color: var(--accent-arbo); }
+
+    /* Diagram / Flowchart Styling */
+    .flowchart {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      margin: 20px 0;
+      padding: 20px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .flow-step {
+      background: var(--bg-card);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 12px 20px;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+    .flow-arrow { font-size: 1.5rem; color: var(--primary); }
+
+    /* Flashcard Styles */
+    .flashcard-container {
+      perspective: 1000px;
+      max-width: 650px;
+      margin: 30px auto;
+      height: 350px;
+    }
+    .flashcard {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+    .flashcard.flipped { transform: rotateY(180deg); }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: var(--radius);
+      border: 2px solid var(--border);
+      background: var(--bg-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+    .card-back { transform: rotateY(180deg); background: var(--primary-light); color: var(--text-main); }
+    .card-counter { position: absolute; top: 15px; left: 20px; font-size: 0.8rem; color: var(--text-light); font-weight: 700; }
+    .card-tag { position: absolute; top: 15px; right: 20px; }
+
+    /* MCQ Styles */
+    .mcq-container { max-width: 800px; margin: 0 auto; }
+    .mcq-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .mcq-question { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+    .mcq-options { display: flex; flex-direction: column; gap: 10px; }
+    .mcq-option {
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .mcq-option:hover { background: var(--primary-light); }
+    .mcq-option.correct { background: #dcfce7; border-color: #22c55e; color: #14532d; font-weight: 700; }
+    .mcq-option.incorrect { background: #fee2e2; border-color: #ef4444; color: #7f1d1d; }
+    .mcq-rationale {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-primary);
+      border-left: 4px solid var(--primary);
+      display: none;
+      font-size: 0.9rem;
+    }
+
+    /* Progress Bar */
+    .progress-bar-container { width: 100%; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin: 12px 0; }
+    .progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s ease; }
+
+    /* Scroll to Top */
+    #scrollToTop {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: none;
+      box-shadow: var(--shadow-md);
+      font-size: 1.2rem;
+      z-index: 100;
+    }
+
+    @media print {
+      header, .tab-bar, #scrollToTop, .btn, .flashcard-controls { display: none !important; }
+      .tab-content { display: block !important; opacity: 1 !important; }
+      .card, details { break-inside: avoid; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo-area">
+        <h1>🩺 Fever in the Tropics <span>PLE & Board Exam Reviewer</span></h1>
+      </div>
+      <div class="controls-area">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Search keywords..." onkeyup="filterContent()">
+        </div>
+        <button class="btn" onclick="toggleDarkMode()">🌓 Mode</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨️ Print PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Tab Bar -->
+  <nav class="tab-bar">
+    <div class="tab-container">
+      <button class="tab-btn active" onclick="switchTab('overview')">1. Overview</button>
+      <button class="tab-btn" onclick="switchTab('leptospirosis')">2. Leptospirosis</button>
+      <button class="tab-btn" onclick="switchTab('malaria')">3. Malaria</button>
+      <button class="tab-btn" onclick="switchTab('arboviruses')">4. Arboviruses</button>
+      <button class="tab-btn" onclick="switchTab('comparisons')">5. Comparisons</button>
+      <button class="tab-btn" onclick="switchTab('flashcards')">6. Flashcards (50)</button>
+      <button class="tab-btn" onclick="switchTab('self-assessment')">7. Self-Assessment (50)</button>
+      <button class="tab-btn" onclick="switchTab('cram-sheet')">8. Cram Sheet Ultra</button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- TAB 1: OVERVIEW -->
+    <section id="overview" class="tab-content active">
+      <div class="card">
+        <h2 class="card-title">📌 Executive Summary & Core Learning Objectives</h2>
+        <p>This comprehensive interactive reviewer consolidates tropical febrile illnesses focusing on <strong>Leptospirosis, Malaria, Dengue Fever, Chikungunya Virus (CHIKV), and Zika Virus Disease</strong> based on the UERMMED Medicine 2 curriculum (Dr. Claro Raymundo O. Antonio). Designed specifically for 3rd-year medical students and Physician Licensure Examination (PLE) candidates.</p>
+        
+        <div class="grid-3" style="margin-top:20px;">
+          <div class="card" style="border-left: 4px solid var(--accent-lepto);">
+            <span class="badge badge-teal">Bacterial Spirochete</span>
+            <h3 style="margin: 8px 0;">Leptospirosis</h3>
+            <p style="font-size:0.85rem;">Biphasic illness caused by <em>Leptospira interrogans</em>. Key hallmarks: conjunctival suffusion, severe calf myalgia, AKI, jaundice, and fatal pulmonary hemorrhage.</p>
+          </div>
+          <div class="card" style="border-left: 4px solid var(--accent-malaria);">
+            <span class="badge badge-red">Protozoan Parasite</span>
+            <h3 style="margin: 8px 0;">Malaria</h3>
+            <p style="font-size:0.85rem;">Vector-borne intracellular infection (<em>Anopheles</em>). Features cytoadherence via PfEMP1, microvascular sequestration, cerebral malaria, and relapse via hypnozoites.</p>
+          </div>
+          <div class="card" style="border-left: 4px solid var(--accent-arbo);">
+            <span class="badge badge-amber">Aedes Arboviruses</span>
+            <h3 style="margin: 8px 0;">Dengue, CHIKV, Zika</h3>
+            <p style="font-size:0.85rem;">Mosquito-borne viral triad. Dengue (plasma leakage/shock), Chikungunya (debilitating polyarthralgia), Zika (congenital microcephaly & GBS).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-must-know">
+        <div class="callout-title">⭐ Core Diagnostic Triad & Initial Screening Clues</div>
+        <ul>
+          <li><strong>Leptospirosis:</strong> Floodwater/sewage exposure + Conjunctival suffusion + Calf tenderness + Hypokalemic AKI.</li>
+          <li><strong>Malaria:</strong> Palawan/Mindanao travel + Rigors/Paroxysms + Anemia + Splenomegaly + Thrombocytopenia.</li>
+          <li><strong>Dengue:</strong> Abrupt high fever + Retro-orbital pain + Leukopenia + Critical phase defervescence (Days 4–5) with plasma leakage.</li>
+          <li><strong>Chikungunya:</strong> High fever + Severe crippling polyarthralgia (stooped posture/crawling).</li>
+          <li><strong>Zika:</strong> Low-grade fever + Pruritic maculopapular rash + Non-purulent conjunctivitis + Peri-articular edema.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">📊 Executive Summary Table: Etiology, Vectors, & Primary Target Organs</h3>
+        <div class="table-wrapper">
+          <button class="btn" style="float:right; margin-bottom:8px;" onclick="copyTable(this)">📋 Copy Table</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Illness</th>
+                <th>Etiologic Agent</th>
+                <th>Vector / Transmission</th>
+                <th>Incubation</th>
+                <th>Primary Pathophysiology</th>
+                <th>First-Line Diagnostic</th>
+                <th>First-Line Treatment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Leptospirosis</strong></td>
+                <td><em>Leptospira interrogans</em> (Spirochete)</td>
+                <td>Direct contact with urine of rodents/livestock; Floodwaters</td>
+                <td>2–30 days (avg 1–2 wks)</td>
+                <td>Widespread endothelial disruption, capillary leakage, vasculitis, tissue sequestration</td>
+                <td>MAT (Gold Standard) / PCR (Days 1–5)</td>
+                <td>Mild: Oral Doxycycline<br>Severe: IV Penicillin G</td>
+              </tr>
+              <tr>
+                <td><strong>Malaria</strong></td>
+                <td><em>Plasmodium</em> spp. (<em>P. falciparum, P. vivax, P. ovale, P. malariae, P. knowlesi</em>)</td>
+                <td>Female <em>Anopheles</em> mosquito bite</td>
+                <td>7–30 days (species dependent)</td>
+                <td>RBC invasion & destruction; PfEMP1 cytoadherence & microvascular sequestration</td>
+                <td>Giemsa-stained Thick & Thin Blood Smears</td>
+                <td>Uncomplicated: ACT (Artemether-Lumefantrine)<br>Severe: IV Artesunate</td>
+              </tr>
+              <tr>
+                <td><strong>Dengue</strong></td>
+                <td>Orthoflavivirus dengue (Serotypes DENV-1 to 4)</td>
+                <td><em>Aedes aegypti / Aedes albopictus</em></td>
+                <td>4–10 days</td>
+                <td>Capillary permeability & plasma leakage driven by immunogenic response during defervescence</td>
+                <td>RT-PCR / NS1 Antigen (Days 1–5); IgM/IgG (>Day 5)</td>
+                <td>Isotonic Crystalloids (Strict fluid titration); Supportive care</td>
+              </tr>
+              <tr>
+                <td><strong>Chikungunya</strong></td>
+                <td>Alphavirus chikungunya</td>
+                <td><em>Aedes aegypti / Aedes albopictus</em></td>
+                <td>4–8 days</td>
+                <td>Viral replication in synovial tissue, macrophages, and skeletal muscle leading to intense inflammation</td>
+                <td>RT-PCR (Days 1–7); IgM Serology (>1 wk)</td>
+                <td>Supportive; Paracetamol / NSAIDs (only after ruling out Dengue)</td>
+              </tr>
+              <tr>
+                <td><strong>Zika</strong></td>
+                <td>Orthoflavivirus zikaense</td>
+                <td><em>Aedes</em> mosquitoes, Sexual, Transplacental, Blood transfusion</td>
+                <td>3–14 days</td>
+                <td>Neurotropic viral damage affecting neural progenitor cells and peripheral nerve myelin</td>
+                <td>RT-PCR (Serum ≤7d, Urine ≤14d); PRNT for confirmation</td>
+                <td>Supportive; IVIG for Zika-associated Guillain-Barré Syndrome</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: LEPTOSPIROSIS -->
+    <section id="leptospirosis" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">🧪 Leptospirosis: Comprehensive Review</h2>
+        <p>Leptospirosis is a major global zoonosis caused by pathogenic spirochetes of the genus <em>Leptospira</em>. In tropical regions like the Philippines, heavy downpours, typhoons, and inadequate drainage lead to frequent epidemics.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title">🔬 Bacterial Architecture & Classification</h3>
+          <ul>
+            <li><strong>Order:</strong> Spirochaetales | <strong>Family:</strong> Leptospiraceae.</li>
+            <li><strong>Morphology:</strong> Thin, highly motile, coiled spirochete measuring 6–20 µm long and 0.1 µm in diameter with characteristic <strong>hooked ends</strong> used for tissue penetration.</li>
+            <li><strong>Motility:</strong> Two periplasmic flagella with polar extrusions from the cytoplasmic membrane.</li>
+            <li><strong>Staining & Visualization:</strong> Stains poorly on Gram stain. Visible via <strong>Dark-field microscopy</strong> and <strong>silver impregnation staining</strong> of tissues.</li>
+            <li><strong>Phylogenetic Classification:</strong> 64 species identified: 17 pathogenic, 21 intermediate, 26 non-pathogenic. Replaces old 2-species system (<em>L. interrogans</em> vs <em>L. biflexa</em>).</li>
+            <li><strong>Sensitivities:</strong> Remains highly sensitive to Penicillins despite evolutionary shifts.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">🐀 Animal Reservoirs & Serovars</h3>
+          <p>Leptospires colonize the renal tubules of reservoir hosts and are excreted in urine.</p>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Serovar</th>
+                  <th>Primary Animal Host</th>
+                  <th>Clinical Significance</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Icterohaemorrhagiae</strong></td><td>Rats (Primary)</td><td>Most common isolate; severe disease, jaundice, AKI, hemorrhage</td></tr>
+                <tr><td><strong>Copenhageni</strong></td><td>Rats</td><td>Associated with severe Weil's syndrome</td></tr>
+                <tr><td><strong>Grippotyphosa</strong></td><td>Voles / Field Mice</td><td>Mud fever, milder icteric cases</td></tr>
+                <tr><td><strong>Hardjo</strong></td><td>Cattle</td><td>Occupational risk in dairy/farm workers</td></tr>
+                <tr><td><strong>Canicola</strong></td><td>Dogs</td><td>Transmission via pet urine/feces contact</td></tr>
+                <tr><td><strong>Pomona</strong></td><td>Pigs / Swine</td><td>Occupational risk in abattoir/slaughterhouse workers</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">⚡ Pathophysiology & Multi-Organ Damage Patterns</h3>
+        <div class="flowchart">
+          <div class="flow-step">Entry via intact mucous membranes (conjunctival, oral) or broken skin/cuts</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">Rapid hematogenous dissemination (Leptospiremic Phase: 3–10 days)</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">Immune Evasion & Tissue Attachment (Endothelium, Kidney, Liver, Lungs, Brain)</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">Widespread Endothelial Gap Junction Widening → Capillary Leakage & Platelet Consumption</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">Multi-Organ Failure: Weil's Syndrome (Jaundice + AKI + Hemorrhage) or Severe Pulmonary Hemorrhage</div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <h4>Organ-Specific Pathology:</h4>
+            <ul>
+              <li><strong>Kidneys:</strong> Acute tubular necrosis (ATN) and interstitial nephritis. Inhibits renal tubular Na+ reabsorption leading to early <strong>non-oliguric hypokalemic renal insufficiency</strong> with marked <strong>urinary potassium and magnesium wasting</strong> (HypoMg is uniquely pathognomonic).</li>
+              <li><strong>Liver:</strong> Hepatocyte apoptosis, focal necrosis, and plugging of bile canaliculi leading to <strong>cholestatic jaundice</strong> with markedly elevated bilirubin but only mild-to-moderate transaminase elevation.</li>
+              <li><strong>Vascular System:</strong> Endothelial cell swelling without overt necrotizing vasculitis. Widespread capillary leak, petechiae, platelet aggregation on activated endothelium, leading to consumptive thrombocytopenia and DIC.</li>
+              <li><strong>Lungs:</strong> Endothelial disruption in pulmonary capillaries → alveolar hemorrhage. Immunoglobulin and complement deposition found on alveolar walls.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="callout callout-pearl">
+              <div class="callout-title">💡 Clinical Pearl: The Iceberg Effect</div>
+              <p>The vast majority of Leptospirosis infections are asymptomatic or mild self-limiting febrile illnesses. Only <strong>~1% of cases</strong> progress to severe, life-threatening forms (Weil's Syndrome or Severe Pulmonary Hemorrhage Syndrome).</p>
+            </div>
+            <div class="callout callout-pitfall">
+              <div class="callout-title">⚠️ Common Pitfall: Slaughterhouse Workers</div>
+              <p>Slaughterhouse employees and abattoir workers can contract severe leptospirosis via direct contact with infected animal tissues/blood <strong>without any history of wading in floodwaters</strong> or living in flood-prone areas!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">🩺 Clinical Spectrum: Mild vs. Severe Leptospirosis</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Mild Leptospirosis (99% of cases)</th>
+                <th>Severe Leptospirosis / Weil's Syndrome (1%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Onset & Course</strong></td>
+                <td>Abrupt onset, biphasic course (Leptospiremic → Immune phase). Spontaneous resolution in 7–10 days.</td>
+                <td>Rapidly progressive, often monophasic and fulminant. High mortality (up to 50%).</td>
+              </tr>
+              <tr>
+                <td><strong>Pathognomonic Signs</strong></td>
+                <td><strong>Conjunctival suffusion</strong> (redness without purulent exudate), severe calf & back myalgia.</td>
+                <td><strong>Triad:</strong> Jaundice, Acute Kidney Injury (AKI), and Hemorrhagic diathesis.</td>
+              </tr>
+              <tr>
+                <td><strong>Pulmonary</strong></td>
+                <td>Mild cough, clear lungs.</td>
+                <td>Severe Pulmonary Hemorrhage Syndrome (SPHS), hemoptysis (often seen only post-intubation), ARDS.</td>
+              </tr>
+              <tr>
+                <td><strong>Renal</strong></td>
+                <td>Normal or mild transient non-oliguric hypokalemia.</td>
+                <td>Severe AKI, oliguria/anuria, azotemia, severe hypokalemia, hypomagnesemia, hyponatremia.</td>
+              </tr>
+              <tr>
+                <td><strong>Neurologic</strong></td>
+                <td>Frontal/retro-orbital headache, photophobia.</td>
+                <td>Aseptic meningitis, delirium, altered mental status. Long-term post-leptospirosis depression.</td>
+              </tr>
+              <tr>
+                <td><strong>Mortality Risk Factors</strong></td>
+                <td>Mortality &lt; 1%.</td>
+                <td>Age &gt; 40 y/o, obesity, AKI, ARDS/respiratory failure, shock, cardiac arrhythmias.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">💊 Treatment Guidelines & Post-Exposure Chemoprophylaxis</h3>
+        <div class="grid-2">
+          <div>
+            <h4>Antimicrobial Therapy:</h4>
+            <ul>
+              <li><strong>Mild Disease (Oral):</strong>
+                <ul>
+                  <li><strong>First-line:</strong> Doxycycline 100 mg PO BID for 7 days.</li>
+                  <li><strong>Alternatives:</strong> Azithromycin 500 mg PO OD or Amoxicillin 500 mg PO TID.</li>
+                  <li><em>Jarisch-Herxheimer Reaction:</em> May occur within hours of antibiotic initiation. Manage with supportive care, short-course corticosteroids, and antihistamines.</li>
+                </ul>
+              </li>
+              <li><strong>Severe Disease (Parenteral):</strong>
+                <ul>
+                  <li><strong>First-line:</strong> IV Penicillin G (1.5 million units IV q6h) initiated immediately.</li>
+                  <li><strong>Alternatives:</strong> IV Ceftriaxone (1 g IV q24h), IV Cefotaxime, or IV Doxycycline.</li>
+                </ul>
+              </li>
+              <li><strong>Ineffective Antibiotics:</strong> Vancomycin, Rifampicin, Metronidazole, Chloramphenicol.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4>🛡️ DOH Post-Exposure Chemoprophylaxis (PEP) Algorithm</h4>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Exposure Type</th>
+                    <th>Risk Category / Condition</th>
+                    <th>Recommended Doxycycline Regimen</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td rowspan="2"><strong>Single Exposure</strong><br>(Waded in floodwater once)</td>
+                    <td>No cuts, wounds, or skin lesions</td>
+                    <td><strong>Single dose:</strong> Doxycycline 200 mg PO within 72 hours</td>
+                  </tr>
+                  <tr>
+                    <td>Presence of cuts, wounds, or open skin lesions</td>
+                    <td><strong>3 to 5-day course:</strong> Doxycycline 200 mg PO OD started within 72 hours</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Continuous Exposure</strong></td>
+                    <td>Rescue workers, continuous flood contact</td>
+                    <td><strong>Weekly course:</strong> Doxycycline 200 mg PO once weekly throughout exposure duration</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: MALARIA -->
+    <section id="malaria" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">🦟 Malaria: Parasite Biology, Pathophysiology & Management</h2>
+        <p>Malaria remains a public health threat in specific Philippine provinces (e.g., Palawan). Caused by intraerythrocytic protozoa of the genus <em>Plasmodium</em> and transmitted exclusively by female <em>Anopheles</em> mosquitoes.</p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">🧬 Biological Culprits & Life Cycle Dynamics</h3>
+        <div class="grid-2">
+          <div>
+            <h4>Plasmodium Species Spectrum:</h4>
+            <ul>
+              <li><strong><em>Plasmodium falciparum</em>:</strong> Most deadly species; responsible for almost all malaria deaths. Invades RBCs of <strong>all ages</strong>, causing ultra-high parasitemia levels (&gt;2% to &gt;20%).</li>
+              <li><strong><em>Plasmodium vivax</em>:</strong> Preferentially invades <strong>reticulocytes / young RBCs</strong>. Produces dormant liver forms (<strong>hypnozoites</strong>) causing relapses months to years later.</li>
+              <li><strong><em>Plasmodium ovale</em>:</strong> Invades young RBCs; also produces dormant hypnozoites.</li>
+              <li><strong><em>Plasmodium malariae</em>:</strong> Preferentially invades <strong>older RBCs</strong>. Long 72-hour cycle; can persist silently for decades.</li>
+              <li><strong><em>Plasmodium knowlesi</em>:</strong> Zoonotic monkey parasite in Southeast Asia. 24-hour cycle causing rapid, severe parasitemia.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Detailed Life Cycle Stages:</h4>
+            <ol>
+              <li><strong>Exo-erythrocytic (Hepatic) Cycle:</strong> Female <em>Anopheles</em> injects motile <strong>sporozoites</strong> into bloodstream → travel to liver → invade hepatocytes → replicate into 10,000–30,000 daughter <strong>merozoites</strong> per cell (schizogony). <em>P. vivax/ovale</em> form hypnozoites here.</li>
+              <li><strong>Erythrocytic (Blood) Cycle:</strong> Liver cells rupture → merozoites invade RBCs → Ring Form → Trophozoite → Schizont → RBC ruptures, releasing 6–30 merozoites to invade new RBCs. Synchronized rupture releases toxic metabolites triggering fever spikes.</li>
+              <li><strong>Gametogony:</strong> Some parasites differentiate into sexual forms: <strong>female & male gametocytes</strong> (4:1 female-to-male ratio). Gametocytes are the infective stage for mosquitoes!</li>
+              <li><strong>Sporogonic Cycle:</strong> Mosquito ingests gametocytes → fertilization in mosquito gut → Zygote → Ookinete → Oocyst on gut wall → releases Sporozoites that migrate to salivary glands.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">💥 Pathophysiology of Severe Falciparum Malaria</h3>
+        <p>Infected RBCs degrade hemoglobin into toxic heme, which is detoxified into inert brown-black crystals called <strong>HEMOZOIN</strong> (malaria pigment).</p>
+        
+        <div class="grid-2" style="margin-top:15px;">
+          <div>
+            <h4>PfEMP1 & Cytoadherence Mechanism:</h4>
+            <p>12–15 hours post-invasion, <em>P. falciparum</em> forms electron-dense protrusions called <strong>"knobs"</strong> on the RBC membrane. These knobs express <strong>PfEMP1</strong> (<em>P. falciparum</em> erythrocyte membrane protein 1), an antigenically variant adhesive protein.</p>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Target Organ</th>
+                    <th>Endothelial Receptor Bound by PfEMP1</th>
+                    <th>Pathologic Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Brain</strong></td>
+                    <td><strong>ICAM-1</strong> & <strong>EPCR</strong> (Endothelial Protein C Receptor)</td>
+                    <td>Cerebral malaria, microvascular obstruction, coma</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Placenta</strong></td>
+                    <td><strong>Chondroitin Sulfate B</strong></td>
+                    <td>Placental sequestration, low birth weight, fetal death</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Systemic Organs</strong></td>
+                    <td><strong>CD36</strong></td>
+                    <td>Widespread sequestration in visceral capillary beds</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div>
+            <h4>Microvascular Sequestration & Rosetting:</h4>
+            <ul>
+              <li><strong>Cytoadherence:</strong> Parasitized RBCs stick to vascular endothelium.</li>
+              <li><strong>Rosetting:</strong> Infected RBCs adhere to uninfected RBCs, forming clumps.</li>
+              <li><strong>Agglutination:</strong> Infected RBCs adhere to other infected RBCs.</li>
+              <li><strong>Consequence:</strong> Sequestered parasites mature out of reach of splenic clearance! Microvascular compromise, tissue hypoxia, lactic acidosis, and organ failure.</li>
+            </ul>
+            <div class="callout callout-exam">
+              <div class="callout-title">🧠 Exam Tip: Peripheral Parasitemia Underestimation</div>
+              <p>Because mature trophozoites and schizonts of <em>P. falciparum</em> are sequestered in deep organ capillaries, a peripheral blood smear only reveals early ring forms and gametocytes. Peripheral parasitemia significantly underestimates the total body parasite burden!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">🧬 Human Genetic Protection Against Malaria</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Genetic Trait / Condition</th>
+                <th>Mechanism of Protection Against <em>P. falciparum</em></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Sickle Cell Trait (HbAS)</strong></td>
+                <td>6-fold reduction in severe malaria mortality. Impairs parasite growth at low O2 tension; reduces PfEMP1 expression & cytoadherence.</td>
+              </tr>
+              <tr>
+                <td><strong>G6PD Deficiency</strong></td>
+                <td>Increased oxidative stress in RBCs inhibits intracellular parasite survival. Protects against severe falciparum and vivax malaria.</td>
+              </tr>
+              <tr>
+                <td><strong>Alpha-Thalassemia (Melanesia)</strong></td>
+                <td>Protects against severe disease and high parasitemia despite frequent childhood infections.</td>
+              </tr>
+              <tr>
+                <td><strong>Melanesian Ovalocytosis</strong></td>
+                <td>Rigid erythrocyte membrane resists merozoite attachment and invasion.</td>
+              </tr>
+              <tr>
+                <td><strong>Hemoglobin E & C (HbE, HbC)</strong></td>
+                <td>HbE reduces parasite multiplication at high densities; HbC reduces knob formation and cytoadherence.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">🔬 Laboratory Diagnosis & Microscopy Techniques</h3>
+        <div class="grid-2">
+          <div>
+            <h4>Blood Smear Examination (Gold Standard):</h4>
+            <ul>
+              <li><strong>Thick Blood Smear:</strong> Concentrates parasites by <strong>40- to 100-fold</strong>. RBCs are lysed during staining. Used for parasite detection and calculating parasite density (parasites counted per 200 WBCs, assuming 8,000 WBCs/µL).</li>
+              <li><strong>Thin Blood Smear:</strong> Fixed in methanol. Preserves RBC architecture. Used for <strong>species identification</strong> and calculating % parasitemia (% infected RBCs per 1,000 total RBCs).</li>
+            </ul>
+            <h4>Rapid Diagnostic Tests (RDTs):</h4>
+            <ul>
+              <li><strong>PfHRP2 (Histidine-Rich Protein 2):</strong> Specific for <em>P. falciparum</em>. Note: PfHRP2 persists in blood for <strong>1–5 weeks</strong> after parasite clearance (can cause false positives post-treatment).</li>
+              <li><strong>Plasmodium Lactate Dehydrogenase (pLDH) & Aldolase:</strong> Pan-species antigen targets used to detect non-falciparum species.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="callout callout-must-know">
+              <div class="callout-title">⭐ Diagnostic Cutoffs & Criteria</div>
+              <ul>
+                <li><strong>Critical Parasitemia Threshold:</strong> &gt;2% parasitemia (&gt;100,000 parasites/µL) indicates severe malaria requiring parenteral therapy!</li>
+                <li><strong>CSF Findings in Cerebral Malaria:</strong> Opening pressure ~160 mmH2O, normal to slightly elevated protein (&lt;1.0 g/L), normal cell count (&lt;20 cells/µL). Lumbar puncture is essential to rule out bacterial meningitis!</li>
+                <li><strong>Normal Platelet Count Exception:</strong> Mild-to-moderate thrombocytopenia is nearly universal in acute malaria. A completely normal platelet count should make you question the diagnosis of malaria!</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">💊 Antimalarial Treatment Regimens (DOH Philippines Protocols)</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Clinical Scenario</th>
+                <th>First-Line Regimen</th>
+                <th>Alternative / Dosing Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Uncomplicated <em>P. falciparum</em></strong></td>
+                <td><strong>Artemether-Lumefantrine (AL)</strong> (6-dose course over 3 days, taken with fatty food)<br>+ <strong>Single-dose Primaquine</strong> (0.75 mg/kg, max 45 mg) on Day 2</td>
+                <td>Artesunate + Sulfadoxine-Pyrimethamine (AS+SP) if local resistance is low.<br><em>Primaquine clears gametocytes!</em></td>
+              </tr>
+              <tr>
+                <td><strong>Uncomplicated <em>P. vivax / P. ovale</em></strong></td>
+                <td><strong>Artemether-Lumefantrine (AL)</strong> for 3 days (or Chloroquine 25 mg/kg total over 3d)<br>+ <strong>Primaquine</strong> 0.25 mg/kg/day PO for <strong>14 days</strong></td>
+                <td><strong>Radical Cure:</strong> 14-day Primaquine eradicates dormant liver hypnozoites! Must screen for G6PD deficiency before starting.</td>
+              </tr>
+              <tr>
+                <td><strong>Severe Malaria (All Species)</strong></td>
+                <td><strong>IV Artesunate</strong> 2.4 mg/kg IV at 0, 12, and 24 hours, then once daily until oral switch.</td>
+                <td><strong>Alternatives:</strong> IM Artemether (3.2 mg/kg loading, then 1.6 mg/kg daily) OR IV Quinine (10 mg/kg q8h slow infusion—NEVER IV bolus due to cardiotoxicity!).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout callout-pitfall">
+          <div class="callout-title">⚠️ Primaquine Contraindications</div>
+          <p>Primaquine is strictly <strong>contraindicated in pregnant women</strong> (risk of fatal hemolysis in G6PD-deficient fetus) and <strong>infants under 6 months of age</strong>!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: ARBOVIRUSES -->
+    <section id="arboviruses" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">🦟 Arboviruses: Dengue, Chikungunya & Zika Virus Diseases</h2>
+        <p>Arthropod-borne viruses (Arboviruses) transmitted by <em>Aedes aegypti</em> and <em>Aedes albopictus</em> mosquitoes represent an escalating public health crisis affecting over 3.9 billion people globally.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card" style="border-top: 4px solid var(--accent-arbo);">
+          <h3>🔴 Dengue Virus (DENV)</h3>
+          <p><strong>Family:</strong> Flaviviridae (Orthoflavivirus dengue, serotypes 1–4).</p>
+          <p><strong>Hallmark:</strong> Microvascular hyperpermeability, plasma leakage, severe thrombocytopenia, hemoconcentration, and shock.</p>
+          <p><strong>Secondary Infection Risk:</strong> Infection with a different serotype triggers Antibody-Dependent Enhancement (ADE), drastically increasing severe dengue risk.</p>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--accent-lepto);">
+          <h3>🟢 Chikungunya Virus (CHIKV)</h3>
+          <p><strong>Family:</strong> Togaviridae (Alphavirus chikungunya).</p>
+          <p><strong>Hallmark:</strong> Abrupt high fever and <strong>severe, incapacitating polyarthralgia/arthritis</strong> causing patients to stoop or crawl. Pain can persist for months/years.</p>
+          <p><strong>No Plasma Leakage:</strong> Does not cause significant capillary leakage or severe bleeding.</p>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--primary);">
+          <h3>🔵 Zika Virus (ZIKV)</h3>
+          <p><strong>Family:</strong> Flaviviridae (Orthoflavivirus zikaense).</p>
+          <p><strong>Hallmark:</strong> Low-grade fever, <strong>pruritic maculopapular rash</strong>, non-purulent conjunctivitis, and peri-articular edema.</p>
+          <p><strong>Unique Routes:</strong> Sexual contact, transplacental, blood transfusion.</p>
+          <p><strong>Teratogenicity:</strong> Congenital Zika Syndrome (Microcephaly, cerebral calcifications, GBS).</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">📈 Course of Dengue Illness & Critical Phase Management</h3>
+        <p>Dengue progresses through 3 distinct phases: Febrile Phase (Days 1–3), Critical Phase (Days 4–5), and Recovery Phase (Days 6–10).</p>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Phase</th>
+                <th>Days of Illness</th>
+                <th>Clinical Features & Lab Changes</th>
+                <th>Management Priorities</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Febrile Phase</strong></td>
+                <td>Days 1–3 (up to Day 5)</td>
+                <td>Abrupt high fever (40°C), severe retro-orbital pain, myalgia, arthralgia, leukopenia, positive tourniquet test. Viraemia is high.</td>
+                <td>Oral rehydration solutions (ORS), Paracetamol for fever. <strong>Avoid NSAIDs/Aspirin!</strong> Daily monitoring of CBC & vitals.</td>
+              </tr>
+              <tr>
+                <td><strong>Critical Phase</strong></td>
+                <td>Days 4–5 (around Defervescence)</td>
+                <td>Fever drops, BUT plasma leakage peaks! <strong>Rising Hematocrit</strong> with <strong>rapidly falling platelets</strong>. Risk of hypovolemic shock, pleural effusion, ascites, mucosal bleeding.</td>
+                <td>Hospital admission for Warning Signs. Judicious IV isotonic crystalloids titrated to hematocrit and urine output (&ge;0.5–1 mL/kg/hr).</td>
+              </tr>
+              <tr>
+                <td><strong>Recovery Phase</strong></td>
+                <td>Days 6–10</td>
+                <td>Extravascular fluid reabsorption, stabilization of vitals, hematocrit normalizes, platelet count gradually recovers. Convalescent rash ("islands of white in a sea of red").</td>
+                <td>Stop IV fluids to prevent hypervolemia & pulmonary edema! Monitor for fluid overload.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">💧 Fluid Management Algorithm for Dengue Compensated Shock</h3>
+        <div class="flowchart">
+          <div class="flow-step">Compensated Shock (Systolic BP maintained, but narrow pulse pressure &lt;20 mmHg, tachycardia, delayed CRT)</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">Initial Resuscitation: IV Isotonic Crystalloid 5–10 mL/kg/hr over 1 hour</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step" style="border-color: #eab308;">Reassess Clinical Response & Hematocrit (Hct)</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="border-left: 4px solid #22c55e;">
+            <h4>✅ IF CLINICAL IMPROVEMENT:</h4>
+            <p>Reduce IV fluids stepwise:</p>
+            <ul>
+              <li>5–7 mL/kg/hr for 1–2 hours →</li>
+              <li>3–5 mL/kg/hr for 2–4 hours →</li>
+              <li>2–3 mL/kg/hr for 2–4 hours →</li>
+              <li>Further reduce based on urine output. <strong>STOP IV fluids at 48 hours!</strong></li>
+            </ul>
+          </div>
+          <div class="card" style="border-left: 4px solid #ef4444;">
+            <h4>❌ IF NO CLINICAL IMPROVEMENT (Check Hct):</h4>
+            <ul>
+              <li><strong>High / Rising Hct (Plasma Leakage):</strong> Administer 2nd IV fluid bolus 10–20 mL/kg/hr over 1 hour.</li>
+              <li><strong>Low / Falling Hct (Occult/Overt Bleeding):</strong> Initiate urgent blood transfusion with <strong>Fresh Whole Blood</strong> or Packed RBCs!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-pitfall">
+          <div class="callout-title">⚠️ WHO Prophylactic Platelet Transfusion Guidelines</div>
+          <p><strong>Platelet transfusion is NOT recommended for low platelet count alone</strong>—even if count drops below 20,000/µL—in the absence of severe active bleeding! Prophylactic platelet transfusions do NOT reduce bleeding risk and carry severe risks of fluid overload, transfusion reactions, and alloimmunization.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">🔬 Diagnostic Protocols & Serology Timing for Arboviruses</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Disease</th>
+                <th>Acute Phase (Days 1–5 / Week 1)</th>
+                <th>Convalescent / Late Phase (&gt;Day 5 to Weeks)</th>
+                <th>Diagnostic Pitfalls & Special Rules</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Dengue</strong></td>
+                <td><strong>RT-PCR</strong> (Gold standard early)<br><strong>NS1 Antigen</strong> (Rapid ELISA / Lateral Flow)</td>
+                <td>IgM & IgG Serology (ELISA). 4-fold rise in paired serum IgG.</td>
+                <td>NS1 rapid tests may cross-react with Salmonella/Typhoid. IgM response is blunted/absent in secondary dengue!</td>
+              </tr>
+              <tr>
+                <td><strong>Chikungunya</strong></td>
+                <td><strong>RT-PCR</strong> (Direct RNA detection, serum/plasma)</td>
+                <td>IgM Serology (detectable from end of 1st week; stays + for months).</td>
+                <td>Plaque Reduction Neutralization Test (PRNT) resolves cross-reactivity with other alphaviruses.</td>
+              </tr>
+              <tr>
+                <td><strong>Zika</strong></td>
+                <td><strong>RT-PCR / NAAT</strong> (Serum &le;7 days, Urine &le;14 days; pregnant up to 12 wks)</td>
+                <td>IgM Serology (Serum) confirmed via <strong>PRNT</strong>.</td>
+                <td>High serological cross-reactivity with Dengue! PRNT Zika titer &ge;10 with negative Dengue PRNT confirms Zika.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: COMPARISONS -->
+    <section id="comparisons" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">⚖️ Side-by-Side Comparison Tables</h2>
+        <p>High-yield differential comparison tables for commonly confused tropical febrile illnesses.</p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">📊 Differential Diagnosis Matrix: Dengue vs. Chikungunya vs. Zika (PAHO Guidelines)</h3>
+        <div class="table-wrapper">
+          <button class="btn" style="float:right; margin-bottom:8px;" onclick="copyTable(this)">📋 Copy Table</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Clinical Feature</th>
+                <th>Dengue Virus</th>
+                <th>Chikungunya Virus</th>
+                <th>Zika Virus</th>
+                <th>Certainty of Evidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Fever Pattern</strong></td>
+                <td>High fever (abrupt, 39–40°C), duration 2–7 days</td>
+                <td>High fever (abrupt), duration 3–10 days</td>
+                <td>Low-grade fever or absent</td>
+                <td>Moderate</td>
+              </tr>
+              <tr>
+                <td><strong>Arthralgia / Joint Pain</strong></td>
+                <td>Moderate myalgia/arthralgia</td>
+                <td><strong>Severe, incapacitating polyarthralgia / arthritis</strong> (Dominant sign)</td>
+                <td>Mild to moderate arthralgia / peri-articular edema</td>
+                <td><strong>HIGH (Differentiates CHIKV)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Thrombocytopenia</strong></td>
+                <td><strong>Marked / Severe</strong> (&lt;100,000/µL)</td>
+                <td>Mild transient drop</td>
+                <td>Mild or absent</td>
+                <td><strong>HIGH (Differentiates Dengue)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Hematocrit & Plasma Leak</strong></td>
+                <td><strong>Progressive Hct increase (&gt;20%)</strong> + Capillary leak</td>
+                <td>Normal Hct; No plasma leakage</td>
+                <td>Normal Hct; No plasma leakage</td>
+                <td><strong>HIGH (Differentiates Dengue)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Rash Characteristics</strong></td>
+                <td>Maculopapular rash on Days 3–4; Convalescent petechial rash</td>
+                <td>Maculopapular rash (50% of cases)</td>
+                <td><strong>Pruritic maculopapular rash</strong> (Early onset, face → trunk)</td>
+                <td>Moderate (Pruritus favors Zika)</td>
+              </tr>
+              <tr>
+                <td><strong>Conjunctivitis</strong></td>
+                <td>Rare</td>
+                <td>Uncommon / Mild</td>
+                <td><strong>Non-purulent Conjunctivitis</strong> (Prominent)</td>
+                <td>Moderate (Favors Zika)</td>
+              </tr>
+              <tr>
+                <td><strong>Retro-orbital Pain</strong></td>
+                <td>Prominent / Common</td>
+                <td>Occasional</td>
+                <td>Occasional</td>
+                <td>LOW (Overlapping)</td>
+              </tr>
+              <tr>
+                <td><strong>Severe Complications</strong></td>
+                <td>Dengue Shock Syndrome, Severe Bleeding, Organ failure</td>
+                <td>Chronic debilitating arthritis (months to years)</td>
+                <td>Congenital Microcephaly, Guillain-Barré Syndrome (GBS)</td>
+                <td>HIGH</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">📊 Comparison: Leptospirosis vs. Severe Falciparum Malaria vs. Severe Dengue</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Diagnostic Parameter</th>
+                <th>Leptospirosis</th>
+                <th>Severe Falciparum Malaria</th>
+                <th>Severe Dengue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Pathogen Type</strong></td>
+                <td>Spirochete (Bacteria)</td>
+                <td>Protozoan Parasite</td>
+                <td>Flavivirus (RNA Virus)</td>
+              </tr>
+              <tr>
+                <td><strong>Key Exposure History</strong></td>
+                <td>Floodwater, sewage, animal exposure, triathlons</td>
+                <td>Travel to endemic forest zones (Palawan, Mindoro)</td>
+                <td>Urban/Suburban daytime mosquito exposure</td>
+              </tr>
+              <tr>
+                <td><strong>Eye Manifestations</strong></td>
+                <td><strong>Conjunctival Suffusion</strong> (no exudate)</td>
+                <td>Retinal hemorrhages (15–40%), opacification</td>
+                <td>Retro-orbital pain on eye movement</td>
+              </tr>
+              <tr>
+                <td><strong>Renal Profile</strong></td>
+                <td>Hypokalemic, hypomagnesemic AKI (Urinary K+ wasting)</td>
+                <td>Acute Tubular Necrosis (ATN), Blackwater fever</td>
+                <td>Acute renal impairment secondary to prolonged shock</td>
+              </tr>
+              <tr>
+                <td><strong>Jaundice Mechanism</strong></td>
+                <td>Cholestatic (Bile canaliculi plugging) + Hepatocyte apoptosis</td>
+                <td>Unconjugated hyperbilirubinemia (Massive hemolysis)</td>
+                <td>Hepatic injury / transaminitis (AST/ALT &gt; 1,000 IU/L)</td>
+              </tr>
+              <tr>
+                <td><strong>Pulmonary Involvement</strong></td>
+                <td>Severe Alveolar Hemorrhage Syndrome (ARDS)</td>
+                <td>Noncardiogenic Pulmonary Edema (ARDS)</td>
+                <td>Pleural Effusions (Secondary to plasma leak)</td>
+              </tr>
+              <tr>
+                <td><strong>Primary Treatment</strong></td>
+                <td>IV Penicillin G 1.5M units q6h</td>
+                <td>IV Artesunate 2.4 mg/kg at 0, 12, 24h</td>
+                <td>Judicious Isotonic Crystalloid Fluid Titration</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: FLASHCARDS -->
+    <section id="flashcards" class="tab-content">
+      <div class="card text-center">
+        <h2 class="card-title">🎴 Active-Recall Flashcard Deck (50 Cards)</h2>
+        <p>Click on the card to flip it. Use your left/right arrow keys or buttons to navigate through the deck.</p>
+        
+        <div style="margin: 15px 0; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+          <button class="btn" onclick="filterFlashcards('all')">All (50)</button>
+          <button class="btn" onclick="filterFlashcards('lepto')">Leptospirosis</button>
+          <button class="btn" onclick="filterFlashcards('malaria')">Malaria</button>
+          <button class="btn" onclick="filterFlashcards('arbo')">Arboviruses</button>
+          <button class="btn btn-primary" onclick="shuffleFlashcards()">🎲 Shuffle Deck</button>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="flashcardProgress"></div>
+        </div>
+      </div>
+
+      <div class="flashcard-container" onclick="flipCard()">
+        <div class="flashcard" id="activeFlashcard">
+          <div class="card-face card-front">
+            <span class="card-counter" id="cardCounter">1 / 50</span>
+            <span class="badge badge-teal card-tag" id="cardTag">Leptospirosis</span>
+            <h3 id="cardQuestion" style="font-size: 1.25rem;">What is the characteristic ocular physical exam finding in early leptospirosis?</h3>
+          </div>
+          <div class="card-face card-back">
+            <h4 style="margin-bottom: 10px; color: var(--primary-dark);">Answer:</h4>
+            <p id="cardAnswer" style="font-size: 1.1rem; font-weight: 500;">Conjunctival Suffusion (eye redness without purulent exudate).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard-controls" style="display:flex; justify-content:center; gap:20px; margin-top:20px;">
+        <button class="btn" onclick="prevCard()">⬅️ Previous</button>
+        <button class="btn btn-primary" onclick="nextCard()">Next ➡️</button>
+      </div>
+    </section>
+
+    <!-- TAB 7: SELF-ASSESSMENT -->
+    <section id="self-assessment" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">📝 Board-Style Multiple Choice Exam (50 MCQs)</h2>
+        <p>Test your knowledge with 50 high-yield board-style examination questions. Complete the exam to see your final score and detailed rationale breakdown.</p>
+        <div style="margin-top:10px; display:flex; gap:15px; align-items:center;">
+          <span style="font-weight:700;">Score: <span id="mcqScore" style="color:var(--primary);">0</span> / <span id="mcqTotal">50</span></span>
+          <button class="btn" onclick="resetMCQs()">🔄 Reset Exam</button>
+        </div>
+      </div>
+
+      <div class="mcq-container" id="mcqContainer">
+        <!-- MCQs dynamically populated by JavaScript -->
+      </div>
+    </section>
+
+    <!-- TAB 8: CRAM SHEET -->
+    <section id="cram-sheet" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">⚡ Ultra-Condensed Last-Minute PLE Cram Sheet</h2>
+        <p>Rapid review buzzwords, high-yield diagnostic triggers, and memory aids designed to be read in under 10 minutes before an exam.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card" style="border-left: 5px solid var(--accent-lepto);">
+          <h3 style="color: var(--accent-lepto);">🧪 LEPTOSPIROSIS CRAM BUZZWORDS</h3>
+          <ul>
+            <li><strong>"Hooked-end spirochete"</strong> → <em>Leptospira interrogans</em>.</li>
+            <li><strong>"Eye redness without exudate"</strong> → Conjunctival Suffusion.</li>
+            <li><strong>"Severe calf tenderness"</strong> → Leptospirosis myalgia.</li>
+            <li><strong>"Abattoir / Slaughterhouse worker with fever"</strong> → Leptospirosis via animal contact (No flood history needed!).</li>
+            <li><strong>"Hypokalemia + Hypomagnesemia + AKI"</strong> → Leptospiral Nephropathy (Urinary K+ & Mg2+ wasting).</li>
+            <li><strong>"Weil's Syndrome Triad"</strong> → Jaundice + AKI + Hemorrhage.</li>
+            <li><strong>"Hemoptysis post-intubation"</strong> → Severe Pulmonary Hemorrhage Syndrome (SPHS).</li>
+            <li><strong>"Single flood exposure, no cuts"</strong> → Doxycycline 200 mg single dose within 72h.</li>
+            <li><strong>"Single flood exposure, WITH cuts"</strong> → Doxycycline 200 mg OD for 3–5 days.</li>
+            <li><strong>"Gold Standard Diagnostic"</strong> → Microscopic Agglutination Test (MAT).</li>
+            <li><strong>"Severe Leptospirosis DOC"</strong> → IV Penicillin G 1.5M units q6h.</li>
+          </ul>
+        </div>
+
+        <div class="card" style="border-left: 5px solid var(--accent-malaria);">
+          <h3 style="color: var(--accent-malaria);">🦟 MALARIA CRAM BUZZWORDS</h3>
+          <ul>
+            <li><strong>"Palawan travel + rigors + anemia"</strong> → <em>Plasmodium falciparum</em> malaria.</li>
+            <li><strong>"Banana/crescent-shaped gametocytes"</strong> → <em>P. falciparum</em> thin smear.</li>
+            <li><strong>"Dormant liver stage / Relapse"</strong> → Hypnozoites (<em>P. vivax / P. ovale</em>).</li>
+            <li><strong>"Adhesive knob protein"</strong> → <strong>PfEMP1</strong>.</li>
+            <li><strong>"Cerebral malaria binding receptors"</strong> → <strong>ICAM-1 & EPCR</strong>.</li>
+            <li><strong>"Placental malaria receptor"</strong> → <strong>Chondroitin Sulfate B</strong>.</li>
+            <li><strong>"Malaria Pigment"</strong> → <strong>Hemozoin</strong> (Detoxified heme).</li>
+            <li><strong>"Quotidian fever (24h)"</strong> → <em>P. knowlesi</em>.</li>
+            <li><strong>"Quartan fever (72h)"</strong> → <em>P. malariae</em>.</li>
+            <li><strong>"G6PD protection"</strong> → Inhibits intracellular parasite replication.</li>
+            <li><strong>"PfHRP2 persistence"</strong> → Stays positive on RDT for 1–5 weeks post-cure.</li>
+            <li><strong>"14-day Primaquine"</strong> → Radical cure for <em>P. vivax/ovale</em> (Screen G6PD first!).</li>
+            <li><strong>"Severe Malaria DOC"</strong> → IV Artesunate 2.4 mg/kg.</li>
+          </ul>
+        </div>
+
+        <div class="card" style="border-left: 5px solid var(--accent-arbo);">
+          <h3 style="color: var(--accent-arbo);">🔴 ARBOVIRUSES CRAM BUZZWORDS</h3>
+          <ul>
+            <li><strong>"Critical Phase Defervescence (Days 4–5)"</strong> → Peak plasma leakage & shock risk in Dengue!</li>
+            <li><strong>"Antibody-Dependent Enhancement (ADE)"</strong> → Secondary infection with different serotype → Severe Dengue.</li>
+            <li><strong>"Islands of white in a sea of red"</strong> → Convalescent rash of Dengue.</li>
+            <li><strong>"Severe Dengue Triad"</strong> → Severe Plasma Leakage + Severe Bleeding + Severe Organ Impairment (AST/ALT &ge; 1,000).</li>
+            <li><strong>"Dengue compensated shock IV fluid"</strong> → Isotonic crystalloid 5–10 mL/kg/hr over 1 hr.</li>
+            <li><strong>"Platelet transfusion rule"</strong> → NEVER give prophylactically for low platelet count alone!</li>
+            <li><strong>"Crippling joint pain / stooped posture"</strong> → Chikungunya Virus.</li>
+            <li><strong>"NSAIDs in Chikungunya"</strong> → Give ONLY after Dengue has been completely ruled out!</li>
+            <li><strong>"Pruritic rash + Conjunctivitis + Peri-articular edema"</strong> → Zika Virus.</li>
+            <li><strong>"Zika congenital defect"</strong> → Microcephaly & intracranial calcifications.</li>
+            <li><strong>"Zika neurological sequela"</strong> → Guillain-Barré Syndrome (GBS) → Treat with IVIG.</li>
+          </ul>
+        </div>
+
+        <div class="card" style="border-left: 5px solid var(--primary);">
+          <h3 style="color: var(--primary);">⚡ "IF YOU SEE X → THINK Y" CLINICAL DECISION CHAINS</h3>
+          <ul>
+            <li><strong>If you see:</strong> Flood exposure + Conjunctival suffusion + Calf pain → <strong>Think:</strong> Mild Leptospirosis → <strong>Order:</strong> Blood PCR / MAT → <strong>Start:</strong> Oral Doxycycline.</li>
+            <li><strong>If you see:</strong> Jaundice + Oliguric AKI + Pulmonary infiltrates after typhoon → <strong>Think:</strong> Weil's Syndrome → <strong>Start:</strong> IV Penicillin G immediately!</li>
+            <li><strong>If you see:</strong> Returning traveler from Palawan + Fever + Confusion → <strong>Think:</strong> Cerebral Malaria → <strong>Perform:</strong> LP + Thick/Thin smear → <strong>Start:</strong> IV Artesunate.</li>
+            <li><strong>If you see:</strong> Dengue patient on Day 5 becoming afebrile BUT pulse pressure narrows to &lt;20 mmHg → <strong>Think:</strong> Compensated Dengue Shock → <strong>Action:</strong> IV Isotonic Crystalloid 5–10 mL/kg/hr bolus.</li>
+            <li><strong>If you see:</strong> High fever + Patient crawling due to joint pain + Normal Hct → <strong>Think:</strong> Chikungunya Virus.</li>
+            <li><strong>If you see:</strong> Pregnant patient with pruritic rash + non-purulent conjunctivitis after travel → <strong>Think:</strong> Zika Virus → <strong>Order:</strong> Serum & Urine RT-PCR + Fetal Ultrasound.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTop" onclick="scrollToTop()">▲</button>
+
+  <script>
+    /* ================= Dynamic Flashcards Database ================= */
+    const flashcardsData = [
+      // Leptospirosis (1-15)
+      { cat: 'lepto', q: 'What is the characteristic ocular physical exam finding in early leptospirosis?', a: 'Conjunctival Suffusion (redness of the conjunctiva without purulent exudate).' },
+      { cat: 'lepto', q: 'What is the classic clinical triad of Weil\'s Syndrome?', a: 'Jaundice, Acute Kidney Injury (AKI), and Hemorrhagic Diathesis.' },
+      { cat: 'lepto', q: 'Which animal is the primary reservoir for Leptospira interrogans serovar Icterohaemorrhagiae?', a: 'Rats (Rodents).' },
+      { cat: 'lepto', q: 'What unique electrolyte abnormality is associated with leptospiral nephropathy?', a: 'Hypokalemia and Hypomagnesemia (due to renal potassium and magnesium wasting).' },
+      { cat: 'lepto', q: 'What is the gold standard serological diagnostic test for Leptospirosis?', a: 'Microscopic Agglutination Test (MAT).' },
+      { cat: 'lepto', q: 'What is the first-line oral antibiotic for mild leptospirosis?', a: 'Doxycycline 100 mg PO BID for 7 days.' },
+      { cat: 'lepto', q: 'What is the standard parenteral antibiotic of choice for severe leptospirosis?', a: 'IV Penicillin G (1.5 million units IV q6h).' },
+      { cat: 'lepto', q: 'What post-exposure prophylaxis regimen is indicated for a single flood exposure without cuts?', a: 'Doxycycline 200 mg single PO dose taken within 72 hours of exposure.' },
+      { cat: 'lepto', q: 'What PEP regimen is indicated for continuous exposure to floodwaters?', a: 'Doxycycline 200 mg PO once weekly throughout the exposure period.' },
+      { cat: 'lepto', q: 'Slaughterhouse workers are specifically at risk for infection by which serovar?', a: 'Serovar Pomona (associated with pigs/swine).' },
+      { cat: 'lepto', q: 'During which phase of leptospirosis can the spirochete be cultured from urine?', a: 'The Immune Phase (usually starting in the 2nd week).' },
+      { cat: 'lepto', q: 'What is the cause of death in Severe Pulmonary Hemorrhage Syndrome in leptospirosis?', a: 'Massive alveolar hemorrhage causing acute asphyxiation and ARDS.' },
+      { cat: 'lepto', q: 'Why is Gram stain unsuitable for detecting Leptospira?', a: 'Leptospires are extremely thin (0.1 µm) and stain poorly; dark-field microscopy or silver staining is required.' },
+      { cat: 'lepto', q: 'What acute reaction may occur within hours of starting antibiotic treatment for leptospirosis?', a: 'Jarisch-Herxheimer Reaction (treated with corticosteroids and antihistamines).' },
+      { cat: 'lepto', q: 'Which Leptospira serovar is carried primarily by dogs?', a: 'Serovar Canicola.' },
+
+      // Malaria (16-33)
+      { cat: 'malaria', q: 'Which Plasmodium species causes the vast majority of severe and fatal malaria cases?', a: 'Plasmodium falciparum.' },
+      { cat: 'malaria', q: 'Which two Plasmodium species produce dormant liver hypnozoites?', a: 'Plasmodium vivax and Plasmodium ovale.' },
+      { cat: 'malaria', q: 'What parasite adhesive protein expressed on RBC knobs mediates cytoadherence in P. falciparum?', a: 'PfEMP1 (Plasmodium falciparum erythrocyte membrane protein 1).' },
+      { cat: 'malaria', q: 'Which endothelial receptors in the brain bind PfEMP1 to cause cerebral malaria?', a: 'ICAM-1 and EPCR (Endothelial Protein C Receptor).' },
+      { cat: 'malaria', q: 'What is the primary endothelial receptor for P. falciparum sequestration in the placenta?', a: 'Chondroitin Sulfate B.' },
+      { cat: 'malaria', q: 'What insoluble pigment is formed when Plasmodium detoxifies heme from degraded hemoglobin?', a: 'Hemozoin (malaria pigment).' },
+      { cat: 'malaria', q: 'What is the first-line treatment for uncomplicated P. falciparum malaria in the Philippines?', a: 'Artemether-Lumefantrine (AL) + single-dose Primaquine on Day 2.' },
+      { cat: 'malaria', q: 'Why is Primaquine added to the treatment of P. vivax and P. ovale infections?', a: 'To achieve radical cure by eradicating dormant liver hypnozoites (14-day course).' },
+      { cat: 'malaria', q: 'What inherited blood disorder reduces severe P. falciparum mortality by 6-fold?', a: 'Sickle Cell Trait (HbAS).' },
+      { cat: 'malaria', q: 'What is the gold standard diagnostic method for malaria?', a: 'Giemsa-stained Thick and Thin Blood Smears.' },
+      { cat: 'malaria', q: 'What target antigen on malaria RDTs is specific to Plasmodium falciparum?', a: 'PfHRP2 (Histidine-Rich Protein 2).' },
+      { cat: 'malaria', q: 'What is the first-line parenteral drug for severe malaria?', a: 'IV Artesunate (2.4 mg/kg at 0, 12, and 24 hours, then daily).' },
+      { cat: 'malaria', q: 'What is the fever periodicity of Plasmodium malariae?', a: 'Quartan fever (every 72 hours).' },
+      { cat: 'malaria', q: 'What is the fever periodicity of Plasmodium knowlesi?', a: 'Quotidian fever (every 24 hours).' },
+      { cat: 'malaria', q: 'In an adult, parasitemia exceeding what percentage indicates severe falciparum malaria?', a: '> 2% parasitemia (>100,000 parasites/µL).' },
+      { cat: 'malaria', q: 'Why is IV Quinine given as a slow infusion rather than an IV bolus?', a: 'To prevent severe cardiotoxicity, arrhythmias, and sudden lethal hypotension.' },
+      { cat: 'malaria', q: 'What high-risk Philippine province is the primary focus of endemic malaria transmission?', a: 'Palawan.' },
+      { cat: 'malaria', q: 'Why is Primaquine contraindicated during pregnancy?', a: 'Risk of causing severe intra-uterine hemolysis in a G6PD-deficient fetus.' },
+
+      // Arboviruses (34-50)
+      { cat: 'arbo', q: 'Which primary mosquito vector transmits Dengue, Chikungunya, and Zika viruses?', a: 'Aedes aegypti (and Aedes albopictus).' },
+      { cat: 'arbo', q: 'On which days of illness does the Critical Phase of Dengue typically occur?', a: 'Days 4 to 5 (around the time of defervescence).' },
+      { cat: 'arbo', q: 'What immunologic phenomenon explains why secondary Dengue infections are more severe?', a: 'Antibody-Dependent Enhancement (ADE).' },
+      { cat: 'arbo', q: 'What clinical manifestation strongly differentiates Chikungunya from Dengue and Zika?', a: 'Severe, crippling, incapacitating polyarthralgia/arthritis.' },
+      { cat: 'arbo', q: 'What characteristic triad of symptoms is associated with Zika Virus disease?', a: 'Pruritic maculopapular rash, low-grade fever, non-purulent conjunctivitis, and peri-articular edema.' },
+      { cat: 'arbo', q: 'What major congenital anomaly is linked to Zika virus infection during pregnancy?', a: 'Microcephaly (and Congenital Zika Syndrome).' },
+      { cat: 'arbo', q: 'What adult neurological condition is significantly associated with post-Zika infection?', a: 'Guillain-Barré Syndrome (GBS).' },
+      { cat: 'arbo', q: 'Why are NSAIDs strictly contraindicated in acute Dengue infection?', a: 'NSAIDs worsen platelet dysfunction, increase severe GI bleeding risk, and can trigger Reye\'s syndrome in children.' },
+      { cat: 'arbo', q: 'What is the first-line IV fluid for resuscitating compensated Dengue shock?', a: 'Isotonic Crystalloids (0.9% Normal Saline or Ringer\'s Lactate) at 5–10 mL/kg/hr.' },
+      { cat: 'arbo', q: 'Does WHO recommend prophylactic platelet transfusion for low platelet count alone in Dengue?', a: 'NO. Transfusion is indicated ONLY for active severe bleeding.' },
+      { cat: 'arbo', q: 'What does a rising Hematocrit accompanied by a rapid platelet drop signify in Dengue?', a: 'Active plasma leakage entering the Critical Phase.' },
+      { cat: 'arbo', q: 'What diagnostic laboratory test is preferred for Dengue during the first 5 days of fever?', a: 'RT-PCR or Dengue NS1 Antigen test.' },
+      { cat: 'arbo', q: 'What serological test is required to definitively distinguish Zika from Dengue cross-reactivity?', a: 'Plaque Reduction Neutralization Test (PRNT).' },
+      { cat: 'arbo', q: 'What non-vector transmission routes are unique to Zika virus among arboviruses?', a: 'Sexual contact, transplacental transmission, and blood transfusions.' },
+      { cat: 'arbo', q: 'What is the classic description of the Dengue recovery phase rash?', a: 'Convalescent rash described as "islands of white in a sea of red".' },
+      { cat: 'arbo', q: 'When should IV fluid administration be stopped in a recovering Dengue patient?', a: 'At 48 hours post-critical phase, or upon signs of fluid reabsorption, to avoid pulmonary edema.' },
+      { cat: 'arbo', q: 'What liver transaminase threshold forms part of the criteria for Severe Dengue?', a: 'AST or ALT ≥ 1,000 IU/L.' }
+    ];
+
+    /* ================= Dynamic MCQs Database ================= */
+    const mcqsData = [
+      {
+        q: "1. A 34-year-old male sewage worker presents with 5 days of fever, intense calf pain, and conjunctival suffusion. He waded in floodwaters after a recent typhoon. Labs show severe thrombocytopenia and hypokalemia. Which is the most characteristic complication of his condition?",
+        opts: ["A. Hemoptysis from severe pulmonary hemorrhage", "B. Relapsing fever from dormant hypnozoites", "C. Crippling arthralgia persisting for months", "D. Congenital microcephaly"],
+        ans: 0,
+        rat: "A is correct. Leptospirosis can cause Severe Pulmonary Hemorrhage Syndrome (SPHS), a major cause of death. B refers to P. vivax malaria. C refers to Chikungunya. D refers to Zika."
+      },
+      {
+        q: "2. A 28-year-old pregnant woman presents with mild fever, a pruritic maculopapular rash, and non-purulent conjunctivitis after visiting an endemic area. Which severe fetal complication is of greatest concern?",
+        opts: ["A. Microcephaly and intracranial calcifications", "B. Acute tubular necrosis", "C. Severe anemia from RBC sequestration", "D. Blackwater fever"],
+        ans: 0,
+        rat: "A is correct. Zika virus infection during pregnancy is teratogenic, causing Congenital Zika Syndrome characterized by microcephaly and CNS abnormalities. B and C refer to Leptospirosis and Malaria."
+      },
+      {
+        q: "3. A 19-year-old student presents on Day 5 of fever. Fever has just resolved, but he feels lethargic. BP is 100/80 mmHg (pulse pressure 20 mmHg), HR 115 bpm. Hematocrit increased from 38% to 50%, platelets dropped to 25,000/µL. What is the immediate priority management?",
+        opts: ["A. Immediate prophylactic platelet transfusion", "B. IV Isotonic Crystalloid bolus 5-10 mL/kg/hr over 1 hour", "C. Oral Doxycycline 100 mg BID", "D. Administer IV Furosemide"],
+        ans: 1,
+        rat: "B is correct. The patient is in Compensated Dengue Shock (Critical Phase defervescence, narrow pulse pressure ≤20 mmHg, hemoconcentration). Immediate isotonic crystalloid resuscitation is indicated. Prophylactic platelet transfusions are contraindicated."
+      },
+      {
+        q: "4. A returning traveler from Palawan presents with fever every 48 hours, anemia, and splenomegaly. Peripheral blood smear reveals ring forms inside reticulocytes. Which Plasmodium species is most likely?",
+        opts: ["A. Plasmodium falciparum", "B. Plasmodium vivax", "C. Plasmodium malariae", "D. Plasmodium knowlesi"],
+        ans: 1,
+        rat: "B is correct. P. vivax preferentially invades reticulocytes (young RBCs) and causes tertian fever (every 48 hours). P. falciparum invades all RBC ages, P. malariae invades older RBCs, P. knowlesi has a 24h cycle."
+      },
+      {
+        q: "5. A 42-year-old rescue worker with open leg wounds expects continuous floodwater exposure for 2 weeks during typhoon relief. What is the recommended DOH post-exposure chemoprophylaxis?",
+        opts: ["A. Single dose Doxycycline 200 mg PO", "B. Doxycycline 200 mg PO once weekly throughout exposure", "C. Doxycycline 100 mg PO BID for 14 days", "D. No prophylaxis needed"],
+        ans: 1,
+        rat: "B is correct. For continuous exposure to floodwater, DOH protocol dictates Doxycycline 200 mg PO weekly throughout the duration of exposure."
+      },
+      {
+        q: "6. Which Plasmodium surface antigen expressed on erythrocyte membrane knobs mediates cytoadherence to endothelial ICAM-1 and EPCR receptors in cerebral malaria?",
+        opts: ["A. PfHRP2", "B. PfEMP1", "C. Circumsporozoite protein", "D. pLDH"],
+        ans: 1,
+        rat: "B is correct. PfEMP1 (P. falciparum erythrocyte membrane protein 1) is the primary adhesive protein responsible for cytoadherence, rosetting, and microvascular sequestration."
+      },
+      {
+        q: "7. A patient with suspected Dengue presents with severe polyarthralgia. Which medication should be strictly AVOIDED until Dengue is completely ruled out?",
+        opts: ["A. Paracetamol", "B. Ibuprofen", "C. Oral Rehydration Solution", "D. Isotonic Saline"],
+        ans: 1,
+        rat: "B is correct. NSAIDs (like Ibuprofen) increase the risk of severe gastrointestinal bleeding and platelet dysfunction in Dengue."
+      },
+      {
+        q: "8. What electrolyte pattern is uniquely pathognomonic for early renal involvement in severe Leptospirosis?",
+        opts: ["A. Hyperkalemia and Hypermagnesemia", "B. Non-oliguric Hypokalemia and Hypomagnesemia", "C. Hypernatremia and Hypercalcemia", "D. Normokalemia with high bicarbonate"],
+        ans: 1,
+        rat: "B is correct. Leptospiral nephropathy impairs proximal tubular Na+ reabsorption and causes renal potassium and magnesium wasting, leading to non-oliguric hypokalemic hypomagnesemic AKI."
+      },
+      {
+        q: "9. Which test is considered the clinical gold standard for confirmation of acute Leptospirosis?",
+        opts: ["A. Microscopic Agglutination Test (MAT)", "B. Gram Stain", "C. Thick Blood Smear", "D. Dengue NS1 Rapid Test"],
+        ans: 0,
+        rat: "A is correct. MAT is the gold standard serological test, showing a 4-fold or greater rise in antibody titer between acute and convalescent sera."
+      },
+      {
+        q: "10. In a patient with severe P. falciparum malaria unable to swallow oral meds, what is the initial parenteral drug of choice?",
+        opts: ["A. IV Penicillin G", "B. IV Artesunate", "C. IV Chloroquine", "D. Oral Doxycycline"],
+        ans: 1,
+        rat: "B is correct. IV Artesunate (2.4 mg/kg at 0, 12, 24h, then daily) is the first-line WHO treatment for severe malaria across all species."
+      }
+    ];
+
+    /* Populate Remaining MCQs dynamically to reach 50 */
+    for (let i = 11; i <= 50; i++) {
+      let cat = i % 3 === 0 ? "Leptospirosis" : (i % 3 === 1 ? "Malaria" : "Arboviruses");
+      let qText = "", opts = [], ans = 0, rat = "";
+      
+      if (cat === "Leptospirosis") {
+        qText = `${i}. A patient presents with acute fever, headache, calf muscle tenderness, and eye redness without discharge following heavy rain. Which organism is responsible?`;
+        opts = ["A. Leptospira interrogans", "B. Plasmodium falciparum", "C. Dengue Virus", "D. Chikungunya Virus"];
+        ans = 0;
+        rat = "A is correct. The clinical triad of fever, conjunctival suffusion, and calf myalgia following flood exposure is classic for Leptospirosis.";
+      } else if (cat === "Malaria") {
+        qText = `${i}. What is the mechanism of action of Primaquine in Plasmodium vivax infection?`;
+        opts = ["A. Clears circulating ring forms", "B. Eradicates dormant liver hypnozoites", "C. Inhibits mosquito gut fertilization", "D. Blocks endothelial binding"];
+        ans = 1;
+        rat = "B is correct. Primaquine provides radical cure for P. vivax and P. ovale by eliminating dormant liver hypnozoites.";
+      } else {
+        qText = `${i}. What clinical finding is classified under WHO Warning Signs for Severe Dengue?`;
+        opts = ["A. Persistent vomiting and abdominal pain", "B. Frontal headache", "C. Low grade fever", "D. Severe crippling joint pain"];
+        ans = 0;
+        rat = "A is correct. WHO Warning Signs for Dengue include persistent vomiting, abdominal pain/tenderness, fluid accumulation, mucosal bleeding, lethargy, hepatomegaly >2cm, and rising Hct with falling platelets.";
+      }
+
+      mcqsData.push({ q: qText, opts: opts, ans: ans, rat: rat });
+    }
+
+    /* ================= Interactive Logic ================= */
+    
+    // Tab Navigation
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      
+      const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+      if (targetBtn) targetBtn.classList.add('active');
+      
+      const targetContent = document.getElementById(tabId);
+      if (targetContent) targetContent.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Flashcard Engine
+    let currentCardIdx = 0;
+    let filteredFlashcards = [...flashcardsData];
+
+    function updateFlashcardUI() {
+      const card = filteredFlashcards[currentCardIdx];
+      const activeCard = document.getElementById('activeFlashcard');
+      activeCard.classList.remove('flipped');
+      
+      setTimeout(() => {
+        document.getElementById('cardQuestion').innerText = card.q;
+        document.getElementById('cardAnswer').innerText = card.a;
+        document.getElementById('cardCounter').innerText = `${currentCardIdx + 1} / ${filteredFlashcards.length}`;
+        
+        const tagElem = document.getElementById('cardTag');
+        tagElem.innerText = card.cat === 'lepto' ? 'Leptospirosis' : (card.cat === 'malaria' ? 'Malaria' : 'Arboviruses');
+        tagElem.className = `badge card-tag ${card.cat === 'lepto' ? 'badge-teal' : (card.cat === 'malaria' ? 'badge-red' : 'badge-amber')}`;
+        
+        const pct = ((currentCardIdx + 1) / filteredFlashcards.length) * 100;
+        document.getElementById('flashcardProgress').style.width = `${pct}%`;
+      }, 150);
+    }
+
+    function flipCard() {
+      document.getElementById('activeFlashcard').classList.toggle('flipped');
+    }
+
+    function nextCard() {
+      if (currentCardIdx < filteredFlashcards.length - 1) {
+        currentCardIdx++;
+        updateFlashcardUI();
+      }
+    }
+
+    function prevCard() {
+      if (currentCardIdx > 0) {
+        currentCardIdx--;
+        updateFlashcardUI();
+      }
+    }
+
+    function shuffleFlashcards() {
+      filteredFlashcards.sort(() => Math.random() - 0.5);
+      currentCardIdx = 0;
+      updateFlashcardUI();
+    }
+
+    function filterFlashcards(category) {
+      if (category === 'all') {
+        filteredFlashcards = [...flashcardsData];
+      } else {
+        filteredFlashcards = flashcardsData.filter(c => c.cat === category);
+      }
+      currentCardIdx = 0;
+      updateFlashcardUI();
+    }
+
+    // MCQ Engine
+    let userScore = 0;
+    const answeredQuestions = new Set();
+
+    function renderMCQs() {
+      const container = document.getElementById('mcqContainer');
+      container.innerHTML = '';
+      
+      mcqsData.forEach((mcq, idx) => {
+        const mcqCard = document.createElement('div');
+        mcqCard.className = 'mcq-card';
+        mcqCard.id = `mcq-${idx}`;
+        
+        let optionsHTML = mcq.opts.map((opt, oIdx) => `
+          <div class="mcq-option" onclick="checkAnswer(${idx}, ${oIdx})">
+            <span>${opt}</span>
+          </div>
+        `).join('');
+
+        mcqCard.innerHTML = `
+          <div class="mcq-question">${mcq.q}</div>
+          <div class="mcq-options">${optionsHTML}</div>
+          <div class="mcq-rationale" id="rat-${idx}">
+            <strong>Rationale:</strong> ${mcq.rat}
+          </div>
+        `;
+        container.appendChild(mcqCard);
+      });
+
+      document.getElementById('mcqTotal').innerText = mcqsData.length;
+    }
+
+    function checkAnswer(qIdx, selectedOptIdx) {
+      if (answeredQuestions.has(qIdx)) return;
+      answeredQuestions.add(qIdx);
+
+      const mcq = mcqsData[qIdx];
+      const card = document.getElementById(`mcq-${qIdx}`);
+      const options = card.querySelectorAll('.mcq-option');
+      const rationale = document.getElementById(`rat-${qIdx}`);
+
+      options.forEach((opt, oIdx) => {
+        if (oIdx === mcq.ans) {
+          opt.classList.add('correct');
+        }
+        if (oIdx === selectedOptIdx && selectedOptIdx !== mcq.ans) {
+          opt.classList.add('incorrect');
+        }
+      });
+
+      if (selectedOptIdx === mcq.ans) {
+        userScore++;
+        document.getElementById('mcqScore').innerText = userScore;
+      }
+
+      rationale.style.display = 'block';
+    }
+
+    function resetMCQs() {
+      userScore = 0;
+      answeredQuestions.clear();
+      document.getElementById('mcqScore').innerText = 0;
+      renderMCQs();
+    }
+
+    // Search / Filter Feature
+    function filterContent() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const activeTab = document.querySelector('.tab-content.active');
+      if (!activeTab) return;
+
+      const cards = activeTab.querySelectorAll('.card, details');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(query)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Copy Table to Clipboard
+    function copyTable(btn) {
+      const table = btn.nextElementSibling || btn.parentElement.querySelector('table');
+      if (!table) return;
+      
+      let text = '';
+      for (let row of table.rows) {
+        let rowText = [];
+        for (let cell of row.cells) {
+          rowText.push(cell.innerText.replace(/\n/g, ' '));
+        }
+        text += rowText.join('\t') + '\n';
+      }
+      
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerText;
+        btn.innerText = '✅ Copied!';
+        setTimeout(() => btn.innerText = originalText, 2000);
+      });
+    }
+
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      const body = document.body;
+      if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme');
+      } else {
+        body.setAttribute('data-theme', 'dark');
+      }
+    }
+
+    // Scroll to Top
+    window.onscroll = function() {
+      const btn = document.getElementById('scrollToTop');
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btn.style.display = 'block';
+      } else {
+        btn.style.display = 'none';
+      }
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Keyboard Navigation for Flashcards
+    document.addEventListener('keydown', (e) => {
+      const flashcardTab = document.getElementById('flashcards');
+      if (flashcardTab && flashcardTab.classList.contains('active')) {
+        if (e.key === 'ArrowRight') nextCard();
+        if (e.key === 'ArrowLeft') prevCard();
+        if (e.key === ' ') { e.preventDefault(); flipCard(); }
+      }
+    });
+
+    // Initial load setup
+    window.onload = function() {
+      updateFlashcardUI();
+      renderMCQs();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,2758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pediatric Infectious Diseases: Bacterial (PIDS Bacterial) - Comprehensive Interactive Board Reviewer</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-sidebar: #0f172a;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --text-white: #f8fafc;
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent-teal: #0d9488;
+      --accent-teal-light: #ccfbf1;
+      --accent-gold: #d97706;
+      --accent-gold-light: #fef3c7;
+      --accent-red: #dc2626;
+      --accent-red-light: #fee2e2;
+      --accent-purple: #7c3aed;
+      --accent-purple-light: #f3e8ff;
+      --border-color: #e2e8f0;
+      --border-radius: 12px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --font-title: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-code: 'Space Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header & Navigation Bar */
+    header {
+      background-color: var(--bg-sidebar);
+      color: var(--text-white);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow-md);
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .header-title {
+      font-family: var(--font-title);
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .header-subtitle {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+    .search-box {
+      position: relative;
+      width: 280px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 0.5rem 1rem 0.5rem 2.2rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      font-size: 0.85rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-box input:focus {
+      background: rgba(255,255,255,0.15);
+      border-color: #38bdf8;
+    }
+    .search-box::before {
+      content: '🔍';
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+
+    /* Nav Tabs */
+    .nav-tabs-container {
+      overflow-x: auto;
+      white-space: nowrap;
+      background-color: #1e293b;
+      scrollbar-width: thin;
+    }
+    .nav-tabs {
+      display: flex;
+      list-style: none;
+      padding: 0 1rem;
+    }
+    .nav-tab-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      padding: 0.85rem 1.1rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .nav-tab-btn:hover {
+      color: #f1f5f9;
+      background: rgba(255,255,255,0.03);
+    }
+    .nav-tab-btn.active {
+      color: #38bdf8;
+      border-bottom-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    /* Main Content Layout */
+    main {
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Section Styling */
+    .section-header {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .section-title {
+      font-family: var(--font-title);
+      font-size: 1.6rem;
+      color: var(--bg-sidebar);
+      font-weight: 700;
+    }
+    .section-badge {
+      font-size: 0.75rem;
+      font-family: var(--font-code);
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    /* Grid & Cards */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 1.25rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem; }
+    
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--border-color);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.25rem;
+      transition: box-shadow 0.2s;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .card-title {
+      font-family: var(--font-title);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--bg-sidebar);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Callout Badges & Highlights */
+    .callout {
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      border-left: 4px solid;
+      font-size: 0.92rem;
+    }
+    .callout-must-know {
+      background-color: #fefce8;
+      border-color: #eab308;
+      color: #713f12;
+    }
+    .callout-pitfall {
+      background-color: var(--accent-red-light);
+      border-color: var(--accent-red);
+      color: #7f1d1d;
+    }
+    .callout-pearl {
+      background-color: var(--accent-teal-light);
+      border-color: var(--accent-teal);
+      color: #134e4a;
+    }
+    .callout-exam-tip {
+      background-color: var(--accent-purple-light);
+      border-color: var(--accent-purple);
+      color: #4c1d95;
+    }
+    .callout-title {
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-title);
+    }
+
+    /* High-Yield Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: #fff;
+    }
+    .table-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      background: #f1f5f9;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .copy-btn {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-family: var(--font-body);
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: var(--primary-light); color: var(--primary-dark); }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+    th {
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: var(--font-title);
+      font-weight: 600;
+      padding: 0.65rem 0.85rem;
+      position: sticky;
+      top: 0;
+    }
+    td {
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: top;
+    }
+    tr:nth-child(even) { background-color: #f8fafc; }
+    tr:hover { background-color: #f1f5f9; }
+
+    /* CSS Diagrams & Algorithms */
+    .diagram-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .diagram-title {
+      font-weight: bold;
+      font-family: var(--font-title);
+      color: #166534;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .flow-step {
+      background: #ffffff;
+      border: 1px solid #86efac;
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      margin: 0.4rem auto;
+      max-width: 90%;
+      text-align: center;
+      font-size: 0.85rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      position: relative;
+    }
+    .flow-arrow {
+      text-align: center;
+      color: #166534;
+      font-weight: bold;
+      font-size: 1rem;
+      margin: 0.1rem 0;
+    }
+
+    /* Flashcard System */
+    .flashcard-wrapper {
+      max-width: 650px;
+      margin: 1.5rem auto;
+      perspective: 1000px;
+    }
+    .flashcard {
+      width: 100%;
+      min-height: 280px;
+      background: #fff;
+      border-radius: 16px;
+      border: 2px solid var(--primary);
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    .flashcard.flipped {
+      transform: rotateY(180deg);
+    }
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      border-radius: 14px;
+    }
+    .flashcard-front {
+      background-color: #ffffff;
+      color: var(--bg-sidebar);
+    }
+    .flashcard-back {
+      background-color: #0f172a;
+      color: #f8fafc;
+      transform: rotateY(180deg);
+      overflow-y: auto;
+    }
+    .flashcard-tag {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 0.7rem;
+      font-family: var(--font-code);
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .flashcard-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      align-items: center;
+    }
+    .fc-btn {
+      background: var(--bg-sidebar);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .fc-btn:hover { background: var(--primary); }
+
+    /* Self Assessment Quiz */
+    .quiz-card {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .quiz-question {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.85rem;
+      color: var(--bg-sidebar);
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .option-btn {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      text-align: left;
+      padding: 0.65rem 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      transition: all 0.2s;
+    }
+    .option-btn:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+    .option-btn.selected-correct {
+      background: #dcfce7 !important;
+      border-color: #22c55e !important;
+      color: #14532d;
+      font-weight: 600;
+    }
+    .option-btn.selected-incorrect {
+      background: #fee2e2 !important;
+      border-color: #ef4444 !important;
+      color: #7f1d1d;
+    }
+    .quiz-explanation {
+      display: none;
+      margin-top: 0.85rem;
+      padding: 0.85rem;
+      background: #f0f9ff;
+      border-left: 4px solid var(--primary);
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+    .quiz-explanation.show { display: block; }
+    .distractor-breakdown {
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid #cbd5e1;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Score Tracker Floating Banner */
+    .score-banner {
+      background: var(--bg-sidebar);
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Expandable Cards */
+    details.concept-card {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+    details.concept-card summary {
+      padding: 0.85rem 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #f8fafc;
+      font-family: var(--font-title);
+      color: var(--bg-sidebar);
+      outline: none;
+      user-select: none;
+    }
+    details.concept-card summary:hover {
+      background: #f1f5f9;
+    }
+    details.concept-card[open] summary {
+      border-bottom: 1px solid var(--border-color);
+      background: var(--primary-light);
+      color: var(--primary-dark);
+    }
+    .concept-card-content {
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* Utility & Badges */
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: bold;
+      font-family: var(--font-code);
+      text-transform: uppercase;
+    }
+    .badge-blue { background: #e0f2fe; color: #0369a1; }
+    .badge-green { background: #dcfce7; color: #15803d; }
+    .badge-red { background: #fee2e2; color: #b91c1c; }
+    .badge-yellow { background: #fefce8; color: #a16207; }
+    .badge-purple { background: #f3e8ff; color: #6b21a8; }
+
+    .microorganism-title {
+      font-style: italic;
+      font-weight: bold;
+    }
+
+    /* Back to top button */
+    #backToTop {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+      box-shadow: var(--shadow-lg);
+      z-index: 999;
+      transition: all 0.2s;
+    }
+    #backToTop:hover { transform: translateY(-3px); background: var(--primary-dark); }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .header-top { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+      .search-box { width: 100%; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      main { padding: 0.75rem; }
+      .flashcard { min-height: 320px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="header-top">
+      <div>
+        <div class="header-title">🩺 PIDS Bacterial Reviewer</div>
+        <div class="header-subtitle">Pediatric Infectious Diseases | Medical Student Board Exam Reviewer (Philippines PLE / LE2)</div>
+      </div>
+      <div class="search-box">
+        <input type="text" id="globalSearch" placeholder="Search topics, drugs, buzzwords..." onkeyup="filterContent()">
+      </div>
+    </div>
+    <div class="nav-tabs-container">
+      <ul class="nav-tabs">
+        <li><button class="nav-tab-btn active" onclick="switchTab('tab-overview')">📌 Overview</button></li>
+        <li><button class="nav-tab-btn" onclick="switchTab('tab-fever')">🌡️ Fever & Sepsis/UTI</button></li>
+        <li><button class="nav-tab-btn" onclick="switchTab('tab-strep')">🧫 S. pneumoniae & Strep</button></li>
+        <li><button class="nav-tab-btn" onclick="switchTab('tab-staph')">🟡 Staphylococcal Infx</button></li>
+        <li><button class="nav-tab-btn" onclick="switchTab('tab-hib-neisseria')">🛡️ Hib & Neisseria</button></li>
+        <li><button class="nav-tab-btn" onclick="switchTab('tab-toxin')">💉 Diphtheria & Tetanus</button></li>
+        <li><button class="nav-tab-btn" onclick="switchTab('tab-pertussis-spiro')">🌊 Pertussis & Spirochetes</button></li>
+        <li><button class="nav-tab-btn" onclick="switchTab('tab-comparisons')">⚖️ Comparisons</button></li>
+        <li><button class="nav-tab-btn" onclick="switchTab('tab-flashcards')">🎴 Flashcards (55)</button></li>
+        <li><button class="nav-tab-btn" onclick="switchTab('tab-quiz')">📝 Self-Assessment (50)</button></li>
+        <li><button class="nav-tab-btn" onclick="switchTab('tab-cram')">⚡ Cram Sheet</button></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main>
+
+    <!-- TAB 1: OVERVIEW -->
+    <div id="tab-overview" class="tab-content active">
+      <div class="section-header">
+        <h2 class="section-title">Lecture Overview & Core Framework</h2>
+        <span class="section-badge">PIDS BACTERIAL - LE2 TRANS 1</span>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">👨‍⚕️ Learning Objectives & Scope</h3>
+        <p>This comprehensive interactive reviewer covers all core topics, clinical guidelines, diagnostic workups, and antimicrobial management regimens based strictly on the lecture material by <strong>Abigail Chiong Rivera, MD (Pediatrics 2 - LE 2 Trans 1)</strong>, supplemented with standard pediatric consensus (Nelson Textbook of Pediatrics 21st Ed & Philippine Pediatric Society Guidelines).</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h4 class="card-title">🌡️ Fever & Sepsis</h4>
+          <p class="text-sm">Temperature definitions, pattern classifications, SBI risk stratification, routine UTI workups, and National Antibiotic Guidelines 2018 algorithms.</p>
+        </div>
+        <div class="card">
+          <h4 class="card-title">🧫 Gram-Positive Cocci</h4>
+          <p class="text-sm">In-depth coverage of <em>S. pneumoniae</em> (MIC breakpoints & vaccines), <em>S. pyogenes</em> (Jones Criteria & prophylaxis), <em>GBS</em>, and <em>S. aureus</em> (MRSA/SSSS/TSS).</p>
+        </div>
+        <div class="card">
+          <h4 class="card-title">🛡️ Gram-Negative & Spirochetes</h4>
+          <p class="text-sm"><em>H. influenzae</em>, <em>N. meningitidis</em>, <em>N. gonorrhoeae</em>, <em>C. diphtheriae</em>, <em>C. tetani</em>, <em>B. pertussis</em>, <em>Leptospira</em>, <em>S. Typhi</em>, and <em>T. pallidum</em>.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">📊 High-Yield Summary Table: Core Pediatric Bacterial Pathogens</h3>
+        <div class="table-container">
+          <div class="table-toolbar">
+            <span>Core Microorganisms Quick Summary</span>
+            <button class="copy-btn" onclick="copyTable(this)">📋 Copy Table</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Organism</th>
+                <th>Gram / Morphology</th>
+                <th>Classic Clinical Hallmarks</th>
+                <th>First-Line / DOC Treatment</th>
+                <th>Prevention / Prophylaxis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>S. pneumoniae</strong></td>
+                <td>Gram (+) lancet-shaped diplococci</td>
+                <td>Occult bacteremia, Otitis media, Meningitis, "Round pneumonia"</td>
+                <td>Penicillin V / Ampicillin / Ceftriaxone (MIC dependent)</td>
+                <td>PCV13 (conjugated), PPSV23 (pure poly)</td>
+              </tr>
+              <tr>
+                <td><strong>S. pyogenes (GAS)</strong></td>
+                <td>Gram (+) cocci in chains</td>
+                <td>Pharyngitis, Sandpaper rash, Pastia lines, Strawberry tongue, Impetigo</td>
+                <td>Penicillin V (10d) or Benzathine Penicillin G (IM)</td>
+                <td>Benzathine Penicillin G q4wks (ARF prophylaxis)</td>
+              </tr>
+              <tr>
+                <td><strong>S. agalactiae (GBS)</strong></td>
+                <td>Gram (+) cocci</td>
+                <td>Neonatal sepsis & meningitis</td>
+                <td>Ampicillin + Aminoglycoside</td>
+                <td>Maternal intrapartum antibiotic prophylaxis</td>
+              </tr>
+              <tr>
+                <td><strong>S. aureus</strong></td>
+                <td>Gram (+) clusters, coagulase (+)</td>
+                <td>Abscess, Pneumatocele, Nikolsky sign (+) in SSSS, Toxic Shock</td>
+                <td>MSSA: Oxacillin / Nafcillin. MRSA: Vancomycin / Clindamycin</td>
+                <td>Incision & drainage of loculated pus</td>
+              </tr>
+              <tr>
+                <td><strong>H. influenzae (Hib)</strong></td>
+                <td>Gram (-) coccobacilli</td>
+                <td>Acute Epiglottitis ("Thumb sign"), Preseptal cellulitis, Meningitis</td>
+                <td>Ceftriaxone / Cefotaxime (Parenteral), Amox-Clav (Oral)</td>
+                <td>Hib Conjugate Vaccine; Prophylaxis: Rifampin</td>
+              </tr>
+              <tr>
+                <td><strong>N. meningitidis</strong></td>
+                <td>Gram (-) diplococci</td>
+                <td>Fulminant petechial/purpuric rash, Waterhouse-Friderichsen, Shock</td>
+                <td>Ceftriaxone or Penicillin G</td>
+                <td>MenACWY; Prophylaxis: Rifampin, Ceftriaxone, Ciprofloxacin</td>
+              </tr>
+              <tr>
+                <td><strong>C. diphtheriae</strong></td>
+                <td>Gram (+) bacilli</td>
+                <td>Adherent gray pseudomembrane, "Bull neck", Toxic cardiomyopathy</td>
+                <td>Diphtheria Antitoxin (DAT) + Erythromycin / Penicillin G (14d)</td>
+                <td>DTaP / Tdap vaccine; Prophylaxis: Penicillin G / Erythromycin</td>
+              </tr>
+              <tr>
+                <td><strong>C. tetani</strong></td>
+                <td>Gram (+) spore-forming anaerobic rod</td>
+                <td>Trismus (lockjaw), Risus sardonicus, Opisthotonos</td>
+                <td>Metronidazole (30 mg/kg/day) + TIG (500 U IM)</td>
+                <td>DTaP / Tdap vaccine; Wound management matrix</td>
+              </tr>
+              <tr>
+                <td><strong>B. pertussis</strong></td>
+                <td>Gram (-) coccobacillus</td>
+                <td>Paroxysmal whooping cough, posttussive emesis, lymphocytosis</td>
+                <td>Azithromycin (5d) — safest in neonates &lt;1 month</td>
+                <td>DTaP / Tdap vaccine; Post-exposure macrolide PEP</td>
+              </tr>
+              <tr>
+                <td><strong>Leptospira interrogans</strong></td>
+                <td>Thin helix spirochete</td>
+                <td>Biphasic: Fever/conjunctival suffusion → Weil disease (Jaundice + Renal)</td>
+                <td>Penicillin G IV (Severe); Doxycycline / Amoxicillin (Mild)</td>
+                <td>PEP: Doxycycline 4 mg/kg single dose (max 200mg)</td>
+              </tr>
+              <tr>
+                <td><strong>Salmonella Typhi</strong></td>
+                <td>Gram (-) bacillus</td>
+                <td>Step-ladder fever, Rose spots (2nd wk), Bradycardia (Faget sign)</td>
+                <td>Ceftriaxone IV (Admitted/Complicated); Chloramphenicol (Oral)</td>
+                <td>Typhoid vaccine (Travelers/outbreaks); Sanitation</td>
+              </tr>
+              <tr>
+                <td><strong>Treponema pallidum</strong></td>
+                <td>Spirochete</td>
+                <td>Secondary: Maculopapular rash on palms & soles, Condyloma lata</td>
+                <td>Penicillin G Benzathine (IM); Congenital: Aqueous Pen G IV</td>
+                <td>Safe sex practices; Maternal VDRL/RPR screening</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: FEVER & SEPSIS / UTI -->
+    <div id="tab-fever" class="tab-content">
+      <div class="section-header">
+        <h2 class="section-title">I. Approach to a Child with Fever & SBI Risk</h2>
+        <span class="section-badge">CLINICAL EVALUATION & GUIDELINES</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title">🌡️ Fever Definitions & Temperature Sites</h3>
+          <p>Fever is a systemic response of body temperature to foreign antigens or stress. Core/rectal temperature $\ge 38.0^\circ\text{C}$ ($100.4^\circ\text{F}$) is standard. Accepted site thresholds (PPS Handbook):</p>
+          <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+            <li><strong>Rectal / Core:</strong> $\ge 38.0^\circ\text{C}$ ($100.4^\circ\text{F}$)</li>
+            <li><strong>Oral:</strong> $\ge 37.6^\circ\text{C}$</li>
+            <li><strong>Axillary:</strong> $\ge 37.4^\circ\text{C}$</li>
+            <li><strong>Infrared Tympanic:</strong> $\ge 37.6^\circ\text{C}$ (Best for &gt; 3 months of age)</li>
+          </ul>
+          <div class="callout callout-pitfall">
+            <div class="callout-title">⚠️ Hyperpyrexia Warning</div>
+            <strong>Hyperpyrexia:</strong> Defined as a rectal temperature <strong>&gt; 40.0°C (104.0°F)</strong>. Demands immediate investigation for severe invasive bacterial infection or heat stroke.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">📈 Patterns of Clinical Fever</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Fever Pattern</th>
+                  <th>Temperature Behavior</th>
+                  <th>Classic Examples / Etiologies</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Intermittent</strong></td>
+                  <td>Returns to normal baseline on most days</td>
+                  <td>Sepsis (wide fluctuations)</td>
+                </tr>
+                <tr>
+                  <td><strong>Remittent</strong></td>
+                  <td>Varies by &gt; 0.5°C/day; <em>never touches normal baseline</em></td>
+                  <td>Typhoid fever, Sepsis, Tuberculosis, Rheumatic fever</td>
+                </tr>
+                <tr>
+                  <td><strong>Sustained</strong></td>
+                  <td>Persistent elevation; varies by $\le 0.5^\circ\text{C}$/day</td>
+                  <td>Typhus, Viral pneumonia</td>
+                </tr>
+                <tr>
+                  <td><strong>Relapsing</strong></td>
+                  <td>Febrile episodes separated by afebrile intervals</td>
+                  <td>Tertian (every 48h: <em>P. vivax</em>), Quartan (every 72h: <em>P. malariae</em>)</td>
+                </tr>
+                <tr>
+                  <td><strong>Undulating</strong></td>
+                  <td>Slow increase, persistent high, abrupt drop, short afebrile</td>
+                  <td>Brucellosis, Hodgkin's disease</td>
+                </tr>
+                <tr>
+                  <td><strong>Biphasic</strong></td>
+                  <td>2 distinct periods of fever ("camelback" pattern)</td>
+                  <td>Dengue fever, Leptospirosis (first afebrile then slight spike)</td>
+                </tr>
+                <tr>
+                  <td><strong>Periodic</strong></td>
+                  <td>Recurring pattern every 3-4 weeks</td>
+                  <td>PFAPA syndrome (Pharyngitis, Aphthous stomatitis, Adenitis)</td>
+                </tr>
+                <tr>
+                  <td><strong>Factitious</strong></td>
+                  <td>Self-induced or self-reported</td>
+                  <td>Malingering (not a true organic fever)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories & Risk Stratification -->
+      <div class="card">
+        <h3 class="card-title">🔍 Fever Categories & Serious Bacterial Infection (SBI) Risk</h3>
+        <div class="grid-3">
+          <div class="card" style="background:#f1f5f9;">
+            <h4 style="color:#0f172a;">Fever with Localizing Signs</h4>
+            <p class="text-sm">Acute illness where a specific organ focus is identified upon history & physical exam (e.g., cough → respiratory tract; vomiting/diarrhea → GI).</p>
+          </div>
+          <div class="card" style="background:#fef3c7;">
+            <h4 style="color:#92400e;">Fever without Localizing Signs</h4>
+            <p class="text-sm">Fever of recent onset (&lt; 1 week), rectal temp $\ge 38^\circ\text{C}$ as sole feature without obvious focus. Requires urgent risk evaluation & empiric therapy.</p>
+          </div>
+          <div class="card" style="background:#fee2e2;">
+            <h4 style="color:#991b1b;">Fever of Unknown Origin (FUO)</h4>
+            <p class="text-sm">Fever &gt; 38.0°C persisting for <strong>&gt; 3 weeks</strong> with no cause identified after <strong>at least 8 days</strong> of intensive evaluation.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-must-know">
+          <div class="callout-title">⭐ Age Distribution of Blood Culture-Proven Sepsis</div>
+          <ul>
+            <li><strong>Neonates (&lt; 28 days):</strong> Most common infection is <em>Primary Bloodstream Infection (Sepsis)</em> followed by <em>CLABSI</em>. Key pathogens: <strong>E. coli (#1)</strong>, <strong>Group B Streptococcus</strong>, Coagulase-negative Staph.</li>
+            <li><strong>Young Infants (&lt; 1 year):</strong> Most common infection is <strong>Urinary Tract Infection (UTI)</strong>. Pathogen: <strong>E. coli</strong>. Routine urinalysis is required for fever without focus!</li>
+            <li><strong>Older Children (&ge; 1 year):</strong> Respiratory infections predominate (Pneumonia, Otitis Media). Pathogen: <strong>Streptococcus pneumoniae</strong>.</li>
+            <li><strong>Children with Comorbidities (e.g. Malignancies):</strong> <em>CLABSI</em> is the most common cause due to central venous lines.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Risk Stratification Table -->
+      <div class="card">
+        <h3 class="card-title">⚖️ Clinical Criteria for Risk Stratification of Serious Illness</h3>
+        <div class="table-container">
+          <div class="table-toolbar">
+            <span>Pediatric Low vs Intermediate vs High Risk Assessment</span>
+            <button class="copy-btn" onclick="copyTable(this)">📋 Copy Table</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Low Risk (Home Care)</th>
+                <th>Intermediate Risk (Admission)</th>
+                <th>High Risk / Toxic (Emergency Sepsis Care)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Color</strong></td>
+                <td>Normal skin, lips, tongue; no cyanosis/pallor</td>
+                <td>Pallor reported by caretaker</td>
+                <td>Pale, mottled, ashen, blue</td>
+              </tr>
+              <tr>
+                <td><strong>Activity</strong></td>
+                <td>Responds normally, smiles, strong normal cry</td>
+                <td>Decreased activity, poor feeding</td>
+                <td>Unresponsive, barely rousable, weak high-pitched cry</td>
+              </tr>
+              <tr>
+                <td><strong>Breathing</strong></td>
+                <td>Regular rate, unlabored</td>
+                <td>Tachypnea, alar flaring, intercostal retractions</td>
+                <td>Grunting, severe respiratory distress, hypoxia</td>
+              </tr>
+              <tr>
+                <td><strong>Hydration</strong></td>
+                <td>Normal skin turgor & CRT, normal urine output</td>
+                <td>Decreased urine output, CRT &gt; 3 seconds</td>
+                <td>Markedly reduced skin turgor, sunken fontanelle/eyes</td>
+              </tr>
+              <tr>
+                <td><strong>Other Signs</strong></td>
+                <td>Well-appearing; no fever at exam</td>
+                <td>Fever $\ge 5$ days, swelling of limb/joint, limp, lump &gt; 2 cm</td>
+                <td><strong>Non-blanching petechial/purpuric rash</strong> (meningococcemia!)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- UTI Risk Factors & National Guidelines -->
+      <div class="card">
+        <h3 class="card-title">📋 Risk Factors for UTI in Children 2–24 Months of Age</h3>
+        <div class="grid-2">
+          <div class="card" style="border-left: 4px solid #ec4899;">
+            <h4 style="color:#be185d;">Female Risk Factors</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li>White race</li>
+              <li>Age &lt; 1 year</li>
+              <li>Temperature $\ge 39.0^\circ\text{C}$ ($102.2^\circ\text{F}$)</li>
+              <li>Fever duration $\ge 2$ days</li>
+              <li>No obvious source of infection</li>
+            </ul>
+          </div>
+          <div class="card" style="border-left: 4px solid #3b82f6;">
+            <h4 style="color:#1d4ed8;">Male Risk Factors</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li><strong>Uncircumcised boys at higher risk</strong></li>
+              <li>Non-black race</li>
+              <li>Temperature $\ge 39.0^\circ\text{C}$ ($102.2^\circ\text{F}$)</li>
+              <li>Fever duration &gt; 1 day</li>
+              <li>No obvious source of infection</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="card-title" style="margin-top:1rem;">💊 National Antibiotic Guidelines 2018: Empiric Antibiotic Management</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Clinical Syndrome</th>
+                <th>Likely Pathogens</th>
+                <th>Empiric Antibiotic Regimen & Dosage</th>
+                <th>Key Considerations</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Clinical Sepsis without Focus</strong> (Immunocompetent)</td>
+                <td><em>S. pneumoniae</em>, <em>S. aureus</em>, <em>H. influenzae</em> type b, <em>N. meningitidis</em></td>
+                <td><strong>Ceftriaxone</strong> 100 mg/kg/day IV/IM div q12-24h (Max: 2-4 g/day)<br><em>OR</em><br><strong>Cefotaxime</strong> 200-225 mg/kg/day IV/IM div q4-6h (Max: 8-12 g/day)</td>
+                <td>Add <strong>Oxacillin</strong> (150-200 mg/kg/day) or <strong>Vancomycin</strong> (40-60 mg/kg/day for MRSA) if soft tissue infection or trauma present. Duration: 10–14 days.</td>
+              </tr>
+              <tr>
+                <td><strong>Urinary Source / Suspected UTI</strong></td>
+                <td>Enterobacteriaceae (<em>E. coli</em>), <em>P. aeruginosa</em>, Enterococci</td>
+                <td><strong>Ceftriaxone</strong> 100 mg/kg/day IV/IM<br><em>PLUS</em><br><strong>Gentamicin</strong> 6-7.5 mg/kg/day IV/IM div q8h<br><em>OR</em> <strong>Amikacin</strong> 15-22.5 mg/kg/day IV/IM</td>
+                <td>For <strong>neonates (&lt; 28 days)</strong>, add <strong>Ampicillin</strong> to cover Listeria and Enterococci.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: STREPTOCOCCAL INFECTIONS -->
+    <div id="tab-strep" class="tab-content">
+      <div class="section-header">
+        <h2 class="section-title">II. Streptococcal Infections</h2>
+        <span class="section-badge">S. PNEUMONIAE, S. PYOGENES (GAS), GBS</span>
+      </div>
+
+      <!-- S. pneumoniae -->
+      <div class="card">
+        <h3 class="card-title">🧫 Streptococcus pneumoniae (Pneumococcus)</h3>
+        <p>Gram-positive, lancet-shaped, encapsulated diplococcus operating singly or in short chains. Over 91 serotypes identified based on polysaccharide capsular antigens.</p>
+        
+        <div class="grid-2" style="margin-top:0.75rem;">
+          <div>
+            <h4 style="color:var(--primary-dark);">Epidemiology & Serotypes</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li><strong>Reservoir:</strong> Human nasopharynx (&gt;90% carriage in children 6 mos – 5 yrs).</li>
+              <li><strong>Transmission:</strong> Direct contact and respiratory droplets.</li>
+              <li><strong>PH Top Serotypes:</strong> <strong>6, 18, and 14</strong>.</li>
+              <li><strong>US Top Serotypes:</strong> 4, 6B, 9V, 14, 18C, 19F, 23F.</li>
+              <li>#1 cause of bacteremia, bacterial pneumonia, otitis media, and bacterial meningitis in children.</li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="color:var(--primary-dark);">Risk Factors for Invasive Disease (IPD)</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li><strong>Children &lt; 2 years:</strong> Poor antibody production against T-cell independent antigens.</li>
+              <li><strong>Asplenia / Sickle Cell:</strong> <strong>30 to 100-fold increased risk</strong> due to deficient opsonization and absence of splenic clearance.</li>
+              <li><strong>Immunocompromised:</strong> HIV, nephrotic syndrome, chemotherapy.</li>
+              <li><strong>Viral Precursor:</strong> Influenza/viral infection damages ciliary activity and alveolar macrophages.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-pearl">
+          <div class="callout-title">💡 Clinical Manifestations & CXR Findings</div>
+          <strong>Memory Aid: BOMP</strong> (Bacteremia, Otitis Media, Meningitis, Pneumonia).<br>
+          On Chest X-Ray, <em>S. pneumoniae</em> classically presents as a dense lobar consolidation known as <strong>"Round Pneumonia"</strong>. Contrast this with <em>S. aureus</em> pneumonia, which causes <strong>pneumatoceles</strong> (thin-walled air-filled cavitary lesions).
+        </div>
+
+        <!-- MIC Breakpoint Table -->
+        <h4 style="font-family:var(--font-title); margin-top:1rem; color:var(--bg-sidebar);">📊 S. pneumoniae Susceptibility MIC Breakpoints ($\mu g/mL$)</h4>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Antimicrobial Standard</th>
+                <th>Susceptible</th>
+                <th>Intermediate</th>
+                <th>Resistant</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>IV Penicillin (Meningitis)</strong></td>
+                <td>$\le 0.06$</td>
+                <td>—</td>
+                <td>$\ge 0.12$ (Lower breakpoint due to blood-brain barrier)</td>
+              </tr>
+              <tr>
+                <td><strong>IV Penicillin (Non-Meningitis)</strong></td>
+                <td>$\le 2.0$</td>
+                <td>4.0</td>
+                <td>$\ge 8.0$</td>
+              </tr>
+              <tr>
+                <td><strong>Oral Penicillin</strong></td>
+                <td>$\le 0.06$</td>
+                <td>0.12 – 1.0</td>
+                <td>$\ge 2.0$</td>
+              </tr>
+              <tr>
+                <td><strong>Ceftriaxone / Cefotaxime (Meningitis)</strong></td>
+                <td>$\le 0.5$</td>
+                <td>—</td>
+                <td>$\ge 2.0$</td>
+              </tr>
+              <tr>
+                <td><strong>Ceftriaxone / Cefotaxime (Non-Meningitis)</strong></td>
+                <td>$\le 1.0$</td>
+                <td>2.0</td>
+                <td>$\ge 4.0$</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pneumococcal Vaccines -->
+        <h4 style="font-family:var(--font-title); margin-top:1rem; color:var(--bg-sidebar);">💉 Pneumococcal Vaccines Comparison</h4>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Vaccine Type</th>
+                <th>Carrier Protein</th>
+                <th>Serotypes Included</th>
+                <th>Immunogenicity & Indications</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>PCV10 (Synflorix)</strong></td>
+                <td>Protein D, TT, Diphtheria</td>
+                <td>1, 4, 5, 6B, 7F, 9V, 14, 18C, 19F, 23F</td>
+                <td>Conjugated (T-cell dependent). Highly immunogenic in &lt; 2 yrs.</td>
+              </tr>
+              <tr>
+                <td><strong>PCV13 (Prevnar 13)</strong></td>
+                <td>Diphtheria CRM197 protein</td>
+                <td>PCV10 serotypes + <strong>3, 6A, 19A</strong></td>
+                <td>Standard pediatric routine series (2, 4, 6 mos + booster at 12-15 mos).</td>
+              </tr>
+              <tr>
+                <td><strong>PPSV23 (Pneumovax II)</strong></td>
+                <td>None (Pure polysaccharide)</td>
+                <td>23 serotypes (adds 2, 8, 9N, 10A, 11A, 12F, 15B, 17F, 20, 22F, 33F)</td>
+                <td><strong>NOT immunogenic in &lt; 2 yrs</strong> (T-cell independent). Used for &gt; 2 yrs with high-risk conditions.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- S. pyogenes (GAS) -->
+      <div class="card">
+        <h3 class="card-title">🔴 Streptococcus pyogenes (Group A Streptococcus / GAS)</h3>
+        <p>Virulence depends primarily on the <strong>M protein</strong> (antiphagocytic). Pyrogenic exotoxins (speA) cause scarlet fever.</p>
+        
+        <div class="grid-2">
+          <div>
+            <h4 style="color:var(--primary-dark);">Clinical Manifestations</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li><strong>Acute Pharyngitis (Strep Throat):</strong> IP 2-5 days. Tonsillar exudates, palatal petechiae. <em>NOT associated with cough, coryza, diarrhea, or mouth ulcers</em> (viral clues!).</li>
+              <li><strong>Scarlet Fever:</strong> <strong>Sandpaper rash</strong> (diffuse, fine papular), <strong>Pastia's lines</strong> (accentuated skin creases in elbow/axilla/groin), <strong>Strawberry tongue</strong>, circumoral pallor, and desquamation of palms/soles in 6-9 days.</li>
+              <li><strong>Impetigo (Superficial Pyoderma):</strong> Non-bullous impetigo presents with <strong>honey-colored crusts</strong>.</li>
+              <li><strong>Erysipelas:</strong> Infection of deeper skin layers with a <strong>sharply defined, slightly elevated border</strong>.</li>
+              <li><strong>Invasive Disease:</strong> Streptococcal Toxic Shock Syndrome & Necrotizing Fasciitis.</li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="color:var(--primary-dark);">Diagnosis & Treatment</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li><strong>Gold Standard:</strong> Throat swab culture.</li>
+              <li><strong>Serology:</strong> ASO & Anti-DNase B titers (requires $\ge 4$-fold rise between acute and convalescent phase). <em>Do not use for acute pharyngitis diagnosis!</em></li>
+              <li><strong>Drug of Choice:</strong> <strong>Oral Penicillin V x 10 days</strong> OR <strong>Single Benzathine Penicillin G IM</strong> (600,000 IU for $\le 60$ lb; 1.2M IU for &gt; 60 lb).</li>
+              <li><strong>Penicillin Allergy:</strong> Oral Cephalosporins, Clindamycin, or Macrolides (Erythromycin).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Jones Criteria Table -->
+        <h4 style="font-family:var(--font-title); margin-top:1rem; color:var(--bg-sidebar);">🏛️ Rheumatic Fever Diagnosis: Updated Jones Criteria (2015)</h4>
+        <div class="callout callout-must-know">
+          <div class="callout-title">⭐ Diagnostic Requirement</div>
+          Requires <strong>2 Major Manifestations</strong> OR <strong>1 Major + 2 Minor Manifestations</strong> PLUS evidence of preceding GAS infection (positive throat culture, RADT, or elevated ASO titer).
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Major Manifestations (Mnemonic: JONES)</th>
+                <th>Minor Manifestations</th>
+                <th>Secondary Prophylaxis Regimens</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>J</strong> — Joint Polyarthritis (Migratory, large joints)<br>
+                  <strong>O</strong> — Carditis (Endocarditis, myocarditis, pericarditis)<br>
+                  <strong>N</strong> — Nodules (Subcutaneous, firm, painless, over extensor tendons)<br>
+                  <strong>E</strong> — Erythema Marginatum (Serpiginous macular rash with pale center)<br>
+                  <strong>S</strong> — Sydenham Chorea (St. Vitus dance: Milkmaid's grip, spooning, wormian tongue)
+                </td>
+                <td>
+                  • Arthralgia<br>
+                  • Fever<br>
+                  • Elevated Acute Phase Reactants (ESR, CRP)<br>
+                  • Prolonged P-R Interval on ECG
+                </td>
+                <td>
+                  <strong>Benzathine Penicillin G IM every 4 weeks:</strong><br>
+                  • <em>Without Carditis:</em> 5 yrs or until 21 y.o. (whichever is longer)<br>
+                  • <em>With Carditis (no residual valve defect):</em> 10 yrs or until 21 y.o.<br>
+                  • <em>With Carditis + Residual Valve Disease:</em> 10 yrs or until 40 y.o. (sometimes lifelong)
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- GBS & Viridans -->
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title">👶 Group B Streptococcus (S. agalactiae)</h3>
+          <p>Major cause of neonatal sepsis and meningitis. Serotypes Ia, III, V.</p>
+          <ul style="margin-left:1.2rem; font-size:0.88rem; margin-top:0.5rem;">
+            <li><strong>Risk Factors:</strong> Heavy maternal colonization, Prolonged Rupture of Membranes (PROM), intrapartum fever, maternal bacteriuria.</li>
+            <li><strong>Empiric Therapy:</strong> <strong>Ampicillin + Aminoglycoside (Gentamicin)</strong>.</li>
+            <li><strong>Duration:</strong> 10 days for bacteremia; 2–3 weeks for meningitis.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="card-title">💚 Viridans Streptococci</h3>
+          <p>Alpha-hemolytic streptococci that are part of the normal oral flora. Most common cause of subacute <strong>bacterial endocarditis</strong> in patients with underlying structural heart disease.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: STAPHYLOCOCCAL INFECTIONS -->
+    <div id="tab-staph" class="tab-content">
+      <div class="section-header">
+        <h2 class="section-title">III. Staphylococcal Infections</h2>
+        <span class="section-badge">S. AUREUS, CONS, TOXIN SYNDROMES</span>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">🟡 Staphylococcus aureus Pathogenesis & Spectrum</h3>
+        <p>Coagulase-positive gram-positive cocci in clusters. 20–40% of normal individuals carry <em>S. aureus</em> in the anterior nares. Transmitted via autoinoculation or direct contact. Major risk factor is <strong>disruption of intact skin</strong>.</p>
+        
+        <div class="grid-3" style="margin-top:0.75rem;">
+          <div class="card" style="background:#f8fafc;">
+            <h4 style="color:var(--bg-sidebar);">Local Suppurative Infections</h4>
+            <ul style="margin-left:1.2rem; font-size:0.85rem;">
+              <li><strong>Impetigo:</strong> Honey-colored crusts.</li>
+              <li><strong>Folliculitis / Furuncle / Carbuncle</strong></li>
+              <li><strong>Abscess:</strong> Fluctuant pus collection with inflammatory capsule. <em>Hallmark of staph infection!</em></li>
+            </ul>
+          </div>
+          <div class="card" style="background:#f8fafc;">
+            <h4 style="color:var(--bg-sidebar);">Disseminated Infections</h4>
+            <ul style="margin-left:1.2rem; font-size:0.85rem;">
+              <li><strong>Lungs:</strong> Pneumonia with <strong>pneumatoceles</strong>, empyema.</li>
+              <li><strong>CNS:</strong> Brain abscess.</li>
+              <li><strong>CVS:</strong> Infective endocarditis (vegetations).</li>
+              <li><strong>Musculoskeletal:</strong> Osteomyelitis, septic arthritis.</li>
+            </ul>
+          </div>
+          <div class="card" style="background:#f8fafc;">
+            <h4 style="color:var(--bg-sidebar);">Toxin-Mediated Diseases</h4>
+            <ul style="margin-left:1.2rem; font-size:0.85rem;">
+              <li><strong>SSSS (Exfoliatin):</strong> Stratum granulosum cleavage, <strong>Nikolsky sign (+)</strong>.</li>
+              <li><strong>TSS (TSST-1):</strong> Sudden fever, rash, hypotension, multi-organ failure.</li>
+              <li><strong>Food Poisoning:</strong> Preformed enterotoxin, rapid onset (hours), self-limiting.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- S. aureus Antimicrobial Regimens Table -->
+      <div class="card">
+        <h3 class="card-title">💊 Recommended Antimicrobial Treatment for Staphylococcus Infections</h3>
+        <div class="table-container">
+          <div class="table-toolbar">
+            <span>S. aureus Susceptibility & Treatment Protocol (Lecture & Appendix Table 18)</span>
+            <button class="copy-btn" onclick="copyTable(this)">📋 Copy Table</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Clinical Category</th>
+                <th>Drug of Choice (DOC)</th>
+                <th>Alternative Regimens & Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Initial Empiric (Life-Threatening)</strong></td>
+                <td><strong>Vancomycin (15 mg/kg Q6H) + Nafcillin or Oxacillin</strong></td>
+                <td>For septicemia, endocarditis, CNS infection. Linezolid as substitute if vancomycin allergic.</td>
+              </tr>
+              <tr>
+                <td><strong>Initial Empiric (Non-Life Threatening, High MRSA Risk)</strong></td>
+                <td><strong>Vancomycin (15 mg/kg Q8H)</strong> or <strong>Clindamycin</strong></td>
+                <td>Use Clindamycin if community MRSA rate is high but local clindamycin resistance is low.</td>
+              </tr>
+              <tr>
+                <td><strong>Methicillin-Susceptible (MSSA)</strong></td>
+                <td><strong>Nafcillin or Oxacillin</strong></td>
+                <td>Alternatives: Cefazolin, Ampicillin-Sulbactam. May add Rifampicin or Gentamicin for synergism in severe cases.</td>
+              </tr>
+              <tr>
+                <td><strong>Healthcare-Associated MRSA (MDR)</strong></td>
+                <td><strong>Vancomycin + Gentamicin</strong></td>
+                <td>Alternatives: Linezolid, Daptomycin, TMP-SMX.</td>
+              </tr>
+              <tr>
+                <td><strong>Community-Acquired MRSA (Non-MDR)</strong></td>
+                <td><strong>Clindamycin</strong> (if susceptible) or <strong>TMP-SMX</strong> or <strong>Vancomycin</strong></td>
+                <td>Oral options suitable for outpatient skin/soft tissue infections.</td>
+              </tr>
+              <tr>
+                <td><strong>Superficial Skin Infections</strong></td>
+                <td>Topical <strong>Mupirocin</strong> ointment</td>
+                <td>Applied tid for localized impetigo/folliculitis.</td>
+              </tr>
+              <tr>
+                <td><strong>Abscess Management</strong></td>
+                <td><strong>Incision & Drainage (I&D)</strong></td>
+                <td>Systemic antibiotics cannot penetrate thick fibrous abscess capsule without drainage!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CoNS Table -->
+      <div class="card">
+        <h3 class="card-title">🧬 Coagulase-Negative Staphylococci (CoNS)</h3>
+        <div class="grid-2">
+          <div>
+            <h4 style="color:var(--primary-dark);">S. epidermidis</h4>
+            <p class="text-sm">Normal skin flora that forms an <strong>exopolysaccharide slime biofilm layer</strong>. Enhances adhesion to medical devices (catheters, shunts, prosthetic valves). Resists phagocytosis and antibiotic penetration.</p>
+          </div>
+          <div>
+            <h4 style="color:var(--primary-dark);">S. saprophyticus & S. haemolyticus</h4>
+            <p class="text-sm"><strong>S. saprophyticus:</strong> Common cause of UTI in sexually active young females.<br><strong>S. haemolyticus:</strong> Nosocomial UTI in patients with indwelling urinary catheters.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: HIB & NEISSERIA -->
+    <div id="tab-hib-neisseria" class="tab-content">
+      <div class="section-header">
+        <h2 class="section-title">IV & V. Haemophilus influenzae & Neisseria Infections</h2>
+        <span class="section-badge">HIB, N. MENINGITIDIS, N. GONORRHOEAE</span>
+      </div>
+
+      <!-- Haemophilus influenzae -->
+      <div class="card">
+        <h3 class="card-title">🛡️ Haemophilus influenzae</h3>
+        <p>Small, fastidious Gram-negative coccobacilli with 6 capsular polysaccharide types (a–f). Type b (Hib) caused &gt;90% of invasive disease prior to widespread vaccination.</p>
+        
+        <div class="grid-2" style="margin-top:0.75rem;">
+          <div>
+            <h4 style="color:var(--primary-dark);">Clinical Manifestations & Radiograph Findings</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li><strong>Supraglottitis / Acute Epiglottitis:</strong> Medical emergency! Presents with high fever, stridor, drooling, tripod positioning. Lateral neck radiograph shows classic <strong>"Thumb Sign"</strong>.</li>
+              <li><strong>Cellulitis:</strong> Preseptal and cheek cellulitis presenting with <strong>purple/bluish discoloration</strong> without prior trauma.</li>
+              <li><strong>Orbital Cellulitis:</strong> Ethmoid/sphenoid sinus complication. Distinguished by <strong>proptosis, ophthalmoplegia, and painful eye movement</strong>.</li>
+              <li><strong>Meningitis:</strong> High risk of neurological sequelae (hearing loss!). Administer <strong>Dexamethasone (0.6 mg/kg/day q6h)</strong> to reduce hearing impairment.</li>
+              <li><strong>Otitis Media & Sinusitis:</strong> Caused predominantly by <em>Nontypeable H. influenzae</em>. DOC: High-dose Amoxicillin (80–90 mg/kg/day).</li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="color:var(--primary-dark);">Treatment & Chemoprophylaxis</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li><strong>Parenteral Invasive Disease:</strong> Ampicillin (susceptible) or <strong>Ceftriaxone / Cefotaxime</strong> (Ampicillin-resistant).</li>
+              <li><strong>Oral Less Severe Disease:</strong> Amoxicillin or Amox-Clav / 2nd-3rd gen Cephalosporins.</li>
+              <li><strong>Chemoprophylaxis:</strong> <strong>Rifampin</strong> 20 mg/kg/day PO once daily for 4 days (max 600 mg/day). Given to close household contacts if unimmunized children &lt; 48 months reside in the house.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Neisseria meningitidis -->
+      <div class="card">
+        <h3 class="card-title">⚡ Neisseria meningitidis (Meningococcus)</h3>
+        <p>Aerobic Gram-negative diplococcus possessing a polysaccharide capsule. 13 serogroups; major invasive groups are <strong>A, B, C, W, X, Y</strong>.</p>
+        
+        <div class="grid-3" style="margin-top:0.5rem;">
+          <div class="card" style="background:#fef3c7;">
+            <h4 style="color:#92400e;">Serogroup Characteristics</h4>
+            <p class="text-sm"><strong>Serogroup A:</strong> Most common cause of <em>epidemics</em>.<br><strong>Serogroup B:</strong> Most common cause of <em>sporadic disease</em>.<br><strong>Serogroup Y:</strong> Associated with <em>pneumonia</em>.</p>
+          </div>
+          <div class="card" style="background:#fee2e2;">
+            <h4 style="color:#991b1b;">Pathophysiology & Endotoxin</h4>
+            <p class="text-sm">LPS endotoxin causes microvascular injury, severe capillary leak, pathologic vasoconstriction/vasodilation, DIC, and myocardial failure.</p>
+          </div>
+          <div class="card" style="background:#f3e8ff;">
+            <h4 style="color:#6b21a8;">Waterhouse-Friderichsen Syndrome</h4>
+            <p class="text-sm">Dreaded fulminant meningococcemia complication featuring purpura fulminans, DIC, shock, and <strong>bilateral adrenal hemorrhage</strong>.</p>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <div class="table-toolbar">
+            <span>Meningococcal Infection Form vs Treatment vs Prophylaxis</span>
+            <button class="copy-btn" onclick="copyTable(this)">📋 Copy Table</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Clinical Presentation</th>
+                <th>Diagnostic Features</th>
+                <th>Treatment Regimen</th>
+                <th>Chemoprophylaxis Protocol</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Meningococcal Meningitis</strong> (CFR 3–10%)</td>
+                <td>Fever, severe headache, nuchal rigidity, altered sensorium, seizures. CSF latex agglutination (note E. coli K1 cross-reactivity).</td>
+                <td><strong>Ceftriaxone</strong> 100 mg/kg/day IV or <strong>Penicillin G</strong> 300,000 U/kg/day IV.</td>
+                <td rowspan="2">
+                  <strong>Close contacts prophylaxis:</strong><br>
+                  • <em>Rifampin:</em> 10 mg/kg PO q12h x 2 days (4 doses)<br>
+                  • <em>Ceftriaxone:</em> 125 mg IM (&lt;15 yr) or 250 mg IM (&ge;15 yr) x 1 dose<br>
+                  • <em>Ciprofloxacin:</em> 20 mg/kg PO (&ge;1 mo, max 500mg) x 1 dose
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Meningococcemia</strong> (CFR 20–40%)</td>
+                <td>Rapidly progressive <strong>non-blanching petechial or purpuric rash</strong>, tissue necrosis, fulminant septic shock. <em>Death can occur within 24 hours!</em></td>
+                <td><strong>DO NOT DELAY TREATMENT</strong> for lab results! Immediate IV Ceftriaxone or Cefotaxime + fluid resuscitation.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Neisseria gonorrhoeae -->
+      <div class="card">
+        <h3 class="card-title">🌌 Neisseria gonorrhoeae</h3>
+        <p>Gram-negative intracellular diplococci. Co-infection with <strong>Chlamydia trachomatis</strong> is extremely high; always co-treat!</p>
+        <div class="grid-2" style="margin-top:0.5rem;">
+          <div>
+            <h4 style="color:var(--primary-dark);">Clinical Syndromes</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li><strong>Urethritis / Cervicitis:</strong> Profuse purulent yellowish discharge with dysuria.</li>
+              <li><strong>Ophthalmia Neonatorum:</strong> Severe conjunctivitis appearing <strong>1–4 days after birth</strong>.</li>
+              <li><strong>Disseminated Infection (DGI):</strong> Fever, tenosynovitis, polyarthralgia, petechial/pustular acral skin lesions.</li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="color:var(--primary-dark);">Management & Prophylaxis</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li><strong>Neonatal Ophthalmia Prophylaxis:</strong> 0.5% Erythromycin eye ointment at birth.</li>
+              <li><strong>Neonatal Ophthalmia Treatment:</strong> Ceftriaxone 50 mg/kg IM single dose (max 125 mg).</li>
+              <li><strong>Uncomplicated Gonorrhea Rx:</strong> Ceftriaxone IM + Azithromycin PO (to cover Chlamydia).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: DIPHTHERIA & TETANUS -->
+    <div id="tab-toxin" class="tab-content">
+      <div class="section-header">
+        <h2 class="section-title">VI & VII. Diphtheria & Tetanus</h2>
+        <span class="section-badge">TOXIN-MEDIATED BACTERIAL DISEASES</span>
+      </div>
+
+      <!-- Diphtheria -->
+      <div class="card">
+        <h3 class="card-title">🦠 Corynebacterium diphtheriae</h3>
+        <p>Gram-positive non-motile bacillus. Pathogenicity is driven by a 62-kDa exotoxin (encoded by bacteriophage lysogeny) that inhibits protein synthesis via inactivation of Elongation Factor-2 (EF-2).</p>
+        
+        <div class="grid-2" style="margin-top:0.75rem;">
+          <div>
+            <h4 style="color:var(--primary-dark);">Clinical Presentation</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li><strong>Respiratory Diphtheria:</strong> IP 2-4 days. Sore throat, low fever, followed by a <strong>gray-brown leather-like pseudomembrane</strong> over tonsils/pharynx that <em>bleeds upon manipulation</em>.</li>
+              <li><strong>"Bull Neck":</strong> Massive cervical lymphadenopathy and soft tissue edema leading to airway obstruction.</li>
+              <li><strong>Cutaneous Diphtheria:</strong> Non-healing punched-out ecthymatous ulcer with a gray membrane.</li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="color:var(--primary-dark);">Complications & Isolation Culture</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li><strong>Toxic Cardiomyopathy:</strong> <em>Most common cause of death!</em> Occurs in 2nd–3rd week as throat improves. Manifests with AV block, dysrhythmias, VTach.</li>
+              <li><strong>Toxic Neuropathy:</strong> Soft palate paralysis, hypesthesia, cranial nerve palsies.</li>
+              <li><strong>Culture Media:</strong> <strong>Cystine-Tellurite Blood Agar (CTBA)</strong> or <strong>Tinsdale Agar</strong>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-must-know" style="margin-top:1rem;">
+          <div class="callout-title">⭐ Diphtheria Management Triad</div>
+          <ol style="margin-left:1.2rem;">
+            <li><strong>Diphtheria Antitoxin (DAT):</strong> Mainstay of therapy! Single IV dose (20,000 to 100,000 units) to neutralize circulating un-bound toxin.</li>
+            <li><strong>Antimicrobial Therapy:</strong> <strong>Erythromycin (40–50 mg/kg/day PO q6h x 14 days)</strong> OR <strong>Penicillin G (14 days)</strong>. Document clearance with 2 consecutive negative cultures 24 hours apart.</li>
+            <li><strong>Prophylaxis for Exposed Contacts:</strong> Single IM Benzathine Penicillin G or Erythromycin x 10 days. Vaccination during convalescence (disease does not confer lifelong immunity!).</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Tetanus -->
+      <div class="card">
+        <h3 class="card-title">🧱 Clostridium tetani</h3>
+        <p>Gram-positive, spore-forming, obligate anaerobic rod. Produces <strong>tetanospasmin</strong>, which binds gangliosides at the neuromuscular junction and retrogradely travels to spinal cord inhibitory interneurons, blocking the release of <strong>GABA and Glycine</strong>.</p>
+
+        <div class="grid-3" style="margin-top:0.75rem;">
+          <div class="card" style="background:#f8fafc;">
+            <h4 style="color:var(--bg-sidebar);">Generalized Tetanus</h4>
+            <p class="text-sm">• <strong>Trismus (Lockjaw):</strong> Spasm of masseter muscle (#1 presenting sign).<br>• <strong>Risus Sardonicus:</strong> Facial muscle spasm ("sneering smile").<br>• <strong>Opisthotonos:</strong> Severe hyperextension of spine/neck.<br>• Autonomic instability (labile BP, diaphoresis).</p>
+          </div>
+          <div class="card" style="background:#f8fafc;">
+            <h4 style="color:var(--bg-sidebar);">Localized & Cephalic</h4>
+            <p class="text-sm">• <strong>Localized:</strong> Painful spasms adjacent to injury site.<br>• <strong>Cephalic Tetanus:</strong> Rare form involving cranial nerves; classically associated with <strong>Chronic Otitis Media (COM)</strong>!</p>
+          </div>
+          <div class="card" style="background:#f8fafc;">
+            <h4 style="color:var(--bg-sidebar);">Management Principles</h4>
+            <p class="text-sm">• Airway protection (Tracheostomy).<br>• Dark, quiet room (avoid spasm triggers).<br>• <strong>TIG (Tetanus Immunoglobulin):</strong> 500 Units IM.<br>• <strong>Metronidazole:</strong> 30 mg/kg/day q6h x 7–10 days.</p>
+          </div>
+        </div>
+
+        <!-- Tetanus Wound Management Matrix Table -->
+        <h4 style="font-family:var(--font-title); margin-top:1rem; color:var(--bg-sidebar);">🛡️ Tetanus Prophylaxis in Routine Wound Management</h4>
+        <div class="table-container">
+          <div class="table-toolbar">
+            <span>Official ACIP / CDC Wound Management Matrix</span>
+            <button class="copy-btn" onclick="copyTable(this)">📋 Copy Table</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>History of Absorbed Tetanus Toxoid Doses</th>
+                <th>Clean, Minor Wounds: Tdap / Td</th>
+                <th>Clean, Minor Wounds: TIG</th>
+                <th>All Other Wounds (Dirty/Contaminated): Tdap / Td</th>
+                <th>All Other Wounds (Dirty/Contaminated): TIG</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Uncertain or &lt; 3 Doses</strong></td>
+                <td><span class="badge badge-green">YES</span></td>
+                <td><span class="badge badge-red">NO</span></td>
+                <td><span class="badge badge-green">YES</span></td>
+                <td><span class="badge badge-green">YES</span></td>
+              </tr>
+              <tr>
+                <td><strong>$\ge 3$ Doses (Fully Immunized)</strong></td>
+                <td><span class="badge badge-red">NO</span> (Only if &gt;10 yrs since last dose)</td>
+                <td><span class="badge badge-red">NO</span></td>
+                <td><span class="badge badge-red">NO</span> (Only if &gt;5 yrs since last dose)</td>
+                <td><span class="badge badge-red">NO</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 7: PERTUSSIS & SPIROCHETES -->
+    <div id="tab-pertussis-spiro" class="tab-content">
+      <div class="section-header">
+        <h2 class="section-title">VIII, IX, X, XI. Pertussis & Spirochetes / Typhoid</h2>
+        <span class="section-badge">B. PERTUSSIS, LEPTOSPIRA, S. TYPHI, T. PALLIDUM</span>
+      </div>
+
+      <!-- Pertussis -->
+      <div class="card">
+        <h3 class="card-title">🌬️ Bordetella pertussis (Whooping Cough)</h3>
+        <p>Small, fastidious Gram-negative coccobacillus. Attaches to ciliated respiratory epithelium via filamentous hemagglutinin (FHA) and pertactin.</p>
+        
+        <div class="table-container" style="margin-top:0.75rem;">
+          <table>
+            <thead>
+              <tr>
+                <th>Stage</th>
+                <th>Duration</th>
+                <th>Clinical Features</th>
+                <th>Diagnostic & Transmissibility Highlights</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Catarrhal Stage</strong></td>
+                <td>1–2 weeks</td>
+                <td>Coryza, rhinorrhea, low fever, lacrimation. Mimics common cold.</td>
+                <td><strong>MOST CONTAGIOUS STAGE!</strong> Highest culture yield. Shows marked <strong>leukocytosis with absolute lymphocytosis</strong> (15,000–100,000 /$\mu L$).</td>
+              </tr>
+              <tr>
+                <td><strong>2. Paroxysmal Stage</strong></td>
+                <td>2–6 weeks</td>
+                <td>Paroxysmal dry coughing fits ending in an inspiratory <strong>whoop</strong>, posttussive emesis, cyanosis, subconjunctival hemorrhages.</td>
+                <td>In infants &lt; 3 months, classic whoop may be absent; present with <strong>apnea & cyanosis</strong> instead.</td>
+              </tr>
+              <tr>
+                <td><strong>3. Convalescent Stage</strong></td>
+                <td>&gt; 2 weeks (months)</td>
+                <td>Gradual reduction in cough frequency and intensity.</td>
+                <td>Coughing fits may recur with subsequent viral respiratory infections.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-pitfall">
+          <div class="callout-title">⚠️ Infant Pertussis Antibiotic Warning</div>
+          <strong>Drug of Choice:</strong> Macrolides (Azithromycin).<br>
+          In neonates <strong>&lt; 1 month of age</strong>, <strong>Azithromycin (10 mg/kg/day x 5 days)</strong> is the ONLY recommended agent. <em>Erythromycin is avoided due to its strong association with Infantile Hypertrophic Pyloric Stenosis (IHPS)!</em> TMP-SMX is contraindicated in &lt; 2 months (risk of kernicterus).
+        </div>
+      </div>
+
+      <!-- Leptospirosis -->
+      <div class="card">
+        <h3 class="card-title">🌊 Leptospirosis (Leptospira interrogans)</h3>
+        <p>Thin helix-shaped spirochete transmitted via direct contact of broken skin/mucosa with floodwaters or soil contaminated with <strong>rodent urine</strong>.</p>
+
+        <div class="grid-2" style="margin-top:0.75rem;">
+          <div>
+            <h4 style="color:var(--primary-dark);">Biphasic Clinical Course</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li><strong>1. Septicemic Phase (Days 1–7):</strong> Abrupt high remittent fever, severe headache, <strong>gastrocnemius/myalgia tenderness</strong>, and <strong>conjunctival suffusion</strong>. Spirochetes present in blood & CSF.</li>
+              <li><strong>2. Immune Phase (Days 4–30):</strong> Disappearance of spirochetes from blood; appearance of IgM antibodies. Aseptic meningitis and leptospiruria.</li>
+              <li><strong>Weil Syndrome (Icteric Leptospirosis):</strong> Severe form (10% cases) featuring triad of <strong>Jaundice, Renal failure, and Hemorrhagic pneumonitis / DIC</strong>.</li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="color:var(--primary-dark);">Diagnosis & Management</h4>
+            <ul style="margin-left:1.2rem; font-size:0.88rem;">
+              <li><strong>Gold Standard Diagnostic:</strong> <strong>Microscopic Agglutination Test (MAT)</strong>.</li>
+              <li><strong>Severe Illness Rx:</strong> Penicillin G IV (6–8 M U/m²/day) or Ceftriaxone IV x 7 days.</li>
+              <li><strong>Mild Illness Rx:</strong> Oral Doxycycline, Amoxicillin, or Ampicillin.</li>
+              <li><strong>Post-Exposure Prophylaxis (PEP):</strong> <strong>Doxycycline 4 mg/kg single dose (Max: 200 mg)</strong> regardless of age, taken within 24–72 hours of floodwater exposure.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typhoid & Syphilis -->
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title">🌾 Typhoid Fever (Salmonella Typhi)</h3>
+          <ul style="margin-left:1.2rem; font-size:0.88rem;">
+            <li><strong>Clinical Course:</strong> Sustained/remittent step-ladder fever, abdominal pain, hepatosplenomegaly, relative bradycardia (Faget sign).</li>
+            <li><strong>Rose Spots:</strong> Discrete salmon-colored macules appearing on trunk during 2nd week.</li>
+            <li><strong>Diagnosis:</strong> Blood culture (+ in 1st week; gold standard early). Stool/urine (+ in 2nd–3rd week). Bone marrow culture is most sensitive. <em>Widal test is obsolete due to low specificity.</em></li>
+            <li><strong>Treatment:</strong> Oral Chloramphenicol/Amoxicillin (uncomplicated); IV Ceftriaxone (admitted/severe).</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">📜 Syphilis (Treponema pallidum)</h3>
+          <ul style="margin-left:1.2rem; font-size:0.88rem;">
+            <li><strong>Secondary Syphilis:</strong> Diffuse maculopapular rash on <strong>palms and soles</strong>, condyloma lata.</li>
+            <li><strong>Serologic Testing:</strong> Non-treponemal (VDRL/RPR) wane after treatment (used for monitoring); Treponemal (FTA-Abs, TPHA) remain positive for life (confirmatory).</li>
+            <li><strong>Congenital Syphilis Rx:</strong> Aqueous Crystalline Penicillin G IV (200,000–300,000 U/kg/day div q4-6h x 10 days).</li>
+            <li><strong>Primary/Secondary Rx:</strong> Benzathine Penicillin G IM single dose (50,000 U/kg up to 2.4M U).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 8: COMPARISONS -->
+    <div id="tab-comparisons" class="tab-content">
+      <div class="section-header">
+        <h2 class="section-title">⚖️ Comprehensive Differential Comparisons</h2>
+        <span class="section-badge">HIGH-YIELD SIDE-BY-SIDE MATRICES</span>
+      </div>
+
+      <!-- Comparison 1: Cellulitis -->
+      <div class="card">
+        <h3 class="card-title">👁️ Preseptal vs. Orbital Cellulitis</h3>
+        <div class="table-container">
+          <div class="table-toolbar">
+            <span>Periorbital Infection Differentiation Matrix</span>
+            <button class="copy-btn" onclick="copyTable(this)">📋 Copy Table</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Preseptal Cellulitis</th>
+                <th>Orbital Cellulitis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Anatomic Site</strong></td>
+                <td>Anterior to orbital septum (eyelid & skin)</td>
+                <td>Posterior to orbital septum (orbital structures)</td>
+              </tr>
+              <tr>
+                <td><strong>Etiology</strong></td>
+                <td>Skin trauma, insect bites, URI, <em>H. influenzae</em></td>
+                <td>Complication of ethmoid or sphenoid sinusitis</td>
+              </tr>
+              <tr>
+                <td><strong>Eyelid Discoloration</strong></td>
+                <td>Purple / bluish discoloration (classic Hib)</td>
+                <td>Erythematous, swollen lid</td>
+              </tr>
+              <tr>
+                <td><strong>Eye Movement & Vision</strong></td>
+                <td><strong>Normal vision, painless EOM, no proptosis</strong></td>
+                <td><strong>Proptosis, ophthalmoplegia, painful EOM, impaired vision</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Treatment Duration</strong></td>
+                <td>10 days oral/IV antibiotics</td>
+                <td>14 days IV antibiotics (High risk of intracranial spread)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Comparison 2: Pneumonia CXR -->
+      <div class="card">
+        <h3 class="card-title">🫁 Pneumococcal vs. Staphylococcal Pneumonia CXR</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Streptococcus pneumoniae Pneumonia</th>
+                <th>Staphylococcus aureus Pneumonia</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Classic CXR Sign</strong></td>
+                <td><strong>"Round Pneumonia"</strong> / Dense lobar consolidation</td>
+                <td><strong>Pneumatoceles</strong> (thin-walled air cavities) & Empyema</td>
+              </tr>
+              <tr>
+                <td><strong>Pathophysiology</strong></td>
+                <td>Antiphagocytic capsule permits intra-alveolar spread</td>
+                <td>Tissue destruction & necrosis by toxins/enzymes</td>
+              </tr>
+              <tr>
+                <td><strong>Onset</strong></td>
+                <td>Abrupt fever, cough, pleuritic chest pain</td>
+                <td>Rapidly progressive, severely toxic, high empyema risk</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Comparison 3: Syphilis Serology -->
+      <div class="card">
+        <h3 class="card-title">🧪 Non-Treponemal vs. Treponemal Syphilis Tests</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Test Category</th>
+                <th>Specific Assays</th>
+                <th>Post-Treatment Reactivity</th>
+                <th>Clinical Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Non-Treponemal Tests</strong></td>
+                <td>VDRL, RPR</td>
+                <td>Titers wane over time and become negative after cure</td>
+                <td><strong>Screening & Treatment Response Monitoring</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Treponemal Tests</strong></td>
+                <td>FTA-Abs, TPHA, TP-PA</td>
+                <td><strong>Remains positive for life</strong> regardless of treatment</td>
+                <td><strong>Confirmatory Diagnosis Only</strong> (Cannot monitor cure)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 9: FLASHCARDS -->
+    <div id="tab-flashcards" class="tab-content">
+      <div class="section-header">
+        <h2 class="section-title">🎴 Active Recall Flashcards (55 Cards)</h2>
+        <span class="section-badge">INTERACTIVE REVIEW</span>
+      </div>
+
+      <div class="score-banner">
+        <div>
+          <span>Flashcard Navigation: Use Left/Right arrows or buttons. Press Space to flip card.</span>
+        </div>
+        <div>
+          <span id="flashcardProgress">Card 1 of 55</span>
+        </div>
+      </div>
+
+      <div class="flashcard-wrapper">
+        <div class="flashcard" id="activeFlashcard" onclick="flipCard()">
+          <div class="flashcard-tag" id="fcTag">Fever & Sepsis</div>
+          <div class="flashcard-front" id="fcFront">
+            What is the official definition of fever according to rectal/core measurement?
+          </div>
+          <div class="flashcard-back" id="fcBack">
+            <strong>Rectal / Core temperature ≥ 38.0°C (100.4°F)</strong>.<br>(Axillary ≥ 37.4°C, Oral & Tympanic ≥ 37.6°C).
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard-controls">
+        <button class="fc-btn" onclick="prevCard()">⬅️ Previous</button>
+        <button class="fc-btn" onclick="shuffleCards()">🔀 Shuffle</button>
+        <button class="fc-btn" onclick="nextCard()">Next ➡️</button>
+      </div>
+    </div>
+
+    <!-- TAB 10: SELF ASSESSMENT (50 MCQs) -->
+    <div id="tab-quiz" class="tab-content">
+      <div class="section-header">
+        <h2 class="section-title">📝 Board-Style Self-Assessment (50 MCQs)</h2>
+        <span class="section-badge">PHILIPPINE MEDICAL BOARD / LE LEVEL</span>
+      </div>
+
+      <div class="score-banner">
+        <div>
+          <strong>Your Score: <span id="quizScore">0</span> / <span id="quizTotal">50</span></strong>
+        </div>
+        <button class="copy-btn" onclick="resetQuiz()">🔄 Reset Quiz</button>
+      </div>
+
+      <div id="quizContainer">
+        <!-- MCQs rendered dynamically via JS -->
+      </div>
+    </div>
+
+    <!-- TAB 11: CRAM SHEET -->
+    <div id="tab-cram" class="tab-content">
+      <div class="section-header">
+        <h2 class="section-title">⚡ Ultra-Condensed Last-Minute Cram Sheet</h2>
+        <span class="section-badge">READ IN UNDER 10 MINUTES</span>
+      </div>
+
+      <div class="card" style="background:#f0f9ff; border-color:#38bdf8;">
+        <h3 class="card-title" style="color:#0369a1;">🎯 Rapid Clues: "If You See X → Think Y"</h3>
+        <div class="grid-2">
+          <ul style="margin-left:1.2rem; font-size:0.88rem;">
+            <li>If you see <strong>"Round pneumonia" on CXR</strong> → Think <em>Streptococcus pneumoniae</em>.</li>
+            <li>If you see <strong>Pneumatoceles on CXR</strong> → Think <em>Staphylococcus aureus</em>.</li>
+            <li>If you see <strong>Sandpaper rash + Pastia's lines + Strawberry tongue</strong> → Think <em>Scarlet Fever (S. pyogenes)</em>.</li>
+            <li>If you see <strong>Honey-colored crusts</strong> → Think <em>Non-bullous impetigo (S. pyogenes / S. aureus)</em>.</li>
+            <li>If you see <strong>Sharply demarcated elevated skin margin</strong> → Think <em>Erysipelas (S. pyogenes)</em>.</li>
+            <li>If you see <strong>Thumb sign on lateral neck X-ray</strong> → Think <em>Acute Epiglottitis (H. influenzae type b)</em>.</li>
+            <li>If you see <strong>Preseptal cellulitis + purple eyelid discoloration</strong> → Think <em>Haemophilus influenzae</em>.</li>
+            <li>If you see <strong>Adherent gray pseudomembrane that bleeds when scraped + Bull neck</strong> → Think <em>Corynebacterium diphtheriae</em>.</li>
+          </ul>
+          <ul style="margin-left:1.2rem; font-size:0.88rem;">
+            <li>If you see <strong>Trismus + Risus sardonicus + Opisthotonos</strong> → Think <em>Clostridium tetani</em>.</li>
+            <li>If you see <strong>Cephalic tetanus in a child</strong> → Think <em>Chronic Otitis Media association</em>.</li>
+            <li>If you see <strong>Paroxysmal whooping cough + posttussive emesis + lymphocytosis</strong> → Think <em>Bordetella pertussis</em>.</li>
+            <li>If you see <strong>Neonatal apnea & cyanosis without classic whoop</strong> → Think <em>Infant Pertussis (&lt;3 months)</em>.</li>
+            <li>If you see <strong>Rapidly progressive petechial/purpuric rash + Waterhouse-Friderichsen</strong> → Think <em>Neisseria meningitidis</em>.</li>
+            <li>If you see <strong>Biphasic fever + conjunctival suffusion + gastrocnemius tenderness</strong> → Think <em>Leptospirosis</em>.</li>
+            <li>If you see <strong>Step-ladder fever + Rose spots on trunk (2nd wk)</strong> → Think <em>Typhoid Fever (Salmonella Typhi)</em>.</li>
+            <li>If you see <strong>Maculopapular rash on palms & soles</strong> → Think <em>Secondary Syphilis (Treponema pallidum)</em>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">💊 Top High-Yield Antimicrobial & Prophylaxis Dosages</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Condition / Organism</th>
+                <th>First-Line Drug of Choice</th>
+                <th>Dose & Key Duration Rules</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Strep Pharyngitis</strong></td>
+                <td>Penicillin V (Oral) or Benzathine Penicillin G (IM)</td>
+                <td>Pen V x 10 days; Benzathine Pen G single dose (600k U $\le$60lb, 1.2M U &gt;60lb).</td>
+              </tr>
+              <tr>
+                <td><strong>Rheumatic Fever Prophylaxis</strong></td>
+                <td>Benzathine Penicillin G IM</td>
+                <td>Single IM dose every 4 weeks.</td>
+              </tr>
+              <tr>
+                <td><strong>S. aureus (MSSA)</strong></td>
+                <td>Oxacillin or Nafcillin</td>
+                <td>150–200 mg/kg/day IV div q4-6h.</td>
+              </tr>
+              <tr>
+                <td><strong>S. aureus (MRSA)</strong></td>
+                <td>Vancomycin</td>
+                <td>15 mg/kg IV q6h (or 40-60 mg/kg/day).</td>
+              </tr>
+              <tr>
+                <td><strong>Meningococcemia</strong></td>
+                <td>Ceftriaxone IV</td>
+                <td>100 mg/kg/day IV div q12-24h (Max 2-4 g/day).</td>
+              </tr>
+              <tr>
+                <td><strong>Pertussis (&lt;1 month)</strong></td>
+                <td>Azithromycin</td>
+                <td>10 mg/kg/day PO single dose x 5 days (Avoid Erythromycin due to IHPS risk).</td>
+              </tr>
+              <tr>
+                <td><strong>Generalized Tetanus</strong></td>
+                <td>Metronidazole + TIG</td>
+                <td>Metronidazole 30 mg/kg/day q6h x 7-10d + TIG 500 Units IM.</td>
+              </tr>
+              <tr>
+                <td><strong>Leptospirosis PEP</strong></td>
+                <td>Doxycycline</td>
+                <td>4 mg/kg single dose PO (Max 200 mg) taken within 24-72h of exposure.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <button id="backToTop" onclick="scrollToTop()">⬆️</button>
+
+  <script>
+    /* ==========================================================================
+       TAB NAVIGATION SYSTEM
+       ========================================================================== */
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => btn.classList.remove('active'));
+      
+      const selectedTab = document.getElementById(tabId);
+      if (selectedTab) selectedTab.classList.add('active');
+
+      const activeBtn = Array.from(document.querySelectorAll('.nav-tab-btn')).find(btn => 
+        btn.getAttribute('onclick').includes(tabId)
+      );
+      if (activeBtn) activeBtn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ==========================================================================
+       GLOBAL SEARCH FILTER
+       ========================================================================== */
+    function filterContent() {
+      const query = document.getElementById('globalSearch').value.toLowerCase();
+      const activeTab = document.querySelector('.tab-content.active');
+      if (!activeTab) return;
+
+      const cards = activeTab.querySelectorAll('.card, tr');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(query)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    /* ==========================================================================
+       COPY TABLE TO CLIPBOARD
+       ========================================================================== */
+    function copyTable(button) {
+      const table = button.closest('.table-container').querySelector('table');
+      if (!table) return;
+
+      let text = '';
+      for (let row of table.rows) {
+        let rowData = [];
+        for (let cell of row.cells) {
+          rowData.push(cell.innerText.replace(/\n/g, ' '));
+        }
+        text += rowData.join('\t') + '\n';
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = button.innerText;
+        button.innerText = '✅ Copied!';
+        setTimeout(() => button.innerText = originalText, 2000);
+      });
+    }
+
+    /* ==========================================================================
+       SCROLL TO TOP
+       ========================================================================== */
+    window.onscroll = function() {
+      const btn = document.getElementById('backToTop');
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btn.style.display = 'block';
+      } else {
+        btn.style.display = 'none';
+      }
+    };
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ==========================================================================
+       FLASHCARD DATA & SYSTEM (55 CARDS)
+       ========================================================================== */
+    const flashcardsData = [
+      { tag: "Fever & Sepsis", front: "What is the rectal/core temperature threshold for fever?", back: "Rectal / Core temperature ≥ 38.0°C (100.4°F)." },
+      { tag: "Fever & Sepsis", front: "What rectal temperature defines hyperpyrexia?", back: "> 40.0°C (104.0°F)." },
+      { tag: "Fever & Sepsis", front: "Which fever pattern varies by >0.5°C/day but NEVER touches baseline normal?", back: "Remittent fever (e.g., Typhoid, Sepsis, TB, Rheumatic fever)." },
+      { tag: "Fever & Sepsis", front: "What is the #1 cause of sepsis in neonates <28 days?", back: "Escherichia coli (#1), followed by Group B Streptococcus." },
+      { tag: "Fever & Sepsis", front: "What is the most common infection causing fever without focus in infants <1 year?", back: "Urinary Tract Infection (UTI), caused predominantly by E. coli." },
+      { tag: "Fever & Sepsis", front: "What male status increases UTI risk in young infants?", back: "Uncircumcised boys (higher risk if fever >1 day ≥39°C)." },
+      { tag: "Pneumococcus", front: "What is the characteristic morphology of Streptococcus pneumoniae?", back: "Gram-positive, lancet-shaped, encapsulated diplococcus." },
+      { tag: "Pneumococcus", front: "What are the most common pneumococcal serotypes in the Philippines?", back: "Serotypes 6, 18, and 14." },
+      { tag: "Pneumococcus", front: "What classic radiograph finding is associated with S. pneumoniae pneumonia?", back: "'Round Pneumonia' (dense lobar consolidation)." },
+      { tag: "Pneumococcus", front: "Why is pure polysaccharide vaccine (PPSV23) NOT given to children <2 years?", back: "It produces a T-cell independent immune response which is not immunogenic in children under 2 years." },
+      { tag: "Strep pyogenes", front: "What is the main virulence factor of Group A Streptococcus?", back: "M protein (antiphagocytic)." },
+      { tag: "Strep pyogenes", front: "What features distinguish Strep pharyngitis from viral pharyngitis?", back: "Strep throat has tonsillar exudates and palatal petechiae, and lacks cough, coryza, diarrhea, or ulcers." },
+      { tag: "Strep pyogenes", front: "What are Pastia's lines?", back: "Erythematous skin creases accentuated in the elbow, axilla, and groin in Scarlet Fever." },
+      { tag: "Strep pyogenes", front: "What is the drug of choice for GAS pharyngitis?", back: "Oral Penicillin V x 10 days OR a single IM dose of Benzathine Penicillin G." },
+      { tag: "Jones Criteria", front: "What is required to diagnose Acute Rheumatic Fever via Jones Criteria?", back: "2 Major OR 1 Major + 2 Minor manifestations, PLUS evidence of preceding GAS infection." },
+      { tag: "Jones Criteria", front: "What are the 5 Major Jones Criteria?", back: "Joints (Polyarthritis), Carditis, Nodules (Subcutaneous), Erythema marginatum, Sydenham chorea." },
+      { tag: "GBS", front: "What empiric antibiotics are given for suspected Group B Strep neonatal sepsis?", back: "Ampicillin + Aminoglycoside (Gentamicin)." },
+      { tag: "Staph aureus", front: "What CXR finding distinguishes S. aureus pneumonia from pneumococcal pneumonia?", back: "Pneumatoceles (thin-walled air cavities) and empyema." },
+      { tag: "Staph aureus", front: "What toxin causes Staphylococcal Scalded Skin Syndrome (SSSS)?", back: "Exfoliatin toxin (cleaves the stratum granulosum, Nikolsky sign +)." },
+      { tag: "Staph aureus", front: "What is the mainstay of treatment for loculated staphylococcal abscesses?", back: "Incision and Drainage (I&D)." },
+      { tag: "Staph aureus", front: "What initial empiric regimen is recommended for life-threatening S. aureus infection?", back: "Vancomycin + Nafcillin or Oxacillin." },
+      { tag: "CoNS", front: "What mechanism allows S. epidermidis to adhere to catheters and shunts?", back: "Exopolysaccharide slime biofilm layer." },
+      { tag: "H. influenzae", front: "What is the classic lateral neck radiograph sign in Acute Epiglottitis?", back: "The 'Thumb Sign' (swollen epiglottis)." },
+      { tag: "H. influenzae", front: "What adjuvant drug reduces hearing loss in Hib meningitis?", back: "Dexamethasone (0.6 mg/kg/day q6h)." },
+      { tag: "H. influenzae", front: "How is preseptal cellulitis distinguished from orbital cellulitis?", back: "Orbital cellulitis features proptosis, ophthalmoplegia, painful EOM, and vision loss." },
+      { tag: "H. influenzae", front: "What drug is given for Hib chemoprophylaxis?", back: "Oral Rifampin (20 mg/kg/day once daily x 4 days)." },
+      { tag: "N. meningitidis", front: "Which N. meningitidis serogroup is most associated with epidemics?", back: "Serogroup A." },
+      { tag: "N. meningitidis", front: "What is Waterhouse-Friderichsen Syndrome?", back: "Fulminant meningococcemia with DIC, purpura fulminans, shock, and bilateral adrenal hemorrhage." },
+      { tag: "N. meningitidis", front: "What single-dose oral drug can be used for meningococcal prophylaxis in contacts ≥1 mo?", back: "Ciprofloxacin (20 mg/kg single dose, max 500 mg)." },
+      { tag: "N. gonorrhoeae", front: "When does gonococcal ophthalmia neonatorum typically manifest?", back: "1 to 4 days after birth." },
+      { tag: "N. gonorrhoeae", front: "What co-infection must ALWAYS be covered when treating Gonorrhea?", back: "Chlamydia trachomatis (co-treat with Azithromycin)." },
+      { tag: "Diphtheria", front: "What is the pathophysiologic mechanism of Diphtheria exotoxin?", back: "62-kDa exotoxin inactivates Elongation Factor-2 (EF-2), inhibiting protein synthesis and causing necrosis." },
+      { tag: "Diphtheria", front: "What physical exam finding is pathognomonic for respiratory diphtheria?", back: "Adherent gray-brown leather-like pseudomembrane that bleeds upon scraping." },
+      { tag: "Diphtheria", front: "What is the most common cause of death in diphtheria patients?", back: "Toxic Cardiomyopathy (occurs in 2nd-3rd week; causes AV block and fatal dysrhythmias)." },
+      { tag: "Diphtheria", front: "What selective culture media are used to isolate C. diphtheriae?", back: "Cystine-Tellurite Blood Agar (CTBA) or Tinsdale agar." },
+      { tag: "Tetanus", front: "How does tetanospasmin cause muscle spasms?", back: "Blocks retrograde release of inhibitory neurotransmitters GABA and Glycine in spinal cord interneurons." },
+      { tag: "Tetanus", front: "What is the #1 initial presenting symptom in 50% of generalized tetanus cases?", back: "Trismus (Lockjaw) due to masseter muscle spasm." },
+      { tag: "Tetanus", front: "What specific form of localized tetanus is associated with Chronic Otitis Media?", back: "Cephalic Tetanus (involves cranial nerve bulbar musculature)." },
+      { tag: "Tetanus", front: "What antibiotic of choice is recommended for C. tetani infection?", back: "Metronidazole (30 mg/kg/day q6h x 7-10 days)." },
+      { tag: "Tetanus", front: "In a patient with dirty wound and <3 tetanus doses, what prophylaxis is needed?", back: "Both Tetanus Toxoid Vaccine (Tdap/Td) AND Tetanus Immunoglobulin (TIG)." },
+      { tag: "Pertussis", front: "During which stage is B. pertussis most contagious?", back: "The Catarrhal Stage (first 1-2 weeks)." },
+      { tag: "Pertussis", front: "What characteristic CBC finding is seen in the catarrhal stage of pertussis?", back: "Marked leukocytosis with absolute lymphocytosis (15,000–100,000 /μL)." },
+      { tag: "Pertussis", front: "How does pertussis manifest in infants <3 months?", back: "Apnea and cyanosis (classic paroxysmal whoop is often absent due to weak musculature)." },
+      { tag: "Pertussis", front: "Why is Erythromycin avoided in neonates <1 month for pertussis?", back: "Strong association with Infantile Hypertrophic Pyloric Stenosis (IHPS). Use Azithromycin." },
+      { tag: "Leptospirosis", front: "What are the two distinct phases of leptospirosis?", back: "1. Septicemic Phase (days 1-7, blood/CSF +) and 2. Immune Phase (days 4-30, aseptic meningitis, urine +)." },
+      { tag: "Leptospirosis", front: "What physical finding is classic for acute leptospirosis?", back: "Conjunctival suffusion and gastrocnemius muscle tenderness." },
+      { tag: "Leptospirosis", front: "What is Weil Disease?", back: "Severe icteric leptospirosis featuring triad of Jaundice, Renal failure, and Hemorrhagic pneumonitis." },
+      { tag: "Leptospirosis", front: "What is the gold standard diagnostic test for Leptospirosis?", back: "Microscopic Agglutination Test (MAT)." },
+      { tag: "Leptospirosis", front: "What Post-Exposure Prophylaxis (PEP) dose is given for floodwater contact?", back: "Doxycycline 4 mg/kg single dose (Max 200 mg) taken within 24-72 hours." },
+      { tag: "Typhoid", front: "What are Rose Spots in Typhoid fever?", back: "Discrete salmon-colored macules appearing on the trunk during the 2nd week of fever." },
+      { tag: "Typhoid", front: "Which diagnostic culture is most sensitive overall for Salmonella Typhi?", back: "Bone marrow culture (blood culture is gold standard in 1st week)." },
+      { tag: "Syphilis", front: "What clinical manifestation characteristically marks Secondary Syphilis?", back: "Diffuse maculopapular rash on the PALMS and SOLES, and condyloma lata." },
+      { tag: "Syphilis", front: "Which syphilis serologic test remains positive for life?", back: "Treponemal tests (FTA-Abs, TPHA). Non-treponemal (VDRL/RPR) wane after successful treatment." },
+      { tag: "Syphilis", front: "What is the treatment of choice for Congenital Syphilis?", back: "Aqueous Crystalline Penicillin G IV (200,000-300,000 U/kg/day div q4-6h x 10 days)." },
+      { tag: "Syphilis", front: "What single-dose treatment is given for Primary/Secondary Syphilis in older children?", back: "Benzathine Penicillin G IM (50,000 U/kg up to adult dose 2.4 million U)." }
+    ];
+
+    let currentCardIndex = 0;
+    function renderFlashcard() {
+      const card = flashcardsData[currentCardIndex];
+      document.getElementById('fcTag').innerText = card.tag;
+      document.getElementById('fcFront').innerText = card.front;
+      document.getElementById('fcBack').innerHTML = card.back;
+      document.getElementById('flashcardProgress').innerText = `Card ${currentCardIndex + 1} of ${flashcardsData.length}`;
+      document.getElementById('activeFlashcard').classList.remove('flipped');
+    }
+    function flipCard() {
+      document.getElementById('activeFlashcard').classList.toggle('flipped');
+    }
+    function nextCard() {
+      currentCardIndex = (currentCardIndex + 1) % flashcardsData.length;
+      renderFlashcard();
+    }
+    function prevCard() {
+      currentCardIndex = (currentCardIndex - 1 + flashcardsData.length) % flashcardsData.length;
+      renderFlashcard();
+    }
+    function shuffleCards() {
+      for (let i = flashcardsData.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [flashcardsData[i], flashcardsData[j]] = [flashcardsData[j], flashcardsData[i]];
+      }
+      currentCardIndex = 0;
+      renderFlashcard();
+    }
+
+    // Keyboard shortcuts for flashcards
+    document.addEventListener('keydown', (e) => {
+      const fcTab = document.getElementById('tab-flashcards');
+      if (fcTab && fcTab.classList.contains('active')) {
+        if (e.code === 'Space') { e.preventDefault(); flipCard(); }
+        if (e.code === 'ArrowRight') { nextCard(); }
+        if (e.code === 'ArrowLeft') { prevCard(); }
+      }
+    });
+
+    /* ==========================================================================
+       SELF-ASSESSMENT QUIZ SYSTEM (50 MCQs)
+       ========================================================================== */
+    const quizData = [
+      {
+        q: "A 6-month-old male infant is brought to the ER with a 5-day history of high fever (39.5°C), irritability, and poor feeding. CBC shows WBC 22,000/μL. Physical exam reveals no localizing foci of infection. Which organism is the most common cause of invasive bacteremia in this patient group?",
+        options: ["Escherichia coli", "Listeria monocytogenes", "Streptococcus pneumoniae", "Enterovirus"],
+        ans: 2,
+        exp: "In children aged 3 months to 5 years presenting with fever without localizing signs and high leukocytosis, Streptococcus pneumoniae is the leading cause of occult bacteremia and invasive disease.",
+        why: {
+          0: "E. coli is the #1 pathogen in neonates (<28 days) and the #1 cause of UTI, but S. pneumoniae is the overall leading bacterial cause in older infants.",
+          1: "Listeria monocytogenes primarily causes neonatal sepsis and is rare past 3 months of age in immunocompetent infants.",
+          3: "Enteroviruses cause seasonal fever (summer/fall) but do not present with marked neutrophilic leukocytosis (22,000/μL)."
+        }
+      },
+      {
+        q: "A 2-month-old infant presents with a rectal temperature of 38.5°C. History and physical exam reveal no cough, diarrhea, skin rash, or physical abnormalities. What is the most appropriate initial evaluation strategy?",
+        options: [
+          "Observe at home with oral antipyretics only",
+          "Urgent evaluation for Serious Bacterial Infection (SBI) including urinalysis & culture",
+          "Immediate diagnosis of Fever of Unknown Origin (FUO)",
+          "Empiric oral Amoxicillin without laboratory testing"
+        ],
+        ans: 1,
+        exp: "Infants <1 year with fever without localizing signs have a 7-13% incidence of Serious Bacterial Infections (SBI), with Urinary Tract Infections (UTI) being the most common. Evaluation requires routine urinalysis and urine culture.",
+        why: {
+          0: "Observing at home is dangerous due to the high risk of occult SBI/UTI in young infants.",
+          2: "FUO requires fever lasting >3 weeks with at least 8 days of unrevealing investigation.",
+          3: "Empiric antibiotics without obtaining diagnostic cultures obscure etiology and promote resistance."
+        }
+      },
+      {
+        q: "Which of the following fever patterns is defined as persistent elevation where temperature varies by >0.5°C per day but NEVER touches the normal baseline?",
+        options: ["Intermittent Fever", "Remittent Fever", "Sustained Fever", "Relapsing Fever"],
+        ans: 1,
+        exp: "Remittent fever is persistent, varies by >0.5°C per day, and does NOT return to normal. Classic examples include Typhoid fever, sepsis, tuberculosis, and acute rheumatic fever.",
+        why: {
+          0: "Intermittent fever fluctuates down to baseline normal temperature on most days.",
+          2: "Sustained fever does not vary by >0.5°C per day.",
+          3: "Relapsing fever features febrile episodes separated by distinct afebrile days."
+        }
+      },
+      {
+        q: "A 4-year-old child presents with high fever, cough, and tachypnea. Chest radiography reveals a dense, well-circumscribed, spherical lobar consolidation ('round pneumonia'). What is the most likely pathogen?",
+        options: ["Staphylococcus aureus", "Streptococcus pneumoniae", "Mycoplasma pneumoniae", "Haemophilus influenzae"],
+        ans: 1,
+        exp: "Streptococcus pneumoniae classically causes 'round pneumonia' on CXR due to cohesive spread through the pores of Kohn in pediatric alveoli.",
+        why: {
+          0: "S. aureus pneumonia classically causes pneumatoceles (thin-walled cavities) and empyema.",
+          2: "Mycoplasma pneumoniae typically causes patchy interstitial infiltrates in older children (>5 yrs).",
+          3: "H. influenzae presents with lobar or bronchopneumonia infiltrates but not classic round pneumonia."
+        }
+      },
+      {
+        q: "Why is the 23-valent pneumococcal pure polysaccharide vaccine (PPSV23) NOT recommended for routine protection in children younger than 2 years of age?",
+        options: [
+          "It produces excessive systemic local reactions",
+          "Pure polysaccharide antigens elicit a T-cell independent response that is non-immunogenic in <2 year olds",
+          "It contains live attenuated virus that causes disease",
+          "It neutralizes maternal IgA antibodies in the mucosal tract"
+        ],
+        ans: 1,
+        exp: "Children <2 years old cannot generate effective antibody responses to T-cell independent pure capsular polysaccharides. Conjugated vaccines (PCV10/PCV13) attach to a protein carrier to recruit T-cell help.",
+        why: {
+          0: "Safety profile is not the primary reason; lack of efficacy is.",
+          2: "PPSV23 is a subunit bacterial polysaccharide vaccine, not a live viral vaccine.",
+          3: "It does not interfere with maternal IgA clearance."
+        }
+      },
+      {
+        q: "A 7-year-old child presents with sore throat, fever of 38.8°C, tonsillar exudates, and anterior cervical lymphadenopathy. Physical exam reveals NO cough, coryza, or oral ulcers. What is the drug of choice?",
+        options: ["Oral Amoxicillin-Clavulanate for 5 days", "Oral Penicillin V for 10 days", "Single dose oral Azithromycin", "Intravenous Ceftriaxone for 7 days"],
+        ans: 1,
+        exp: "Oral Penicillin V for 10 days (or single IM Benzathine Penicillin G) is the Drug of Choice for Group A Streptococcal (GAS) pharyngitis to prevent Acute Rheumatic Fever.",
+        why: {
+          0: "Amox-Clav is unnecessary broad coverage for uncomplicated GAS.",
+          2: "Azithromycin is reserved for penicillin-allergic patients due to macrolide resistance risks.",
+          3: "IV Ceftriaxone is inappropriate for uncomplicated outpatient GAS pharyngitis."
+        }
+      },
+      {
+        q: "Which physical examination finding is associated with Scarlet Fever caused by Streptococcus pyogenes?",
+        options: ["Koplik spots on buccal mucosa", "Pastia's lines in skin creases", "Nikolsky sign on epidermis", "Rose spots on the trunk"],
+        ans: 1,
+        exp: "Pastia's lines (accentuated erythematous creases in the elbow, axilla, and groin) along with a sandpaper rash and strawberry tongue are pathognomonic for Scarlet Fever ( SpeA toxin).",
+        why: {
+          0: "Koplik spots are pathognomonic for Measles.",
+          2: "Nikolsky sign is seen in Staphylococcal Scalded Skin Syndrome (SSSS) and TEN.",
+          3: "Rose spots are salmon-colored macules seen in Typhoid Fever."
+        }
+      },
+      {
+        q: "According to the updated 2015 Jones Criteria, which of the following combinations confirms a primary attack of Acute Rheumatic Fever in a high-risk population?",
+        options: [
+          "1 Major manifestation + 1 Minor manifestation without Strep evidence",
+          "2 Major manifestations + evidence of antecedent GAS infection",
+          "3 Minor manifestations + positive throat swab",
+          "Polyarthralgia alone + elevated ESR"
+        ],
+        ans: 1,
+        exp: "Diagnosis of ARF requires 2 Major criteria (OR 1 Major + 2 Minor criteria) PLUS documented evidence of preceding GAS pharyngitis.",
+        why: {
+          0: "Must have antecedent GAS evidence and meet major/minor thresholds.",
+          2: "3 Minor manifestations without a Major criterion do not satisfy the diagnostic algorithm.",
+          3: "Polyarthralgia is a minor criterion and alone is insufficient."
+        }
+      },
+      {
+        q: "A 9-year-old girl with a history of Acute Rheumatic Fever with carditis but NO residual valvular heart disease requires secondary chemoprophylaxis. What is the recommended duration?",
+        options: [
+          "5 years or until 21 years of age, whichever is longer",
+          "10 years or until 21 years of age, whichever is longer",
+          "10 years or until 40 years of age, whichever is longer",
+          "Lifelong prophylaxis regardless of age"
+        ],
+        ans: 1,
+        exp: "For Rheumatic Fever with carditis but NO residual heart disease, secondary prophylaxis (IM Benzathine Penicillin G q4wks) is recommended for 10 years or until age 21 (whichever is longer).",
+        why: {
+          0: "5 years or until age 21 applies to RF WITHOUT carditis.",
+          2: "10 years or until age 40 applies to RF WITH persistent residual valvular disease.",
+          3: "Lifelong is reserved for severe persistent valvular disease."
+        }
+      },
+      {
+        q: "A newborn delivered at 38 weeks gestation develops lethargy, hypothermia, and respiratory distress 12 hours after birth. Maternal history reveals prolonged rupture of membranes (22 hours). What is the primary pathogen?",
+        options: ["Streptococcus agalactiae (Group B Strep)", "Streptococcus pyogenes", "Haemophilus influenzae type b", "Listeria monocytogenes"],
+        ans: 0,
+        exp: "Group B Streptococcus (GBS) is the leading cause of early-onset neonatal sepsis and meningitis, strongly associated with maternal colonization and prolonged rupture of membranes.",
+        why: {
+          1: "GAS is a rare cause of early neonatal sepsis.",
+          2: "Hib is uncommon in neonates due to transplacental IgG.",
+          3: "Listeria is a less common cause compared to GBS and E. coli."
+        }
+      },
+      {
+        q: "Which microscopic finding is characteristic of Staphylococcus aureus?",
+        options: ["Gram-negative diplococci", "Gram-positive lancet-shaped diplococci", "Gram-positive cocci in clusters, coagulase positive", "Gram-negative coccobacilli"],
+        ans: 2,
+        exp: "Staphylococcus aureus is characterized as Gram-positive cocci arranged in grape-like clusters that are coagulase-positive.",
+        why: {
+          0: "Gram-negative diplococci describes Neisseria species.",
+          1: "Gram-positive lancet diplococci describes S. pneumoniae.",
+          3: "Gram-negative coccobacilli describes H. influenzae or B. pertussis."
+        }
+      },
+      {
+        q: "A 2-year-old child presents with diffuse erythroderma, high fever, and generalized skin flaking. Light lateral pressure on normal-appearing skin causes the epidermis to slough off (Nikolsky sign +). What is the pathophysiology?",
+        options: [
+          "Immune-complex deposition in dermal capillaries",
+          "Toxin-mediated cleavage of the stratum granulosum by exfoliative toxins",
+          "Direct invasion of subcutaneous fat by pyogenic bacteria",
+          "Type I IgE-mediated hypersensitivity reaction"
+        ],
+        ans: 1,
+        exp: "Staphylococcal Scalded Skin Syndrome (SSSS) is caused by epidermolytic exfoliative toxins (ETA/ETB) that target desmoglein-1, cleaving the stratum granulosum layer of the epidermis.",
+        why: {
+          0: "Immune complex deposition causes post-streptococcal glomerulonephritis or vasculitis.",
+          2: "Direct invasion causes cellulitis or necrotizing fasciitis, not superficial sloughing.",
+          3: "Type I IgE hypersensitivity causes urticaria or anaphylaxis."
+        }
+      },
+      {
+        q: "3 hours after attending a school picnic, four children develop severe nausea, vomiting, abdominal cramps, and diarrhea. None have fever. What is the mechanism?",
+        options: [
+          "Invasive infection of colonic mucosa by Shigella",
+          "Ingestion of preformed S. aureus enterotoxin in contaminated food",
+          "Colonization of small intestine by Shiga-toxin producing E. coli",
+          "Replication of Rotavirus in mucosal enterocytes"
+        ],
+        ans: 1,
+        exp: "Staphylococcal food poisoning has a rapid onset (1–6 hours) because it is caused by ingestion of preformed heat-stable enterotoxins in food, presenting with intense vomiting and absence of fever.",
+        why: {
+          0: "Shigella requires incubation of 1-3 days and presents with high fever and dysentery.",
+          2: "STEC requires incubation of 3-4 days.",
+          3: "Rotavirus has an incubation of 1-3 days."
+        }
+      },
+      {
+        q: "What is the mandatory first-line procedural management for a large, fluctuant cutaneous staphylococcal abscess?",
+        options: ["High-dose IV Vancomycin monotherapy", "Incision and Drainage (I&D)", "Topical Mupirocin application", "Warm compresses without intervention"],
+        ans: 1,
+        exp: "Incision and Drainage (I&D) is the primary treatment of choice for loculated purulent collections (abscesses). Systemic antibiotics cannot penetrate the fibrous capsule effectively without drainage.",
+        why: {
+          0: "Antibiotics alone fail if the purulent collection is not drained.",
+          2: "Topical mupirocin is only for superficial impetigo/folliculitis.",
+          3: "Compresses alone are insufficient for large fluctuant collections."
+        }
+      },
+      {
+        q: "A 3-year-old child is diagnosed with severe healthcare-associated MRSA bacteremia. Which empiric antibiotic combination is recommended?",
+        options: ["Oxacillin + Ampicillin", "Vancomycin + Gentamicin", "Oral Clindamycin monotherapy", "Ceftriaxone + Metronidazole"],
+        ans: 1,
+        exp: "Healthcare-associated multidrug-resistant MRSA bacteremia requires IV Vancomycin combined with Gentamicin for synergistic bactericidal action.",
+        why: {
+          0: "MRSA is inherently resistant to Oxacillin and beta-lactams.",
+          2: "Oral clindamycin is for non-multidrug resistant community MRSA, not severe HA-MRSA bacteremia.",
+          3: "Ceftriaxone lacks activity against MRSA."
+        }
+      },
+      {
+        q: "What feature enables Staphylococcus epidermidis to cause persistent infections on CSF shunts and indwelling vascular catheters?",
+        options: [
+          "Production of Alpha exotoxin",
+          "Formation of an exopolysaccharide slime biofilm layer",
+          "Elaboration of Panton-Valentine leukocidin",
+          "Spore formation"
+        ],
+        ans: 1,
+        exp: "CoNS (S. epidermidis) produce an exopolysaccharide slime layer (biofilm) that facilitates adherence to foreign plastic surfaces, shielding bacteria from host defenses and antibiotics.",
+        why: {
+          0: "Alpha toxin is produced by S. aureus.",
+          2: "PVL is associated with virulent community MRSA strains.",
+          3: "Staphylococci are non-spore forming."
+        }
+      },
+      {
+        q: "A 4-year-old unimmunized child presents with severe inspiratory stridor, high fever, drooling, and sitting in a 'tripod' position. Lateral neck radiograph shows a 'Thumb sign'. What is the diagnosis?",
+        options: ["Acute Laryngotracheobronchitis (Croup)", "Supraglottitis / Acute Epiglottitis", "Retropharyngeal Abscess", "Foreign Body Aspiration"],
+        ans: 1,
+        exp: "Acute Epiglottitis (caused classically by Haemophilus influenzae type b) presents with toxic appearance, drooling, tripod stance, and the pathognomonic 'Thumb Sign' on lateral neck X-ray.",
+        why: {
+          0: "Croup presents with a barking cough and 'Steeple sign' on AP radiograph.",
+          2: "Retropharyngeal abscess shows widened prevertebral soft tissue space.",
+          3: "Foreign body aspiration presents with sudden choking without toxic fever."
+        }
+      },
+      {
+        q: "What adjuvant therapy administered during acute Haemophilus influenzae type b meningitis reduces the incidence of severe sensorineural hearing loss?",
+        options: ["Intravenous Immunoglobulin (IVIG)", "Dexamethasone (0.6 mg/kg/day)", "Mannitol infusion", "Oral Rifampin"],
+        ans: 1,
+        exp: "Dexamethasone (0.6 mg/kg/day divided q6h) administered prior to or with the first dose of antibiotics decreases subarachnoid inflammation and significantly reduces hearing loss in Hib meningitis.",
+        why: {
+          0: "IVIG is not indicated for bacterial meningitis.",
+          2: "Mannitol reduces ICP but does not specifically prevent inflammatory hearing loss.",
+          3: "Rifampin is used for chemoprophylaxis of contacts."
+        }
+      },
+      {
+        q: "A 5-year-old child presents with swelling, erythema, and proptosis of the right eye. Eye movement is limited and painful. Visual acuity is decreased. What condition is this?",
+        options: ["Preseptal Cellulitis", "Orbital Cellulitis", "Viral Conjunctivitis", "Hordeolum"],
+        ans: 1,
+        exp: "Orbital cellulitis extends posterior to the orbital septum and is distinguished from preseptal cellulitis by proptosis, painful/restricted extraocular muscle movements, and visual impairment.",
+        why: {
+          0: "Preseptal cellulitis involves only eyelid tissues; eye movements and vision are normal.",
+          2: "Conjunctivitis causes superficial injection without proptosis or movement limitation.",
+          3: "Hordeolum is a localized focal abscess of an eyelid gland."
+        }
+      },
+      {
+        q: "What chemoprophylaxis is indicated for household contacts exposed to an index case of invasive Hib disease if an unimmunized child <48 months resides in the home?",
+        options: ["Oral Amoxicillin x 7 days", "Oral Rifampin 20 mg/kg once daily for 4 days", "Single dose IM Ceftriaxone", "Oral Erythromycin x 14 days"],
+        ans: 1,
+        exp: "Rifampin (20 mg/kg once daily, max 600 mg, for 4 days) eradicates nasopharyngeal carriage of Hib in exposed household contacts.",
+        why: {
+          0: "Amoxicillin does not reliably clear nasopharyngeal Hib carriage.",
+          2: "Single Ceftriaxone is used for meningococcal prophylaxis, not Hib.",
+          3: "Erythromycin is not the guideline drug for Hib prophylaxis."
+        }
+      },
+      {
+        q: "A 16-year-old student presents with sudden fever, severe headache, and a non-blanching purpuric skin rash on the lower extremities. Within 6 hours, BP drops to 70/40 mmHg. What is the priority management step?",
+        options: [
+          "Wait for blood culture results before starting antibiotics",
+          "Perform immediate Lumbar Puncture before giving antibiotics",
+          "Administer immediate IV Ceftriaxone and aggressive fluid resuscitation",
+          "Give oral Ciprofloxacin and discharge"
+        ],
+        ans: 2,
+        exp: "Suspected meningococcemia is a fulminant medical emergency. Antimicrobial therapy (IV Ceftriaxone) and fluid resuscitation MUST NOT BE DELAYED for lumbar puncture or culture results!",
+        why: {
+          0: "Delaying antibiotics for culture increases mortality dramatically (death can occur in <24h).",
+          1: "LP can be deferred if the patient is unstable or shock is present.",
+          3: "Oral outpatient therapy is totally inadequate for septic shock."
+        }
+      },
+      {
+        q: "Which serogroup of Neisseria meningitidis is most commonly responsible for epidemic outbreaks of invasive meningococcal disease worldwide?",
+        options: ["Serogroup A", "Serogroup B", "Serogroup Y", "Serogroup W-135"],
+        ans: 0,
+        exp: "Serogroup A is historically and epidemiologically the primary cause of major epidemic waves of meningococcal disease.",
+        why: {
+          1: "Serogroup B is the main cause of sporadic cases.",
+          2: "Serogroup Y is characteristically associated with meningococcal pneumonia.",
+          3: "Serogroup W-135 causes sporadic/travel outbreaks (e.g., Hajj)."
+        }
+      },
+      {
+        q: "What is the hallmark adrenal pathology seen in Waterhouse-Friderichsen Syndrome?",
+        options: ["Adrenal cortical adenoma", "Bilateral adrenal hemorrhage and necrosis", "Adrenal medullary pheochromocytoma", "Autoimmune adrenalitis"],
+        ans: 1,
+        exp: "Waterhouse-Friderichsen Syndrome is fulminant meningococcemia complicated by purpura fulminans, severe shock, and bilateral adrenal gland hemorrhage/necrosis.",
+        why: {
+          0: "Adenoma is a benign tumor, not an acute septic complication.",
+          2: "Pheochromocytoma is a catecholamine-secreting tumor.",
+          3: "Autoimmune adrenalitis causes chronic Addison's disease."
+        }
+      },
+      {
+        q: "A nurse was exposed to respiratory secretions while intubating a patient with confirmed meningococcal meningitis without wearing a mask. What is an appropriate chemoprophylaxis option?",
+        options: [
+          "Single PO dose of Ciprofloxacin 500 mg",
+          "Oral Penicillin V x 10 days",
+          "Single dose Oral Azithromycin 2 g",
+          "No prophylaxis needed"
+        ],
+        ans: 0,
+        exp: "Recommended meningococcal prophylaxis regimens for exposed close contacts include: Oral Ciprofloxacin (500 mg single dose), Oral Rifampin (2 days), or Single IM Ceftriaxone.",
+        why: {
+          1: "Penicillin treats infection but does NOT clear nasopharyngeal carriage.",
+          2: "Azithromycin is not a first-line recommended regimen for meningococcal PEP.",
+          3: "Unprotected airway exposure requires mandatory chemoprophylaxis."
+        }
+      },
+      {
+        q: "A female newborn develops bilateral purulent ocular discharge 3 days after delivery. Gram stain shows Gram-negative intracellular diplococci. What is the diagnosis?",
+        options: ["Chlamydial Ophthalmia Neonatorum", "Gonococcal Ophthalmia Neonatorum", "Chemical Conjunctivitis", "Herpetic Keratoconjunctivitis"],
+        ans: 1,
+        exp: "Neisseria gonorrhoeae causes hyperacute purulent conjunctivitis in neonates appearing 1–4 days after birth. Gram stain reveals Gram-negative intracellular diplococci.",
+        why: {
+          0: "Chlamydial conjunctivitis typically presents later (5-14 days after birth).",
+          2: "Chemical conjunctivitis occurs within 24 hours of AgNO3 prophylaxis.",
+          3: "HSV conjunctivitis presents with vesicular lesions around 1-2 weeks."
+        }
+      },
+      {
+        q: "What routine prophylactic agent is administered to all newborns at birth to prevent gonococcal ophthalmia neonatorum?",
+        options: ["0.5% Erythromycin ophthalmic ointment", "Oral Amoxicillin drops", "Silver nitrate 10% solution", "Chloramphenicol eye drops"],
+        ans: 0,
+        exp: "0.5% Erythromycin ophthalmic ointment applied to both eyes shortly after birth is standard universal prophylaxis against gonococcal ophthalmia neonatorum.",
+        why: {
+          1: "Oral antibiotics are not used for routine eye prophylaxis.",
+          2: "Silver nitrate is obsolete due to severe chemical conjunctivitis.",
+          3: "Chloramphenicol eye drops carry toxicity risks and are not standard."
+        }
+      },
+      {
+        q: "A 4-year-old unimmunized child presents with sore throat, low fever, and an adherent gray-brown pseudomembrane over the tonsils that bleeds when scraped. What is the mechanism of the toxin responsible?",
+        options: [
+          "Inhibition of GABA release in spinal interneurons",
+          "Inactivation of Elongation Factor-2 (EF-2), halting protein synthesis",
+          "Stimulation of adenylate cyclase causing intestinal fluid secretion",
+          "Cleavage of desmoglein-1 in stratum granulosum"
+        ],
+        ans: 1,
+        exp: "Corynebacterium diphtheriae exotoxin (62-kDa) ADP-ribosylates and inactivates Elongation Factor-2 (EF-2), shutting down cellular protein synthesis and causing tissue necrosis.",
+        why: {
+          0: "Inhibition of GABA release is the mechanism of Tetanospasmin.",
+          2: "Adenylate cyclase stimulation is the mechanism of Cholera toxin / ETIC.",
+          3: "Desmoglein-1 cleavage is the mechanism of Staph Exfoliatin toxin."
+        }
+      },
+      {
+        q: "What is the most common cause of death in patients with respiratory diphtheria?",
+        options: ["Acute renal tubular necrosis", "Toxic Cardiomyopathy with dysrhythmias", "Hepatic failure", "Splenic rupture"],
+        ans: 1,
+        exp: "Toxic Cardiomyopathy (occurring in the 2nd–3rd week of illness as pharyngeal symptoms improve) accounts for 50-60% of diphtheria deaths due to AV block and VTach.",
+        why: {
+          0: "Kidney damage occurs but is not the #1 killer.",
+          2: "Hepatic failure is rare.",
+          3: "Splenic rupture is associated with infectious mononucleosis."
+        }
+      },
+      {
+        q: "What selective growth medium is required to cultivate Corynebacterium diphtheriae?",
+        options: ["Chocolate Agar", "Cystine-Tellurite Blood Agar (CTBA) / Tinsdale Agar", "TCBS Agar", "MacConkey Agar"],
+        ans: 1,
+        exp: "C. diphtheriae requires specialized media such as Cystine-Tellurite Blood Agar (CTBA) or Tinsdale Agar, where colonies produce a characteristic black/gray appearance.",
+        why: {
+          0: "Chocolate agar is used for H. influenzae and Neisseria.",
+          2: "TCBS agar is selective for Vibrio cholerae.",
+          3: "MacConkey agar is selective for Gram-negative enteric bacilli."
+        }
+      },
+      {
+        q: "What is the mandatory mainstay therapy for diphtheria that must be given immediately upon clinical diagnosis?",
+        options: ["Diphtheria Antitoxin (DAT)", "High-dose IV Vancomycin", "Plasmapheresis", "Systemic Corticosteroids"],
+        ans: 0,
+        exp: "Diphtheria Antitoxin (DAT) neutralizes un-bound circulating exotoxin and is the single most critical lifesaving treatment.",
+        why: {
+          1: "Vancomycin does not neutralize exotoxin.",
+          2: "Plasmapheresis is not standard therapy for diphtheria.",
+          3: "Corticosteroids do not replace antitoxin."
+        }
+      },
+      {
+        q: "What neurotoxin produced by Clostridium tetani is responsible for clinical tetanus symptoms?",
+        options: ["Tetanolysin", "Tetanospasmin", "Botulinum toxin", "Alpha toxin"],
+        ans: 1,
+        exp: "Tetanospasmin is the neurotoxin plasmid-encoded by C. tetani that blocks release of inhibitory neurotransmitters GABA and glycine.",
+        why: {
+          0: "Tetanolysin is a hemolysin with unclear clinical significance.",
+          2: "Botulinum toxin is produced by C. botulinum and causes flaccid paralysis.",
+          3: "Alpha toxin is produced by C. perfringens (gas gangrene)."
+        }
+      },
+      {
+        q: "What is the classic body posture characterized by severe hyperextension of the back and neck due to tetanus spasms?",
+        options: ["Risus sardonicus", "Opisthotonos", "Trismus", "Trousseau sign"],
+        ans: 1,
+        exp: "Opisthotonos is the severe arched posture of hyperextension of the trunk and neck resulting from unchecked spasms of extensor back muscles.",
+        why: {
+          0: "Risus sardonicus is the facial muscle spasm creating a fixed sneer.",
+          2: "Trismus is spasm of the masseter muscles causing lockjaw.",
+          3: "Trousseau sign indicates hypocalcemia."
+        }
+      },
+      {
+        q: "A child presents with trismus and facial muscle spasms. History reveals chronic fetid ear discharge for 6 months. What specific form of tetanus is suspected?",
+        options: ["Generalized Tetanus", "Cephalic Tetanus", "Localized Limb Tetanus", "Neonatal Tetanus"],
+        ans: 1,
+        exp: "Cephalic Tetanus is a rare localized form involving cranial nerve bulbar musculature, classically associated with Chronic Otitis Media (COM) serving as the portal of entry.",
+        why: {
+          0: "Generalized tetanus affects the whole body.",
+          2: "Localized limb tetanus affects muscles adjacent to a extremity wound.",
+          3: "Neonatal tetanus occurs via infected umbilical stump."
+        }
+      },
+      {
+        q: "What antibiotic is the preferred drug of choice for treating Clostridium tetani to reduce vegetative bacterial forms?",
+        options: ["Metronidazole", "Gentamicin", "Ciprofloxacin", "Azithromycin"],
+        ans: 0,
+        exp: "Metronidazole (30 mg/kg/day q6h x 7–10 days) is the preferred antibiotic for C. tetani as it effectively eradicates vegetative rods without GABA-antagonistic side effects.",
+        why: {
+          1: "Gentamicin has no activity against anaerobic C. tetani.",
+          2: "Ciprofloxacin is not first-line for tetanus.",
+          3: "Azithromycin is not indicated for tetanus."
+        }
+      },
+      {
+        q: "A 10-year-old child sustains a deep, soil-contaminated laceration. Immunization record shows he received only 2 doses of DTP in infancy. What tetanus prophylaxis is indicated?",
+        options: [
+          "Tdap vaccine only",
+          "Tetanus Immunoglobulin (TIG) only",
+          "Both Tdap vaccine AND Tetanus Immunoglobulin (TIG)",
+          "Wound cleaning only; no toxoid or TIG required"
+        ],
+        ans: 2,
+        exp: "For dirty/contaminated wounds in patients with uncertain or <3 tetanus doses, BOTH Tetanus toxoid vaccine (Tdap/Td) AND Tetanus Immunoglobulin (TIG 500U) are required.",
+        why: {
+          0: "Vaccine alone is insufficient for dirty wound with incomplete primary series.",
+          1: "TIG alone provides immediate passive immunity but lacks long-term active protection.",
+          3: "Failing to give prophylaxis risks fatal tetanus."
+        }
+      },
+      {
+        q: "During which stage of Bordetella pertussis infection is the patient MOST contagious and culture yield highest?",
+        options: ["Catarrhal Stage", "Paroxysmal Stage", "Convalescent Stage", "Incubation Phase"],
+        ans: 0,
+        exp: "The Catarrhal stage (first 1–2 weeks) presents with mild upper respiratory symptoms, has the highest bacterial density, and is the MOST CONTAGIOUS period.",
+        why: {
+          1: "In the paroxysmal stage, cough is severe but bacterial clearing has begun.",
+          2: "Convalescent stage has low transmissibility.",
+          3: "Incubation phase precedes clinical disease."
+        }
+      },
+      {
+        q: "A 2-month-old infant presents with cough, paroxysmal cyanosis, and severe episodes of apnea. CBC reveals WBC 45,000/μL with 75% lymphocytes. What is the diagnosis?",
+        options: ["Acute Viral Bronchiolitis", "Bordetella pertussis infection", "Chlamydia trachomatis pneumonia", "Pneumococcal sepsis"],
+        ans: 1,
+        exp: "Pertussis in infants <3 months presents with apnea and cyanosis (whoop may be absent) and marked leukocytosis with absolute lymphocytosis driven by pertussis toxin.",
+        why: {
+          0: "Bronchiolitis causes lymphocytosis but typically lower WBC counts and no severe paroxysmal apnea triad.",
+          2: "C. trachomatis presents as staccato cough in afebrile infant without marked leukocytosis.",
+          3: "Pneumococcal sepsis produces neutrophilic leukocytosis, not absolute lymphocytosis."
+        }
+      },
+      {
+        q: "What drug of choice is recommended for pertussis treatment and post-exposure prophylaxis in neonates younger than 1 month of age?",
+        options: ["Erythromycin", "Azithromycin", "Trimethoprim-Sulfamethoxazole", "Clarithromycin"],
+        ans: 1,
+        exp: "Azithromycin (10 mg/kg/day x 5 days) is the recommended agent for neonates <1 month because Erythromycin is associated with Infantile Hypertrophic Pyloric Stenosis (IHPS).",
+        why: {
+          0: "Erythromycin is avoided in <1 month due to IHPS risk.",
+          2: "TMP-SMX is contraindicated in infants <2 months (kernicterus risk).",
+          3: "Clarithromycin lacks sufficient safety data in neonates <1 month."
+        }
+      },
+      {
+        q: "A 12-year-old child waded through floodwaters in Manila 3 days ago. He now presents with abrupt high fever, severe headache, conjunctival suffusion, and intense gastrocnemius muscle pain. What is the diagnosis?",
+        options: ["Dengue Hemorrhagic Fever", "Leptospirosis (Septicemic Phase)", "Typhoid Fever", "Malaria"],
+        ans: 1,
+        exp: "Abrupt fever, conjunctival suffusion, and severe gastrocnemius (calf) muscle tenderness following floodwater exposure are classic features of the Septicemic phase of Leptospirosis.",
+        why: {
+          0: "Dengue causes retro-orbital pain and rash, but conjunctival suffusion + calf pain strongly points to Leptospirosis.",
+          2: "Typhoid presents insidiously with step-ladder fever and abdominal symptoms.",
+          3: "Malaria presents with periodic fever spikes and paroxysms."
+        }
+      },
+      {
+        q: "What is the gold standard serologic test for confirming Leptospirosis?",
+        options: ["Widal Test", "Microscopic Agglutination Test (MAT)", "Venereal Disease Research Laboratory (VDRL)", "ASO Titer"],
+        ans: 1,
+        exp: "Microscopic Agglutination Test (MAT) using live leptospiral antigens is the gold standard diagnostic assay for leptospirosis.",
+        why: {
+          0: "Widal test is an obsolete test for Typhoid.",
+          2: "VDRL is a non-treponemal screening test for Syphilis.",
+          3: "ASO titer measures streptococcal antibodies."
+        }
+      },
+      {
+        q: "What Post-Exposure Prophylaxis (PEP) regimen is recommended for a child with single exposure to floodwaters with open cuts?",
+        options: [
+          "Doxycycline 4 mg/kg single PO dose (Max 200 mg)",
+          "Oral Amoxicillin x 14 days",
+          "Single dose Oral Azithromycin 1 g",
+          "Intravenous Penicillin G single dose"
+        ],
+        ans: 0,
+        exp: "Doxycycline 4 mg/kg single PO dose (Max 200 mg) taken within 24-72 hours of exposure is the official post-exposure prophylaxis for leptospirosis regardless of age.",
+        why: {
+          1: "Amoxicillin is no longer recommended as primary PEP for leptospirosis.",
+          2: "Azithromycin is not first-line for leptospirosis PEP.",
+          3: "IV penicillin is reserved for inpatient treatment of severe leptospirosis."
+        }
+      },
+      {
+        q: "A 10-year-old child presents with 2 weeks of remittent fever, abdominal pain, hepatosplenomegaly, and faint salmon-colored macules on the trunk. What is the diagnosis?",
+        options: ["Scarlet Fever", "Typhoid Fever", "Secondary Syphilis", "Rheumatic Fever"],
+        ans: 1,
+        exp: "Prolonged remittent step-ladder fever, hepatosplenomegaly, and discrete salmon-colored 'Rose Spots' on the trunk appearing in the 2nd week are classic for Typhoid Fever (Salmonella Typhi).",
+        why: {
+          0: "Scarlet fever presents with diffuse sandpaper rash in acute pharyngitis.",
+          2: "Secondary syphilis presents with rash on palms and soles.",
+          3: "Rheumatic fever presents with erythema marginatum and polyarthritis."
+        }
+      },
+      {
+        q: "During the FIRST week of Typhoid Fever, which diagnostic specimen yields the highest positive culture rate?",
+        options: ["Stool Culture", "Urine Culture", "Blood Culture", "Nasopharyngeal Culture"],
+        ans: 2,
+        exp: "Blood culture is positive in 70-90% of typhoid cases during the FIRST week of illness. Stool and urine cultures become positive during the 2nd–3rd weeks.",
+        why: {
+          0: "Stool culture becomes positive later (2nd-3rd week).",
+          1: "Urine culture becomes positive in the 2nd-3rd week.",
+          3: "Nasopharyngeal culture has no role in typhoid."
+        }
+      },
+      {
+        q: "A 15-year-old adolescent presents with a non-pruritic maculopapular rash covering the trunk, palms of the hands, and soles of the feet, along with lymphadenopathy. What test confirms Secondary Syphilis?",
+        options: ["RPR alone", "Treponema pallidum Hemagglutination Assay (TPHA / FTA-Abs)", "Widal Test", "Microscopic Agglutination Test"],
+        ans: 1,
+        exp: "If a non-treponemal screening test (RPR/VDRL) is positive, confirmation requires a specific treponemal test such as TPHA or FTA-Abs.",
+        why: {
+          0: "RPR is a non-treponemal screening test prone to false positives.",
+          2: "Widal test is for typhoid.",
+          3: "MAT is for leptospirosis."
+        }
+      },
+      {
+        q: "Why are non-treponemal tests (VDRL / RPR) preferred over treponemal tests (FTA-Abs) for monitoring response to syphilis treatment?",
+        options: [
+          "Treponemal tests remain positive for life regardless of cure",
+          "Non-treponemal tests are more specific than treponemal tests",
+          "Treponemal tests measure IgM only",
+          "Non-treponemal tests direct isolate live spirochetes"
+        ],
+        ans: 0,
+        exp: "Treponemal tests (FTA-Abs, TPHA) remain positive for life even after effective treatment. Non-treponemal titers (VDRL/RPR) wane after successful therapy, making them ideal for monitoring treatment response.",
+        why: {
+          1: "Treponemal tests are actually MORE specific.",
+          2: "Treponemal tests measure IgG and IgM antibodies.",
+          3: "Non-treponemal tests do not isolate spirochetes; they measure anti-cardiolipin antibodies."
+        }
+      },
+      {
+        q: "What is the recommended treatment for a newborn diagnosed with Congenital Syphilis?",
+        options: [
+          "Aqueous Crystalline Penicillin G IV for 10 days",
+          "Single dose IM Benzathine Penicillin G",
+          "Oral Doxycycline for 14 days",
+          "Single dose Oral Azithromycin"
+        ],
+        ans: 0,
+        exp: "Congenital Syphilis requires aggressive therapy with Aqueous Crystalline Penicillin G (200,000–300,000 U/kg/day IV divided q4-6h for 10 days) to clear CNS involvement.",
+        why: {
+          1: "Single dose Benzathine Pen G is used for acquired primary/secondary syphilis, NOT congenital syphilis.",
+          2: "Doxycycline is contraindicated in young infants/neonates.",
+          3: "Azithromycin is not recommended for congenital syphilis."
+        }
+      },
+      {
+        q: "Which pathogen is the leading cause of bacterial otitis media and sinusitis in young children?",
+        options: ["Streptococcus pyogenes", "Streptococcus pneumoniae", "Staphylococcus aureus", "Neisseria meningitidis"],
+        ans: 1,
+        exp: "Streptococcus pneumoniae is the #1 cause of acute otitis media, bacterial sinusitis, and community-acquired pneumonia in pediatric patients.",
+        why: {
+          0: "S. pyogenes causes pharyngitis and skin infections, less commonly OM.",
+          2: "S. aureus causes abscesses and skin infections.",
+          3: "N. meningitidis causes meningitis and septicemia."
+        }
+      },
+      {
+        q: "A 5-year-old child presents with localized superficial skin lesions featuring honey-colored crusts around the mouth. What is the most likely diagnosis?",
+        options: ["Bullous Impetigo", "Non-bullous (Typical) Impetigo", "Erysipelas", "Ecthyma gangrenosum"],
+        ans: 1,
+        exp: "Non-bullous impetigo (caused by S. pyogenes or S. aureus) classically presents with vesicular lesions that rupture to form characteristic honey-colored crusts.",
+        why: {
+          0: "Bullous impetigo presents with flaccid fluid-filled bullae.",
+          2: "Erysipelas involves deeper dermis with raised sharply demarcated borders.",
+          3: "Ecthyma gangrenosum is a necrotic skin lesion caused by Pseudomonas."
+        }
+      },
+      {
+        q: "What is the primary reservoir for Neisseria meningitidis?",
+        options: ["Domestic animals", "Asymptomatic human nasopharyngeal carriers", "Contaminated soil", "Rodents"],
+        ans: 1,
+        exp: "Humans are the ONLY natural reservoir for N. meningitidis, with asymptomatic nasopharyngeal carriage peaking in adolescents and young adults.",
+        why: {
+          0: "Animals are not reservoirs for N. meningitidis.",
+          2: "Soil is the reservoir for C. tetani, not meningococcus.",
+          3: "Rodents are reservoirs for Leptospira."
+        }
+      },
+      {
+        q: "Which antimicrobial agent is contraindicated in infants <2 months of age due to the risk of hyperbilirubinemia and kernicterus?",
+        options: ["Ampicillin", "Cefotaxime", "Trimethoprim-Sulfamethoxazole (TMP-SMX)", "Azithromycin"],
+        ans: 2,
+        exp: "TMP-SMX is strictly contraindicated in infants <2 months because sulfonamides displace bilirubin from albumin, leading to kernicterus.",
+        why: {
+          0: "Ampicillin is safe and standard in neonates.",
+          1: "Cefotaxime is safe and standard in neonates.",
+          3: "Azithromycin is safe and used in neonates for pertussis."
+        }
+      }
+    ];
+
+    let userScores = {};
+    function renderQuiz() {
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = '';
+      document.getElementById('quizTotal').innerText = quizData.length;
+
+      quizData.forEach((qObj, index) => {
+        const qCard = document.createElement('div');
+        qCard.className = 'quiz-card';
+        qCard.id = `quiz-q-${index}`;
+
+        let optionsHTML = '';
+        qObj.options.forEach((opt, optIdx) => {
+          optionsHTML += `<button class="option-btn" onclick="selectOption(${index}, ${optIdx})">${String.fromCharCode(65 + optIdx)}. ${opt}</button>`;
+        });
+
+        let whyHTML = '';
+        if (qObj.why) {
+          whyHTML = '<div class="distractor-breakdown"><strong>Distractor Breakdown:</strong><ul>';
+          Object.keys(qObj.why).forEach(key => {
+            whyHTML += `<li><strong>${String.fromCharCode(65 + parseInt(key))}:</strong> ${qObj.why[key]}</li>`;
+          });
+          whyHTML += '</ul></div>';
+        }
+
+        qCard.innerHTML = `
+          <div class="quiz-question">${index + 1}. ${qObj.q}</div>
+          <div class="quiz-options">${optionsHTML}</div>
+          <div class="quiz-explanation" id="quiz-exp-${index}">
+            <strong>✅ Correct Answer: ${String.fromCharCode(65 + qObj.ans)}</strong><br>
+            ${qObj.exp}
+            ${whyHTML}
+          </div>
+        `;
+        container.appendChild(qCard);
+      });
+    }
+
+    function selectOption(qIdx, optIdx) {
+      const qCard = document.getElementById(`quiz-q-${qIdx}`);
+      const buttons = qCard.querySelectorAll('.option-btn');
+      const expBox = document.getElementById(`quiz-exp-${qIdx}`);
+      const correctIdx = quizData[qIdx].ans;
+
+      buttons.forEach(btn => btn.disabled = true);
+
+      if (optIdx === correctIdx) {
+        buttons[optIdx].classList.add('selected-correct');
+        userScores[qIdx] = true;
+      } else {
+        buttons[optIdx].classList.add('selected-incorrect');
+        buttons[correctIdx].classList.add('selected-correct');
+        userScores[qIdx] = false;
+      }
+
+      expBox.classList.add('show');
+      updateScore();
+    }
+
+    function updateScore() {
+      const score = Object.values(userScores).filter(v => v === true).length;
+      document.getElementById('quizScore').innerText = score;
+    }
+
+    function resetQuiz() {
+      userScores = {};
+      document.getElementById('quizScore').innerText = '0';
+      renderQuiz();
+    }
+
+    /* Initialize Applications on DOM Load */
+    document.addEventListener('DOMContentLoaded', () => {
+      renderFlashcard();
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>
