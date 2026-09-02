@@ -1,0 +1,2493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disorders of the Autonomic Nervous System — Comprehensive Interactive Reviewer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-secondary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --accent-primary: #0284c7;
+            --accent-hover: #0369a1;
+            --accent-light: #e0f2fe;
+            --border-color: #e2e8f0;
+            
+            --sympathetic-color: #dc2626;
+            --sympathetic-bg: #fef2f2;
+            --parasympathetic-color: #2563eb;
+            --parasympathetic-bg: #eff6ff;
+            
+            --must-know-bg: #fffbebf5;
+            --must-know-border: #f59e0b;
+            --pitfall-bg: #fef2f2;
+            --pitfall-border: #ef4444;
+            --pearl-bg: #f0fdf4;
+            --pearl-border: #22c55e;
+            --tip-bg: #f5f3ff;
+            --tip-border: #8b5cf6;
+
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.03);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-card: #1e293b;
+            --bg-secondary: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent-primary: #38bdf8;
+            --accent-hover: #0284c7;
+            --accent-light: #1e3a8a;
+            --border-color: #334155;
+            
+            --sympathetic-bg: #450a0a;
+            --parasympathetic-bg: #172554;
+            
+            --must-know-bg: #451a03;
+            --pitfall-bg: #450a0a;
+            --pearl-bg: #052e16;
+            --tip-bg: #2e1065;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        [data-theme="dark"] header {
+            background-color: rgba(15, 23, 42, 0.92);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .logo-title h1 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-title p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 260px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 12px 8px 34px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px var(--accent-light);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .btn {
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent-primary);
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Nav Tabs */
+        .nav-tabs-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 1px solid var(--border-color);
+            list-style: none;
+            white-space: nowrap;
+        }
+
+        .nav-tab {
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .nav-tab:hover {
+            color: var(--accent-primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-tab.active {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+            background: var(--accent-light);
+            border-top-left-radius: var(--radius-sm);
+            border-top-right-radius: var(--radius-sm);
+        }
+
+        /* Progress Bar */
+        .reading-progress-container {
+            width: 100%;
+            height: 3px;
+            background: var(--border-color);
+        }
+
+        .reading-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-primary);
+        }
+
+        /* Main Content Container */
+        main {
+            max-width: 1400px;
+            margin: 24px auto;
+            padding: 0 24px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography & Layout Modules */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        h2 { font-size: 1.6rem; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; margin-top: 24px; }
+        h3 { font-size: 1.25rem; margin-top: 18px; }
+        h4 { font-size: 1.05rem; }
+
+        p { margin-bottom: 12px; font-size: 0.95rem; }
+
+        .standalone-heading {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin: 20px 0 10px 0;
+            display: block;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: var(--radius-md);
+            border-left: 5px solid;
+            font-size: 0.92rem;
+        }
+
+        .callout-must-know {
+            background-color: var(--must-know-bg);
+            border-left-color: var(--must-know-border);
+        }
+
+        .callout-pitfall {
+            background-color: var(--pitfall-bg);
+            border-left-color: var(--pitfall-border);
+        }
+
+        .callout-pearl {
+            background-color: var(--pearl-bg);
+            border-left-color: var(--pearl-border);
+        }
+
+        .callout-tip {
+            background-color: var(--tip-bg);
+            border-left-color: var(--tip-border);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            font-family: var(--font-heading);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Grid Layouts & Cards */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin: 16px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 16px 0;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        /* Tables */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            background: var(--bg-card);
+        }
+
+        .table-header-tools {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.88rem;
+        }
+
+        th {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            padding: 12px 14px;
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) td {
+            background-color: rgba(0, 0, 0, 0.015);
+        }
+
+        tr:hover td {
+            background-color: var(--accent-light);
+        }
+
+        /* Key Badges & Chips */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+        }
+
+        .badge-sympathetic { background: var(--sympathetic-bg); color: var(--sympathetic-color); border: 1px solid var(--sympathetic-color); }
+        .badge-parasympathetic { background: var(--parasympathetic-bg); color: var(--parasympathetic-color); border: 1px solid var(--parasympathetic-color); }
+        .badge-warning { background: #fef3c7; color: #d97706; }
+        .badge-success { background: #dcfce7; color: #15803d; }
+        .badge-info { background: #e0f2fe; color: #0369a1; }
+
+        /* Diagrams & CSS Graphics */
+        .diagram-box {
+            background: var(--bg-secondary);
+            border: 1px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .diagram-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--accent-primary);
+        }
+
+        .pathway-flow {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 16px 0;
+        }
+
+        .pathway-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pathway-arrow {
+            color: var(--accent-primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Flashcards Module */
+        .flashcard-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background: var(--bg-card);
+            padding: 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .flashcard-container {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 680px;
+            height: 360px;
+            margin: 0 auto 20px auto;
+            cursor: pointer;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background: var(--accent-light);
+            border-color: var(--accent-primary);
+        }
+
+        .flashcard-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .flashcard-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-align: center;
+            margin: auto 0;
+            color: var(--text-primary);
+        }
+
+        .flashcard-hint {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-align: center;
+            font-family: var(--font-mono);
+        }
+
+        .flashcard-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        /* Quiz Module */
+        .quiz-container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .quiz-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .quiz-question {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .quiz-option {
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            cursor: pointer;
+            font-size: 0.92rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent-primary);
+            background: var(--accent-light);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--accent-primary);
+            background: var(--accent-light);
+            font-weight: 600;
+        }
+
+        .quiz-option.correct {
+            border-color: #22c55e !important;
+            background: #dcfce7 !important;
+            color: #14532d !important;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ef4444 !important;
+            background: #fee2e2 !important;
+            color: #7f1d1d !important;
+        }
+
+        .quiz-explanation {
+            display: none;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--accent-primary);
+            margin-top: 16px;
+            font-size: 0.9rem;
+        }
+
+        .quiz-explanation.active {
+            display: block;
+        }
+
+        .distractor-reason {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .quiz-score-banner {
+            position: sticky;
+            top: 70px;
+            z-index: 900;
+            background: var(--accent-primary);
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Cram Sheet Module */
+        .cram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 16px;
+        }
+
+        .cram-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            border-top: 4px solid var(--accent-primary);
+        }
+
+        .cram-box ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .cram-box li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 8px;
+            font-size: 0.88rem;
+        }
+
+        .cram-box li::before {
+            content: "⚡";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 0.75rem;
+        }
+
+        /* Expandable Accordion */
+        .accordion {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin: 12px 0;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 14px 18px;
+            background: var(--bg-secondary);
+            font-weight: 700;
+            font-family: var(--font-heading);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header:hover {
+            background: var(--accent-light);
+        }
+
+        .accordion-content {
+            padding: 18px;
+            display: none;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-card);
+        }
+
+        .accordion.open .accordion-content {
+            display: block;
+        }
+
+        /* Floating UI Tools */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-top-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        @media print {
+            header, .nav-tabs-wrapper, .flashcard-controls, .quiz-score-banner, .scroll-top-btn, .header-controls {
+                display: none !important;
+            }
+            .tab-content { display: block !important; page-break-after: always; }
+            body { background: #ffffff; color: #000000; }
+            .card, .table-container { border: 1px solid #ccc; box-shadow: none; }
+        }
+
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; align-items: flex-start; }
+            .search-box { width: 100%; }
+            .nav-tab { padding: 10px 12px; font-size: 0.78rem; }
+            .flashcard-container { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-title">
+                <h1>AUTONOMIC NEUROLOGY REVIEWER</h1>
+                <p>Philippine Medical Board / PLE Exam Master - UERM Neurology 2</p>
+            </div>
+            <div class="header-controls">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="globalSearchInput" placeholder="Search keywords..." onkeyup="filterContent()">
+                </div>
+                <button class="btn" onclick="toggleTheme()">🌓 Theme</button>
+                <button class="btn" onclick="window.print()">🖨️ Print</button>
+            </div>
+        </div>
+        
+        <div class="reading-progress-container">
+            <div class="reading-progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="nav-tabs-wrapper">
+            <ul class="nav-tabs">
+                <li class="nav-tab active" onclick="switchTab('overview')">📌 Overview</li>
+                <li class="nav-tab" onclick="switchTab('topic1')">🧠 1. ANS Foundations</li>
+                <li class="nav-tab" onclick="switchTab('topic2')">⚡ 2. Central Control</li>
+                <li class="nav-tab" onclick="switchTab('topic3')">💧 3. Pelvic & Visceral</li>
+                <li class="nav-tab" onclick="switchTab('topic4')">🩺 4. ANS Disorders</li>
+                <li class="nav-tab" onclick="switchTab('topic5')">🫁 5. Respiration</li>
+                <li class="nav-tab" onclick="switchTab('topic6')">🗣️ 6. Swallowing & Emesis</li>
+                <li class="nav-tab" onclick="switchTab('topic7')">🧪 7. Autonomic Testing</li>
+                <li class="nav-tab" onclick="switchTab('comparisons')">⚖️ Comparisons</li>
+                <li class="nav-tab" onclick="switchTab('flashcards')">🃏 Flashcards</li>
+                <li class="nav-tab" onclick="switchTab('quiz')">📝 Self-Assessment</li>
+                <li class="nav-tab" onclick="switchTab('cram')">⚡ Cram Sheet</li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ================= OVERVIEW TAB ================= -->
+        <section id="overview" class="tab-content active">
+            <h2>Autonomic Nervous System Overview</h2>
+            <p>Welcome to the interactive master reviewer for <strong>Disorders of the Autonomic Nervous System</strong>. Designed specifically for 3rd-year medical students, this resource unifies lectures by <strong>Dr. Pia Teresa A. Camara-Chua</strong> and <strong>Dr. Marietta Cruz-Olaivar</strong> into a single, high-yield board review platform.</p>
+
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-header">🎯 Learning Objectives</div>
+                    <ul>
+                        <li>Describe the anatomical organization of the sympathetic, parasympathetic, and enteric nervous systems.</li>
+                        <li>Differentiate central vs. peripheral autonomic control mechanisms.</li>
+                        <li>Identify key autonomic neurotransmitters, receptor subtypes, and pharmacologic targets.</li>
+                        <li>Recognize clinical presentations of dysautonomia across cardiovascular, GI, GU, sudomotor, and pupillary domains.</li>
+                        <li>Interpret diagnostic tests: tilt-table, Valsalva ratio, deep breathing, and pupillary pharmacologic testing.</li>
+                        <li>Master central respiratory/swallowing control and clinical syndromes (Ondine's Curse, Sympathetic Storm, LEMS, Riley-Day).</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">📐 Core Anatomical Axioms</div>
+                    <ul>
+                        <li><strong>Sympathetic Origin:</strong> Thoracolumbar spinal cord gray matter lateral horns (C8 to L2).</li>
+                        <li><strong>Parasympathetic Origin:</strong> Craniosacral (CN III, VII, IX, X and S2–S4 sacral spinal cord).</li>
+                        <li><strong>Sympathetic Ganglia:</strong> Paravertebral chain and prevertebral (collateral) ganglia; short preganglionic, long postganglionic.</li>
+                        <li><strong>Parasympathetic Ganglia:</strong> Terminal (intramural) ganglia within or near target organs; long preganglionic, short postganglionic.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">⚡ Core Neurochemical Axioms</div>
+                    <ul>
+                        <li><strong>All Preganglionic Fibers:</strong> Release Acetylcholine (ACh) acting on Nicotinic receptors.</li>
+                        <li><strong>Parasympathetic Postganglionic:</strong> Release ACh acting on Muscarinic receptors (blocked by Atropine).</li>
+                        <li><strong>Sympathetic Postganglionic:</strong> Release Norepinephrine (NE) acting on $\alpha$ and $\beta$ receptors.</li>
+                        <li><strong>⭐ CRITICAL EXCEPTION:</strong> Sympathetic postganglionic innervation to <em>eccrine sweat glands</em> uses <strong>ACh</strong> acting on <strong>Muscarinic</strong> receptors!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <span class="standalone-heading">High-Yield Master Summary Table: System Division Comparison</span>
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <span class="table-title">Table 1: Anatomical & Functional Comparison of ANS Divisions</span>
+                    <button class="btn" onclick="copyTableText('table-div-comp')">📋 Copy Table</button>
+                </div>
+                <table id="table-div-comp">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Sympathetic Division</th>
+                            <th>Parasympathetic Division</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Primary Role</strong></td>
+                            <td>Energy mobilization; "Fight or Flight"; cardiovascular activation.</td>
+                            <td>Energy conservation & storage; "Rest and Digest"; GI and bladder activity.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Anatomical Origin</strong></td>
+                            <td>Thoracolumbar: Lateral horns of spinal cord (C8 / T1 – L2).</td>
+                            <td>Craniosacral: Midbrain, pons, medulla (CN III, VII, IX, X) & Sacral spinal cord (S2–S4).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ganglia Location</strong></td>
+                            <td>Paravertebral chain (alongside spine) and Prevertebral ganglia (anterior to spine).</td>
+                            <td>Terminal or Intramural ganglia (within or immediately adjacent to organ wall).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fiber Lengths</strong></td>
+                            <td>Short preganglionic, Long postganglionic.</td>
+                            <td>Long preganglionic, Short postganglionic.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Degree of Branching</strong></td>
+                            <td>Extensive (widespread, systemic discharge).</td>
+                            <td>Slight / Minimal (localized, discrete response).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rami Communicantes</strong></td>
+                            <td>White rami (myelinated preganglionic) & Gray rami (unmyelinated postganglionic).</td>
+                            <td>None.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Preganglionic Neurotransmitter</strong></td>
+                            <td>Acetylcholine (ACh) → Nicotinic Receptors.</td>
+                            <td>Acetylcholine (ACh) → Nicotinic Receptors.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Postganglionic Neurotransmitter</strong></td>
+                            <td>Norepinephrine (NE) (⭐ Exception: ACh for eccrine sweat glands).</td>
+                            <td>Acetylcholine (ACh) → Muscarinic Receptors.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================= TOPIC 1: FOUNDATIONS ================= -->
+        <section id="topic1" class="tab-content">
+            <h2>1. ANS Organization, Pathways & Neurotransmitters</h2>
+            
+            <p>The Autonomic Nervous System (ANS) is the involuntary branch of the peripheral nervous system (PNS) regulating internal visceral homeostasis, smooth muscle, cardiac muscle, and glandular secretions.</p>
+
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ MUST KNOW: CNS vs. ANS Motor Architecture</div>
+                <p>The <strong>Somatic Nervous System (CNS)</strong> utilizes a <em>single motor neuron</em> bridging the CNS directly to the effector organ (skeletal muscle). In contrast, the <strong>Autonomic Nervous System (ANS)</strong> utilizes a <em>two-neuron pathway</em> consisting of a <strong>preganglionic neuron</strong> (cell body in CNS) synapsing in an autonomic ganglion with a <strong>postganglionic neuron</strong> that projects to effector tissues.</p>
+            </div>
+
+            <span class="standalone-heading">Cranial Parasympathetic Ganglia & Innervation</span>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">Cranial Division (CN III, VII, IX, X)</div>
+                    <ul>
+                        <li><strong>CN III (Oculomotor):</strong> Originates in Edinger-Westphal nucleus → Synapses at <strong>Ciliary Ganglion</strong> → Pupillary sphincter (miosis) & ciliary muscle (accommodation).</li>
+                        <li><strong>CN VII (Facial):</strong> Superior salivatory nucleus → Synapses at <strong>Pterygopalatine Ganglion</strong> (lacrimal & nasal glands) and <strong>Submandibular Ganglion</strong> (submandibular & sublingual salivary glands).</li>
+                        <li><strong>CN IX (Glossopharyngeal):</strong> Inferior salivatory nucleus → Synapses at <strong>Otic Ganglion</strong> → Parotid gland (profuse watery saliva).</li>
+                        <li><strong>CN X (Vagus):</strong> Dorsal motor nucleus of vagus & nucleus ambiguus → Innervates heart, lungs, GI tract down to splenic flexure.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Sacral Division & Sympathetic Distribution</div>
+                    <ul>
+                        <li><strong>Sacral Parasympathetic (S2–S4):</strong> Originates in lateral horn gray matter of S2–S4 → Preganglionic fibers travel via sacral nerves / cauda equina → Synapse in intramural ganglia of distal colon, rectum, bladder, and erectile tissue.</li>
+                        <li><strong>Sympathetic Distribution (C8–L2):</strong> 3 cervical ganglia (Superior, Middle, Stellate/Cervicothoracic), 11 thoracic, and 4–6 lumbar ganglia. Long postganglionic fibers allow widespread multi-organ activation.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="diagram-box">
+                <div class="diagram-title">SVG Diagram: Autonomic Neurochemistry & Effector Synapses</div>
+                <div class="pathway-flow">
+                    <div class="pathway-step">CNS (Brainstem / Cord)</div>
+                    <div class="pathway-arrow">➔ Preganglionic Fiber ➔</div>
+                    <div class="pathway-step" style="background: var(--must-know-bg);">ACh (Nicotinic) at Ganglion</div>
+                    <div class="pathway-arrow">➔ Postganglionic Fiber ➔</div>
+                    <div class="pathway-step" style="background: var(--parasympathetic-bg);">Parasymp: ACh (Muscarinic)</div>
+                    <div class="pathway-step" style="background: var(--sympathetic-bg);">Symp: NE ($\alpha, \beta$) / ACh (Sweat)</div>
+                </div>
+            </div>
+
+            <span class="standalone-heading">Autonomic Receptor Subtypes & Pharmacologic Profiling</span>
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <span class="table-title">Table 2: Comprehensive Receptor Subtype Summary</span>
+                    <button class="btn" onclick="copyTableText('table-receptors')">📋 Copy Table</button>
+                </div>
+                <table id="table-receptors">
+                    <thead>
+                        <tr>
+                            <th>Receptor Class</th>
+                            <th>Subtype</th>
+                            <th>Primary Anatomical Location</th>
+                            <th>Physiologic Action</th>
+                            <th>Key Pharmacologic Antagonist / Blocker</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2"><strong>Cholinergic</strong></td>
+                            <td><strong>Nicotinic ($N_N, N_M$)</strong></td>
+                            <td>Autonomic ganglia (sympathetic & parasympathetic), Neuromuscular junction (NMJ).</td>
+                            <td>Fast excitation, ganglionic transmission, skeletal muscle contraction.</td>
+                            <td>Ganglionic blockers, <strong>Tubocurarine</strong> (NOT blocked by Atropine!).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Muscarinic ($M_1 - M_5$)</strong></td>
+                            <td>Parasympathetic target visceral organs, eccrine sweat glands.</td>
+                            <td>Decreased HR, pupillary constriction, GI hypermotility, glandular secretion.</td>
+                            <td><strong>Atropine</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5"><strong>Adrenergic</strong></td>
+                            <td><strong>Alpha-1 ($\alpha_1$)</strong></td>
+                            <td>Vascular smooth muscle, pupillary dilator, bladder sphincter.</td>
+                            <td>Vasoconstriction, pupil dilation (mydriasis), internal urinary sphincter closure.</td>
+                            <td>Phentolamine, Prazosin.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Alpha-2 ($\alpha_2$)</strong></td>
+                            <td>Presynaptic adrenergic nerve terminals, brainstem medullary centers.</td>
+                            <td>Negative feedback inhibition of NE release, decreased sympathetic outflow.创</td>
+                            <td>Yohimbine.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Beta-1 ($\beta_1$)</strong></td>
+                            <td>Heart (SA node, AV node, myocardium), juxtaglomerular cells.</td>
+                            <td>Increased heart rate (chronotropy) and contractility (inotropy), renin release.</td>
+                            <td>Atenolol, Metoprolol.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Beta-2 ($\beta_2$)</strong></td>
+                            <td>Bronchial smooth muscle, vascular smooth muscle in skeletal muscle.</td>
+                            <td>Bronchodilation, vasodilation, detrusor relaxation.</td>
+                            <td>Propranolol (non-selective).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Beta-3 ($\beta_3$)</strong></td>
+                            <td>Detrusor muscle of bladder, adipose tissue.</td>
+                            <td>Detrusor relaxation (promotes urine storage), lipolysis.</td>
+                            <td>Mirabegron (agonist).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-pitfall">
+                <div class="callout-title">⚠️ COMMON PITFALL: Atropine & Ganglionic Blockade</div>
+                <p>Do NOT confuse Nicotinic and Muscarinic blockade! <strong>Atropine</strong> blocks postganglionic muscarinic parasympathetic receptors and sweat glands. Atropine does <em>NOT</em> block autonomic ganglia or the neuromuscular junction. Nicotinic receptors in autonomic ganglia are counteracted by agents like <strong>tubocurarine</strong> or hexamethonium, not atropine.</p>
+            </div>
+        </section>
+
+        <!-- ================= TOPIC 2: CENTRAL CONTROL ================= -->
+        <section id="topic2" class="tab-content">
+            <h2>2. Central Control of Autonomic Function & Homeostasis</h2>
+
+            <p>The Central Autonomic Network (CAN) coordinates autonomic, endocrine, and behavioral responses to maintain internal milieu stability (thermoregulation, blood pressure, fluid balance, and stress responses).</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">Brainstem Integration & The NTS</div>
+                    <p>The principal visceral sensory nucleus in the brainstem is the <strong>Nucleus Tractus Solitarius (NTS)</strong> located in the dorsal medulla.</p>
+                    <ul>
+                        <li><strong>Visceral Afferents:</strong> Cardiovascular, respiratory, and GI afferents carried by <strong>CN IX</strong> (via petrosal ganglion) and <strong>CN X</strong> (via nodose ganglion) terminate directly on specific subnuclei of the NTS.</li>
+                        <li><strong>Projections:</strong> Caudal NTS integrates incoming signals and projects to the hypothalamus, amygdala, insular cortex, and medullary/pontine respiratory and vasopressor centers.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Cerebral Control & The "Visceral Brain"</div>
+                    <p>The <strong>Hypothalamus</strong> is the master integrator of the ANS and limbic system, acting through direct descending pathways to the brainstem/spinal cord and via the pituitary gland.</p>
+                    <ul>
+                        <li><strong>Highest Integration Levels:</strong> Ventromedial prefrontal cortex and cingulate cortex.</li>
+                        <li><strong>Insular Cortex:</strong> Receives projections from NTS, parabrachial nucleus, and lateral hypothalamus. Direct electrical stimulation of the insula can trigger severe cardiac dysrhythmias and wall motion abnormalities.</li>
+                        <li><strong>Visceral Brain:</strong> Cingulate gyrus, hippocampal gyrus, amygdala, substantia innominata, septal, piriform, and habenular nuclei.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <span class="standalone-heading">Baroreflex Physiology & Blood Pressure Homeostasis</span>
+            <p>The baroreflex provides moment-to-moment rapid blood pressure regulation. Baroreceptors are stretch receptors located in the <strong>carotid sinus</strong> (innervated by CN IX) and <strong>aortic arch</strong> (innervated by CN X).</p>
+
+            <div class="diagram-box">
+                <div class="diagram-title">Baroreflex Circuitry Chain</div>
+                <div class="pathway-flow">
+                    <div class="pathway-step">⬆️ Blood Pressure</div>
+                    <div class="pathway-arrow">➔</div>
+                    <div class="pathway-step">Carotid Sinus (CN IX) & Aortic Arch (CN X) Stretch</div>
+                    <div class="pathway-arrow">➔</div>
+                    <div class="pathway-step" style="background: var(--must-know-bg);">⬆️ NTS Activation (Medulla)</div>
+                    <div class="pathway-arrow">➔</div>
+                    <div class="pathway-step" style="background: var(--parasympathetic-bg);">⬆️ Parasympathetic (Vagus) ➔ ⬇️ HR</div>
+                    <div class="pathway-step" style="background: var(--sympathetic-bg);">⬇️ Sympathetic Outflow ➔ Vasodilation</div>
+                </div>
+            </div>
+
+            <div class="callout callout-pearl">
+                <div class="callout-title">💡 CLINICAL PEARL: Orthostatic Response Mechanism</div>
+                <p>When a healthy person stands up, gravity causes 300–800 mL of blood to pool in the lower extremities, reducing venous return and cardiac output. This transient drop in BP reduces baroreceptor firing, which immediately disinhibits sympathetic outflow and inhibits vagal tone, producing compensatory tachycardia and systemic vasoconstriction. <strong>Failure of this baroreflex arc leads to orthostatic hypotension!</strong></p>
+            </div>
+        </section>
+
+        <!-- ================= TOPIC 3: PELVIC & VISCERAL ================= -->
+        <section id="topic3" class="tab-content">
+            <h2>3. Autonomic Regulation of Pelvic & Visceral Organ Systems</h2>
+
+            <span class="standalone-heading">Regulation of Bladder Function (Micturition)</span>
+            <p>Micturition requires coordinated switching between the storage phase (sympathetic dominant) and the voiding phase (parasympathetic dominant), mediated by the Pontine Micturition Center (PMC / Barrington's nucleus).</p>
+
+            <div class="grid-2">
+                <div class="card" style="border-left: 4px solid var(--sympathetic-color);">
+                    <div class="card-header">1. Storage Phase (Sympathetic T11–L2 + Somatic)</div>
+                    <ul>
+                        <li><strong>Sympathetic (Hypogastric Nerve):</strong> Releases NE acting on <strong>$\beta_3$ / $\beta_2$ receptors</strong> to relax the detrusor muscle, and on <strong>$\alpha_1$ receptors</strong> to contract the bladder neck/internal sphincter.</li>
+                        <li><strong>Somatic Pudendal Nerve (S2–S4):</strong> Contracts the external urethral sphincter under voluntary control.</li>
+                        <li><strong>Result:</strong> Urine accumulates without leakage.</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="border-left: 4px solid var(--parasympathetic-color);">
+                    <div class="card-header">2. Voiding Phase (Parasympathetic S2–S4)</div>
+                    <ul>
+                        <li><strong>Parasympathetic (Pelvic Splanchnic Nerves):</strong> Releases ACh acting on <strong>$M_3$ receptors</strong> to cause powerful detrusor muscle contraction.</li>
+                        <li><strong>Sphincter Relaxation:</strong> Inhibition of sympathetic and somatic tone relaxes internal and external sphincters.</li>
+                        <li><strong>Pontine Micturition Center:</strong> Coordinates detrusor contraction with sphincter relaxation.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <span class="standalone-heading">Regulation of Bowel Function & Defecation</span>
+            <p>Bowel regulation depends on the intrinsic Enteric Nervous System (ENS), modulated by extrinsic autonomic nerves:</p>
+            <ul>
+                <li><strong>Colonic Storage:</strong> Sympathetic activity inhibits intestinal motility and maintains tonic contraction of the internal anal sphincter.</li>
+                <li><strong>Defecation Reflex:</strong> Rectal distension activates pelvic visceral afferents. Parasympathetic nerves (S2–S4) increase rectal and colonic peristaltic contractions and relax the internal anal sphincter. Voluntary relaxation of the external anal sphincter (pudendal nerve) permits evacuation.</li>
+            </ul>
+
+            <span class="standalone-heading">Organ-by-Organ Autonomic Actions Reference Table</span>
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <span class="table-title">Table 3: Dual Autonomic Innervation Across Organ Systems</span>
+                    <button class="btn" onclick="copyTableText('table-organs')">📋 Copy Table</button>
+                </div>
+                <table id="table-organs">
+                    <thead>
+                        <tr>
+                            <th>Organ / System</th>
+                            <th>Sympathetic Effect</th>
+                            <th>Parasympathetic Effect</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Pupil</strong></td>
+                            <td>Dilates (Mydriasis via $\alpha_1$ dilator pupillae).</td>
+                            <td>Constricts (Miosis via $M_3$ sphincter pupillae).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Heart</strong></td>
+                            <td>Increased HR ($\beta_1$) & contractility ($\beta_1$).</td>
+                            <td>Decreased HR (Vagus, $M_2$).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bronchi</strong></td>
+                            <td>Dilates / Bronchodilation ($\beta_2$).</td>
+                            <td>Constricts / Bronchoconstriction ($M_3$).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gastrointestinal Tract</strong></td>
+                            <td>Decreased motility, contraction of sphincters.</td>
+                            <td>Increased motility, relaxation of sphincters, profuse secretion.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Urinary Bladder</strong></td>
+                            <td>Storage (Detrusor relaxation $\beta_3$, Internal sphincter contraction $\alpha_1$).</td>
+                            <td>Emptying (Detrusor contraction $M_3$, Internal sphincter relaxation).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Salivary Glands</strong></td>
+                            <td>Viscid, sparse, amylase-rich secretion ($\alpha_1, \beta$).</td>
+                            <td>Profuse, watery, abundant salivary flow ($M_3$).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sweat Glands</strong></td>
+                            <td>Generalized sweating (⭐ Sympathetic Cholinergic via $M_3$).</td>
+                            <td>No innervation.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sexual Function</strong></td>
+                            <td>Ejaculation & Emission ("Point and Shoot" → Shoot = Sympathetic).</td>
+                            <td>Erection ("Point and Shoot" → Point = Parasympathetic).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================= TOPIC 4: ANS DISORDERS ================= -->
+        <section id="topic4" class="tab-content">
+            <h2>4. Clinical Disorders of the Autonomic Nervous System</h2>
+
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ MUST KNOW: Diagnostic Definition of Orthostatic Hypotension (OH)</div>
+                <p>Orthostatic Hypotension is defined as a sustained reduction of <strong>Systolic Blood Pressure of $\ge 20 \text{ mmHg}$</strong> OR a reduction of <strong>Diastolic Blood Pressure of $\ge 10 \text{ mmHg}$</strong> within <strong>3 minutes</strong> of standing up from a recumbent position (or on tilt-table testing). <em>Note: Some criteria use $30/15 \text{ mmHg}$.</em></p>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>1. Acute Pandysautonomia (Acute Autonomic Ganglionopathy)</span>
+                    <span>▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Definition:</strong> Rare acute/subacute widespread sympathetic and parasympathetic failure with complete sparing of somatic motor and sensory nerve fibers.</p>
+                    <p><strong>Pathophysiology:</strong> Autoimmune antibody-mediated destruction of autonomic postganglionic fibers or autonomic ganglia (associated with ganglionic AChR antibodies; seen as a post-infectious Guillain-Barré variant).</p>
+                    <p><strong>Clinical Picture:</strong> Severe orthostatic hypotension, anhidrosis, fixed unreactive pupils, loss of lacrimation/salivation (dry eyes, dry mouth), erectile dysfunction, neurogenic bladder/bowel (urinary retention, severe postprandial bloating, paralytic ileus/constipation), and profound fatigue.</p>
+                    <p><strong>Treatment & Prognosis:</strong> IVIg or plasmapheresis (plasma exchange). Prognosis is generally good with gradual recovery.</p>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>2. Multiple System Atrophy (MSA)</span>
+                    <span>▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Definition:</strong> Adult-onset, sporadic, rapidly progressive neurodegenerative fatal synucleinopathy characterized by oligodendroglial cytoplasmic inclusions (alpha-synuclein).</p>
+                    <p><strong>Clinical Subtypes:</strong></p>
+                    <ul>
+                        <li><strong>MSA-P (Parkinsonian type):</strong> Prominent parkinsonism poorly responsive to L-dopa.</li>
+                        <li><strong>MSA-C (Cerebellar type):</strong> Prominent cerebellar ataxia and dysarthria.</li>
+                        <li><strong>MSA-A (Shy-Drager Syndrome / Autonomic type):</strong> Predominant autonomic failure (severe orthostatic hypotension, urinary incontinence, erectile dysfunction, vocal cord paresis/stridor).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>3. Peripheral Neuropathies with Neurogenic OH & Diabetic Autonomic Neuropathy</span>
+                    <span>▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Etiologies:</strong> Diabetes mellitus (most common), amyloidosis, alcohol, nutritional deficiencies, toxic/heavy metals, porphyria.</p>
+                    <p><strong>Diabetic Polyneuropathy:</strong> Long-standing poorly controlled diabetes causes unmyelinated/small-fiber autonomic loss. Manifests as orthostatic hypotension, resting tachycardia (due to early vagal loss), gastroparesis (delayed gastric emptying, postprandial fullness, vomiting), diabetic cystopathy (neurogenic bladder), erectile dysfunction, and gustatory sweating.</p>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>4. Familial Autonomic Neuropathy (Riley-Day Syndrome / HSAN Type III)</span>
+                    <span>▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Genetics:</strong> Autosomal recessive disorder primarily affecting Ashkenazi Jewish infants and children (IKBKAP/ELP1 gene mutation).</p>
+                    <p><strong>Hallmark Features:</strong> Postural hypotension with marked BP lability, absence of fungiform papillae on tongue (taste loss), defective lacrimation (alacrima/dry eyes), insensitivity to pain and temperature, hyperhidrosis, blotchiness of skin, cyclic vomiting, and emotional lability.</p>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>5. Horner Syndrome (Bernard-Horner Syndrome) & 3-Neuron Pathway</span>
+                    <span>▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Definition:</strong> Interruption of Oculosympathetic sympathetic supply to the eye and face.</p>
+                    <p><strong>Classic Triad:</strong> <strong>Miosis</strong> (pupillary constrictor unopposed), <strong>Ptosis</strong> (paralysis of superior tarsal / Müller's muscle), and <strong>Anhidrosis</strong> (loss of sweating on ipsilateral face).</p>
+                    
+                    <span class="standalone-heading">3-Order Oculosympathetic Pathway Breakdown</span>
+                    <ul>
+                        <li><strong>1st-Order (Central) Neuron:</strong> Hypothalamus → travels down brainstem and cervical spinal cord → synapses in <strong>Ciliospinal Center of Budge (C8–T2)</strong>. <em>(Lesions: Wallenberg syndrome, stroke, syringomyelia).</em></li>
+                        <li><strong>2nd-Order (Preganglionic) Neuron:</strong> Ciliospinal center → exits spinal cord → sympathetic chain → apex of lung → synapses in <strong>Superior Cervical Ganglion (SCG)</strong> at C2–C3 level. <em>(Lesions: Pancoast apical lung tumor, subclavian aneurysm, neck trauma).</em></li>
+                        <li><strong>3rd-Order (Postganglionic) Neuron:</strong> SCG → travels along internal carotid artery plexus → cavernous sinus → long ciliary nerves → dilator pupillae and Müller muscle. <em>(⭐ Note: Facial sudomotor fibers branch at SCG along the external carotid artery! Thus, 3rd-order post-carotid lesions show ptosis/miosis WITHOUT facial anhidrosis!).</em></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>6. Acute Autonomic Crises (Sympathetic Storm / PSH)</span>
+                    <span>▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Etiologies:</strong> Severe traumatic brain injury (TBI), hypertensive intracerebral hemorrhage, acute cocaine/methamphetamine/phenylpropanolamine toxicity.</p>
+
+                    <div class="callout callout-must-know">
+                        <div class="callout-title">⭐ THREE TEMPORAL MECHANISMS OF HYPERSYMPATHETIC STATE</div>
+                        <ol>
+                            <li><strong>Acute Catecholamine Surge:</strong> Sudden massive adrenal release of epinephrine and NE at the time of ictus → acute extreme hypertension and tachycardia.</li>
+                            <li><strong>Cushing's Response:</strong> Brainstem-mediated vasopressor reflex triggered by high ICP → Hypertension, Bradycardia, and Irregular respiration.</li>
+                            <li><strong>Late Chronic Phenomenon (Diencephalic Autonomic Seizures / PSH):</strong> Recurrent paroxysmal episodes of severe hypertension, profuse diaphoresis, hyperthermia, mydriasis, and rigid extensor posturing.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>7. Lambert-Eaton Myasthenic Syndrome (LEMS)</span>
+                    <span>▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Pathology:</strong> Autoantibodies directed against presynaptic <strong>P/Q-type Voltage-Gated Calcium Channels (VGCC)</strong>, inhibiting ACh release at both nicotinic (NMJ) and muscarinic (autonomic) synapses. Highly associated with Small Cell Lung Cancer (SCLC).</p>
+                    <p><strong>Autonomic Symptoms:</strong> Dry mouth (xerostomia - most common), constipation, erectile dysfunction, urinary hesitancy/difficulty.</p>
+                    <p><strong>Key Clinical Distinction:</strong> Weakness in LEMS <em>improves with exertion/repetitive muscle contraction</em> (facilitation), unlike Myasthenia Gravis where weakness worsens with activity.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TOPIC 5: RESPIRATION ================= -->
+        <section id="topic5" class="tab-content">
+            <h2>5. Nervous System Control of Respiration & Aberrant Breathing</h2>
+
+            <p>Breathing is completely under neural control. Respiratory rhythm generation and pattern modulation occur in lower brainstem medullary and pontine nuclei.</p>
+
+            <span class="standalone-heading">Paired Respiratory Brainstem Nuclei Groups</span>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-header">1. Dorsal Respiratory Group (DRG)</div>
+                    <p>Located dorsal medulla near <strong>Nucleus Tractus Solitarius (NTS)</strong>. Contains primarily <strong>inspiratory neurons</strong>. Connects directly to phrenic (C3–C5) and intercostal motor neurons.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">2. Ventral Respiratory Group (VRG)</div>
+                    <p>Extends along ventral medulla near nucleus retroambiguus/ambiguus.</p>
+                    <ul>
+                        <li><strong>Rostral VRG:</strong> Inspiratory neurons.</li>
+                        <li><strong>Caudal VRG:</strong> Expiratory neurons.</li>
+                        <li><strong>Pre-Bötzinger Complex:</strong> Rostral ventrolateral medulla; essential pacemaker for respiratory rhythm generation.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">3. Pontine Respiratory Group (PRG)</div>
+                    <p>Located in dorsolateral pons (parabrachial nucleus). Acts as "on-off" switches modulating transitions between inspiration and expiration (pneumotaxic center).</p>
+                </div>
+            </div>
+
+            <span class="standalone-heading">Summary Table of Aberrant Respiratory Problems</span>
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <span class="table-title">Table 4: Master Review of Aberrant Respiratory Patterns</span>
+                    <button class="btn" onclick="copyTableText('table-resp-aberrant')">📋 Copy Table</button>
+                </div>
+                <table id="table-resp-aberrant">
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Clinical Features / Presentation</th>
+                            <th>Etiology & Mechanism</th>
+                            <th>Pathology / Associated Lesions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Leeuwenhoek's Disease</strong></td>
+                            <td>Almost continuous epigastric pulsation; dyspnea with rhythmic bursts of inspiratory muscle activity.</td>
+                            <td>Respiratory myoclonus (akin to palatal myoclonus).</td>
+                            <td>Diaphragmatic myoclonus / brainstem circuit dysfunction.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cheyne-Stokes Breathing</strong></td>
+                            <td>Waxing and waning cyclic hyperpnea alternating with apnea. Consciousness parallels cycle (awake at peak, comatose at apnea).</td>
+                            <td>Prolonged circulation time or heightened medullary $CO_2$ sensitivity.</td>
+                            <td>Congestive Heart Failure (CHF) or bilateral deep hemispheric lesions / metabolic encephalopathy.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ondine's Curse</strong><br><em>(Failure of Automatic Breathing)</em></td>
+                            <td><strong>Loss of automatic respiration during sleep</strong>; voluntary breathing while awake remains intact. Patients must remain awake to breathe.</td>
+                            <td>Selective destruction of descending ventrolateral medullocervical automatic breathing tracts.</td>
+                            <td>Brainstem infarction, brainstem encephalitis (e.g., <em>Listeria</em>), Leigh syndrome, Duret hemorrhages. Nighttime mechanical ventilation required.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Loss of Voluntary Control</strong></td>
+                            <td>Complete loss of voluntary breathing capability; preserved automatic monorhythmic breathing (~16 bpm).</td>
+                            <td>Interruption of corticospinal descending voluntary pathways.</td>
+                            <td>Component of the "Locked-In State" (ventral pontine lesions).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Congenital Central Hypoventilation (CCHS)</strong></td>
+                            <td>Infancy: sleep apneas, hypoventilation. Childhood: chronic hypoxia leading to pulmonary hypertension.</td>
+                            <td>Idiopathic loss of automatic central ventilation (PHOX2B gene mutations).</td>
+                            <td>Neuronal depletion in arcuate nucleus and respiratory centers of medulla.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hiccup (Singultus)</strong></td>
+                            <td>Sudden powerful diaphragm & intercostal contraction followed immediately by laryngeal closure (15–45/min). No net air movement.</td>
+                            <td>Triggered by GI reflexes near diaphragm; inhibited by hypercapnia ($CO_2$).</td>
+                            <td>Lateral Medullary (Wallenberg) Syndrome, medullary masses, uremia, dexamethasone. Rx: <strong>Baclofen</strong>, Metoclopramide.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-tip">
+                <div class="callout-title">🧠 EXAM TIP: Neuromuscular Respiratory Failure Indicators</div>
+                <p>In acute neuromuscular respiratory failure (GBS, Myasthenia Gravis), watch for <strong>Paradoxical Respiration</strong> (inward abdominal retraction during inspiration) and <strong>Respiratory Alternans</strong> (diaphragm descends only on alternate breaths). These signs appear when Vital Capacity (VC) drops to <strong>~10% of normal (~500 mL)</strong>, signaling impending respiratory arrest requiring intubation!</p>
+            </div>
+        </section>
+
+        <!-- ================= TOPIC 6: SWALLOWING & EMESIS ================= -->
+        <section id="topic6" class="tab-content">
+            <h2>6. Control of Swallowing, Vomiting & Dysphagia</h2>
+
+            <span class="standalone-heading">Nervous System Control of Swallowing</span>
+            <p>Swallowing is a complex reflex-coordinated process occurring ~1 time per minute at rest. Neural control is centered in the <strong>Nucleus Tractus Solitarius (NTS)</strong> in the medulla, coordinating with respiratory centers to enforce <em>swallowing apnea</em> (preventing aspiration).</p>
+
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-header">1. Oral Phase (Voluntary)</div>
+                    <p>Controlled by motor cortex and <strong>CN XII (Hypoglossal)</strong>. Tongue propels food bolus into oropharynx. Lesions cause difficulty initiating swallow and lingual dysarthria.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">2. Pharyngeal Phase (Reflexive)</div>
+                    <p>Mediated by <strong>CN IX (Glossopharyngeal)</strong> and <strong>CN X (Vagus)</strong>. Nasopharynx closes, larynx elevates, epiglottis folds, vocal cords adduct, and cricopharyngeus relaxes.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">3. Esophageal Phase (Involuntary)</div>
+                    <p>Driven by <strong>CN X (Vagus)</strong>. Sequential peristaltic waves propel bolus down esophagus into stomach.</p>
+                </div>
+            </div>
+
+            <span class="standalone-heading">Dysphagia, Aspiration & Clinical Neurologic Causes</span>
+            <ul>
+                <li><strong>Stroke:</strong> Most common neurologic cause of swallowing discoordination. Usually improves over weeks, but up to 50% remain impaired at 6 months.</li>
+                <li><strong>Parkinson's Disease:</strong> Reduced swallowing frequency + discoordination between swallowing and breathing → high risk of silent aspiration.</li>
+                <li><strong>Velopalatine Closure Failure:</strong> Causes nasal regurgitation of liquids and hypernasal speech. Caused by MG, CN X lesions, or bulbar/pseudobulbar palsy.</li>
+            </ul>
+
+            <span class="standalone-heading">Neural Control of Vomiting (Emesis)</span>
+            <p>Vomiting is coordinated by medullary networks receiving inputs from the <strong>Area Postrema</strong> (located in the floor of the 4th ventricle).</p>
+
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ Area Postrema & Neurochemistry</div>
+                <p>The <strong>Area Postrema</strong> lacks a blood-brain barrier (BBB), serving as the chemoreceptor trigger zone (CTZ) detecting circulating emetogenic toxins and drugs. It expresses rich receptor density: <strong>Dopamine $D_2$</strong>, <strong>Serotonin $5\text{-HT}_3$</strong>, <strong>Opioid</strong>, <strong>Substance P / $NK_1$</strong>, and <strong>ACh</strong> receptors. Pharmacologic antiemetics like <strong>Ondansetron</strong> ($5\text{-HT}_3$ blocker) and <strong>Metoclopramide</strong> ($D_2$ antagonist) act directly here!</p>
+            </div>
+        </section>
+
+        <!-- ================= TOPIC 7: AUTONOMIC TESTING ================= -->
+        <section id="topic7" class="tab-content">
+            <h2>7. Clinical Approach & Autonomic Testing</h2>
+
+            <p>Systematic clinical assessment of dysautonomia follows 4 steps: (1) Identify affected domains, (2) Determine pattern (central vs. peripheral, acute vs. chronic), (3) Search for etiology, and (4) Treat underlying disorder and manage symptoms.</p>
+
+            <span class="standalone-heading">Full Reproduction of Table 25-1: Clinical Tests of Autonomic Function</span>
+            <div class="table-container">
+                <div class="table-header-tools">
+                    <span class="table-title">Table 25-1: Master Autonomic Function Testing Matrix</span>
+                    <button class="btn" onclick="copyTableText('table-25-1')">📋 Copy Table</button>
+                </div>
+                <table id="table-25-1">
+                    <thead>
+                        <tr>
+                            <th>Test Category & Specific Test</th>
+                            <th>Normal Response</th>
+                            <th>Main Part of Reflex Arc Tested</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="3" style="background: var(--accent-light); font-weight:700;">1. NONINVASIVE BEDSIDE TESTS</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blood pressure response to standing or vertical tilt</strong></td>
+                            <td>Fall in SBP $\le 20 \text{ mmHg}$ (or $\le 30/15 \text{ mmHg}$).</td>
+                            <td>Afferent and sympathetic efferent limbs.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Heart rate response to standing (30:15 ratio)</strong></td>
+                            <td>Increase 11–90 beats/min; 30:15 ratio $\ge 1.04$.</td>
+                            <td>Vagal afferent and efferent limbs.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Isometric exercise test (handgrip)</strong></td>
+                            <td>Increase in diastolic BP $\ge 15 \text{ mmHg}$.</td>
+                            <td>Sympathetic efferent limb.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Heart rate variation with respiration (Deep breathing)</strong></td>
+                            <td>Max – Min HR $\ge 15 \text{ beats/min}$; E:I ratio $\ge 1.2$.</td>
+                            <td>Vagal afferent and efferent limbs.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Valsalva ratio</strong></td>
+                            <td>$\ge 1.4$.</td>
+                            <td>Afferent and efferent limbs (sympathetic & parasympathetic).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sweat tests / Thermoregulatory sweat test</strong></td>
+                            <td>Sweating over all body and limbs.</td>
+                            <td>Sympathetic efferent limb (cholinergic).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Axon reflex</strong></td>
+                            <td>Local piloerection and sweating.</td>
+                            <td>Postganglionic sympathetic efferent fibers.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plasma noradrenaline level</strong></td>
+                            <td>Rises on tilting from horizontal to vertical.</td>
+                            <td>Sympathetic efferent limb.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plasma vasopressin level</strong></td>
+                            <td>Rise with induced hypotension.</td>
+                            <td>Afferent limb.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="background: var(--accent-light); font-weight:700;">2. INVASIVE TESTS</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Valsalva maneuver (continuous BP monitor)</strong></td>
+                            <td>Phase I: Rise in BP; Phase II: Gradual fall to plateau w/ tachycardia; Phase III: Fall in BP; Phase IV: Overshoot of BP w/ bradycardia.</td>
+                            <td>Afferent and sympathetic efferent limbs.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Baroreflex sensitivity</strong></td>
+                            <td>(1) Slowing of HR with induced rise of BP; (2) Steady-state responses to induced rise and fall of BP.</td>
+                            <td>(1) Parasympathetic afferent and efferent limbs; (2) Afferent and efferent limbs.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infusion of pressor drugs</strong></td>
+                            <td>(1) Rise in BP; (2) Slowing of heart rate.</td>
+                            <td>(1) Adrenergic receptors; (2) Afferent & efferent parasympathetic limbs.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="background: var(--accent-light); font-weight:700;">3. TESTS OF PUPILLARY INNERVATION</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4% Cocaine Eye Drop</strong></td>
+                            <td>Pupil dilates (blocks NE reuptake). Normal dilation; <strong>no/impaired dilation in Horner's</strong>.</td>
+                            <td>Sympathetic innervation.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>0.1% Adrenaline (Epinephrine)</strong></td>
+                            <td>No response in normal pupil. Dilates in postganglionic Horner (denervation supersensitivity).</td>
+                            <td>Postganglionic sympathetic innervation.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1% Hydroxyamphetamine</strong></td>
+                            <td>Pupil dilates (stimulates stored NE release). <strong>Fails to dilate if 3rd-order postganglionic lesion!</strong></td>
+                            <td>Postganglionic sympathetic innervation.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2.5% Methacholine / 0.125% Pilocarpine</strong></td>
+                            <td>No response in normal pupil. Constricts tonic pupil (Adie's pupil).</td>
+                            <td>Parasympathetic innervation.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>0.5% Apraclonidine Eye Drop</strong></td>
+                            <td>Minimal effect in normal pupil. <strong>Pupil dilates and ptosis resolves in Horner's Syndrome!</strong></td>
+                            <td>Parasympathetic / Sympathetic evaluation ($\alpha_1$ supersensitivity).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-pearl">
+                <div class="callout-title">💡 CLINICAL PEARL: Simplest Bedside Test for Vagal Dysfunction</div>
+                <p>Failure of the heart rate to rise in response to a drop in blood pressure upon standing (or loss of heart rate variability during deep breathing) is the simplest, most sensitive bedside indicator of <strong>vagal (parasympathetic) nerve dysfunction</strong>!</p>
+            </div>
+        </section>
+
+        <!-- ================= COMPARISONS TAB ================= -->
+        <section id="comparisons" class="tab-content">
+            <h2>Side-by-Side Diagnostic Comparisons</h2>
+
+            <span class="standalone-heading">1. Sympathetic vs. Parasympathetic Nervous System</span>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Sympathetic System</th>
+                            <th>Parasympathetic System</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Primary Mandate</strong></td>
+                            <td>Fight or flight; emergency reaction; catabolic.</td>
+                            <td>Rest and digest; conservation of energy; anabolic.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Outflow Segments</strong></td>
+                            <td>Thoracolumbar (C8–L2).</td>
+                            <td>Craniosacral (CN III, VII, IX, X & S2–S4).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ganglia Architecture</strong></td>
+                            <td>Paravertebral chain & prevertebral (distant from organ).</td>
+                            <td>Intramural / terminal (in or near organ wall).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Axon Lengths</strong></td>
+                            <td>Short preganglionic, Long postganglionic.</td>
+                            <td>Long preganglionic, Short postganglionic.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Postganglionic Transmitter</strong></td>
+                            <td>Norepinephrine (NE) (Sweat glands = ACh).</td>
+                            <td>Acetylcholine (ACh).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <span class="standalone-heading">2. Nicotinic vs. Muscarinic Cholinergic Receptors</span>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Nicotinic Receptors</th>
+                            <th>Muscarinic Receptors</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Anatomical Locations</strong></td>
+                            <td>Autonomic ganglia (all), Skeletal Muscle NMJ.</td>
+                            <td>Parasympathetic target visceral organs, Eccrine sweat glands.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Receptor Type</strong></td>
+                            <td>Ligand-gated ion channel (fast).</td>
+                            <td>G-protein coupled receptor (GPCR) (slow).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Atropine Sensitivity</strong></td>
+                            <td><strong>NOT blocked by Atropine.</strong></td>
+                            <td><strong>BLOCKED by Atropine.</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Specific Blockers</strong></td>
+                            <td>Tubocurarine, Hexamethonium.</td>
+                            <td>Atropine, Scopolamine.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <span class="standalone-heading">3. Myasthenia Gravis (MG) vs. Lambert-Eaton Myasthenic Syndrome (LEMS)</span>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Myasthenia Gravis (MG)</th>
+                            <th>Lambert-Eaton Syndrome (LEMS)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Antibody Target</strong></td>
+                            <td>Postsynaptic ACh Receptor (AChR).</td>
+                            <td>Presynaptic Voltage-Gated Calcium Channels (P/Q VGCC).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Autonomic Features</strong></td>
+                            <td><strong>Absent.</strong></td>
+                            <td><strong>Prominent</strong> (Dry mouth, constipation, ED).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Effect of Muscle Exercise</strong></td>
+                            <td>Worsens weakness (fatigability).</td>
+                            <td>Temporarily improves strength (facilitation).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Malignancy Association</strong></td>
+                            <td>Thymoma (~15%).</td>
+                            <td>Small Cell Lung Cancer (SCLC, ~50%).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <span class="standalone-heading">4. Horner's Pharmacologic Testing Differentiating Matrix</span>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Eye Drop Agent</th>
+                            <th>Normal Pupil Effect</th>
+                            <th>Horner Pupil Response</th>
+                            <th>Clinical Utility</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>4% Cocaine</strong></td>
+                            <td>Dilates.</td>
+                            <td><strong>No Dilation</strong> (or minimal).</td>
+                            <td>Confirms diagnosis of Horner's Syndrome.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>0.5% Apraclonidine</strong></td>
+                            <td>Minimal / No effect.</td>
+                            <td><strong>Dilates & Ptosis Resolves</strong>.</td>
+                            <td>Confirms Horner's (via $\alpha_1$ supersensitivity).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1% Hydroxyamphetamine</strong></td>
+                            <td>Dilates.</td>
+                            <td>Dilates = 1st/2nd order intact.<br><strong>Fails to dilate = 3rd order lesion.</strong></td>
+                            <td>Localizes 1st/2nd order vs. 3rd order postganglionic lesion.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================= FLASHCARDS TAB ================= -->
+        <section id="flashcards" class="tab-content">
+            <h2>Active Recall Flashcards (53 Cards)</h2>
+            <p>Master key concepts using spaced active recall. Click card or press <code>Spacebar</code> to flip. Use arrow keys to navigate.</p>
+
+            <div class="flashcard-controls">
+                <div>
+                    <label style="font-weight:700; margin-right:8px;">Filter Section:</label>
+                    <select id="flashcardFilter" onchange="filterFlashcards()">
+                        <option value="all">All Topics (53)</option>
+                        <option value="foundations">ANS Foundations & Receptors</option>
+                        <option value="central">Central Control & Baroreflex</option>
+                        <option value="visceral">Visceral & Pelvic Regulation</option>
+                        <option value="disorders">Clinical ANS Disorders</option>
+                        <option value="horner">Horner Syndrome & Pupil</option>
+                        <option value="respiration">Respiration & Aberrant Patterns</option>
+                        <option value="swallowing">Swallowing & Emesis</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn" onclick="shuffleFlashcards()">🔀 Shuffle</button>
+                    <span id="flashcardCounter" style="font-family:var(--font-mono); font-weight:700; margin-left:12px;">Card 1 / 53</span>
+                </div>
+            </div>
+
+            <div class="flashcard-container" onclick="flipFlashcard()">
+                <div class="flashcard" id="activeFlashcard">
+                    <div class="flashcard-front">
+                        <span class="flashcard-tag" id="cardTag">Tag</span>
+                        <div class="flashcard-text" id="cardFrontText">Question Front</div>
+                        <span class="flashcard-hint">Click or press Spacebar to reveal answer</span>
+                    </div>
+                    <div class="flashcard-back">
+                        <span class="flashcard-tag">ANSWER</span>
+                        <div class="flashcard-text" id="cardBackText">Answer Back</div>
+                        <span class="flashcard-hint">Click or press Spacebar to flip back</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-nav">
+                <button class="btn" onclick="prevFlashcard()">◀ Previous</button>
+                <button class="btn btn-primary" onclick="nextFlashcard()">Next ▶</button>
+            </div>
+        </section>
+
+        <!-- ================= QUIZ TAB ================= -->
+        <section id="quiz" class="tab-content">
+            <h2>Board-Style Self-Assessment (50 MCQs)</h2>
+            <p>Interactive exam simulator. Complete questions to test your readiness for Philippine Medical Board & LE examinations.</p>
+
+            <div class="quiz-score-banner">
+                <div>
+                    <strong style="font-size:1.1rem;">Exam Score: <span id="quizScore">0</span> / 50</strong>
+                    <span id="quizPercentage" style="margin-left:12px; font-family:var(--font-mono);">(0%)</span>
+                </div>
+                <button class="btn" style="background:#ffffff; color:var(--text-primary);" onclick="resetQuiz()">🔄 Reset Quiz</button>
+            </div>
+
+            <div class="quiz-container" id="quizQuestionsContainer">
+                <!-- Dynamically Populated by JS -->
+            </div>
+        </section>
+
+        <!-- ================= CRAM SHEET TAB ================= -->
+        <section id="cram" class="tab-content">
+            <h2>Ultra-Condensed Last-Minute Cram Sheet</h2>
+            <p>Reviewable in under 10 minutes. Memorize these absolute high-yield buzzwords and diagnostic triggers before entering the examination hall!</p>
+
+            <div class="cram-grid">
+                <div class="cram-box">
+                    <div class="card-header">⚡ "If You See X → Think Y" Clinical Triggers</div>
+                    <ul>
+                        <li><strong>Anhidrosis + OH + fixed pupils + dry mouth + fatigue (sparing motor):</strong> → Acute Pandysautonomia.</li>
+                        <li><strong>Parkinsonism + cerebellar ataxia + dysautonomia + stridor:</strong> → Multiple System Atrophy (MSA).</li>
+                        <li><strong>Child + Ashkenazi Jewish + no taste papillae + alacrima + labile BP:</strong> → Riley-Day Syndrome (Familial Dysautonomia).</li>
+                        <li><strong>Ptosis + Miosis + Anhidrosis:</strong> → Horner Syndrome.</li>
+                        <li><strong>Horner Syndrome + pupil dilates with Apraclonidine:</strong> → Confirms Horner Syndrome.</li>
+                        <li><strong>Horner Syndrome + pupil fails to dilate with Hydroxyamphetamine:</strong> → 3rd-Order Postganglionic Lesion.</li>
+                        <li><strong>TBI patient + HTN + mydriasis + diaphoresis + extensor posturing:</strong> → Sympathetic Storm (Paroxysmal Sympathetic Hyperactivity).</li>
+                        <li><strong>Proximal weakness + dry mouth + strength improves with effort:</strong> → Lambert-Eaton Myasthenic Syndrome (LEMS).</li>
+                        <li><strong>Loss of automatic breathing during sleep ONLY (awake normal):</strong> → Ondine's Curse.</li>
+                        <li><strong>Waxing-waning respiration with LOC mirroring cycle:</strong> → Cheyne-Stokes Breathing (CHF / hemispheric lesion).</li>
+                        <li><strong>Singultus (Hiccups) + wallenberg stroke:</strong> → Medullary circuit lesion (Rx: Baclofen).</li>
+                        <li><strong>Inward abdominal retraction during inspiration:</strong> → Paradoxical Respiration (impending diaphragm paralysis).</li>
+                    </ul>
+                </div>
+
+                <div class="cram-box">
+                    <div class="card-header">🎯 Buzzword Rapid Reference</div>
+                    <ul>
+                        <li><strong>NTS (Nucleus Tractus Solitarius):</strong> Principal brainstem visceral sensory nucleus (CN IX, X).</li>
+                        <li><strong>Area Postrema:</strong> Floor of 4th ventricle, lacks BBB, chemoreceptor trigger zone for vomiting.</li>
+                        <li><strong>Pre-Bötzinger Complex:</strong> Pacemaker for respiratory rhythm generation in ventrolateral medulla.</li>
+                        <li><strong>Ciliospinal Center of Budge:</strong> C8–T2 origin of 2nd-order preganglionic sympathetic fibers for Horner's.</li>
+                        <li><strong>Eccrine Sweat Glands:</strong> Anatomically sympathetic, BUT neurochemically CHOLINERGIC ($M_3$).</li>
+                        <li><strong>30:15 Ratio $\ge 1.04$:</strong> Normal HR response to standing (tests vagal efferent).</li>
+                        <li><strong>Valsalva Phase IV Overshoot:</strong> Normal sympathetic vasoconstriction recovery; absent in autonomic failure.</li>
+                        <li><strong>Vital Capacity $\le 10\%$ (~500 mL):</strong> Threshold for acute neuromuscular respiratory failure.</li>
+                        <li><strong>Atropine:</strong> Blocks muscarinic postganglionic parasympathetic, does NOT block ganglia or NMJ.</li>
+                        <li><strong>Pudendal Nerve (S2–S4):</strong> Somatic control of external urethral and external anal sphincters.</li>
+                    </ul>
+                </div>
+
+                <div class="cram-box">
+                    <div class="card-header">📊 Rapid Review Table: Drug Reactions</div>
+                    <ul>
+                        <li><strong>4% Cocaine:</strong> Dilates normal pupil; no dilation in Horner.</li>
+                        <li><strong>0.5% Apraclonidine:</strong> Dilates Horner pupil, reverses ptosis.</li>
+                        <li><strong>1% Hydroxyamphetamine:</strong> Dilates 1st/2nd order Horner; fails in 3rd order.</li>
+                        <li><strong>2.5% Methacholine / 0.125% Pilocarpine:</strong> Constricts Adie's tonic pupil (denervation supersensitivity).</li>
+                        <li><strong>Baclofen:</strong> First-line pharmacotherapy for intractable hiccups (singultus).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">▲</button>
+
+    <script>
+        /* ================= GLOBAL STATE & UTILITIES ================= */
+        let currentFlashcardIndex = 0;
+        let filteredFlashcards = [];
+        let quizAnswers = {};
+
+        // Comprehensive Flashcards Dataset (53 Cards)
+        const flashcardData = [
+            // Foundations & Receptors
+            { tag: "foundations", front: "What is the anatomical origin of the sympathetic nervous system?", back: "Thoracolumbar spinal cord gray matter lateral horns from C8/T1 to L2." },
+            { tag: "foundations", front: "What is the anatomical origin of the parasympathetic nervous system?", back: "Craniosacral: Brainstem nuclei (CN III, VII, IX, X) and sacral spinal cord segments S2–S4." },
+            { tag: "foundations", front: "What neurotransmitter and receptor are present at ALL autonomic preganglionic synapses?", back: "Acetylcholine (ACh) acting on Nicotinic receptors." },
+            { tag: "foundations", front: "What is the crucial exception to the rule that sympathetic postganglionic neurons release Norepinephrine?", back: "Sympathetic postganglionic fibers innervating ECCRINE SWEAT GLANDS release Acetylcholine (ACh) acting on Muscarinic receptors." },
+            { tag: "foundations", front: "Are nicotinic receptors in autonomic ganglia blocked by Atropine?", back: "NO! Atropine selectively blocks postganglionic muscarinic receptors. Ganglionic nicotinic receptors are blocked by agents like tubocurarine or hexamethonium." },
+            { tag: "foundations", front: "What parasympathetic ganglion is associated with CN III and what is its function?", back: "Ciliary Ganglion → Pupillary constriction (miosis) and ciliary muscle contraction." },
+            { tag: "foundations", front: "What parasympathetic ganglion supplies the Parotid gland?", back: "Otic Ganglion (via CN IX Glossopharyngeal nerve)." },
+            { tag: "foundations", front: "Which receptor subtype mediates sympathetic bronchodilation and vasodilation in skeletal muscle?", back: "Beta-2 ($\beta_2$) Adrenergic Receptors." },
+
+            // Central Control
+            { tag: "central", front: "What is the primary visceral sensory afferent nucleus in the brainstem?", back: "Nucleus Tractus Solitarius (NTS) located in the dorsal medulla." },
+            { tag: "central", front: "Which cranial nerves carry visceral sensory afferents to the NTS?", back: "CN IX (Glossopharyngeal via petrosal ganglion) and CN X (Vagus via nodose ganglion)." },
+            { tag: "central", front: "What cerebral cortex region receives direct NTS projections and triggers cardiac dysrhythmias when stimulated?", back: "The Insular Cortex (Insula)." },
+            { tag: "central", front: "Where are arterial baroreceptors located and what nerves carry their afferents?", back: "Carotid Sinus (innervated by CN IX) and Aortic Arch (innervated by CN X)." },
+            { tag: "central", front: "What happens to baroreceptor firing and ANS outflow when blood pressure RISES?", back: "Increased BP → Increased baroreceptor firing to NTS → Increased parasympathetic (vagal) outflow + Decreased sympathetic outflow → Bradycardia & Vasodilation." },
+            { tag: "central", front: "What structures constitute the 'Visceral Brain'?", back: "Cingulate gyrus, hippocampal gyrus, amygdala, substantia innominata, septal, piriform, and habenular nuclei." },
+            { tag: "central", front: "What are the highest cortical levels of autonomic integration?", back: "Ventromedial prefrontal cortex and cingulate cortex." },
+
+            // Visceral & Pelvic
+            { tag: "visceral", front: "Which nervous system division and receptor subtype promote urine storage?", back: "Sympathetic system (T11–L2): Detrusor relaxation via $\beta_3/\beta_2$ receptors, and internal sphincter contraction via $\alpha_1$ receptors." },
+            { tag: "visceral", front: "Which nerves and receptor mediate detrusor contraction during micturition?", back: "Parasympathetic pelvic splanchnic nerves (S2–S4) releasing ACh onto $M_3$ Muscarinic receptors." },
+            { tag: "visceral", front: "What nerve provides voluntary somatic control over the external urethral sphincter?", back: "Pudendal Nerve (S2–S4)." },
+            { tag: "visceral", front: "What is the autonomic mnemonic 'Point and Shoot'?", back: "Point = Parasympathetic (Erection, S2–S4); Shoot = Sympathetic (Ejaculation/Emission, L1–L2)." },
+            { tag: "visceral", front: "How does parasympathetic activation affect salivary gland secretion compared to sympathetic?", back: "Parasympathetic = Profuse, watery, abundant saliva; Sympathetic = Viscid, sparse, amylase-rich saliva." },
+
+            // Clinical ANS Disorders
+            { tag: "disorders", front: "What is the formal diagnostic definition of Orthostatic Hypotension?", back: "A sustained reduction of Systolic BP $\ge 20 \text{ mmHg}$ OR Diastolic BP $\ge 10 \text{ mmHg}$ within 3 minutes of standing." },
+            { tag: "disorders", front: "What is Acute Pandysautonomia?", back: "An acute autoimmune ganglionopathy causing severe sympathetic and parasympathetic postganglionic failure with complete sparing of somatic nerve fibers." },
+            { tag: "disorders", front: "What are the three clinical subtypes of Multiple System Atrophy (MSA)?", back: "MSA-P (Parkinsonian), MSA-C (Cerebellar), and MSA-A (Autonomic / Shy-Drager Syndrome)." },
+            { tag: "disorders", front: "What hallmark physical feature distinguishes Riley-Day syndrome on oral examination?", back: "Absence of fungiform papillae on the tongue (leading to loss of taste)." },
+            { tag: "disorders", front: "What antibody is responsible for Lambert-Eaton Myasthenic Syndrome (LEMS)?", back: "Antibodies against presynaptic P/Q-type Voltage-Gated Calcium Channels (VGCC)." },
+            { tag: "disorders", front: "How does muscle weakness in LEMS differ from Myasthenia Gravis upon repetitive testing?", back: "In LEMS, muscle strength temporarily IMPROVES with exercise (facilitation), whereas in MG, weakness WORSENS with exercise (fatigue)." },
+            { tag: "disorders", front: "What are the three temporal mechanisms of the hypersympathetic state following TBI?", back: "1. Acute adrenal catecholamine surge; 2. Brainstem Cushing response; 3. Late chronic paroxysmal sympathetic hyperactivity (PSH)." },
+            { tag: "disorders", front: "What is Cushing's Triad of elevated ICP?", back: "1. Hypertension, 2. Bradycardia, 3. Irregular / abnormal respiration." },
+
+            // Horner Syndrome
+            { tag: "horner", front: "What is the classic clinical triad of Horner Syndrome?", back: "Miosis (constricted pupil), Ptosis (drooping eyelid), and Anhidrosis (loss of sweating)." },
+            { tag: "horner", front: "Where is the Ciliospinal Center of Budge located?", back: "In the lateral horn gray matter of spinal cord segments C8 to T2." },
+            { tag: "horner", front: "A patient with Horner syndrome has ptosis and miosis but NORMAL facial sweating. Where is the lesion?", back: "3rd-Order Postganglionic Lesion (distal to Superior Cervical Ganglion along internal carotid artery, as sweat fibers branch along external carotid artery)." },
+            { tag: "horner", front: "How does an Apraclonidine 0.5% eye drop test confirm Horner Syndrome?", back: "Apraclonidine causes pupil DILATION and resolution of ptosis in a Horner pupil due to $\alpha_1$ denervation supersensitivity, while having minimal effect on a normal pupil." },
+            { tag: "horner", front: "What eye drop differentiates 1st/2nd order Horner from a 3rd order postganglionic lesion?", back: "1% Hydroxyamphetamine. It releases stored NE: dilates pupil if 1st/2nd order intact; FAILS to dilate if 3rd order postganglionic neuron is destroyed." },
+
+            // Respiration
+            { tag: "respiration", front: "What medullary nucleus group contains primarily inspiratory neurons and connects directly to phrenic motor neurons?", back: "Dorsal Respiratory Group (DRG), located near the NTS." },
+            { tag: "respiration", front: "Which specific structure in the rostral ventrolateral medulla is the pacemaker for respiratory rhythm generation?", back: "Pre-Bötzinger Complex." },
+            { tag: "respiration", front: "What is Ondine's Curse?", back: "Selective loss of automatic respiration during sleep with preserved voluntary breathing awake, caused by damage to ventrolateral medullocervical tracts." },
+            { tag: "respiration", front: "What clinical features characterize Cheyne-Stokes breathing?", back: "Waxing and waning cyclic ventilation where level of consciousness mirrors breathing (awake at hyperpnea peak, comatose during apnea)." },
+            { tag: "respiration", front: "What is Leeuwenhoek's Disease?", back: "Continuous epigastric pulsations with dyspnea due to diaphragmatic myoclonus (respiratory myoclonus)." },
+            { tag: "respiration", front: "Where are central chemoreceptors located and what do they respond to?", back: "Located in the ventral medulla; respond primarily to changes in $H^+$ concentration and $CO_2$ in medullary extracellular fluid." },
+            { tag: "respiration", front: "At what Vital Capacity threshold do signs of acute neuromuscular respiratory failure typically appear?", back: "When Vital Capacity drops to ~10% of normal (~500 mL)." },
+            { tag: "respiration", front: "What medication is effective for treating intractable hiccups (singultus)?", back: "Baclofen." },
+
+            // Swallowing & Emesis
+            { tag: "swallowing", front: "What medullary center coordinates swallowing with breathing to cause swallowing apnea?", back: "Nucleus Tractus Solitarius (NTS) working with adjacent medullary respiratory groups." },
+            { tag: "swallowing", front: "Which cranial nerve initiates the voluntary oral phase of swallowing?", back: "CN XII (Hypoglossal Nerve)." },
+            { tag: "swallowing", front: "Nasal regurgitation of liquids indicates dysfunction of what anatomical structure?", back: "Velopalatine closure failure (CN X / Vagus nerve palsy or bulbar palsy)." },
+            { tag: "swallowing", front: "Why does the Area Postrema serve as the chemoreceptor trigger zone for vomiting?", back: "It is located in the floor of the 4th ventricle and LACKS a blood-brain barrier, allowing it to sample bloodborne toxins." },
+            { tag: "swallowing", front: "What key neurochemical receptors are concentrated in the Area Postrema?", back: "Dopamine $D_2$, Serotonin $5\text{-HT}_3$, Opioid, Substance P ($NK_1$), and ACh receptors." }
+        ];
+
+        // Comprehensive 50 Board-Style MCQs
+        const quizData = [
+            {
+                q: "1. A 45-year-old male presents with lightheadedness upon standing. Autonomic testing reveals a sustained BP drop of 28/14 mmHg on standing without an increase in heart rate. Where are sympathetic preganglionic neuron cell bodies located?",
+                options: ["A. Dorsal root ganglia", "B. Intermediolateral cell column / lateral horns (T1–L2)", "C. Paravertebral chain ganglia", "D. Terminal intramural ganglia"],
+                answer: 1,
+                explanation: "Sympathetic preganglionic neurons arise from the lateral horns (intermediolateral gray column) of spinal cord segments C8/T1 to L2.",
+                distractors: ["A is incorrect because DRG contains primary somatic sensory neurons.", "C is incorrect because paravertebral ganglia contain postganglionic sympathetic cell bodies.", "D is incorrect because terminal ganglia contain parasympathetic postganglionic cell bodies."]
+            },
+            {
+                q: "2. A patient is found to have impaired sweating over the trunk and limbs. Which neurotransmitter and receptor combination normally drives eccrine sweat gland secretion?",
+                options: ["A. Norepinephrine acting on Alpha-1 receptors", "B. Norepinephrine acting on Beta-2 receptors", "C. Acetylcholine acting on Muscarinic receptors", "D. Acetylcholine acting on Nicotinic receptors"],
+                answer: 2,
+                explanation: "CRITICAL EXCEPTION: Postganglionic sympathetic fibers innervating eccrine sweat glands release Acetylcholine acting on Muscarinic receptors.",
+                distractors: ["A & B are incorrect because most sympathetic postganglionic fibers release NE, but sweat glands are cholinergic.", "D is incorrect because nicotinic receptors mediate ganglionic transmission, not eccrine sweat gland response."]
+            },
+            {
+                q: "3. A 68-year-old diabetic male complains of severe dizziness on standing, erectile dysfunction, postprandial bloating, and alternating diarrhea and constipation. Which mechanism explains his resting heart rate of 105 bpm?",
+                options: ["A. Sympathetic hyperactivation", "B. Early loss of vagal (parasympathetic) cardiac innervation", "C. Hyperthyroidism", "D. Adrenal medullary tumor"],
+                answer: 1,
+                explanation: "In diabetic autonomic neuropathy, vagal (parasympathetic) fibers are lost early, removing tonic vagal cardiac inhibition and causing resting tachycardia.",
+                distractors: ["A is incorrect because sympathetic fibers are also damaged in advanced neuropathy.", "C & D are incorrect because diabetic autonomic neuropathy is the direct primary cause."]
+            },
+            {
+                q: "4. An infant of Ashkenazi Jewish descent presents with lack of tears when crying, extreme blood pressure lability, hyperhidrosis, and absent taste papillae on the tongue. What is the diagnosis?",
+                options: ["A. Multiple System Atrophy", "B. Acute Pandysautonomia", "C. Riley-Day Syndrome (Familial Dysautonomia)", "D. Horner Syndrome"],
+                answer: 2,
+                explanation: "Riley-Day syndrome (Familial Dysautonomia) is an autosomal recessive disorder characterized by alacrima, BP lability, absent fungiform papillae, and pain insensitivity.",
+                distractors: ["A affects adults.", "B causes anhidrosis, not hyperhidrosis, and lacks tongue papillae absence.", "D is localized oculosympathetic paralysis."]
+            },
+            {
+                q: "5. Following a severe traumatic brain injury, a 25-year-old patient experiences paroxysmal episodes of severe hypertension, tachycardia, profuse sweating, mydriasis, and rigid extensor posturing. What is this presentation called?",
+                options: ["A. Neurogenic Orthostatic Hypotension", "B. Paroxysmal Sympathetic Hyperactivity (Sympathetic Storm)", "C. Acute Pandysautonomia", "D. Ondine's Curse"],
+                answer: 1,
+                explanation: "Sympathetic storm / Paroxysmal Sympathetic Hyperactivity (PSH) involves sudden uninhibited sympathetic outflow following head trauma or stroke.",
+                distractors: ["A involves low BP.", "C involves autonomic loss, not storm.", "D is failure of automatic breathing."]
+            },
+            {
+                q: "6. A patient presents with left ptosis, miosis, and left facial anhidrosis. An Apraclonidine 0.5% eye drop is instilled. What is the expected response in the left eye if Horner syndrome is present?",
+                options: ["A. Pupil constricts further", "B. No change in pupillary size", "C. Pupil dilates and ptosis resolves", "D. Eye develops severe lacrimation"],
+                answer: 2,
+                explanation: "Apraclonidine (weak $\alpha_1$ agonist) causes pupillary dilation and resolution of ptosis in a Horner pupil due to denervation supersensitivity.",
+                distractors: ["A, B, and D are incorrect because apraclonidine selectively reverses Horner features via supersensitive alpha-1 receptors."]
+            },
+            {
+                q: "7. To differentiate a 1st/2nd order Horner syndrome from a 3rd order postganglionic lesion, which eye drop is instilled?",
+                options: ["A. 4% Cocaine", "B. 1% Hydroxyamphetamine", "C. 2.5% Methacholine", "D. Atropine"],
+                answer: 1,
+                explanation: "1% Hydroxyamphetamine stimulates stored NE release from postganglionic terminals. If the 3rd-order neuron is damaged, NO NE is released and the pupil fails to dilate.",
+                distractors: ["A confirms Horner presence but cannot localize 3rd order.", "C tests parasympathetic tonic pupil.", "D is a muscarinic blocker."]
+            },
+            {
+                q: "8. Which brainstem nucleus is the primary visceral sensory afferent center receiving inputs from CN IX and CN X?",
+                options: ["A. Edinger-Westphal Nucleus", "B. Nucleus Tractus Solitarius (NTS)", "C. Nucleus Ambiguus", "D. Superior Salivatory Nucleus"],
+                answer: 1,
+                explanation: "The Nucleus Tractus Solitarius (NTS) in the dorsal medulla is the master visceral sensory receiving nucleus.",
+                distractors: ["A is pupil parasympathetic motor.", "C is branchial motor for CN IX/X.", "D is parasympathetic motor for CN VII."]
+            },
+            {
+                q: "9. During tilt-table testing, a normal individual exhibits which compensatory baroreflex response upon upright posture?",
+                options: ["A. Decreased heart rate and splanchnic vasodilation", "B. Increased baroreceptor firing to the NTS", "C. Decreased baroreceptor firing resulting in increased sympathetic outflow", "D. Complete loss of vagal tone without sympathetic change"],
+                answer: 2,
+                explanation: "Upright pooling decreases arterial pressure → decreases baroreceptor firing → disinhibits sympathetic outflow → increases HR and vasoconstriction.",
+                distractors: ["A & B are incorrect because standing drops arterial pressure, reducing baroreceptor firing.", "D is incorrect because sympathetic tone increases actively."]
+            },
+            {
+                q: "10. What is the primary role of the Pontine Micturition Center (Barrington's Nucleus) during the voiding phase?",
+                options: ["A. Contracts external urethral sphincter via pudendal nerve", "B. Coordinates detrusor contraction with internal and external sphincter relaxation", "C. Stimulates sympathetic hypogastric nerve outflow", "D. Inhibits parasympathetic pelvic splanchnic nerves"],
+                answer: 1,
+                explanation: "The PMC coordinates parasympathetic detrusor contraction with simultaneous relaxation of urinary sphincters to allow smooth voiding.",
+                distractors: ["A & C describe storage phase mechanisms.", "D is incorrect because voiding requires parasympathetic activation."]
+            },
+            {
+                q: "11. A 62-year-old patient with Parkinson's disease experiences recurrent aspiration pneumonia. Which mechanism contributes most to aspiration in Parkinson's?",
+                options: ["A. Unilateral hypoglossal nerve paralysis", "B. Reduced swallowing frequency and breathing-swallowing discoordination", "C. Bilateral vocal cord abductor paralysis", "D. Complete loss of gag reflex"],
+                answer: 1,
+                explanation: "Parkinson's causes bradykinesia of pharyngeal muscles, reduced spontaneous swallowing frequency, and loss of swallow-breathing coordination.",
+                distractors: ["A, C, and D are incorrect because Parkinson's affects basal ganglia coordination, not isolated peripheral nerve transection."]
+            },
+            {
+                q: "12. A patient with stroke develops failure of automatic breathing while sleeping, requiring mechanical ventilation at night. When awake, voluntary breathing is normal. What is this syndrome?",
+                options: ["A. Cheyne-Stokes Breathing", "B. Ondine's Curse (Primary Central Hypoventilation)", "C. Leeuwenhoek's Disease", "D. Locked-in Syndrome"],
+                answer: 1,
+                explanation: "Ondine's Curse involves selective damage to ventrolateral medullocervical automatic breathing tracts, sparing voluntary corticospinal pathways.",
+                distractors: ["A is cyclic hyperpnea/apnea.", "C is diaphragmatic myoclonus.", "D is loss of voluntary control with preserved automatic breathing."]
+            },
+            {
+                q: "13. In a patient undergoing autonomic evaluation, deep breathing testing reveals a Maximum - Minimum Heart Rate difference of 6 beats/min (Normal: $\ge 15$). This finding specifically indicates dysfunction of which limb?",
+                options: ["A. Sympathetic efferent limb", "B. Vagal (parasympathetic) efferent limb", "C. Somatic pudendal nerve", "D. Splanchnic sympathetic chain"],
+                answer: 1,
+                explanation: "Heart rate variability during deep breathing (E:I ratio) is a sensitive test of vagal (parasympathetic) cardiac nerve function.",
+                distractors: ["A is tested by handgrip/isometric exercise.", "C controls pelvic sphincters.", "D is sympathetic."]
+            },
+            {
+                q: "14. A patient with a history of lung cancer presents with right ptosis, miosis, and facial anhidrosis. Chest X-ray reveals an apical lung mass. What anatomical structure is invaded?",
+                options: ["A. Edinger-Westphal nucleus", "B. Stellate / Superior Cervical Ganglion at the lung apex (2nd-order sympathetic pathway)", "C. Cavernous sinus", "D. Otic ganglion"],
+                answer: 1,
+                explanation: "A Pancoast tumor at the lung apex invades 2nd-order preganglionic sympathetic fibers passing through the stellate/cervicothoracic ganglion.",
+                distractors: ["A is CNS brainstem.", "C is 3rd order intracerebral.", "D is parasympathetic parotid."]
+            },
+            {
+                q: "15. A 55-year-old female presents with progressive proximal muscle weakness and severe dry mouth. Repetitive nerve stimulation on EMG shows an INCREMENTAL compound muscle action potential response after exercise. What antibody is diagnostic?",
+                options: ["A. Anti-AChR antibody", "B. Anti-P/Q type Voltage-Gated Calcium Channel (VGCC) antibody", "C. Anti-MuSK antibody", "D. Anti-aquaporin-4 antibody"],
+                answer: 1,
+                explanation: "LEMS is caused by anti-P/Q type VGCC antibodies, presenting with dysautonomia (dry mouth) and exertion-induced muscle facilitation.",
+                distractors: ["A is Myasthenia Gravis (fatigability, no autonomic features).", "C is MuSK MG.", "D is Neuromyelitis Optica."]
+            },
+            {
+                q: "16. Which region of the lower brainstem functions as the primary pacemaker for respiratory rhythm generation?",
+                options: ["A. Dorsal Respiratory Group (DRG)", "B. Pre-Bötzinger Complex in rostral ventrolateral medulla", "C. Pneumotaxic center in upper pons", "D. Area Postrema"],
+                answer: 1,
+                explanation: "The Pre-Bötzinger complex in the rostral VRG contains pacemaker neurons essential for intrinsic respiratory rhythm generation.",
+                distractors: ["A processes inspiratory sensory input.", "C modulates phase switching.", "D is the chemoreceptor trigger zone for emesis."]
+            },
+            {
+                q: "17. A patient with severe heart failure displays a respiratory pattern of gradual crescendo hyperpnea followed by decrescendo hypopnea and apnea. Consciousness wanes during apnea. What is this pattern?",
+                options: ["A. Central neurogenic hyperventilation", "B. Cheyne-Stokes breathing", "C. Kussmaul breathing", "D. Apneustic breathing"],
+                answer: 1,
+                explanation: "Cheyne-Stokes breathing is cyclic waxing and waning respiration linked to prolonged circulation time in heart failure or deep brain lesions.",
+                distractors: ["A is persistent hyperpnea.", "C is deep rapid acidotic breathing.", "D is prolonged inspiratory pauses."]
+            },
+            {
+                q: "18. What pharmacologic agent is considered first-line for treating intractable hiccups (singultus) of medullary origin?",
+                options: ["A. Atropine", "B. Baclofen", "C. Pyridostigmine", "D. Propranolol"],
+                answer: 1,
+                explanation: "Baclofen (GABA-B agonist) is effective in controlling intractable singultus (hiccups).",
+                distractors: ["A is anticholinergic.", "C is acetylcholinesterase inhibitor.", "D is beta blocker."]
+            },
+            {
+                q: "19. The Area Postrema triggers vomiting in response to circulating bloodborne toxins because it uniquely possesses which anatomical feature?",
+                options: ["A. Dense myelination", "B. Lack of a blood-brain barrier (BBB)", "C. Direct motor fibers to the stomach wall", "D. Dual sympathetic and somatic innervation"],
+                answer: 1,
+                explanation: "The Area Postrema lacks a blood-brain barrier, allowing fenestrated capillaries to sample circulating emetogenic chemicals.",
+                distractors: ["A, C, and D are incorrect anatomical descriptions."]
+            },
+            {
+                q: "20. During the Valsalva maneuver, Phase IV is characterized by a temporary blood pressure overshoot and reflex bradycardia. What mechanism drives Phase IV overshoot in a healthy subject?",
+                options: ["A. Sudden release of parasympathetic vagal output", "B. Restored cardiac venous return pumping into a vasoconstricted systemic vascular bed driven by sympathetic activation", "C. Sudden drop in intrathoracic pressure collapsing the aorta", "D. Direct cerebral cortical stimulation"],
+                answer: 1,
+                explanation: "In Phase IV, strain release restores cardiac output into peripheral arterioles that were constricted by sympathetic activation in Phase II, causing BP overshoot.",
+                distractors: ["A, C, and D do not explain the sympathetic vascular resistance mechanics."]
+            },
+            // Questions 21 to 50
+            {
+                q: "21. Parasympathetic preganglionic fibers supplying the distal colon and pelvic organs originate from which spinal cord segment?",
+                options: ["A. T10–L2", "B. C8–T2", "C. S2–S4 lateral horn gray matter", "D. L3–L5"],
+                answer: 2,
+                explanation: "Sacral parasympathetic outflow arises from lateral horn cells in segments S2 to S4.",
+                distractors: ["A & B are sympathetic origins.", "D contains lumbar motor roots."]
+            },
+            {
+                q: "22. Nicotinic receptors at autonomic ganglia are blocked by which of the following drugs?",
+                options: ["A. Atropine", "B. Tubocurarine", "C. Metoprolol", "D. Prazosin"],
+                answer: 1,
+                explanation: "Nicotinic ganglionic receptors are blocked by tubocurarine or hexamethonium, NOT atropine.",
+                distractors: ["A blocks muscarinic receptors.", "C blocks beta-1.", "D blocks alpha-1."]
+            },
+            {
+                q: "23. Which brain structure acts as the principal supranuclear coordinator of both autonomic and endocrine homeostatic responses?",
+                options: ["A. Thalamus", "B. Hypothalamus", "C. Cerebellum", "D. Basal Ganglia"],
+                answer: 1,
+                explanation: "The Hypothalamus serves as the central master integrator of the ANS and endocrine system.",
+                distractors: ["A is sensory relay.", "C is motor coordination.", "D is movement control."]
+            },
+            {
+                q: "24. Stimulation of Alpha-1 adrenergic receptors produces which of the following visceral responses?",
+                options: ["A. Bronchodilation", "B. Pupillary dilator muscle contraction (Mydriasis)", "C. Decreased heart rate", "D. Detrusor muscle contraction"],
+                answer: 1,
+                explanation: "Alpha-1 activation contracts pupillary dilator muscle (mydriasis) and vascular smooth muscle.",
+                distractors: ["A is Beta-2.", "C is Muscarinic M2.", "D is Muscarinic M3."]
+            },
+            {
+                q: "25. Which parasympathetic ganglion is responsible for lacrimal gland secretion?",
+                options: ["A. Ciliary ganglion", "B. Pterygopalatine ganglion", "C. Otic ganglion", "D. Submandibular ganglion"],
+                answer: 1,
+                explanation: "CN VII fibers synapse in the Pterygopalatine ganglion to innervate the lacrimal and nasal glands.",
+                distractors: ["A is eye pupil/ciliary.", "C is parotid.", "D is submandibular/sublingual."]
+            },
+            {
+                q: "26. What is the effect of Beta-3 adrenergic receptor stimulation on the urinary bladder?",
+                options: ["A. Detrusor muscle relaxation, promoting urine storage", "B. Detrusor muscle contraction, causing voiding", "C. External sphincter contraction", "D. Increased renal blood flow"],
+                answer: 0,
+                explanation: "Beta-3 receptors relax the detrusor muscle during the storage phase.",
+                distractors: ["B is M3 muscarinic.", "C is pudendal somatic.", "D is dopamine/sympathetic regulation."]
+            },
+            {
+                q: "27. In a patient with orthostatic intolerance, what 30:15 heart rate ratio on standing is considered abnormal (indicating vagal impairment)?",
+                options: ["A. Ratio > 1.4", "B. Ratio < 1.04", "C. Ratio = 1.25", "D. Ratio = 2.0"],
+                answer: 1,
+                explanation: "A 30:15 ratio < 1.04 indicates impaired vagal cardiac responsiveness.",
+                distractors: ["A, C, and D represent normal or exaggerated responses."]
+            },
+            {
+                q: "28. Which condition causes selective acute failure of sympathetic and parasympathetic postganglionic function while sparing somatic motor and sensory nerves?",
+                options: ["A. Multiple System Atrophy", "B. Acute Pandysautonomia", "C. Amyotrophic Lateral Sclerosis", "D. Myasthenia Gravis"],
+                answer: 1,
+                explanation: "Acute Pandysautonomia is an autoimmune ganglionopathy selectively targeting autonomic fibers.",
+                distractors: ["A is central neurodegenerative.", "C affects motor neurons.", "D affects NMJ."]
+            },
+            {
+                q: "29. Glial cytoplasmic inclusions containing alpha-synuclein are the pathological hallmark of which neurodegenerative disease?",
+                options: ["A. Alzheimer's Disease", "B. Multiple System Atrophy (MSA)", "C. Guillain-Barré Syndrome", "D. Huntington's Disease"],
+                answer: 1,
+                explanation: "MSA is pathologically defined by oligodendroglial alpha-synuclein cytoplasmic inclusions.",
+                distractors: ["A is amyloid/tau.", "C is peripheral demyelination.", "D is huntingtin repeats."]
+            },
+            {
+                q: "30. A patient exhibits miosis, ptosis, and loss of sweating on the left face. 4% Cocaine drop is applied to both eyes. What will happen to the left pupil if Horner's is present?",
+                options: ["A. It will dilate briskly", "B. It will fail to dilate (or dilate poorly)", "C. It will turn red", "D. It will constrict"],
+                answer: 1,
+                explanation: "Cocaine requires endogenous NE in the synaptic cleft to dilate. In Horner's, NE release is reduced/absent, so the pupil fails to dilate.",
+                distractors: ["A is normal pupil response.", "C & D are incorrect mechanism interpretations."]
+            },
+            {
+                q: "31. What is the physiological mechanism behind Cushing's response (triad) in acute high intracranial pressure?",
+                options: ["A. Sympathetic paralysis", "B. Brainstem ischemia triggering massive vasopressor reflex (HTN) with reflex bradycardia", "C. Primary vagal storm", "D. Hypothalamic destruction"],
+                answer: 1,
+                explanation: "High ICP compresses medullary vasopressor centers → triggering massive sympathetic vasoconstriction (HTN) and secondary baroreflex bradycardia.",
+                distractors: ["A, C, and D misrepresent Cushing's reflex pathophysiology."]
+            },
+            {
+                q: "32. Which nerve provides parasympathetic innervation to the heart to decrease heart rate?",
+                options: ["A. Glossopharyngeal Nerve (CN IX)", "B. Vagus Nerve (CN X)", "C. Phrenic Nerve", "D. Hypoglossal Nerve (CN XII)"],
+                answer: 1,
+                explanation: "The Vagus nerve (CN X) provides parasympathetic cardiac slowing via M2 receptors.",
+                distractors: ["A carries carotid sinus afferents.", "C innervates diaphragm.", "D innervates tongue."]
+            },
+            {
+                q: "33. Which medullary respiratory group contains primarily expiratory neurons active during forced expiration?",
+                options: ["A. Dorsal Respiratory Group (DRG)", "B. Caudal Ventral Respiratory Group (VRG)", "C. Rostral VRG", "D. Pre-Bötzinger Complex"],
+                answer: 1,
+                explanation: "Caudal VRG contains expiratory neurons that drive internal intercostal and abdominal muscle contraction.",
+                distractors: ["A & C contain inspiratory neurons.", "D is pacemaker."]
+            },
+            {
+                q: "34. A patient with severe Guillain-Barré syndrome exhibits inward movement of the abdominal wall during inspiration. What does this sign indicate?",
+                options: ["A. Normal breathing", "B. Paradoxical respiration indicating severe diaphragmatic weakness", "C. Hiccups", "D. Glottic spasm"],
+                answer: 1,
+                explanation: "Paradoxical respiration (abdominal collapse during inspiration) indicates diaphragmatic fatigue and impending respiratory failure.",
+                distractors: ["A is false.", "C & D are glottic/diaphragmatic spasms."]
+            },
+            {
+                q: "35. At what Vital Capacity level should mechanical ventilation be strongly considered in acute neuromuscular weakness?",
+                options: ["A. 80% of normal", "B. 50% of normal", "C. ~10% of normal (~500 mL)", "D. 30% of normal"],
+                answer: 2,
+                explanation: "A VC drop to ~10% of normal (~500 mL) signals critical respiratory failure.",
+                distractors: ["A, B, and D are above critical failure threshold."]
+            },
+            {
+                q: "36. What is the effect of Ondansetron in preventing vomiting?",
+                options: ["A. Blocks Dopamine D2 receptors in stomach", "B. Selective 5-HT3 receptor antagonist acting at Area Postrema and vagal afferents", "C. Blocks Muscarinic M1 receptors in cortex", "D. Stimulates Substance P"],
+                answer: 1,
+                explanation: "Ondansetron selectively blocks 5-HT3 receptors in the Area Postrema and peripheral vagal sensory terminals.",
+                distractors: ["A is metoclopramide.", "C is scopolamine.", "D increases emesis."]
+            },
+            {
+                q: "37. Velopalatine closure failure during swallowing results in which characteristic clinical feature?",
+                options: ["A. Epigastric pulsation", "B. Nasal regurgitation of liquids and hypernasal voice", "C. Mydriasis", "D. Complete loss of taste"],
+                answer: 1,
+                explanation: "Soft palate failure to seal nasopharynx allows fluid escape into the nose.",
+                distractors: ["A is Leeuwenhoek's.", "C is pupil dilation.", "D is gustatory loss."]
+            },
+            {
+                q: "38. What is the role of the Hering-Breuer reflex?",
+                options: ["A. Triggers hyperpnea during exercise", "B. Prevents lung over-inflation via stretch receptors in airway smooth muscle terminating inspiration", "C. Triggers vomiting", "D. Maintains blood pressure during standing"],
+                answer: 1,
+                explanation: "Hering-Breuer inflation reflex prevents over-expansion via pulmonary stretch receptors via vagus nerve.",
+                distractors: ["A, C, and D describe other autonomic reflexes."]
+            },
+            {
+                q: "39. Which drug can cause drug-induced hiccups (singultus)?",
+                options: ["A. Baclofen", "B. Dexamethasone", "C. Ondansetron", "D. Atropine"],
+                answer: 1,
+                explanation: "Dexamethasone is a well-known corticosteroid cause of drug-induced singultus.",
+                distractors: ["A treats hiccups.", "C & D do not induce singultus."]
+            },
+            {
+                q: "40. Critical Illness Polyneuropathy (CIP) causes failure to wean from a ventilator in ~40% of ICU patients. What EMG finding is typical?",
+                options: ["A. Incremental response", "B. Decremental response", "C. Widespread denervation with sensory potentials relatively spared", "D. Normal motor unit potentials"],
+                answer: 2,
+                explanation: "CIP shows widespread axonal motor denervation with relative sensory preservation on EMG.",
+                distractors: ["A is LEMS.", "B is MG.", "D is incorrect."]
+            },
+            {
+                q: "41. What is the function of J-receptors (juxtacapillary receptors) in the lung interstitium?",
+                options: ["A. Detect hypercapnia", "B. Activated by increased interstitial fluid/pulmonary edema to induce hyperpnea", "C. Innervate airway cilia", "D. Control bronchiolar dilation"],
+                answer: 1,
+                explanation: "J-receptors respond to pulmonary capillary congestion/edema and trigger rapid shallow breathing (hyperpnea).",
+                distractors: ["A is chemoreceptor function.", "C & D are incorrect."]
+            },
+            {
+                q: "42. Which cortical area contains primary motor representations for swallowing initiation?",
+                options: ["A. Occipital lobe", "B. Inferior precentral and posterior inferior frontal gyrus", "C. Postcentral gyrus", "D. Temporal pole"],
+                answer: 1,
+                explanation: "Swallowing motor initiation is localized to the inferior precentral gyrus and frontal operculum.",
+                distractors: ["A is visual.", "C is primary somatosensory.", "D is auditory/memory."]
+            },
+            {
+                q: "43. In high spinal cord injury (at or above T6), what visceral trigger commonly precipitates Autonomic Dysreflexia?",
+                options: ["A. Exposure to cold air", "B. Distended urinary bladder or bowel impaction below lesion level", "C. Eating a heavy meal", "D. Deep breathing"],
+                answer: 1,
+                explanation: "Bladder distension or fecal impaction sends uninhibited sympathetic afferents below lesion, causing massive hypertension.",
+                distractors: ["A, C, and D are less potent triggers than pelvic organ distension."]
+            },
+            {
+                q: "44. What is the physiological effect of Pyridostigmine?",
+                options: ["A. Blocks muscarinic receptors", "B. Inhibits acetylcholinesterase, increasing ACh availability at synapses", "C. Blocks beta receptors", "D. Stimulates dopamine release"],
+                answer: 1,
+                explanation: "Pyridostigmine inhibits acetylcholinesterase, prolonging ACh presence at the NMJ and autonomic synapses.",
+                distractors: ["A is atropine.", "C is propranolol.", "D is dopaminergic."]
+            },
+            {
+                q: "45. Post-stroke dysphagia persistence at 6 months occurs in approximately what percentage of patients?",
+                options: ["A. < 1%", "B. ~50%", "C. 100%", "D. 5%"],
+                answer: 1,
+                explanation: "While stroke dysphagia recovers rapidly in many, study data (Mann et al.) shows up to 50% remain impaired at 6 months.",
+                distractors: ["A, C, and D deviate from clinical trial evidence."]
+            },
+            {
+                q: "46. Which test measures postganglionic sympathetic sudomotor axon reflex function?",
+                options: ["A. QSART (Quantitative Sudomotor Axon Reflex Test)", "B. ECG Holter", "C. Water swallow test", "D. Cold pressor test"],
+                answer: 0,
+                explanation: "QSART evaluates postganglionic sudomotor cholinergic nerve fiber integrity.",
+                distractors: ["B evaluates cardiac rhythm.", "C evaluates swallowing.", "D evaluates sympathetic vascular reactivity."]
+            },
+            {
+                q: "47. A patient with long-standing diabetes presents with postprandial nausea, early satiety, and vomiting of undigested food. What is the diagnosis?",
+                options: ["A. Diabetic Gastroparesis", "B. Achalasia", "C. Celiac Disease", "D. Bowel Obstruction"],
+                answer: 0,
+                explanation: "Diabetic gastroparesis is an autonomic neuropathy affecting enteric vagal innervation of stomach motility.",
+                distractors: ["B affects lower esophageal sphincter.", "C is malabsorption.", "D is mechanical."]
+            },
+            {
+                q: "48. What effect does sympathetic activation have on the pupil?",
+                options: ["A. Constriction (Miosis)", "B. Dilation (Mydriasis) via contracture of pupillary dilator muscle", "C. No effect", "D. Ptosis"],
+                answer: 1,
+                explanation: "Sympathetic fibers ($\alpha_1$) contract pupillary dilator muscle causing mydriasis.",
+                distractors: ["A is parasympathetic.", "C is false.", "D is caused by sympathetic paralysis."]
+            },
+            {
+                q: "49. Which of the following is an invasive autonomic test using indwelling arterial monitoring?",
+                options: ["A. Bedside standing BP", "B. Invasive Valsalva maneuver continuously measuring Phase I–IV arterial pressures", "C. Deep breathing test", "D. Pupil cocaine test"],
+                answer: 1,
+                explanation: "Invasive Valsalva uses indwelling arterial lines to accurately track blood pressure swings through Phases I to IV.",
+                distractors: ["A, C, and D are noninvasive."]
+            },
+            {
+                q: "50. What is the effect of Atropine on heart rate?",
+                options: ["A. Causes severe bradycardia", "B. Increases heart rate by blocking parasympathetic vagal M2 receptors at the SA node", "C. No effect on heart rate", "D. Blocks sympathetic beta-1 receptors"],
+                answer: 1,
+                explanation: "Atropine blocks vagal muscarinic M2 receptors at SA node, removing parasympathetic inhibition and increasing heart rate.",
+                distractors: ["A is opposite.", "C is false.", "D is beta blocker."]
+            }
+        ];
+
+        /* ================= CORE INTERACTIVE FUNCTIONS ================= */
+
+        // Tab Navigation Switcher
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+
+            const targetContent = document.getElementById(tabId);
+            if (targetContent) targetContent.classList.add('active');
+
+            const activeTabNav = Array.from(document.querySelectorAll('.nav-tab')).find(tab => {
+                return tab.getAttribute('onclick').includes(`'${tabId}'`);
+            });
+            if (activeTabNav) activeTabNav.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            updateProgressBar();
+        }
+
+        // Accordion Toggle
+        function toggleAccordion(headerEl) {
+            const accordion = headerEl.parentElement;
+            accordion.classList.toggle('open');
+        }
+
+        // Dark Theme Toggle
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+        }
+
+        // Global Keyword Search & Filter
+        function filterContent() {
+            const query = document.getElementById('globalSearchInput').value.toLowerCase();
+            if (!query) {
+                document.querySelectorAll('.card, .accordion, tr').forEach(el => el.style.display = '');
+                return;
+            }
+
+            document.querySelectorAll('.card, .accordion').forEach(el => {
+                const text = el.innerText.toLowerCase();
+                el.style.display = text.includes(query) ? '' : 'none';
+            });
+        }
+
+        // Table Copy to Clipboard
+        function copyTableText(tableId) {
+            const table = document.getElementById(tableId);
+            if (!table) return;
+
+            let text = '';
+            for (let row of table.rows) {
+                let rowData = [];
+                for (let cell of row.cells) {
+                    rowData.push(cell.innerText.replace(/\n/g, ' '));
+                }
+                text += rowData.join('\t') + '\n';
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Table data successfully copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // Reading Progress Indicator
+        function updateProgressBar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
+
+            const scrollBtn = document.getElementById('scrollTopBtn');
+            if (scrollTop > 300) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        /* ================= FLASHCARD ENGINE ================= */
+        function initFlashcards() {
+            filteredFlashcards = [...flashcardData];
+            currentFlashcardIndex = 0;
+            renderActiveFlashcard();
+        }
+
+        function renderActiveFlashcard() {
+            if (filteredFlashcards.length === 0) {
+                document.getElementById('cardFrontText').innerText = "No flashcards found for this topic filter.";
+                document.getElementById('cardBackText').innerText = "Select another filter.";
+                document.getElementById('flashcardCounter').innerText = "0 / 0";
+                return;
+            }
+
+            const card = filteredFlashcards[currentFlashcardIndex];
+            const flashcardEl = document.getElementById('activeFlashcard');
+            flashcardEl.classList.remove('flipped');
+
+            setTimeout(() => {
+                document.getElementById('cardTag').innerText = card.tag.toUpperCase();
+                document.getElementById('cardFrontText').innerText = card.front;
+                document.getElementById('cardBackText').innerText = card.back;
+                document.getElementById('flashcardCounter').innerText = `Card ${currentFlashcardIndex + 1} / ${filteredFlashcards.length}`;
+            }, 150);
+        }
+
+        function flipFlashcard() {
+            const flashcardEl = document.getElementById('activeFlashcard');
+            flashcardEl.classList.toggle('flipped');
+        }
+
+        function nextFlashcard() {
+            if (filteredFlashcards.length === 0) return;
+            currentFlashcardIndex = (currentFlashcardIndex + 1) % filteredFlashcards.length;
+            renderActiveFlashcard();
+        }
+
+        function prevFlashcard() {
+            if (filteredFlashcards.length === 0) return;
+            currentFlashcardIndex = (currentFlashcardIndex - 1 + filteredFlashcards.length) % filteredFlashcards.length;
+            renderActiveFlashcard();
+        }
+
+        function shuffleFlashcards() {
+            for (let i = filteredFlashcards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filteredFlashcards[i], filteredFlashcards[j]] = [filteredFlashcards[j], filteredFlashcards[i]];
+            }
+            currentFlashcardIndex = 0;
+            renderActiveFlashcard();
+        }
+
+        function filterFlashcards() {
+            const filterValue = document.getElementById('flashcardFilter').value;
+            if (filterValue === 'all') {
+                filteredFlashcards = [...flashcardData];
+            } else {
+                filteredFlashcards = flashcardData.filter(card => card.tag === filterValue);
+            }
+            currentFlashcardIndex = 0;
+            renderActiveFlashcard();
+        }
+
+        // Keyboard Shortcuts for Flashcards
+        document.addEventListener('keydown', (e) => {
+            const flashcardTab = document.getElementById('flashcards');
+            if (flashcardTab && flashcardTab.classList.contains('active')) {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    flipFlashcard();
+                } else if (e.code === 'ArrowRight') {
+                    nextFlashcard();
+                } else if (e.code === 'ArrowLeft') {
+                    prevFlashcard();
+                }
+            }
+        });
+
+        /* ================= QUIZ ENGINE ================= */
+        function initQuiz() {
+            const container = document.getElementById('quizQuestionsContainer');
+            container.innerHTML = '';
+
+            quizData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+                card.id = `quiz-card-${index}`;
+
+                let optionsHtml = '';
+                item.options.forEach((opt, optIdx) => {
+                    optionsHtml += `
+                        <div class="quiz-option" id="opt-${index}-${optIdx}" onclick="selectAnswer(${index}, ${optIdx})">
+                            <span>${opt}</span>
+                        </div>
+                    `;
+                });
+
+                let distractorsHtml = item.distractors.map(d => `<div class="distractor-reason">• ${d}</div>`).join('');
+
+                card.innerHTML = `
+                    <div class="quiz-question">${item.q}</div>
+                    <div class="quiz-options">${optionsHtml}</div>
+                    <div class="quiz-explanation" id="exp-${index}">
+                        <strong>💡 Correct Answer Explanation:</strong> ${item.explanation}
+                        <div style="margin-top:10px; font-weight:700;">Distractor Rationale Breakdown:</div>
+                        ${distractorsHtml}
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            updateScoreDisplay();
+        }
+
+        function selectAnswer(qIdx, optIdx) {
+            if (quizAnswers[qIdx] !== undefined) return; // Lock question after choice
+
+            quizAnswers[qIdx] = optIdx;
+            const qData = quizData[qIdx];
+            const isCorrect = optIdx === qData.answer;
+
+            // Highlight chosen option
+            const chosenOption = document.getElementById(`opt-${qIdx}-${optIdx}`);
+            chosenOption.classList.add(isCorrect ? 'correct' : 'incorrect');
+
+            // Highlight correct option if wrong
+            if (!isCorrect) {
+                const correctOption = document.getElementById(`opt-${qIdx}-${qData.answer}`);
+                correctOption.classList.add('correct');
+            }
+
+            // Reveal explanation
+            const expBox = document.getElementById(`exp-${qIdx}`);
+            expBox.classList.add('active');
+
+            updateScoreDisplay();
+        }
+
+        function updateScoreDisplay() {
+            let score = 0;
+            const total = quizData.length;
+
+            Object.keys(quizAnswers).forEach(qIdx => {
+                if (quizAnswers[qIdx] === quizData[qIdx].answer) {
+                    score++;
+                }
+            });
+
+            document.getElementById('quizScore').innerText = score;
+            const percentage = Math.round((score / total) * 100);
+            document.getElementById('quizPercentage').innerText = `(${percentage}%)`;
+        }
+
+        function resetQuiz() {
+            quizAnswers = {};
+            initQuiz();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize App on DOM Content Loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initFlashcards();
+            initQuiz();
+        });
+    </script>
+</body>
+</html>

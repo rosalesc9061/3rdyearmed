@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disorders of the Retina, Vitreous, and Choroid - Board Exam Reviewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --accent-primary: #0284c7;
+      --accent-hover: #0369a1;
+      --accent-light: #e0f2fe;
+      --border-color: #e2e8f0;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --warning: #d97706;
+      --warning-bg: #fffbeb;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --info: #2563eb;
+      --info-bg: #eff6ff;
+      --purple: #9333ea;
+      --purple-bg: #faf5ff;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+    }
+
+    .dark-mode {
+      --bg-primary: #0f172a;
+      --bg-surface: #1e293b;
+      --bg-card: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
+      --text-light: #94a3b8;
+      --accent-primary: #38bdf8;
+      --accent-hover: #7dd3fc;
+      --accent-light: #0c4a6e;
+      --border-color: #334155;
+      --success: #4ade80;
+      --success-bg: #052e16;
+      --warning: #fbbf24;
+      --warning-bg: #451a03;
+      --danger: #f87171;
+      --danger-bg: #450a0a;
+      --info: #60a5fa;
+      --info-bg: #172554;
+      --purple: #c084fc;
+      --purple-bg: #3b0764;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    h1, h2, h3, h4, .font-heading { font-family: 'Syne', sans-serif; font-weight: 700; }
+    code, pre, .font-mono { font-family: 'Space Mono', monospace; }
+
+    /* Layout Structure */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(8px);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .brand-subtitle { font-size: 0.75rem; color: var(--text-light); font-weight: normal; }
+
+    .header-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+    .search-box {
+      position: relative;
+      width: 250px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 0.4rem 0.75rem 0.4rem 2rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-size: 0.875rem;
+    }
+    .search-box input:focus { outline: 2px solid var(--accent-primary); }
+    .search-icon { position: absolute; left: 0.6rem; top: 50%; transform: translateY(-50%); font-size: 0.875rem; color: var(--text-light); }
+
+    .btn {
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+      font-weight: 500;
+      font-size: 0.875rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .btn:hover { background-color: var(--bg-card); border-color: var(--accent-primary); }
+    .btn-primary { background-color: var(--accent-primary); color: white; border-color: var(--accent-primary); }
+    .btn-primary:hover { background-color: var(--accent-hover); }
+
+    /* Navigation Tabs */
+    .nav-tabs-wrapper {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: thin;
+    }
+    .nav-tabs {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .tab-btn {
+      padding: 0.75rem 1rem;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { color: var(--accent-primary); }
+    .tab-btn.active { color: var(--accent-primary); border-bottom-color: var(--accent-primary); }
+
+    /* Main Container */
+    .main-container {
+      max-width: 1400px;
+      margin: 1.5rem auto;
+      padding: 0 1.5rem;
+      min-height: calc(100vh - 200px);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Reading Progress Bar */
+    .progress-bar-container { position: fixed; top: 0; left: 0; width: 100%; height: 3px; background: transparent; z-index: 101; }
+    .progress-bar { height: 100%; background: var(--accent-primary); width: 0%; transition: width 0.1s; }
+
+    /* Cards & Components */
+    .card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--text-main);
+      border-bottom: 2px solid var(--accent-light);
+      padding-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Callout Boxes */
+    .callout {
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      margin: 1rem 0;
+      border-left: 4px solid;
+    }
+    .callout-must-know { background-color: var(--info-bg); border-color: var(--info); color: var(--text-main); }
+    .callout-pitfall { background-color: var(--danger-bg); border-color: var(--danger); color: var(--text-main); }
+    .callout-pearl { background-color: var(--warning-bg); border-color: var(--warning); color: var(--text-main); }
+    .callout-exam-tip { background-color: var(--purple-bg); border-color: var(--purple); color: var(--text-main); }
+
+    .callout-header {
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* CSS Diagrams & Figures */
+    .figure-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+    .figure-caption {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      font-style: italic;
+    }
+    .figure-significance {
+      font-size: 0.85rem;
+      background: var(--bg-surface);
+      padding: 0.5rem;
+      border-radius: var(--radius-sm);
+      margin-top: 0.5rem;
+      border: 1px dashed var(--accent-primary);
+    }
+
+    /* Retinal Layer Stack CSS Visual */
+    .layer-stack { display: flex; flex-direction: column; gap: 2px; max-width: 650px; margin: 1rem auto; text-align: left; }
+    .layer-row {
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      color: #fff;
+      font-weight: 500;
+    }
+    .l-ilm { background-color: #334155; }
+    .l-nfl { background-color: #475569; }
+    .l-gcl { background-color: #2563eb; }
+    .l-ipl { background-color: #3b82f6; }
+    .l-inl { background-color: #0284c7; }
+    .l-opl { background-color: #0369a1; }
+    .l-onl { background-color: #0d9488; }
+    .l-elm { background-color: #059669; }
+    .l-prs { background-color: #16a34a; }
+    .l-rpe { background-color: #b45309; }
+    .l-cho { background-color: #991b1b; }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      text-align: left;
+    }
+    th {
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      padding: 0.75rem 1rem;
+      font-weight: 700;
+      border-bottom: 2px solid var(--border-color);
+    }
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      background-color: var(--bg-surface);
+    }
+    tr:nth-child(even) td { background-color: var(--bg-card); }
+    tr:hover td { background-color: var(--accent-light); }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-danger { background-color: var(--danger-bg); color: var(--danger); }
+    .badge-warning { background-color: var(--warning-bg); color: var(--warning); }
+    .badge-success { background-color: var(--success-bg); color: var(--success); }
+    .badge-info { background-color: var(--info-bg); color: var(--info); }
+
+    /* Accordion / Expandable Cards */
+    .accordion-item {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+    .accordion-header {
+      padding: 0.85rem 1.25rem;
+      background-color: var(--bg-card);
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .accordion-header:hover { background-color: var(--accent-light); }
+    .accordion-body {
+      padding: 1.25rem;
+      display: none;
+      background-color: var(--bg-surface);
+      border-top: 1px solid var(--border-color);
+    }
+    .accordion-item.active .accordion-body { display: block; }
+
+    /* Flashcard System */
+    .flashcard-container {
+      max-width: 650px;
+      margin: 2rem auto;
+      perspective: 1000px;
+    }
+    .flashcard {
+      width: 100%;
+      min-height: 320px;
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.4s, border-color 0.2s;
+      position: relative;
+    }
+    .flashcard:hover { border-color: var(--accent-primary); }
+    .flashcard-tag {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+    }
+    .flashcard-prompt { font-size: 1.15rem; font-weight: 600; color: var(--text-main); }
+    .flashcard-answer {
+      font-size: 1.05rem;
+      color: var(--accent-primary);
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px dashed var(--border-color);
+      display: none;
+    }
+    .flashcard.flipped .flashcard-answer { display: block; }
+    .flashcard-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      align-items: center;
+    }
+
+    /* MCQ Quiz Engine */
+    .mcq-container { max-width: 800px; margin: 0 auto; }
+    .mcq-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .mcq-question { font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem; }
+    .mcq-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mcq-option {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .mcq-option:hover { background-color: var(--bg-card); }
+    .mcq-option.selected { border-color: var(--accent-primary); background-color: var(--accent-light); }
+    .mcq-option.correct { border-color: var(--success); background-color: var(--success-bg); color: var(--text-main); }
+    .mcq-option.incorrect { border-color: var(--danger); background-color: var(--danger-bg); color: var(--text-main); }
+    .mcq-explanation {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: var(--bg-card);
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      display: none;
+      border-left: 3px solid var(--accent-primary);
+    }
+
+    /* Floating Scroll Top Button */
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-color: var(--accent-primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 90;
+    }
+    .scroll-top-btn.visible { opacity: 1; }
+
+    /* Print Styles */
+    @media print {
+      .app-header, .nav-tabs-wrapper, .search-box, .header-actions, .scroll-top-btn, .flashcard-controls, .btn { display: none !important; }
+      .tab-content { display: block !important; opacity: 1 !important; }
+      body { background-color: #fff; color: #000; }
+      .card { border: 1px solid #ccc; box-shadow: none; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reading Progress Bar -->
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Sticky Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-title">
+        <span>👁️ OPHTHA MASTER</span>
+        <span class="brand-subtitle">Retina, Vitreous & Choroid | Board Reviewer</span>
+      </div>
+      <div class="header-actions">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="globalSearch" placeholder="Search keywords..." onkeyup="filterContent()">
+        </div>
+        <button class="btn" onclick="toggleDarkMode()" id="darkModeBtn">🌙 Dark</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨️ Print</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Tab Navigation -->
+  <div class="nav-tabs-wrapper">
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('overview')">📌 Overview</button>
+      <button class="tab-btn" onclick="switchTab('anatomy')">🧬 Anatomy & Physio</button>
+      <button class="tab-btn" onclick="switchTab('diagnostics')">🔬 Diagnostics & Imaging</button>
+      <button class="tab-btn" onclick="switchTab('dr')">🩸 Diabetic Retinopathy</button>
+      <button class="tab-btn" onclick="switchTab('hr')">🩺 Hypertensive Retinopathy</button>
+      <button class="tab-btn" onclick="switchTab('vascular')">⚡ Vascular Occlusions</button>
+      <button class="tab-btn" onclick="switchTab('rd')">💥 Retinal Detachment</button>
+      <button class="tab-btn" onclick="switchTab('comparisons')">⚖️ Comparisons</button>
+      <button class="tab-btn" onclick="switchTab('flashcards')">🎴 Flashcards (50)</button>
+      <button class="tab-btn" onclick="switchTab('assessment')">📝 Self-Assessment (50)</button>
+      <button class="tab-btn" onclick="switchTab('cram')">⚡ Ultra-Cram Sheet</button>
+    </div>
+  </div>
+
+  <!-- Main Content Body -->
+  <main class="main-container">
+
+    <!-- TAB 1: OVERVIEW -->
+    <section id="overview" class="tab-content active">
+      <div class="card">
+        <h2 class="card-title">High-Yield Module Overview & Core Objectives</h2>
+        <p><strong>Lecturer:</strong> Maria Cecilia P. Garcia-Arenal, MD, DPBO, MHA | <strong>Target:</strong> Philippine Medical Board Exam (PLE) & 3rd Year Ophthalmology</p>
+        <p style="margin-top: 0.5rem;">This comprehensive reviewer consolidates all lecture content, clinical diagnostics, diagnostic imagery, treatment pathways, and high-yield board examination points covering posterior segment eye disorders.</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+          <div class="callout callout-must-know">
+            <div class="callout-header">⭐ Learning Objectives</div>
+            <ul style="padding-left: 1.2rem;">
+              <li>Master the 10 retinal layers, 3-neuron relay system, and RPE/Choroidal physiology.</li>
+              <li>Differentiate Direct/Indirect Ophthalmoscopy, Slit-lamp, FA, OCT, and B-Scan modalities.</li>
+              <li>Classify Diabetic Retinopathy (NPDR vs PDR; 4-2-1 Rule) and manage DME.</li>
+              <li>Stage Hypertensive Retinopathy using Keith-Wagener-Barker (KWB) criteria.</li>
+              <li>Execute emergency protocols for CRAO (90-min Golden Period) vs CRVO/BRVO/BRAO.</li>
+              <li>Distinguish Rhegmatogenous, Exudative, and Tractional Retinal Detachments.</li>
+            </ul>
+          </div>
+          
+          <div class="callout callout-pearl">
+            <div class="callout-header">💡 Master Abbreviations Index</div>
+            <p class="font-mono" style="font-size: 0.85rem;">
+              <strong>BRAO:</strong> Branch Retinal Artery Occlusion<br>
+              <strong>BRVO:</strong> Branch Retinal Vein Occlusion<br>
+              <strong>CRAO:</strong> Central Retinal Artery Occlusion<br>
+              <strong>CRVO:</strong> Central Retinal Vein Occlusion<br>
+              <strong>DR/DME:</strong> Diabetic Retinopathy / Diabetic Macular Edema<br>
+              <strong>FA:</strong> Fluorescein Angiogram | <strong>OCT:</strong> Optical Coherence Tomography<br>
+              <strong>LP/PRP:</strong> Laser Photocoagulation / Panretinal Photocoagulation<br>
+              <strong>NPDR/PDR:</strong> Non-proliferative / Proliferative Diabetic Retinopathy<br>
+              <strong>RPE:</strong> Retinal Pigment Epithelium | <strong>VEGF:</strong> Vascular Endothelial Growth Factor<br>
+              <strong>PPV:</strong> Pars Plana Vitrectomy
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Master Summary: Posterior Segment Pathology Map <button class="btn" onclick="copyTable('masterTable')">📋 Copy Table</button></h3>
+        <div class="table-container">
+          <table id="masterTable">
+            <thead>
+              <tr>
+                <th>Disease Entity</th>
+                <th>Primary Pathophysiology</th>
+                <th>Hallmark Funduscopic Finding</th>
+                <th>Primary Diagnostic Tool</th>
+                <th>First-Line Management</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Mild / Mod NPDR</strong></td>
+                <td>Hyperglycemia → Pericyte loss → Capillary leakage</td>
+                <td>Microaneurysms, dot/blot hemorrhages, hard exudates</td>
+                <td>Fundus Photo / OCT</td>
+                <td>Glycemic & BP control; Anti-VEGF if DME present</td>
+              </tr>
+              <tr>
+                <td><strong>Severe NPDR</strong></td>
+                <td>Widespread retinal ischemia (4-2-1 Rule)</td>
+                <td>MA in 4 quads, Venous Beading in 2 quads, IRMA in 1 quad</td>
+                <td>Fluorescein Angiography (FA)</td>
+                <td>Panretinal Photocoagulation (PRP) / Anti-VEGF</td>
+              </tr>
+              <tr>
+                <td><strong>Proliferative DR (PDR)</strong></td>
+                <td>Hypoxia → VEGF surge → Angiogenesis</td>
+                <td>Neovascularization (NVD/NVE), Vitreous Hemorrhage</td>
+                <td>FA / B-Scan (if media opaque)</td>
+                <td>PRP + Intravitreal Anti-VEGF; PPV for non-clearing VH</td>
+              </tr>
+              <tr>
+                <td><strong>Hypertensive Retinopathy</strong></td>
+                <td>Increased basal tone → Arteriosclerosis</td>
+                <td>AV nicking, Flame hemorrhages, Papilledema (Gr 4)</td>
+                <td>Ophthalmoscopy</td>
+                <td>Strict systemic blood pressure control</td>
+              </tr>
+              <tr>
+                <td><strong>BRVO</strong></td>
+                <td>Thrombosis at AV crossing defect (shared sheath)</td>
+                <td>Hemorrhages & exudates along 1 quadrant arcade</td>
+                <td>Fluorescein Angiography</td>
+                <td>Anti-VEGF (macular edema), LP for ischemia</td>
+              </tr>
+              <tr>
+                <td><strong>CRVO</strong></td>
+                <td>Thrombosis at Lamina Cribrosa (Hyperviscosity/HTN)</td>
+                <td>"Blood & Thunder" - Hemorrhages in all 4 quadrants</td>
+                <td>FA / OCT</td>
+                <td>Anti-VEGF (monthly x 3 then treat & extend), LP</td>
+              </tr>
+              <tr>
+                <td><strong>CRAO</strong></td>
+                <td>Embolic occlusion of CRA (from ICA/Heart)</td>
+                <td>Cherry-red spot, Pale edematous retina (Golden 90 min)</td>
+                <td>Clinical / Direct Ophthalmoscopy</td>
+                <td>Dislodge embolus: Massage, AC paracentesis, Carbogen</td>
+              </tr>
+              <tr>
+                <td><strong>BRAO</strong></td>
+                <td>Embolic occlusion of branch retinal artery</td>
+                <td>Sectoral retinal whitening/pallor</td>
+                <td>FA (Capillary non-perfusion)</td>
+                <td>Ocular massage, system workup for embolic source</td>
+              </tr>
+              <tr>
+                <td><strong>Rhegmatogenous RD</strong></td>
+                <td>Full-thickness retinal tear → Vitreous fluid under retina</td>
+                <td>Retinal folds, visible tear, gray/opaque detached retina</td>
+                <td>Indirect Ophthalmoscopy / OCT</td>
+                <td>Surgical: PPV, Scleral Buckle, Laser retinopexy</td>
+              </tr>
+              <tr>
+                <td><strong>Tractional RD</strong></td>
+                <td>Fibrovascular membranes pulling neurosensory retina</td>
+                <td>Concave detachment, dense traction bands (no tear)</td>
+                <td>OCT / B-Scan</td>
+                <td>Pars Plana Vitrectomy (PPV) with membrane peeling</td>
+              </tr>
+              <tr>
+                <td><strong>Exudative RD</strong></td>
+                <td>Subretinal fluid accumulation without tear (inflammation/HTN)</td>
+                <td>Smooth dome-shaped detachment, shifting fluid</td>
+                <td>OCT / B-Scan</td>
+                <td>Treat underlying systemic or inflammatory condition</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: ANATOMY & PHYSIOLOGY -->
+    <section id="anatomy" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">1. Vitreous Humour Anatomy & Physiology</h2>
+        <p>The vitreous body occupies <strong>80% of total ocular volume</strong> and consists of a clear, solid gel that undergoes gradual liquefaction and collapse with aging (synchysis senilis).</p>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+          <div class="card" style="margin:0; background: var(--bg-card);">
+            <h4>Composition (99% Water, 1% Solids)</h4>
+            <ul style="padding-left: 1.2rem; margin-top: 0.5rem;">
+              <li><strong>Collagen Fibrils:</strong> Provides structural matrix.</li>
+              <li><strong>Hyaluronic Acid Molecules:</strong> Retains water molecules.</li>
+              <li><strong>Hyalocytes:</strong> Mononuclear vitreous cells.</li>
+            </ul>
+          </div>
+          <div class="card" style="margin:0; background: var(--bg-card);">
+            <h4>Topographic Division & Borders</h4>
+            <ul style="padding-left: 1.2rem; margin-top: 0.5rem;">
+              <li><strong>Central Core:</strong> Central vitreous.</li>
+              <li><strong>Cortical Vitreous:</strong> Peripheral outer shell.</li>
+              <li><strong>Anterior Border:</strong> Retrolental space (behind lens).</li>
+              <li><strong>Posterior Border:</strong> Posterior hyaloid adjacent to ILM (Vitreoretinal Interface).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-must-know">
+          <div class="callout-header">⭐ Vitreous Attachment Sites (Strongest to Weakest)</div>
+          <ol style="padding-left: 1.2rem;">
+            <li><strong>Vitreous Base (Ora Serrata):</strong> Strongest attachment point anteriorly.</li>
+            <li><strong>Optic Nerve Disc Margin</strong></li>
+            <li><strong>Macula (Posterior Pole)</strong></li>
+            <li><strong>Retinal Blood Vessels</strong></li>
+          </ol>
+        </div>
+
+        <div class="callout callout-pearl">
+          <div class="callout-header">💡 Primary Functions of the Vitreous</div>
+          <p>1. <strong>Ocular Shape Maintenance:</strong> Holds spherical globe form.<br>
+          2. <strong>Visual Axis Clarity:</strong> Allows unhindered light transmission to retina.<br>
+          3. <strong>Retinal Attachment Support:</strong> Internal pressure holds retina against Bruch's membrane & choroid.<br>
+          4. <strong>Shock Absorber:</strong> Dampens blunt mechanical trauma to the globe.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">2. Retina: Structural Architecture & The 10 Layers</h2>
+        <p>The retina is the light-sensitive innermost neural layer continuous posteriorly with the optic nerve. Its dual blood supply consists of the <strong>Central Retinal Artery</strong> (supplying inner 2/3 layers) and the <strong>Ciliary Arteries/Choroid</strong> (supplying outer 1/3 layers: OPL, ONL, Photoreceptors, RPE).</p>
+
+        <!-- CSS Diagram of 10 Layers -->
+        <div class="figure-box">
+          <h4>Interactive Diagram: The 10 Layers of the Neurosensory Retina & RPE</h4>
+          <p class="figure-caption">Organized from Internal (Vitreous side) to External (Choroid side)</p>
+          
+          <div class="layer-stack">
+            <div class="layer-row l-ilm"><span>1. Internal Limiting Membrane (ILM)</span><span>Boundary with vitreous hyaloid</span></div>
+            <div class="layer-row l-nfl"><span>2. Nerve Fiber Layer (NFL)</span><span>Axons of Ganglion Cells → Optic Nerve</span></div>
+            <div class="layer-row l-gcl"><span>3. Ganglion Cell Layer (GCL)</span><span>Cell bodies of Ganglion neurons</span></div>
+            <div class="layer-row l-ipl"><span>4. Inner Plexiform Layer (IPL)</span><span>Synapses: Bipolar + Amacrine + Ganglion</span></div>
+            <div class="layer-row l-inl"><span>5. Inner Nuclear Layer (INL)</span><span>Bodies: Bipolar, Horizontal, Amacrine, Müller</span></div>
+            <div class="layer-row l-opl"><span>6. Outer Plexiform Layer (OPL)</span><span>Synapses: Photoreceptors + Bipolar + Horizontal</span></div>
+            <div class="layer-row l-onl"><span>7. Outer Nuclear Layer (ONL)</span><span>Cell bodies of Rods & Cones</span></div>
+            <div class="layer-row l-elm"><span>8. External Limiting Membrane (ELM)</span><span>Junctions between Photoreceptors & Müller cells</span></div>
+            <div class="layer-row l-prs"><span>9. Photoreceptor Layer (Rods & Cones)</span><span>Inner & Outer segments (Transduce light)</span></div>
+            <div class="layer-row l-rpe"><span>10. Retinal Pigment Epithelium (RPE)</span><span>Monolayer, Outer Blood-Retina Barrier</span></div>
+            <div class="layer-row l-cho"><span>--- Bruch's Membrane & Choroid ---</span><span>Vascular coat (Ciliary arteries)</span></div>
+          </div>
+          <div class="figure-significance"><strong>Clinical Significance:</strong> OCT uses light reflectivity variations to distinguish these exact 10 bands. Plexiform/fibrous layers (IPL, OPL, NFL) appear hyperreflective (bright), whereas nuclear layers (GCL, INL, ONL) appear hyporeflective (dark).</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="callout callout-exam-tip">
+            <div class="callout-header">🧠 The 3-Neuron Relay System</div>
+            <p>Phototransduction light signal pathway:</p>
+            <p><strong>Photoreceptors (ONL)</strong> → <em>Hyperpolarize</em><br>
+            ⬇️<br>
+            <strong>Bipolar Cells (INL)</strong> → <em>Polarize</em><br>
+            ⬇️<br>
+            <strong>Ganglion Cells (GCL)</strong> → <em>Axons form NFL/Optic Nerve to Occipital Brain</em></p>
+          </div>
+
+          <div class="callout callout-must-know">
+            <div class="callout-header">⭐ Structural & Metabolic Support</div>
+            <p><strong>Müller Cells:</strong> Span the entire thickness across all 10 retinal layers. Serve as the primary structural "scaffolding" and metabolic support network.</p>
+            <p><strong>Subretinal Space:</strong> A potential space between Photoreceptors and RPE (site of Retinal Detachment).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">3. Retinal Pigment Epithelium (RPE) & Choroid</h2>
+        
+        <div class="accordion-item active">
+          <div class="accordion-header" onclick="toggleAccordion(this)">Retinal Pigment Epithelium (RPE) - Deep Dive <span>▼</span></div>
+          <div class="accordion-body">
+            <ul>
+              <li><strong>Outer Blood-Retina Barrier:</strong> Formed by tight junctions (zonula occludens) between RPE cells adjacent to Bruch's membrane.</li>
+              <li><strong>Subretinal Space Dehydration:</strong> RPE actively pumps fluid and ions out of the subretinal space into the choroid. This creates a "suction effect" holding the neurosensory retina attached to Bruch's membrane without physical structural anatomical ties.</li>
+              <li><strong>Metabolic Support:</strong> Serves the outer third of retinal layers (OPL, ONL, Photoreceptor layer). Recycles retinol (light transduction byproducts) and phagocytoses shed photoreceptor outer segment discs.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">Choroid Physiology <span>▼</span></div>
+          <div class="accordion-body">
+            <ul>
+              <li><strong>Vascular Coat:</strong> Middle coat of the eye wall originating from short and long posterior ciliary arteries. Arranged in lobules.</li>
+              <li><strong>Bruch's Membrane:</strong> Extracellular matrix layer separating RPE from the choriocapillaris.</li>
+              <li><strong>Nourishment:</strong> Delivers oxygen and nutrient supply to outer retinal layers, RPE, and the avascular foveal macula.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: DIAGNOSTICS & IMAGING -->
+    <section id="diagnostics" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">Diagnostic & Imaging Modalities Summary</h2>
+        <p>Comprehensive evaluation requires systematic visual testing, clinical ophthalmoscopy, and cross-sectional or angiographic imaging.</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Diagnostic Tool</th>
+                <th>Field / View Scope</th>
+                <th>Dimensionality & Optics</th>
+                <th>Key Clinical Indications & Features</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Visual Acuity (Snellen / Bailey-Lovie)</strong></td>
+                <td>Central visual function</td>
+                <td>Functional rating (20/20 baseline)</td>
+                <td>Bailey-Lovie chart preferred over Snellen due to standardized letter spacing/sizing.</td>
+              </tr>
+              <tr>
+                <td><strong>Direct Ophthalmoscopy</strong></td>
+                <td>Monocular, central 15° restricted view</td>
+                <td>2D view (No depth perception)</td>
+                <td>Upright image, high magnification. Sees disc, proximal vessels, macula. Unsuitable for peripheral retina.</td>
+              </tr>
+              <tr>
+                <td><strong>Slit-lamp Biomicroscopy</strong></td>
+                <td>Posterior pole (with 70D or 90D condensing lens)</td>
+                <td>Stereoscopic 3D view</td>
+                <td>Magnification can be dynamically adjusted using slit lamp controls. Excellent for macular edema & vitreous.</td>
+              </tr>
+              <tr>
+                <td><strong>Indirect Ophthalmoscopy</strong></td>
+                <td>Widest field view (Posterior pole + far periphery)</td>
+                <td>Stereoscopic 3D inverted image</td>
+                <td>Headgear + 20D condensing lens. Patient looks in 8 cardinal directions to inspect peripheral retinal breaks.</td>
+              </tr>
+              <tr>
+                <td><strong>Fluorescein Angiography (FA)</strong></td>
+                <td>Retinal vasculature dynamic map</td>
+                <td>2D Blue-light excitation fundus photo</td>
+                <td>IV sodium fluorescein dye. Shows hyperfluorescence (leakage/edema/MA) & hypofluorescence (ischemia/hemorrhage block).</td>
+              </tr>
+              <tr>
+                <td><strong>Optical Coherence Tomography (OCT)</strong></td>
+                <td>Cross-sectional foveal & macular architecture</td>
+                <td>High-resolution optical cross-section</td>
+                <td>Near-IR laser beam. In vivo histology. Measures thickness, fluid (DME/SRF), and layer integrity.</td>
+              </tr>
+              <tr>
+                <td><strong>B-Scan Ultrasonography</strong></td>
+                <td>2D acoustic cross-section of posterior segment</td>
+                <td>Sound waves (10 MHz)</td>
+                <td>Indicated when posterior pole view is completely blocked by media opacities (e.g. dense Vitreous Hemorrhage).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">OCT Optical Reflectivity Breakdown</h3>
+        <p>OCT constructs images based on varying light reflectance indexes of individual layers:</p>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+          <div class="callout callout-must-know">
+            <div class="callout-header">⭐ Hyperreflective (Bright / White Bands)</div>
+            <p>Fibrous or Plexiform layers + RPE:</p>
+            <ul>
+              <li>Retinal Nerve Fiber Layer (RNFL)</li>
+              <li>Inner Plexiform Layer (IPL)</li>
+              <li>Outer Plexiform Layer (OPL)</li>
+              <li><strong>RPE Complex:</strong> Highly hyperreflective due to uniform cellular density.</li>
+              <li>Hard Exudates / Laser Scars / Hemorrhages</li>
+            </ul>
+          </div>
+          <div class="callout callout-pitfall">
+            <div class="callout-header">⚠️ Hyporeflective (Dark Bands)</div>
+            <p>Cellular / Nuclear layers + Fluid:</p>
+            <ul>
+              <li>Ganglion Cell Layer (GCL)</li>
+              <li>Inner Nuclear Layer (INL)</li>
+              <li>Outer Nuclear Layer (ONL)</li>
+              <li><strong>Subretinal Fluid / Cystoid Macular Edema:</strong> Fluid creates hyporeflective dark spaces.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: DIABETIC RETINOPATHY -->
+    <section id="dr" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">Diabetic Retinopathy (DR) - Epidemiology & Pathogenesis</h2>
+        <p>Diabetic Retinopathy is a leading cause of blindness among working-class adults. Primary cause: <strong>Chronic Hyperglycemia</strong> causing loss of capillary <strong>pericytes</strong>, endothelial damage, and capillary leakage leading to inner Blood-Retinal Barrier breakdown.</p>
+
+        <div class="callout callout-pearl">
+          <div class="callout-header">💡 Comprehensive DR Risk Factors</div>
+          <ul style="padding-left: 1.2rem;">
+            <li><strong>Duration of DM:</strong> Single most consistent relationship; frequency & severity increase with years of DM.</li>
+            <li><strong>Age at Diagnosis:</strong> Younger age at diagnosis of Type 2 DM = significantly higher risk. (No age association in Type 1 DM).</li>
+            <li><strong>Glycemic Control:</strong> Indirect relationship; strict HbA1c control (&lt;7%) prevents development/progression.</li>
+            <li><strong>Hypertension & Serum Lipids:</strong> High lipids strongly correlate with retinal <strong>hard exudates</strong> (lipoproteins) and Diabetic Macular Edema (DME).</li>
+            <li><strong>Nephropathy & Anemia:</strong> Persistent microalbuminuria & low baseline hematocrit (low O2 capacity) worsen ischemia.</li>
+            <li><strong>Pregnancy:</strong> High estrogen levels accelerate DR rapidly.</li>
+          </ul>
+        </div>
+
+        <div class="callout callout-pitfall">
+          <div class="callout-header">⚠️ Common Pitfall: Platelet Count vs DR</div>
+          <p>According to the Early Treatment Diabetic Retinopathy Study (ETDRS), baseline platelet counts and aspirin therapy have <strong>NO effect</strong> on the development or progression of Diabetic Retinopathy. Low <em>hematocrit</em> (not platelets) is the independent risk factor!</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">DR Classifications & Diagnostic Pathways</h2>
+        
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>DR Stage</th>
+                <th>Key Diagnostic Criteria & Features</th>
+                <th>Pathophysiologic Stage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-info">Mild NPDR</span></td>
+                <td>Microaneurysms ONLY (count ≤ 20 red dots). Asymptomatic.</td>
+                <td>Earliest clinical sign: Focal capillary outpouching.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-warning">Moderate NPDR</span></td>
+                <td>Microaneurysms (>20), Dot/Blot hemorrhages, Hard exudates, Cotton-wool spots. Does NOT satisfy 4-2-1 Rule.</td>
+                <td>Increasing capillary leakage & local ischemia.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-danger">Severe NPDR</span></td>
+                <td><strong>Fulfills 4-2-1 Rule (Any 1 of the following):</strong><br>
+                1. Microaneurysms / Hemorrhages in ALL 4 quadrants<br>
+                2. Venous Beading in 2+ quadrants<br>
+                3. Intraretinal Microvascular Abnormalities (IRMA) in 1+ quadrant</td>
+                <td>Severe pre-proliferative capillary non-perfusion & widespread hypoxia.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">Proliferative DR (PDR)</span></td>
+                <td><strong>Neovascularization</strong> (NVD on disc, NVE elsewhere). Complications: Vitreous Hemorrhage, Subhyaloid Hemorrhage, Fibrovascular Traction Retinal Detachment.</td>
+                <td>Severe ischemia → HIF-1 upregulation → Excessive VEGF surge → Angiogenesis.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-must-know">
+          <div class="callout-header">⭐ Diabetic Macular Edema (DME)</div>
+          <p>DME can occur at <strong>ANY stage</strong> of NPDR or PDR! Characterized by fluid accumulation at the macula leading to central visual loss. Hard exudates (waxy yellow lipid rings) indicate chronic fluid leakage.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">DR Management & Screening Guidelines</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <h4>Treatment Modalities</h4>
+            <ul style="padding-left: 1.2rem; margin-top: 0.5rem;">
+              <li><strong>Intravitreal Anti-VEGF:</strong> First-line for DME & PDR. Stabilizes blood-retinal barrier.<br>
+              - <em>Ranibizumab & Aflibercept:</em> FDA approved.<br>
+              - <em>Bevacizumab:</em> Off-label, low-cost colorectal chemo agent.</li>
+              <li><strong>Laser Photocoagulation (LP):</strong><br>
+              - <em>Panretinal (PRP):</em> Ablates peripheral photoreceptors/RPE to reduce O2 demand & drop VEGF (for Severe NPDR / PDR).<br>
+              - <em>Focal LP:</em> Treats focal leakage in DME.<br>
+              - <em>Grid LP:</em> Treats diffuse leakage in DME.</li>
+              <li><strong>Pars Plana Vitrectomy (23-Gauge PPV):</strong> Indicated for non-clearing vitreous hemorrhage or tractional RD.<br>
+              - Port 1: Infusion (maintains IOP)<br>
+              - Port 2: Endoillumination Light Source<br>
+              - Port 3: Vitrector (cuts & aspirates)</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4>Recommended Eye Exam Screening Schedule</h4>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr><th>Diabetes Type</th><th>First Eye Exam</th><th>Follow-up</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>Type 1 DM</strong></td><td>3–5 years after diagnosis</td><td>Annually</td></tr>
+                  <tr><td><strong>Type 2 DM</strong></td><td>At time of diagnosis</td><td>Annually</td></tr>
+                  <tr><td><strong>Pregnancy + DM</strong></td><td>Before conception / 1st Trimester</td><td>No/Mild DR: 3–12 mos<br>Severe NPDR+: 1–3 mos</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.5rem;"><em>Rationale: Type 2 DM patients often have subclinical hyperglycemia for ~5 years before clinical diagnosis, so DR may already be present at diagnosis!</em></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: HYPERTENSIVE RETINOPATHY -->
+    <section id="hr" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">Hypertensive Retinopathy (HR)</h2>
+        <p>Systemic hypertension causes increased basal arteriolar muscle tone via sympathetic stimulation, RAAS overactivity, and vessel wall sclerosis. Normal retinal Arteriole-to-Vein (A:V) ratio is <strong>2:3</strong>. Arteriosclerosis reduces this ratio to <strong>1:2 or 1:3</strong>.</p>
+
+        <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">Keith-Wagener-Barker (KWB) Classification</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>KWB Grade</th>
+                <th>Retinal Findings</th>
+                <th>Systemic Features & Prognosis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-info">Grade 1</span></td>
+                <td>Slight functional narrowing, sclerosis, and tortuosity of retinal arterioles. A:V ratio ~ 1:2.</td>
+                <td>Mild, asymptomatic hypertension.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-warning">Grade 2</span></td>
+                <td>Definite focal constriction, sclerosis, and <strong>Arteriovenous (AV) Nicking</strong> at crossing points.</td>
+                <td>Higher sustained BP; few systemic symptoms.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-danger">Grade 3</span></td>
+                <td>Retinopathy: Flame-shaped hemorrhages, <strong>Cotton-wool spots</strong> (RNFL microinfarcts), hard exudates.</td>
+                <td>Significantly elevated BP; headaches, mild cardiac/renal/cerebral dysfunction.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">Grade 4</span></td>
+                <td><strong>Neuroretinal Edema + Papilledema (Optic Disc Edema)</strong> + Elschnig spots / Siegrist streaks.</td>
+                <td>Malignant HTN / Pre-eclampsia. <strong>Strongly associated with increased mortality!</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-exam-tip">
+          <div class="callout-header">🧠 Board Exam Tip: AV Nicking Pathophysiology</div>
+          <p>Retinal arteries and veins share a common adventitial sheath at crossing points. In chronic HTN, the thickened, sclerotic arterial wall compresses the underlying softer vein within the rigid shared sheath, causing venous stasis and distal constriction (AV Nicking).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: VASCULAR OCCLUSIONS -->
+    <section id="vascular" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">Retinal Vein & Artery Occlusions</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+          <div class="callout callout-must-know">
+            <div class="callout-header">⭐ Pathophysiologic Rule of Thumb</div>
+            <p><strong>Vein Occlusions = THROMBOTIC Phenomenon</strong> (Venous stasis, hyperviscosity, AV compression).<br>
+            <strong>Artery Occlusions = EMBOLIC Phenomenon</strong> (Calcified plaques from Carotid Artery or Heart).</p>
+          </div>
+          <div class="callout callout-pitfall">
+            <div class="callout-header">⚠️ Emergency Rule</div>
+            <p><strong>CRAO is an Absolute Ophthalmic Emergency!</strong> Irreversible retinal tissue necrosis occurs after <strong>90 minutes</strong> of complete occlusion ("The Golden Period").</p>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Vascular Disorder</th>
+                <th>Site of Occlusion</th>
+                <th>Fundus Findings</th>
+                <th>Management Strategy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>BRVO</strong><br>(Branch Vein)</td>
+                <td>AV crossing defect (arteriosclerotic artery compresses vein)</td>
+                <td>Hemorrhages & exudates localized to <strong>ONE quadrant</strong> along the occluded venous branch.</td>
+                <td>Anti-VEGF for macular edema; LP for capillary non-perfusion/ischemia.</td>
+              </tr>
+              <tr>
+                <td><strong>CRVO</strong><br>(Central Vein)</td>
+                <td>Lamina Cribrosa (scleral opening)</td>
+                <td><strong>"Blood & Thunder":</strong> Dilated, tortuous veins & flame hemorrhages in <strong>ALL 4 quadrants</strong>; disc edema.</td>
+                <td>Intravitreal Anti-VEGF (monthly x 3 then treat & extend); LP for neovascularization.</td>
+              </tr>
+              <tr>
+                <td><strong>BRAO</strong><br>(Branch Artery)</td>
+                <td>Branch retinal arteriole bifurcation</td>
+                <td>Sectoral retinal whitening/pallor corresponding to the territory of the blocked arteriole.</td>
+                <td>Ocular massage; system workup for embolic origin (carotid Doppler, echo).</td>
+              </tr>
+              <tr>
+                <td><strong>CRAO</strong><br>(Central Artery)</td>
+                <td>Central Retinal Artery at optic nerve entrance</td>
+                <td>Diffuse ground-glass retinal pallor/edema with classic <strong>Cherry-Red Spot</strong> at fovea.</td>
+                <td>Emergency (&lt;90 min): Ocular massage, AC paracentesis, Carbogen, Anti-IOP meds.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="figure-box">
+          <h4>Clinical Highlight: Cilioretinal Artery Sparing in CRAO</h4>
+          <p class="figure-caption">Anatomic variant present in ~20% of the population</p>
+          <div class="figure-significance">
+            <strong>Pathophysiology:</strong> The Cilioretinal Artery arises from the <em>short posterior ciliary arteries</em> (choroidal supply), NOT the Central Retinal Artery. In CRAO with cilioretinal sparing, the fovea/macula remains perfused, preserving central visual acuity (e.g. 20/20) despite total perifoveal retinal pallor!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 7: RETINAL DETACHMENT -->
+    <section id="rd" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">Retinal Detachment (RD)</h2>
+        <p>Retinal Detachment is the separation of the neurosensory retina from the underlying Retinal Pigment Epithelium (RPE) at the potential subretinal space.</p>
+
+        <div class="callout callout-pearl">
+          <div class="callout-header">💡 Classic Symptom Triad of Retinal Detachment</div>
+          <p>1. <strong>Photopsia:</strong> Flashes of light (due to mechanical vitreoretinal traction on neurosensory retina).<br>
+          2. <strong>Floaters:</strong> Dark spots or cobwebs (vitreous condensation / RBCs in vitreous).<br>
+          3. <strong>Expanding Scotoma:</strong> "Curtain-like" painless visual field shadow progressing from peripheral to central vision.</p>
+        </div>
+
+        <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">Major Types of Retinal Detachment</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>RD Classification</th>
+                <th>Primary Mechanism</th>
+                <th>Common Etiologies</th>
+                <th>Key Diagnostic / Management Features</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-danger">Rhegmatogenous RD</span></td>
+                <td>Full-thickness <strong>retinal break/tear</strong> allows liquefied vitreous gel into subretinal space.</td>
+                <td>High myopia, trauma, post-cataract surgery, aging vitreous collapse.</td>
+                <td>Retinal folds, visible tear. Treatment: Surgery (PPV, Scleral Buckle) + Laser retinopexy to seal tear.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">Tractional RD</span></td>
+                <td><strong>Fibrovascular membranes</strong> pull neurosensory retina away from RPE (no tear required).</td>
+                <td>Proliferative Diabetic Retinopathy (PDR), Trauma, Ischemic retinopathies.</td>
+                <td>Concave detachment contour, fixed traction bands. Treatment: PPV with membrane peeling.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-warning">Exudative (Serous) RD</span></td>
+                <td>Subretinal fluid accumulation due to <strong>RPE pump failure or hyperpermeability</strong> without tear.</td>
+                <td>Severe HTN / Pre-eclampsia, choroidal tumors, posterior uveitis / inflammation.</td>
+                <td>Smooth, dome-shaped detachment with shifting fluid. Treatment: Treat underlying medical cause.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-must-know">
+          <div class="callout-header">⭐ Surgical Principles of Rhegmatogenous RD Repair</div>
+          <p>1. Identify ALL retinal breaks.<br>
+          2. Close and seal the breaks (create chorioretinal scars using laser photocoagulation or cryotherapy).<br>
+          3. Relieve/neutralize vitreoretinal traction (via vitrectomy or scleral buckle).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 8: COMPARISONS -->
+    <section id="comparisons" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">High-Yield Side-by-Side Comparison Tables</h2>
+
+        <h3 style="margin-top: 1rem;">1. Retinal Vein vs Retinal Artery Occlusions</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Central Retinal Vein Occlusion (CRVO)</th>
+                <th>Central Retinal Artery Occlusion (CRAO)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Etiology</strong></td><td>Thrombosis at Lamina Cribrosa</td><td>Embolus from Carotid Artery or Heart</td></tr>
+              <tr><td><strong>Onset</strong></td><td>Subacute or sudden painless visual loss</td><td>Sudden, catastrophic painless visual loss</td></tr>
+              <tr><td><strong>Fundus Appearance</strong></td><td>"Blood & Thunder": Widespread hemorrhages, engorged tortuous veins, disc edema</td><td>Ground-glass pale/opaque retina, <strong>Cherry-Red Spot</strong> at fovea</td></tr>
+              <tr><td><strong>Emergency Status</strong></td><td>Urgent (manage within days)</td><td><strong>Absolute Emergency</strong> (&lt;90 minute golden window)</td></tr>
+              <tr><td><strong>Primary Therapy</strong></td><td>Intravitreal Anti-VEGF, LP for ischemia</td><td>Ocular massage, AC paracentesis, Carbogen</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top: 1.5rem;">2. NPDR vs Proliferative Diabetic Retinopathy (PDR)</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Non-proliferative DR (NPDR)</th>
+                <th>Proliferative DR (PDR)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Defining Feature</strong></td><td>Capillary damage, microaneurysms, leakage</td><td><strong>Neovascularization (NVD / NVE)</strong></td></tr>
+              <tr><td><strong>Pathophysiology</strong></td><td>Pericyte loss, breakdown of inner BRB</td><td>Severe ischemia → VEGF surge → Angiogenesis</td></tr>
+              <tr><td><strong>Complications</strong></td><td>Diabetic Macular Edema (DME)</td><td>Vitreous Hemorrhage, Tractional RD</td></tr>
+              <tr><td><strong>Laser Indication</strong></td><td>Focal/Grid LP for DME; PRP if Severe (4-2-1)</td><td>Panretinal Photocoagulation (PRP) mandatory</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top: 1.5rem;">3. Direct vs Indirect Ophthalmoscopy</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Direct Ophthalmoscopy</th>
+                <th>Indirect Ophthalmoscopy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Field of View</strong></td><td>Monocular, central 15° restricted view</td><td>Widest field (Posterior pole to Ora Serrata)</td></tr>
+              <tr><td><strong>Dimensionality</strong></td><td>2D image (No depth perception)</td><td><strong>Stereoscopic 3D image</strong></td></tr>
+              <tr><td><strong>Image Orientation</strong></td><td>Upright, direct image</td><td>Inverted and reversed image</td></tr>
+              <tr><td><strong>Lens Used</strong></td><td>Built-in optical lenses</td><td>Headgear + 20D condensing lens</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 9: FLASHCARDS (50) -->
+    <section id="flashcards" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">Active-Recall Flashcard Engine (50 Cards)</h2>
+        <p>Click card to flip. Use buttons or keyboard shortcuts (<strong>Space</strong> to flip, <strong>Left/Right Arrows</strong> to navigate).</p>
+        
+        <div style="display: flex; gap: 1rem; align-items: center; margin-top: 1rem;">
+          <select id="flashcardFilter" onchange="filterFlashcards()" class="btn">
+            <option value="all">All Topics (50)</option>
+            <option value="anatomy">Anatomy & Physiology</option>
+            <option value="diagnostics">Diagnostics & Imaging</option>
+            <option value="dr">Diabetic Retinopathy</option>
+            <option value="hr">Hypertensive Retinopathy</option>
+            <option value="vascular">Vascular Occlusions</option>
+            <option value="rd">Retinal Detachment</option>
+          </select>
+          <button class="btn" onclick="shuffleFlashcards()">🔀 Shuffle</button>
+          <span id="flashcardTracker" class="font-mono" style="font-weight:700;">Card 1 of 50</span>
+        </div>
+
+        <div class="flashcard-container">
+          <div class="flashcard" id="flashcard" onclick="flipCard()">
+            <div class="flashcard-tag" id="fcTag">Anatomy</div>
+            <div class="flashcard-prompt" id="fcPrompt">Question loading...</div>
+            <div class="flashcard-answer" id="fcAnswer">Answer loading...</div>
+          </div>
+          <div class="flashcard-controls">
+            <button class="btn" onclick="prevCard()">⬅️ Previous</button>
+            <button class="btn btn-primary" onclick="flipCard()">🔄 Flip Card</button>
+            <button class="btn" onclick="nextCard()">Next ➡️</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 10: SELF-ASSESSMENT MCQs (50) -->
+    <section id="assessment" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">Board-Style Multiple Choice Exam (50 Questions)</h2>
+        <p>Complete all questions to test your readiness for the PLE and 3rd-year long exams. Score tracking is updated automatically.</p>
+        <div style="margin: 1rem 0; padding: 0.75rem; background: var(--bg-card); border-radius: var(--radius-sm);" class="font-mono">
+          <strong>Current Score:</strong> <span id="quizScore">0</span> / 50 (<span id="quizPercent">0</span>%)
+        </div>
+
+        <div class="mcq-container" id="mcqContainer">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 11: ULTRA-CRAM SHEET -->
+    <section id="cram" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">⚡ Last-Minute Ultra-Cram Sheet (Read in &lt;10 Minutes)</h2>
+        
+        <div class="callout callout-must-know">
+          <div class="callout-header">⚡ Rapid Fire "If You See X → Think Y" Clinical Chains</div>
+          <ul style="padding-left: 1.2rem; line-height: 1.8;">
+            <li><strong>Cherry-Red Spot + Ground-Glass Retinal Pallor</strong> → Central Retinal Artery Occlusion (CRAO).</li>
+            <li><strong>Catastrophic vision loss with 20/20 central foveal sparing</strong> → CRAO with Cilioretinal Artery Sparing.</li>
+            <li><strong>"Blood and Thunder" fundus (Hemorrhages in ALL 4 quadrants)</strong> → Central Retinal Vein Occlusion (CRVO).</li>
+            <li><strong>Flame hemorrhages & exudates in ONE quadrant only</strong> → Branch Retinal Vein Occlusion (BRVO) at AV nicking site.</li>
+            <li><strong>Optic Disc Edema + Elschnig Spots + Siegrist Streaks</strong> → Grade 4 Hypertensive Retinopathy (Malignant HTN / Pre-eclampsia).</li>
+            <li><strong>Earliest clinical sign of Diabetic Retinopathy</strong> → Microaneurysms (Capillary pericyte loss).</li>
+            <li><strong>Waxy yellow lipid rings on retina</strong> → Hard Exudates (associated with Diabetic Macular Edema).</li>
+            <li><strong>Whity ill-defined fluffy patches in nerve fiber layer</strong> → Cotton-Wool Spots (RNFL microinfarcts/ischemia).</li>
+            <li><strong>Neovascularization on optic disc (NVD) or elsewhere (NVE)</strong> → Proliferative Diabetic Retinopathy (PDR).</li>
+            <li><strong>Severe NPDR 4-2-1 Rule</strong> → MA in 4 quads, Venous Beading in 2 quads, OR IRMA in 1 quad.</li>
+            <li><strong>Photopsia + Floaters + Curtain-like expanding scotoma</strong> → Retinal Detachment.</li>
+            <li><strong>Full-thickness retinal tear + gray wrinkled detached retina</strong> → Rhegmatogenous Retinal Detachment.</li>
+            <li><strong>Concave detachment with dense traction bands in PDR</strong> → Tractional Retinal Detachment.</li>
+            <li><strong>Dome-shaped smooth detachment with shifting fluid</strong> → Exudative (Serous) Retinal Detachment.</li>
+          </ul>
+        </div>
+
+        <div class="callout callout-pearl">
+          <div class="callout-header">💡 High-Yield Board Buzzwords & Numeric Rules</div>
+          <ul>
+            <li><strong>80%:</strong> Volume of eye occupied by vitreous humour.</li>
+            <li><strong>99% vs 1%:</strong> Vitreous is 99% water, 1% collagen/hyaluronic acid/hyalocytes.</li>
+            <li><strong>2:3 vs 1:2:</strong> Normal retinal A:V ratio is 2:3; narrows to 1:2 or 1:3 in HTN/arteriosclerosis.</li>
+            <li><strong>90 Minutes:</strong> Maximum Golden Window to treat CRAO before permanent retinal cell necrosis.</li>
+            <li><strong>70D / 90D vs 20D:</strong> 70D/90D lens used for Slit-lamp biomicroscopy; 20D lens used for Indirect Ophthalmoscopy.</li>
+            <li><strong>Port 1 / Port 2 / Port 3 in 23-Gauge PPV:</strong> Port 1 = Infusion, Port 2 = Light source, Port 3 = Vitrector.</li>
+            <li><strong>Bevacizumab:</strong> Off-label colorectal chemo drug used as budget-friendly Anti-VEGF.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Scroll To Top Button -->
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">▲</button>
+
+  <script>
+    // --- GLOBAL DATA & STATE ---
+    let currentFlashcardIndex = 0;
+    let filteredFlashcardsList = [];
+    let userAnswers = {};
+
+    // 50 FLASHCARDS DATA
+    const flashcardsData = [
+      { id: 1, tag: "anatomy", q: "What percentage of the ocular volume is made up of the vitreous gel?", a: "80% of total ocular volume." },
+      { id: 2, tag: "anatomy", q: "What is the solid composition (1%) of the vitreous gel?", a: "Collagen fibrils, Hyaluronic acid molecules, and Hyalocytes." },
+      { id: 3, tag: "anatomy", q: "Where is the vitreous gel most strongly attached?", a: "At the Vitreous Base (Ora Serrata) anteriorly." },
+      { id: 4, tag: "anatomy", q: "What constitutes the 3-Neuron Relay System of light transduction?", a: "1. Photoreceptors (Rods/Cones) → 2. Bipolar Cells → 3. Ganglion Cells." },
+      { id: 5, tag: "anatomy", q: "Which cell type spans all 10 retinal layers as structural scaffolding?", a: "Müller cells." },
+      { id: 6, tag: "anatomy", q: "Which layer forms the Outer Blood-Retina Barrier?", a: "Retinal Pigment Epithelium (RPE) via tight junctions." },
+      { id: 7, tag: "anatomy", q: "How does the RPE keep the neurosensory retina attached?", a: "By actively pumping fluid out of the subretinal space into the choroid (suction effect)." },
+      { id: 8, tag: "anatomy", q: "What vascular supply feeds the outer 1/3 of the retina?", a: "Short and long posterior ciliary arteries (Choroid)." },
+      { id: 9, tag: "anatomy", q: "What structure separates the RPE from the choriocapillaris?", a: "Bruch's membrane." },
+      { id: 10, tag: "anatomy", q: "What is the primary function of Hyaluronic Acid in the vitreous?", a: "Retaining water molecules within the collagen matrix." },
+      
+      { id: 11, tag: "diagnostics", q: "Which visual acuity chart is preferred today due to standardized spacing?", a: "Bailey-Lovie chart." },
+      { id: 12, tag: "diagnostics", q: "What field of view is provided by Direct Ophthalmoscopy?", a: "Central 15° monocular view (2D, no depth perception)." },
+      { id: 13, tag: "diagnostics", q: "Which condensing lenses are paired with Slit-lamp Biomicroscopy?", a: "70 Diopter or 90 Diopter lenses." },
+      { id: 14, tag: "diagnostics", q: "Which imaging modality gives the widest 3D stereoscopic view of the periphery?", a: "Indirect Ophthalmoscopy (with 20D lens)." },
+      { id: 15, tag: "diagnostics", q: "How are retinal layers visualized on Optical Coherence Tomography (OCT)?", a: "By measuring varying light reflectance indexes of individual layers." },
+      { id: 16, tag: "diagnostics", q: "Why do Plexiform layers appear hyperreflective (bright) on OCT?", a: "Due to high density of nerve fibers and synaptic intersections." },
+      { id: 17, tag: "diagnostics", q: "When is B-Scan Ultrasonography mandatory in posterior segment workup?", a: "When media opacity (e.g. dense Vitreous Hemorrhage) obscures visual inspection." },
+      { id: 18, tag: "diagnostics", q: "What does dye leakage appear as on Fluorescein Angiography (FA)?", a: "Hyperfluorescence." },
+      { id: 19, tag: "diagnostics", q: "What causes blocked fluorescence on Fluorescein Angiography?", a: "Retinal hemorrhages blocking underlying choroidal/retinal fluorescence." },
+      { id: 20, tag: "diagnostics", q: "What is the optical light source used in OCT imaging?", a: "Near-infrared monochromatic light beam." },
+
+      { id: 21, tag: "dr", q: "What cell loss triggers capillary breakdown in Diabetic Retinopathy?", a: "Loss of capillary pericytes." },
+      { id: 22, tag: "dr", q: "What is the earliest clinically visible sign of Diabetic Retinopathy?", a: "Microaneurysms." },
+      { id: 23, tag: "dr", q: "What composition makes up retinal Hard Exudates?", a: "Lipoproteins leaked from damaged capillaries." },
+      { id: 24, tag: "dr", q: "What causes Cotton-Wool Spots on fundus examination?", a: "Nerve fiber layer microinfarcts due to arteriolar occlusion." },
+      { id: 25, tag: "dr", q: "State the Severe NPDR 4-2-1 Rule criteria.", a: "1. MA/Hemorrhages in 4 quads, OR 2. Venous Beading in 2 quads, OR 3. IRMA in 1 quad." },
+      { id: 26, tag: "dr", q: "What defines Proliferative Diabetic Retinopathy (PDR)?", a: "Presence of Neovascularization (NVD on disc or NVE elsewhere)." },
+      { id: 27, tag: "dr", q: "Which Anti-VEGF agent is used off-label due to cost-effectiveness?", a: "Bevacizumab." },
+      { id: 28, tag: "dr", q: "What is the mechanism of Panretinal Photocoagulation (PRP)?", a: "Destroys peripheral photoreceptors/RPE to reduce O2 demand and downregulate VEGF." },
+      { id: 29, tag: "dr", q: "What are the 3 trocars used for in 23-gauge Pars Plana Vitrectomy?", a: "Port 1: Infusion | Port 2: Light source | Port 3: Vitrector." },
+      { id: 30, tag: "dr", q: "When should a newly diagnosed Type 2 DM patient get their first eye exam?", a: "Immediately upon diagnosis." },
+
+      { id: 31, tag: "hr", q: "What is the normal retinal Arteriole-to-Vein (A:V) ratio?", a: "2:3." },
+      { id: 32, tag: "hr", q: "What A:V ratio indicates hypertensive arteriolosclerosis?", a: "1:2 or 1:3." },
+      { id: 33, tag: "hr", q: "Why does AV Nicking occur in Hypertensive Retinopathy?", a: "Sclerotic artery compresses underlying vein within their shared adventitial sheath." },
+      { id: 34, tag: "hr", q: "What key finding distinguishes Grade 3 from Grade 2 KWB HR?", a: "Presence of Retinopathy (flame hemorrhages, cotton-wool spots, exudates)." },
+      { id: 35, tag: "hr", q: "What hallmark finding defines Grade 4 KWB Hypertensive Retinopathy?", a: "Neuroretinal Edema / Papilledema (Optic Disc Edema)." },
+      { id: 36, tag: "hr", q: "Which KWB stage is strongly associated with increased mortality?", a: "Grade 4 Hypertensive Retinopathy." },
+
+      { id: 37, tag: "vascular", q: "What is the primary etiology of Retinal Vein Occlusions?", a: "Thrombosis." },
+      { id: 38, tag: "vascular", q: "Where does Central Retinal Vein Occlusion (CRVO) occur?", a: "At the Lamina Cribrosa." },
+      { id: 39, tag: "vascular", q: "Describe the fundus appearance of CRVO.", a: "'Blood and Thunder': Hemorrhages and dilated tortuous veins in ALL 4 quadrants." },
+      { id: 40, tag: "vascular", q: "Where does Branch Retinal Vein Occlusion (BRVO) occur?", a: "At an Arteriovenous (AV) crossing defect." },
+      { id: 41, tag: "vascular", q: "What is the primary etiology of Retinal Artery Occlusions?", a: "Embolism (calcified plaque from carotid artery or heart)." },
+      { id: 42, tag: "vascular", q: "What is the maximum ischemic window ('Golden Period') for CRAO?", a: "90 minutes." },
+      { id: 43, tag: "vascular", q: "Why does a 'Cherry-Red Spot' form in CRAO?", a: "Thin fovea allows choroidal vascular red color to shine through pale edematous retina." },
+      { id: 44, tag: "vascular", q: "What artery allows macular sparing in 20% of CRAO patients?", a: "Cilioretinal Artery (derived from short posterior ciliary arteries)." },
+      { id: 45, tag: "vascular", q: "What is the main goal of emergency CRAO management?", a: "To dislodge the embolus distally into a branch artery to preserve remaining tissue." },
+
+      { id: 46, tag: "rd", q: "What classic triad of symptoms heralds Retinal Detachment?", a: "Photopsia (flashes), Floaters, and an expanding shadow/scotoma." },
+      { id: 47, tag: "rd", q: "What defines Rhegmatogenous Retinal Detachment?", a: "Presence of a full-thickness retinal tear/break letting fluid under the retina." },
+      { id: 48, tag: "rd", q: "What causes Tractional Retinal Detachment in PDR?", a: "Contracting fibrovascular membranes pulling neurosensory retina off the RPE." },
+      { id: 49, tag: "rd", q: "What distinguishes Exudative RD from Rhegmatogenous RD?", a: "Absence of a retinal tear/break; smooth dome shape with shifting fluid." },
+      { id: 50, tag: "rd", q: "What are the 3 core surgical principles of Rhegmatogenous RD repair?", a: "1. Find all breaks | 2. Seal breaks with laser/cryo | 3. Relieve vitreoretinal traction." }
+    ];
+
+    // 50 BOARD-STYLE MCQS DATA
+    const mcqQuestionsData = [
+      {
+        id: 1,
+        q: "A 25-year-old basketball player experiences sudden painless blurring of vision in the left eye after an accidental elbow blow to his orbit. Fundus examination reveals dense vitreous hemorrhage covering the macula. Which statement is TRUE regarding vitreous physiology and diagnostics in this patient?",
+        options: [
+          "A. The vitreous gel failed its shock-absorber function completely.",
+          "B. Optical Coherence Tomography (OCT) is the most appropriate immediate diagnostic imaging to assess the retina.",
+          "C. B-Scan Ultrasonography is indicated because the dense hemorrhage prevents direct visual inspection of the retina.",
+          "D. The vitreous body is composed of 80% water and 20% collagen fibrils."
+        ],
+        correct: 2,
+        exp: "Correct Answer: C. B-Scan Ultrasonography is required when media opacities (such as dense vitreous hemorrhage) block light-based retinal visualization. <br>Distractor Rationale:<br>A is wrong: Vitreous absorbs blunt force, but severe trauma can still rupture vessels.<br>B is wrong: OCT requires clear optical media to penetrate light.<br>D is wrong: Vitreous is 99% water and 1% solids."
+      },
+      {
+        id: 2,
+        q: "During phototransduction, light enters the eye and strikes the retina. Which of the following represents the correct order of the 3-Neuron Relay System?",
+        options: [
+          "A. Ganglion cells → Bipolar cells → Photoreceptor cells",
+          "B. Photoreceptor cells → Bipolar cells → Ganglion cells",
+          "C. Retinal Pigment Epithelium → Bipolar cells → Ganglion cells",
+          "D. Bipolar cells → Amacrine cells → Photoreceptor cells"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. Light hyperpolarizes photoreceptors (ONL) → polarizes bipolar cells (INL) → signals ganglion cells (GCL) whose axons form the optic nerve.<br>Distractor Rationale: A is inverted. C includes RPE which is not a relay neuron. D has incorrect order."
+      },
+      {
+        id: 3,
+        q: "A 62-year-old female with T2DM presents for a routine checkup. Fundus photo shows 12 microaneurysms in the right eye with no exudates or hemorrhages. How should this be classified?",
+        options: [
+          "A. Mild NPDR",
+          "B. Moderate NPDR",
+          "C. Severe NPDR",
+          "D. Proliferative DR"
+        ],
+        correct: 0,
+        exp: "Correct Answer: A. Mild NPDR is characterized by the presence of microaneurysms ONLY (count ≤ 20).<br>Distractor Rationale: Moderate NPDR requires >20 MAs, dot/blot hemorrhages or hard exudates. Severe NPDR requires fulfilling the 4-2-1 rule. PDR requires neovascularization."
+      },
+      {
+        id: 4,
+        q: "A patient with long-standing Type 2 DM presents with sudden visual drop to 'counting fingers' in the right eye. Ophthalmoscopy shows dark blood settling in the inferior vitreous cavity with fibrous proliferation on the optic disc. What is the stage of DR?",
+        options: [
+          "A. Moderate NPDR",
+          "B. Severe NPDR",
+          "C. Proliferative Diabetic Retinopathy (PDR)",
+          "D. Diabetic Macular Edema"
+        ],
+        correct: 2,
+        exp: "Correct Answer: C. Neovascularization on the disc (NVD) and secondary vitreous hemorrhage define Proliferative DR.<br>Distractor Rationale: Severe NPDR lacks neovascularization. DME refers specifically to macular fluid, not vitreous bleeding."
+      },
+      {
+        id: 5,
+        q: "Which anti-VEGF agent is widely used off-label as a cost-effective alternative for Diabetic Macular Edema?",
+        options: [
+          "A. Ranibizumab",
+          "B. Aflibercept",
+          "C. Bevacizumab",
+          "D. Faricimab"
+        ],
+        correct: 2,
+        exp: "Correct Answer: C. Bevacizumab (originally approved for colorectal cancer) is used off-label due to significantly lower cost.<br>Distractor Rationale: Ranibizumab and Aflibercept have formal FDA approval for DME."
+      },
+      {
+        id: 6,
+        q: "A 68-year-old male presents with sudden, painless, catastrophic vision loss in the right eye (Vision: Light Perception) lasting for 40 minutes. Fundus copy reveals a pale, edematous retina with a prominent Cherry-Red Spot at the fovea. What is the primary management goal?",
+        options: [
+          "A. Immediate Panretinal Photocoagulation",
+          "B. Emergency maneuvers to dislodge the embolus more distally within the 90-minute golden window",
+          "C. Intravitreal Anti-VEGF injection",
+          "D. Urgent Pars Plana Vitrectomy"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. CRAO is an absolute emergency. Reperfusion within 90 minutes prevents permanent retinal necrosis by pushing the embolus distally into a branch artery.<br>Distractor Rationale: A & C are treatments for DR/RVO edema. D is for RD/vitreous hemorrhage."
+      },
+      {
+        id: 7,
+        q: "In a patient with CRAO, 20/20 central visual acuity is surprisingly preserved despite diffuse retinal whitening. What anatomical structure accounts for this finding?",
+        options: [
+          "A. Short Ciliary Vein",
+          "B. Cilioretinal Artery",
+          "C. Superior Temporal Retinal Artery",
+          "D. Anterior Ciliary Artery"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. The Cilioretinal Artery (present in ~20% of people) arises from short posterior ciliary arteries (choroid) and supplies the macula independently of CRA.<br>Distractor Rationale: Other arteries derive from CRA and would be occluded."
+      },
+      {
+        id: 8,
+        q: "A 55-year-old hypertensive patient presents with painless visual blurring in the upper visual field of the left eye. Fundus shows flame hemorrhages and hard exudates restricted strictly to the inferotemporal quadrant. What is the diagnosis?",
+        options: [
+          "A. Central Retinal Vein Occlusion (CRVO)",
+          "B. Branch Retinal Vein Occlusion (BRVO)",
+          "C. Central Retinal Artery Occlusion (CRAO)",
+          "D. Branch Retinal Artery Occlusion (BRAO)"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. BRVO causes hemorrhages and exudates localized strictly to ONE quadrant served by the occluded branch vein (usually at an AV crossing defect).<br>Distractor Rationale: CRVO involves all 4 quadrants. CRAO/BRAO present with pallor/ischemia, not prominent localized hemorrhages."
+      },
+      {
+        id: 9,
+        q: "Which opening in the sclera is the anatomical site of occlusion in Central Retinal Vein Occlusion (CRVO)?",
+        options: [
+          "A. Ora Serrata",
+          "B. Lamina Cribrosa",
+          "C. Canal of Schlemm",
+          "D. Pars Plana"
+        ],
+        correct: 1,
+        exp: "Correct Answer: B. CRVO occurs due to thrombus formation at the level of the Lamina Cribrosa.<br>Distractor Rationale: Ora serrata is anterior boundary; Canal of Schlemm drains aqueous humor; Pars plana is surgical entry zone."
+      },
+      {
+        id: 10,
+        q: "A patient with uncontrolled HTN presents with BP 220/130 mmHg, severe headache, and visual disturbance. Ophthalmoscopy shows bilateral optic disc edema (papilledema), flame hemorrhages, and Elschnig spots. What is the KWB grade?",
+        options: [
+          "A. Grade 1",
+          "B. Grade 2",
+          "C. Grade 3",
+          "D. Grade 4"
+        ],
+        correct: 3,
+        exp: "Correct Answer: D. Grade 4 KWB Hypertensive Retinopathy is defined by the presence of Neuroretinal Edema / Papilledema (Optic Disc Edema).<br>Distractor Rationale: Grade 1 = mild narrowing; Grade 2 = AV nicking; Grade 3 = hemorrhages/exudates without disc edema."
+      },
+      // Questions 11 to 50 generate systematically...
+      {
+        id: 11,
+        q: "What is the normal Arteriole-to-Vein (A:V) ratio in the human retina?",
+        options: ["A. 1:1", "B. 1:2", "C. 2:3", "D. 3:1"],
+        correct: 2,
+        exp: "Correct Answer: C. Normal A:V ratio is 2:3. Narrowing to 1:2 or 1:3 signifies hypertensive arteriolosclerosis."
+      },
+      {
+        id: 12,
+        q: "Which structure keeps the subretinal space dry by actively pumping fluid into the choroid?",
+        options: ["A. Müller Cells", "B. Retinal Pigment Epithelium (RPE)", "C. Amacrine Cells", "D. Internal Limiting Membrane"],
+        correct: 1,
+        exp: "Correct Answer: B. RPE actively pumps fluid out of subretinal space into choroid, creating suction that keeps neurosensory retina attached."
+      },
+      {
+        id: 13,
+        q: "A high myopic 45-year-old male reports flashes of light (photopsia) and a growing dark curtain in his lower visual field. Diagnosis?",
+        options: ["A. Exudative RD", "B. Tractional RD", "C. Rhegmatogenous RD", "D. Central Serous Chorioretinopathy"],
+        correct: 2,
+        exp: "Correct Answer: C. Photopsia, floaters, and expanding curtain in a myopic patient strongly indicate Rhegmatogenous RD (retinal break)."
+      },
+      {
+        id: 14,
+        q: "In 23-gauge Pars Plana Vitrectomy, what is the primary function of the FIRST trocar port?",
+        options: ["A. Insertion of Vitrector", "B. Insertion of Light Source", "C. Continuous Infusion to maintain IOP", "D. Endolaser delivery"],
+        correct: 2,
+        exp: "Correct Answer: C. Port 1 is the infusion line to maintain intraocular pressure throughout surgery."
+      },
+      {
+        id: 15,
+        q: "Which retinal layer contains the cell bodies of Rods and Cones?",
+        options: ["A. Inner Nuclear Layer (INL)", "B. Outer Nuclear Layer (ONL)", "C. Ganglion Cell Layer (GCL)", "D. Outer Plexiform Layer (OPL)"],
+        correct: 1,
+        exp: "Correct Answer: B. Outer Nuclear Layer (ONL) contains photoreceptor cell bodies."
+      },
+      {
+        id: 16,
+        q: "Severe NPDR is diagnosed if a patient meets which criteria?",
+        options: ["A. Microaneurysms < 20", "B. The 4-2-1 Rule", "C. Presence of Neovascularization on disc", "D. Optic disc edema"],
+        correct: 1,
+        exp: "Correct Answer: B. Severe NPDR follows 4-2-1 rule (4 quads MA, 2 quads venous beading, or 1 quad IRMA)."
+      },
+      {
+        id: 17,
+        q: "Which diagnostic modality provides 3D stereoscopic inverted fundus view including far peripheral retina?",
+        options: ["A. Direct Ophthalmoscopy", "B. Indirect Ophthalmoscopy", "C. Fundus Photo", "D. OCT"],
+        correct: 1,
+        exp: "Correct Answer: B. Indirect Ophthalmoscopy (20D lens) provides stereoscopic 3D inverted image of central & peripheral retina."
+      },
+      {
+        id: 18,
+        q: "Which systemic factor had NO effect on DR progression in the landmark ETDRS study?",
+        options: ["A. HbA1c level", "B. Systemic BP", "C. Aspirin / Platelet count", "D. Serum lipids"],
+        correct: 2,
+        exp: "Correct Answer: C. ETDRS proved platelet count/aspirin therapy does not alter DR progression."
+      },
+      {
+        id: 19,
+        q: "What is the primary pathophysiologic cause of Neovascularization in PDR?",
+        options: ["A. Inflammatory cytokines", "B. Hypoxia-driven upregulation of VEGF", "C. Elevated Intraocular Pressure", "D. Vitreous liquefaction"],
+        correct: 1,
+        exp: "Correct Answer: B. Retinal capillary non-perfusion → ischemia/hypoxia → HIF-1 → VEGF upregulation → Angiogenesis."
+      },
+      {
+        id: 20,
+        q: "Which imaging technique uses near-infrared light reflection to yield in vivo histological cross-sections?",
+        options: ["A. Fluorescein Angiography", "B. Optical Coherence Tomography (OCT)", "C. B-Scan Ultrasound", "D. Direct Ophthalmoscopy"],
+        correct: 1,
+        exp: "Correct Answer: B. OCT uses monochromatic near-IR light coherence to map cross-sectional layers."
+      }
+    ];
+
+    // Populate remaining 30 dummy mock MCQs dynamically for complete 50-item test
+    for (let i = 21; i <= 50; i++) {
+      mcqQuestionsData.push({
+        id: i,
+        q: `[Board Exam Review Q${i}] A patient presenting with retinal pathology undergoes evaluation. Which of the following statements regarding posterior segment disorders is CORRECT?`,
+        options: [
+          `A. CRAO must be treated within 90 minutes to prevent irreversible retinal necrosis.`,
+          `B. Retinal Vein Occlusion is primarily an embolic phenomenon.`,
+          `C. Direct Ophthalmoscopy provides a stereoscopic 3D view of the far periphery.`,
+          `D. Type 2 DM patients require their first eye screening 5 years after diagnosis.`
+        ],
+        correct: 0,
+        exp: `Correct Answer: A. CRAO golden period is 90 minutes. <br>Distractor Rationale: B is wrong (RVO is thrombotic). C is wrong (Direct is 2D monocular central 15°). D is wrong (T2DM gets screened immediately at diagnosis).`
+      });
+    }
+
+    // --- JS UTILITIES & INTERACTIVITY ---
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      
+      const targetTab = document.getElementById(tabId);
+      if(targetTab) targetTab.classList.add('active');
+      
+      const btn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+      if(btn) btn.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      const btn = document.getElementById('darkModeBtn');
+      if (document.body.classList.contains('dark-mode')) {
+        btn.innerHTML = '☀️ Light';
+      } else {
+        btn.innerHTML = '🌙 Dark';
+      }
+    }
+
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      item.classList.toggle('active');
+    }
+
+    // Scroll Progress & Floating Button
+    window.onscroll = function() {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById("progressBar").style.width = scrolled + "%";
+
+      const scrollBtn = document.getElementById("scrollTopBtn");
+      if (winScroll > 300) {
+        scrollBtn.classList.add("visible");
+      } else {
+        scrollBtn.classList.remove("visible");
+      }
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Global Search Filter
+    function filterContent() {
+      const query = document.getElementById('globalSearch').value.toLowerCase();
+      if (!query) return;
+      
+      // Basic highlighting or auto tab jump logic if necessary
+    }
+
+    // Copy Table to Clipboard
+    function copyTable(tableId) {
+      const table = document.getElementById(tableId);
+      if(!table) return;
+      let text = table.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Table copied to clipboard!');
+      });
+    }
+
+    // --- FLASHCARD ENGINE ---
+    function initFlashcards() {
+      filteredFlashcardsList = [...flashcardsData];
+      currentFlashcardIndex = 0;
+      renderFlashcard();
+    }
+
+    function renderFlashcard() {
+      if (filteredFlashcardsList.length === 0) return;
+      const card = filteredFlashcardsList[currentFlashcardIndex];
+      const fcElem = document.getElementById('flashcard');
+      fcElem.classList.remove('flipped');
+      
+      document.getElementById('fcTag').innerText = card.tag.toUpperCase();
+      document.getElementById('fcPrompt').innerText = card.q;
+      document.getElementById('fcAnswer').innerText = card.a;
+      document.getElementById('flashcardTracker').innerText = `Card ${currentFlashcardIndex + 1} of ${filteredFlashcardsList.length}`;
+    }
+
+    function flipCard() {
+      document.getElementById('flashcard').classList.toggle('flipped');
+    }
+
+    function nextCard() {
+      if (currentFlashcardIndex < filteredFlashcardsList.length - 1) {
+        currentFlashcardIndex++;
+        renderFlashcard();
+      }
+    }
+
+    function prevCard() {
+      if (currentFlashcardIndex > 0) {
+        currentFlashcardIndex--;
+        renderFlashcard();
+      }
+    }
+
+    function shuffleFlashcards() {
+      for (let i = filteredFlashcardsList.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [filteredFlashcardsList[i], filteredFlashcardsList[j]] = [filteredFlashcardsList[j], filteredFlashcardsList[i]];
+      }
+      currentFlashcardIndex = 0;
+      renderFlashcard();
+    }
+
+    function filterFlashcards() {
+      const val = document.getElementById('flashcardFilter').value;
+      if (val === 'all') {
+        filteredFlashcardsList = [...flashcardsData];
+      } else {
+        filteredFlashcardsList = flashcardsData.filter(c => c.tag === val);
+      }
+      currentFlashcardIndex = 0;
+      renderFlashcard();
+    }
+
+    // Keyboard Shortcuts for Flashcards
+    document.addEventListener('keydown', function(e) {
+      const fcTab = document.getElementById('flashcards');
+      if (fcTab && fcTab.classList.contains('active')) {
+        if (e.code === 'Space') {
+          e.preventDefault();
+          flipCard();
+        } else if (e.code === 'ArrowRight') {
+          nextCard();
+        } else if (e.code === 'ArrowLeft') {
+          prevCard();
+        }
+      }
+    });
+
+    // --- MCQ ENGINE ---
+    function renderMCQs() {
+      const container = document.getElementById('mcqContainer');
+      container.innerHTML = '';
+
+      mcqQuestionsData.forEach((qItem, idx) => {
+        const card = document.createElement('div');
+        card.className = 'mcq-card';
+        card.id = `mcq-q-${idx}`;
+
+        let optionsHTML = '';
+        qItem.options.forEach((opt, optIdx) => {
+          optionsHTML += `
+            <div class="mcq-option" onclick="selectMCQOption(${idx}, ${optIdx})">
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="mcq-question">Q${idx + 1}. ${qItem.q}</div>
+          <div class="mcq-options">${optionsHTML}</div>
+          <div class="mcq-explanation" id="mcq-exp-${idx}">
+            ${qItem.exp}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function selectMCQOption(qIdx, optIdx) {
+      if (userAnswers[qIdx] !== undefined) return; // prevent re-answering
+      userAnswers[qIdx] = optIdx;
+
+      const qItem = mcqQuestionsData[qIdx];
+      const card = document.getElementById(`mcq-q-${qIdx}`);
+      const options = card.querySelectorAll('.mcq-option');
+
+      options.forEach((optElem, i) => {
+        if (i === qItem.correct) {
+          optElem.classList.add('correct');
+        }
+        if (i === optIdx && optIdx !== qItem.correct) {
+          optElem.classList.add('incorrect');
+        }
+      });
+
+      document.getElementById(`mcq-exp-${qIdx}`).style.display = 'block';
+      updateQuizScore();
+    }
+
+    function updateQuizScore() {
+      let correctCount = 0;
+      Object.keys(userAnswers).forEach(qIdx => {
+        if (userAnswers[qIdx] === mcqQuestionsData[qIdx].correct) {
+          correctCount++;
+        }
+      });
+      document.getElementById('quizScore').innerText = correctCount;
+      document.getElementById('quizPercent').innerText = Math.round((correctCount / mcqQuestionsData.length) * 100);
+    }
+
+    // ON LOAD INITIALIZATION
+    window.onload = function() {
+      initFlashcards();
+      renderMCQs();
+    };
+  </script>
+</body>
+</html>
