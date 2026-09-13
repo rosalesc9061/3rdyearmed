@@ -1,0 +1,2280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epilepsy & Seizure Disorders: Comprehensive Interactive Reviewer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #0284c7;
+            --accent-hover: #0369a1;
+            --accent-subtle: #e0f2fe;
+            --teal: #0d9488;
+            --teal-subtle: #ccfbf1;
+            --secondary: #475569;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --warning-bg: #fffbe6;
+            --warning-border: #fde047;
+            --warning-text: #854d0e;
+            --danger-bg: #fef2f2;
+            --danger-border: #fca5a5;
+            --danger-text: #991b1b;
+            --success-bg: #f0fdf4;
+            --success-border: #86efac;
+            --success-text: #166534;
+            --info-bg: #eff6ff;
+            --info-border: #93c5fd;
+            --info-text: #1e40af;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 2rem 1.5rem 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .header-title-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .lecturer-badge {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-family: 'Space Mono', monospace;
+            color: #38bdf8;
+        }
+
+        /* Global Search Bar */
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .search-input::placeholder {
+            color: #94a3b8;
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            pointer-events: none;
+        }
+
+        /* Tab Navigation */
+        .nav-tabs-wrapper {
+            overflow-x: auto;
+            white-space: nowrap;
+            margin-top: 0.5rem;
+            padding-bottom: 0.25rem;
+            scrollbar-width: thin;
+        }
+
+        .nav-tabs {
+            display: inline-flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            box-shadow: 0 2px 4px rgba(2, 132, 199, 0.4);
+        }
+
+        .tab-badge {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.1rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Main Layout */
+        main {
+            max-width: 1400px;
+            margin: 1.5rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography & Headings */
+        h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            color: var(--primary-light);
+            margin: 1.2rem 0 0.6rem 0;
+        }
+
+        h4 {
+            font-size: 1rem;
+            color: var(--secondary);
+            margin: 0.8rem 0 0.4rem 0;
+        }
+
+        p {
+            margin-bottom: 0.8rem;
+            color: #334155;
+        }
+
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            padding: 1rem 1.2rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            border-left: 4px solid;
+            font-size: 0.95rem;
+        }
+
+        .callout-must-know {
+            background-color: var(--info-bg);
+            border-left-color: var(--accent);
+            color: var(--info-text);
+        }
+
+        .callout-pitfall {
+            background-color: var(--danger-bg);
+            border-left-color: #ef4444;
+            color: var(--danger-text);
+        }
+
+        .callout-pearl {
+            background-color: var(--teal-subtle);
+            border-left-color: var(--teal);
+            color: #0f766e;
+        }
+
+        .callout-exam-tip {
+            background-color: var(--warning-bg);
+            border-left-color: #eab308;
+            color: var(--warning-text);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Syne', sans-serif;
+        }
+
+        /* Cards Layout */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-hover);
+        }
+
+        .card-accent-top {
+            border-top: 4px solid var(--accent);
+        }
+
+        .card-accent-teal {
+            border-top: 4px solid var(--teal);
+        }
+
+        /* Expandable Accordions */
+        .accordion {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.8rem;
+            background: var(--bg-card);
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 1rem 1.2rem;
+            background: #f1f5f9;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            background: #e2e8f0;
+        }
+
+        .accordion-content {
+            padding: 1.2rem;
+            display: none;
+            border-top: 1px solid var(--border);
+        }
+
+        .accordion.open .accordion-content {
+            display: block;
+        }
+
+        .accordion-icon {
+            transition: transform 0.2s ease;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .accordion.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Tables Styling */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--primary);
+            color: #ffffff;
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #ffffff;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            z-index: 11;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Badges & Tags */
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-blue { background: var(--accent-subtle); color: var(--accent-hover); }
+        .badge-teal { background: var(--teal-subtle); color: #0f766e; }
+        .badge-red { background: var(--danger-bg); color: var(--danger-text); }
+        .badge-amber { background: var(--warning-bg); color: var(--warning-text); }
+        .badge-gray { background: #e2e8f0; color: #475569; }
+
+        /* Diagrams & Flowcharts */
+        .diagram-container {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin: 1.2rem 0;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            line-height: 1.4;
+        }
+
+        .diagram-title {
+            color: #38bdf8;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            font-family: 'Syne', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        .flow-step {
+            display: inline-block;
+            background: #1e293b;
+            border: 1px solid #38bdf8;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            color: #ffffff;
+            margin: 0.2rem;
+        }
+
+        .flow-arrow {
+            color: #f59e0b;
+            font-weight: 700;
+            margin: 0 0.3rem;
+        }
+
+        /* Flashcard Component */
+        .flashcard-wrapper {
+            max-width: 650px;
+            margin: 2rem auto;
+            perspective: 1000px;
+        }
+
+        .flashcard {
+            width: 100%;
+            min-height: 320px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-sizing: border-box;
+        }
+
+        .flashcard-front {
+            background: #ffffff;
+            color: var(--text-dark);
+        }
+
+        .flashcard-back {
+            background: #0f172a;
+            color: #ffffff;
+            transform: rotateY(180deg);
+            overflow-y: auto;
+        }
+
+        .flashcard-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .flashcard-back .flashcard-tag {
+            color: #38bdf8;
+        }
+
+        .flashcard-prompt {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        .flashcard-answer {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+            margin: 1rem 0;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dark);
+        }
+
+        .btn-outline:hover {
+            background: #f1f5f9;
+            border-color: var(--border-hover);
+        }
+
+        /* MCQ Container */
+        .mcq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .mcq-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mcq-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .mcq-num {
+            font-family: 'Space Mono', monospace;
+            background: var(--primary);
+            color: #ffffff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .mcq-question {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .mcq-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .mcq-option {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .mcq-option:hover {
+            background: #f8fafc;
+            border-color: var(--accent);
+        }
+
+        .mcq-option.selected {
+            border-color: var(--accent);
+            background: var(--accent-subtle);
+        }
+
+        .mcq-option.correct-choice {
+            background: var(--success-bg) !important;
+            border-color: var(--success-border) !important;
+            color: var(--success-text) !important;
+            font-weight: 700;
+        }
+
+        .mcq-option.wrong-choice {
+            background: var(--danger-bg) !important;
+            border-color: var(--danger-border) !important;
+            color: var(--danger-text) !important;
+        }
+
+        .mcq-explanation {
+            display: none;
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .mcq-explanation.visible {
+            display: block;
+        }
+
+        .distractor-explanation {
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed var(--border);
+            font-size: 0.85rem;
+            color: #475569;
+        }
+
+        /* Progress Bar & Floating Features */
+        .progress-bar-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #38bdf8;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: var(--primary);
+            color: #ffffff;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+
+        .scroll-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header { padding: 1rem; }
+            h1 { font-size: 1.4rem; }
+            main { padding: 0 0.8rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .flashcard-wrapper { margin: 1rem 0; }
+        }
+
+        /* Print Style */
+        @media print {
+            header, .nav-tabs-wrapper, .search-wrapper, .flashcard-controls, .scroll-top-btn, .copy-btn {
+                display: none !important;
+            }
+            .tab-content { display: block !important; }
+            body { background: white; color: black; }
+            .card, .table-wrapper, .mcq-card { break-inside: avoid; border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="header-container">
+            <div class="header-title-area">
+                <div>
+                    <h1>Epilepsy & Other Seizure Disorders</h1>
+                    <div class="subtitle">Comprehensive PLE Board-Exam Interactive Reviewer for Medical Students</div>
+                </div>
+                <div class="lecturer-badge">
+                    Lecturer: Rio Carla F. Pineda, MD, FPNA | LE 2 Trans 3 (2026)
+                </div>
+            </div>
+
+            <!-- Global Search Input -->
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="globalSearch" class="search-input" placeholder="Search any keyword, drug name (e.g., Lamotrigine), syndrome, or concept across all tabs...">
+            </div>
+
+            <!-- Horizontal Tab Navigation -->
+            <div class="nav-tabs-wrapper">
+                <ul class="nav-tabs" id="navTabs">
+                    <li><button class="tab-btn active" data-tab="overview">Overview & Objectives <span class="tab-badge">Core</span></button></li>
+                    <li><button class="tab-btn" data-tab="definitions-anatomy">Definitions & Anatomy <span class="tab-badge">Tab 1</span></button></li>
+                    <li><button class="tab-btn" data-tab="cellular-patho">Cellular & Pathophysiology <span class="tab-badge">Tab 2</span></button></li>
+                    <li><button class="tab-btn" data-tab="seizure-types">Seizure Types & Classification <span class="tab-badge">Tab 3</span></button></li>
+                    <li><button class="tab-btn" data-tab="clinical-approach">Clinical Approach & Mimics <span class="tab-badge">Tab 4</span></button></li>
+                    <li><button class="tab-btn" data-tab="diagnostics">Diagnostic Modalities <span class="tab-badge">Tab 5</span></button></li>
+                    <li><button class="tab-btn" data-tab="asms">Anti-Seizure Medications <span class="tab-badge">Tab 6</span></button></li>
+                    <li><button class="tab-btn" data-tab="surgery-neuro">Surgery, Neurostimulation & Diet <span class="tab-badge">Tab 7</span></button></li>
+                    <li><button class="tab-btn" data-tab="status-epilepticus">Status Epilepticus & Case <span class="tab-badge">Tab 8</span></button></li>
+                    <li><button class="tab-btn" data-tab="comparisons">High-Yield Comparisons <span class="tab-badge">Matrix</span></button></li>
+                    <li><button class="tab-btn" data-tab="flashcards">Active Recall Flashcards <span class="tab-badge">50+ Cards</span></button></li>
+                    <li><button class="tab-btn" data-tab="mcqs">Board-Style MCQs <span class="tab-badge">50+ Qs</span></button></li>
+                    <li><button class="tab-btn" data-tab="cram-sheet">Cram Sheet Ultra <span class="tab-badge">10-Min Review</span></button></li>
+                </ul>
+            </div>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main>
+
+        <!-- OVERVIEW TAB -->
+        <section id="overview" class="tab-content active">
+            <h2>Overview & High-Yield Summary Matrix</h2>
+            
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ Primary Source & Board Review Objectives</div>
+                <p>This interactive reviewer is engineered strictly from the lecture by <strong>Dr. Rio Carla F. Pineda, MD, FPNA</strong> (Neurology 2, LE 2 Trans 3). It provides 100% comprehensive coverage of all definitions, cellular pathomechanisms, seizure classifications (2025 ILAE), diagnostic workups, anti-seizure drug profiles, non-pharmacologic interventions, status epilepticus protocols, and clinical case reasoning needed for 3rd-year medical examinations and the Philippine Physician Licensure Examination (PLE).</p>
+            </div>
+
+            <div class="card-grid">
+                <div class="card card-accent-top">
+                    <h3>🎯 Learning Objectives</h3>
+                    <ul>
+                        <li>Understand and explain the fundamental difference between a single seizure event and epilepsy.</li>
+                        <li>Differentiate a true epileptic seizure from non-epileptic seizure mimics (syncope, psychogenic non-epileptic seizures, hyperventilation, atypical migraine, TGA).</li>
+                        <li>Classify seizure types accurately based on clinical semiology and the 2025 ILAE operational definitions.</li>
+                        <li>Explain the neuroanatomical basis (Papez circuit) and cellular/physiological mechanisms of epileptogenesis.</li>
+                        <li>Formulate appropriate diagnostic and therapeutic management plans for patients presenting with a first seizure, recurrent epilepsy, or status epilepticus.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-teal">
+                    <h3>📌 Core Definitions Snapshot</h3>
+                    <p><strong>Seizure:</strong> Transient occurrence of signs/symptoms due to abnormal, excessive, or synchronous neuronal activity in the brain.</p>
+                    <p><strong>Convulsion:</strong> Paroxysmal involuntary muscular contractions (all convulsions are seizures, but not all seizures are convulsive!).</p>
+                    <p><strong>Epilepsy:</strong> A chronic brain state characterized by an enduring predisposition to generate recurrent spontaneous seizures.</p>
+                    <p><strong>Epileptogenesis:</strong> The sequence of cellular and structural events converting a normal neuronal network into a hyperexcitable network.</p>
+                </div>
+            </div>
+
+            <h3>📜 Key Abbreviations Quick Reference</h3>
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Abbreviation</th>
+                            <th>Expansion / Medical Meaning</th>
+                            <th>Clinical Context</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>ILAE</strong></td><td>International League Against Epilepsy</td><td>Governing body for seizure and epilepsy classification systems</td></tr>
+                        <tr><td><strong>PDS</strong></td><td>Paroxysmal Depolarization Shift</td><td>Cellular correlation of interictal epileptiform spikes on EEG</td></tr>
+                        <tr><td><strong>ASM / AED</strong></td><td>Anti-Seizure Medication / Anti-Epileptic Drug</td><td>Pharmacotherapy targeting hyperexcitability mechanisms</td></tr>
+                        <tr><td><strong>VNS</strong></td><td>Vagus Nerve Stimulation</td><td>Palliative neurostimulation of the left vagus nerve</td></tr>
+                        <tr><td><strong>DBS</strong></td><td>Deep Brain Stimulation</td><td>Stimulation targeting Anterior Thalamic or Centromedian nuclei</td></tr>
+                        <tr><td><strong>RNS</strong></td><td>Responsive Neurostimulation System</td><td>Closed-loop system that detects and halts epileptiform activity</td></tr>
+                        <tr><td><strong>TMS</strong></td><td>Transcranial Magnetic Stimulation</td><td>Non-invasive magnetic stimulation to modulate cortical excitability</td></tr>
+                        <tr><td><strong>BZD</strong></td><td>Benzodiazepine (e.g., Lorazepam, Diazepam)</td><td>First-line emergency pharmacotherapy for Status Epilepticus</td></tr>
+                        <tr><td><strong>CBZ</strong></td><td>Carbamazepine</td><td>Narrow-spectrum Na+ channel blocker (Inducer; worsens JME!)</td></tr>
+                        <tr><td><strong>LEV</strong></td><td>Levetiracetam</td><td>Broad-spectrum SV2A ligand (1st line focal/generalized; minimal CYP liability)</td></tr>
+                        <tr><td><strong>LTG</strong></td><td>Lamotrigine</td><td>Broad-spectrum Na+ channel blocker (1st line monotherapy; SJS risk)</td></tr>
+                        <tr><td><strong>VPA</strong></td><td>Valproate / Valproic Acid</td><td>Broad-spectrum enzyme inhibitor (Highest teratogenic risk: NTDs/Spina Bifida)</td></tr>
+                        <tr><td><strong>TPM / ZNS</strong></td><td>Topiramate / Zonisamide</td><td>Broad-spectrum drugs causing weight loss & metabolic acidosis</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 1: DEFINITIONS & ANATOMY -->
+        <section id="definitions-anatomy" class="tab-content">
+            <h2>Definitions & Neuroanatomical Basis</h2>
+
+            <div class="accordion open">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>1. Definitions & Practical Clinical Criteria for Epilepsy</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Seizure:</strong> An episode of neurologic dysfunction in which abnormal neuronal firing manifests clinically through changes in motor control, sensory perception, behavior, and/or autonomic function. Transient occurrence of signs/symptoms due to abnormal, excessive, or synchronous neuronal activity (ILAE). High-frequency or low-frequency high-voltage discharge (Adams).</p>
+                    <p><strong>Convulsion:</strong> Seizure events specifically characterized by intense paroxysms of involuntary muscular contractions. <em>Key distinction: All convulsions are seizures, but non-convulsive seizures (e.g., absence staring spells, focal sensory aura) are NOT convulsions.</em></p>
+
+                    <div class="callout callout-must-know">
+                        <div class="callout-title">⭐ 2014 ILAE Practical Clinical Definition of Epilepsy</div>
+                        <p>Epilepsy is diagnosed when ANY of the following 3 criteria are met:</p>
+                        <ol>
+                            <li><strong>At least two unprovoked (or reflex) seizures</strong> occurring <strong>>24 hours apart</strong>. (No diagnostic workup strictly needed if clinically clear).</li>
+                            <li><strong>One unprovoked (or reflex) seizure</strong> AND a probability of further seizures similar to the general recurrence risk (<strong>at least 60%</strong>) over the next 10 years (e.g., single seizure + underlying brain tumor/glioma, stroke, or epileptiform EEG).</li>
+                            <li><strong>Diagnosis of a specific epilepsy syndrome</strong> (e.g., Childhood Absence Epilepsy, Benign Rolandic Epilepsy).</li>
+                        </ol>
+                    </div>
+
+                    <p><strong>Resolution of Epilepsy:</strong> Epilepsy is considered resolved for individuals who had an age-dependent epilepsy syndrome but are now past the applicable age, OR individuals who have remained <strong>seizure-free for the last 10 years</strong>, with <strong>no seizure medications for the last 5 years</strong>.</p>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>2. Neuroanatomical Basis & The Papez Circuit</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>Seizure generation and spread involve specific anatomical structures of the cerebral cortex and limbic system: <strong>Hippocampus, Amygdala, Frontal cortex, Temporal cortex, and Olfactory cortex</strong>.</p>
+                    
+                    <h4>Anatomical Hyperexcitability Theories:</h4>
+                    <ul>
+                        <li><strong>Dormant Basket Cell Theory:</strong> Loss of excitatory input from dentate mossy cells reduces the activation of inhibitory basket cells, rendering basket cells "dormant" and releasing hippocampal granule cells from GABAergic inhibition.</li>
+                        <li><strong>Mossy Fiber Theory:</strong> Recurrent mossy fiber sprouting forms excitatory feedback circuits among dentate granule cells, creating a self-reinforcing hyperexcitable network.</li>
+                    </ul>
+
+                    <div class="diagram-container">
+                        <div class="diagram-title">The Papez Circuit (Limbic Seizure Propagation Pathway)</div>
+                        <span class="flow-step">Hippocampus</span> <span class="flow-arrow">➔</span>
+                        <span class="flow-step">Fornix</span> <span class="flow-arrow">➔</span>
+                        <span class="flow-step">Mammillary Bodies</span> <span class="flow-arrow">➔</span>
+                        <span class="flow-step">Mammillothalamic Tract</span> <span class="flow-arrow">➔</span>
+                        <span class="flow-step">Anterior Nucleus of Thalamus</span> <span class="flow-arrow">➔</span>
+                        <span class="flow-step">Cingulum / Cingulate Gyrus</span> <span class="flow-arrow">➔</span>
+                        <span class="flow-step">Entorhinal Cortex</span> <span class="flow-arrow">➔</span>
+                        <span class="flow-step">Back to Hippocampus</span>
+                    </div>
+
+                    <div class="callout callout-pearl">
+                        <div class="callout-title">💡 Clinical Pearl: Papez Circuit & Comorbidities</div>
+                        <p>Because the Papez circuit is fundamental to learning, memory, and emotional processing, patients with chronic temporal/limbic epilepsy frequently suffer from comorbid learning difficulties, memory deficits, depression, and affective dysfunction.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: CELLULAR & PATHOPHYSIOLOGY -->
+        <section id="cellular-patho" class="tab-content">
+            <h2>Cellular Mechanics & Pathophysiology</h2>
+
+            <div class="card-grid">
+                <div class="card card-accent-top">
+                    <h3>⚡ Cellular Excitability: Cations & Synaptic Imbalance</h3>
+                    <p>Seizures result from a fundamental imbalance between neuronal excitation and inhibition:</p>
+                    <ul>
+                        <li><strong>Na+ Channels:</strong> Increased Na+ influx $\rightarrow$ increased intracellular Na+ and water (water follows Na+) $\rightarrow$ <strong>neuronal swelling</strong> $\rightarrow$ hyper-excitable tissue.</li>
+                        <li><strong>Ca2+ Channels (T-type):</strong> Increased Ca2+ influx via low-threshold T-type Ca2+ channels $\rightarrow$ increased cellular excitability $\rightarrow$ repetitive oscillatory firing of thalamic and cortical neurons (drives Absence seizures).</li>
+                        <li><strong>K+ Channels:</strong> Impaired K+ efflux / decreased intracellular K+ $\rightarrow$ failure to repolarize membrane $\rightarrow$ persistent hyperexcitability.</li>
+                        <li><strong>Synaptic Neurotransmitters:</strong> Decreased inhibitory GABAergic activity vs. Increased excitatory Glutamatergic (NMDA/AMPA) activity.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-teal">
+                    <h3>🌊 Paroxysmal Depolarization Shift (PDS)</h3>
+                    <p>The <strong>PDS</strong> is the hallmark cellular correlation of <strong>interictal epileptiform spikes</strong> on scalp EEG:</p>
+                    <ul>
+                        <li>Abnormal, sustained depolarization of neuronal membranes mediated by AMPA and NMDA receptor activation.</li>
+                        <li>Followed by a hyperpolarizing post-potential mediated by GABA-A/GABA-B receptors and K+ channels.</li>
+                        <li>Activation of T-type Ca2+ currents promotes thalamocortical synchrony, leading to focal epileptiform discharges.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>📊 Pathophysiology of Focal Seizures: Balance Shift</h3>
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Decreased Inhibition (Failure of Suppression)</th>
+                            <th>Increased Activation (Excessive Excitation)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>• Defective GABA-A receptor inhibition<br>• Defective GABA-B receptor inhibition<br>• Defective activation/loss of GABAergic interneurons<br>• Defective intracellular buffering of Ca2+ ions</td>
+                            <td>• Increased activation of NMDA/AMPA receptors<br>• Increased synchrony between neurons due to ephaptic interactions<br>• Increased synchrony/activation via recurrent excitatory collaterals (mossy fiber sprouting)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center; background: #f1f5f9; font-weight: bold;">
+                                NET RESULT: Hyperexcitable State $\rightarrow$ Focal Epileptiform Discharges $\rightarrow$ Risk of Focal Seizures
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">Stages of Epileptogenesis (Timeline from Insult to Epilepsy)</div>
+                <p><strong>Time Zero / Precipitating Insult:</strong> Traumatic Brain Injury (TBI), Hypoxia, Stroke, Infection</p>
+                <p>↓ <em>Initial Minutes to Hours:</em> Glutamate/Ca2+ Over-activation, Ion Channel Dysregulation, Apoptosis, Neuronal Death, Glial Response, Acute Inflammation</p>
+                <p>↓ <em>Weeks to Months (Latent Phase):</em> Axonal/Dendritic Sprouting, Synaptogenesis, Network Reorganization, Neurogenesis, Angiogenesis, Gliosis</p>
+                <p>↓ <em>Outcome:</em> Reduced Seizure Threshold $\rightarrow$ <strong>Spontaneous Recurrent Seizures (EPILEPSY)</strong></p>
+            </div>
+        </section>
+
+        <!-- TAB 3: SEIZURE TYPES & CLASSIFICATION -->
+        <section id="seizure-types" class="tab-content">
+            <h2>Seizure Semiology & 2025 ILAE Classification</h2>
+
+            <div class="callout callout-exam-tip">
+                <div class="callout-title">🧠 Exam Tip: Focal vs. Generalized Onset</div>
+                <p>Classification depends strictly on the <strong>earliest clinical symptoms and initial EEG onset</strong>. Focal seizures originate in one hemisphere; Generalized seizures engage bilateral thalamocortical networks from onset. Initial classification dictates choice of Anti-Seizure Medication (ASM)!</p>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Focal Seizures</h3>
+                    <ul>
+                        <li>Originate within neuronal networks limited to one cerebral hemisphere.</li>
+                        <li><strong>Focal Aware (Simple Partial):</strong> Consciousness and awareness remain completely preserved. Patient can converse during event.</li>
+                        <li><strong>Focal Impaired Awareness (Complex Partial):</strong> Consciousness or awareness is impaired. Begins with blank stare, oral/manual automatisms, followed by post-ictal confusion.</li>
+                        <li><strong>Spread:</strong> May march along the homunculus, spread to adjacent lobes, or propagate via commissural pathways to involve both hemispheres (<strong>Focal to Bilateral Tonic-Clonic</strong>).</li>
+                        <li><strong>EEG:</strong> Focal epileptiform spikes/discharges (e.g., temporal LPDs).</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Generalized Seizures</h3>
+                    <ul>
+                        <li>Engage bilateral thalamocortical circuits simultaneously at onset.</li>
+                        <li><strong>Generalized Tonic-Clonic (GTCS / Grand Mal):</strong> 30–120 seconds. Loss of consciousness $\rightarrow$ Tonic phase (stiffening, fall, ictal cry) $\rightarrow$ Clonic phase (rhythmic jerking, tapering) $\rightarrow$ Post-ictal confusion/lethargy. EEG: Generalized polyspikes.</li>
+                        <li><strong>Absence (Petit Mal):</strong> 3–20 seconds. Sudden brief staring spell in children (4–14 yrs), sudden onset & resolution, NO post-ictal confusion. Provoked by hyperventilation. EEG: <strong>Generalized 3 Hz spike-wave</strong>.</li>
+                        <li><strong>Atonic (Drop Attacks):</strong> Sudden loss of postural tone (seconds). High risk of head trauma $\rightarrow$ requires protective helmets!</li>
+                        <li><strong>Myoclonic:</strong> Rapid, shock-like, explosive jerks (upper extremities).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>📋 Focal Seizure Semiology by Cortical Origin</h3>
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cortical Origin</th>
+                            <th>Dominant Clinical Semiology & Symptoms</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Frontal Lobe</strong></td><td><strong>Hypermotor seizures:</strong> Violent, complex motor movements of lower extremities (bicycling, thrashing) waking patient from sleep/drowsiness. Short duration, minimal post-ictal state.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Temporal Lobe</strong></td><td><strong>Experiential/Autonomic Aura:</strong> Rising epigastric sensation, déjà vu, jamais vu, auditory/olfactory hallucinations, followed by behavioral arrest, blank stare, <strong>oral automatisms</strong> (lip-smacking, chewing) & <strong>manual automatisms</strong> (fumbling, picking). Prolonged post-ictal confusion.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Somatosensory Cortex</strong></td><td>Contralateral tingling, numbness, electric shock sensations marching across body parts (Jacksonian March).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Occipital Lobe</strong></td><td>Visual manifestations: Flashing lights, simple unformed visual hallucinations, or <strong>multicolored complex geometric patterns</strong> lasting seconds.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>🌐 2025 ILAE Seizure & Epilepsy Classification Framework</h3>
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Step 1: Seizure Type</th>
+                            <th>Step 2: Epilepsy Type</th>
+                            <th>Step 3: Epilepsy Syndrome</th>
+                            <th>Step 4: Etiology & Comorbidities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                • <strong>Focal:</strong> Preserved vs Impaired Awareness (Motor vs Non-motor)<br>
+                                • <strong>Generalized:</strong> Absence, GTCS, Tonic, Clonic, Myoclonic, Atonic<br>
+                                • <strong>Unknown Onset / Unclassified</strong>
+                            </td>
+                            <td>
+                                • Focal Epilepsy<br>
+                                • Generalized Epilepsy<br>
+                                • Combined Focal & Generalized<br>
+                                • Unknown Epilepsy
+                            </td>
+                            <td>
+                                Characteristic cluster of features (e.g., Childhood Absence Epilepsy, Juvenile Myoclonic Epilepsy, Benign Rolandic Epilepsy)
+                            </td>
+                            <td>
+                                • Structural, Genetic, Infectious, Metabolic, Immune, Unknown<br>
+                                • Associated Psychiatric/Cognitive Comorbidities
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 4: CLINICAL APPROACH & MIMICS -->
+        <section id="clinical-approach" class="tab-content">
+            <h2>Clinical Approach, Physical Exam & Seizure Mimics</h2>
+
+            <div class="callout callout-pitfall">
+                <div class="callout-title">⚠️ Diagnostic Pitfall: Seizure Threshold Modulators</div>
+                <p>Never start long-term ASMs after a single seizure without ruling out acute provoking metabolic factors or threshold-lowering drugs! Correct the underlying metabolic derangement first.</p>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📉 Factors Lowering Seizure Threshold</h3>
+                    <ul>
+                        <li><strong>Common:</strong> Sleep deprivation (most common in med students!), alcohol withdrawal, dehydration, systemic infection/fever, physical trauma, malnutrition, missed meals/hypoglycemia.</li>
+                        <li><strong>Occasional:</strong> Barbiturate withdrawal, hyperventilation, flashing lights (photic stimulation).</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>💊 Medications Lowering Seizure Threshold</h3>
+                    <ul>
+                        <li><strong>Antidepressants:</strong> Bupropion, Tricyclic Antidepressants (TCAs).</li>
+                        <li><strong>Neuroleptics:</strong> Phenothiazines, Clozapine.</li>
+                        <li><strong>Antibiotics/Others:</strong> Penicillins, Carbapenems, Isoniazid (INH), Theophylline, Cyclosporine, Meperidine.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>🔍 Physical & Neurologic Exam Findings in Seizure Patients</h3>
+            <ul>
+                <li><strong>Meningeal Signs / Fever:</strong> Low-grade fever is common post-convulsion; persistent high fever indicates CNS infection (meningitis/encephalitis). Nuchal rigidity demands lumbar puncture.</li>
+                <li><strong>Cushing's Triad (HTN + Bradycardia):</strong> Indicates surging intracranial pressure and impending brain herniation!</li>
+                <li><strong>Trauma Evaluation:</strong> Always evaluate for soft tissue and skeletal trauma. <strong>Posterior shoulder dislocation</strong> (&lt;0.6% rare but classic for seizure!), humeral, thoracic spine, and femoral neck fractures.</li>
+                <li><strong>Todd's Paralysis:</strong> Transient, focal neurological deficit (e.g., hemiparesis) following a seizure that resolves over hours. Must be differentiated from acute ischemic stroke!</li>
+            </ul>
+
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Reliable Clinical Indicators of True Seizure</th>
+                            <th>Unreliable / Non-specific Indicators</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                🟢 <strong>Lateral tongue biting</strong> (high specificity)<br>
+                                🟢 Scald injuries<br>
+                                🟢 Shoulder subluxation or <strong>posterior shoulder dislocation</strong><br>
+                                🟢 Post-ictal confusion and somnolence
+                            </td>
+                            <td>
+                                🔴 Biting of the tip of the tongue (seen in syncope/PNES)<br>
+                                🔴 Colles' fracture or facial injuries<br>
+                                🔴 Vertebral fracture<br>
+                                🔴 Myoclonic jerks & <strong>Urinary incontinence</strong> (can occur in syncope!)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>⚖️ Major Seizure Mimics Differential Diagnosis</h3>
+            
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Clinical Feature</th>
+                            <th>Syncopal Attack</th>
+                            <th>Epileptic Seizure</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Patient Position</strong></td><td>Usually upright (vasodepressor)</td><td>Any position (upright, lying down, sleeping)</td></tr>
+                        <tr><td><strong>Diurnal Pattern</strong></td><td>Daytime only</td><td>Daytime or nighttime (sleep-related)</td></tr>
+                        <tr><td><strong>Skin Color</strong></td><td>Pallor, diaphoresis</td><td>Cyanosis or normal</td></tr>
+                        <tr><td><strong>Aura / Onset</strong></td><td>Gradual onset ("tunnel vision", nausea, lightheadedness)</td><td>Sudden or specific aura (rising epigastric, déjà vu)</td></tr>
+                        <tr><td><strong>Motor Activity</strong></td><td>Brief myoclonic jerks / tonic stiffening (&lt;15s)</td><td>Sustained, rhythmic tonic-clonic jerking (&gt;30s)</td></tr>
+                        <tr><td><strong>Injury & Incontinence</strong></td><td>Rare injury; incontinence rare</td><td>Frequent injuries; urinary incontinence common</td></tr>
+                        <tr><td><strong>Post-ictal State</strong></td><td>Immediate orientation upon recumbency</td><td>Prolonged disorientation, confusion, drowsiness (&gt;15 min)</td></tr>
+                        <tr><td><strong>Interictal EEG</strong></td><td>Normal</td><td>Frequently abnormal (spikes, sharp waves)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Epileptic Seizure</th>
+                            <th>Psychogenic Non-Epileptic Seizures (PNES / Functional)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Demographics</strong></td><td>Male or Female, any age</td><td>Predominantly females, adolescents / young adults</td></tr>
+                        <tr><td><strong>Precipitant</strong></td><td>Sleep deprivation, fever, variable</td><td>Emotional disturbance, stress, acute conflict</td></tr>
+                        <tr><td><strong>Presence of Audience</strong></td><td>Variable (can occur when alone)</td><td>Frequently occurs in the presence of witnesses/audience</td></tr>
+                        <tr><td><strong>Occurrence in Sleep</strong></td><td>Can occur during sleep</td><td><strong>NEVER occurs during true sleep</strong></td></tr>
+                        <tr><td><strong>Motor Semiology</strong></td><td>Stereotyped, synchronous, rhythmic movements</td><td>Asynchronous, out-of-phase jerking, pelvic thrusting, opisthotonus, side-to-side head shaking, forced eye closure</td></tr>
+                        <tr><td><strong>Ictal Vocalization</strong></td><td>Ictal cry at onset only</td><td>Crying, screaming, or continuous talking during ictus</td></tr>
+                        <tr><td><strong>Suggestion</strong></td><td>Cannot reproduce by suggestion</td><td>Attack can frequently be reproduced by suggestion</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p><strong>Other Key Mimics:</strong></p>
+            <ul>
+                <li><strong>Hyperventilation Syndrome:</strong> Anxious patient presenting with perioral cyanosis, paresthesias of hands, rapid breathing, and carpopedal spasm.</li>
+                <li><strong>Migraine / Atypical Migraine:</strong> Visual aura, throbbing headache, photophobia. <em>Occipital seizures present with short (seconds) geometric patterns vs. migraine aura lasting 15–30 minutes.</em></li>
+                <li><strong>Transient Global Amnesia (TGA):</strong> Isolated amnesic syndrome lasting several hours to 1–2 days. Patient repeatedly asks the same questions. Consciousness, motor function, and language are intact. Recurrence is extremely rare.</li>
+            </ul>
+        </section>
+
+        <!-- TAB 5: DIAGNOSTIC MODALITIES -->
+        <section id="diagnostics" class="tab-content">
+            <h2>Diagnostic Modalities & Pre-Surgical Workup</h2>
+
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ EEG Diagnostic Rules</div>
+                <p>1. <strong>EEG is the single most important diagnostic test in epilepsy.</strong><br>
+                2. <strong>A normal EEG NEVER rules out epilepsy</strong> (up to 10% of epileptic patients have persistently normal EEGs).<br>
+                3. <strong>An abnormal EEG does NOT automatically equal epilepsy</strong> (must correlate with clinical semiology!).</p>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>⚡ EEG Modalities & Electrode Placement</h3>
+                    <p><strong>10-20 System Nomenclature:</strong> Odd numbers = Left hemisphere; Even numbers = Right hemisphere; Z = Midline. FP = Frontopolar, F = Frontal, T = Temporal, C = Central, P = Parietal, O = Occipital.</p>
+                    <ul>
+                        <li><strong>Routine Scalp EEG:</strong> ~30 min recording. Uses hyperventilation and photic stimulation. Low yield for catching infrequent spikes.</li>
+                        <li><strong>Sleep-Deprived EEG:</strong> Patient is kept awake overnight. Transition from drowsiness to sleep strongly activates interictal epileptiform discharges.</li>
+                        <li><strong>Continuous Inpatient Video-EEG:</strong> Gold standard for capturing clinical events and correlating with electrographic onset. Used in ICU to rule out non-convulsive status.</li>
+                        <li><strong>Intracranial EEG:</strong> Subdural grids or depth electrodes (sEEG) implanted directly onto/into brain parenchyma for pre-surgical mapping.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🧠 Cranial CT vs. Epilepsy-Protocol Cranial MRI</h3>
+                    <p><strong>Cranial CT:</strong> Fast, accessible. Preferred ONLY in acute emergency settings to rule out gross intracranial hemorrhage, trauma, or massive edema.</p>
+                    <p><strong>Epilepsy-Protocol MRI:</strong> <strong>30–80% more sensitive than CT</strong>. Superior visualization of mesial temporal sclerosis, cortical dysgenesis (FCD), low-grade tumors (DNET, ganglioglioma), and vascular malformations.</p>
+                    <p><em>Mandatory Sequences:</em> T1 coronal (thin cuts perpendicular to hippocampus), T2 fast spin echo, FLAIR, Gradient Echo, 3D volume acquisition.</p>
+                </div>
+            </div>
+
+            <h3>🔬 Advanced Neuroimaging & Pre-Surgical Mapping Modalities</h3>
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Diagnostic Test</th>
+                            <th>Mechanism / Methodology</th>
+                            <th>Primary Clinical Utility & Key Finding</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>FDG-PET Scan</strong></td><td>Measures cerebral glucose metabolism using 18F-FDG tracer interictally.</td><td>Shows <strong>interictal hypometabolism</strong> at the epileptogenic focus. Useful in MRI-negative temporal lobe epilepsy.</td></tr>
+                        <tr>
+                            <td><strong>Ictal SPECT</strong></td><td>Radiolabeled perfusion tracer injected at the immediate onset of a seizure.</td><td>Shows <strong>ictal hyperperfusion</strong> at seizure onset zone vs. interictal hypoperfusion. Subtraction SPECT co-registered to MRI (SISCOM).</td></tr>
+                        <tr>
+                            <td><strong>Functional MRI (fMRI)</strong></td><td>Detects blood-oxygen-level-dependent (BOLD) signal changes during tasks.</td><td>Non-invasive mapping of language and motor cortex to replace the invasive WADA test for surgical planning.</td></tr>
+                        <tr>
+                            <td><strong>MEG (Magnetoencephalography)</strong></td><td>Measures magnetic fields generated by neuronal electrical activity.</td><td>Combines high temporal resolution (EEG) with high spatial resolution (MRI) for magnetic source localization.</td></tr>
+                        <tr>
+                            <td><strong>WADA Test (Amobarbital)</strong></td><td>Intracarotid injection of sodium amobarbital to transiently anesthetize one hemisphere.</td><td>Determines language dominance and memory reserve of the contralateral hemisphere prior to temporal lobectomy.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 6: ANTI-SEIZURE MEDICATIONS -->
+        <section id="asms" class="tab-content">
+            <h2>Anti-Seizure Medication (ASM) Selection & Toxicity</h2>
+
+            <div class="card-grid">
+                <div class="card card-accent-top">
+                    <h3>📈 Risk of Seizure Recurrence After 1st Unprovoked Seizure</h3>
+                    <p>Overall recurrence risk ranges from 21–45% in the first 2 years:</p>
+                    <ul>
+                        <li>1 Month: 7%</li>
+                        <li>6 Months: 24%</li>
+                        <li>1 Year: 32%</li>
+                        <li><strong>2 Years: 36% (21–45%)</strong></li>
+                        <li>5 Years: 46% (&gt;5 Years: 49%)</li>
+                    </ul>
+                    <div class="callout callout-must-know">
+                        <div class="callout-title">⭐ 4 Factors Favoring Immediate ASM Start After Single Seizure</div>
+                        <ol>
+                            <li>Prior brain insult (prior stroke, trauma, infection).</li>
+                            <li>Epileptiform discharges clear on EEG.</li>
+                            <li>Abnormal brain imaging (gliosis, tumor, encephalomalacia).</li>
+                            <li>Nocturnal seizure (seizure occurring out of sleep).</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card card-accent-teal">
+                    <h3>🎯 Mechanisms of Action (MOA) Categories</h3>
+                    <ul>
+                        <li><strong>Na+ Channel Blockers (Fast Inactivation):</strong> Carbamazepine, Oxcarbazepine, Phenytoin, Lamotrigine, Zonisamide.</li>
+                        <li><strong>Na+ Channel Enhancers (Slow Inactivation):</strong> Lacosamide.</li>
+                        <li><strong>SV2A Synaptic Vesicle Ligands:</strong> Levetiracetam, Brivaracetam.</li>
+                        <li><strong>T-type Ca2+ Channel Blockers:</strong> Ethosuximide (absence), Valproate.</li>
+                        <li><strong>GABA-A Receptor Enhancers:</strong> Benzodiazepines, Phenobarbital, Topiramate.</li>
+                        <li><strong>GABA Turnover / Reuptake Inhibitors:</strong> Valproate, Vigabatrin, Tiagabine.</li>
+                        <li><strong>AMPA / NMDA Blockers:</strong> Perampanel (AMPA), Felbamate, Topiramate.</li>
+                        <li><strong>Alpha-2-Delta Ca2+ Ligands:</strong> Gabapentin, Pregabalin.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="callout callout-pitfall">
+                <div class="callout-title">⚠️ CRITICAL EXAM PITFALL: Narrow vs. Broad Spectrum ASMs</div>
+                <p><strong>Narrow-Spectrum ASMs (Focal Only):</strong> Carbamazepine, Oxcarbazepine, Phenytoin, Lacosamide, Gabapentin, Pregabalin, Phenobarbital.<br>
+                <em>WARNING: Giving narrow-spectrum drugs (CBZ, OXC, PHT) to patients with generalized epilepsy syndromes (like Juvenile Myoclonic Epilepsy) can PARADOXICALLY EXACERBATE myoclonic and absence seizures!</em><br>
+                <strong>Broad-Spectrum ASMs (Focal & Generalized):</strong> Lamotrigine, Levetiracetam, Valproate, Topiramate, Zonisamide, Perampanel, Clobazam.</p>
+            </div>
+
+            <h3>⚡ Hepatic Metabolism & Drug-Drug Interaction Liability</h3>
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>ASMs Included</th>
+                            <th>Clinical Pharmacokinetic Consequence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Strong CYP450 Inducers</strong></td><td>Carbamazepine, Phenytoin, Phenobarbital, Primidone</td><td>Accelerates clearance of comedications: reduces oral contraceptive efficacy, statins, warfarin, and other ASMs.</td></tr>
+                        <tr>
+                            <td><strong>Strong CYP450 Inhibitor</strong></td><td>Valproate (Valproic Acid)</td><td>Inhibits hepatic metabolism: <strong>markedly increases Lamotrigine plasma levels</strong> (doubles half-life $\rightarrow$ severe SJS risk!).</td></tr>
+                        <tr>
+                            <td><strong>CYP450 Bypass / Low Interaction</strong></td><td>Levetiracetam, Gabapentin, Pregabalin, Lacosamide, Lamotrigine*</td><td>Minimal to no CYP liability. Ideal for elderly patients, HIV/cancer patients on complex polypharmacy. (*LTG is a target, not inducer).</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>📊 Systemic Organ Effects & Selection Matrix</h3>
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Organ / System</th>
+                            <th>Adverse / Specific ASM Effects</th>
+                            <th>Favorable / Preferred ASMs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cognition & Behavior</strong></td><td>• <strong>Levetiracetam:</strong> Irritability, agitation, aggression, depression.<br>• <strong>Topiramate:</strong> Cognitive slowing, word-finding difficulty, impaired attention.</td><td>Lamotrigine, Lacosamide, Gabapentin (favorable mood-stabilizing profile).</td></tr>
+                        <tr>
+                            <td><strong>Metabolic & Weight</strong></td><td>• <strong>Weight Gain:</strong> Valproate (marked + hyperinsulinemia/PCOS), Pregabalin, Gabapentin, CBZ.<br>• <strong>Weight Loss:</strong> Topiramate, Zonisamide (carbonic anhydrase inhibition).<br>• <strong>Acidosis:</strong> Topiramate, Zonisamide (hyperchloremic non-anion gap metabolic acidosis).</td><td>Lamotrigine, Levetiracetam (weight neutral).</td></tr>
+                        <tr>
+                            <td><strong>Reproductive & Teratogenicity</strong></td><td>• <strong>Valproate:</strong> <strong>HIGHEST teratogenic risk</strong> (neural tube defects / spina bifida, impaired IQ). Causes PCOS, amenorrhea, hyperandrogenism.<br>• <strong>Topiramate:</strong> Oral clefts.<br>• <strong>Phenobarbital:</strong> Congenital cardiac defects.</td><td><strong>Lamotrigine and Levetiracetam</strong> (lowest relative risk for major congenital malformations).</td></tr>
+                        <tr>
+                            <td><strong>Bone Health</strong></td><td>• <strong>Enzyme Inducers (CBZ, PHT, PB) & VPA:</strong> Accelerate Vit D degradation $\rightarrow$ decreased 25-OH Vit D & Ca2+ $\rightarrow$ increased ALP & bone turnover $\rightarrow$ osteopenia, osteoporosis, fractures.</td><td>Lamotrigine, Levetiracetam (favorable bone profile).</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>🚨 Major Idiosyncratic Severe Adverse Reactions</h3>
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Drug</th>
+                            <th>Idiosyncratic Reactions (Listed in Descending Frequency)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Carbamazepine</strong></td><td>Granulocyte suppression, allergic dermatitis, <strong>Stevens-Johnson Syndrome (SJS - linked to HLA-B*1502 in Han Chinese)</strong>, aplastic anemia, hepatic failure, hyponatremia (SIADH-like).</td></tr>
+                        <tr><td><strong>Phenytoin</strong></td><td>Allergic dermatitis, fetal hydantoin syndrome, hepatic failure, serum sickness, lupus-like reaction, gingival hyperplasia, hirsutism, coarsening of facial features.</td></tr>
+                        <tr><td><strong>Phenobarbital</strong></td><td>Allergic dermatitis, Stevens-Johnson Syndrome (SJS), serum sickness-like reaction, severe sedation.</td></tr>
+                        <tr><td><strong>Valproate</strong></td><td>Reye-like syndrome, fatal hepatic failure, pancreatitis, hyperammonemic encephalopathy/coma, severe thrombocytopenia.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>🏥 Clinical Comorbidities ASM Selection Guide</h3>
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Comorbid Condition</th>
+                            <th>Favorable / Preferred ASMs</th>
+                            <th>ASMs to Avoid or Use with Caution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Neuropathic Pain</strong></td><td>Carbamazepine, Oxcarbazepine, Gabapentin, Pregabalin</td><td>—</td></tr>
+                        <tr><td><strong>Migraine Prophylaxis</strong></td><td>Topiramate, Valproate</td><td>—</td></tr>
+                        <tr><td><strong>Mood Disorders / Depression</strong></td><td>Lamotrigine, Valproate, Carbamazepine, Oxcarbazepine</td><td>Levetiracetam, Topiramate, Zonisamide, Perampanel</td></tr>
+                        <tr><td><strong>Obesity / Overweight</strong></td><td>Topiramate, Zonisamide</td><td>Valproate, Pregabalin, Gabapentin, Carbamazepine</td></tr>
+                        <tr><td><strong>Cardiac Arrhythmias / Brugada</strong></td><td>Levetiracetam, Valproate, Zonisamide</td><td>Avoid Na+ channel blockers (CBZ, PHT, LAC; caution with LTG)</td></tr>
+                        <tr><td><strong>Hepatic Impairment</strong></td><td>Levetiracetam, Pregabalin, Gabapentin (renal clearance)</td><td>Valproate, Carbamazepine, Phenytoin</td></tr>
+                        <tr><td><strong>Renal Impairment</strong></td><td>Valproate, LTG, CBZ (adjust dose for renal clearance)</td><td>Levetiracetam, Gabapentin, Pregabalin (require dose reduction)</td></tr>
+                        <tr><td><strong>HIV / Cancer Polypharmacy</strong></td><td>Levetiracetam, Valproate, Perampanel</td><td>Carbamazepine, Phenytoin, Phenobarbital (strong inducers)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 7: SURGERY, NEUROSTIMULATION & DIET -->
+        <section id="surgery-neuro" class="tab-content">
+            <h2>Surgical, Neurostimulation & Dietary Therapies</h2>
+
+            <div class="accordion open">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>1. Resective & Palliative Epilepsy Surgery</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>Epilepsy surgery is the <strong>GOLD STANDARD</strong> treatment for drug-resistant (medically intractable) focal epilepsy. Evaluation requires answering 2 questions: <em>Where do seizures originate? Can that region be safely resected without unacceptable neurological deficits?</em></p>
+                    
+                    <h4>Surgical Procedures Classification:</h4>
+                    <ul>
+                        <li><strong>Resective Surgery (Curative Intent):</strong> Aim is complete seizure freedom. Includes <strong>Anterior Temporal Lobectomy + Selective Amygdalohippocampectomy</strong> (gold standard for Mesial Temporal Sclerosis), Lesionectomy, Corticectomy, Lobectomy.</li>
+                        <li><strong>MR-Guided Laser Interstitial Thermal Therapy (LITT):</strong> Minimally invasive thermal ablation of deep focal lesions (e.g., hypothalamic hamartoma, hippocampal sclerosis) via stereotactic laser probe under real-time MRI thermal mapping.</li>
+                        <li><strong>Dissociative / Palliative Surgery:</strong> Aim is seizure reduction, not complete cure. Includes <strong>Corpus Callosotomy</strong> (disconnects hemispheres to prevent drop attacks in Lennox-Gastaut), <strong>Hemispherectomy</strong> (anatomical or functional for severe single-hemisphere damage), and Multiple Subpial Transections.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>2. Neurostimulation Therapies</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>⚡ Vagus Nerve Stimulation (VNS)</h3>
+                            <p>Subcutaneous pulse generator implanted in chest delivering scheduled intermittent stimulation to the <strong>left vagus nerve</strong>. Palliative adjunctive therapy. Side effects: Hoarseness, voice alteration, paresthesias, cough.</p>
+                        </div>
+                        <div class="card">
+                            <h3>🧠 Deep Brain Stimulation (DBS)</h3>
+                            <p>Delivers continuous or scheduled electrical pulses to specific subcortical thalamic targets: <strong>Anterior Nucleus of Thalamus (ANT)</strong> or <strong>Centromedian Nucleus (CMN)</strong> to disrupt network synchrony.</p>
+                        </div>
+                        <div class="card">
+                            <h3>🔄 Responsive Neurostimulation (RNS)</h3>
+                            <p><strong>Closed-loop system:</strong> Cranially implanted neurostimulator connected to intracranial depth/strip leads. Continuously monitors electrographic activity, detects early epileptiform patterns, and delivers immediate electrical counter-stimulation to abort seizures.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>3. Dietary Therapies in Epilepsy</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>High-fat, low-carbohydrate diets shift cerebral energy metabolism from glucose oxidation to ketone body utilization (beta-hydroxybutyrate, acetoacetate). Mechanisms: increased ATP production, altered brain pH, direct inhibition of AMPA receptors by fatty acids, and increased GABA synthesis.</p>
+                    
+                    <div class="table-wrapper">
+                        <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ketogenic Variation</th>
+                                    <th>Fat-to-(Protein + Carb) Ratio & Composition</th>
+                                    <th>Clinical Utility & Compliance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Classic Ketogenic Diet</strong></td><td><strong>3:1 or 4:1 Ratio</strong> (90% of total calories from fat). Highly restrictive.</td><td>Gold standard in pediatric refractory epilepsy/epileptic encephalopathies. Strict weighing required.</td></tr>
+                                <tr>
+                                    <td><strong>Medium-Chain Triglyceride (MCT) Diet</strong></td><td>30–60% of calories from MCT oil (more ketogenic than long-chain fats).</td><td>Allows more dietary carbohydrate and protein; better tolerated.</td></tr>
+                                <tr>
+                                    <td><strong>Modified Atkins Diet (MAD)</strong></td><td>Carbohydrates limited to <strong>10–20 g/day</strong> (approx. 64% calories from fat).</td><td>No caloric or fluid restriction; highly practical for adolescents and adults.</td></tr>
+                                <tr>
+                                    <td><strong>Low Glycemic Index Treatment (LGIT)</strong></td><td>Focuses on carbs with Glycemic Index &lt;50 (10–30% of total calories).</td><td>Least restrictive variation; produces steady blood glucose and ketone levels.</td></tr>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 8: STATUS EPILEPTICUS & CLINICAL CASE -->
+        <section id="status-epilepticus" class="tab-content">
+            <h2>Status Epilepticus & Comprehensive Clinical Case</h2>
+
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ Status Epilepticus Operational Time Points (T1 vs. T2)</div>
+                <p><strong>Status Epilepticus (SE):</strong> Failure of seizure termination mechanisms leading to abnormally prolonged seizures.<br>
+                • <strong>Time Point T1 (5 minutes for convulsive SE):</strong> Operational threshold to START emergency treatment to prevent prolonged seizure.<br>
+                • <strong>Time Point T2 (30 minutes for convulsive SE):</strong> Threshold beyond which permanent neuronal injury, neuronal death, and network alteration occur.</p>
+            </div>
+
+            <div class="card-grid">
+                <div class="card card-accent-top">
+                    <h3>⚡ Status Epilepticus Definitions Spectrum</h3>
+                    <ul>
+                        <li><strong>Established Status Epilepticus:</strong> Convulsive seizure lasting $\ge 5$ minutes or $\ge 2$ discrete seizures without full recovery of consciousness between episodes.</li>
+                        <li><strong>Refractory Status Epilepticus (RSE):</strong> SE persisting despite administration of at least 2 appropriately selected and dosed parenteral drugs (Benzodiazepine + 2nd-line ASM).</li>
+                        <li><strong>Super-Refractory Status Epilepticus (SRSE):</strong> SE persisting $\ge 24$ hours despite continuous IV anesthetic therapy, or recurring upon weaning anesthetics.</li>
+                        <li><strong>Prolonged SRSE:</strong> SRSE persisting for $\ge 7$ days continuous anesthetic therapy.</li>
+                    </ul>
+                </div>
+
+                <div class="card card-accent-teal">
+                    <h3>🔄 Pathophysiological Shifts & Receptor Dynamics</h3>
+                    <ul>
+                        <li><strong>Receptor Internalization:</strong> Progressive endocytosis and loss of functional surface GABA-A receptors + concurrent upregulation and synaptic recruitment of NMDA/AMPA excitatory receptors. <em>Explains why Benzodiazepines lose efficacy when treatment is delayed!</em></li>
+                        <li><strong>Systemic Decompensation:</strong> Initial sympathetic activation (increased BP, HR, glucose) gives way to late failure (hypotension, hypoxemia, hypoglycemia, hyperthermia, rhabdomyolysis, multi-organ failure).</li>
+                        <li><strong>Electroclinical Dissociation:</strong> Visible motor convulsions die down while continuous electrographic status continues on EEG!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">AES Emergency Treatment Algorithm for Convulsive Status Epilepticus</div>
+                <p><strong>0 – 5 Minutes (Stabilization Phase):</strong></p>
+                <p>• Assess Airway, Breathing, Circulation (ABCs); give oxygen.<br>• Check Capillary Blood Glucose (CBG) immediately $\rightarrow$ If hypoglycemic, give IV dextrose.<br>• Establish IV access, draw baseline bloods (CBC, electrolytes, toxic screen, ASM levels).</p>
+                <p>↓ <em>If Seizure Continues $\ge 5$ Minutes:</em></p>
+                <p><strong>5 – 20 Minutes (Initial Therapy Phase - Benzodiazepines):</strong></p>
+                <p>• <strong>IV Lorazepam</strong> (0.1 mg/kg, max 4 mg) OR <strong>IV Diazepam</strong> (10 mg IV) OR <strong>IM Midazolam</strong> (10 mg IM if no IV access).<br>• If seizure persists after 5–10 min, repeat dose once.</p>
+                <p>↓ <em>If Seizure Continues $\ge 20$ Minutes:</em></p>
+                <p><strong>20 – 40 Minutes (Second Therapy Phase - IV Non-Sedating ASMs):</strong></p>
+                <p>• <strong>IV Levetiracetam</strong> (60 mg/kg, max 4500 mg) OR <strong>IV Valproate</strong> (40 mg/kg, max 3000 mg) OR <strong>IV Fosphenytoin</strong> (20 mg PE/kg).</p>
+                <p>↓ <em>If Seizure Continues $\ge 40$ Minutes (Refractory SE):</em></p>
+                <p><strong>40 – 60 Minutes (Third Therapy Phase - ICU Anesthetic Infusion):</strong></p>
+                <p>• Intubate patient, transfer to ICU.<br>• Start continuous IV continuous infusions of <strong>Midazolam</strong>, <strong>Propofol</strong>, or <strong>Pentobarbital</strong> with continuous Video-EEG monitoring.</p>
+            </div>
+
+            <hr style="margin: 2rem 0;">
+
+            <h3>🩺 Clinical Case Study: Step-by-Step Reasoning</h3>
+            <div class="card" style="background: #f8fafc; border: 2px solid var(--accent);">
+                <h3>Patient Profile & Presentation</h3>
+                <p><strong>Patient:</strong> 24-year-old male, Right-handed Filipino warehouse staff, no prior chronic medical conditions.</p>
+                <p><strong>Chief Complaint:</strong> First witnessed generalized convulsive episode on day of admission.</p>
+                <p><strong>History of Present Illness:</strong> 2 hours prior to consult, while working, suddenly stopped, stared blankly, and exhibited <strong>lip-smacking and left-hand fumbling (~30 seconds)</strong>. This was immediately followed by generalized body stiffening and 4-extremity rhythmic jerking (~2 minutes), eye rolling, frothing, <strong>lateral tongue biting</strong>, and urinary incontinence. Post-ictally confused and somnolent for 20 minutes with total amnesia of the event.</p>
+                <p><strong>Review of Systems:</strong> Patient admits to experiencing brief (&lt;1 min) stereotyped episodes over the past 2 months of "spacing out" preceded by a <strong>rising epigastric sensation and déjà vu</strong>.</p>
+                <p><strong>Social History:</strong> Works night shifts, chronic sleep deprivation. Occasional alcohol drinker.</p>
+
+                <h4>Step-by-Step Clinical Decision Reasoning:</h4>
+                <ol>
+                    <li><strong>Seizure vs. Mimic?</strong> The presence of an autonomic aura (rising epigastric sensation), experiential aura (déjà vu), stereotyped automatisms, lateral tongue biting, and prolonged post-ictal confusion confirms an <strong>epileptic seizure</strong> (rules out syncope, PNES, migraine).</li>
+                    <li><strong>Seizure Semiologic Classification?</strong> Although witnesses saw a generalized convulsion, the stereotyped aura, behavioral arrest, lip-smacking, and unimanual fumbling establish a <strong>Focal Impaired Awareness Seizure evolving into Focal-to-Bilateral Tonic-Clonic Seizure</strong> originating from the <strong>Right Temporal Lobe</strong>.</li>
+                    <li><strong>Initial Diagnostic Workup?</strong> General physical and neuro exams are normal. Routine bloods and initial non-contrast CT are clear. Routine 30-min scalp EEG and brain MRI are reported normal. <em>Next best step?</em> <strong>Obtain a 24-Hour Prolonged Video-EEG Monitoring!</strong> (Normal routine EEG does NOT rule out epilepsy).</li>
+                    <li><strong>Diagnostic Result:</strong> Prolonged EEG reveals <strong>Lateralized Periodic Discharges (LPDs) over the Right Fronto-Temporal region (F8-T4)</strong>.</li>
+                    <li><strong>Management & ASM Selection:</strong> Patient meets 2014 ILAE criteria for Epilepsy (prior unprovoked focal seizures over 2 months + epileptiform LPDs on EEG). First-line monotherapy options are Lamotrigine or Levetiracetam. Because the patient works as a warehouse staff requiring constant vigilance (avoid sedating drugs) and does NOT have acute seizure clusters, <strong>Lamotrigine</strong> is the preferred long-term monotherapy choice (excellent mood/cognitive profile, no sedating effect, though requiring slow 6–8 week titration to avoid SJS).</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- TAB 9: HIGH-YIELD COMPARISONS -->
+        <section id="comparisons" class="tab-content">
+            <h2>High-Yield Side-by-Side Comparisons</h2>
+
+            <h3>1. Absence Seizures vs. Focal Impaired Awareness (Complex Partial) Seizures</h3>
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Absence Seizures (Petit Mal)</th>
+                            <th>Focal Impaired Awareness Seizures</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Age of Onset</strong></td><td>Pediatric (4–14 years)</td><td>Any age (childhood, adult, elderly)</td></tr>
+                        <tr><td><strong>Duration</strong></td><td>Very brief (3–20 seconds)</td><td>Longer (30–120 seconds)</td></tr>
+                        <tr><td><strong>Onset & Offset</strong></td><td>Abrupt, sudden pause and immediate recovery</td><td>Gradual onset (aura), gradual post-ictal recovery</td></tr>
+                        <tr><td><strong>Post-ictal Confusion</strong></td><td><strong>NONE</strong> (returns immediately to full awareness)</td><td><strong>PRESENT</strong> (drowsiness, confusion, amnesia)</td></tr>
+                        <tr><td><strong>Provocation</strong></td><td>Reproducibly provoked by <strong>Hyperventilation</strong></td><td>Not typically provoked by hyperventilation</td></tr>
+                        <tr><td><strong>EEG Finding</strong></td><td><strong>Generalized 3 Hz spike-and-wave discharges</strong></td><td>Focal temporal/frontal spikes or LPDs</td></tr>
+                        <tr><td><strong>First-line Treatment</strong></td><td>Ethosuximide (if pure absence), Valproate, LTG</td><td>Lamotrigine, Levetiracetam, Oxcarbazepine, CBZ</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>2. Resective Epilepsy Surgery vs. Neurostimulation Therapies</h3>
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Resective Surgery (e.g., Temporal Lobectomy)</th>
+                            <th>Neurostimulation (VNS, DBS, RNS)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Primary Therapeutic Goal</strong></td><td><strong>Complete Seizure Freedom (Curative)</strong></td><td>Seizure frequency reduction (Palliative)</td></tr>
+                        <tr><td><strong>Indication</strong></td><td>Well-localized, single epileptogenic focus in non-eloquent brain</td><td>Multifocal, un-resectable, or eloquent cortex focus; failed resection</td></tr>
+                        <tr><td><strong>Brain Tissue Alteration</strong></td><td>Permanent excision of brain parenchyma</td><td>No tissue excision; implantable electrical hardware</td></tr>
+                        <tr><td><strong>Efficacy Profile</strong></td><td>Highest seizure-free rates (60–80% in MTS)</td><td>Progressive reduction over years (30–70% reduction)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3. Older vs. Newer Generation Anti-Seizure Medications</h3>
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Older Generation (PB, PHT, CBZ, VPA)</th>
+                            <th>Newer Generation (LEV, LTG, LAC, TPM)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Pharmacokinetics</strong></td><td>Non-linear kinetics (PHT), high protein binding</td><td>Linear kinetics, low plasma protein binding</td></tr>
+                        <tr><td><strong>Hepatic Interactions</strong></td><td>Extensive CYP450 induction or inhibition</td><td>Minimal CYP450 liability (renal elimination or bypass)</td></tr>
+                        <tr><td><strong>Toxicity Profile</strong></td><td>High incidence of cosmetic, bone, & metabolic toxicities</td><td>Favorable tolerability, lower organ toxicity</td></tr>
+                        <tr><td><strong>Teratogenicity</strong></td><td>High teratogenic risk (especially Valproate)</td><td>Lower relative teratogenic risk (LTG, LEV)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 10: ACTIVE RECALL FLASHCARDS -->
+        <section id="flashcards" class="tab-content">
+            <h2>Active Recall Flashcards (50+ Deck)</h2>
+            <p>Click the card to flip between Question and Answer. Use keyboard controls: <strong>Spacebar</strong> to flip, <strong>Left/Right Arrows</strong> to navigate.</p>
+
+            <div class="flashcard-controls">
+                <button class="btn btn-outline" id="prevCardBtn">← Previous</button>
+                <span style="font-family: 'Space Mono', monospace; font-weight: bold;" id="cardTracker">Card 1 / 50</span>
+                <button class="btn btn-outline" id="nextCardBtn">Next →</button>
+                <button class="btn" id="shuffleCardsBtn">🔀 Shuffle Deck</button>
+                <select id="cardFilter" class="btn btn-outline" style="padding: 0.5rem;">
+                    <option value="all">All Topics</option>
+                    <option value="definitions">Definitions & Criteria</option>
+                    <option value="anatomy">Anatomy & Physiology</option>
+                    <option value="classification">Seizure Types & Semiology</option>
+                    <option value="mimics">Differential Diagnosis & Mimics</option>
+                    <option value="asms">Anti-Seizure Medications</option>
+                    <option value="status">Status Epilepticus & Surgery</option>
+                </select>
+            </div>
+
+            <div class="flashcard-wrapper">
+                <div class="flashcard" id="activeFlashcard">
+                    <div class="flashcard-front">
+                        <span class="flashcard-tag" id="cardTag">Definitions & Criteria</span>
+                        <div class="flashcard-prompt" id="cardPrompt">Loading flashcard prompt...</div>
+                        <span style="font-size: 0.8rem; color: #94a3b8;">Click or press Spacebar to flip</span>
+                    </div>
+                    <div class="flashcard-back">
+                        <span class="flashcard-tag" id="cardTagBack">Answer</span>
+                        <div class="flashcard-answer" id="cardAnswer">Loading flashcard answer...</div>
+                        <span style="font-size: 0.8rem; color: #94a3b8;">Click or press Spacebar to flip back</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 11: BOARD-STYLE MCQS -->
+        <section id="mcqs" class="tab-content">
+            <h2>PLE Board-Style Multiple Choice Questions</h2>
+            <p>Test your clinical mastery with 50 high-yield board-style questions drawn proportionally across all lecture topics. Each question includes detailed explanations for the correct answer and specific reasons why every distractor is wrong.</p>
+            
+            <div style="margin: 1rem 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div style="font-family: 'Space Mono', monospace; font-weight: bold;">
+                    Score: <span id="mcqScore" style="color: var(--accent);">0</span> / <span id="mcqTotal">50</span> (<span id="mcqPercent">0%</span>)
+                </div>
+                <button class="btn btn-outline" onclick="resetMCQs()">Reset All Questions</button>
+            </div>
+
+            <div class="mcq-container" id="mcqContainer">
+                <!-- MCQs dynamically rendered via JS -->
+            </div>
+        </section>
+
+        <!-- TAB 12: CRAM SHEET ULTRA -->
+        <section id="cram-sheet" class="tab-content">
+            <h2>Cram Sheet Ultra: Last-Minute PLE Reviewer</h2>
+            <div class="callout callout-exam-tip">
+                <div class="callout-title">⚡ 10-Minute Rapid Revision Cheat Sheet</div>
+                <p>Designed for quick scanning right before long examinations or the Physician Licensure Examination.</p>
+            </div>
+
+            <h3>🎯 "If You See X → Think Y" Rapid Clinical Triggers</h3>
+            <ul>
+                <li><strong>Child with 5-second blank stare, no post-ictal confusion, triggered by blowing a pinwheel $\rightarrow$</strong> Absence Seizure (EEG: Generalized 3 Hz spike-wave; Tx: Ethosuximide or VPA).</li>
+                <li><strong>Night shift worker waking up with violent lower extremity thrashing $\rightarrow$</strong> Frontal Lobe Hypermotor Seizure.</li>
+                <li><strong>Déjà vu + rising epigastric aura + lip-smacking + manual fumbling $\rightarrow$</strong> Temporal Lobe Focal Impaired Awareness Seizure (Mesial Temporal Sclerosis).</li>
+                <li><strong>Posterior shoulder dislocation after sudden collapse $\rightarrow$</strong> True Epileptic Seizure (GTCS or Tonic).</li>
+                <li><strong>Lateral tongue laceration $\rightarrow$</strong> High-specificity indicator of true Epileptic Seizure (Tip of tongue = Syncope/PNES).</li>
+                <li><strong>Pregnant woman taking Valproate $\rightarrow$</strong> High risk of Neural Tube Defects (Spina Bifida) and cognitive impairment.</li>
+                <li><strong>Overweight/obese patient with focal epilepsy needing ASM $\rightarrow$</strong> Topiramate or Zonisamide (promotes weight loss).</li>
+                <li><strong>Patient taking Lamotrigine started on Valproate $\rightarrow$</strong> Cut Lamotrigine dose by 50%! (Valproate inhibits metabolism $\rightarrow$ severe SJS risk).</li>
+                <li><strong>Han Chinese patient planned for Carbamazepine $\rightarrow$</strong> Screen for HLA-B*1502 allele before starting (SJS/TEN risk).</li>
+                <li><strong>Seizure lasting &gt;5 minutes $\rightarrow$</strong> Convulsive Status Epilepticus Time Point T1 (Give IV Lorazepam 4mg or IV Diazepam 10mg or IM Midazolam 10mg immediately!).</li>
+                <li><strong>Seizure continuing despite Benzodiazepine + IV Levetiracetam/Valproate $\rightarrow$</strong> Refractory Status Epilepticus (Transfer to ICU, intubate, start Propofol/Midazolam infusion).</li>
+                <li><strong>Interictal FDG-PET showing hypometabolism in temporal lobe $\rightarrow$</strong> Temporal Lobe Epilepsy focus.</li>
+                <li><strong>Ictal SPECT showing hyperperfusion $\rightarrow$</strong> Active seizure onset zone.</li>
+            </ul>
+
+            <h3>📊 Rapid Drug & Side Effect Matcher</h3>
+            <div class="table-wrapper">
+                <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Buzzword / Side Effect / Indication</th>
+                            <th>Associated Anti-Seizure Medication</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Irritability, rage, behavioral changes</td><td><strong>Levetiracetam (LEV)</strong></td></tr>
+                        <tr><td>Cognitive slowing, word-finding difficulty, kidney stones, weight loss</td><td><strong>Topiramate (TPM)</strong></td></tr>
+                        <tr><td>Gingival hyperplasia, hirsutism, facial coarsening, ataxia, non-linear kinetics</td><td><strong>Phenytoin (PHT)</strong></td></tr>
+                        <tr><td>Hyponatremia (SIADH-like), auto-induction, SJS, worsens JME</td><td><strong>Carbamazepine (CBZ)</strong></td></tr>
+                        <tr><td>Weight gain, PCOS, hyperammonemic encephalopathy, fatal hepatotoxicity</td><td><strong>Valproate (VPA)</strong></td></tr>
+                        <tr><td>Severe slow-titration rash, Stevens-Johnson Syndrome, mood stabilizer</td><td><strong>Lamotrigine (LTG)</strong></td></tr>
+                        <tr><td>Slow inactivation of Na+ channels, simple kinetics</td><td><strong>Lacosamide (LAC)</strong></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top-btn" id="scrollTopBtn" title="Scroll to Top">▲</button>
+
+    <!-- Embedded JavaScript Code -->
+    <script>
+        // Global State & Data
+        let currentTab = 'overview';
+
+        // Flashcards Data Array (50 Cards)
+        const flashcardsData = [
+            { tag: "Definitions & Criteria", prompt: "What is the 2014 ILAE practical clinical definition of epilepsy?", answer: "Epilepsy is diagnosed if: (1) At least 2 unprovoked/reflex seizures >24h apart; OR (2) 1 unprovoked seizure with >60% recurrence risk over 10 years (e.g., brain tumor, stroke, epileptiform EEG); OR (3) Diagnosis of an epilepsy syndrome.", category: "definitions" },
+            { tag: "Definitions & Criteria", prompt: "How does a convulsion differ from a seizure?", answer: "A seizure is any transient episode of brain dysfunction due to abnormal neuronal activity. A convulsion specifically refers to involuntary paroxysmal muscular contractions. All convulsions are seizures, but not all seizures are convulsive (e.g., absence staring spells).", category: "definitions" },
+            { tag: "Definitions & Criteria", prompt: "When is epilepsy considered 'resolved' according to the ILAE?", answer: "For individuals who had an age-dependent epilepsy syndrome but are past that age, OR individuals who remain seizure-free for the last 10 years with no anti-seizure medications for the last 5 years.", category: "definitions" },
+            { tag: "Anatomy & Physiology", prompt: "Trace the structures involved in the Papez Circuit in order.", answer: "Hippocampus → Fornix → Mammillary bodies → Mammillothalamic tract → Anterior nucleus of thalamus → Cingulum → Entorhinal cortex → Hippocampus.", category: "anatomy" },
+            { tag: "Anatomy & Physiology", prompt: "What is the Dormant Basket Cell Theory?", answer: "Loss of excitatory drive from dentate mossy cells makes inhibitory basket cells 'dormant', removing GABAergic inhibition from hippocampal granule cells and causing hyperexcitability.", category: "anatomy" },
+            { tag: "Anatomy & Physiology", prompt: "What is the electrophysiological cellular correlation of interictal spikes on EEG?", answer: "Paroxysmal Depolarization Shift (PDS) - an abnormal sustained neuronal membrane depolarization mediated by AMPA/NMDA currents.", category: "anatomy" },
+            { tag: "Anatomy & Physiology", prompt: "Which ion channel dysregulation specifically drives the thalamocortical oscillatory rhythms seen in absence seizures?", answer: "Low-threshold T-type Ca2+ channels in thalamic relay neurons.", category: "anatomy" },
+            { tag: "Classification", prompt: "What are the clinical hallmarks of Childhood Absence Epilepsy?", answer: "Brief staring spells (3–20s) in children aged 4–14, abrupt onset/offset, NO post-ictal confusion, reproducibly provoked by hyperventilation, EEG showing generalized 3 Hz spike-wave discharges.", category: "classification" },
+            { tag: "Classification", prompt: "Describe the semiology of Frontal Lobe Hypermotor Seizures.", answer: "Violent, complex motor movements of extremities (bicycling, thrashing) waking patient from sleep or drowsiness, short duration with rapid recovery.", category: "classification" },
+            { tag: "Classification", prompt: "What clinical features point to a Temporal Lobe origin in a focal seizure?", answer: "Experiential/autonomic aura (rising epigastric sensation, déjà vu), behavioral arrest, oral automatisms (lip-smacking, chewing), manual automatisms (fumbling), and prolonged post-ictal confusion.", category: "classification" },
+            { tag: "Classification", prompt: "What is Jacksonian March?", answer: "The sequential spread of focal motor or sensory seizure activity along the motor/sensory homunculus of the pre/post-central gyrus.", category: "classification" },
+            { tag: "Classification", prompt: "What visual symptoms distinguish an occipital lobe seizure from a migraine aura?", answer: "Occipital seizures produce multicolored complex geometric patterns or flashing lights lasting seconds; migraine visual aura develops gradually over 15–30 minutes.", category: "classification" },
+            { tag: "Mimics", prompt: "Why is lateral tongue biting a high-yield diagnostic clue?", answer: "It is a highly reliable, specific indicator of a true epileptic seizure. Tip-of-the-tongue biting occurs in syncope or psychogenic non-epileptic seizures (PNES).", category: "mimics" },
+            { tag: "Mimics", prompt: "Name two orthopedic injuries classically associated with true convulsive seizures.", answer: "Posterior shoulder dislocation (<0.6% rare but classic) and compression fractures of the thoracic spine or femoral neck.", category: "mimics" },
+            { tag: "Mimics", prompt: "List 4 key features distinguishing Psychogenic Non-Epileptic Seizures (PNES) from epileptic seizures.", answer: "PNES: Predominantly female, presence of an audience, NEVER occurs during true sleep, out-of-phase asynchronous movements/pelvic thrusting/side-to-side head shaking, forced eye closure, reproducible by suggestion.", category: "mimics" },
+            { tag: "Mimics", prompt: "What is Todd's Paralysis?", answer: "A transient, focal neurological deficit (e.g., hemiparesis) occurring post-ictally that resolves over hours.", category: "mimics" },
+            { tag: "Mimics", prompt: "What is Transient Global Amnesia (TGA)?", answer: "An isolated amnesic episode lasting several hours to 1–2 days without loss of consciousness, motor deficits, or confusion. Patient repeatedly asks same questions. Recurrence is extremely rare.", category: "mimics" },
+            { tag: "ASMs", prompt: "What is the major clinical danger of giving narrow-spectrum ASMs (e.g., CBZ, PHT) to a patient with Juvenile Myoclonic Epilepsy?", answer: "Narrow-spectrum ASMs can paradoxically exacerbate myoclonic jerks and absence seizures in generalized epilepsy syndromes!", category: "asms" },
+            { tag: "ASMs", prompt: "Which anti-seizure medications are potent hepatic CYP450 enzyme inducers?", answer: "Carbamazepine, Phenytoin, Phenobarbital, and Primidone.", category: "asms" },
+            { tag: "ASMs", prompt: "What happens to Lamotrigine levels when Valproate is added, and why?", answer: "Lamotrigine plasma levels markedly increase (double) because Valproate is a potent hepatic enzyme inhibitor. Lamotrigine dose must be reduced by 50% to prevent Stevens-Johnson Syndrome!", category: "asms" },
+            { tag: "ASMs", prompt: "Which 2 ASMs carry the lowest relative teratogenic risk for major congenital malformations?", answer: "Lamotrigine and Levetiracetam.", category: "asms" },
+            { tag: "ASMs", prompt: "Which ASM carries the highest dose-dependent risk of neural tube defects (spina bifida) and adverse neurodevelopmental outcomes?", answer: "Valproate (Valproic acid).", category: "asms" },
+            { tag: "ASMs", prompt: "Which ASMs are advantageous in obese or overweight patients because they promote weight loss?", answer: "Topiramate and Zonisamide (via appetite suppression & carbonic anhydrase inhibition).", category: "asms" },
+            { tag: "ASMs", prompt: "What adverse psychiatric effect is specifically associated with Levetiracetam?", answer: "Behavioral changes: irritability, agitation, mood swings, aggression, and depression.", category: "asms" },
+            { tag: "ASMs", prompt: "What cognitive side effect profile is characteristic of Topiramate?", answer: "Cognitive slowing, word-finding difficulty ('anomia'), and impaired attention/concentration.", category: "asms" },
+            { tag: "ASMs", prompt: "Why do enzyme-inducing ASMs (CBZ, PHT, PB) increase the risk of osteopenia and bone fractures?", answer: "They accelerate Vitamin D hepatic degradation, leading to low 25-OH Vitamin D, hypocalcemia, elevated ALP, and increased bone turnover.", category: "asms" },
+            { tag: "ASMs", prompt: "What idiosyncratic reaction is linked to Carbamazepine in Han Chinese patients?", answer: "Stevens-Johnson Syndrome (SJS) and Toxic Epidermal Necrolysis (TEN) linked to the HLA-B*1502 allele.", category: "asms" },
+            { tag: "ASMs", prompt: "Which ASM mechanism of action involves binding to the SV2A synaptic vesicle protein?", answer: "Levetiracetam (and Brivaracetam).", category: "asms" },
+            { tag: "ASMs", prompt: "Which ASM specifically enhances the SLOW inactivation of voltage-gated Na+ channels?", answer: "Lacosamide.", category: "asms" },
+            { tag: "ASMs", prompt: "What metabolic disturbance is produced by Topiramate and Zonisamide?", answer: "Hyperchloremic, non-anion gap metabolic acidosis (due to carbonic anhydrase inhibition).", category: "asms" },
+            { tag: "Diagnostics", prompt: "Does a normal routine scalp EEG rule out epilepsy?", answer: "NO! Up to 10% of patients with established epilepsy have persistently normal scalp EEGs.", category: "diagnostics" },
+            { tag: "Diagnostics", prompt: "Why is Epilepsy-Protocol Cranial MRI preferred over CT in non-emergency seizure workup?", answer: "MRI is 30–80% more sensitive, providing superior resolution of mesial temporal sclerosis, focal cortical dysgenesis, low-grade tumors, and vascular malformations.", category: "diagnostics" },
+            { tag: "Diagnostics", prompt: "What imaging finding on interictal FDG-PET scan indicates an epileptogenic focus?", answer: "Interictal regional hypometabolism.", category: "diagnostics" },
+            { tag: "Diagnostics", prompt: "What is the difference between Interictal and Ictal SPECT in epilepsy evaluation?", answer: "Interictal SPECT shows hypoperfusion; Ictal SPECT (tracer injected at seizure onset) shows hyperperfusion at the seizure focus.", category: "diagnostics" },
+            { tag: "Diagnostics", prompt: "What is the principal purpose of the pre-surgical WADA test?", answer: "To establish language lateralization/dominance and assess memory reserve of the contralateral hemisphere prior to resective surgery.", category: "diagnostics" },
+            { tag: "Status Epilepticus", prompt: "Define Operational Time Points T1 and T2 in convulsive status epilepticus.", answer: "T1 (5 min): Threshold to initiate emergency pharmacotherapy to prevent prolonged seizure. T2 (30 min): Threshold beyond which permanent neuronal death and network injury occur.", category: "status" },
+            { tag: "Status Epilepticus", prompt: "Why do Benzodiazepines lose efficacy as Status Epilepticus becomes prolonged?", answer: "Progressive endocytosis/internalization of functional surface GABA-A receptors, combined with concurrent upregulation of excitatory NMDA receptors.", category: "status" },
+            { tag: "Status Epilepticus", prompt: "Define Refractory Status Epilepticus (RSE).", answer: "Status epilepticus persisting despite administration of at least 2 appropriately dosed parenteral medications (Benzodiazepine + 2nd-line ASM).", category: "status" },
+            { tag: "Status Epilepticus", prompt: "Define Super-Refractory Status Epilepticus (SRSE).", answer: "Status epilepticus persisting ≥24 hours despite continuous IV anesthetic therapy, or recurring upon weaning anesthetics.", category: "status" },
+            { tag: "Status Epilepticus", prompt: "What is Electromechanical Dissociation in status epilepticus?", answer: "A state where visible physical motor convulsions cease or diminish, but severe electrographic seizure activity persists on EEG.", category: "status" },
+            { tag: "Status Epilepticus", prompt: "What is the 1st-line emergency drug regimen for Convulsive Status Epilepticus at T1 (5 min)?", answer: "IV Lorazepam (0.1 mg/kg) OR IV Diazepam (10 mg) OR IM Midazolam (10 mg if no IV access).", category: "status" },
+            { tag: "Status Epilepticus", prompt: "List 3 options for 2nd-line IV non-sedating ASMs in established Status Epilepticus.", answer: "IV Levetiracetam (60 mg/kg), IV Valproate (40 mg/kg), or IV Fosphenytoin (20 mg PE/kg).", category: "status" },
+            { tag: "Surgery & Diet", prompt: "What is the gold standard surgical procedure for medically refractory Temporal Lobe Epilepsy secondary to Mesial Temporal Sclerosis?", answer: "Anterior Temporal Lobectomy with Selective Amygdalohippocampectomy.", category: "status" },
+            { tag: "Surgery & Diet", prompt: "What is the primary palliative indication for Corpus Callosotomy?", answer: "To prevent generalized drop attacks (atonic seizures) by interrupting interhemispheric propagation in conditions like Lennox-Gastaut Syndrome.", category: "status" },
+            { tag: "Surgery & Diet", prompt: "What target subcortical nuclei are stimulated in Deep Brain Stimulation (DBS) for epilepsy?", answer: "Anterior Nucleus of the Thalamus (ANT) and Centromedian Nucleus (CMN).", category: "status" },
+            { tag: "Surgery & Diet", prompt: "How does Responsive Neurostimulation (RNS) differ from Vagal Nerve Stimulation (VNS)?", answer: "RNS is a closed-loop system that continuously monitors electrographic activity and stimulates ONLY when epileptiform patterns are detected. VNS delivers open-loop scheduled intermittent stimulation.", category: "status" },
+            { tag: "Surgery & Diet", prompt: "What is the fat-to-(protein + carb) macronutrient ratio in the Classical Ketogenic Diet?", answer: "3:1 or 4:1 ratio (approx. 90% of total daily calories derived from fats).", category: "status" },
+            { tag: "Surgery & Diet", prompt: "What is the carbohydrate limit per day in the Modified Atkins Diet (MAD)?", answer: "10 to 20 grams per day.", category: "status" },
+            { tag: "ASMs", prompt: "Which broad-spectrum ASM is banned in Europe for women of childbearing potential due to high teratogenic risk?", answer: "Valproate (Valproic Acid / vPAT).", category: "asms" },
+            { tag: "ASMs", prompt: "Why is Levetiracetam preferred in oncology or HIV patients presenting with seizures?", answer: "It bypasses hepatic CYP450 metabolism (renally eliminated), avoiding drug-drug interactions with antiretrovirals or chemotherapy.", category: "asms" }
+        ];
+
+        // Flashcards Logic
+        let currentCardIndex = 0;
+        let filteredCards = [...flashcardsData];
+        let isFlipped = false;
+
+        function updateFlashcard() {
+            if (filteredCards.length === 0) return;
+            const card = filteredCards[currentCardIndex];
+            const cardElem = document.getElementById('activeFlashcard');
+            
+            // Remove flip class before content update
+            cardElem.classList.remove('flipped');
+            isFlipped = false;
+
+            setTimeout(() => {
+                document.getElementById('cardTag').innerText = card.tag;
+                document.getElementById('cardPrompt').innerText = card.prompt;
+                document.getElementById('cardTagBack').innerText = card.tag + " - Answer";
+                document.getElementById('cardAnswer').innerText = card.answer;
+                document.getElementById('cardTracker').innerText = `Card ${currentCardIndex + 1} / ${filteredCards.length}`;
+            }, 150);
+        }
+
+        function flipCard() {
+            const cardElem = document.getElementById('activeFlashcard');
+            cardElem.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        // MCQs Data Array (50 Questions)
+        const mcqsData = [
+            {
+                q: "A 28-year-old male presents to the clinic after experiencing a single, unprovoked generalized tonic-clonic seizure. Brain MRI reveals a high-grade temporal lobe glioma. According to the 2014 ILAE practical clinical definition, does this patient meet the criteria for epilepsy?",
+                options: [
+                    "No, because epilepsy strictly requires at least two unprovoked seizures >24 hours apart.",
+                    "No, because an abnormal EEG with 3 Hz spike-wave discharges is mandatory first.",
+                    "Yes, because a single unprovoked seizure with an underlying brain tumor carries a recurrence risk >60% over the next 10 years.",
+                    "Yes, but only if he experiences a second convulsive seizure within 24 hours."
+                ],
+                correct: 2,
+                explanation: "Under the 2014 ILAE practical definition, criterion 2 states that a single unprovoked seizure combined with an structural brain lesion (like a glioma or stroke) that carries at least a 60% risk of recurrence over 10 years establishes a diagnosis of epilepsy.",
+                distractors: [
+                    "Incorrect. Criterion 1 allows diagnosis with 2 seizures, but Criterion 2 allows diagnosis after 1 seizure if recurrence risk is ≥60%.",
+                    "Incorrect. 3 Hz spike-wave discharges are specific to absence epilepsy, not temporal gliomas.",
+                    "Incorrect. Waiting for a second seizure within 24 hours is false; two seizures within 24 hours are counted as a single episode."
+                ]
+            },
+            {
+                q: "At the cellular level, which combination of ionic fluxes and neurochemical shifts produces a neuronal hyperexcitable state leading to seizure generation?",
+                options: [
+                    "Increased GABAergic activity, decreased glutamatergic activity, and K+ efflux.",
+                    "Decreased GABAergic activity, increased glutamatergic activity, and increased Na+/Ca2+ influx.",
+                    "Decreased NMDA activation, suppressed T-type Ca2+ currents, and elevated intracellular K+.",
+                    "Increased GABA-A receptor activation and voltage-gated Na+ channel blockade."
+                ],
+                correct: 1,
+                explanation: "Neuronal hyperexcitability results from an imbalance between excitation and inhibition: decreased inhibitory GABAergic activity, increased excitatory glutamatergic drive, and increased inward flux of cations (Na+ and Ca2+).",
+                distractors: [
+                    "Incorrect. Increased GABA and K+ efflux cause hyperpolarization/inhibition, reducing seizure risk.",
+                    "Incorrect. Suppressing T-type Ca2+ currents reduces thalamocortical synchrony and treats seizures.",
+                    "Incorrect. GABA-A activation and Na+ channel blockade are anti-seizure mechanisms."
+                ]
+            },
+            {
+                q: "An 8-year-old girl is brought in due to brief episodes of 'spacing out' during class lasting 5 to 10 seconds. She stops writing, stares blankly, blinks rapidly, and then immediately resumes writing without confusion. Hyperventilation in the clinic triggers an attack. What is the expected EEG finding?",
+                options: [
+                    "Lateralized periodic discharges (LPDs) over the temporal lobe.",
+                    "Sudden diffuse low-voltage fast activity attenuation.",
+                    "Generalized 3 Hz spike-wave discharges.",
+                    "Hypsarrhythmia with chaotic high-voltage background."
+                ],
+                correct: 2,
+                explanation: "The clinical presentation is classic for Childhood Absence Epilepsy (petit mal). The diagnostic hallmark on EEG during hyperventilation is generalized 3 Hz spike-wave discharges.",
+                distractors: [
+                    "Incorrect. LPDs reflect focal cortical lesions or temporal lobe epilepsy.",
+                    "Incorrect. Low-voltage fast attenuation occurs in tonic or atonic drop attacks.",
+                    "Incorrect. Hypsarrhythmia is characteristic of West Syndrome (epileptic spasms)."
+                ]
+            },
+            {
+                q: "Which clinical sign is considered the most reliable, highly specific indicator that an event was a true epileptic seizure rather than a syncopal episode or psychogenic mimic?",
+                options: [
+                    "Urinary incontinence.",
+                    "Lateral tongue biting.",
+                    "Myoclonic jerking of extremities.",
+                    "Biting of the tip of the tongue."
+                ],
+                correct: 1,
+                explanation: "Lateral tongue biting has high specificity for true epileptic seizures. Biting the tip of the tongue, urinary incontinence, and brief myoclonic jerks can frequently occur in syncope or PNES.",
+                distractors: [
+                    "Incorrect. Urinary incontinence is non-specific and occurs in vasovagal syncope.",
+                    "Incorrect. Brief myoclonic jerks occur in convulsive syncope upon cerebral hypoperfusion.",
+                    "Incorrect. Tip-of-the-tongue biting is associated with syncope or functional non-epileptic events."
+                ]
+            },
+            {
+                q: "A 16-year-old patient diagnosed with Juvenile Myoclonic Epilepsy (a generalized epilepsy syndrome) is inadvertently prescribed Carbamazepine. Why is this drug choice inappropriate?",
+                options: [
+                    "Carbamazepine is a potent CYP inhibitor that leads to lethal Valproate toxicity.",
+                    "Carbamazepine is a narrow-spectrum ASM that can paradoxically worsen myoclonic and absence seizures.",
+                    "Carbamazepine causes severe hyperchloremic non-anion gap metabolic acidosis.",
+                    "Carbamazepine is contraindicated due to an immediate risk of acute renal failure."
+                ],
+                correct: 1,
+                explanation: "Carbamazepine, Oxcarbazepine, and Phenytoin are narrow-spectrum ASMs. When administered to patients with primary generalized epilepsy syndromes (like JME), they can paradoxically exacerbate myoclonic jerks and absence seizures.",
+                distractors: [
+                    "Incorrect. Carbamazepine is an enzyme inducer, not an inhibitor.",
+                    "Incorrect. Topiramate and Zonisamide cause metabolic acidosis, not Carbamazepine.",
+                    "Incorrect. Carbamazepine can cause hyponatremia/SIADH, but acute renal failure is not a primary mechanism."
+                ]
+            },
+            {
+                q: "A patient taking Lamotrigine for focal epilepsy is started on Valproate for mood stabilization. What adjustment must be made to the Lamotrigine dosage, and why?",
+                options: [
+                    "Increase Lamotrigine dose because Valproate induces CYP3A4 metabolism.",
+                    "Maintain current dose because neither drug undergoes hepatic metabolism.",
+                    "Reduce Lamotrigine dose by ~50% because Valproate inhibits hepatic clearance, doubling SJS risk.",
+                    "Discontinue Lamotrigine immediately due to acute irreversible nephrotoxicity."
+                ],
+                correct: 2,
+                explanation: "Valproate is a potent hepatic enzyme inhibitor. It significantly reduces Lamotrigine clearance, doubling its elimination half-life and dramatically increasing the risk of Stevens-Johnson Syndrome (SJS). The Lamotrigine dose must be reduced by 50%.",
+                distractors: [
+                    "Incorrect. Valproate inhibits glucuronidation/CYP, it does not induce metabolism.",
+                    "Incorrect. Both drugs undergo extensive hepatic transformation.",
+                    "Incorrect. Nephrotoxicity is not the primary reason; skin rash/SJS risk drives dose reduction."
+                ]
+            },
+            {
+                q: "A 26-year-old woman with focal epilepsy is planning her first pregnancy. Which anti-seizure medication carries the highest dose-dependent risk for major congenital malformations (e.g., neural tube defects like spina bifida) and cognitive impairment, and should be avoided if possible?",
+                options: [
+                    "Levetiracetam",
+                    "Lamotrigine",
+                    "Valproate",
+                    "Oxcarbazepine"
+                ],
+                correct: 2,
+                explanation: "Valproate (Valproic acid) carries the highest established teratogenic risk among common ASMs, specifically causing neural tube defects (spina bifida), facial clefts, hyperandrogenism, and lowered verbal IQ.",
+                distractors: [
+                    "Incorrect. Levetiracetam has one of the lowest teratogenic risk profiles.",
+                    "Incorrect. Lamotrigine has one of the safest pregnancy registry profiles.",
+                    "Incorrect. Oxcarbazepine carries moderate risk, significantly lower than Valproate."
+                ]
+            },
+            {
+                q: "A patient with focal epilepsy and comorbid obesity requests an anti-seizure medication that will not cause weight gain. Which pair of ASMs promotes weight loss and would be advantageous?",
+                options: [
+                    "Valproate and Pregabalin",
+                    "Topiramate and Zonisamide",
+                    "Carbamazepine and Gabapentin",
+                    "Perampanel and Clobazam"
+                ],
+                correct: 1,
+                explanation: "Topiramate and Zonisamide inhibit carbonic anhydrase and suppress appetite, consistently causing weight loss. Valproate, Pregabalin, Gabapentin, and Carbamazepine cause weight gain.",
+                distractors: [
+                    "Incorrect. Valproate and Pregabalin cause marked weight gain.",
+                    "Incorrect. Carbamazepine and Gabapentin promote weight gain.",
+                    "Incorrect. Perampanel is associated with weight gain and behavioral irritability."
+                ]
+            },
+            {
+                q: "In convulsive status epilepticus, what are the defined operational time points T1 and T2?",
+                options: [
+                    "T1 = 1 minute (start CPR); T2 = 5 minutes (brain death).",
+                    "T1 = 5 minutes (start emergency ASM treatment); T2 = 30 minutes (permanent neuronal injury begins).",
+                    "T1 = 20 minutes (give IV anesthetics); T2 = 60 minutes (discharge patient).",
+                    "T1 = 30 minutes (give Lorazepam); T2 = 24 hours (super-refractory status)."
+                ],
+                correct: 1,
+                explanation: "T1 (5 minutes) is the operational point where mechanisms of seizure termination fail and emergency treatment MUST begin. T2 (30 minutes) represents the time beyond which prolonged seizure activity causes permanent neuronal injury and altered networks.",
+                distractors: [
+                    "Incorrect. T1 is 5 minutes, not 1 minute.",
+                    "Incorrect. Anesthetics are given at 40-60 min (Refractory SE), not T1.",
+                    "Incorrect. Lorazepam is given at T1 (5 min), not 30 minutes."
+                ]
+            },
+            {
+                q: "Why do Benzodiazepines (e.g., Lorazepam, Diazepam) lose therapeutic efficacy as status epilepticus progresses past 20–30 minutes?",
+                options: [
+                    "Rapid renal excretion depletes active drug concentration.",
+                    "Functional surface GABA-A receptors undergo progressive endocytosis/internalization.",
+                    "NMDA receptors are completely degraded by calpain enzymes.",
+                    "Blood-brain barrier transport pumps become permanently blocked."
+                ],
+                correct: 1,
+                explanation: "During prolonged status epilepticus, continuous seizure activity drives the internalization (endocytosis) of surface GABA-A receptors into intracellular vesicles, reducing BZD binding sites while excitatory NMDA receptors are upregulated.",
+                distractors: [
+                    "Incorrect. Loss of efficacy is driven by receptor trafficking, not rapid renal clearance.",
+                    "Incorrect. NMDA receptors are upregulated, not degraded.",
+                    "Incorrect. BBB transport changes occur, but GABA-A receptor loss is the primary mechanism."
+                ]
+            }
+        ];
+
+        // Populate remaining 40 MCQs programmatically to total 50 board-style questions
+        const additionalMCQPrompts = [
+            { q: "Which structure forms the key connection between the Hippocampus and the Mammillary Bodies in the Papez Circuit?", opt: ["Fornix", "Cingulum", "Mammillothalamic tract", "Stria terminalis"], corr: 0, exp: "The Fornix is the major white matter tract connecting the Hippocampus to the Mammillary Bodies.", dis: ["Cingulum connects cingulate to entorhinal cortex.", "Mammillothalamic tract connects mammillary bodies to anterior thalamus.", "Stria terminalis connects amygdala to hypothalamus."] },
+            { q: "What is the primary action of Ethosuximide in treating absence seizures?", opt: ["Na+ channel inactivation", "T-type Ca2+ channel blockade", "GABA-A receptor agonism", "SV2A vesicle binding"], corr: 1, exp: "Ethosuximide selectively blocks low-threshold T-type Ca2+ channels in thalamic relay neurons.", dis: ["Na+ blockers treat focal seizures.", "GABA agonists include BZDs.", "SV2A binding is Levetiracetam."] },
+            { q: "Which EEG finding is indicative of an active focal epileptogenic focus in temporal lobe epilepsy?", opt: ["Generalized 3 Hz spike-wave", "Lateralized Periodic Discharges (LPDs)", "Hypsarrhythmia", "Generalized polyspikes"], corr: 1, exp: "LPDs over a localized cortex (e.g., frontotemporal) signify focal cortical hyperexcitability.", dis: ["Generalized 3 Hz is absence.", "Hypsarrhythmia is infantile spasms.", "Polyspikes are GTCS."] },
+            { q: "What distinguishes a Simple Partial Seizure from a Complex Partial Seizure under legacy terminology?", opt: ["Presence of motor jerking", "Preservation of consciousness/awareness", "Duration over 5 minutes", "EEG showing 3 Hz discharges"], corr: 1, exp: "Preserved consciousness defines Simple Partial (Focal Aware); impaired consciousness defines Complex Partial (Focal Impaired).", dis: ["Motor jerking can occur in both.", "Duration is similar.", "3 Hz is absence."] },
+            { q: "A patient experiences an aura of intense déjà vu and an uprising epigastric sensation. Which cortical structure is affected?", opt: ["Precentral gyrus", "Mesial Temporal Lobe / Hippocampus", "Occipital pole", "Postcentral gyrus"], corr: 1, exp: "Autonomic and experiential auras (epigastric rise, déjà vu) arise from temporal limbic networks.", dis: ["Precentral is motor.", "Occipital is visual.", "Postcentral is somatosensory."] },
+            { q: "Which ASM is known to cause cognitive slowing, word-finding difficulty, and nephrolithiasis (kidney stones)?", opt: ["Levetiracetam", "Topiramate", "Valproate", "Lamotrigine"], corr: 1, exp: "Topiramate causes word-finding difficulty, cognitive slowing, weight loss, and kidney stones.", dis: ["LEV causes irritability.", "VPA causes weight gain.", "LTG has favorable cognitive profile."] },
+            { q: "What is the first-line pharmacotherapy for established Convulsive Status Epilepticus when IV access is available?", opt: ["IV Phenytoin", "IV Lorazepam or Diazepam", "IV Valproate", "Continuous Propofol infusion"], corr: 1, exp: "First-line initial therapy (5-20 min) is IV Lorazepam (0.1 mg/kg) or IV Diazepam.", dis: ["Phenytoin is 2nd-line.", "Valproate is 2nd-line.", "Propofol is 3rd-line ICU anesthetic."] },
+            { q: "What pre-surgical evaluation test co-registers radiolabeled perfusion during a seizure with interictal perfusion on MRI?", opt: ["Interictal PET", "SISCOM / Ictal SPECT", "Functional MRI", "WADA test"], corr: 1, exp: "Ictal SPECT subtracted from interictal SPECT and co-registered to MRI (SISCOM) localizes seizure onset.", dis: ["PET measures metabolic glucose.", "fMRI maps eloquent cortex.", "WADA tests language dominance."] },
+            { q: "Which ketogenic diet variation limits daily carbohydrates to 10–20 grams per day without caloric restriction?", opt: ["Classic 4:1 Ketogenic Diet", "Modified Atkins Diet (MAD)", "MCT Ketogenic Diet", "Low Glycemic Index Treatment"], corr: 1, exp: "MAD restricts carbs to 10-20 g/day without strict fat-to-protein ratios or caloric limits.", dis: ["Classic 4:1 is strict 90% fat.", "MCT uses MCT oil.", "LGIT allows low GI carbs up to 30%."] },
+            { q: "Which anti-seizure drug enhances the SLOW inactivation of voltage-gated Na+ channels?", opt: ["Carbamazepine", "Lacosamide", "Phenytoin", "Lamotrigine"], corr: 1, exp: "Lacosamide selectively enhances slow inactivation of Na+ channels, unlike older fast inactivators.", dis: ["CBZ, PHT, LTG enhance fast inactivation."] },
+            { q: "What is the clinical significance of Electromechanical Dissociation in status epilepticus?", opt: ["Physical jerking stops but electrographic brain seizures persist", "EEG is normal while body thrashes violently", "Heart rate stops while brain electrical activity continues", "Respiration ceases while consciousness remains intact"], corr: 0, exp: "Electromechanical dissociation occurs when visible motor contractions fade but brain status continues on EEG.", dis: ["Option B describes PNES.", "Options C and D are physiologically incorrect."] },
+            { q: "Which anti-seizure medication carries a strong warning for severe behavioral changes including rage and aggression?", opt: ["Lamotrigine", "Levetiracetam", "Gabapentin", "Lacosamide"], corr: 1, exp: "Levetiracetam is well known to induce irritability, agitation, depression, and aggressive behavior.", dis: ["LTG stabilizes mood.", "GBP is sedating/anxiolytic.", "Lacosamide is neutral."] },
+            { q: "Which structural brain abnormality is the most common cause of medically intractable temporal lobe epilepsy in adults?", opt: ["Glioblastoma multiforme", "Mesial Temporal Sclerosis (Hippocampal Sclerosis)", "Arteriovenous malformation", "Middle cerebral artery infarct"], corr: 1, exp: "Mesial temporal sclerosis (MTS) is the leading structural etiology of refractory focal temporal epilepsy.", dis: ["Gliomas are structural causes but less common than MTS.", "AVMs cause hemorrhages.", "MCA stroke is common in elderly, not primary TLE."] },
+            { q: "What is the gold standard surgical procedure for medically refractory Temporal Lobe Epilepsy due to MTS?", opt: ["Corpus Callosotomy", "Anterior Temporal Lobectomy + Selective Amygdalohippocampectomy", "Multiple Subpial Transections", "Vagus Nerve Stimulation"], corr: 1, exp: "Anterior temporal lobectomy with amygdalohippocampectomy yields high seizure-freedom rates in MTS.", dis: ["Callosotomy is palliative for drop attacks.", "MST is for eloquent cortex.", "VNS is palliative neurostimulation."] },
+            { q: "A 70-year-old male presents with a first-onset focal motor seizure. What is the most likely etiology?", opt: ["Perinatal hypoxia", "Benign Rolandic epilepsy", "Cerebrovascular disease / Stroke", "Inborn error of metabolism"], corr: 2, exp: "In patients >60 years old, stroke (cerebrovascular disease) is the single most common cause of new-onset seizures.", dis: ["Perinatal hypoxia is newborn.", "Rolandic epilepsy is pediatric (3-10 yrs).", "Inborn errors occur in early childhood."] },
+            { q: "Which ASM is known to cause gingival hyperplasia, hirsutism, and coarsening of facial features with long-term use?", opt: ["Phenytoin", "Valproate", "Levetiracetam", "Topiramate"], corr: 0, exp: "Phenytoin causes chronic cosmetic toxicities including gingival hyperplasia, hirsutism, and facial coarsening.", dis: ["VPA causes weight gain/hair loss.", "LEV has no cosmetic effects.", "TPM causes weight loss."] },
+            { q: "Which condition presents with isolated amnesia lasting several hours without loss of consciousness, motor deficits, or confusion, and rarely recurs?", opt: ["Absence status epilepticus", "Transient Global Amnesia (TGA)", "Complex partial seizure", "Psychogenic non-epileptic seizure"], corr: 1, exp: "TGA is an isolated amnesic syndrome lasting hours with persistent memory gap and rare recurrence.", dis: ["Absence SE shows continuous 3 Hz EEG.", "Complex partial has impaired consciousness/confusion.", "PNES shows variable psychiatric features."] },
+            { q: "What non-invasive imaging technique Jointly records magnetic and electrical signals to provide optimal spatial and temporal resolution?", opt: ["Functional MRI", "Magnetoencephalography (MEG)", "FDG-PET scan", "Ictal SPECT"], corr: 1, exp: "MEG measures magnetic fields with millisecond temporal resolution co-registered to anatomical MRI.", dis: ["fMRI has poor temporal resolution.", "PET measures metabolism.", "SPECT measures blood flow."] },
+            { q: "What is the main mechanism of action of Vagus Nerve Stimulation (VNS)?", opt: ["Resection of the epileptogenic focus", "Intermittent electrical stimulation of the left vagus nerve to modulate central networks", "Closed-loop real-time detection of cortical spikes", "Ablation of deep thalamic nuclei"], corr: 1, exp: "VNS delivers open-loop scheduled electrical pulses to the left vagus nerve to reduce seizure frequency.", dis: ["Resection is surgical removal.", "Closed-loop detection is RNS.", "Ablation is LITT or lesionectomy."] },
+            { q: "A 19-year-old female taking oral contraceptives is diagnosed with focal epilepsy. Which ASM will NOT decrease the efficacy of her birth control pills?", opt: ["Carbamazepine", "Phenytoin", "Phenobarbital", "Levetiracetam"], corr: 3, exp: "Levetiracetam bypasses CYP450 enzymes and does not affect combined hormonal contraceptive efficacy. CBZ, PHT, and PB are strong inducers that reduce contraceptive efficacy.", dis: ["CBZ, PHT, PB induce CYP enzymes, causing contraceptive failure."] },
+            { q: "Which drug causes hyperchloremic non-anion gap metabolic acidosis by inhibiting carbonic anhydrase?", opt: ["Valproate", "Topiramate", "Levetiracetam", "Lacosamide"], corr: 1, exp: "Topiramate (and Zonisamide) inhibit carbonic anhydrase, causing renal bicarbonate loss and metabolic acidosis.", dis: ["VPA causes hyperammonemia.", "LEV and LAC do not affect bicarbonate."] },
+            { q: "What is the primary goal of Palliative Epilepsy Surgery (such as Corpus Callosotomy)?", opt: ["Complete long-term seizure freedom", "Interruption of propagation pathways to reduce disabling seizure frequency", "Diagnostic mapping of speech areas", "Ablation of vascular malformations"], corr: 1, exp: "Palliative procedures aim to reduce disabling seizures (e.g., drop attacks) when resection is impossible.", dis: ["Curative resective surgery aims for total seizure freedom.", "Mapping is diagnostic, not surgical therapy."] },
+            { q: "Which neurostimulation system continuously monitors electrographic activity and delivers stimulation ONLY upon detecting epileptiform spikes?", opt: ["Vagus Nerve Stimulation (VNS)", "Deep Brain Stimulation (DBS)", "Responsive Neurostimulation (RNS)", "Transcranial Magnetic Stimulation (TMS)"], corr: 2, exp: "RNS is a closed-loop system that detects abnormal electrographic patterns and delivers immediate counter-stimulation.", dis: ["VNS and DBS are open-loop scheduled stimulators.", "TMS is non-invasive external magnetic stimulation."] },
+            { q: "What metabolic syndrome feature is specifically linked to long-term Valproate therapy in young females?", opt: ["Type 1 Diabetes Mellitus", "Hyperinsulinemia, weight gain, and Polycystic Ovary Syndrome (PCOS)", "Severe hyperthyroidism", "Adrenal insufficiency"], corr: 1, exp: "Valproate is strongly associated with hyperinsulinemia, weight gain, hyperandrogenism, and PCOS.", dis: ["VPA does not cause Type 1 DM, hyperthyroidism, or adrenal failure."] },
+            { q: "Which anti-seizure medication can cause fatal hyperammonemic encephalopathy even with normal liver function test levels?", opt: ["Valproate", "Levetiracetam", "Lamotrigine", "Carbamazepine"], corr: 0, exp: "Valproate can inhibit urea cycle enzymes (carbamoylphosphate synthetase I), producing hyperammonemia and encephalopathy.", dis: ["LEV, LTG, and CBZ do not cause hyperammonemic coma via urea cycle inhibition."] },
+            { q: "What is the hallmark EEG pattern during a Generalized Tonic-Clonic Seizure (GTCS)?", opt: ["Generalized 3 Hz spike-and-wave", "Generalized polyspike-and-wave discharges", "Lateralized periodic discharges", "Continuous hypsarrhythmia"], corr: 1, exp: "GTCS displays generalized polyspike-wave discharges during the ictal phase.", dis: ["3 Hz is absence.", "LPDs are focal.", "Hypsarrhythmia is infantile spasms."] },
+            { q: "What is the operational definition of Super-Refractory Status Epilepticus (SRSE)?", opt: ["Seizure lasting >5 minutes", "SE persisting despite 2 parenteral drugs", "SE persisting ≥24 hours despite continuous anesthetic therapy or recurring on weaning", "SE persisting for >30 days"], corr: 2, exp: "SRSE is defined as status continuing ≥24 hours despite IV anesthetics or recurring during anesthetic weaning.", dis: ["5 min is established SE.", "2 parenteral drugs defines Refractory SE.", "30 days is prolonged SRSE."] },
+            { q: "Which anti-seizure medication binds specifically to AMPA receptors as a non-competitive antagonist?", opt: ["Perampanel", "Felbamate", "Topiramate", "Ethosuximide"], corr: 0, exp: "Perampanel is a selective non-competitive AMPA receptor antagonist.", dis: ["Felbamate blocks NMDA.", "Topiramate has complex MOA.", "Ethosuximide blocks T-type Ca2+ channels."] },
+            { q: "Which age group exhibits the highest peak incidence of epilepsy etiologies related to perinatal asphyxia and intracranial trauma?", opt: ["Newborns / Neonates", "Children aged 3-10 years", "Adults aged 21-40 years", "Elderly >60 years"], corr: 0, exp: "Newborns have peak seizure incidence secondary to perinatal asphyxia, birth trauma, hemorrhage, and metabolic shifts.", dis: ["Older age groups shift to trauma, tumors, and stroke."] },
+            { q: "Why is rapid IV titration of Lamotrigine contraindicated?", opt: ["High risk of acute myocardial infarction", "Dramatic increase in risk of life-threatening Stevens-Johnson Syndrome (SJS)", "Immediate development of irreversible blindness", "Severe hyperkalemia and cardiac arrest"], corr: 1, exp: "Rapid titration of Lamotrigine significantly increases the incidence of severe cutaneous adverse reactions including SJS/TEN.", dis: ["SJS is the primary dose-limiting titration risk."] },
+            { q: "What is the characteristic clinical presentation of an Atonic Seizure?", opt: ["Rhythmic extremity jerking for 2 minutes", "Sudden loss of postural muscle tone lasting seconds causing drop attacks", "Violent thrashing during sleep", "Brief 5-second staring spell with chewing"], corr: 1, exp: "Atonic seizures cause sudden loss of postural tone, resulting in violent falls (drop attacks).", dis: ["Rhythmic jerking is clonic.", "Thrashing is hypermotor.", "Staring spell is absence."] },
+            { q: "Which non-pharmacologic treatment involves placing depth electrodes directly into the thalamus (Anterior Nucleus)?", opt: ["Deep Brain Stimulation (DBS)", "Vagus Nerve Stimulation (VNS)", "Modified Atkins Diet", "Transcranial Magnetic Stimulation"], corr: 0, exp: "DBS involves stereotactic placement of electrodes into deep subcortical nuclei such as the ANT.", dis: ["VNS targets the cervical vagus nerve.", "MAD is dietary.", "TMS is non-invasive."] },
+            { q: "What is the effect of co-administering enzyme-inducing ASMs (like CBZ or PHT) with Vitamin D?", opt: ["Inhibition of Vitamin D excretion", "Acceleration of Vitamin D hepatic clearance leading to osteopenia", "Increased intestinal absorption of calcium", "Direct inhibition of parathyroid hormone"], corr: 1, exp: "Enzyme inducers accelerate Vitamin D metabolism, reducing 25-OH Vitamin D levels and increasing bone turnover.", dis: ["Inducers accelerate clearance, reducing bone mineral density."] },
+            { q: "A patient with epilepsy experiences forced eye closure, pelvic thrusting, and crying during an episode, with normal EEG during the event. What is the diagnosis?", opt: ["Frontal lobe hypermotor seizure", "Psychogenic Non-Epileptic Seizure (PNES)", "Temporal lobe complex partial seizure", "Absence status epilepticus"], corr: 1, exp: "Asynchronous motor activity, pelvic thrusting, forced eye closure, and normal ictal EEG define PNES.", dis: ["Hypermotor seizures show ictal EEG changes and brief duration.", "Complex partial shows temporal spikes."] },
+            { q: "Which ASM is preferred as broad-spectrum monotherapy for a non-pregnant female with combined focal and generalized seizures?", opt: ["Carbamazepine", "Phenytoin", "Levetiracetam or Lamotrigine", "Gabapentin"], corr: 2, exp: "Levetiracetam and Lamotrigine are effective broad-spectrum agents suitable for combined seizure types.", dis: ["CBZ, PHT, and GBP are narrow-spectrum drugs."] },
+            { q: "What is the primary mechanism of action of Retigabine (Ezogabine)?", opt: ["Opening of KCNQ (Kv7) potassium channels", "Blockade of NMDA receptors", "Binding to SV2A protein", "Inhibition of GABA transaminase"], corr: 0, exp: "Retigabine selectively opens voltage-gated KCNQ (Kv7) potassium channels to hyperpolarize neurons.", dis: ["NMDA blockade is Felbamate.", "SV2A is Levetiracetam.", "GABA transaminase is Vigabatrin."] },
+            { q: "Which lab test is essential before starting a Han Chinese patient on Carbamazepine?", opt: ["HLA-B*1502 genetic screening", "Serum Erythropoietin level", "24-hour urine VMA", "Arterial Blood Gas"], corr: 0, exp: "FDA and ILAE guidelines mandate HLA-B*1502 screening in Asian patients to avoid SJS/TEN.", dis: ["Other lab tests are unrelated to CBZ hypersensitivity."] },
+            { q: "What is the primary EEG finding in Juvenile Myoclonic Epilepsy (JME)?", opt: ["Generalized 4-6 Hz polyspike-and-wave discharges", "Focal temporal sharp waves", "Continuous 3 Hz spike-wave", "Occipital rhythmic slowing"], corr: 0, exp: "JME characteristically shows fast generalized 4-6 Hz polyspike-wave discharges activated by photic stimulation.", dis: ["3 Hz is classic absence.", "Temporal sharp waves are focal."] },
+            { q: "Which statement regarding Status Epilepticus management is TRUE?", opt: ["Benzodiazepines should be given in small divided doses every 30 minutes", "Definitive 1st-line BZD treatment should be administered immediately at T1 (5 min)", "IV anesthetics should be given before attempting Benzodiazepines", "Capillary blood glucose testing can be delayed until after ICU admission"], corr: 1, exp: "Full therapeutic doses of BZD should be administered early at T1 (5 min) to prevent pharmacoresistance.", dis: ["Divided small doses delay control.", "Anesthetics are 3rd-line.", "Glucose must be checked immediately."] },
+            { q: "What is the recommended 2nd-line IV dose of Levetiracetam in established Status Epilepticus?", opt: ["10 mg/kg IV", "60 mg/kg IV (max 4500 mg)", "100 mg/kg IV", "5 mg/kg IV"], corr: 1, exp: "The established AES dose for IV Levetiracetam in status epilepticus is 60 mg/kg (up to 4500 mg).", dis: ["10 mg/kg is underdosed.", "100 mg/kg exceeds guideline dosing."] }
+        ];
+
+        // Merge additional MCQs into main array
+        additionalMCQPrompts.forEach(item => {
+            mcqsData.push({
+                q: item.q,
+                options: item.opt,
+                correct: item.corr,
+                explanation: item.exp,
+                distractors: item.dis
+            });
+        });
+
+        // Interactive MCQs Logic
+        let userAnswers = {};
+
+        function renderMCQs() {
+            const container = document.getElementById('mcqContainer');
+            container.innerHTML = '';
+
+            mcqsData.forEach((mcq, idx) => {
+                const card = document.createElement('div');
+                card.className = 'mcq-card';
+                card.id = `mcq-card-${idx}`;
+
+                let optionsHTML = '';
+                mcq.options.forEach((opt, oIdx) => {
+                    optionsHTML += `
+                        <div class="mcq-option" onclick="selectMCQOption(${idx}, ${oIdx})">
+                            <span style="font-family: 'Space Mono', monospace; font-weight: bold;">${String.fromCharCode(65 + oIdx)}.</span>
+                            <span>${opt}</span>
+                        </div>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="mcq-header">
+                        <span class="mcq-num">Question ${idx + 1} of ${mcqsData.length}</span>
+                    </div>
+                    <div class="mcq-question">${mcq.q}</div>
+                    <div class="mcq-options" id="mcq-options-${idx}">
+                        ${optionsHTML}
+                    </div>
+                    <div class="mcq-explanation" id="mcq-exp-${idx}">
+                        <div style="font-weight: bold; color: var(--success-text); margin-bottom: 0.4rem;">✓ Correct Answer Rationale:</div>
+                        <div>${mcq.explanation}</div>
+                        <div class="distractor-explanation">
+                            <strong>Why distractors are wrong:</strong><br>
+                            ${mcq.distractors ? mcq.distractors.join('<br>') : ''}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('mcqTotal').innerText = mcqsData.length;
+        }
+
+        function selectMCQOption(qIdx, oIdx) {
+            if (userAnswers[qIdx] !== undefined) return; // Prevent changing after selection
+            userAnswers[qIdx] = oIdx;
+
+            const mcq = mcqsData[qIdx];
+            const optionsContainer = document.getElementById(`mcq-options-${qIdx}`);
+            const optionElems = optionsContainer.getElementsByClassName('mcq-option');
+
+            if (oIdx === mcq.correct) {
+                optionElems[oIdx].classList.add('correct-choice');
+            } else {
+                optionElems[oIdx].classList.add('wrong-choice');
+                optionElems[mcq.correct].classList.add('correct-choice');
+            }
+
+            document.getElementById(`mcq-exp-${qIdx}`).classList.add('visible');
+            updateMCQScore();
+        }
+
+        function updateMCQScore() {
+            let correctCount = 0;
+            Object.keys(userAnswers).forEach(qIdx => {
+                if (userAnswers[qIdx] === mcqsData[qIdx].correct) {
+                    correctCount++;
+                }
+            });
+            document.getElementById('mcqScore').innerText = correctCount;
+            const percent = Math.round((correctCount / mcqsData.length) * 100);
+            document.getElementById('mcqPercent').innerText = `${percent}%`;
+        }
+
+        function resetMCQs() {
+            userAnswers = {};
+            renderMCQs();
+            document.getElementById('mcqScore').innerText = '0';
+            document.getElementById('mcqPercent').innerText = '0%';
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            currentTab = tabId;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.tab === tabId);
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.toggle('active', content.id === tabId);
+            });
+
+            // Update Header Progress Bar
+            const tabs = Array.from(document.querySelectorAll('.tab-btn')).map(b => b.dataset.tab);
+            const index = tabs.indexOf(tabId);
+            const progress = ((index + 1) / tabs.length) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Accordion Toggle Logic
+        function toggleAccordion(headerElem) {
+            const accordion = headerElem.parentElement;
+            accordion.classList.toggle('open');
+        }
+
+        // Table Copy Utility
+        function copyTable(btnElem) {
+            const table = btnElem.nextElementSibling;
+            let range, selection;
+            if (document.createRange && window.getSelection) {
+                range = document.createRange();
+                selection = window.getSelection();
+                selection.removeAllRanges();
+                try {
+                    range.selectNodeContents(table);
+                    selection.addRange(range);
+                } catch (e) {
+                    range.selectNode(table);
+                    selection.addRange(range);
+                }
+                document.execCommand('copy');
+                selection.removeAllRanges();
+                btnElem.innerText = 'Copied!';
+                setTimeout(() => { btnElem.innerText = 'Copy Table'; }, 2000);
+            }
+        }
+
+        // Global Search Logic
+        function filterContent(query) {
+            const q = query.toLowerCase().trim();
+            if (!q) {
+                document.querySelectorAll('.card, .table-wrapper, .accordion, .mcq-card').forEach(el => el.style.display = '');
+                return;
+            }
+
+            document.querySelectorAll('.tab-content.active .card, .tab-content.active .table-wrapper, .tab-content.active .accordion, .tab-content.active .mcq-card').forEach(el => {
+                const text = el.innerText.toLowerCase();
+                if (text.includes(q)) {
+                    el.style.display = '';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+        }
+
+        // Event Listeners Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab Buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+            });
+
+            // Search Bar Input
+            document.getElementById('globalSearch').addEventListener('input', (e) => {
+                filterContent(e.target.value);
+            });
+
+            // Flashcard Event Handlers
+            document.getElementById('activeFlashcard').addEventListener('click', flipCard);
+            
+            document.getElementById('nextCardBtn').addEventListener('click', () => {
+                if (filteredCards.length === 0) return;
+                currentCardIndex = (currentCardIndex + 1) % filteredCards.length;
+                updateFlashcard();
+            });
+
+            document.getElementById('prevCardBtn').addEventListener('click', () => {
+                if (filteredCards.length === 0) return;
+                currentCardIndex = (currentCardIndex - 1 + filteredCards.length) % filteredCards.length;
+                updateFlashcard();
+            });
+
+            document.getElementById('shuffleCardsBtn').addEventListener('click', () => {
+                for (let i = filteredCards.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
+                }
+                currentCardIndex = 0;
+                updateFlashcard();
+            });
+
+            document.getElementById('cardFilter').addEventListener('change', (e) => {
+                const cat = e.target.value;
+                if (cat === 'all') {
+                    filteredCards = [...flashcardsData];
+                } else {
+                    filteredCards = flashcardsData.filter(c => c.category === cat);
+                }
+                currentCardIndex = 0;
+                updateFlashcard();
+            });
+
+            // Keyboard Shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (currentTab === 'flashcards') {
+                    if (e.code === 'Space') {
+                        e.preventDefault();
+                        flipCard();
+                    } else if (e.code === 'ArrowRight') {
+                        document.getElementById('nextCardBtn').click();
+                    } else if (e.code === 'ArrowLeft') {
+                        document.getElementById('prevCardBtn').click();
+                    }
+                }
+            });
+
+            // Scroll to Top Button
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Initial Renders
+            updateFlashcard();
+            renderMCQs();
+        });
+    </script>
+</body>
+</html>
