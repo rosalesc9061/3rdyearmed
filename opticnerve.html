@@ -1,0 +1,2267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disorders of the Optic Nerve - Comprehensive Interactive Reviewer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --font-title: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+
+            /* Light Mode Palette */
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-alt: #f1f5f9;
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+
+            --primary: #0284c7;
+            --primary-light: #e0f2fe;
+            --primary-dark: #0369a1;
+
+            --accent-purple: #7c3aed;
+            --bg-purple: #f3e8ff;
+            --accent-amber: #d97706;
+            --bg-amber: #fef3c7;
+            --accent-rose: #e11d48;
+            --bg-rose: #ffe4e6;
+            --accent-emerald: #059669;
+            --bg-emerald: #d1fae5;
+
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .dark-theme {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --bg-alt: #334155;
+            --border-color: #334155;
+            --border-hover: #475569;
+
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+
+            --primary: #38bdf8;
+            --primary-light: #0c4a6e;
+            --primary-dark: #7dd3fc;
+
+            --accent-purple: #a855f7;
+            --bg-purple: #3b0764;
+            --accent-amber: #fbbf24;
+            --bg-amber: #451a03;
+            --accent-rose: #fb7185;
+            --bg-rose: #4c0519;
+            --accent-emerald: #34d399;
+            --bg-emerald: #064e3b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-area h1 {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-area p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .controls-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            min-width: 260px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.5rem 0.75rem 0.5rem 2.2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-alt);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn:hover {
+            background-color: var(--bg-alt);
+            border-color: var(--border-hover);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs-wrapper {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .nav-tabs {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 1.5rem;
+            list-style: none;
+        }
+
+        .nav-tab {
+            padding: 0.85rem 1.25rem;
+            font-family: var(--font-title);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-tab:hover {
+            color: var(--primary);
+        }
+
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .badge-count {
+            background-color: var(--bg-alt);
+            color: var(--text-muted);
+            padding: 0.15rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Layout & Cards */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Badges & Callouts */
+        .callout {
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            border-left: 4px solid;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .callout-icon {
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .callout-must-know {
+            background-color: var(--bg-amber);
+            border-left-color: var(--accent-amber);
+            color: var(--text-primary);
+        }
+
+        .callout-pitfall {
+            background-color: var(--bg-rose);
+            border-left-color: var(--accent-rose);
+            color: var(--text-primary);
+        }
+
+        .callout-pearl {
+            background-color: var(--bg-emerald);
+            border-left-color: var(--accent-emerald);
+            color: var(--text-primary);
+        }
+
+        .callout-exam {
+            background-color: var(--bg-purple);
+            border-left-color: var(--accent-purple);
+            color: var(--text-primary);
+        }
+
+        /* Custom SVG & Flow Diagrams */
+        .diagram-box {
+            background-color: var(--bg-alt);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            font-family: var(--font-mono);
+        }
+
+        /* Tables */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: var(--bg-alt);
+            color: var(--text-primary);
+            font-family: var(--font-title);
+            font-weight: 700;
+            padding: 0.85rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.015);
+        }
+
+        tr:hover {
+            background-color: var(--primary-light);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+        }
+
+        .tag-blue { background-color: var(--primary-light); color: var(--primary-dark); }
+        .tag-red { background-color: var(--bg-rose); color: var(--accent-rose); }
+        .tag-green { background-color: var(--bg-emerald); color: var(--accent-emerald); }
+        .tag-purple { background-color: var(--bg-purple); color: var(--accent-purple); }
+        .tag-amber { background-color: var(--bg-amber); color: var(--accent-amber); }
+
+        /* Expandable Accordion */
+        .accordion {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 1rem 1.25rem;
+            background-color: var(--bg-card);
+            font-family: var(--font-title);
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .accordion-header:hover {
+            background-color: var(--bg-alt);
+        }
+
+        .accordion-content {
+            padding: 1.25rem;
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            display: none;
+        }
+
+        .accordion.open .accordion-content {
+            display: block;
+        }
+
+        .accordion-icon {
+            transition: transform 0.2s;
+        }
+
+        .accordion.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Flashcards Section */
+        .flashcard-container {
+            max-width: 650px;
+            margin: 2rem auto;
+            perspective: 1000px;
+        }
+
+        .flashcard {
+            width: 100%;
+            min-height: 320px;
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.4s ease;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 2rem;
+            transform: rotateY(180deg);
+            background-color: var(--bg-card);
+            border-radius: 16px;
+        }
+
+        .flashcard-q {
+            font-family: var(--font-title);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .flashcard-a {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* MCQ Section */
+        .quiz-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .quiz-q-num {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .quiz-question {
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .quiz-option {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            background-color: var(--bg-card);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .quiz-option:hover {
+            background-color: var(--bg-alt);
+        }
+
+        .quiz-option.correct {
+            background-color: var(--bg-emerald) !important;
+            border-color: var(--accent-emerald) !important;
+            color: var(--text-primary) !important;
+            font-weight: 600;
+        }
+
+        .quiz-option.incorrect {
+            background-color: var(--bg-rose) !important;
+            border-color: var(--accent-rose) !important;
+            color: var(--text-primary) !important;
+        }
+
+        .quiz-explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: var(--bg-alt);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .quiz-explanation.show {
+            display: block;
+        }
+
+        .option-breakdown {
+            margin-top: 0.5rem;
+            padding-left: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Cram Sheet Quick List */
+        .cram-item {
+            padding: 0.85rem 1rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 0.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .cram-trigger {
+            font-family: var(--font-title);
+            font-weight: 700;
+            color: var(--accent-purple);
+        }
+
+        .cram-arrow {
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .cram-target {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Progress Bar */
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background-color: var(--bg-alt);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Print Adjustments */
+        @media print {
+            header, .nav-tabs-wrapper, .controls-area, .btn, .flashcard-controls {
+                display: none !important;
+            }
+
+            .tab-content {
+                display: block !important;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .card {
+                border: 1px solid #ccc;
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-area">
+                <h1>👁️ Neuro-Ophthalmology Reviewer</h1>
+                <p>Disorders of the Optic Nerve & Visual Pathways | Dr. Glenn Guevara</p>
+            </div>
+            <div class="controls-area">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="globalSearch" placeholder="Search topics, syndromes, drugs..." onkeyup="filterContent()">
+                </div>
+                <button class="btn" onclick="toggleTheme()">🌙 Theme</button>
+                <button class="btn btn-primary" onclick="window.print()">🖨️ Print PDF</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs-wrapper">
+        <ul class="nav-tabs">
+            <li class="nav-tab active" onclick="switchTab(0)">📌 1. Overview</li>
+            <li class="nav-tab" onclick="switchTab(1)">🧬 2. Anatomy & Exam</li>
+            <li class="nav-tab" onclick="switchTab(2)">⚡ 3. Optic Nerve Disorders</li>
+            <li class="nav-tab" onclick="switchTab(3)">🗺️ 4. Visual Pathway Lesions</li>
+            <li class="nav-tab" onclick="switchTab(4)">🎯 5. Ocular Motility & Brainstem</li>
+            <li class="nav-tab" onclick="switchTab(5)">⚖️ 6. Side-by-Side Comparisons</li>
+            <li class="nav-tab" onclick="switchTab(6)">🎴 7. Flashcards <span class="badge-count" id="cardCountBadge">50</span></li>
+            <li class="nav-tab" onclick="switchTab(7)">📝 8. Self-Assessment <span class="badge-count" id="quizCountBadge">50</span></li>
+            <li class="nav-tab" onclick="switchTab(8)">🚀 9. Cram Sheet Ultra</li>
+        </ul>
+    </div>
+
+    <main>
+
+        <!-- TAB 1: OVERVIEW -->
+        <div class="tab-content active" id="tab-0">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📖 High-Yield Executive Summary & Learning Objectives</h2>
+                    <span class="tag tag-blue">LE 2 - TRANS 2</span>
+                </div>
+                <p>This master interactive reviewer integrates the asynchronous and synchronous lectures by <strong>Dr. Glenn Guevara</strong> on <strong>Disorders of the Optic Nerve and Neuro-Ophthalmology</strong>[cite: 1]. It provides a complete, board-exam focused resource designed for 3rd-year Philippine medical students preparing for Module Examinations and the Physician Licensure Examination (PLE)[cite: 1].</p>
+                
+                <div class="callout callout-must-know">
+                    <div class="callout-icon">⭐</div>
+                    <div>
+                        <strong>Core Objective:</strong> Master the localization of neuro-ophthalmic lesions across the entire visual pathway, optic nerve, cranial nerve nuclei (CN III, IV, VI), brainstem pathways (MLF, PPRF), neuromuscular junction, and extraocular muscles[cite: 1].
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-family: var(--font-title); margin-bottom: 0.5rem; color: var(--primary);">🎯 Key Learning Objectives</h3>
+                        <ul style="padding-left: 1.2rem; color: var(--text-secondary);">
+                            <li>Understand the functional anatomy of the visual pathway from retina to striate cortex[cite: 1].</li>
+                            <li>Perform the <strong>Mini Neuro-Ophthalmic Exam</strong>: Vision, Pupils, Fields, Fundus, and Motility[cite: 1].</li>
+                            <li>Differentiate <strong>Optic Neuritis</strong> (painful, acute, young) from <strong>Ischemic Optic Neuropathies</strong> (painless, acute, older)[cite: 1].</li>
+                            <li>Differentiate <strong>Papillitis</strong> (optic disc edema + vision loss + RAPD) from <strong>Papilledema</strong> (bilateral disc edema due to ↑ ICP, preserved vision initially)[cite: 1].</li>
+                            <li>Map visual field defects to anatomical lesion sites (e.g., Bitemporal hemianopsia → Chiasm; Homonymous hemianopia → Post-chiasmal)[cite: 1].</li>
+                            <li>Localize ocular motility defects to supranuclear, nuclear, infranuclear, NMJ, or muscle origins[cite: 1].</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 style="font-family: var(--font-title); margin-bottom: 0.5rem; color: var(--accent-purple);">🔍 Key Clinical Definitions</h3>
+                        <div class="accordion open">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                Binocular Vision Benefits <span>▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <ul>
+                                    <li><strong>Depth Perception:</strong> Allows perception of 3D space[cite: 1].</li>
+                                    <li><strong>Increased Field of View:</strong> Expands lateral peripheral awareness[cite: 1].</li>
+                                    <li><strong>Redundancy:</strong> Brain relies on unaffected eye if one eye fails[cite: 1].</li>
+                                    <li><strong>Binocular Summation:</strong> Combines dual inputs to improve overall image quality[cite: 1].</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="accordion">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                RAPD (Relative Afferent Pupillary Defect) <span>▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                Impairment in the sensory/afferent pathway (optic nerve) relative to the fellow eye[cite: 1]. Elicited best via the <strong>Swinging Flashlight Test</strong>[cite: 1]. When light swings to the affected eye, both pupils paradoxically dilate instead of constricting[cite: 1]. Cannot be elicited if both eyes are equally damaged[cite: 1]!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="font-family: var(--font-title); margin-top: 1rem; margin-bottom: 0.75rem;">📊 High-Yield Master Classification Table</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Classic Etiologies</th>
+                                <th>Key Symptoms / Signs</th>
+                                <th>Primary Management Principle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="tag tag-red">Acute Painful Optic Nerve</span></td>
+                                <td>Demyelinating Optic Neuritis (MS, NMO, MOGAD), Post-infectious[cite: 1]</td>
+                                <td>Pain on eye movement, unilateral vision loss, (+) RAPD, normal or swollen disc[cite: 1]</td>
+                                <td>High-dose IV Corticosteroids (never oral alone!)[cite: 1]; disease-specific immunomodulators[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-amber">Acute Painless Optic Nerve</span></td>
+                                <td>Ischemic Optic Neuropathy (AION - GCA; NAION - DM/HPN), Papilledema, Traumatic[cite: 1]</td>
+                                <td>Sudden vision loss, altitudinal field defect, disc edema; or transient visual obscurations (Papilledema)[cite: 1]</td>
+                                <td>AION: Emergency IV Steroids (save fellow eye)[cite: 1]; NAION: Risk factor control[cite: 1]; Papilledema: Lower ICP[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-purple">Chronic Optic Nerve</span></td>
+                                <td>Compressive (Pituitary adenoma), Toxic (Ethambutol), Nutritional (B12/B1), LHON[cite: 1]</td>
+                                <td>Progressive field loss, temporal pallor > cupping, bilateral symmetric vision drop[cite: 1]</td>
+                                <td>Relieve compression[cite: 1]; stop offending toxin & replace vitamin deficiency[cite: 1]; low vision rehab[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-blue">Infranuclear Motility</span></td>
+                                <td>CN III, IV, VI palsies, Cavernous Sinus Syndrome, Orbital Apex Syndrome[cite: 1]</td>
+                                <td>Diplopia, strabismus, ptosis, "frozen eye", pupils involved (if compressive)[cite: 1]</td>
+                                <td>Treat cause (e.g., neurosurgical clipping for PCOM aneurysm[cite: 1], microvascular risk control[cite: 1])</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-green">NMJ & Muscle</span></td>
+                                <td>Myasthenia Gravis, Thyroid Eye Disease (TED), Orbital Myositis[cite: 1]</td>
+                                <td>Fluctuating fatigable ptosis/diplopia (pupils spared in MG)[cite: 1]; proptosis, restrictive myopathy (TED)[cite: 1]</td>
+                                <td>MG: AChE inhibitors, Ice pack test[cite: 1]; TED: Normalization of thyroid, IV steroids, orbital decompression[cite: 1]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: ANATOMY & EXAMINATION -->
+        <div class="tab-content" id="tab-1">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🧠 Visual Pathway Neuro-Anatomy & Examination</h2>
+                </div>
+
+                <div class="diagram-box">
+                    <svg viewBox="0 0 800 320" width="100%" height="240" style="background: transparent;">
+                        <!-- Retina to Cortex Schematic -->
+                        <!-- Eyes -->
+                        <circle cx="250" cy="50" r="30" fill="none" stroke="var(--primary)" stroke-width="3"/>
+                        <circle cx="550" cy="50" r="30" fill="none" stroke="var(--primary)" stroke-width="3"/>
+                        <text x="250" y="55" text-anchor="middle" fill="var(--text-primary)" font-size="12">Left Eye</text>
+                        <text x="550" y="55" text-anchor="middle" fill="var(--text-primary)" font-size="12">Right Eye</text>
+
+                        <!-- Optic Nerves -->
+                        <path d="M 250 80 L 370 150" stroke="#0284c7" stroke-width="4" fill="none"/>
+                        <path d="M 550 80 L 430 150" stroke="#0284c7" stroke-width="4" fill="none"/>
+                        <text x="280" y="110" fill="var(--text-muted)" font-size="11">Optic Nerve</text>
+
+                        <!-- Optic Chiasm -->
+                        <circle cx="400" cy="160" r="18" fill="var(--bg-amber)" stroke="var(--accent-amber)" stroke-width="2"/>
+                        <text x="400" y="164" text-anchor="middle" fill="var(--accent-amber)" font-weight="bold" font-size="10">CHIASM</text>
+
+                        <!-- Optic Tracts -->
+                        <path d="M 390 175 L 300 220" stroke="#7c3aed" stroke-width="4" fill="none"/>
+                        <path d="M 410 175 L 500 220" stroke="#7c3aed" stroke-width="4" fill="none"/>
+                        <text x="320" y="200" fill="var(--accent-purple)" font-size="11">Optic Tract (Pupil Fibers)</text>
+
+                        <!-- LGB -->
+                        <rect x="280" y="220" width="40" height="20" rx="5" fill="var(--bg-emerald)" stroke="var(--accent-emerald)"/>
+                        <rect x="480" y="220" width="40" height="20" rx="5" fill="var(--bg-emerald)" stroke="var(--accent-emerald)"/>
+                        <text x="300" y="234" text-anchor="middle" fill="var(--accent-emerald)" font-size="9">LGB</text>
+                        <text x="500" y="234" text-anchor="middle" fill="var(--accent-emerald)" font-size="9">LGB</text>
+
+                        <!-- Radiations -->
+                        <path d="M 290 240 C 250 270, 280 290, 350 300" stroke="#e11d48" stroke-width="3" stroke-dasharray="4" fill="none"/>
+                        <path d="M 510 240 C 550 270, 520 290, 450 300" stroke="#e11d48" stroke-width="3" stroke-dasharray="4" fill="none"/>
+                        <text x="230" y="275" fill="var(--accent-rose)" font-size="10">Meyer's Loop (Temporal)</text>
+                        <text x="570" y="275" fill="var(--accent-rose)" font-size="10">Parietal Radiation</text>
+
+                        <!-- Occipital Cortex -->
+                        <path d="M 350 300 L 450 300" stroke="var(--text-primary)" stroke-width="6"/>
+                        <text x="400" y="315" text-anchor="middle" fill="var(--text-primary)" font-weight="bold" font-size="11">Striate Cortex (Calcarine Tip)</text>
+                    </svg>
+                    <div class="diagram-caption">Figure 1 Diagrammatic Recreation: Visual Pathway Anatomy from Eye to Occipital Cortex[cite: 1]</div>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-family: var(--font-title); color: var(--primary);">📍 Visual Pathway Segments</h3>
+                        <ol style="padding-left: 1.2rem; margin-top: 0.5rem; color: var(--text-secondary);">
+                            <li><strong>Optic Nerve:</strong> Includes Optic Nerve Head (ONH), intraorbital, intracanalicular (within optic canal), and intracranial portions[cite: 1].</li>
+                            <li><strong>Optic Chiasm:</strong> Divided into anterior, mid, and posterior regions[cite: 1]. Nasal retinal fibers decussate here (carrying temporal visual field information)[cite: 1].</li>
+                            <li><strong>Optic Tract:</strong> Carries decussated fibers including <em>pupil fibers</em> to the Lateral Geniculate Body (LGB) in the thalamus[cite: 1].</li>
+                            <li><strong>Optic Radiations:</strong>
+                                <ul>
+                                    <li><em>Anterior:</em> Loops into the temporal lobe (<strong>Meyer's Loop</strong>) → controls superior visual field ("pie in the sky")[cite: 1].</li>
+                                    <li><em>Posterior:</em> Loops upward through the parietal lobe → controls inferior visual field ("pie on the floor")[cite: 1].</li>
+                                    <li><em>Central:</em> Lies between temporal and parietal fibers[cite: 1].</li>
+                                </ul>
+                            </li>
+                            <li><strong>Striate (Occipital) Cortex:</strong> Converges at the tip of the calcarine fissure[cite: 1]. Dual blood supply (PCA and MCA) preserves macular vision (macular sparing)[cite: 1].</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h3 style="font-family: var(--font-title); color: var(--accent-purple);">🩺 The Mini Neuro-Ophthalmic Examination</h3>
+                        <div class="callout callout-pearl">
+                            <div class="callout-icon">💡</div>
+                            <div>
+                                <strong>Teaching Pearl:</strong> Always perform the 5 core elements of the mini neuro-ophthalmic exam: <strong>Vision, Pupils, Fields, Fundus, Motility</strong>[cite: 1].
+                            </div>
+                        </div>
+                        <ul style="padding-left: 1.2rem; color: var(--text-secondary);">
+                            <li><strong>Visual Acuity:</strong> Snellen chart testing[cite: 1]. Unexplained vision loss not corrected by pinhole implies neuro-ophthalmic disease[cite: 1].</li>
+                            <li><strong>Color Vision:</strong> Ishihara plates, Red cap, or Mongol pencil eraser[cite: 1]. Look for <em>red desaturation</em> (classic for optic nerve lesion)[cite: 1].</li>
+                            <li><strong>Pupils:</strong> Assess size, light reflexes, and perform the <strong>Swinging Flashlight Test</strong> to detect RAPD[cite: 1].</li>
+                            <li><strong>Visual Fields:</strong> Confrontation field testing, Amsler Grid (central 10°-30°), or Automated Perimetry[cite: 1].</li>
+                            <li><strong>Fundoscopy:</strong> Examine optic disc for swelling, margins, splinter hemorrhages, or optic atrophy (pallor)[cite: 1].</li>
+                            <li><strong>Motility:</strong> H-test, cover/uncover test, diplopia charting, and special tests (Ice pack test, Forced Duction Test)[cite: 1].</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="callout callout-pitfall">
+                    <div class="callout-icon">⚠️</div>
+                    <div>
+                        <strong>Common Examination Pitfall - RAPD Testing:</strong> You CANNOT elicit an RAPD if both eyes are equally damaged or both are completely normal[cite: 1]! RAPD requires relative asymmetry between the eyes[cite: 1]. Always use the swinging flashlight test—testing simple direct/consensual reflex alone in one eye can miss RAPD[cite: 1].
+                    </div>
+                </div>
+
+                <h3 style="font-family: var(--font-title); margin-top: 1.5rem; margin-bottom: 0.75rem;">👁️ 9-Primary Gaze Muscle Matrix & Action Chart</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Gaze Direction</th>
+                                <th>Right Eye Primary Muscle</th>
+                                <th>Left Eye Primary Muscle</th>
+                                <th>Innervation (Right / Left)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Look Up & Right</strong></td>
+                                <td>Superior Rectus (SR)</td>
+                                <td>Inferior Oblique (IO)</td>
+                                <td>CN III / CN III[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Look Straight Up</strong></td>
+                                <td>Superior Rectus + Inferior Oblique</td>
+                                <td>Superior Rectus + Inferior Oblique</td>
+                                <td>CN III / CN III[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Look Up & Left</strong></td>
+                                <td>Inferior Oblique (IO)</td>
+                                <td>Superior Rectus (SR)</td>
+                                <td>CN III / CN III[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Primary Right Gaze</strong></td>
+                                <td>Lateral Rectus (LR)</td>
+                                <td>Medial Rectus (MR)</td>
+                                <td>CN VI / CN III[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Primary Left Gaze</strong></td>
+                                <td>Medial Rectus (MR)</td>
+                                <td>Lateral Rectus (LR)</td>
+                                <td>CN III / CN VI[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Look Down & Right</strong></td>
+                                <td>Inferior Rectus (IR)</td>
+                                <td>Superior Oblique (SO)</td>
+                                <td>CN III / CN IV[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Look Straight Down</strong></td>
+                                <td>Inferior Rectus + Superior Oblique</td>
+                                <td>Inferior Rectus + Superior Oblique</td>
+                                <td>CN III & IV / CN III & IV[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Look Down & Left</strong></td>
+                                <td>Superior Oblique (SO)</td>
+                                <td>Inferior Rectus (IR)</td>
+                                <td>CN IV / CN III[cite: 1]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: OPTIC NERVE DISORDERS -->
+        <div class="tab-content" id="tab-2">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">⚡ Approach to Optic Nerve Disorders</h2>
+                </div>
+
+                <div class="callout callout-exam">
+                    <div class="callout-icon">🧠</div>
+                    <div>
+                        <strong>Diagnostic Key: Neuritis vs. Neuropathy</strong><br>
+                        • <strong>Optic Neuritis:</strong> Inflammatory, younger patients (<50 yo), acute, <em>painful on eye movement</em>[cite: 1].<br>
+                        • <strong>Optic Neuropathy:</strong> Ischemic/vascular, older patients (>50 yo), acute/subacute, <em>painless</em>[cite: 1].
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card" style="border-left: 4px solid var(--accent-rose);">
+                        <h3 style="font-family: var(--font-title); color: var(--accent-rose);">1. Optic Neuritis (Acute & Painful)</h3>
+                        <p><strong>Clinical Features:</strong> Young female, sudden vision drop, reduced color vision, (+) RAPD, eye pain on movement[cite: 1].</p>
+                        <br>
+                        <p><strong>Subtypes & Pathophysiology:</strong></p>
+                        <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-secondary);">
+                            <li><strong>Retrobulbar Neuritis:</strong> Most common form in MS[cite: 1]. <em>"Patient sees nothing, doctor sees nothing"</em>—fundus looks completely normal initially because inflammation is behind the globe[cite: 1]. Unilateral[cite: 1].</li>
+                            <li><strong>Papillitis:</strong> Intraocular optic disc swelling visible on fundoscopy[cite: 1]. Seen in NMO, MOGAD, or autoimmune diseases[cite: 1]. Often bilateral[cite: 1].</li>
+                            <li><strong>Neuromyelitis Optica (NMO):</strong> Optic neuritis + subsequent transverse myelitis (spinal cord lesions)[cite: 1]. Anti-AQP4 positive[cite: 1]. Bilateral, severe[cite: 1].</li>
+                            <li><strong>MOGAD:</strong> Myelin Oligodendrocyte Glycoprotein Antibody-Associated Disease[cite: 1]. Similar presentation to NMO with distinct anti-MOG antibodies[cite: 1].</li>
+                            <li><strong>Parainfectious / Post-infectious:</strong> Follows common cold, orbital cellulitis, sinusitis, otitis media, mastoiditis, or vaccination[cite: 1].</li>
+                        </ul>
+                        <div class="callout callout-pearl">
+                            <div class="callout-icon">💡</div>
+                            <div>
+                                <strong>Geographic Variation Pearl:</strong> In the US, typical ON is unilateral and retrobulbar (MS-related)[cite: 1]. In Asia (including PH), typical ON presents as <em>bilateral with optic disc swelling</em> (infectious/autoimmune)[cite: 1]!
+                            </div>
+                        </div>
+                        <p><strong>Treatment Principles:</strong> High-dose <strong>IV Corticosteroids</strong> (Methylprednisolone/Dexamethasone) to speed recovery[cite: 1]. <em>Never use oral steroids alone</em> (increases recurrence rate in MS)[cite: 1]! For NMO/MOGAD: Plasmapheresis + immunosuppressives (Rituximab, Satralizumab, Mycophenolate)[cite: 1].</p>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid var(--primary);">
+                        <h3 style="font-family: var(--font-title); color: var(--primary);">2. Ischemic Optic Neuropathy (ION)</h3>
+                        <p><strong>Clinical Features:</strong> Older adults (>50 yo), sudden painless vision loss, altitudinal visual field defect, pale swollen optic disc with splinter hemorrhages[cite: 1].</p>
+                        <br>
+                        <p><strong>Subtypes:</strong></p>
+                        <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-secondary);">
+                            <li><strong>Arteritic ION (AION / Giant Cell Arteritis):</strong>
+                                <ul>
+                                    <li>Age 70-80 years[cite: 1]. Vasculitis of temporal and posterior ciliary arteries[cite: 1].</li>
+                                    <li>Jaw claudication, scalp tenderness, elevated ESR/CRP[cite: 1].</li>
+                                    <li><strong>Medical Emergency!</strong> Immediate high-dose IV steroids required to <em>save the fellow eye</em>[cite: 1]!</li>
+                                </ul>
+                            </li>
+                            <li><strong>Non-Arteritic ION (NAION):</strong>
+                                <ul>
+                                    <li>Age 50-60 years[cite: 1]. Associated with metabolic syndrome, uncontrolled diabetes, hyperlipidemia, and hypertension[cite: 1].</li>
+                                    <li>Most common form of ION[cite: 1]. Normal ESR/CRP[cite: 1].</li>
+                                    <li><strong>Treatment:</strong> No proven cure for acute insult[cite: 1]. Strict systemic risk factor control (BP, glycemic control, stop smoking) to protect fellow eye[cite: 1].</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card" style="border-left: 4px solid var(--accent-amber);">
+                        <h3 style="font-family: var(--font-title); color: var(--accent-amber);">3. Papilledema & IIH</h3>
+                        <p><strong>Definition:</strong> Bilateral optic disc edema secondary to <strong>increased Intracranial Pressure (ICP)</strong>[cite: 1].</p>
+                        <p><strong>Key Clinical Features:</strong></p>
+                        <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-secondary);">
+                            <li><strong>Transient Visual Obscurations (TVOs):</strong> Brief episodes (seconds) of vision dimming/blacking out, often triggered by posture changes, returning to normal[cite: 1].</li>
+                            <li>Headache, nausea, vomiting, pulsatile tinnitus, diplopia (due to CN VI palsy)[cite: 1].</li>
+                            <li>Visual acuity is preserved early on[cite: 1]!</li>
+                        </ul>
+                        <br>
+                        <p><strong>Idiopathic Intracranial Hypertension (IIH / Pseudotumor Cerebri):</strong></p>
+                        <p>Common in young obese females[cite: 1]. Associated with doxycycline, isotretinoin, oral contraceptives, nitrofurantoin, amiodarone[cite: 1]. Axoplasmic flow stasis at ONH[cite: 1]. Normal brain MRI but elevated opening pressure on Lumbar Puncture[cite: 1].</p>
+                        <p><strong>Management:</strong> Emergency referral to find cause[cite: 1]. Weight loss, <strong>Acetazolamide</strong> (carbonic anhydrase inhibitor)[cite: 1], VP/LP shunt, or Optic Nerve Sheath Fenestration if vision is threatened[cite: 1].</p>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid var(--accent-purple);">
+                        <h3 style="font-family: var(--font-title); color: var(--accent-purple);">4. Chronic, Toxic & Hereditary Neuropathies</h3>
+                        <p><strong>Toxic & Nutritional Optic Neuropathy:</strong></p>
+                        <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-secondary);">
+                            <li><strong>Presentation:</strong> Symmetric, gradual central vision loss, red desaturation, temporal optic disc pallor[cite: 1].</li>
+                            <li><strong>Toxic Causes:</strong> <strong>Ethambutol</strong> (most common in PH, especially when used >2 months or high dose)[cite: 1], Isoniazid, Methanol ("gin bulag")[cite: 1], Toluene ("rugby" solvent inhalation)[cite: 1], Tobacco, Ethanol, Lead, Amiodarone[cite: 1].</li>
+                            <li><strong>Nutritional Causes:</strong> Vitamin B12 deficiency (pernicious anemia, gastric resection)[cite: 1], Vitamin B1 (Thiamine) deficiency in chronic alcoholics (Wernicke-Korsakoff)[cite: 1].</li>
+                            <li><strong>Pearl:</strong> <em>"Stop the toxin, give the vitamin!"</em>[cite: 1] Stop Ethambutol/alcohol immediately and initiate Vitamin B-complex[cite: 1].</li>
+                        </ul>
+                        <br>
+                        <p><strong>Leber's Hereditary Optic Neuropathy (LHON):</strong></p>
+                        <p>Maternal mitochondrial DNA mutation[cite: 1]. Affects young males[cite: 1]. Subacute, sequential bilateral painless vision loss[cite: 1]. No cure; treatment is supportive (genetic counseling, avoid alcohol/smoking, low vision rehab like telescopes/iPads)[cite: 1].</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: VISUAL PATHWAY LESIONS -->
+        <div class="tab-content" id="tab-3">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🗺️ Visual Field Loss & Localization Map</h2>
+                </div>
+
+                <div class="callout callout-must-know">
+                    <div class="callout-icon">⭐</div>
+                    <div>
+                        <strong>Golden Rule of Localization:</strong><br>
+                        • <strong>Monocular Defect / Central Scotoma:</strong> Lesion is in the <em>Optic Nerve</em>[cite: 1].<br>
+                        • <strong>Bitemporal Hemianopsia:</strong> Lesion is at the <em>Optic Chiasm</em>[cite: 1].<br>
+                        • <strong>Homonymous Hemianopia:</strong> Lesion is <em>Post-Chiasmal</em> (Optic Tract, Radiations, or Occipital Cortex)[cite: 1].
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Anatomical Location</th>
+                                <th>Visual Field Defect Pattern</th>
+                                <th>Associated Neurologic / Clinical Features</th>
+                                <th>Most Common Etiologies</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Optic Nerve</strong></td>
+                                <td>Monocular Blindness or Central Scotoma[cite: 1]</td>
+                                <td>(+) RAPD, loss of color vision (red desaturation)[cite: 1]</td>
+                                <td>Optic neuritis, trauma, optic glioma, meningioma[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anterior Chiasm</strong></td>
+                                <td><strong>Junctional Scotoma:</strong> Ipsilateral central scotoma + contralateral superior temporal quadrantanopia[cite: 1]</td>
+                                <td>Involves junction of optic nerve and chiasm (Wilbrand's knee)[cite: 1]</td>
+                                <td>Pituitary adenoma extension anteriorly[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mid Chiasm</strong></td>
+                                <td><strong>Bitemporal Hemianopsia:</strong> Field loss in outer temporal halves[cite: 1]</td>
+                                <td>Respects vertical meridian; risk of <strong>Pituitary Apoplexy</strong> (sudden hemorrhage = emergency)[cite: 1]</td>
+                                <td>Pituitary Macroadenoma[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Posterior Chiasm</strong></td>
+                                <td>Incongruous Bitemporal / Homonymous Hemianopia[cite: 1]</td>
+                                <td>Fibers near optic tract compressed[cite: 1]</td>
+                                <td>Craniopharyngioma[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Optic Tract</strong></td>
+                                <td><strong>Contralateral Incongruous Homonymous Hemianopia</strong>[cite: 1]</td>
+                                <td><strong>Classic Triad:</strong> Field defect + Contralateral RAPD + Optic Atrophy[cite: 1]. Left lesion: Agraphia, Acalculia[cite: 1]. Right lesion: Neglect[cite: 1]. Bilateral: <strong>Balint Syndrome</strong>[cite: 1].</td>
+                                <td>Infarction (40%), Tumor (32%), Trauma (17%)[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Temporal Radiation (Meyer's Loop)</strong></td>
+                                <td><strong>Contralateral Superior Quadrantanopia</strong> ("Pie in the Sky")[cite: 1]</td>
+                                <td>Complex auditory/visual hallucinations, seizures, memory & behavioral changes[cite: 1]</td>
+                                <td>Temporal lobe stroke, tumor, surgery[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Parietal Radiation</strong></td>
+                                <td><strong>Contralateral Inferior Quadrantanopia</strong> ("Pie on the Floor")[cite: 1]</td>
+                                <td>Aphasia, contralateral hemisensory loss, agraphia, acalculia[cite: 1]</td>
+                                <td>Parietal lobe infarction/tumor[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Striate Cortex (Occipital)</strong></td>
+                                <td><strong>Contralateral Congruous Homonymous Hemianopia with Macular / Pupil Sparing</strong>[cite: 1]</td>
+                                <td>Pupils are completely normal; central vision preserved due to collateral dual vascular supply (PCA & MCA)[cite: 1]</td>
+                                <td>Posterior Cerebral Artery (PCA) infarction[cite: 1]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="callout callout-pearl">
+                    <div class="callout-icon">💡</div>
+                    <div>
+                        <strong>Balint's Syndrome Triad (Bilateral Optic Tract / Parieto-Occipital Lesions):</strong><br>
+                        1. <strong>Optic Ataxia:</strong> Impaired visual guidance of hand movements[cite: 1].<br>
+                        2. <strong>Oculomotor Apraxia:</strong> Inability to voluntarily guide saccades[cite: 1].<br>
+                        3. <strong>Simultagnosia:</strong> Inability to perceive more than one object at a time[cite: 1].
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: OCULAR MOTILITY & BRAINSTEM -->
+        <div class="tab-content" id="tab-4">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🎯 Approach to Ocular Motility & Brainstem Localization</h2>
+                </div>
+
+                <div class="grid-3">
+                    <div class="card" style="border-top: 4px solid var(--primary);">
+                        <h3 style="font-family: var(--font-title);">1. Supranuclear Lesions</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-mono);">Command Level (Above Nuclei)</p>
+                        <br>
+                        <ul style="padding-left: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                            <li><strong>Frontal Eye Field (FEF):</strong> Controls voluntary <strong>Saccades</strong> to opposite side[cite: 1]. Lesion (e.g., frontal stroke) → <em>Eyes look TOWARD the lesion</em> ("look at the stroke")[cite: 1]. Conjugate gaze palsy; NO diplopia[cite: 1].</li>
+                            <li><strong>Parietal Eye Field (PEF):</strong> Controls <strong>Smooth Pursuit</strong> (tracking)[cite: 1]. Lesion → impaired smooth pursuit to opposite side; follow-up saccades seen[cite: 1]. Contralateral spatial neglect[cite: 1].</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-top: 4px solid var(--accent-purple);">
+                        <h3 style="font-family: var(--font-title);">2. Nuclear Lesions</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-mono);">Brainstem Nuclei (CN III, IV, VI)</p>
+                        <br>
+                        <ul style="padding-left: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                            <li><strong>CN III Complex (Midbrain):</strong> Edinger-Westphal (pupil), Levator subnucleus (single central structure → lesion causes <em>bilateral ptosis</em>)[cite: 1], Superior Rectus subnucleus (innervates <em>contralateral</em> SR muscle)[cite: 1].</li>
+                            <li><strong>CN IV Nucleus (Midbrain):</strong> Only decussating nerve! Nucleus lesion causes <em>contralateral</em> Superior Oblique palsy[cite: 1].</li>
+                            <li><strong>CN VI Nucleus (Pons):</strong> Controls LR + interneurons via MLF to contralateral CN III. Nucleus lesion causes <em>ipsilateral horizontal gaze palsy</em>[cite: 1]!</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-top: 4px solid var(--accent-emerald);">
+                        <h3 style="font-family: var(--font-title);">3. Infranuclear Lesions</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-mono);">Peripheral Nerves & Trajectory</p>
+                        <br>
+                        <ul style="padding-left: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                            <li><strong>CN III Nerve:</strong> Exits midbrain near PCOM artery[cite: 1]. Compressive lesion (PCOM Aneurysm or Uncal Herniation) → <em>Pupil dilated + Down & Out eye + Ptosis</em>[cite: 1]. Microvascular (DM/HPN) → <em>Pupil sparing</em>[cite: 1].</li>
+                            <li><strong>CN IV Nerve:</strong> Longest intracranial course → most vulnerable to head trauma[cite: 1]. Vertical diplopia, compensates with head tilt[cite: 1].</li>
+                            <li><strong>CN VI Nerve:</strong> Crosses petrous ridge in Dorello's canal[cite: 1]. Stretched in high ICP → <em>False localizing sign</em>[cite: 1].</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="font-family: var(--font-title); margin-top: 1rem; margin-bottom: 0.75rem;">🏛️ Brainstem Nuclear Syndromes Summary</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Syndrome Name</th>
+                                <th>Anatomical Site</th>
+                                <th>Structures Affected</th>
+                                <th>Clinical Manifestations</th>
+                                <th>Exam Memory Pearl</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Weber Syndrome</strong></td>
+                                <td>Ventral Midbrain</td>
+                                <td>CN III fascicle + Cerebral Peduncle[cite: 1]</td>
+                                <td>Ipsilateral CN III palsy + Contralateral hemiplegia[cite: 1]</td>
+                                <td><em>"3 + opposite body weak"</em>[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Benedikt Syndrome</strong></td>
+                                <td>Midbrain Tegmentum</td>
+                                <td>CN III fascicle + Red Nucleus[cite: 1]</td>
+                                <td>Ipsilateral CN III palsy + Contralateral tremor, hemitremor & hemichorea[cite: 1]</td>
+                                <td><em>"3 + opposite side shaky"</em>[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Claude Syndrome</strong></td>
+                                <td>Midbrain Tegmentum</td>
+                                <td>CN III fascicle + Red Nucleus + Superior Cerebellar Peduncle[cite: 1]</td>
+                                <td>Ipsilateral CN III palsy + Contralateral ataxia & tremor[cite: 1]</td>
+                                <td>Overlaps Benedikt, but with prominent ataxia[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Raymond Syndrome</strong></td>
+                                <td>Ventral Pons</td>
+                                <td>CN VI fascicle + Corticospinal Tract[cite: 1]</td>
+                                <td>Ipsilateral CN VI palsy + Contralateral hemiplegia[cite: 1]</td>
+                                <td><em>"6 + opposite body weak"</em>[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Millard-Gubler Syndrome</strong></td>
+                                <td>Ventral Pons</td>
+                                <td>CN VI fascicle + CN VII fascicle + Corticospinal Tract[cite: 1]</td>
+                                <td>Ipsilateral CN VI palsy + Ipsilateral facial paralysis + Contralateral hemiplegia[cite: 1]</td>
+                                <td><em>"6 + 7 + opposite body weak"</em>[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Foville Syndrome</strong></td>
+                                <td>Dorsal Pons</td>
+                                <td>CN VI nucleus + CN VII fascicle + PPRF + Corticospinal Tract[cite: 1]</td>
+                                <td>Ipsilateral horizontal gaze palsy + Ipsilateral facial weakness + Contralateral hemiplegia[cite: 1]</td>
+                                <td><em>"Can't look sideways + face weak + body weak"</em>[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Internuclear Ophthalmoplegia (INO)</strong></td>
+                                <td>Brainstem MLF</td>
+                                <td>Medial Longitudinal Fasciculus (MLF)[cite: 1]</td>
+                                <td>Failure of adduction on affected MLF side + Nystagmus of abducting eye[cite: 1]</td>
+                                <td><em>"One eye won't adduct, the other beats"</em>[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gradenigo Syndrome</strong></td>
+                                <td>Petrous Apex</td>
+                                <td>CN V, VI, VII, VIII (due to otitis media/mastoiditis)[cite: 1]</td>
+                                <td>Ipsilateral deep eye pain (V), lateral rectus palsy (VI), facial weakness (VII), hearing loss (VIII)[cite: 1]</td>
+                                <td>Petrous apicitis with multi-cranial nerve involvement[cite: 1]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid-2" style="margin-top: 1.5rem;">
+                    <div class="card">
+                        <h3 style="font-family: var(--font-title); color: var(--accent-purple);">🏥 Neuromuscular Junction: Myasthenia Gravis</h3>
+                        <p><strong>Pathophysiology:</strong> Autoimmune attack against acetylcholine receptors (AChR) or MuSK at the NMJ[cite: 1]. Competitive blockade by antibodies[cite: 1].</p>
+                        <br>
+                        <ul style="padding-left: 1.2rem; color: var(--text-secondary);">
+                            <li><strong>Key Features:</strong> Fluctuating diplopia and <em>fatigable ptosis</em> (drooping worse at the end of the day)[cite: 1].</li>
+                            <li><strong>⭐ Golden Rule:</strong> <strong>PUPILS ARE ALWAYS NORMAL</strong>[cite: 1]! If pupil is abnormal, rule out MG[cite: 1].</li>
+                            <li><strong>Diagnostic Ice Pack Test:</strong> Place ice pack over closed eye for 2 minutes[cite: 1]. Cold inhibits acetylcholinesterase enzyme → increases ACh concentration in NMJ → temporary improvement of ptosis/motility[cite: 1]. Equal sensitivity/specificity to Tensilon test[cite: 1]!</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="font-family: var(--font-title); color: var(--accent-rose);">👁️ Muscle Disorders: TED vs. Orbital Myositis</h3>
+                        <p><strong>Thyroid Eye Disease (TED / Graves Orbitopathy):</strong></p>
+                        <ul style="padding-left: 1.2rem; color: var(--text-secondary); font-size: 0.9rem;">
+                            <li>Autoimmune enlargement and fibrosis of EOMs[cite: 1]. Most common cause of adult proptosis[cite: 1].</li>
+                            <li><strong>Muscle Involvement Order:</strong> <strong>IM SLow</strong> (Inferior > Medial > Superior > Lateral)[cite: 1].</li>
+                            <li><strong>MRI Finding:</strong> EOM muscle belly enlargement with <strong>tendon sparing</strong> ("coke bottle" appearance)[cite: 1].</li>
+                            <li>Positive Forced Duction Test (FDT) proves <em>restrictive</em> etiology[cite: 1].</li>
+                        </ul>
+                        <br>
+                        <p><strong>Orbital Myositis (Idiopathic Orbital Pseudotumor):</strong></p>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Acute, <strong>PAINFUL</strong> diplopia[cite: 1]. MRI shows swollen muscle bellies <strong>INCLUDING tendinous insertions</strong>[cite: 1]! Recalcitrant; requires steroids + immunosuppressressives[cite: 1].</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: COMPARISONS -->
+        <div class="tab-content" id="tab-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">⚖️ Side-by-Side High-Yield Comparison Tables</h2>
+                </div>
+
+                <h3 style="font-family: var(--font-title); margin-bottom: 0.75rem; color: var(--primary);">Comparison 1: Papillitis vs. Papilledema vs. Retrobulbar Neuritis</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Papillitis (Optic Neuritis)</th>
+                                <th>Papilledema</th>
+                                <th>Retrobulbar Neuritis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Optic Disc Appearance</strong></td>
+                                <td>Swollen, hyperemic, indistinct margins[cite: 1]</td>
+                                <td>Bilateral marked disc swelling, splinter hemorrhages[cite: 1]</td>
+                                <td><strong>Completely Normal</strong> initially[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Visual Acuity</strong></td>
+                                <td>Severely decreased early[cite: 1]</td>
+                                <td><strong>Normal / Preserved</strong> early[cite: 1]</td>
+                                <td>Severely decreased early[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Laterality</strong></td>
+                                <td>Usually Unilateral (Asia: often bilateral)[cite: 1]</td>
+                                <td><strong>Bilateral</strong>[cite: 1]</td>
+                                <td>Usually Unilateral[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>RAPD Presence</strong></td>
+                                <td><strong>(+) Positive</strong>[cite: 1]</td>
+                                <td>Negative (unless asymmetric damage late)[cite: 1]</td>
+                                <td><strong>(+) Positive</strong>[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pain Status</strong></td>
+                                <td>Painful on eye movement[cite: 1]</td>
+                                <td>Painless eye movement (headache from ↑ ICP)[cite: 1]</td>
+                                <td>Painful on eye movement[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Primary Etiology</strong></td>
+                                <td>Infectious, Autoimmune (NMO, MOGAD)[cite: 1]</td>
+                                <td>Raised Intracranial Pressure (ICP, Hydrocephalus, IIH)[cite: 1]</td>
+                                <td>Multiple Sclerosis (MS), Demyelination[cite: 1]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="font-family: var(--font-title); margin-top: 1.5rem; margin-bottom: 0.75rem; color: var(--accent-purple);">Comparison 2: Arteritic (AION) vs. Non-Arteritic (NAION) Ischemic Optic Neuropathy</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Arteritic ION (AION / GCA)</th>
+                                <th>Non-Arteritic ION (NAION)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Typical Patient Age</strong></td>
+                                <td>70 - 80 years old[cite: 1]</td>
+                                <td>50 - 60 years old[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Systemic Associations</strong></td>
+                                <td>Giant Cell Arteritis, Polymyalgia Rheumatica[cite: 1]</td>
+                                <td>Metabolic syndrome, Diabetes, Hyperlipidemia, Hypertension[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Systemic Symptoms</strong></td>
+                                <td>Jaw claudication, scalp tenderness, fever, weight loss[cite: 1]</td>
+                                <td>Asymptomatic systemically[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Inflammatory Markers</strong></td>
+                                <td>Markedly <strong>Elevated ESR and CRP</strong>[cite: 1]</td>
+                                <td>Normal ESR and CRP[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Treatment Response</strong></td>
+                                <td>Responds to emergency high-dose IV Corticosteroids[cite: 1]</td>
+                                <td>No proven active medical cure[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Primary Management Goal</strong></td>
+                                <td>Save vision in fellow eye from catastrophic bilateral loss[cite: 1]</td>
+                                <td>Control vascular risk factors (BP, lipids, glucose, stop smoking)[cite: 1]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="font-family: var(--font-title); margin-top: 1.5rem; margin-bottom: 0.75rem; color: var(--accent-rose);">Comparison 3: Thyroid Eye Disease (TED) vs. Orbital Myositis</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Thyroid Eye Disease (TED)</th>
+                                <th>Orbital Myositis (Pseudotumor)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Pain Character</strong></td>
+                                <td>Painless / Mild discomfort / Grittiness[cite: 1]</td>
+                                <td><strong>Acute, Severe Pain</strong> with eye movement[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Laterality</strong></td>
+                                <td>Usually Bilateral (often asymmetric)[cite: 1]</td>
+                                <td>Usually Unilateral[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MRI Muscle Findings</strong></td>
+                                <td>Enlarged EOM bellies with <strong>Tendon Sparing</strong>[cite: 1]</td>
+                                <td>Enlarged EOM bellies <strong>Involving Tendons</strong>[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Muscle Order Prevalence</strong></td>
+                                <td><strong>IM SLow:</strong> Inferior > Medial > Superior > Lateral[cite: 1]</td>
+                                <td>Variable single or multiple muscle involvement[cite: 1]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Systemic Link</strong></td>
+                                <td>Dysthyroid state (Graves Hyperthyroidism / Hashimoto)[cite: 1]</td>
+                                <td>Idiopathic / Autoimmune[cite: 1]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 7: FLASHCARDS -->
+        <div class="tab-content" id="tab-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🎴 Active Recall Flashcard Deck</h2>
+                    <div>
+                        <select id="flashcardFilter" onchange="filterFlashcards()" style="padding: 0.4rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                            <option value="all">All Topics</option>
+                            <option value="anatomy">Anatomy & Visual Field</option>
+                            <option value="optic">Optic Nerve Disorders</option>
+                            <option value="pathway">Visual Pathway Lesions</option>
+                            <option value="motility">Ocular Motility & Brainstem</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="flashcardProgress"></div>
+                </div>
+
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="card-front">
+                            <span class="tag tag-blue" id="fcCategory">Category</span>
+                            <div class="flashcard-q" id="fcQuestion">Question text goes here...</div>
+                            <span style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">Click or Press SPACE to flip</span>
+                        </div>
+                        <div class="card-back">
+                            <div class="flashcard-a" id="fcAnswer">Answer text goes here...</div>
+                        </div>
+                    </div>
+
+                    <div class="flashcard-controls">
+                        <button class="btn" onclick="prevCard()">⬅️ Prev</button>
+                        <span id="fcTracker" style="font-family: var(--font-mono); font-size: 0.9rem;">1 / 50</span>
+                        <button class="btn" onclick="nextCard()">Next ➡️</button>
+                        <button class="btn btn-primary" onclick="shuffleCards()">🔀 Shuffle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8: SELF-ASSESSMENT -->
+        <div class="tab-content" id="tab-7">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📝 Board-Style Self-Assessment (MCQs)</h2>
+                    <span class="tag tag-purple" id="quizScoreBadge">Score: 0 / 50</span>
+                </div>
+                <p>Complete the following 50 board-exam quality multiple choice questions. Includes pre-test, post-test, and review questions verbatim from the lecture, plus newly expanded high-yield scenarios[cite: 1].</p>
+                <div id="quizContainer" style="margin-top: 1.5rem;"></div>
+            </div>
+        </div>
+
+        <!-- TAB 9: CRAM SHEET ULTRA -->
+        <div class="tab-content" id="tab-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🚀 Cram Sheet Ultra (10-Minute Exam Review)</h2>
+                    <span class="tag tag-amber">HIGH YIELD BUZZWORDS</span>
+                </div>
+
+                <h3 style="font-family: var(--font-title); color: var(--accent-purple); margin-bottom: 0.75rem;">⚡ "If You See X → Think Y" Rapid Diagnostic Chains</h3>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Young female + Acute painful vision loss + (+) RAPD + Normal fundus</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Retrobulbar Optic Neuritis (MS)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Acute optic neuritis + Bilateral disc swelling (in Asia/PH)</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Autoimmune ON (NMO / MOGAD) or Infectious[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Age 70-80 + Sudden painless vision loss + Scalp tenderness/Jaw claudication + High ESR</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Arteritic Ischemic Optic Neuropathy (GCA) → High-dose IV Steroids![cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Age 50-60 + Sudden painless vision loss + Altitudinal field defect + DM/HPN</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Non-Arteritic Ischemic Optic Neuropathy (NAION) → Control Risk Factors[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Young obese female + Bilateral swollen discs + Preserved vision + Transient visual obscurations</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Papilledema / IIH → Weight loss & Acetazolamide[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">TB patient on medication + Red desaturation + Central visual loss</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Ethambutol Toxicity → Stop drug, supplement Vit B12![cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Progressive temporal visual field loss + Pituitary macroadenoma</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Bitemporal Hemianopsia (Chiasm Compression)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Ipsilateral central scotoma + Contralateral superior temporal quadrantanopia</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Junctional Scotoma (Anterior Chiasm / Wilbrand Knee)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Contralateral homonymous hemianopia + Contralateral RAPD + Optic Atrophy</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Optic Tract Lesion Triad[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Temporal lobe lesion / stroke</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Contralateral Superior Quadrantanopia ("Pie in the Sky" / Meyer's Loop)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Parietal lobe lesion / stroke</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Contralateral Inferior Quadrantanopia ("Pie on the Floor")[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Homonymous hemianopia with MACULAR SPARING</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Occipital Cortex Lesion (PCA Infarction)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Frontal eye field stroke</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Conjugate gaze palsy → Eyes look TOWARD lesion ("Look at stroke")[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">CN III palsy + Dilated pupil + Down & Out eye</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">PCOM Aneurysm or Uncal Herniation (Emergency Scan!)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">CN III palsy + Contralateral Hemiplegia</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Weber Syndrome (Ventral Midbrain)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">CN III palsy + Contralateral Tremor/Chorea</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Benedikt Syndrome (Red Nucleus)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">CN VI palsy + Contralateral Hemiplegia</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Raymond Syndrome (Ventral Pons)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">CN VI palsy + Ipsilateral CN VII facial palsy + Contralateral Hemiplegia</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Millard-Gubler Syndrome (Ventral Pons)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Failure of adduction on gaze + Nystagmus in abducting eye</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Internuclear Ophthalmoplegia (MLF Lesion)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Otitis media history + CN V, VI, VII, VIII palsies</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Gradenigo Syndrome (Petrous Apicitis)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Fluctuating diplopia + Fatigable ptosis + NORMAL PUPILS</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Myasthenia Gravis (Positive Ice Pack Test)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Bilateral proptosis + Lid retraction + MRI showing muscle belly enlargement with TENDON SPARING</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Thyroid Eye Disease (IM SLow)[cite: 1]</span>
+                </div>
+
+                <div class="cram-item">
+                    <span class="cram-trigger">Acute PAINFUL diplopia + MRI showing EOM enlargement INCLUDING TENDONS</span>
+                    <span class="cram-arrow">➔</span>
+                    <span class="cram-target">Orbital Myositis (Idiopathic Orbital Pseudotumor)[cite: 1]</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- JavaScript Engine -->
+    <script>
+        // Global Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+        }
+
+        // Tab Switching Engine
+        function switchTab(index) {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach((t, i) => {
+                if(i === index) {
+                    t.classList.add('active');
+                    contents[i].classList.add('active');
+                } else {
+                    t.classList.remove('active');
+                    contents[i].classList.remove('active');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Accordion Toggle
+        function toggleAccordion(element) {
+            const accordion = element.parentElement;
+            accordion.classList.toggle('open');
+        }
+
+        // Global Search Filter
+        function filterContent() {
+            const query = document.getElementById('globalSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.card, .cram-item, .quiz-card');
+            
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if(text.includes(query)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // FLASHCARD ENGINE
+        const flashcardsData = [
+            { cat: "anatomy", q: "What visual field defect occurs with an optic chiasm compression?", a: "Bitemporal Hemianopsia (due to compression of crossing nasal fibers)[cite: 1]." },
+            { cat: "anatomy", q: "What visual field loss is produced by a lesion in Meyer's loop (temporal lobe)?", a: "Contralateral Superior Quadrantanopia ('Pie in the Sky')[cite: 1]." },
+            { cat: "anatomy", q: "Why is the macula spared in occipital cortex infarction?", a: "Dual vascular supply to the macular cortical representation from both the Posterior Cerebral Artery (PCA) and Middle Cerebral Artery (MCA)[cite: 1]." },
+            { cat: "optic", q: "What is the classic presentation of Retrobulbar Optic Neuritis?", a: "'Patient sees nothing, doctor sees nothing'—acute painful visual loss, (+) RAPD, but a completely normal optic disc initially[cite: 1]." },
+            { cat: "optic", q: "How does typical optic neuritis present differently in Asia compared to the US?", a: "In Asia (including PH), typical ON presents as BILATERAL with OPTIC DISC SWELLING (Papillitis/Autoimmune)[cite: 1]. In the US, it is typically unilateral and retrobulbar[cite: 1]." },
+            { cat: "optic", q: "What is the key difference between Papillitis and Papilledema regarding vision?", a: "Papillitis causes early severe visual acuity loss and RAPD[cite: 1]. Papilledema preserves vision early on (except transient obscurations) and is bilateral due to elevated ICP[cite: 1]." },
+            { cat: "optic", q: "What high-yield medication principle applies to classic MS-related Optic Neuritis?", a: "Treat with high-dose IV Corticosteroids[cite: 1]. NEVER give oral prednisone alone (doubles recurrence rate)[cite: 1]!" },
+            { cat: "optic", q: "What is the emergency management for Arteritic Ischemic Optic Neuropathy (AION / GCA)?", a: "Immediate high-dose IV Corticosteroids to prevent rapid, permanent blindness in the fellow eye[cite: 1]!" },
+            { cat: "optic", q: "What is the primary etiology and presentation of NAION?", a: "Microvascular ischemia associated with DM, HPN, and hyperlipidemia in patients aged 50-60; causes sudden painless vision loss with an altitudinal defect[cite: 1]." },
+            { cat: "optic", q: "What classic visual complaint is experienced by patients with acute Papilledema?", a: "Transient Visual Obscurations (TVOs)—seconds of sudden visual darkening triggered by posture changes[cite: 1]." },
+            { cat: "optic", q: "Which TB medication is the most common cause of toxic optic neuropathy in the Philippines?", a: "Ethambutol (presents with red desaturation and central visual field loss)[cite: 1]." },
+            { cat: "optic", q: "What is the treatment pearl for Toxic and Nutritional Optic Neuropathies?", a: "'Stop the toxin, give the vitamin!' (e.g., stop Ethambutol/alcohol, give B12/B-complex)[cite: 1]." },
+            { cat: "optic", q: "What inheritance pattern and clinical feature characterize Leber's Hereditary Optic Neuropathy (LHON)?", a: "Maternal mitochondrial DNA mutation causing subacute, sequential bilateral visual loss in young males[cite: 1]." },
+            { cat: "pathway", q: "What constitutes the classic triad of Optic Tract Lesions?", a: "1. Contralateral Incongruous Homonymous Hemianopia<br>2. Contralateral RAPD<br>3. Optic Atrophy[cite: 1]." },
+            { cat: "pathway", q: "What visual field defect is termed a Junctional Scotoma?", a: "Ipsilateral central scotoma combined with contralateral superior temporal quadrantanopia (anterior chiasm lesion)[cite: 1]." },
+            { cat: "pathway", q: "What visual field loss results from parietal lobe radiation damage?", a: "Contralateral Inferior Quadrantanopia ('Pie on the Floor')[cite: 1]." },
+            { cat: "motility", q: "Which cortical center controls voluntary saccades, and what happens when it is infarcted?", a: "Frontal Eye Field (FEF)[cite: 1]. Infarction causes conjugate gaze palsy where eyes deviate TOWARD the lesion ('look at the stroke')[cite: 1]." },
+            { cat: "motility", q: "Which cortical center controls smooth pursuit, and what is its localization?", a: "Parietal Eye Field (Parieto-Occipital-Temporal junction)[cite: 1]. Lesion impairs smooth tracking to the opposite side[cite: 1]." },
+            { cat: "motility", q: "What unique nuclear feature of CN III causes BILATERAL ptosis if damaged?", a: "The Levator Palpebrae Superioris subnucleus is a SINGLE CENTRAL NUCLEUS supplying both eyes[cite: 1]." },
+            { cat: "motility", q: "Which subnucleus of CN III innervates the CONTRALATERAL eye?", a: "The Superior Rectus subnucleus[cite: 1]." },
+            { cat: "motility", q: "What is unique about the Trochlear (CN IV) nerve nucleus?", a: "It is the ONLY cranial nerve that decussates (crosses); a CN IV nuclear lesion causes CONTRALATERAL Superior Oblique palsy[cite: 1]." },
+            { cat: "motility", q: "What is the clinical manifestation of a CN VI NUCLEUS lesion in the pons?", a: "Ipsilateral Horizontal Gaze Palsy (inability of both eyes to look toward the side of the lesion), NOT just isolated abduction failure[cite: 1]." },
+            { cat: "motility", q: "What key features define Weber Syndrome?", a: "Ventral midbrain lesion → Ipsilateral CN III palsy + Contralateral Hemiplegia ('3 + opposite body weak')[cite: 1]." },
+            { cat: "motility", q: "What key features define Benedikt Syndrome?", a: "Midbrain tegmentum lesion (Red Nucleus) → Ipsilateral CN III palsy + Contralateral tremor/hemitremors/hemichorea ('3 + opposite side shaky')[cite: 1]." },
+            { cat: "motility", q: "What key features define Raymond Syndrome?", a: "Ventral pontine lesion → Ipsilateral CN VI palsy + Contralateral Hemiplegia ('6 + opposite body weak')[cite: 1]." },
+            { cat: "motility", q: "What key features define Millard-Gubler Syndrome?", a: "Ventral pontine lesion → Ipsilateral CN VI palsy + Ipsilateral CN VII facial paralysis + Contralateral Hemiplegia ('6 + 7 + opposite body weak')[cite: 1]." },
+            { cat: "motility", q: "What anatomical structure is damaged in Internuclear Ophthalmoplegia (INO)?", a: "Medial Longitudinal Fasciculus (MLF)[cite: 1]." },
+            { cat: "motility", q: "What are the physical signs of a Right INO?", a: "Failure of the Right Eye to adduct on leftward gaze, accompanied by nystagmus in the abducting Left Eye[cite: 1]." },
+            { cat: "motility", q: "What compressive lesion must be immediately ruled out in a Pupil-Involving CN III palsy?", a: "Posterior Communicating Artery (PCOM) Aneurysm or Uncal Herniation[cite: 1]." },
+            { cat: "motility", q: "Why are pupil fibers spared in microvascular/ischemic CN III palsy (e.g., Diabetes)?", a: "Pupillomotor parasympathetic fibers run on the outer periphery of CN III; microvascular ischemia affects inner core blood supply (vasa nervorum), leaving outer pupil fibers intact[cite: 1]." },
+            { cat: "motility", q: "Why is CN VI particularly vulnerable to raised Intracranial Pressure (ICP)?", a: "It has the longest intracranial course and stretches over the sharp petrous ridge (Dorello's canal), causing a 'false localizing sign'[cite: 1]." },
+            { cat: "motility", q: "What is Gradenigo's Syndrome?", a: "Petrous apicitis (from otitis media/mastoiditis) affecting CN V (deep eye pain), CN VI (LR palsy), CN VII (facial palsy), and CN VIII (hearing loss)[cite: 1]." },
+            { cat: "motility", q: "What distinguishes Orbital Apex Syndrome from Cavernous Sinus Syndrome?", a: "Orbital Apex Syndrome involves CN II (Optic Nerve), causing VISION LOSS and (+) RAPD in addition to 'frozen eye' (CN III, IV, VI, V1)[cite: 1]." },
+            { cat: "motility", q: "What is the cardinal rule regarding PUPILS in Myasthenia Gravis?", a: "PUPILS ARE ALWAYS NORMAL in Myasthenia Gravis[cite: 1]! Any pupil abnormality excludes MG[cite: 1]." },
+            { cat: "motility", q: "How does the Ice Pack Test work in diagnosing Myasthenia Gravis?", a: "Cooling decreases acetylcholinesterase enzyme activity → increases ACh concentration in the NMJ → improves fatigable ptosis within 2 minutes[cite: 1]." },
+            { cat: "motility", q: "What mnemonic gives the order of extraocular muscle involvement in Thyroid Eye Disease?", a: "IM SLow: Inferior > Medial > Superior > Lateral Rectus[cite: 1]." },
+            { cat: "motility", q: "What high-yield MRI sign differentiates Thyroid Eye Disease from Orbital Myositis?", a: "TED shows muscle belly enlargement with TENDON SPARING[cite: 1]. Orbital Myositis shows enlargement INCLUDING the tendinous insertions[cite: 1]." },
+            { cat: "motility", q: "What test differentiates restrictive strabismus (e.g., TED) from paralytic strabismus (e.g., CN VI palsy)?", a: "Forced Duction Test (FDT)[cite: 1]. Resistance to mechanical globe movement indicates restriction[cite: 1]." },
+            { cat: "anatomy", q: "Which tool tests the central 10° to 30° of the visual field for optic nerve defects?", a: "Amsler Grid[cite: 1]." },
+            { cat: "anatomy", q: "What color testing alternatives exist if Ishihara plates are unavailable?", a: "Red Cap test or a red Mongol pencil eraser[cite: 1]." },
+            { cat: "anatomy", q: "What visual field defect is classically produced by Glaucoma or Ethambutol toxicity?", a: "Arcuate, Paracentral, or Cecocentral scotoma[cite: 1]." },
+            { cat: "anatomy", q: "What structure in the optic nerve is compromised to cause a cecocentral scotoma?", a: "Papillomacular bundle fibers[cite: 1]." },
+            { cat: "anatomy", q: "An external eye bruit heard over the superior orbital rim suggests what vascular anomaly?", a: "Carotid-Cavernous Fistula (CCF)[cite: 1]." },
+            { cat: "motility", q: "What is the hallmark posture adaptation in a patient with CN IV palsy?", a: "Head tilt AWAY from the side of the lesion (to compensate for vertical diplopia and hyperdeviation)[cite: 1]." },
+            { cat: "motility", q: "What is Balint Syndrome and what visual pathway region is damaged?", a: "Triad of Optic Ataxia, Oculomotor Apraxia, and Simultagnosia due to bilateral parieto-occipital / optic tract lesions[cite: 1]." },
+            { cat: "optic", q: "What exudative optic disc pattern is pathognomonic for Neuroretinitis?", a: "Optic disc swelling combined with a Macular Star pattern of exudates (Cat Scratch Disease, Syphilis)[cite: 1]." },
+            { cat: "optic", q: "What fundoscopic appearance characterizes Optic Atrophy?", a: "Pale, chalk-white optic disc due to absence of nerve fibers replaced by glial tissue[cite: 1]." },
+            { cat: "motility", q: "What clinical features define Foville Syndrome?", a: "Dorsal pontine lesion → Ipsilateral horizontal gaze palsy + Ipsilateral facial paralysis + Contralateral hemiplegia[cite: 1]." },
+            { cat: "motility", q: "What separates Orbital Myositis clinically from Thyroid Eye Disease?", a: "Orbital myositis presents with ACUTE, SEVERE PAIN on eye movement, whereas TED is usually painless or presents with grittiness[cite: 1]." },
+            { cat: "optic", q: "Why must oral corticosteroids NEVER be used alone in Multiple Sclerosis Optic Neuritis?", a: "The Optic Neuritis Treatment Trial (ONTT) proved oral prednisone alone doubles the rate of optic neuritis recurrence[cite: 1]!" }
+        ];
+
+        let currentCardIndex = 0;
+        let filteredDeck = [...flashcardsData];
+
+        function updateFlashcard() {
+            const card = filteredDeck[currentCardIndex];
+            document.getElementById('fcCategory').textContent = card.cat.toUpperCase();
+            document.getElementById('fcQuestion').innerHTML = card.q;
+            document.getElementById('fcAnswer').innerHTML = card.a;
+            document.getElementById('fcTracker').textContent = `${currentCardIndex + 1} / ${filteredDeck.length}`;
+            document.getElementById('flashcardProgress').style.width = `${((currentCardIndex + 1) / filteredDeck.length) * 100}%`;
+            document.getElementById('flashcard').classList.remove('flipped');
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            if(currentCardIndex < filteredDeck.length - 1) {
+                currentCardIndex++;
+                updateFlashcard();
+            }
+        }
+
+        function prevCard() {
+            if(currentCardIndex > 0) {
+                currentCardIndex--;
+                updateFlashcard();
+            }
+        }
+
+        function shuffleCards() {
+            for (let i = filteredDeck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filteredDeck[i], filteredDeck[j]] = [filteredDeck[j], filteredDeck[i]];
+            }
+            currentCardIndex = 0;
+            updateFlashcard();
+        }
+
+        function filterFlashcards() {
+            const val = document.getElementById('flashcardFilter').value;
+            if(val === 'all') {
+                filteredDeck = [...flashcardsData];
+            } else {
+                filteredDeck = flashcardsData.filter(item => item.cat === val);
+            }
+            currentCardIndex = 0;
+            updateFlashcard();
+        }
+
+        // KEYBOARD SHORTCUTS FOR FLASHCARDS
+        document.addEventListener('keydown', (e) => {
+            const flashcardTabActive = document.getElementById('tab-6').classList.contains('active');
+            if(!flashcardTabActive) return;
+
+            if (e.code === 'Space') {
+                e.preventDefault();
+                flipCard();
+            } else if (e.code === 'ArrowRight') {
+                nextCard();
+            } else if (e.code === 'ArrowLeft') {
+                prevCard();
+            }
+        });
+
+        // QUIZ ENGINE (50 MCQs)
+        const quizData = [
+            // Pre-test
+            {
+                q: "1. A 25-year-old woman presents with sudden painful vision loss in one eye. Color vision is reduced and there is a relative afferent pupillary defect (RAPD). Fundus exam is normal. What is the most likely diagnosis? (Pre-Test Q1)",
+                options: ["A. Papilledema", "B. Retrobulbar optic neuritis", "C. Non-arteritic ischemic optic neuropathy", "D. Macular degeneration"],
+                ans: 1,
+                exp: "B is CORRECT. Sudden painful vision loss, reduced color vision, (+) RAPD, and a NORMAL fundus in a 25-year-old female is the classic presentation of Retrobulbar Optic Neuritis ('patient sees nothing, doctor sees nothing')[cite: 1].",
+                breakdown: { A: "Incorrect. Papilledema presents with bilateral swollen discs and normal early vision[cite: 1].", B: "CORRECT. Retrobulbar ON has normal fundus initially + RAPD + pain[cite: 1].", C: "Incorrect. NAION occurs in older patients (>50yo) and is painless[cite: 1].", D: "Incorrect. Macular degeneration does not produce RAPD[cite: 1]." }
+            },
+            {
+                q: "2. A patient has bitemporal hemianopsia on visual field testing. Where is the lesion most likely located? (Pre-Test Q2)",
+                options: ["A. Optic nerve", "B. Optic chiasm", "C. Optic tract", "D. Occipital cortex"],
+                ans: 1,
+                exp: "B is CORRECT. Bitemporal hemianopsia results from compression of the optic chiasm, affecting crossing nasal fibers[cite: 1].",
+                breakdown: { A: "Incorrect. Optic nerve lesions cause monocular field loss/scotoma[cite: 1].", B: "CORRECT. Optic chiasm lesion causes bitemporal hemianopsia[cite: 1].", C: "Incorrect. Optic tract causes homonymous hemianopia[cite: 1].", D: "Incorrect. Occipital cortex causes homonymous hemianopia with macular sparing[cite: 1]." }
+            },
+            {
+                q: "3. A patient presents with horizontal diplopia that worsens when looking at distant objects. On exam, the right eye cannot abduct. Which cranial nerve is affected? (Pre-Test Q3)",
+                options: ["A. CN III", "B. CN IV", "C. CN VI", "D. CN V"],
+                ans: 2,
+                exp: "C is CORRECT. CN VI (Abducens) innervates the Lateral Rectus muscle responsible for abduction[cite: 1]. Divergence at distance worsens symptoms[cite: 1].",
+                breakdown: { A: "Incorrect. CN III controls adduction, elevation, and depression[cite: 1].", B: "Incorrect. CN IV controls depression in adduction (Superior Oblique)[cite: 1].", C: "CORRECT. CN VI palsy causes failure of abduction[cite: 1].", D: "Incorrect. CN V is sensory to cornea/face[cite: 1]." }
+            },
+
+            // Post-test
+            {
+                q: "4. A 28-year-old woman presents with acute painful vision loss in her right eye. Color vision is reduced, and RAPD is noted. Fundoscopy is normal. After 3 days of IV steroids, her vision improves. Which of the following is the most likely underlying mechanism? (Post-Test Q1)",
+                options: ["A. Papilledema", "B. Retrobulbar optic neuritis", "C. Non-arteritic ischemic optic neuropathy", "D. Macular degeneration"],
+                ans: 1,
+                exp: "B is CORRECT. Young patient, acute painful loss, RAPD, normal fundus, rapid improvement with IV steroids points to Retrobulbar Demyelinating Optic Neuritis[cite: 1].",
+                breakdown: { A: "Incorrect. Papilledema is bilateral disc swelling from ICP[cite: 1].", B: "CORRECT. Classic retrobulbar optic neuritis[cite: 1].", C: "Incorrect. NAION is painless and older (>50yo)[cite: 1].", D: "Incorrect. Macular degeneration lacks RAPD[cite: 1]." }
+            },
+            {
+                q: "5. A 55-year-old man has sudden painless vision loss in his left eye. Fundus shows a pale swollen disc with splinter hemorrhages. ESR and CRP are normal. Which of the following is the MOST appropriate next step in management? (Post-Test Q2)",
+                options: ["A. Start high-dose steroids immediately", "B. Control vascular risk factors (BP, diabetes, smoking)", "C. Emergency neurosurgery", "D. IV antibiotics"],
+                ans: 1,
+                exp: "B is CORRECT. 55-year-old, sudden painless loss, pale swollen disc with splinter hemorrhages, normal ESR/CRP = NAION[cite: 1]. NAION has no active medical cure; focus on controlling systemic vascular risk factors to save fellow eye[cite: 1].",
+                breakdown: { A: "Incorrect. High-dose steroids are for Arteritic AION (GCA), which has elevated ESR/CRP[cite: 1].", B: "CORRECT. Risk factor control is primary for NAION[cite: 1].", C: "Incorrect. Surgery is not indicated[cite: 1].", D: "Incorrect. Not infectious[cite: 1]." }
+            },
+            {
+                q: "6. A patient complains of vertical diplopia, worse when walking downstairs. He keeps his head tilted to the right to reduce symptoms. Which of the following is the most likely lesion? (Post-Test Q3)",
+                options: ["A. Right CN VI palsy", "B. Left CN IV palsy", "C. Right CN III palsy", "D. Bilateral internuclear ophthalmoplegia"],
+                ans: 1,
+                exp: "B is CORRECT. Vertical diplopia worse looking down (downstairs) with head tilt to the right (away from lesion) indicates a Left CN IV (Trochlear) palsy[cite: 1].",
+                breakdown: { A: "Incorrect. CN VI causes horizontal diplopia[cite: 1].", B: "CORRECT. Left CN IV palsy causes head tilt to opposite side (right)[cite: 1].", C: "Incorrect. CN III palsy causes 'down and out' eye with ptosis[cite: 1].", D: "Incorrect. INO causes horizontal adduction lag[cite: 1]." }
+            },
+
+            // Review Questions
+            {
+                q: "7. Which visual defect is associated with a lesion in the optic chiasm? (Review Q1)",
+                options: ["A. Bitemporal hemianopia", "B. Monocular blindness", "C. Homonymous hemianopia", "D. Quadrantanopia"],
+                ans: 0,
+                exp: "A is CORRECT. Chiasm lesions compress crossing nasal fibers causing bitemporal hemianopsia[cite: 1].",
+                breakdown: { A: "CORRECT. Bitemporal hemianopia = Chiasm[cite: 1].", B: "Incorrect. Monocular blindness = Optic Nerve[cite: 1].", C: "Incorrect. Homonymous hemianopia = Optic Tract/Radiation[cite: 1].", D: "Incorrect. Quadrantanopia = Optic Radiations[cite: 1]." }
+            },
+            {
+                q: "8. Which cranial nerve is most affected in cavernous sinus syndrome? (Review Q2)",
+                options: ["A. CN II", "B. CN III", "C. CN V", "D. CN VII"],
+                ans: 1,
+                exp: "B is CORRECT. CN III is affected in ~85% of cavernous sinus syndrome cases, followed by CN VI (70%), IV, and V1/V2[cite: 1].",
+                breakdown: { A: "Incorrect. CN II is in the orbital apex, not cavernous sinus[cite: 1].", B: "CORRECT. CN III is most commonly involved (85%)[cite: 1].", C: "Incorrect. CN V sensory branches are involved but less frequent than III[cite: 1].", D: "Incorrect. CN VII does not run through cavernous sinus[cite: 1]." }
+            },
+            {
+                q: "9. A lesion in the left optic tract will produce which pupillary abnormality? (Review Q3)",
+                options: ["A. Right RAPD", "B. Left RAPD", "C. Bilateral fixed pupils", "D. No pupillary defect"],
+                ans: 1,
+                exp: "B is CORRECT. The optic tract carries pupil fibers. A left optic tract lesion causes a Left RAPD (contralateral to visual field defect, or ipsilateral to lesion) along with optic atrophy[cite: 1].",
+                breakdown: { A: "Incorrect. RAPD is on side of optic tract affectation/pupil fiber decussation ratio[cite: 1].", B: "CORRECT. Left RAPD + contralateral incongruous homonymous hemianopia[cite: 1].", C: "Incorrect. Pupil light reflex is not fixed bilaterally[cite: 1].", D: "Incorrect. Pupil fibers are present in optic tract[cite: 1]." }
+            },
+            {
+                q: "10. A 45-year-old male presents with progressive blurring of vision. Visual field testing reveals bitemporal hemianopsia. Which of the following is the most likely underlying cause? (Review Q4)",
+                options: ["A. Optic tract lesion", "B. Pituitary adenoma compressing the optic chiasm", "C. Temporal lobe lesion (Meyer's loop)", "D. Occipital lobe infarction"],
+                ans: 1,
+                exp: "B is CORRECT. Pituitary macroadenoma compressing the mid optic chiasm is the classic cause of bitemporal hemianopsia[cite: 1].",
+                breakdown: { A: "Incorrect. Causes homonymous hemianopia[cite: 1].", B: "CORRECT. Pituitary adenoma at chiasm[cite: 1].", C: "Incorrect. Causes superior quadrantanopia[cite: 1].", D: "Incorrect. Causes homonymous hemianopia with macular sparing[cite: 1]." }
+            },
+            {
+                q: "11. A patient with left CN VI palsy and right-sided hemiparesis likely has a lesion in which area? (Review Q5)",
+                options: ["A. Right pons", "B. Left pons", "C. Left midbrain", "D. Right midbrain"],
+                ans: 1,
+                exp: "B is CORRECT. CN VI nucleus/fascicle is in the pons[cite: 1]. Corticospinal fibers decussate below in the medulla, so a left pontine lesion causes ipsilateral Left CN VI palsy and contralateral Right hemiplegia (Raymond Syndrome)[cite: 1].",
+                breakdown: { A: "Incorrect. Would cause right CN VI palsy[cite: 1].", B: "CORRECT. Left ventral pons (Raymond Syndrome)[cite: 1].", C: "Incorrect. CN VI is in pons, not midbrain[cite: 1].", D: "Incorrect. Midbrain contains CN III and IV[cite: 1]." }
+            },
+            {
+                q: "12. A man presents with sudden horizontal diplopia and right eye abduction deficit. He is hypertensive but has no other neurologic signs. What is the best next step? (Review Q6)",
+                options: ["A. Start IV steroids", "B. Immediate MRA", "C. Monitor and control blood pressure", "D. Lumbar puncture"],
+                ans: 2,
+                exp: "C is CORRECT. Isolated microvascular CN VI palsy in a hypertensive patient should be managed conservatively by controlling blood pressure and observation[cite: 1].",
+                breakdown: { A: "Incorrect. Steroids not indicated for microvascular palsy[cite: 1].", B: "Incorrect. MRA not immediately indicated for isolated microvascular palsy[cite: 1].", C: "CORRECT. Control systemic vascular factors[cite: 1].", D: "Incorrect. LP not indicated[cite: 1]." }
+            },
+            {
+                q: "13. A patient complains of drooping of the eyelids and double vision, both of which resolve/improve with rest. The primary impression would be? (Review Q7)",
+                options: ["A. Cerebrovascular disorder", "B. Diabetes mellitus", "C. Myasthenia gravis", "D. Thyroid disease"],
+                ans: 2,
+                exp: "C is CORRECT. Fatigable ptosis and diplopia that improve with rest are pathognomonic for Myasthenia Gravis[cite: 1].",
+                breakdown: { A: "Incorrect. Stroke symptoms are constant/acute[cite: 1].", B: "Incorrect. DM microvascular palsy does not fluctuate with rest[cite: 1].", C: "CORRECT. Fatigable symptoms = Myasthenia Gravis[cite: 1].", D: "Incorrect. TED causes restrictive, non-fatigable changes[cite: 1]." }
+            },
+            {
+                q: "14. Which of the following is NOT a sign of an eye movement disorder? (Review Q8)",
+                options: ["A. Sudden visual loss", "B. Eye misalignment", "C. Ptosis", "D. Head posture changes"],
+                ans: 0,
+                exp: "A is CORRECT. Sudden visual loss is an OPTIC NERVE or RETINAL sensory symptom, not a motility sign[cite: 1]. Signs of motility disorders include strabismus, ptosis, nystagmus, and head tilt[cite: 1].",
+                breakdown: { A: "CORRECT. Visual loss is sensory, not motor[cite: 1].", B: "Incorrect. Misalignment is a motility sign[cite: 1].", C: "Incorrect. Ptosis is a motor sign[cite: 1].", D: "Incorrect. Head posture change is a compensation for motor palsy[cite: 1]." }
+            },
+            {
+                q: "15. A woman with thyroid eye disease develops new-onset blurred vision and decreased color perception. What is the most likely cause? (Review Q9)",
+                options: ["A. Retinal detachment", "B. Ischemic optic neuropathy", "C. Compressive optic neuropathy", "D. Myasthenia gravis"],
+                ans: 2,
+                exp: "C is CORRECT. Severe TED with marked extraocular muscle swelling at the orbital apex can compress the optic nerve, causing Compressive Optic Neuropathy[cite: 1].",
+                breakdown: { A: "Incorrect. Unrelated to TED apex crowding[cite: 1].", B: "Incorrect. Mechanism is mechanical compression, not primary vascular[cite: 1].", C: "CORRECT. Orbital apex crowding causes compressive optic neuropathy[cite: 1].", D: "Incorrect. MG does not cause optic nerve signs[cite: 1]." }
+            },
+            {
+                q: "16. What is the main treatment principle in toxic optic neuropathy? (Review Q10)",
+                options: ["A. IV corticosteroids", "B. Neurosurgery", "C. Risk control", "D. Remove toxin and replace deficiency"],
+                ans: 3,
+                exp: "D is CORRECT. 'Stop the toxin, give the vitamin!'—remove offending agent (e.g., Ethambutol, alcohol) and supplement B12/B-complex[cite: 1].",
+                breakdown: { A: "Incorrect. Steroids not indicated for toxic etiology[cite: 1].", B: "Incorrect. Surgery not indicated[cite: 1].", C: "Incorrect. Applies to NAION[cite: 1].", D: "CORRECT. Remove toxin + replace vitamin deficiency[cite: 1]." }
+            },
+
+            // Additional High-Yield Board Scenario Questions (17 to 50)
+            {
+                q: "17. A 30-year-old female presents with blurred vision in her right eye. When performing the swinging flashlight test, light directed at the right eye causes BOTH pupils to dilate. When light is directed at the left eye, BOTH pupils constrict. What is this finding?",
+                options: ["A. Right Anisocoria", "B. Right Relative Afferent Pupillary Defect (RAPD)", "C. Left RAPD", "D. Horner's Syndrome"],
+                ans: 1,
+                exp: "B is CORRECT. Paradoxical bilateral dilatation when light swings to the affected right eye represents a Right RAPD (Marcus Gunn Pupil)[cite: 1].",
+                breakdown: { A: "Incorrect. Anisocoria is unequal pupil size[cite: 1].", B: "CORRECT. Right RAPD[cite: 1].", C: "Incorrect. Left eye has normal direct reflex[cite: 1].", D: "Incorrect. Horner's causes ptosis, miosis, anhidrosis[cite: 1]." }
+            },
+            {
+                q: "18. What structure is damaged if a patient presents with a 'Pie in the Sky' visual field defect?",
+                options: ["A. Parietal Optic Radiation", "B. Temporal Optic Radiation (Meyer's Loop)", "C. Calcarine Fissure Tip", "D. Optic Tract"],
+                ans: 1,
+                exp: "B is CORRECT. Meyer's loop in the temporal lobe carries inferior retinal fibers corresponding to the superior visual field ('Pie in the Sky')[cite: 1].",
+                breakdown: { A: "Incorrect. Parietal lobe causes 'Pie on the Floor'[cite: 1].", B: "CORRECT. Meyer's loop = Superior Quadrantanopia[cite: 1].", C: "Incorrect. Tip causes hemianopia with macular sparing[cite: 1].", D: "Incorrect. Tract causes incongruous homonymous hemianopia[cite: 1]." }
+            },
+            {
+                q: "19. A patient with a right frontal lobe ischemic stroke will exhibit which ocular motility abnormality?",
+                options: ["A. Inability to abduct the right eye", "B. Deviation of both eyes to the Right ('looking at the stroke')", "C. Deviation of both eyes to the Left", "D. Right eye ptosis"],
+                ans: 1,
+                exp: "B is CORRECT. The Frontal Eye Field (FEF) drives saccades to the opposite side[cite: 1]. A right FEF lesion causes loss of leftward gaze, resulting in conjugate deviation of both eyes to the RIGHT ('looking at the stroke')[cite: 1].",
+                breakdown: { A: "Incorrect. Describes CN VI palsy[cite: 1].", B: "CORRECT. FEF stroke = eyes look toward lesion[cite: 1].", C: "Incorrect. Seizures drive eyes away from lesion[cite: 1].", D: "Incorrect. Ptosis is CN III[cite: 1]." }
+            },
+            {
+                q: "20. An aneurysm of the Posterior Communicating Artery (PCOM) typically causes compression of which cranial nerve?",
+                options: ["A. CN II", "B. CN III", "C. CN IV", "D. CN VI"],
+                ans: 1,
+                exp: "B is CORRECT. CN III exits the midbrain and travels adjacent to the PCOM artery[cite: 1]. PCOM aneurysm causes pupil-involving CN III palsy[cite: 1].",
+                breakdown: { A: "Incorrect. CN II is more anterior[cite: 1].", B: "CORRECT. PCOM aneurysm compresses CN III[cite: 1].", C: "Incorrect. CN IV runs deeper[cite: 1].", D: "Incorrect. CN VI is pontine[cite: 1]." }
+            },
+            {
+                q: "21. A patient presents with complete ptosis, an eye that is oriented 'down and out', and a fixed dilated pupil. What is the most urgent diagnostic test required?",
+                options: ["A. Visual field perimetry", "B. Brain CT Angiography / MRI to rule out PCOM Aneurysm", "C. Serum HbA1c", "D. Tensilon Test"],
+                ans: 1,
+                exp: "B is CORRECT. Pupil-involving complete CN III palsy ('down and out' + dilated pupil) is a medical emergency requiring immediate imaging to rule out a PCOM aneurysm or uncal herniation[cite: 1].",
+                breakdown: { A: "Incorrect. Perimetry is secondary[cite: 1].", B: "CORRECT. Emergency CTA/MRI for PCOM aneurysm[cite: 1].", C: "Incorrect. HbA1c evaluates microvascular CN III (which spares pupils)[cite: 1].", D: "Incorrect. MG does not dilate pupils[cite: 1]." }
+            },
+            {
+                q: "22. Which brainstem lesion produces ipsilateral CN III palsy combined with contralateral involuntary tremors and choreiform movements?",
+                options: ["A. Weber Syndrome", "B. Benedikt Syndrome", "C. Raymond Syndrome", "D. Foville Syndrome"],
+                ans: 1,
+                exp: "B is CORRECT. Benedikt Syndrome involves the CN III fascicle and Red Nucleus in the midbrain tegmentum → CN III palsy + contralateral tremor/chorea[cite: 1].",
+                breakdown: { A: "Incorrect. Weber = CN III + hemiplegia[cite: 1].", B: "CORRECT. Benedikt = CN III + Red Nucleus tremor[cite: 1].", C: "Incorrect. Raymond = CN VI + hemiplegia[cite: 1].", D: "Incorrect. Foville = CN VI nucleus + face + hemiplegia[cite: 1]." }
+            },
+            {
+                q: "23. A patient presents with left eye adduction failure on rightward gaze, while the right eye abducts with fine horizontal nystagmus. Convergence is preserved. Where is the anatomical lesion?",
+                options: ["A. Left Medial Longitudinal Fasciculus (MLF)", "B. Right MLF", "C. Left CN VI Nucleus", "D. Right CN III Nucleus"],
+                ans: 0,
+                exp: "A is CORRECT. Failure of left eye adduction on rightward gaze indicates a Left INO, caused by a lesion in the Left MLF[cite: 1].",
+                breakdown: { A: "CORRECT. Left MLF lesion = Left INO[cite: 1].", B: "Incorrect. Right MLF lesion impairs right eye adduction on leftward gaze[cite: 1].", C: "Incorrect. CN VI nucleus causes gaze palsy[cite: 1].", D: "Incorrect. Convergence is spared in INO[cite: 1]." }
+            },
+            {
+                q: "24. A patient with severe mastoiditis develops deep ipsilateral eye pain, inability to abduct the left eye, left facial weakness, and left-sided hearing loss. What syndrome is this?",
+                options: ["A. Tolosa-Hunt Syndrome", "B. Gradenigo Syndrome", "C. Weber Syndrome", "D. Claude Syndrome"],
+                ans: 1,
+                exp: "B is CORRECT. Gradenigo Syndrome (Petrous Apicitis) affects CN V (eye pain), VI (abduction deficit), VII (facial weakness), and VIII (hearing loss) in the petrous apex[cite: 1].",
+                breakdown: { A: "Incorrect. Tolosa-Hunt affects orbital apex (II, III, IV, V, VI)[cite: 1].", B: "CORRECT. Gradenigo Syndrome = Petrous ridge involvement[cite: 1].", C: "Incorrect. Midbrain lesion[cite: 1].", D: "Incorrect. Midbrain lesion[cite: 1]." }
+            },
+            {
+                q: "25. A 35-year-old female complains of double vision that worsens in the evening. Examination shows variable ptosis of the right eye. The pupils are equal and react normally to light. What test can easily confirm the diagnosis in the clinic?",
+                options: ["A. Swinging Flashlight Test", "B. Ice Pack Test", "C. Forced Duction Test", "D. Amsler Grid Test"],
+                ans: 1,
+                exp: "B is CORRECT. Fatigable ptosis with normal pupils is classic for Myasthenia Gravis[cite: 1]. The Ice Pack Test (2 minutes) improves ptosis by slowing AChE enzyme degradation[cite: 1].",
+                breakdown: { A: "Incorrect. Tests optic nerve RAPD[cite: 1].", B: "CORRECT. Ice pack test confirms MG[cite: 1].", C: "Incorrect. Tests restrictive muscle disease[cite: 1].", D: "Incorrect. Tests central macular visual field[cite: 1]." }
+            },
+            {
+                q: "26. Orbital MRI of a patient with proptosis and diplopia reveals enlargement of the Inferior and Medial Rectus muscle bellies, but the tendinous insertions onto the globe are completely normal. What is the diagnosis?",
+                options: ["A. Orbital Myositis", "B. Thyroid Eye Disease (TED)", "C. Cavernous Sinus Thrombosis", "D. Orbital Lymphoma"],
+                ans: 1,
+                exp: "B is CORRECT. EOM muscle belly enlargement with TENDON SPARING ('coke bottle' sign) is pathognomonic for Thyroid Eye Disease[cite: 1]. Muscle order: IM SLow[cite: 1].",
+                breakdown: { A: "Incorrect. Orbital myositis involves tendons[cite: 1].", B: "CORRECT. TED spares tendinous insertions[cite: 1].", C: "Incorrect. Causes vascular congestion[cite: 1].", D: "Incorrect. Causes tissue infiltration[cite: 1]." }
+            },
+            {
+                q: "27. In contrast to TED, Orbital Myositis (Idiopathic Orbital Pseudotumor) typically presents with which distinguishing clinical feature?",
+                options: ["A. Painless proptosis", "B. Acute, severe pain on eye movement", "C. Normal EOM tendons on MRI", "D. High serum TSH"],
+                ans: 1,
+                exp: "B is CORRECT. Orbital Myositis is characterized by ACUTE SEVERE PAIN on eye movement, and MRI shows muscle swelling INCLUDING tendons[cite: 1].",
+                breakdown: { A: "Incorrect. It is painful[cite: 1].", B: "CORRECT. Severe pain distinguishes it from TED[cite: 1].", C: "Incorrect. Tendons are involved[cite: 1].", D: "Incorrect. Thyroid function is normal in pseudotumor[cite: 1]." }
+            },
+            {
+                q: "28. An ophthalmologist grasps the conjunctiva with forceps and attempts to manually move an adducted eye outward, but encounters strong mechanical resistance. What does a positive Forced Duction Test (FDT) indicate?",
+                options: ["A. Paralytic CN VI palsy", "B. Restrictive myopathy (e.g., TED / fibrosis)", "C. Myasthenia Gravis", "D. Supranuclear gaze palsy"],
+                ans: 1,
+                exp: "B is CORRECT. Resistance on Forced Duction Testing confirms mechanical RESTRICTION (such as muscle fibrosis in TED), ruling out simple neurogenic paralysis[cite: 1].",
+                breakdown: { A: "Incorrect. Paralytic nerve palsy moves freely on FDT[cite: 1].", B: "CORRECT. Resistance = Restrictive etiology[cite: 1].", C: "Incorrect. MG has no mechanical resistance[cite: 1].", D: "Incorrect. Supranuclear palsy moves freely[cite: 1]." }
+            },
+            {
+                q: "29. What is the primary reason that optic nerve involvement causes RED DESATURATION?",
+                options: ["A. Loss of retinal rod photoreceptors", "B. Preferential damage to small, highly sensitive papillomacular nerve fibers", "C. Corneal opacity", "D. Cataract formation"],
+                ans: 1,
+                exp: "B is CORRECT. Papillomacular fibers carrying central color vision (cones) are highly sensitive to optic nerve inflammation and compression, causing early red desaturation[cite: 1].",
+                breakdown: { A: "Incorrect. Rods control night/peripheral vision[cite: 1].", B: "CORRECT. Papillomacular bundle damage causes color loss[cite: 1].", C: "Incorrect. Anterior segment pathology[cite: 1].", D: "Incorrect. Lens pathology[cite: 1]." }
+            },
+            {
+                q: "30. A 75-year-old patient presents with sudden loss of vision in the lower half of the visual field of the right eye. Fundoscopy reveals edema of the superior optic disc. What visual field defect is this?",
+                options: ["A. Central scotoma", "B. Altitudinal defect", "C. Bitemporal hemianopsia", "D. Homonymous quadrantanopia"],
+                ans: 1,
+                exp: "B is CORRECT. Loss of vision respecting the horizontal meridian (e.g., lower half lost due to superior disc ischemia) is an Altitudinal Defect, typical of Ischemic Optic Neuropathy[cite: 1].",
+                breakdown: { A: "Incorrect. Central island loss[cite: 1].", B: "CORRECT. Altitudinal defect respects horizontal meridian[cite: 1].", C: "Incorrect. Respects vertical meridian[cite: 1].", D: "Incorrect. Respects vertical & horizontal post-chiasmal[cite: 1]." }
+            },
+            {
+                q: "31. A patient with chronic alcoholism presents with progressive bilateral symmetrical central vision drop and temporal optic disc pallor. What is the underlying nutritional mechanism?",
+                options: ["A. Vitamin A deficiency", "B. Vitamin B1 (Thiamine) / B12 deficiency", "C. Vitamin C deficiency", "D. Vitamin D toxicity"],
+                ans: 1,
+                exp: "B is CORRECT. Nutritional optic neuropathy in chronic alcoholics stems from Thiamine (B1) and Vitamin B12 depletion, causing symmetrical temporal optic disc pallor[cite: 1].",
+                breakdown: { A: "Incorrect. Vit A causes night blindness[cite: 1].", B: "CORRECT. Vit B1/B12 deficiency[cite: 1].", C: "Incorrect. Vit C causes scurvy[cite: 1].", D: "Incorrect. Unrelated[cite: 1]." }
+            },
+            {
+                q: "32. What visual field defect results from a complete transection of the right optic tract?",
+                options: ["A. Right monocular blindness", "B. Bitemporal hemianopsia", "C. Left incongruous homonymous hemianopia", "D. Right superior quadrantanopia"],
+                ans: 2,
+                exp: "C is CORRECT. Right optic tract damage destroys fibers carrying left visual field information from both eyes, causing a Left Incongruous Homonymous Hemianopia[cite: 1].",
+                breakdown: { A: "Incorrect. Optic nerve transection causes monocular blindness[cite: 1].", B: "Incorrect. Chiasm causes bitemporal loss[cite: 1].", C: "CORRECT. Contralateral incongruous homonymous hemianopia[cite: 1].", D: "Incorrect. Temporal radiation causes quadrantanopia[cite: 1]." }
+            },
+            {
+                q: "33. A 68-year-old male with hypertension presents with a left-sided homonymous hemianopia. On perimetry, central vision (macula) is completely preserved. Where is the lesion?",
+                options: ["A. Right Optic Tract", "B. Right Temporal Lobe", "C. Right Striate (Occipital) Cortex", "D. Optic Chiasm"],
+                ans: 2,
+                exp: "C is CORRECT. Homonymous hemianopia with MACULAR SPARING localizes specifically to the Occipital Cortex (striate cortex calcarine tip) due to dual PCA/MCA supply[cite: 1].",
+                breakdown: { A: "Incorrect. Optic tract lacks macular sparing[cite: 1].", B: "Incorrect. Causes quadrantanopia[cite: 1].", C: "CORRECT. Occipital cortex = Macular Sparing[cite: 1].", D: "Incorrect. Causes bitemporal loss[cite: 1]." }
+            },
+            {
+                q: "34. What cranial nerve is located inside the cavernous sinus directly adjacent to the Internal Carotid Artery (ICA), making it most susceptible to ICA aneurysms?",
+                options: ["A. CN III", "B. CN IV", "C. CN VI", "D. CN V1"],
+                ans: 2,
+                exp: "C is CORRECT. CN VI runs freely within the body of the cavernous sinus right next to the ICA, whereas CN III, IV, and V1 run in the lateral wall[cite: 1].",
+                breakdown: { A: "Incorrect. Located in lateral wall[cite: 1].", B: "Incorrect. Located in lateral wall[cite: 1].", C: "CORRECT. CN VI lies medially next to ICA[cite: 1].", D: "Incorrect. Located in lateral wall[cite: 1]." }
+            },
+            {
+                q: "35. A lesion affecting the Paramedian Pontine Reticular Formation (PPRF) causes impairment of which eye movement function?",
+                options: ["A. Vertical Saccades", "B. Ipsilateral Horizontal Gaze", "C. Smooth Pursuit", "D. Pupillary Constriction"],
+                ans: 1,
+                exp: "B is CORRECT. The PPRF is the pontine center for horizontal gaze. Damage to the PPRF or CN VI nucleus impairs horizontal gaze toward the side of the lesion[cite: 1].",
+                breakdown: { A: "Incorrect. Vertical gaze centers are in midbrain[cite: 1].", B: "CORRECT. PPRF = Horizontal gaze center[cite: 1].", C: "Incorrect. Controlled by parietal cortex[cite: 1].", D: "Incorrect. Controlled by Edinger-Westphal nucleus[cite: 1]." }
+            },
+            {
+                q: "36. What finding on fundoscopy distinguishes Chronic Optic Atrophy from acute disc edema?",
+                options: ["A. Hyperemic disc with blurred margins", "B. Chalk-white, pale disc with sharp margins", "C. Flame hemorrhages", "D. Macular star exudates"],
+                ans: 1,
+                exp: "B is CORRECT. Optic Atrophy represents end-stage loss of nerve fibers, appearing as a chalk-white pale disc with clear margins[cite: 1].",
+                breakdown: { A: "Incorrect. Indicates acute papilledema/papillitis[cite: 1].", B: "CORRECT. Optic atrophy = Pale white disc[cite: 1].", C: "Incorrect. Seen in acute ischemic/edematous states[cite: 1].", D: "Incorrect. Seen in neuroretinitis[cite: 1]." }
+            },
+            {
+                q: "37. What diagnostic feature differentiates Optic Atrophy caused by Glaucoma from Compressive Optic Neuropathy?",
+                options: ["A. Glaucoma shows disc pallor greater than cupping", "B. Glaucoma shows pathological CUPPING (cup-to-disc ratio >0.5), whereas Compressive lesions show PALLOR > CUPPING", "C. Compressive lesions show elevated intraocular pressure", "D. Glaucoma presents with RAPD early"],
+                ans: 1,
+                exp: "B is CORRECT. Glaucoma is characterized by dominant disc CUPPING[cite: 1]. Non-glaucomatous compressive/toxic neuropathies cause disc PALLOR out of proportion to cupping[cite: 1].",
+                breakdown: { A: "Incorrect. Reverse is true[cite: 1].", B: "CORRECT. Glaucoma = Cupping; Compressive = Pallor > Cupping[cite: 1].", C: "Incorrect. Compressive lesions have normal IOP[cite: 1].", D: "Incorrect. RAPD depends on asymmetry[cite: 1]." }
+            },
+            {
+                q: "38. In a patient suspected of having Idiopathic Intracranial Hypertension (IIH), what MRI result is expected?",
+                options: ["A. Pituitary macroadenoma", "B. Normal brain parenchyma with signs of raised ICP (e.g., empty sella, flattened posterior sclera)", "C. Large pontine stroke", "D. Demyelination plaques in optic nerve"],
+                ans: 1,
+                exp: "B is CORRECT. IIH (Pseudotumor Cerebri) shows NORMAL brain parenchyma on neuroimaging (no tumor/mass), but lumbar puncture confirms elevated opening pressure[cite: 1].",
+                breakdown: { A: "Incorrect. Would indicate compressive lesion, not IIH[cite: 1].", B: "CORRECT. IIH = Normal imaging + High ICP on LP[cite: 1].", C: "Incorrect. Structural lesion rules out IIH[cite: 1].", D: "Incorrect. Indicates MS[cite: 1]." }
+            },
+            {
+                q: "39. What first-line oral medication is used to decrease CSF production in patients with Pseudotumor Cerebri / IIH?",
+                options: ["A. Prednisone", "B. Acetazolamide", "C. Pyridostigmine", "D. Methimazole"],
+                ans: 1,
+                exp: "B is CORRECT. Acetazolamide (carbonic anhydrase inhibitor) reduces CSF secretion by the choroid plexus and is the primary medical treatment for IIH[cite: 1].",
+                breakdown: { A: "Incorrect. Steroids may exacerbate weight gain/ICP[cite: 1].", B: "CORRECT. Acetazolamide lowers CSF production[cite: 1].", C: "Incorrect. Used for Myasthenia Gravis[cite: 1].", D: "Incorrect. Used for hyperthyroidism[cite: 1]." }
+            },
+            {
+                q: "40. A patient presents with right eye ptosis, inability to elevate, depress, or adduct the right eye, and a dilated pupil. Left eye movements are normal. Where is the lesion?",
+                options: ["A. Right Peripheral CN III Nerve", "B. Right CN III Nucleus", "C. Left CN III Nucleus", "D. Right CN VI Nucleus"],
+                ans: 0,
+                exp: "A is CORRECT. Unilateral complete CN III palsy with normal fellow eye points to an Infranuclear (Peripheral) Right CN III nerve lesion[cite: 1]. (Nuclear CN III lesions often cause bilateral ptosis or contralateral SR weakness)[cite: 1].",
+                breakdown: { A: "CORRECT. Isolated unilateral CN III = Infranuclear nerve lesion[cite: 1].", B: "Incorrect. Nuclear lesion causes bilateral ptosis[cite: 1].", C: "Incorrect. Contralateral[cite: 1].", D: "Incorrect. CN VI controls abduction[cite: 1]." }
+            },
+            {
+                q: "41. What is the most common cause of non-axial proptosis?",
+                options: ["A. Thyroid Eye Disease", "B. Lacrimal gland tumors or Dermoid cysts", "C. High Myopia", "D. Orbital Cellulitis"],
+                ans: 1,
+                exp: "B is CORRECT. Axial proptosis (straight forward) is classic for TED[cite: 1]. Non-axial proptosis (eye pushed down/sideways) suggests space-occupying lacrimal gland tumors or dermoid cysts[cite: 1].",
+                breakdown: { A: "Incorrect. TED causes axial proptosis[cite: 1].", B: "CORRECT. Non-axial proptosis = Lacrimal tumor/Dermoid cyst[cite: 1].", C: "Incorrect. Causes pseudoproptosis[cite: 1].", D: "Incorrect. Diffuse axial inflammation[cite: 1]." }
+            },
+            {
+                q: "42. Which extraocular muscle is innervated by the Trochlear Nerve (CN IV)?",
+                options: ["A. Lateral Rectus", "B. Superior Rectus", "C. Superior Oblique", "D. Inferior Oblique"],
+                ans: 2,
+                exp: "C is CORRECT. Mnemonic LR6SO4AO3: Lateral Rectus by CN VI, Superior Oblique by CN IV, All Others by CN III[cite: 1].",
+                breakdown: { A: "Incorrect. CN VI[cite: 1].", B: "Incorrect. CN III[cite: 1].", C: "CORRECT. CN IV innervates Superior Oblique[cite: 1].", D: "Incorrect. CN III[cite: 1]." }
+            },
+            {
+                q: "43. A patient involved in a motor vehicle accident develops traumatic transection of the optic nerve inside the optic canal. Which segment of the optic nerve is damaged?",
+                options: ["A. Intraocular segment", "B. Intraorbital segment", "C. Intracanalicular segment", "D. Intracranial segment"],
+                ans: 2,
+                exp: "C is CORRECT. Traumatic Optic Neuropathy from head trauma frequently involves the Intracanalicular segment as it passes tightly through the bony optic canal[cite: 1].",
+                breakdown: { A: "Incorrect. Nerve head inside globe[cite: 1].", B: "Incorrect. Within orbital fat[cite: 1].", C: "CORRECT. Intracanalicular segment within optic canal[cite: 1].", D: "Incorrect. Inside cranial vault[cite: 1]." }
+            },
+            {
+                q: "44. What finding on visual field perimetry is characteristic of Glaucomatous optic nerve damage?",
+                options: ["A. Bitemporal hemianopsia", "B. Arcuate or Paracentral scotoma respecting horizontal meridian", "C. Homonymous hemianopia", "D. Superior quadrantanopia"],
+                ans: 1,
+                exp: "B is CORRECT. Glaucoma characteristically damages nerve fiber bundles forming Arcuate, Paracentral, or Nasal Step defects respecting the horizontal meridian[cite: 1].",
+                breakdown: { A: "Incorrect. Chiasm compression[cite: 1].", B: "CORRECT. Arcuate/Paracentral scotoma = Glaucoma[cite: 1].", C: "Incorrect. Post-chiasmal[cite: 1].", D: "Incorrect. Temporal radiation[cite: 1]." }
+            },
+            {
+                q: "45. What is the clinical significance of finding a 'macular star' of hard exudates on fundoscopy?",
+                options: ["A. Points to Multiple Sclerosis", "B. Pathognomonic for Neuroretinitis (e.g., Cat Scratch Disease, Syphilis)", "C. Indicates Giant Cell Arteritis", "D. Indicates Ethambutol toxicity"],
+                ans: 1,
+                exp: "B is CORRECT. Macular star exudates combined with optic disc swelling define Neuroretinitis (commonly caused by Bartonella henselae / Cat Scratch Disease or Syphilis)[cite: 1].",
+                breakdown: { A: "Incorrect. MS causes retrobulbar ON without macular star[cite: 1].", B: "CORRECT. Macular star = Neuroretinitis[cite: 1].", C: "Incorrect. GCA causes pale swollen disc without star[cite: 1].", D: "Incorrect. Toxic ON has no macular star[cite: 1]." }
+            },
+            {
+                q: "46. What ventral pontine syndrome features ipsilateral CN VI palsy, ipsilateral facial paralysis (CN VII), and contralateral hemiplegia?",
+                options: ["A. Weber Syndrome", "B. Millard-Gubler Syndrome", "C. Foville Syndrome", "D. Benedikt Syndrome"],
+                ans: 1,
+                exp: "B is CORRECT. Millard-Gubler Syndrome = Ventral Pontine lesion involving CN VI fascicle + CN VII fascicle + Corticospinal tract ('6 + 7 + body weak')[cite: 1].",
+                breakdown: { A: "Incorrect. Midbrain CN III + body weak[cite: 1].", B: "CORRECT. Millard-Gubler = 6 + 7 + contralateral body weak[cite: 1].", C: "Incorrect. Dorsal pontine with gaze palsy[cite: 1].", D: "Incorrect. Midbrain tremor syndrome[cite: 1]." }
+            },
+            {
+                q: "47. In a patient with suspected Giant Cell Arteritis (Arteritic ION), what invasive diagnostic procedure is considered the gold standard for confirmation?",
+                options: ["A. Lumbar Puncture", "B. Temporal Artery Biopsy", "C. Optic Nerve Sheath Biopsy", "D. Bone Marrow Aspiration"],
+                ans: 1,
+                exp: "B is CORRECT. Temporal Artery Biopsy is the gold standard[cite: 1]. However, in high suspicion, high-dose IV steroids must be started IMMEDIATELY without waiting for biopsy results[cite: 1].",
+                breakdown: { A: "Incorrect. LP is for ICP[cite: 1].", B: "CORRECT. Temporal artery biopsy confirms GCA[cite: 1].", C: "Incorrect. Dangerous and unnecessary[cite: 1].", D: "Incorrect. Unrelated[cite: 1]." }
+            },
+            {
+                q: "48. What visual symptom is characterized by 'shaky vision' or perceived environment jumping, often associated with nystagmus?",
+                options: ["A. Amaurosis Fugax", "B. Oscillopsia", "C. Metamorphopsia", "D. Diplopia"],
+                ans: 1,
+                exp: "B is CORRECT. Oscillopsia is the illusion of environmental movement or 'shaky vision' resulting from nystagmus or impaired vestibulo-ocular reflex[cite: 1].",
+                breakdown: { A: "Incorrect. Transient monocular vision loss[cite: 1].", B: "CORRECT. Oscillopsia = Shaky vision / nystagmus[cite: 1].", C: "Incorrect. Distorted vision from macular disease[cite: 1].", D: "Incorrect. Double vision[cite: 1]." }
+            },
+            {
+                q: "49. Why does a lesion of the CN VI NUCLEUS cause a conjugate horizontal gaze palsy, whereas a lesion of the CN VI PERIPHERAL NERVE causes only isolated lateral rectus weakness?",
+                options: ["A. The CN VI nerve carries sympathetic fibers", "B. The CN VI nucleus contains interneurons that travel via the MLF to the contralateral CN III medial rectus subnucleus", "C. The CN VI nerve innervates both eyes", "D. The CN VI nucleus receives direct input from the optic nerve"],
+                ans: 1,
+                exp: "B is CORRECT. The CN VI nucleus contains abducens motor neurons (for ipsilateral LR) AND interneurons crossing via the MLF to the contralateral CN III subnucleus (for contralateral MR)[cite: 1]. Thus, nuclear damage destroys horizontal gaze in BOTH eyes toward that side[cite: 1].",
+                breakdown: { A: "Incorrect. Unrelated[cite: 1].", B: "CORRECT. Nucleus contains interneurons connecting to contralateral CN III via MLF[cite: 1].", C: "Incorrect. Nerve supplies only ipsilateral LR[cite: 1].", D: "Incorrect. Input comes from PPRF/FEF[cite: 1]." }
+            },
+            {
+                q: "50. What is the fundamental treatment rule when dealing with a patient presenting with classic Optic Neuritis and suspected Multiple Sclerosis?",
+                options: ["A. Give low-dose oral Prednisone for 2 weeks", "B. Initiate high-dose IV Corticosteroids followed by an oral taper, and investigate for MS", "C. Perform immediate surgical optic nerve decompression", "D. Observe without medications as it resolves spontaneously"],
+                ans: 1,
+                exp: "B is CORRECT. Standard management for MS-related optic neuritis (ONTT trial) is high-dose IV Methylprednisolone (to accelerate visual recovery) followed by an oral taper, plus MRI workup for MS[cite: 1]. Oral steroids ALONE are contraindicated[cite: 1].",
+                breakdown: { A: "Incorrect. Oral alone increases recurrence[cite: 1].", B: "CORRECT. High-dose IV steroids + MS investigation[cite: 1].", C: "Incorrect. Surgery not indicated for ON[cite: 1].", D: "Incorrect. IV steroids speed recovery[cite: 1]." }
+            }
+        ];
+
+        let quizUserAnswers = {};
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+
+            quizData.forEach((q, index) => {
+                const qCard = document.createElement('div');
+                qCard.className = 'quiz-card';
+                qCard.id = `qCard-${index}`;
+
+                let optionsHTML = '';
+                q.options.forEach((opt, optIdx) => {
+                    optionsHTML += `<li class="quiz-option" onclick="selectQuizOption(${index}, ${optIdx})">${opt}</li>`;
+                });
+
+                qCard.innerHTML = `
+                    <div class="quiz-q-num">QUESTION ${index + 1} OF ${quizData.length}</div>
+                    <div class="quiz-question">${q.q}</div>
+                    <ul class="quiz-options" id="quizOptions-${index}">${optionsHTML}</ul>
+                    <div class="quiz-explanation" id="quizExp-${index}">
+                        <strong>Explanation:</strong> ${q.exp}
+                        <div class="option-breakdown">
+                            <strong>Option Breakdown:</strong><br>
+                            • A: ${q.breakdown.A}<br>
+                            • B: ${q.breakdown.B}<br>
+                            • C: ${q.breakdown.C}<br>
+                            • D: ${q.breakdown.D}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(qCard);
+            });
+            document.getElementById('quizCountBadge').textContent = quizData.length;
+        }
+
+        function selectQuizOption(qIdx, optIdx) {
+            if (quizUserAnswers[qIdx] !== undefined) return; // Prevent changing answer
+
+            quizUserAnswers[qIdx] = optIdx;
+            const q = quizData[qIdx];
+            const optionsList = document.querySelectorAll(`#quizOptions-${qIdx} .quiz-option`);
+
+            optionsList.forEach((optEl, i) => {
+                if (i === q.ans) {
+                    optEl.classList.add('correct');
+                } else if (i === optIdx) {
+                    optEl.classList.add('incorrect');
+                }
+            });
+
+            document.getElementById(`quizExp-${qIdx}`).classList.add('show');
+            updateScore();
+        }
+
+        function updateScore() {
+            let score = 0;
+            Object.keys(quizUserAnswers).forEach(qIdx => {
+                if (quizUserAnswers[qIdx] === quizData[qIdx].ans) {
+                    score++;
+                }
+            });
+            document.getElementById('quizScoreBadge').textContent = `Score: ${score} / ${quizData.length}`;
+        }
+
+        // Initialize App on Page Load
+        window.onload = () => {
+            updateFlashcard();
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>
