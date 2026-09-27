@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLE Reviewer: CNS Infections, Fungal, Prion & Opportunistic Pathogens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #2563eb;
+            --accent-light: #eff6ff;
+            --secondary: #0d9488;
+            --secondary-light: #f0fdf4;
+            --warning: #d97706;
+            --warning-light: #fffbeb;
+            --danger: #dc2626;
+            --danger-light: #fef2f2;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --font-title: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-code: 'Space Mono', monospace;
+        }
+
+        [data-theme="dark"] {
+            --primary: #f8fafc;
+            --primary-light: #cbd5e1;
+            --accent: #3b82f6;
+            --accent-light: #1e293b;
+            --secondary: #14b8a6;
+            --secondary-light: #0f2922;
+            --warning: #f59e0b;
+            --warning-light: #2d2006;
+            --danger: #ef4444;
+            --danger-light: #311111;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 80px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-title h1 {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-title p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .search-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-grow: 1;
+            max-width: 500px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.6rem 1rem 0.6rem 2.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .search-box::before {
+            content: "🔍";
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+        }
+
+        .theme-toggle {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        nav.tab-nav {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .tab-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 2rem;
+        }
+
+        .tab-btn {
+            padding: 1rem 1.2rem;
+            border: none;
+            background: none;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            color: var(--accent);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-family: var(--font-title);
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+
+        .callout {
+            padding: 1rem 1.2rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            border-left: 4px solid;
+        }
+
+        .callout-must-know {
+            background-color: var(--accent-light);
+            border-color: var(--accent);
+            color: var(--text-main);
+        }
+
+        .callout-pitfall {
+            background-color: var(--danger-light);
+            border-color: var(--danger);
+            color: var(--text-main);
+        }
+
+        .callout-pearl {
+            background-color: var(--secondary-light);
+            border-color: var(--secondary);
+            color: var(--text-main);
+        }
+
+        .callout-tip {
+            background-color: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text-main);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        table.med-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        table.med-table th {
+            background: var(--primary);
+            color: white;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+        }
+
+        table.med-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        table.med-table tr:nth-child(even) {
+            background-color: var(--bg);
+        }
+
+        table.med-table tr:hover {
+            background-color: var(--accent-light);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-family: var(--font-code);
+        }
+
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+        .badge-red { background: #fee2e2; color: #991b1b; }
+        .badge-green { background: #dcfce7; color: #166534; }
+        .badge-yellow { background: #fef3c7; color: #92400e; }
+
+        .diagram-container {
+            border: 1px dashed var(--accent);
+            background: var(--accent-light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-title {
+            font-family: var(--font-title);
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Flashcard Styles */
+        .flashcard-wrapper {
+            max-width: 650px;
+            margin: 2rem auto;
+            perspective: 1000px;
+        }
+
+        .flashcard {
+            width: 100%;
+            min-height: 320px;
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 16px;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background-color: var(--accent-light);
+            border: 2px solid var(--accent);
+        }
+
+        .fc-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            border: none;
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover { background: #1d4ed8; }
+        .btn-secondary { background: var(--text-muted); }
+        .btn-secondary:hover { background: #475569; }
+
+        /* Quiz Styles */
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.8rem 1rem;
+            margin: 0.5rem 0;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg);
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .option-btn.correct {
+            background: var(--secondary-light) !important;
+            border-color: var(--secondary) !important;
+            color: var(--secondary) !important;
+            font-weight: 700;
+        }
+
+        .option-btn.incorrect {
+            background: var(--danger-light) !important;
+            border-color: var(--danger) !important;
+            color: var(--danger) !important;
+        }
+
+        .explanation-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            display: none;
+        }
+
+        .copy-btn {
+            float: right;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.75rem;
+            background: var(--border);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background: var(--text-muted);
+            color: white;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 99;
+        }
+
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; align-items: stretch; }
+            .search-controls { max-width: 100%; }
+            main { padding: 0 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-title">
+                <h1>NEUROLOGY 2: CNS INFECTIONS REVIEWER</h1>
+                <p>Fungal, Prion, Brain Abscess, Spirochetal, & Parasitic Pathogens | PLE & Academic Board Standard</p>
+            </div>
+            <div class="search-controls">
+                <div class="search-box">
+                    <input type="text" id="globalSearch" placeholder="Search keywords, organisms, drugs, CSF findings..." onkeyup="filterContent()">
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()">🌙 Mode</button>
+            </div>
+        </div>
+        <nav class="tab-nav">
+            <div class="tab-container">
+                <button class="tab-btn active" onclick="switchTab('overview')">1. Overview & CSF</button>
+                <button class="tab-btn" onclick="switchTab('fungal')">2. Chronic & Fungal</button>
+                <button class="tab-btn" onclick="switchTab('abscess')">3. Brain Abscess</button>
+                <button class="tab-btn" onclick="switchTab('prion')">4. Prion Diseases</button>
+                <button class="tab-btn" onclick="switchTab('parasitic')">5. Parasitic & Rickettsial</button>
+                <button class="tab-btn" onclick="switchTab('comparisons')">6. High-Yield Comparisons</button>
+                <button class="tab-btn" onclick="switchTab('flashcards')">7. Active-Recall Flashcards (50)</button>
+                <button class="tab-btn" onclick="switchTab('quiz')">8. Board Exam Self-Assessment (50)</button>
+                <button class="tab-btn" onclick="switchTab('cram')">9. Ultra-Cram Sheet</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- ==================== TAB 1: OVERVIEW & CSF ==================== -->
+        <section id="overview" class="tab-content active">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Core Learning Objectives & Diagnostic Approach</h2>
+                </div>
+                <p>Mastering central nervous system (CNS) infections requires immediate syndrome identification, precise neuro-anatomical localization, pattern interpretation of cerebrospinal fluid (CSF) profiles, and rapid initiation of targeted antimicrobial therapy[cite: 1].</p>
+                
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⭐ MUST KNOW: Systematic Diagnostic Algorithmic Sequence</div>
+                    <ol style="margin-left: 1.2rem;">
+                        <li><strong>Start with the Clinical Syndrome:</strong> Classify into Acute Meningitis (&lt;1 week), Encephalitis, Chronic Meningitis (&gt;2 weeks), Focal Parenchymal Mass/Infection, Myelitis, or Rapidly Progressive Dementia[cite: 1].</li>
+                        <li><strong>Localize the Pathology:</strong> Meninges, brain parenchyma, perforating cerebral microvessels, or ventricular CSF pathways[cite: 1].</li>
+                        <li><strong>Rule Out Space-Occupying Lesions FIRST:</strong> Contrast Neuroimaging (MRI + DWI or CT) MUST precede Lumbar Puncture (LP) in brain abscess or mass effect to prevent brainstem herniation[cite: 1].</li>
+                        <li><strong>Interpret CSF Patterns Holistically:</strong> Never judge an isolated CSF metric; analyze pressure, cell count, differential, protein, and glucose concurrently[cite: 1].</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Comprehensive CSF Profile Diagnostic Master Matrix</h2>
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table class="med-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Bacterial Meningitis</th>
+                            <th>Viral Meningitis / Encephalitis</th>
+                            <th>Tuberculous Meningitis</th>
+                            <th>Fungal Meningitis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Opening Pressure</strong></td>
+                            <td>Often Elevated[cite: 1]</td>
+                            <td>Usually Normal or Mildly Elevated[cite: 1]</td>
+                            <td>Elevated[cite: 1]</td>
+                            <td>Elevated (Strikingly high in Cryptococcosis)[cite: 1]</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cell Count</strong></td>
+                            <td>Markedly High (1,000–5,000 /µL)[cite: 1]</td>
+                            <td>5–1,000 /µL[cite: 1]</td>
+                            <td>5–500 /µL[cite: 1]</td>
+                            <td>5–500 /µL (Minimal/absent in HIV/neutropenia)[cite: 1]</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Differential</strong></td>
+                            <td><span class="badge badge-red">Neutrophilic Dominance</span>[cite: 1]</td>
+                            <td><span class="badge badge-blue">Lymphocytic Dominance</span>[cite: 1]</td>
+                            <td><span class="badge badge-blue">Lymphocytic Dominance</span>[cite: 1]</td>
+                            <td><span class="badge badge-blue">Lymphocytic Dominance</span>[cite: 1]</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Protein</strong></td>
+                            <td>Markedly Elevated[cite: 1]</td>
+                            <td>Normal or Mildly Elevated[cite: 1]</td>
+                            <td>Often Markedly Elevated[cite: 1]</td>
+                            <td>Elevated[cite: 1]</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Glucose Ratio</strong></td>
+                            <td>Low (&lt;40% serum)[cite: 1]</td>
+                            <td>Usually Normal[cite: 1]</td>
+                            <td>Low[cite: 1]</td>
+                            <td>Low[cite: 1]</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Core Diagnostic Tests</strong></td>
+                            <td>Gram stain, Bacterial culture, Molecular NAAT[cite: 1]</td>
+                            <td>Multiplex PCR / NAAT[cite: 1]</td>
+                            <td>TB PCR / NAAT, AFB Smear/Stain, AFB Culture[cite: 1]</td>
+                            <td>Cryptococcal Antigen (CALAS), Fungal culture, Targeted assays[cite: 1]</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout callout-pitfall">
+                    <div class="callout-title">⚠️ Common Examination Pitfall</div>
+                    <p>Do NOT rely on normal/low CSF cell counts to rule out fungal meningitis in severely immunocompromised individuals (e.g., advanced HIV/AIDS, CD4 &lt; 100/µL)[cite: 1]. Muted cell-mediated immunity suppresses inflammatory pleocytosis, yielding CSF leukocyte counts ≤5 cells/µL in up to two-thirds of HIV-associated cryptococcal meningitis cases[cite: 1].</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 2: CHRONIC & FUNGAL MENINGITIS ==================== -->
+        <section id="fungal" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Tuberculous Meningitis (TBM)</h2>
+                </div>
+                <p>Highly prevalent in the Philippines[cite: 1]. Pathologically features a thick, gelatinous inflammatory exudate preferentially accumulating in the <strong>basal cisterns</strong>[cite: 1].</p>
+                
+                <div class="diagram-container">
+                    <div class="diagram-title">Anatomical Triad of Complications in Basal Meningeal Inflammation</div>
+                    <p><strong>1. Cranial Neuropathies:</strong> Direct entrapment of cranial nerves running through basal cisterns (CN III, VI ocular motor palsies)[cite: 1].</p>
+                    <p><strong>2. Vasculitis & Infarctions:</strong> Inflammatory arteritis of perforating vessels (e.g., lenticulostriate branches) → Internal capsule and basal ganglia ischemic stroke[cite: 1].</p>
+                    <p><strong>3. Communicating Hydrocephalus:</strong> Dense exudates block CSF flow through basal pathways and impair arachnoid villi resorption → Progressive raised ICP and altered consciousness[cite: 1].</p>
+                </div>
+
+                <div class="callout callout-pearl">
+                    <div class="callout-title">💡 Clinical Pearl & Diagnostic Sensitivity</div>
+                    <p>AFB smear sensitivity on initial CSF is low (&lt;30%) unless severe[cite: 1]. Always send CSF for <strong>TB PCR / NAAT</strong> and obtain contrast MRI showing intense basal leptomeningeal enhancement, ventriculomegaly, and subcortical ischemic lesions[cite: 1]. Initiate empiric anti-TB therapy immediately upon high clinical suspicion[cite: 1].</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Cryptococcal Meningitis (Cryptococcus neoformans / C. gattii)</h2>
+                </div>
+                <p>Acquired via inhalation of aerosolized spores from bird/pigeon roosts into the lungs[cite: 1]. Major cause of opportunistic infection in advanced HIV (6–12% prevalence) and immunocompetent adults[cite: 1].</p>
+
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⭐ MUST KNOW: Pathognomonic Features & Management</div>
+                    <ul>
+                        <li><strong>Indistinct/Indolent Presentation:</strong> Fever, headache, and meningismus are absent in up to 40% of non-HIV patients[cite: 1]. Frequently presents with confusional states, dementia, papilledema (50%), or pure motor lacunar-like stroke[cite: 1].</li>
+                        <li><strong>Neuroimaging Hallmark:</strong> Dilated Virchow-Robin perivascular spaces filled with capsular mucopolysaccharides producing <em>"soap-bubble" gelatinous pseudocysts</em> in the basal ganglia and thalamus with minimal enhancement[cite: 1].</li>
+                        <li><strong>Primary Rapid Diagnostics:</strong> Cryptococcal Antigen Latex Agglutination System (CALAS, &gt;90% sensitivity)[cite: 1]. India Ink preparation demonstrates 5–15 µm halo-encapsulated budding yeast cells in 75% of cases (requires 20–40 mL CSF yield)[cite: 1].</li>
+                        <li><strong>ICP Control Protocol:</strong> Markedly elevated opening pressure. Require daily therapeutic LPs until opening pressure stays &lt;25 cm H2O for ≥2 consecutive days[cite: 1].</li>
+                        <li><strong>Antifungal Regimen:</strong> 
+                            <br>• <em>Induction:</em> Liposomal Amphotericin B (3–4 mg/kg/day) + Flucytosine (100 mg/kg/day) x ≥2 weeks[cite: 1].
+                            <br>• <em>Consolidation:</em> Fluconazole 400–800 mg/day x 8 weeks[cite: 1].
+                            <br>• <em>Maintenance:</em> Fluconazole 200 mg/day x 1 year[cite: 1]. Discontinue in HIV only if CD4 &gt; 100/µL and viral load suppressed[cite: 1].
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Other Opportunistic Systemic Fungal Mycoses</h2>
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table class="med-table">
+                    <thead>
+                        <tr>
+                            <th>Fungal Entity</th>
+                            <th>Risk Factors & Origin</th>
+                            <th>Pathology & Vascular Features</th>
+                            <th>Treatment Regimen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Candidiasis</strong><br>(<em>C. albicans</em>)</td>
+                            <td>Severe burns, TPN in children, Candida sepsis[cite: 1]. Most common overall opportunistic fungus[cite: 1].</td>
+                            <td>Multiple microabscesses, meningitis, meningoencephalitis. High CSF pleocytosis (up to 2,000/µL)[cite: 1].</td>
+                            <td>IV Amphotericin B. Grave prognosis despite therapy[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aspergillosis</strong><br>(<em>A. fumigatus</em>)</td>
+                            <td>Nosocomial, sphenoid sinusitis, mastoiditis, skull base osteomyelitis, post-pulmonary infection[cite: 1].</td>
+                            <td>Direct hyphal vascular invasion → Infectious vasculitis with arterial thrombosis, tissue necrosis, and hemorrhage[cite: 1]. Does NOT present as typical meningitis[cite: 1].</td>
+                            <td>Liposomal Amphotericin B + Voriconazole + Echinocandins. Add Itraconazole 200 mg BID[cite: 1]. Surgical resection[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mucormycosis</strong><br>(Zygomycosis)</td>
+                            <td>Uncontrolled Diabetes Mellitus (Diabetic Ketoacidosis / DKA), Leukemia, Corticosteroids, IVDU[cite: 1].</td>
+                            <td>Aggressive direct tissue invasion from nasal turbinates → Orbit (proptosis, ophthalmoplegia, lid edema) → Cavernous sinus thrombosis → Hemorrhagic cerebral infarction[cite: 1]. Rapidly fatal[cite: 1].</td>
+                            <td>Immediate correction of DKA + Liposomal Amphotericin B / Posaconazole + Radical surgical debridement / enucleation[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Coccidioidomycosis</strong></td>
+                            <td>Endemic to Southwestern USA. Primary pulmonary infection[cite: 1].</td>
+                            <td>Chronic basilar granulomatous meningitis mimicking TBM[cite: 1]. Poor CSF culture yield; relies on CSF serology[cite: 1].</td>
+                            <td>Oral Fluconazole + IV Amphotericin B; intrathecal via Ommaya reservoir over years[cite: 1].</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 3: BRAIN ABSCESS ==================== -->
+        <section id="abscess" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Brain Abscess: Pathophysiology & Anatomical Origins</h2>
+                </div>
+                <p>Focal suppurative infection within brain parenchyma starting as localized cerebritis and evolving into a capsule-enclosed purulent cavity[cite: 1].</p>
+
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⭐ Primary Spread Routes & Anatomic Predictions</div>
+                    <ul>
+                        <li><strong>Contiguous Spread (40–50%):</strong>
+                            <br>• <em>Otitis Media / Mastoiditis:</em> Temporal lobe or Cerebellar abscess[cite: 1].
+                            <br>• <em>Paranasal/Frontal Sinusitis:</em> Frontal lobe abscess[cite: 1].
+                            <br>• <em>Sphenoid Sinusitis:</em> Temporal lobe or Sella turcica abscess[cite: 1].
+                        </li>
+                        <li><strong>Hematogenous / Metastatic Spread (25–35%):</strong> Secondary to bacteremia, endocarditis, or pulmonary arteriovenous malformations. Characteristically produces <em>multiple lesions located at the gray-white matter junction</em> in the distribution of the middle cerebral artery[cite: 1].</li>
+                    </ul>
+                </div>
+
+                <div class="diagram-container">
+                    <div class="diagram-title">4 Pathological Stages from Cerebritis to Abscess Formation</div>
+                    <div style="text-align: left; max-width: 900px; margin: 0 auto;">
+                        <p><strong>1. Early Cerebritis (Days 1–3):</strong> Uncontained local edema, intense vascular congestion, microglial accumulation, and focal early coagulative necrosis[cite: 1].</p>
+                        <p><strong>2. Late Cerebritis (Days 3–7):</strong> Progression to central liquefactive necrosis surrounded by maximal vasogenic edema and early reticulin meshwork network[cite: 1].</p>
+                        <p><strong>3. Early Encapsulation (Days 5–7):</strong> Neovascularization and fibroblastic collagen deposition forming a thin peripheral rim[cite: 1].</p>
+                        <p><strong>4. Late Encapsulation (&gt;7 Days):</strong> Well-defined, thick, collagenous hyper-enhancing capsule with necrotic central core and variable surrounding edema reduction[cite: 1].</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Clinical Presentation, Diagnostics & Management Protocol</h2>
+                </div>
+                
+                <div class="callout callout-pitfall">
+                    <div class="callout-title">⚠️ ABSOLUTE CONTRAINDICATION: Lumbar Puncture Warning</div>
+                    <p><strong>DO NOT perform a Lumbar Puncture when a brain abscess or intracranial mass effect is suspected!</strong> LP has negligible diagnostic utility for parenchymal abscesses and carries a life-threatening risk of uncal or tonsillar brain herniation due to high pressure gradients[cite: 1].</p>
+                </div>
+
+                <table class="med-table">
+                    <thead>
+                        <tr>
+                            <th>Anatomical Lobe</th>
+                            <th>Dominant Clinical Manifestations</th>
+                            <th>Diagnostic & Management Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Frontal Lobe</strong></td>
+                            <td>Personality changes, apathy, motor weakness, expressive dysphasia, contralateral hemiparesis[cite: 1].</td>
+                            <td rowspan="4">
+                                <strong>1. Primary Neuroimaging:</strong> Contrast-enhanced MRI with Diffusion-Weighted Imaging (DWI). Hallmark: <em>Central restricted diffusion (bright on DWI, dark on ADC)</em> with a smooth, uniformly hyper-enhancing peripheral ring[cite: 1].<br><br>
+                                <strong>2. Microbiologic Workup:</strong> Blood cultures x 2 pairs, sinus/dental evaluation[cite: 1].<br><br>
+                                <strong>3. Empiric Antimicrobial Therapy:</strong> High-dose IV 3rd Gen Cephalosporin (Ceftriaxone) + Metronidazole (for anaerobes) +/- Vancomycin (if post-surgical or Staph suspected)[cite: 1].<br><br>
+                                <strong>4. Surgical Intervention:</strong> Early neurosurgical stereotactic aspiration or excision for source control and decompression[cite: 1].
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Temporal Lobe</strong></td>
+                            <td>Receptive Wernicke's aphasia, homonymous superior quadrantanopia ("pie-in-the-sky" visual defect)[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cerebellum</strong></td>
+                            <td>Ipsilateral limb ataxia, nystagmus, dysmetria, threat of 4th ventricle compression → acute obstructive hydrocephalus[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cortical Regions</strong></td>
+                            <td>Focal or generalized epileptic seizures, raised ICP headache[cite: 1].</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 4: PRION DISEASES ==================== -->
+        <section id="prion" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Prion Biology & Conformational Pathogenesis</h2>
+                </div>
+                <p>Prion diseases are universally fatal transmissible neurodegenerative disorders caused by structural misfolding of normal cellular prion protein ($PrP^C$) into an abnormal disease-associated isoform ($PrP^{Sc}$)[cite: 1].</p>
+
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⭐ Molecular Mechanism & Decontamination Imperative</div>
+                    <ul>
+                        <li><strong>Biophysical Transformation:</strong> $PrP^C$ undergoes a conformational shift resulting in a marked loss of $\alpha$-helical content and a major increase in <strong>$\beta$-pleated sheet structure</strong>[cite: 1]. $PrP^{Sc}$ acts as a template, forcing native $PrP^C$ to misfold and aggregate, causing spongiform neuronal vacuolation, gliosis, and synaptic death without inciting any conventional inflammatory or immune response[cite: 1].</li>
+                        <li><strong>Gene Location:</strong> Encoded by the <em>PRNP</em> gene located on the short arm of <strong>Chromosome 20</strong>[cite: 1].</li>
+                        <li><strong>Extreme Resistance & Sterilization Standards:</strong> Prions resist standard formalin, alcohol, boiling, and UV irradiation[cite: 1]. Mandatory decontamination methods for clinical/surgical tools:
+                            <br>1. Autoclaving at $132^\circ\text{C}$ at $15\text{ lb/in}^2$ pressure for 1 hour[cite: 1].
+                            <br>2. Immersion in 5% Sodium Hypochlorite (bleach) for 1 hour[cite: 1].
+                            <br>3. Incineration of disposable materials[cite: 1].
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Sporadic Creutzfeldt-Jakob Disease (sCJD)</h2>
+                </div>
+                <p>The prototypical human prion disease[cite: 1]. Peak onset in late middle age (60–70 years), affecting sexes equally[cite: 1]. Characterized by subacute, rapidly progressive dementia evolving over weeks to months, accompanied by myoclonus[cite: 1].</p>
+
+                <div class="callout callout-pearl">
+                    <div class="callout-title">💡 Clinical Variants & Key Diagnostic Biomarkers</div>
+                    <ul>
+                        <li><strong>Stimulus-Sensitive Myoclonus:</strong> Sudden, startle-induced myoclonic jerks triggered by loud noises, bright lights, or tactile stimuli[cite: 1]. Note: Well-formed motor seizures are NOT a standard component[cite: 1].</li>
+                        <li><strong>Heidenhain Variant:</strong> Early prominent cortical visual disturbances (e.g., visual agnosia, metamorphopsia, cortical blindness) preceding mental decline[cite: 1].</li>
+                        <li><strong>Brownell-Oppenheimer Variant:</strong> Early prominent cerebellar gait and limb ataxia preceding cognitive decay[cite: 1].</li>
+                        <li><strong>Neuroimaging Hallmark (MRI DWI/FLAIR):</strong> High sensitivity (&gt;90%). Displays asymmetric focal hyperintensity and diffusion restriction along the cerebral cortex (<strong>"Cortical Ribboning"</strong>) and striatum (caudate nucleus and putamen)[cite: 1].</li>
+                        <li><strong>Electroencephalography (EEG):</strong> Stereotyped 1–2 Hz periodic, synchronous, sharp-wave complexes (PSWCs) on a slow, low-voltage background[cite: 1].</li>
+                        <li><strong>CSF Biomarkers:</strong> <strong>RT-QuIC (Real-Time Quaking-Induced Conversion)</strong> offers ultra-high diagnostic specificity by amplifying minute prion protein seeds[cite: 1]. Positive CSF 14-3-3 protein and total tau are supportive markers of rapid neuronal necrosis[cite: 1].</li>
+                    </ul>
+                </div>
+
+                <div class="callout callout-pitfall">
+                    <div class="callout-title">⚠️ Common Examination Pitfall: CJD Treatable Mimics</div>
+                    <p>Never diagnose CJD without actively ruling out reversible, treatable mimics of rapidly progressive dementia: Autoimmune Encephalitis (especially anti-LGI1 / anti-NMDAR), HSV Encephalitis, Neurosyphilis, Nonconvulsive Status Epilepticus, Hashimoto Encephalopathy, Hepatic/Metabolic Encephalopathy, Wernicke Encephalopathy, CNS Lymphoma, and Primary CNS Vasculitis[cite: 1].</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Atypical Human Prion Disease Phenotypes</h2>
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table class="med-table">
+                    <thead>
+                        <tr>
+                            <th>Disease Entity</th>
+                            <th>Genetics / Transmission</th>
+                            <th>Clinical Features</th>
+                            <th>Pathology & Prognosis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Gerstmann-Sträussler-Scheinker (GSS) Syndrome</strong></td>
+                            <td>Autosomal dominant inherited PRNP mutation[cite: 1].</td>
+                            <td>Insidious midlife onset. Prominent progressive cerebellar ataxia, dysarthria, nystagmus, corticospinal tract signs, leg dysesthesias; dementia is late/mild[cite: 1].</td>
+                            <td>PAS-positive, stellate, amyloid-like "Kuru plaques" in cerebellar cortex[cite: 1]. Prolonged duration (mean 5 years)[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fatal Familial Insomnia (FFI)</strong></td>
+                            <td>Autosomal dominant mutation at PRNP Codon 178 combined with Methionine at Codon 129[cite: 1].</td>
+                            <td>Intractable disabling insomnia, severe autonomic dysregulation (hyperhidrosis, tachycardia, hypertension), dysarthria, and dementia[cite: 1].</td>
+                            <td>Severe neuronal loss and astrogliosis localized selectively to the <em>medial thalamic nuclei</em>[cite: 1]. Death in 7–15 months[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kuru ("Laughing Sickness")</strong></td>
+                            <td>Transmitted via endocannibalistic funeral rituals involving handling/ingestion of brain tissue among Fore people of Papua New Guinea[cite: 1].</td>
+                            <td>Afebrile progressive cerebellar ataxia, extraocular movement defects, severe tremors, emotional lability/pathological laughter, mutism[cite: 1].</td>
+                            <td>Noninflammatory neuronal loss and cerebellar Kuru plaques[cite: 1]. Disappeared after cessation of cannibalism[cite: 1]. Death in 3–6 months[cite: 1].</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 5: PARASITIC & RICKETTSIAL ==================== -->
+        <section id="parasitic" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Neurocysticercosis (Taenia solium)</h2>
+                </div>
+                <p>The single leading cause of acquired adult epilepsy in developing nations and endemic regions, including the Philippines[cite: 1]. Acquired via fecal-oral ingestion of <em>T. solium</em> eggs (from human feces), NOT by eating undercooked pork (which causes intestinal taeniasis)[cite: 1].</p>
+
+                <div class="diagram-container">
+                    <div class="diagram-title">The 4 Radiographic Stages of Parenchymal Neurocysticercosis</div>
+                    <p><strong>1. Vesicular Stage:</strong> Viable fluid-filled cyst containing an eccentric hyperdense scolex ("dot in a cyst"). Little or no host edema[cite: 1].</p>
+                    <p><strong>2. Colloidal Degenerative Stage:</strong> Cyst death initiates host immune response → Intense pericystic ring enhancement with prominent vasogenic edema[cite: 1].</p>
+                    <p><strong>3. Granular-Nodular Stage:</strong> Cyst collapse, wall thickening, nodular enhancement with decreasing surrounding edema[cite: 1].</p>
+                    <p><strong>4. Calcified Stage:</strong> Complete resolution into small, dense, non-enhancing calcified punctate nodules. Best visualized on non-contrast CT[cite: 1].</p>
+                </div>
+
+                <div class="callout callout-tip">
+                    <div class="callout-title">🧠 Exam Tip: Treatment Protocol & Racemose Variant</div>
+                    <ul>
+                        <li><strong>Anthelminthic Therapy:</strong> Albendazole (5 mg/kg TID x 15–30 days) or Praziquantel[cite: 1].</li>
+                        <li><strong>MANDATORY Corticosteroids:</strong> Co-administer High-Dose Corticosteroids (Prednisone or Dexamethasone) BEFORE starting anthelmintics! Dying parasites trigger an intense host inflammatory flare that acutely exacerbates cerebral edema and seizures[cite: 1].</li>
+                        <li><strong>Racemose Variant:</strong> Proliferating multi-lobulated cysts located in the basilar subarachnoid space causing malignant arachnoiditis, hydrocephalus, stroke, and cranial nerve palsies[cite: 1]. Poorly responsive to antihelminthics; requires shunt placement[cite: 1].</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Helminthic, Trematode & Nematode CNS Infections</h2>
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table class="med-table">
+                    <thead>
+                        <tr>
+                            <th>Pathogen / Disease</th>
+                            <th>Mode of Transmission</th>
+                            <th>Clinical Features & CNS Pathology</th>
+                            <th>Treatment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Trichinellosis</strong><br>(<em>Trichinella spiralis</em>)</td>
+                            <td>Ingestion of undercooked pork containing encysted larvae[cite: 1].</td>
+                            <td>Gastroenteritis → Larval muscle invasion (myalgia, severe periorbital/eyelid edema, marked eosinophilia)[cite: 1]. Unencysted CNS migration causes delirium, encephalitis, and sterile embolic strokes[cite: 1]. Wet mount muscle biopsy confirms[cite: 1].</td>
+                            <td>Albendazole + Prednisone (40–60 mg/day)[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Schistosomiasis</strong><br>(<em>Schistosoma</em> spp.)</td>
+                            <td>Skin penetration by cercariae in fresh water ("Swimmer's itch", Katayama fever)[cite: 1]. Endemic in Leyte/Samar[cite: 1].</td>
+                            <td>• <em>S. japonicum:</em> Deposits eggs in cerebral hemispheres → Granulomatous brain tumor mimic, seizures[cite: 1].<br>• <em>S. mansoni / haematobium:</em> Deposits eggs in conus medullaris → Acute/subacute transverse myelitis with CSF eosinophilia[cite: 1].</td>
+                            <td>Praziquantel (20 mg/kg TID) + Corticosteroids[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Eosinophilic Meningitis</strong><br>(<em>Angiostrongylus cantonensis</em>)</td>
+                            <td>Ingestion of raw snails, freshwater prawns, or contaminated lettuce[cite: 1].</td>
+                            <td>Severe headache, dysesthesias/paresthesias, cranial nerve palsies, painful polyradiculopathy, CSF eosinophilia (&gt;10%)[cite: 1].</td>
+                            <td>Supportive care, serial LPs, Corticosteroids[cite: 1]. Anthelminthics controversial.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Protozoal & Rickettsial Infections</h2>
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table class="med-table">
+                    <thead>
+                        <tr>
+                            <th>Pathogen</th>
+                            <th>Epidemiology / Transmission</th>
+                            <th>Key Clinical Manifestations</th>
+                            <th>Diagnostic & Therapeutic Regimen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cerebral Toxoplasmosis</strong><br>(<em>Toxoplasma gondii</em>)</td>
+                            <td>Ingestion of raw meat or cat feces exposure[cite: 1]. #1 focal brain lesion in AIDS (CD4 &lt; 100/µL)[cite: 1].</td>
+                            <td>Multiple focal ring-enhancing basal ganglia abscesses with mass effect/edema[cite: 1]. Seizures, focal deficits[cite: 1]. Congenital triad: Chorioretinitis, Hydrocephalus, Intracranial calcifications[cite: 1].</td>
+                            <td>Sulfadiazine + Pyrimethamine + Leucovorin (to prevent antifolate marrow suppression) x ≥6 weeks[cite: 1]. Maintenance until CD4 &gt; 200 for 6 months[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary Amebic Meningoencephalitis (PAM)</strong><br>(<em>Naegleria fowleri</em>)</td>
+                            <td>Swimming underwater in warm freshwater lakes[cite: 1]. Amoeba penetrates cribriform plate[cite: 1].</td>
+                            <td>Fulminant necrotizing hemorrhagic meningoencephalitis[cite: 1]. Rapid progression to coma and death within 7 days[cite: 1]. CSF mimics bacterial meningitis but contains RBCs and motile trophozoites on wet mount[cite: 1].</td>
+                            <td>High-dose IV Amphotericin B + Miltefosine + Rifampin[cite: 1]. Almost universally fatal[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cerebral Malaria</strong><br>(<em>Plasmodium falciparum</em>)</td>
+                            <td>Anopheles mosquito vector[cite: 1]. Parasitized RBCs clog cerebral microvessels → Dürck nodes (glial necrosis foci)[cite: 1].</td>
+                            <td>Encephalopathy, seizures, coma[cite: 1]. Pathognomonic sign: <em>Malarial Retinopathy</em> (macular whitening, vessel discoloration, blot hemorrhages)[cite: 1].</td>
+                            <td>First-line: IV Artesunate[cite: 1]. Alternative: IV Quinine[cite: 1]. High-dose dexamethasone is CONTRAINDICATED[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>African Trypanosomiasis</strong><br>(<em>T. brucei</em>)</td>
+                            <td>Tsetse fly vector[cite: 1]. Systemic chancre → Chronic meningoencephalitis[cite: 1].</td>
+                            <td><strong>Winterbottom Sign:</strong> Posterior cervical lymphadenopathy[cite: 1]. <strong>Kerandel Hyperesthesia:</strong> Severe pain from minor trauma[cite: 1]. Circadian sleep-wake reversal ("Sleeping sickness")[cite: 1].</td>
+                            <td>Late CNS Stage: Eflornithine + Nifurtimox[cite: 1]. Melarsoprol carries 10% risk of reactive fatal encephalopathy[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rickettsioses</strong><br>(Typhus, RMSF, Q Fever)</td>
+                            <td>Arthropod vectors (lice, fleas, ticks, mites)[cite: 1]. Vasculitis via microvascular endothelial invasion[cite: 1].</td>
+                            <td>High fever, severe headache, macular rash (day 4-5)[cite: 1]. Scrub typhus: Necrotic eschar at mite site[cite: 1]. <strong>Q Fever (<em>Coxiella burnetii</em>):</strong> NO skin rash; atypical pneumonia/meningitis[cite: 1].</td>
+                            <td>Doxycycline (or Chloramphenicol)[cite: 1]. High efficacy when started early[cite: 1].</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 6: HIGH-YIELD COMPARISONS ==================== -->
+        <section id="comparisons" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Side-by-Side Diagnostic Differentiation Matrix</h2>
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table class="med-table">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Tuberculous Meningitis</th>
+                            <th>Cryptococcal Meningitis</th>
+                            <th>Cerebral Toxoplasmosis</th>
+                            <th>Primary CNS Lymphoma</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Primary Risk Group</strong></td>
+                            <td>General population, immunocompromised, endemic regions[cite: 1].</td>
+                            <td>Advanced HIV (CD4 &lt; 100), immunosuppressed, immunocompetent[cite: 1].</td>
+                            <td>AIDS patients with CD4 &lt; 100/µL[cite: 1].</td>
+                            <td>AIDS patients with CD4 &lt; 50/µL[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Neuroimaging (MRI)</strong></td>
+                            <td>Basal cistern dense enhancement, hydrocephalus, lacunar infarcts[cite: 1].</td>
+                            <td>Gelatinous "Soap-bubble" pseudocysts in Virchow-Robin spaces[cite: 1].</td>
+                            <td>Multiple ring-enhancing lesions in basal ganglia/corticomedullary junction[cite: 1].</td>
+                            <td>Solitary (or few) periventricular ring-enhancing lesion; EBV DNA+[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Definitive Laboratory Test</strong></td>
+                            <td>CSF TB PCR / NAAT, AFB Culture[cite: 1].</td>
+                            <td>CSF CALAS Antigen assay, India Ink stain, Sabouraud culture[cite: 1].</td>
+                            <td>Clinical/radiographic empiric trial response; Brain biopsy[cite: 1].</td>
+                            <td>CSF EBV PCR; Brain biopsy[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>First-Line Targeted Therapy</strong></td>
+                            <td>Rifampicin + Isoniazid + Pyrazinamide + Ethambutol + Steroids[cite: 1].</td>
+                            <td>Liposomal Amphotericin B + Flucytosine[cite: 1].</td>
+                            <td>Sulfadiazine + Pyrimethamine + Leucovorin[cite: 1].</td>
+                            <td>High-dose Methotrexate, Antiretrovirals, Whole-brain radiation.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Prion Phenotypes vs. Rapidly Progressive Dementia Mimics</h2>
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                </div>
+                <table class="med-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Sporadic CJD</th>
+                            <th>Autoimmune Encephalitis (e.g. Anti-LGI1 / NMDAR)</th>
+                            <th>HSV-1 Encephalitis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Onset & Tempo</strong></td>
+                            <td>Subacute progression over weeks to months[cite: 1].</td>
+                            <td>Acute or subacute over days to weeks[cite: 1].</td>
+                            <td>Hyperacute/acute over days[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dominant Signs</strong></td>
+                            <td>Dementia + Startle-induced Myoclonus + Ataxia + Visual agnosia[cite: 1].</td>
+                            <td>Faciobrachial dystonic seizures, psychiatric features, amnesia.</td>
+                            <td>Fever, temporal lobe seizures, anosmia, bizarre behavioral changes[cite: 1].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EEG Hallmark</strong></td>
+                            <td>1–2 Hz Periodic Sharp Wave Complexes (PSWCs)[cite: 1].</td>
+                            <td>Extreme delta brush (NMDAR) or non-specific slowing.</td>
+                            <td>Periodic lateralized epileptiform discharges (PLEDs) over temporal lobes.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MRI Hallmark</strong></td>
+                            <td>Cortical Ribboning + Caudate/Putamen DWI hyperintensity[cite: 1].</td>
+                            <td>Medial temporal lobe / limbic hyperintensity on T2/FLAIR.</td>
+                            <td>Asymmetric temporal lobe edema and hemorrhagic necrosis.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary Diagnostic Test</strong></td>
+                            <td>CSF RT-QuIC positive[cite: 1].</td>
+                            <td>Serum/CSF Autoantibody panel (Anti-LGI1, NMDAR).</td>
+                            <td>CSF HSV-1 PCR.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 7: FLASHCARDS ==================== -->
+        <section id="flashcards" class="tab-content">
+            <div class="card" style="text-align: center;">
+                <h2>Active-Recall Medical Board Flashcards</h2>
+                <p>Mastering core high-yield facts for the Physician Licensure Examination (PLE). Flip to review!</p>
+                
+                <div style="margin: 1rem 0; display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+                    <button class="btn btn-secondary" onclick="filterFC('all')">All (50)</button>
+                    <button class="btn btn-secondary" onclick="filterFC('CSF')">CSF Profiles</button>
+                    <button class="btn btn-secondary" onclick="filterFC('Fungal')">Fungal</button>
+                    <button class="btn btn-secondary" onclick="filterFC('Abscess')">Brain Abscess</button>
+                    <button class="btn btn-secondary" onclick="filterFC('Prion')">Prion</button>
+                    <button class="btn btn-secondary" onclick="filterFC('Parasitic')">Parasitic & Others</button>
+                </div>
+
+                <div class="flashcard-wrapper">
+                    <div class="flashcard" id="fcCard" onclick="flipFC()">
+                        <div class="card-front">
+                            <div>
+                                <span class="badge badge-blue" id="fcCategory">Category</span>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;" id="fcNumber">Card 1 / 50</p>
+                            </div>
+                            <h3 id="fcQuestion" style="font-size: 1.15rem; margin: 1rem 0;">Flashcard Question Content Loading...</h3>
+                            <p style="font-size: 0.8rem; color: var(--accent);">Click to flip / Press Spacebar</p>
+                        </div>
+                        <div class="card-back">
+                            <div>
+                                <span class="badge badge-green">ANSWER & EXPLANATION</span>
+                            </div>
+                            <p id="fcAnswer" style="font-size: 1rem; margin: 1rem 0; text-align: left;">Flashcard Answer Content Loading...</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Click to flip back</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fc-controls">
+                    <button class="btn" onclick="prevFC()">← Previous</button>
+                    <button class="btn btn-secondary" onclick="shuffleFC()">🔀 Shuffle</button>
+                    <button class="btn" onclick="nextFC()">Next →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 8: SELF-ASSESSMENT QUIZ ==================== -->
+        <section id="quiz" class="tab-content">
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h2>PLE Board-Style Multiple Choice Exam</h2>
+                        <p>50 Clinical Vignettes with Complete Per-Distractor Explanations</p>
+                    </div>
+                    <div style="background: var(--accent-light); padding: 0.8rem 1.2rem; border-radius: 8px; border: 1px solid var(--accent); text-align: right;">
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Score Tracker:</span>
+                        <div id="quizScore" style="font-family: var(--font-title); font-size: 1.5rem; font-weight: 800; color: var(--accent);">0 / 50</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-container" id="quizContainer">
+                <!-- Quiz questions dynamically populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- ==================== TAB 9: ULTRA-CRAM SHEET ==================== -->
+        <section id="cram" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">10-Minute Rapid Review Ultra-Cram Sheet</h2>
+                </div>
+                <p>High-Yield "If You See X → Think Y" Trigger Lines & Board Exam Buzzwords</p>
+
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⚡ RAPID CLINICAL TRIGGER CHAINS ("IF YOU SEE X → THINK Y")</div>
+                    <ul style="line-height: 1.8;">
+                        <li><strong>Subacute basilar meningitis + Cranial neuropathies (CN 3, 6) + Lacunar stroke →</strong> Think <em>Tuberculous Meningitis</em>[cite: 1].</li>
+                        <li><strong>Gelatinous "Soap-bubble" pseudocysts in basal ganglia on MRI →</strong> Think <em>Cryptococcal Meningitis</em> (<em>C. neoformans</em>)[cite: 1].</li>
+                        <li><strong>Cerebral microvascular hyphal invasion with thrombosis and hemorrhage →</strong> Think <em>Aspergillosis</em>[cite: 1].</li>
+                        <li><strong>Uncontrolled Diabetic Ketoacidosis (DKA) + Facial pain + Proptosis + Black nasal eschar →</strong> Think <em>Rhino-orbital-cerebral Mucormycosis</em>[cite: 1].</li>
+                        <li><strong>Ring-enhancing lesion on contrast MRI + Central restricted diffusion on DWI →</strong> Think <em>Pyogenic Brain Abscess</em> (Do NOT perform LP!)[cite: 1].</li>
+                        <li><strong>Temporal lobe or cerebellar abscess + Chronic ear drainage →</strong> Think Contiguous spread from <em>Otitis Media / Mastoiditis</em>[cite: 1].</li>
+                        <li><strong>Frontal lobe abscess + Chronic facial pressure →</strong> Think Contiguous spread from <em>Frontal/Paranasal Sinusitis</em>[cite: 1].</li>
+                        <li><strong>Multiple gray-white matter junction brain lesions + Fever →</strong> Think Hematogenous bacterial spread or <em>Cerebral Toxoplasmosis</em>[cite: 1].</li>
+                        <li><strong>Subacute rapidly progressive dementia + Startle-induced myoclonus →</strong> Think <em>Sporadic Creutzfeldt-Jakob Disease (sCJD)</em>[cite: 1].</li>
+                        <li><strong>MRI showing asymmetric "Cortical Ribboning" and striatal hyperintensity →</strong> Think <em>Sporadic CJD</em>[cite: 1].</li>
+                        <li><strong>EEG displaying 1–2 Hz periodic sharp wave complexes (PSWCs) →</strong> Think <em>Sporadic CJD</em>[cite: 1].</li>
+                        <li><strong>Intractable insomnia + Sympathetic storm + Medial thalamic atrophy →</strong> Think <em>Fatal Familial Insomnia (FFI)</em>[cite: 1].</li>
+                        <li><strong>Cerebellar ataxia + PAS-positive stellate Kuru plaques + Long 5-year survival →</strong> Think <em>Gerstmann-Sträussler-Scheinker (GSS) Syndrome</em>[cite: 1].</li>
+                        <li><strong>Ingestion of human brain tissue + Pathological laughter + Ataxia →</strong> Think <em>Kuru</em>[cite: 1].</li>
+                        <li><strong>"Dot in a cyst" (eccentric scolex) on brain CT/MRI + Adult-onset seizures →</strong> Think <em>Neurocysticercosis</em> (<em>Taenia solium</em>)[cite: 1].</li>
+                        <li><strong>Undercooked pork ingestion + Periorbital edema + Myalgia + Severe eosinophilia →</strong> Think <em>Trichinellosis</em> (<em>Trichinella spiralis</em>)[cite: 1].</li>
+                        <li><strong>Conus medullaris subacute myelitis + Freshwater exposure + CSF eosinophilia →</strong> Think <em>Schistosomiasis</em> (<em>S. mansoni / haematobium</em>)[cite: 1].</li>
+                        <li><strong>Raw snail ingestion + Severe paresthesias + Polyradiculopathy + CSF eosinophilia →</strong> Think <em>Angiostrongylus cantonensis</em> Eosinophilic Meningitis[cite: 1].</li>
+                        <li><strong>AIDS patient (CD4 &lt; 100) + Multiple ring-enhancing basal ganglia mass lesions →</strong> Think <em>Cerebral Toxoplasmosis</em>[cite: 1].</li>
+                        <li><strong>Swimming in warm fresh lake + Rapidly fatal hemorrhagic meningoencephalitis + RBCs in CSF →</strong> Think <em>Naegleria fowleri</em> Primary Amebic Meningoencephalitis[cite: 1].</li>
+                        <li><strong>Malarial retinopathy + Dürck nodes on pathology + Encephalopathy →</strong> Think <em>Cerebral Malaria</em> (<em>Plasmodium falciparum</em>)[cite: 1].</li>
+                        <li><strong>Posterior cervical lymphadenopathy (Winterbottom sign) + Circadian sleep reversal →</strong> Think <em>African Trypanosomiasis</em> (<em>T. brucei</em>)[cite: 1].</li>
+                        <li><strong>Severe pain from minor skin trauma (Kerandel hyperesthesia) →</strong> Think <em>African Trypanosomiasis</em>[cite: 1].</li>
+                        <li><strong>Fever + Severe headache + Macular rash + NO rash in Q Fever →</strong> Think <em>Rickettsial Disease</em> (<em>Coxiella burnetii</em> for Q fever)[cite: 1].</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Rapid High-Yield Treatment & Sterilization Matrix</h2>
+                        <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                    </div>
+                    <table class="med-table">
+                        <thead>
+                            <tr>
+                                <th>Condition</th>
+                                <th>First-Line Drug / Management</th>
+                                <th>High-Yield Clinical Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Cryptococcal Meningitis</strong></td>
+                                <td>Liposomal Amphotericin B + Flucytosine x ≥2 wks → Fluconazole[cite: 1].</td>
+                                <td>Serial LPs mandatory if opening pressure &gt;25 cm H2O[cite: 1]. Watch for renal tubular acidosis[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Brain Abscess</strong></td>
+                                <td>Ceftriaxone + Metronidazole (+/- Vancomycin) + Surgical Aspiration[cite: 1].</td>
+                                <td>Lumbar puncture strictly CONTRAINDICATED[cite: 1]. MRI DWI is gold standard[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Neurocysticercosis</strong></td>
+                                <td>Albendazole (or Praziquantel) + High-Dose Corticosteroids[cite: 1].</td>
+                                <td>Steroids MUST precede antihelminthics to prevent fatal edema flare from dying larvae[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cerebral Toxoplasmosis</strong></td>
+                                <td>Sulfadiazine + Pyrimethamine + Leucovorin[cite: 1].</td>
+                                <td>Leucovorin prevents pyrimethamine-induced bone marrow suppression[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cerebral Malaria</strong></td>
+                                <td>IV Artesunate (Superior to Quinine)[cite: 1].</td>
+                                <td>High-dose Corticosteroids are ineffective and CONTRAINDICATED[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Prion Decontamination</strong></td>
+                                <td>Autoclave $132^\circ\text{C}$ @ 15 lb/in² x 1 hr OR 5% Sodium Hypochlorite x 1 hr[cite: 1].</td>
+                                <td>Standard formalin, alcohol, boiling, and UV rays do NOT kill prions[cite: 1].</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+    <script>
+        /* ==================== THEME & NAVIGATION LOGIC ==================== */
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            document.querySelector('.theme-toggle').textContent = newTheme === 'dark' ? '☀️ Mode' : '🌙 Mode';
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function filterContent() {
+            const query = document.getElementById('globalSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function copyTable(btn) {
+            const table = btn.nextElementSibling;
+            let range, selection;
+            if (document.createRange && window.getSelection) {
+                range = document.createRange();
+                selection = window.getSelection();
+                selection.removeAllRanges();
+                try {
+                    range.selectNodeContents(table);
+                    selection.addRange(range);
+                } catch (e) {
+                    range.selectNode(table);
+                    selection.addRange(range);
+                }
+                document.execCommand('copy');
+                selection.removeAllRanges();
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy Table', 2000);
+            }
+        }
+
+        window.onscroll = function() {
+            const btn = document.getElementById('scrollTopBtn');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = 'flex';
+            } else {
+                btn.style.display = 'none';
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ==================== 50 ACTIVE-RECALL FLASHCARDS DATA ==================== */
+        const flashcardsData = [
+            { cat: "CSF", q: "What is the typical CSF cell count and differential in Bacterial Meningitis?", a: "Cell count: 1,000–5,000/µL with neutrophilic predominance (>80%). Elevated protein and low glucose (<40% serum)." },
+            { cat: "CSF", q: "How does the CSF formula of Tuberculous Meningitis differ from Bacterial Meningitis?", a: "TBM cell count is lower (5–500/µL) with lymphocytic predominance, though both have low glucose and markedly elevated protein." },
+            { cat: "CSF", q: "Why might a patient with HIV and Cryptococcal Meningitis have a normal CSF cell count?", a: "Muted cell-mediated immunity prevents an inflammatory response, leading to ≤5 cells/µL in up to two-thirds of AIDS cases." },
+            { cat: "Fungal", q: "What is the primary mode of transmission for Cryptococcus neoformans?", a: "Inhalation of aerosolized spores into the respiratory tract from soil contaminated by bird or pigeon roosts." },
+            { cat: "Fungal", q: "What pathognomonic lesion is seen on T2/DWI MRI in Cryptococcal Meningitis?", a: "Gelatinous 'soap-bubble' pseudocysts in the basal ganglia and Virchow-Robin perivascular spaces with minimal enhancement." },
+            { cat: "Fungal", q: "What is the primary rapid diagnostic test for Cryptococcus in CSF?", a: "Cryptococcal Antigen Latex Agglutination System (CALAS), which has >90% sensitivity in HIV patients." },
+            { cat: "Fungal", q: "What is the mandatory CSF management protocol for Cryptococcal elevated ICP?", a: "Daily therapeutic lumbar punctures until the opening pressure remains <25 cm H2O for ≥2 consecutive days." },
+            { cat: "Fungal", q: "Which fungal infection is specifically associated with severe burns and pediatric TPN?", a: "Candidiasis (Candida albicans sepsis)." },
+            { cat: "Fungal", q: "How does Aspergillosis cause cerebral tissue damage?", a: "Direct hyphal invasion of cerebral blood vessels causing infectious vasculitis, thrombosis, tissue necrosis, and hemorrhage." },
+            { cat: "Fungal", q: "What predisposing metabolic condition is classically associated with Rhino-orbital-cerebral Mucormycosis?", a: "Uncontrolled Diabetes Mellitus, specifically during Diabetic Ketoacidosis (DKA)." },
+            { cat: "Fungal", q: "Which anatomical pathway does Mucormycosis use to enter the brain?", a: "Originates in paranasal sinuses/nasal turbinates, invades along blood vessels into the orbit and cavernous sinus, extending into brain parenchyma." },
+            { cat: "Fungal", q: "What is the primary treatment for Coccidioidomycosis chronic meningitis?", a: "Oral Fluconazole combined with IV Amphotericin B, plus intraventricular Amphotericin B via an Ommaya reservoir." },
+            { cat: "Abscess", q: "What is the most common temporal lobe brain abscess source?", a: "Contiguous extension from chronic otitis media or mastoiditis." },
+            { cat: "Abscess", q: "Paranasal or frontal sinusitis classically leads to brain abscess in which brain lobe?", a: "Frontal lobe." },
+            { cat: "Abscess", q: "Where are hematogenous or metastatic brain abscesses typically located?", a: "Multiple lesions located at the gray-white matter junction in the distribution of the middle cerebral artery." },
+            { cat: "Abscess", q: "List the 4 pathological stages of brain abscess formation in chronological order.", a: "1. Early Cerebritis (Days 1–3)\n2. Late Cerebritis (Days 3–7)\n3. Early Encapsulation (Days 5–7)\n4. Late Encapsulation (>7 Days)." },
+            { cat: "Abscess", q: "Why is Lumbar Puncture strictly contraindicated in suspected brain abscess?", a: "High risk of uncal or tonsillar brainstem herniation due to intracranial mass effect." },
+            { cat: "Abscess", q: "What MRI sequence differentiates a pyogenic abscess from a necrotic tumor?", a: "Diffusion-Weighted Imaging (DWI) showing central hyperintensity (restricted diffusion) in pyogenic abscess." },
+            { cat: "Prion", q: "Describe the structural conformational change that converts PrPC into PrPSc.", a: "Shift from an alpha-helical native structure to a pathology-associated high beta-pleated sheet conformation." },
+            { cat: "Prion", q: "On which human chromosome is the prion protein gene (PRNP) located?", a: "Short arm of Chromosome 20." },
+            { cat: "Prion", q: "What are the two mandatory chemical or physical decontamination methods for prion-contaminated instruments?", a: "1. Autoclaving at 132°C at 15 lb/in² for 1 hour.\n2. Immersion in 5% Sodium Hypochlorite for 1 hour." },
+            { cat: "Prion", q: "What is the clinical triad of classic Sporadic CJD?", a: "1. Rapidly progressive subacute dementia\n2. Stimulus-sensitive myoclonus\n3. Visual disturbances or cerebellar ataxia." },
+            { cat: "Prion", q: "What is the Heidenhain variant of CJD?", a: "A clinical variant where prominent cortical visual disturbances precede mental decline." },
+            { cat: "Prion", q: "What MRI finding is known as 'Cortical Ribboning' in sCJD?", a: "Contiguous hyperintensity and diffusion restriction along the cerebral cortex on DWI/FLAIR sequences." },
+            { cat: "Prion", q: "What characteristic periodic pattern is seen on EEG in advanced CJD?", a: "Stereotyped 1–2 Hz periodic, synchronous sharp-wave complexes (PSWCs) on a low-voltage slow background." },
+            { cat: "Prion", q: "What modern CSF test provides the highest specificity for detecting prion seed amplification?", a: "Real-Time Quaking-Induced Conversion (RT-QuIC)." },
+            { cat: "Prion", q: "Describe the key features of Gerstmann-Sträussler-Scheinker (GSS) Syndrome.", a: "Autosomal dominant familial prion disease with midlife onset, progressive cerebellar ataxia, dysarthria, and PAS-positive kuru plaques; duration ~5 years." },
+            { cat: "Prion", q: "Which brain region is specifically degenerated in Fatal Familial Insomnia (FFI)?", a: "Medial thalamic nuclei (causing intractable insomnia and sympathetic storm)." },
+            { cat: "Prion", q: "How was Kuru transmitted among the Fore people of Papua New Guinea?", a: "Via ritual funeral endocannibalism involving ingestion and handling of infected brain tissue." },
+            { cat: "Parasitic", q: "How do humans acquire Neurocysticercosis?", a: "Fecal-oral ingestion of Taenia solium eggs from human feces (NOT by eating undercooked pork)." },
+            { cat: "Parasitic", q: "What is the leading cause of acquired adult epilepsy in the developing world?", a: "Neurocysticercosis (Taenia solium)." },
+            { cat: "Parasitic", q: "What pathognomonic imaging feature is seen in the vesicular stage of Neurocysticercosis?", a: "A rounded cyst containing an eccentric hyperdense scolex ('dot in a cyst')." },
+            { cat: "Parasitic", q: "Why must corticosteroids be co-administered before starting Albendazole in Neurocysticercosis?", a: "To suppress the acute inflammatory flare and severe cerebral edema caused by dying larvae." },
+            { cat: "Parasitic", q: "What is the Racemose form of Neurocysticercosis?", a: "Malignant variant in the basilar subarachnoid space causing intense inflammation, hydrocephalus, stroke, and CN palsies." },
+            { cat: "Parasitic", q: "How do humans contract Trichinellosis?", a: "Ingestion of raw or undercooked pork containing encysted larvae of Trichinella spiralis." },
+            { cat: "Parasitic", q: "What systemic clinical triad suggests Trichinellosis during muscle invasion?", a: "Low-grade fever, muscle pain/tenderness, periorbital/eyelid edema, and marked peripheral eosinophilia." },
+            { cat: "Parasitic", q: "How is a definitive diagnosis of Trichinellosis confirmed in laboratory?", a: "Demonstrating viable larvae on a wet mount muscle biopsy pressed between glass slides under low power." },
+            { cat: "Parasitic", q: "Which Schistosoma species characteristically localized in the spinal cord conus medullaris?", a: "Schistosoma mansoni (and S. haematobium), causing acute transverse myelitis." },
+            { cat: "Parasitic", q: "What is Katayama fever?", a: "Systemic serum-sickness-like syndrome occurring weeks after initial Schistosoma infection." },
+            { cat: "Parasitic", q: "What is the preferred treatment for all central or spinal Schistosomiasis?", a: "Oral Praziquantel (20 mg/kg TID) combined with Corticosteroids." },
+            { cat: "Parasitic", q: "What cause of eosinophilic meningitis is contracted by eating raw snails or prawns?", a: "Angiostrongylus cantonensis." },
+            { cat: "Parasitic", q: "What is the most common cause of focal brain lesions in HIV patients with CD4 < 100/µL?", a: "Cerebral Toxoplasmosis (Toxoplasma gondii)." },
+            { cat: "Parasitic", q: "What is the primary empiric drug combination for Cerebral Toxoplasmosis?", a: "Oral Sulfadiazine + Pyrimethamine + Leucovorin (to prevent antifolate marrow toxicity)." },
+            { cat: "Parasitic", q: "How is Primary Amebic Meningoencephalitis (PAM) contracted?", a: "Swimming underwater in warm freshwater lakes (Naegleria fowleri entering via cribriform plate)." },
+            { cat: "Parasitic", q: "How is Naegleria fowleri diagnosed from CSF?", a: "Finding viable motile trophozoites on a wet preparation of unspun fresh CSF." },
+            { cat: "Parasitic", q: "What pathognomonic visual finding is diagnostic for severe Cerebral Malaria?", a: "Malarial Retinopathy (macular whitening, retinal vessel discoloration, blot hemorrhages)." },
+            { cat: "Parasitic", q: "What histopathological feature defines Cerebral Malaria on brain biopsy?", a: "Dürck nodes (foci of necrosis surrounded by glia) and capillaries clogged with parasitized RBCs." },
+            { cat: "Parasitic", q: "What is Winterbottom sign in African Trypanosomiasis?", a: "Posterior cervical lymphadenopathy indicative of CNS invasion." },
+            { cat: "Parasitic", q: "What is Kerandel hyperesthesia?", a: "Severe, exaggerated pain following minor physical trauma seen in African Trypanosomiasis." },
+            { cat: "Parasitic", q: "Which Rickettsial infection characteristically presents WITHOUT a skin rash?", a: "Q Fever (caused by Coxiella burnetii)." }
+        ];
+
+        let currentFCIdx = 0;
+        let filteredFCs = [...flashcardsData];
+
+        function renderFC() {
+            if (filteredFCs.length === 0) return;
+            const card = filteredFCs[currentFCIdx];
+            document.getElementById('fcCategory').textContent = card.cat;
+            document.getElementById('fcNumber').textContent = `Card ${currentFCIdx + 1} / ${filteredFCs.length}`;
+            document.getElementById('fcQuestion').textContent = card.q;
+            document.getElementById('fcAnswer').textContent = card.a;
+            document.getElementById('fcCard').classList.remove('flipped');
+        }
+
+        function flipFC() {
+            document.getElementById('fcCard').classList.toggle('flipped');
+        }
+
+        function nextFC() {
+            currentFCIdx = (currentFCIdx + 1) % filteredFCs.length;
+            renderFC();
+        }
+
+        function prevFC() {
+            currentFCIdx = (currentFCIdx - 1 + filteredFCs.length) % filteredFCs.length;
+            renderFC();
+        }
+
+        function shuffleFC() {
+            for (let i = filteredFCs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filteredFCs[i], filteredFCs[j]] = [filteredFCs[j], filteredFCs[i]];
+            }
+            currentFCIdx = 0;
+            renderFC();
+        }
+
+        function filterFC(cat) {
+            if (cat === 'all') {
+                filteredFCs = [...flashcardsData];
+            } else {
+                filteredFCs = flashcardsData.filter(item => item.cat === cat);
+            }
+            currentFCIdx = 0;
+            renderFC();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('flashcards').classList.contains('active')) {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    flipFC();
+                } else if (e.code === 'ArrowRight') {
+                    nextFC();
+                } else if (e.code === 'ArrowLeft') {
+                    prevFC();
+                }
+            }
+        });
+
+        /* ==================== 50 BOARD-STYLE MCQS DATA ==================== */
+        const quizData = [
+            {
+                q: "A 34-year-old Filipino male presents with a 3-week history of worsening headache, low-grade fever, and double vision. Examination reveals right CN VI palsy. CSF analysis shows elevated opening pressure, cell count 180/µL (85% lymphocytes), protein 240 mg/dL, and glucose 28 mg/dL (serum glucose 95 mg/dL). Which of the following is the most likely pathophysiological mechanism for his cranial nerve palsy?",
+                options: [
+                    "A. Direct bacterial invasion of the cavernous sinus endothelium",
+                    "B. Entrapment of nerve roots by thick inflammatory exudates in the basal cisterns",
+                    "C. Demyelinating peripheral polyneuropathy from immune complex deposition",
+                    "D. Ischemic necrosis of the brainstem tectum from basilar artery thrombosis"
+                ],
+                correct: 1,
+                exp: "B is Correct: Tuberculous meningitis characteristically forms thick, gelatinous exudates in the basal cisterns, which envelop cranial nerves (especially CN III and VI) and perforating arteries, leading to craniopathies and lacunar strokes[cite: 1]. A is incorrect as cavernous sinus thrombosis is typical of Mucormycosis/Staph. C & D are incorrect mechanism descriptions[cite: 1]."
+            },
+            {
+                q: "A 28-year-old female with advanced HIV (CD4 count 42/µL) presents with subacute progressive headache and mild confusion. Meningeal signs are absent. LP reveals opening pressure of 34 cm H2O, cell count 4/µL, protein 55 mg/dL, and glucose 42 mg/dL. India ink stain shows 10 µm spherical cells with thick halo capsules. What is the most appropriate immediate diagnostic step?",
+                options: [
+                    "A. Discard the CSF sample as non-diagnostic due to lack of pleocytosis",
+                    "B. Perform CSF Cryptococcal Antigen Latex Agglutination (CALAS) testing",
+                    "C. Immediately order high-dose intravenous Dexamethasone alone",
+                    "D. Repeat LP only when focal neurological deficits emerge"
+                ],
+                correct: 1,
+                exp: "B is Correct: Up to two-thirds of HIV patients with cryptococcal meningitis have ≤5 cells/µL due to blunted cell-mediated immunity[cite: 1]. CALAS is rapid and >90% sensitive[cite: 1]. A is wrong as low cell count does NOT rule out infection in AIDS[cite: 1]. C is incorrect as steroids are not primary therapy. D is wrong because elevated ICP (>25 cm H2O) requires daily therapeutic LPs[cite: 1]."
+            },
+            {
+                q: "A 45-year-old male with long-standing poorly controlled Type 1 Diabetes Mellitus presents to the ED in Diabetic Ketoacidosis (DKA). He complains of severe right facial pain, dark nasal discharge, and right eye swelling. Examination shows proptosis, complete right ophthalmoplegia, and a black necrotic eschar on the hard palate. What is the pathognomonic mechanism of CNS spread in this organism?",
+                options: [
+                    "A. Trans-synaptic retrograde axonal transport via olfactory neurons",
+                    "B. Hematogenous seeding across the blood-brain barrier during bacteremia",
+                    "C. Direct vascular invasion of arterial walls causing thrombosis and tissue necrosis",
+                    "D. Subarachnoid space migration through spinal nerve roots"
+                ],
+                correct: 2,
+                exp: "C is Correct: Mucormycosis (Zygomycosis) in DKA aggressively invades soft tissues and blood vessel walls, causing arterial thrombosis, hemorrhagic infarction, and rapid tissue necrosis[cite: 1]. A, B, and D do not represent the primary angioinvasive nature of Mucor[cite: 1]."
+            },
+            {
+                q: "A 52-year-old male presents with a 10-day history of right ear discharge followed by severe headache, fever, and left-sided weakness. Contrast-enhanced MRI shows a ring-enhancing lesion in the right temporal lobe. What diagnostic procedure is strictly CONTRAINDICATED?",
+                options: [
+                    "A. Blood cultures for aerobic and anaerobic organisms",
+                    "B. Non-contrast Brain CT scan",
+                    "C. Diagnostic Lumbar Puncture",
+                    "D. Diffusion-Weighted MRI sequence"
+                ],
+                correct: 2,
+                exp: "C is Correct: Lumbar puncture is strictly contraindicated when a brain abscess or space-occupying lesion with mass effect is suspected due to high risk of fatal brainstem herniation[cite: 1]. A, B, and D are appropriate diagnostic modalities[cite: 1]."
+            },
+            {
+                q: "A 62-year-old executive is brought by his family due to a 4-week history of rapidly progressive memory loss, behavioral agitation, and visual hallucinations. During the physical exam, a sudden loud clapping sound causes violent involuntary jerking of both arms. Brain MRI shows hyperintensity in the caudate and putamen on DWI. Which CSF biomarker test provides the highest specificity for this condition?",
+                options: [
+                    "A. Real-Time Quaking-Induced Conversion (RT-QuIC)",
+                    "B. Cryptococcal Antigen Latex Agglutination",
+                    "C. Oligoclonal IgG Banding",
+                    "D. Myelin Basic Protein Assay"
+                ],
+                correct: 0,
+                exp: "A is Correct: RT-QuIC directly amplifies pathogenic prion seeds ($PrP^{Sc}$) and provides near 100% specificity for Creutzfeldt-Jakob Disease[cite: 1]. B is for Cryptococcus[cite: 1]. C is for MS. D is a non-specific demyelination marker[cite: 1]."
+            },
+            {
+                q: "Which structural alteration accounts for the pathogenic aggregation and protease resistance of the disease-associated prion protein (PrPSc)?",
+                options: [
+                    "A. Complete degradation of all beta-pleated sheets into random coils",
+                    "B. Marked increase in beta-pleated sheet content and decrease in alpha-helices",
+                    "C. Hyperphosphorylation of tau microtubule proteins",
+                    "D. Covalent cross-linking of heavy chain immunoglobulins"
+                ],
+                correct: 1,
+                exp: "B is Correct: The biophysical transition of $PrP^C$ to $PrP^{Sc}$ involves a structural shift where $\alpha$-helical content decreases and $\beta$-pleated sheet proportion increases dramatically, leading to aggregation and insolubility[cite: 1]."
+            },
+            {
+                q: "A 29-year-old male from Leyte presents with new-onset focal motor seizures. Brain CT reveals a single calcified, non-enhancing 4 mm punctate nodule in the right frontal cortex without surrounding edema. Stool exam is negative. What is the most accurate statement regarding his condition?",
+                options: [
+                    "A. He has active intestinal taeniasis requiring immediate surgery",
+                    "B. The lesion represents the inactive calcified stage of Neurocysticercosis",
+                    "C. Immediate high-dose IV Amphotericin B must be started",
+                    "D. Lumbar puncture is required to confirm amebic trophozoites"
+                ],
+                correct: 1,
+                exp: "B is Correct: Calcified punctate non-enhancing nodules on CT represent the final inactive stage of parenchymal Neurocysticercosis (*Taenia solium*)[cite: 1]. Active antihelminthic therapy is not indicated for dead calcified cysts; management focuses on seizure control[cite: 1]."
+            },
+            {
+                q: "A 38-year-old swine farmer presents with fever, severe myalgia, facial edema involving both upper eyelids, and subungual splinter hemorrhages. Blood tests show leukocyte count 16,000/µL with 32% eosinophils. He reports eating homemade undercooked pork 2 weeks ago. What is the gold standard method for definitive tissue diagnosis?",
+                options: [
+                    "A. Stool wet mount examination for operculated ova",
+                    "B. Low-power microscopic scan of wet muscle biopsy pressed between glass slides",
+                    "C. CSF RT-QuIC assay",
+                    "D. Brain MRI showing soap-bubble cysts"
+                ],
+                correct: 1,
+                exp: "B is Correct: Definitive diagnosis of Trichinellosis (*Trichinella spiralis*) is made by identifying encysted larvae in striated muscle tissue pressed between glass slides under low-power microscopy[cite: 1]. Stool exams are unhelpful during the muscle invasion stage[cite: 1]."
+            },
+            {
+                q: "An AIDS patient (CD4 count 65/µL) presents with confusion, fever, and left-sided hemiparesis. Brain MRI reveals multiple ring-enhancing lesions in the basal ganglia with prominent surrounding vasogenic edema. What adjuvant medication MUST be given alongside Sulfadiazine and Pyrimethamine to prevent hematologic toxicity?",
+                options: [
+                    "A. Folic acid",
+                    "B. Leucovorin (Folinic Acid)",
+                    "C. Erythropoietin",
+                    "D. Vitamin B12"
+                ],
+                correct: 1,
+                exp: "B is Correct: Leucovorin (folinic acid 15-20 mg/day) is administered concurrently with pyrimethamine to rescue human dihydrofolate reductase and prevent severe bone marrow suppression/pancytopenia[cite: 1]. Folic acid (A) is ineffective because pyrimethamine inhibits folate conversion[cite: 1]."
+            },
+            {
+                q: "A 19-year-old college student presents with hyperacute fever, violent headache, vomiting, and confusion 3 days after swimming in a warm freshwater lake. CSF is hemorrhagic with 4,500 WBCs/µL (90% PMNs), high protein, and low glucose. Gram stain shows no bacteria. What is the most likely pathogen?",
+                options: [
+                    "A. Cryptococcus gattii",
+                    "B. Naegleria fowleri",
+                    "C. Toxoplasma gondii",
+                    "D. Taenia multiceps"
+                ],
+                correct: 1,
+                exp: "B is Correct: Primary Amebic Meningoencephalitis (PAM) caused by *Naegleria fowleri* occurs after freshwater swimming, invading via the cribriform plate to cause rapid, fulminant necrotizing hemorrhagic meningoencephalitis[cite: 1]. Unspun fresh CSF shows motile trophozoites[cite: 1]."
+            },
+            {
+                q: "Which of the following medical instrument decontamination methods is ineffective against infectious prions?",
+                options: [
+                    "A. Immersion in 5% Sodium Hypochlorite for 1 hour",
+                    "B. Autoclaving at 132°C at 15 lb/in² for 1 hour",
+                    "C. Boiling in water at 100°C for 30 minutes",
+                    "D. Complete thermal incineration"
+                ],
+                correct: 2,
+                exp: "C is Correct: Prions are famously resistant to standard boiling, alcohol, formalin, and ultraviolet radiation[cite: 1]. Autoclaving at 132°C, 5% bleach, and incineration are recommended decontamination protocols[cite: 1]."
+            },
+            {
+                q: "A 42-year-old male traveler returning from Central Africa presents with daytime somnolence, nocturnal insomnia, dysarthria, and painful sensitivity to minor skin trauma (Kerandel hyperesthesia). Physical exam reveals prominent posterior cervical lymphadenopathy (Winterbottom sign). What is the causative pathogen?",
+                options: [
+                    "A. Trypanosoma cruzi",
+                    "B. Trypanosoma brucei",
+                    "C. Plasmodium falciparum",
+                    "D. Coxiella burnetii"
+                ],
+                correct: 1,
+                exp: "B is Correct: *Trypanosoma brucei* (gambiense/rhodesiense) causes African Sleeping Sickness, characterized by Winterbottom sign (posterior cervical lymphadenopathy), Kerandel hyperesthesia, and circadian sleep reversal[cite: 1]. *T. cruzi* causes Chagas disease[cite: 1]."
+            },
+            {
+                q: "Which Rickettsial infection lacks the characteristic cutaneous macular rash (exanthem) seen in epidemic typhus or Rocky Mountain Spotted Fever?",
+                options: [
+                    "A. Scrub Typhus",
+                    "B. Murine Typhus",
+                    "C. Q Fever",
+                    "D. Epidemic Typhus"
+                ],
+                correct: 2,
+                exp: "C is Correct: Q Fever, caused by *Coxiella burnetii*, is unique among rickettsial diseases because it LACKS a skin rash[cite: 1]. It presents as atypical pneumonia, fever, or low-grade meningitis[cite: 1]."
+            },
+            {
+                q: "A 50-year-old male presenting with subacute dementia and gait ataxia undergoes MRI, which shows hyperintensity in the bilateral striatum and contiguous cortical ribboning on DWI. CSF 14-3-3 is positive. What is his CDC diagnostic classification for sCJD?",
+                options: [
+                    "A. Possible CJD",
+                    "B. Probable CJD",
+                    "C. Definite CJD",
+                    "D. Rule out CJD completely"
+                ],
+                correct: 1,
+                exp: "B is Correct: Per CDC criteria, progressive dementia + 2 clinical features (ataxia, myoclonus, etc.) + positive MRI striatal/cortical hyperintensity OR 14-3-3 protein classifies as PROBABLE CJD[cite: 1]. Definite CJD requires neuropathological confirmation[cite: 1]."
+            },
+            {
+                q: "What is the pathognomonic funduscopic finding in severe Cerebral Malaria caused by Plasmodium falciparum?",
+                options: [
+                    "A. Roth spots and Janeway lesions",
+                    "B. Malarial Retinopathy (macular whitening, vessel discoloration, blot hemorrhages)",
+                    "C. Optic disc cup-to-disc ratio > 0.9",
+                    "D. Cherry-red foveal macula"
+                ],
+                correct: 1,
+                exp: "B is Correct: Malarial retinopathy (macular whitening, retinal vessel discoloration, intraretinal blot hemorrhages) is highly specific for cerebral malaria[cite: 1]."
+            },
+            {
+                q: "A 31-year-old female presents with subacute conus medullaris myelitis, lower extremity paraparesis, and urinary retention after swimming in a river in Samar. CSF shows 120 cells/µL with 25% eosinophils. Ova with lateral spines are detected in her stool. What is the first-line medication?",
+                options: [
+                    "A. Albendazole",
+                    "B. Praziquantel",
+                    "C. Metronidazole",
+                    "D. Ivermectin"
+                ],
+                correct: 1,
+                exp: "B is Correct: Praziquantel (20 mg/kg TID) is the drug of choice for Schistosomiasis (*S. mansoni* / *S. japonicum*)[cite: 1]. Co-administered corticosteroids control local inflammation in spinal cord involvement[cite: 1]."
+            },
+            {
+                q: "Which clinical variant of Sporadic CJD is characterized by early prominent cerebellar ataxia prior to cognitive decay?",
+                options: [
+                    "A. Heidenhain variant",
+                    "B. Brownell-Oppenheimer variant",
+                    "C. Racemose variant",
+                    "D. New variant (vCJD)"
+                ],
+                correct: 1,
+                exp: "B is Correct: The Brownell-Oppenheimer variant presents initially with prominent cerebellar ataxia before dementia manifests[cite: 1]. The Heidenhain variant presents with early visual disturbances[cite: 1]."
+            },
+            {
+                q: "A patient with suspected Neurocysticercosis is scheduled to receive antihelminthic therapy with Albendazole. Why is concurrent high-dose corticosteroid administration mandatory?",
+                options: [
+                    "A. To enhance systemic absorption of oral Albendazole",
+                    "B. To suppress the acute host inflammatory response to dying larvae",
+                    "C. To prevent fungal superinfection during treatment",
+                    "D. To treat underlying intestinal taeniasis"
+                ],
+                correct: 1,
+                exp: "B is Correct: Anthelmintic destruction of cysticerci releases foreign antigens that trigger an acute host immune/granulomatous reaction, escalating cerebral edema and seizures[cite: 1]. Steroids mitigate this inflammatory spike[cite: 1]."
+            },
+            {
+                q: "A 60-year-old male with a history of sphenoid sinusitis presents with severe cranial nerve palsies (CN III, IV, VI) and hemiplegia. Brain biopsy reveals broad, non-septate hyphae branching at right angles (90 degrees). What is the preferred first-line antifungal agent?",
+                options: [
+                    "A. Oral Fluconazole",
+                    "B. Intravenous Liposomal Amphotericin B",
+                    "C. Oral Ketoconazole",
+                    "D. Intravenous Caspofungin monotherapy"
+                ],
+                correct: 1,
+                exp: "B is Correct: Non-septate 90-degree branching hyphae define Mucormycosis (Zygomycosis), requiring urgent high-dose IV Liposomal Amphotericin B (or Posaconazole) plus aggressive surgical debridement[cite: 1]."
+            },
+            {
+                q: "What characteristic MRI finding distinguishes Pyogenic Brain Abscess from high-grade necrotic glioma on DWI sequences?",
+                options: [
+                    "A. Central hyperintensity (restricted diffusion) in the abscess core",
+                    "B. Complete absence of surrounding vasogenic edema",
+                    "C. Thick, irregular, nodular peripheral ring enhancement",
+                    "D. Diffuse cortical ribboning throughout both cerebral hemispheres"
+                ],
+                correct: 0,
+                exp: "A is Correct: Pyogenic brain abscess core contains viscous purulent debris that restricts water diffusion, appearing strikingly bright (hyperintense) on DWI and dark on ADC maps[cite: 1]. Necrotic tumor centers do not restrict diffusion[cite: 1]."
+            },
+            {
+                q: "Which inherited prion disease presents with midlife progressive cerebellar ataxia, dysarthria, and PAS-positive stellate kuru plaques, maintaining a prolonged clinical course averaging 5 years?",
+                options: [
+                    "A. Fatal Familial Insomnia",
+                    "B. Gerstmann-Sträussler-Scheinker (GSS) Syndrome",
+                    "C. Sporadic CJD",
+                    "D. Kuru"
+                ],
+                correct: 1,
+                exp: "B is Correct: GSS syndrome is an autosomal dominant prion disorder with midlife onset, prominent cerebellar ataxia, dysarthria, PAS-positive stellate plaques, and a longer mean survival (~5 years) compared to CJD[cite: 1]."
+            },
+            {
+                q: "A 35-year-old male presents with headache, stiff neck, and paresthesias after consuming a salad containing raw freshwater snails. Blood and CSF show 30% eosinophils. What is the most likely organism?",
+                options: [
+                    "A. Angiostrongylus cantonensis",
+                    "B. Taenia solium",
+                    "C. Cryptococcus neoformans",
+                    "D. Toxoplasma gondii"
+                ],
+                correct: 0,
+                exp: "A is Correct: *Angiostrongylus cantonensis* (rat lungworm) is transmitted by consuming raw snails, prawns, or contaminated vegetables, causing parasitic eosinophilic meningoencephalitis[cite: 1]."
+            },
+            {
+                q: "In Fatal Familial Insomnia (FFI), severe neuronal loss and astrogliosis are characteristically localized to which subcortical brain structure?",
+                options: [
+                    "A. Medial Thalamic Nuclei",
+                    "B. Caudate Nucleus",
+                    "C. Substantia Nigra",
+                    "D. Hippocampus"
+                ],
+                correct: 0,
+                exp: "A is Correct: FFI selectively targets the medial thalamic nuclei, resulting in intractable loss of sleep architecture, autonomic hyperfunction, and rapid death[cite: 1]."
+            },
+            {
+                q: "What is the recommended first-line treatment for severe Cerebral Malaria caused by Plasmodium falciparum?",
+                options: [
+                    "A. High-dose IV Dexamethasone monotherapy",
+                    "B. Intravenous Artesunate",
+                    "C. Oral Chloroquine",
+                    "D. Subcutaneous Interferon-alpha"
+                ],
+                correct: 1,
+                exp: "B is Correct: IV Artesunate is the first-line therapy for severe cerebral malaria, clearing parasitemia faster and yielding lower mortality than quinine[cite: 1]. Corticosteroids are ineffective and contraindicated[cite: 1]."
+            },
+            {
+                q: "A 40-year-old male with chronic sphenoid sinusitis develops proptosis, ophthalmoplegia, and an ischemic cerebral stroke. Fungal biopsy shows septate hyphae branching at 45-degree acute angles. What is the diagnosis?",
+                options: [
+                    "A. Mucormycosis",
+                    "B. Aspergillosis",
+                    "C. Cryptococcosis",
+                    "D. Candidiasis"
+                ],
+                correct: 1,
+                exp: "B is Correct: *Aspergillus* species display septate, narrow hyphae with 45-degree acute-angle branching[cite: 1]. They cause angioinvasive thrombosis and fungal vasculitis[cite: 1]."
+            },
+            {
+                q: "Which of the following is TRUE regarding the CSF profile of Viral Meningitis?",
+                options: [
+                    "A. Markedly reduced glucose (<20 mg/dL) and PMN predominance",
+                    "B. Normal or mildly elevated pressure, normal glucose, and lymphocytic predominance",
+                    "C. Strikingly elevated opening pressure (>35 cm H2O) and positive India Ink",
+                    "D. Markedly elevated protein (>500 mg/dL) with neutrophilic pleocytosis"
+                ],
+                correct: 1,
+                exp: "B is Correct: Viral meningitis typically demonstrates normal or mildly elevated pressure, normal glucose ratio, mild lymphocytic pleocytosis (5-1,000/µL), and normal/mildly elevated protein[cite: 1]."
+            },
+            {
+                q: "A 22-year-old male presents with high fever, prostration, severe headache, and a macular rash on his trunk on day 4 of illness. A necrotic ulcer with a black eschar is noted on his thigh at a insect attachment site. What is the diagnosis?",
+                options: [
+                    "A. Scrub Typhus (Tsutsugamushi fever)",
+                    "B. Q Fever",
+                    "C. Rocky Mountain Spotted Fever",
+                    "D. Epidemic Typhus"
+                ],
+                correct: 0,
+                exp: "A is Correct: Scrub typhus (*Orientia tsutsugamushi*), transmitted by mite chiggers, characteristically presents with a necrotic eschar at the bite site alongside fever and rash[cite: 1]."
+            },
+            {
+                q: "What is the primary definitive host for Toxoplasma gondii?",
+                options: [
+                    "A. Domestic cats",
+                    "B. Freshwater snails",
+                    "C. Swine",
+                    "D. Anopheles mosquitoes"
+                ],
+                correct: 0,
+                exp: "A is Correct: Felines (cats) are the primary definitive host for *T. gondii*, passing oocysts in their feces[cite: 1]."
+            },
+            {
+                q: "A 55-year-old male presents with subacute headache and ataxia. MRI shows a single large solitary fluid-filled cyst in the right parietal cortex with a solid 'chitinoma' wall. History reveals close contact with sheepdogs. What is the diagnosis?",
+                options: [
+                    "A. Hydatid Disease (Echinococcus)",
+                    "B. Cysticercosis",
+                    "C. Sparganosis",
+                    "D. Amoebic abscess"
+                ],
+                correct: 0,
+                exp: "A is Correct: *Echinococcus* (Hydatid disease) produces large fluid-filled solitary cysts or solid 'chitinomas' in the brain, transmitted via ingestion of canine feces-contaminated water/vegetables[cite: 1]."
+            },
+            {
+                q: "In a patient presenting with rapid dementia and myoclonus, which treatable CJD mimic is specifically associated with faciobrachial dystonic seizures?",
+                options: [
+                    "A. Anti-LGI1 Autoimmune Encephalitis",
+                    "B. HSV-1 Encephalitis",
+                    "C. Wernicke Encephalopathy",
+                    "D. Neurosyphilis"
+                ],
+                correct: 0,
+                exp: "A is Correct: Anti-LGI1 limbic encephalitis is a critical treatable mimic of CJD that features pathognomonic faciobrachial dystonic seizures[cite: 1]."
+            },
+            {
+                q: "What is the key histological feature of brain tissue in Cerebral Malaria?",
+                options: [
+                    "A. Dürck nodes (foci of necrosis surrounded by glia) and microvascular erythrocyte packing",
+                    "B. PAS-positive stellate kuru plaques",
+                    "C. Non-septate right-angle hyphae",
+                    "D. Perivascular soap-bubble pseudocysts"
+                ],
+                correct: 0,
+                exp: "A is Correct: Cerebral malaria pathology is defined by cerebral microvessels packed with parasitized RBCs and Dürck nodes (glial necrosis foci)[cite: 1]."
+            },
+            {
+                q: "A 25-year-old pregnant female at 28 weeks gestation contracts primary Toxoplasmosis. What classical triad of congenital defects threatens her fetus?",
+                options: [
+                    "A. Chorioretinitis, Hydrocephalus, and Intracranial Calcifications",
+                    "B. Cataracts, Sensorineural deafness, and Cardiac ductus arteriosus",
+                    "C. Microcephaly, Limb hypoplasia, and Cicatricial skin lesions",
+                    "D. Facial cleft, Polydactyly, and Ventricular septal defect"
+                ],
+                correct: 0,
+                exp: "A is Correct: The classic congenital Toxoplasmosis triad is Chorioretinitis, Hydrocephalus (or microcephaly), and Intracranial cerebral calcifications[cite: 1]."
+            },
+            {
+                q: "Which parasite migrates within the brain parenchyma, leaving visible tracks on serial neuroimaging?",
+                options: [
+                    "A. Spirometra mansoni (Sparganosis)",
+                    "B. Taenia solium",
+                    "C. Trichinella spiralis",
+                    "D. Enterobius vermicularis"
+                ],
+                correct: 0,
+                exp: "A is Correct: *Spirometra mansoni* (Sparganosis) larvae migrate dynamically through brain tissue, leaving visible tracks or migrating nodules on imaging[cite: 1]."
+            },
+            {
+                q: "What is the typical clinical course and prognosis for Candidal Meningoencephalitis?",
+                options: [
+                    "A. Benign, self-limiting within 48 hours without therapy",
+                    "B. Grave prognosis with high mortality despite IV Amphotericin B therapy",
+                    "C. Rapid, 100% cure with oral Fluconazole monotherapy",
+                    "D. Chronic indolent course lasting over 20 years"
+                ],
+                correct: 1,
+                exp: "B is Correct: CNS Candidiasis presents as severe meningitis or multiple microabscesses and carries a grave prognosis despite IV Amphotericin B[cite: 1]."
+            },
+            {
+                q: "A 68-year-old male with chronic lymphocytic leukemia presents with subacute confusion. CSF fungal culture grows Cryptococcus neoformans. Serum BUN is 48 mg/dL and serum creatinine is 2.8 mg/dL following 10 days of Amphotericin B. What is the likely complication?",
+                options: [
+                    "A. Amphotericin B-induced Nephrotoxicity and Renal Tubular Acidosis",
+                    "B. Flucytosine-induced hepatic necrosis",
+                    "C. Direct cryptococcal pyelonephritis",
+                    "D. Urinary tract obstruction from fungal ball"
+                ],
+                correct: 0,
+                exp: "A is Correct: Conventional Amphotericin B frequently causes nephrotoxicity, azotemia (elevated BUN/creatinine), and Renal Tubular Acidosis, requiring temporary drug adjustment or switch to liposomal formulations[cite: 1]."
+            },
+            {
+                q: "What is the duration of maintenance (suppressive) Fluconazole therapy for Cryptococcal Meningitis in an HIV-infected patient?",
+                options: [
+                    "A. 14 days",
+                    "B. 6 weeks",
+                    "C. 1 year (or until CD4 > 100/µL and viral load suppressed for 6 months)",
+                    "D. Discontinue immediately upon hospital discharge"
+                ],
+                correct: 2,
+                exp: "C is Correct: Maintenance fluconazole (200 mg/day) is continued for 1 year, and can only be safely discontinued if CD4 > 100/µL and viral load is suppressed[cite: 1]."
+            },
+            {
+                q: "Which parasite causes Chagas Disease in South America, transmitted by the Reduviid ('kissing') bug?",
+                options: [
+                    "A. Trypanosoma cruzi",
+                    "B. Trypanosoma brucei gambiense",
+                    "C. Leishmania donovani",
+                    "D. Toxoplasma gondii"
+                ],
+                correct: 0,
+                exp: "A is Correct: *Trypanosoma cruzi* causes Chagas disease, transmitted by Reduviid bugs, leading to cardiomyopathy, megaesophagus, megacolon, and meningoencephalitis in immunocompromised hosts[cite: 1]."
+            },
+            {
+                q: "What anatomical site is the primary target of Schistosoma japonicum egg deposition in the CNS?",
+                options: [
+                    "A. Cerebral Hemispheres",
+                    "B. Conus Medullaris of the spinal cord",
+                    "C. Optic Chiasm",
+                    "D. Fourth Ventricle"
+                ],
+                correct: 0,
+                exp: "A is Correct: *S. japonicum* preferentially affects the cerebral hemispheres (causing brain granulomas/seizures), whereas *S. mansoni* preferentially targets the spinal cord (conus medullaris)[cite: 1]."
+            },
+            {
+                q: "A 48-year-old male presenting with headache and focal seizures shows an irregular nodular enhancing lesion on MRI that changes position on repeat scan 2 weeks later. Blood shows 20% eosinophilia. What is the most likely etiology?",
+                options: [
+                    "A. Gnathostoma spinigerum / Parasitic migration",
+                    "B. Sporadic CJD",
+                    "C. Glioblastoma Multiforme",
+                    "D. Pyogenic Brain Abscess"
+                ],
+                correct: 0,
+                exp: "A is Correct: Migrating focal nodular lesions with peripheral/CSF eosinophilia are characteristic of tissue nematodes such as *Gnathostoma spinigerum* or *Angiostrongylus*[cite: 1]."
+            },
+            {
+                q: "Which statement correctly describes the clinical presentation of Kuru?",
+                options: [
+                    "A. Hyperacute fever, purulent meningitis, and sudden hemiplegia",
+                    "B. Afebrile progressive cerebellar ataxia, extraocular movement defects, weakness, and pathological laughter",
+                    "C. Intractable insomnia, autonomic storm, and medial thalamic degeneration",
+                    "D. Faciobrachial dystonic seizures with complete recovery"
+                ],
+                correct: 1,
+                exp: "B is Correct: Kuru presented as afebrile progressive cerebellar ataxia, tremor, extraocular movement defects, and emotional lability ('laughing sickness')[cite: 1]."
+            },
+            {
+                q: "What is the primary mechanism of stroke in Tuberculous Meningitis?",
+                options: [
+                    "A. Inflammatory arteritis of perforating vessels (e.g. lenticulostriates) leading to basal ganglia / internal capsule infarction",
+                    "B. Cardioembolic occlusion from marantic endocarditis",
+                    "C. Venous sinus thrombosis from hypercoagulability",
+                    "D. Rupture of a mycotic aneurysm into the motor cortex"
+                ],
+                correct: 0,
+                exp: "A is Correct: Basal meningeal exudates incite an inflammatory arteritis in perforating vessels passing through the base of the brain, causing lacunar-like ischemic infarctions in the basal ganglia and internal capsule[cite: 1]."
+            },
+            {
+                q: "A patient with suspected brain abscess undergoes contrast CT, which shows a thin, smooth, uniformly enhancing ring surrounding a hypodense center. What stage of abscess formation does this represent?",
+                options: [
+                    "A. Early Cerebritis",
+                    "B. Late Cerebritis",
+                    "C. Early/Late Encapsulation",
+                    "D. Resolved Scarring"
+                ],
+                correct: 2,
+                exp: "C is Correct: Smooth, defined, uniform ring enhancement indicates collagen capsule formation during the Encapsulation stages (Days 5–7 and beyond)[cite: 1]."
+            },
+            {
+                q: "Which of the following CSF profiles is most consistent with acute Fungal Meningitis in an immunocompetent host?",
+                options: [
+                    "A. Pressure elevated; Cell count 200/µL (80% lymphocytes); Protein elevated; Glucose low",
+                    "B. Pressure normal; Cell count 2,000/µL (95% neutrophils); Protein normal; Glucose normal",
+                    "C. Pressure low; Cell count 0/µL; Protein normal; Glucose elevated",
+                    "D. Pressure elevated; Cell count 5,000/µL (90% neutrophils); Protein normal; Glucose normal"
+                ],
+                correct: 0,
+                exp: "A is Correct: Fungal meningitis typically shows elevated opening pressure, moderate lymphocytic pleocytosis (5-500/µL), elevated protein, and low glucose[cite: 1]."
+            },
+            {
+                q: "What is the primary treatment for African Trypanosomiasis when CNS involvement (late stage) has occurred?",
+                options: [
+                    "A. Eflornithine combined with Nifurtimox",
+                    "B. Pentamidine alone",
+                    "C. Suramin alone",
+                    "D. Oral Fluconazole"
+                ],
+                correct: 0,
+                exp: "A is Correct: Combination therapy with Eflornithine and Nifurtimox is the preferred first-line regimen for late-stage (CNS) *T. brucei gambiense* disease[cite: 1]. Pentamidine and Suramin do not penetrate the CNS effectively[cite: 1]."
+            },
+            {
+                q: "Which brain abscess origin is correctly paired with its primary anatomical location?",
+                options: [
+                    "A. Otitis Media → Temporal Lobe or Cerebellum",
+                    "B. Frontal Sinusitis → Temporal Lobe",
+                    "C. Hematogenous spread → Medulla Oblongata",
+                    "D. Sphenoid Sinusitis → Cerebellar Hemisphere"
+                ],
+                correct: 0,
+                exp: "A is Correct: Otogenic infection spreads contiguously to the adjacent temporal lobe or cerebellum[cite: 1]. Sinusitis spreads to the frontal lobe[cite: 1]."
+            },
+            {
+                q: "In CJD, what sensory stimulus is most famous for triggering myoclonic jerks?",
+                options: [
+                    "A. Loud auditory noise or tactile touch (Startle Myoclonus)",
+                    "B. Continuous low-frequency ambient humming",
+                    "C. Gentle passive range of motion of the lower limb",
+                    "D. Sublingual temperature measurement"
+                ],
+                correct: 0,
+                exp: "A is Correct: Myoclonus in sCJD is characteristically stimulus-sensitive, triggered abruptly by loud sensory stimuli, sudden lights, or touch[cite: 1]."
+            },
+            {
+                q: "What is the primary clinical manifestation of the Racemose variant of Neurocysticercosis?",
+                options: [
+                    "A. Isolated subcutaneous skin nodules without neurological impact",
+                    "B. Proliferating basilar subarachnoid cysts causing hydrocephalus, vasculitis, and CN palsies",
+                    "C. Hyperacute purulent meningitis with neutrophilic pleocytosis",
+                    "D. Solitary parietal lobe mass with complete drug cure in 24 hours"
+                ],
+                correct: 1,
+                exp: "B is Correct: The racemose form involves proliferating cysts in the basilar cisterns, inciting aggressive arachnoiditis, hydrocephalus, stroke, and cranial nerve palsies[cite: 1]."
+            },
+            {
+                q: "Which rickettsial disease is transmitted by rat fleas and occurs in areas overlapping with RMSF?",
+                options: [
+                    "A. Murine (Endemic) Typhus",
+                    "B. Epidemic Typhus",
+                    "C. Scrub Typhus",
+                    "D. Q Fever"
+                ],
+                correct: 0,
+                exp: "A is Correct: Murine (endemic) typhus (*Rickettsia typhi*) is transmitted from rats to humans by rat fleas[cite: 1]."
+            },
+            {
+                q: "What is the key diagnostic finding on unspun wet mount CSF preparation in Primary Amebic Meningoencephalitis?",
+                options: [
+                    "A. Motile Naegleria fowleri trophozoites",
+                    "B. Non-motile Encysted larvae with scolex",
+                    "C. India ink-positive encapsulating yeast",
+                    "D. Periodic sharp wave complexes"
+                ],
+                correct: 0,
+                exp: "A is Correct: Direct examination of unspun fresh CSF wet mounts reveals motile amoebic trophozoites in *Naegleria fowleri* infection[cite: 1]."
+            },
+            {
+                q: "A 50-year-old female presents with subacute headache and double vision. CSF cryptococcal antigen is positive. Opening pressure is 38 cm H2O. What is the most appropriate initial management sequence?",
+                options: [
+                    "A. Antifungal induction (Amphotericin B + Flucytosine) AND daily LP to reduce ICP <25 cm H2O",
+                    "B. Immediate placement of a permanent ventriculoperitoneal shunt before starting antifungals",
+                    "C. High-dose IV Acetazolamide monotherapy without lumbar puncture",
+                    "D. Discharge on oral Fluconazole 100 mg daily"
+                ],
+                correct: 0,
+                exp: "A is Correct: Management of cryptococcal meningitis requires dual induction antifungals (AmpB + Flucytosine) combined with active ICP control via serial therapeutic LPs until pressure stabilizes <25 cm H2O[cite: 1]."
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `qCard_${idx}`;
+
+                let optionsHTML = '';
+                q.options.forEach((opt, optIdx) => {
+                    optionsHTML += `<button class="option-btn" onclick="checkAnswer(${idx}, ${optIdx})">${opt}</button>`;
+                });
+
+                card.innerHTML = `
+                    <div style="font-size: 0.8rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem;">QUESTION ${idx + 1} OF 50</div>
+                    <h3 style="font-size: 1rem; margin-bottom: 1rem;">${q.q}</h3>
+                    <div class="options-group">${optionsHTML}</div>
+                    <div class="explanation-box" id="exp_${idx}">
+                        <div style="font-weight: 700; margin-bottom: 0.3rem;" id="expStatus_${idx}"></div>
+                        <p style="font-size: 0.9rem;">${q.exp}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        let userScore = 0;
+        const answeredQuestions = new Set();
+
+        function checkAnswer(qIdx, selectedOptIdx) {
+            if (answeredQuestions.has(qIdx)) return;
+
+            const q = quizData[qIdx];
+            const card = document.getElementById(`qCard_${qIdx}`);
+            const buttons = card.querySelectorAll('.option-btn');
+            const expBox = document.getElementById(`exp_${qIdx}`);
+            const expStatus = document.getElementById(`expStatus_${qIdx}`);
+
+            answeredQuestions.add(qIdx);
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.correct) {
+                    btn.classList.add('correct');
+                } else if (idx === selectedOptIdx) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            if (selectedOptIdx === q.correct) {
+                userScore++;
+                expStatus.textContent = "✓ CORRECT ANSWER";
+                expStatus.style.color = "var(--secondary)";
+            } else {
+                expStatus.textContent = "✗ INCORRECT ANSWER";
+                expStatus.style.color = "var(--danger)";
+            }
+
+            expBox.style.display = 'block';
+            document.getElementById('quizScore').textContent = `${userScore} / 50`;
+        }
+
+        /* ==================== INITIALIZATION ==================== */
+        window.onload = function() {
+            renderFC();
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>
