@@ -1,0 +1,2238 @@
+<style>
+    :root {
+        --primary: #1e3a8a;
+        --primary-light: #3b82f6;
+        --primary-dark: #1e293b;
+        --accent: #0d9488;
+        --bg-main: #f8fafc;
+        --bg-card: #ffffff;
+        --text-main: #0f172a;
+        --text-muted: #475569;
+        --border: #e2e8f0;
+        --success: #16a34a;
+        --warning: #d97706;
+        --danger: #dc2626;
+        --must-know-bg: #eff6ff;
+        --must-know-border: #2563eb;
+        --pitfall-bg: #fef2f2;
+        --pitfall-border: #dc2626;
+        --pearl-bg: #f0fdf4;
+        --pearl-border: #16a34a;
+        --tip-bg: #fefce8;
+        --tip-border: #ca8a04;
+        --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'DM Sans', sans-serif;
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        line-height: 1.6;
+        padding-bottom: 60px;
+    }
+
+    /* Top Header & Nav */
+    header {
+        background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+        color: #ffffff;
+        padding: 2rem 1.5rem 1rem 1.5rem;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .header-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .header-title-area h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+    }
+
+    .header-title-area p {
+        font-size: 0.9rem;
+        color: #94a3b8;
+    }
+
+    .controls-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .search-box {
+        position: relative;
+        flex: 1;
+        max-width: 450px;
+    }
+
+    .search-box input {
+        width: 100%;
+        padding: 0.6rem 1rem 0.6rem 2.5rem;
+        border-radius: 8px;
+        border: 1px solid #334155;
+        background-color: #1e293b;
+        color: #ffffff;
+        font-size: 0.9rem;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    .search-box input:focus {
+        outline: 2px solid var(--primary-light);
+        background-color: #0f172a;
+    }
+
+    .search-box svg {
+        position: absolute;
+        left: 0.8rem;
+        top: 50%;
+        transform: translateY(-50%);
+        fill: #94a3b8;
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Scroll Progress */
+    .progress-bar-container {
+        width: 100%;
+        height: 4px;
+        background: rgba(255,255,255,0.1);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: var(--accent);
+        transition: width 0.1s;
+    }
+
+    /* Navigation Tabs */
+    nav {
+        background-color: #ffffff;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 88px;
+        z-index: 999;
+        box-shadow: var(--shadow);
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        padding: 0 1rem;
+    }
+
+    .nav-tab {
+        padding: 0.9rem 1.2rem;
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        border: none;
+        background: none;
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .nav-tab:hover {
+        color: var(--primary-light);
+        background-color: #f1f5f9;
+    }
+
+    .nav-tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+        background-color: #eff6ff;
+    }
+
+    /* Content Main Container */
+    main {
+        max-width: 1400px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+    }
+
+    .tab-content {
+        display: none;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Layout Cards & Headers */
+    .section-header {
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--border);
+    }
+
+    .section-header h2 {
+        font-family: 'Syne', sans-serif;
+        font-size: 1.6rem;
+        color: var(--primary-dark);
+    }
+
+    .card {
+        background: var(--bg-card);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow);
+    }
+
+    .card-header {
+        font-family: 'Syne', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    /* Scaffolding Callout Boxes */
+    .callout {
+        padding: 1rem 1.25rem;
+        border-radius: 8px;
+        margin: 1rem 0;
+        border-left: 5px solid;
+        font-size: 0.95rem;
+    }
+
+    .callout-must-know {
+        background-color: var(--must-know-bg);
+        border-left-color: var(--must-know-border);
+        color: #1e3a8a;
+    }
+
+    .callout-pitfall {
+        background-color: var(--pitfall-bg);
+        border-left-color: var(--pitfall-border);
+        color: #991b1b;
+    }
+
+    .callout-pearl {
+        background-color: var(--pearl-bg);
+        border-left-color: var(--pearl-border);
+        color: #166534;
+    }
+
+    .callout-tip {
+        background-color: var(--tip-bg);
+        border-left-color: var(--tip-border);
+        color: #854d0e;
+    }
+
+    .callout-title {
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Table Styling */
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        margin: 1.2rem 0;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.9rem;
+        background-color: #ffffff;
+    }
+
+    th {
+        background-color: #1e293b;
+        color: #ffffff;
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        padding: 0.8rem 1rem;
+        position: sticky;
+        top: 0;
+    }
+
+    td {
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f8fafc;
+    }
+
+    tr:hover {
+        background-color: #f1f5f9;
+    }
+
+    .btn-copy-table {
+        background-color: #e2e8f0;
+        color: #334155;
+        border: none;
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-family: 'Space Mono', monospace;
+        cursor: pointer;
+        float: right;
+        margin-bottom: 0.5rem;
+    }
+
+    .btn-copy-table:hover {
+        background-color: #cbd5e1;
+    }
+
+    /* SVG & CSS Flowcharts / Diagrams */
+    .diagram-container {
+        background-color: #f1f5f9;
+        border: 1px dashed #94a3b8;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1.2rem 0;
+        text-align: center;
+    }
+
+    .flow-step {
+        display: inline-block;
+        background: #ffffff;
+        border: 2px solid var(--primary-light);
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        margin: 0.4rem;
+        font-size: 0.85rem;
+        font-weight: 700;
+        box-shadow: var(--shadow);
+    }
+
+    .flow-arrow {
+        display: inline-block;
+        font-weight: 800;
+        color: var(--primary);
+        margin: 0 0.2rem;
+    }
+
+    /* Interactive Collapsible */
+    details {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 0.8rem;
+        background: #ffffff;
+    }
+
+    summary {
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        padding: 0.8rem 1rem;
+        cursor: pointer;
+        background-color: #f8fafc;
+        border-radius: 8px;
+        user-select: none;
+        color: var(--primary-dark);
+    }
+
+    summary:hover {
+        background-color: #f1f5f9;
+    }
+
+    details[open] summary {
+        border-bottom: 1px solid var(--border);
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .details-content {
+        padding: 1rem;
+        font-size: 0.95rem;
+    }
+
+    /* Flashcard Component */
+    .flashcard-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .flashcard-stage {
+        perspective: 1000px;
+        width: 100%;
+        max-width: 650px;
+        height: 360px;
+        margin: 0 auto 1.5rem auto;
+        cursor: pointer;
+    }
+
+    .flashcard-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-style: preserve-3d;
+    }
+
+    .flashcard-inner.flipped {
+        transform: rotateY(180deg);
+    }
+
+    .flashcard-front, .flashcard-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 16px;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: var(--shadow-lg);
+        border: 2px solid var(--border);
+    }
+
+    .flashcard-front {
+        background-color: #ffffff;
+        color: var(--primary-dark);
+    }
+
+    .flashcard-back {
+        background-color: #1e293b;
+        color: #ffffff;
+        transform: rotateY(180deg);
+    }
+
+    .flashcard-tag {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.75rem;
+        background: #eff6ff;
+        color: var(--primary);
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+    }
+
+    .flashcard-back .flashcard-tag {
+        background: #334155;
+        color: #38bdf8;
+    }
+
+    .flashcard-text {
+        font-size: 1.15rem;
+        font-weight: 500;
+    }
+
+    .fc-btn-group {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .btn {
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s;
+    }
+
+    .btn-primary {
+        background-color: var(--primary);
+        color: #ffffff;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--primary-light);
+    }
+
+    .btn-secondary {
+        background-color: #e2e8f0;
+        color: #334155;
+    }
+
+    .btn-secondary:hover {
+        background-color: #cbd5e1;
+    }
+
+    /* Quiz / Self-Assessment Component */
+    .quiz-card {
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow);
+    }
+
+    .quiz-q-num {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.8rem;
+        color: var(--primary-light);
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+    }
+
+    .quiz-question {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--primary-dark);
+    }
+
+    .quiz-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .quiz-option {
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #f8fafc;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+    }
+
+    .quiz-option:hover {
+        background-color: #eff6ff;
+        border-color: var(--primary-light);
+    }
+
+    .quiz-option.selected {
+        background-color: #dbeafe;
+        border-color: var(--primary);
+    }
+
+    .quiz-option.correct-choice {
+        background-color: #dcfce7 !important;
+        border-color: var(--success) !important;
+        color: #14532d;
+        font-weight: 700;
+    }
+
+    .quiz-option.wrong-choice {
+        background-color: #fee2e2 !important;
+        border-color: var(--danger) !important;
+        color: #7f1d1d;
+    }
+
+    .quiz-explanation {
+        display: none;
+        padding: 1rem;
+        background-color: #f1f5f9;
+        border-radius: 8px;
+        margin-top: 1rem;
+        font-size: 0.88rem;
+        border-left: 4px solid var(--primary);
+    }
+
+    .quiz-score-banner {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        color: #ffffff;
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Code/Mono text */
+    .mono {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.85rem;
+    }
+
+    /* Float to top button */
+    #btn-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: var(--shadow-lg);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    #btn-top:hover {
+        background-color: var(--primary-light);
+    }
+
+    @media (max-width: 768px) {
+        .header-title-area h1 { font-size: 1.4rem; }
+        .nav-tab { padding: 0.7rem 0.8rem; font-size: 0.75rem; }
+        .flashcard-stage { height: 420px; }
+    }
+</style>
+<header>
+    <div class="header-container">
+        <div class="header-title-area">
+            <h1>CNS INFECTIONS: VIRAL & BACTERIAL</h1>
+            <p>Comprehensive Board Exam Interactive Reviewer | Philippine Medical Education Spec (PLE Target)</p>
+        </div>
+        <div class="controls-row">
+            <div class="search-box">
+                <svg viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/></svg>
+                <input type="text" id="globalSearch" placeholder="Search keywords (e.g., Acyclovir, Listeria, Kernig, RT-QuIC)..." onkeyup="filterContent()">
+            </div>
+        </div>
+    </div>
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+</header>
+
+<nav>
+    <div class="nav-container" id="navTabs">
+        <button class="nav-tab active" onclick="switchTab('overview')">1. Overview</button>
+        <button class="nav-tab" onclick="switchTab('topic1')">2. Fundamentals</button>
+        <button class="nav-tab" onclick="switchTab('topic2')">3. CSF Analysis</button>
+        <button class="nav-tab" onclick="switchTab('topic3')">4. Bacterial Meningitis</button>
+        <button class="nav-tab" onclick="switchTab('topic4')">5. Viral Encephalitis</button>
+        <button class="nav-tab" onclick="switchTab('topic5')">6. Chronic & Opportunistic</button>
+        <button class="nav-tab" onclick="switchTab('topic6')">7. Brain Abscess</button>
+        <button class="nav-tab" onclick="switchTab('topic7')">8. Anti-NMDAR & Prion</button>
+        <button class="nav-tab" onclick="switchTab('comparisons')">9. Comparisons</button>
+        <button class="nav-tab" onclick="switchTab('flashcards')">10. Flashcards (50)</button>
+        <button class="nav-tab" onclick="switchTab('quiz')">11. Self-Assessment (50)</button>
+        <button class="nav-tab" onclick="switchTab('cram')">12. Cram Sheet</button>
+    </div>
+</nav>
+
+<main>
+
+    <!-- ==================== TAB 1: OVERVIEW ==================== -->
+    <div id="overview" class="tab-content active">
+        <div class="section-header">
+            <h2>Module Overview & High-Yield Learning Objectives</h2>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Target Learning Objectives</div>
+            <ul style="padding-left: 1.2rem; margin-bottom: 1rem;">
+                <li><strong>Syndrome Localization:</strong> Identify the major clinical syndromes of CNS infection (Meningitis, Encephalitis, Meningoencephalitis, Brain Abscess, Chronic Meningitis, Myelitis) and localize the precise anatomical compartment involved.</li>
+                <li><strong>Pathophysiology & Dynamics:</strong> Explain how microbial invasion and host inflammation disrupt the blood-brain barrier (BBB), alter CSF hydrodynamics, impair cerebral perfusion pressure ($CPP = MAP - ICP$), and trigger cerebral edema.</li>
+                <li><strong>CSF Pattern Recognition:</strong> Interpret classic and atypical CSF patterns in acute bacterial, viral/aseptic, tuberculous, and fungal CNS infections while identifying critical diagnostic pitfalls.</li>
+                <li><strong>Emergency Empiric Management:</strong> Formulate immediate diagnostic and empiric antimicrobial/steroid management plans without causing harmful delays for lumbar puncture (LP) or neuroimaging.</li>
+                <li><strong>Atypical & Special Entities:</strong> Master diagnostic criteria and clinical phenotypes of Brain Abscess, Anti-NMDA Receptor Encephalitis, Tuberculous Meningitis, Cryptococcal Disease, Neurocysticercosis, and Prion Diseases (sCJD).</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>Executive Summary: Core CNS Syndromes</span>
+                <button class="btn-copy-table" onclick="copyTable('overview-table')">Copy Table</button>
+            </div>
+            <div class="table-wrapper">
+                <table id="overview-table">
+                    <thead>
+                        <tr>
+                            <th>Syndrome</th>
+                            <th>Primary Anatomic Site</th>
+                            <th>Hallmark Clinical Features</th>
+                            <th>Immediate Life Threat / Concern</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Meningitis</strong></td>
+                            <td>Leptomeninges (pia & arachnoid) & CSF</td>
+                            <td>Fever, severe headache, neck stiffness (nuchal rigidity), photophobia. <em>Cognition preserved initially.</em></td>
+                            <td>Septic shock, raised ICP, hydrocephalus, brain herniation.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Encephalitis</strong></td>
+                            <td>Brain parenchyma</td>
+                            <td>Fever, headache, <strong>altered mental status</strong>, behavioral change, focal deficits, seizures.</td>
+                            <td>Severe cerebral edema, uncal/transtentorial herniation, status epilepticus.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Meningoencephalitis</strong></td>
+                            <td>Meninges + Brain parenchyma</td>
+                            <td>Meningismus (nuchal rigidity) PLUS focal cortical dysfunction / altered sensorium.</td>
+                            <td>Requires dual empiric coverage (antibacterial + antiviral IV acyclovir).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Brain Abscess</strong></td>
+                            <td>Focal brain parenchymal collection</td>
+                            <td>Triad of headache, focal neurologic deficit, mass effect / raised ICP. <em>Fever may be absent.</em></td>
+                            <td>Herniation risk! <strong>Lumbar puncture is strictly contraindicated.</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chronic Meningitis</strong></td>
+                            <td>Persistent meningeal inflammation (>2-4 wks)</td>
+                            <td>Subacute/chronic headache, cranial neuropathies (CN III, VI, VII), hydrocephalus.</td>
+                            <td>Tuberculous, fungal (Cryptococcus), neurosyphilis, malignancy, autoimmune.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Myelitis</strong></td>
+                            <td>Spinal cord parenchyma</td>
+                            <td>Acute/subacute motor weakness, sensory level, sphincter/autonomic dysfunction.</td>
+                            <td>Respiratory compromise (high cervical cord), irreversible cord compression mimic.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="callout callout-must-know">
+            <div class="callout-title">⭐ Fundamental Rule of CNS Emergencies</div>
+            Acute bacterial meningitis and HSV encephalitis are medical and neurological emergencies. High clinical suspicion requires immediate administration of empiric antimicrobial therapy. <strong>Do NOT allow neuroimaging or lumbar puncture delays to postpone antibiotic or antiviral initiation!</strong>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 2: FUNDAMENTALS ==================== -->
+    <div id="topic1" class="tab-content">
+        <div class="section-header">
+            <h2>Topic 1: CNS Infection Fundamentals & Pathophysiology</h2>
+        </div>
+
+        <div class="card">
+            <div class="card-header">1. Anatomic Barriers & Vulnerability</div>
+            <p>The brain and spinal cord are enclosed within rigid bony compartments (skull and vertebral canal). Modest inflammation, vasogenic edema, or focal purulent collections rapidly raise intracranial pressure (ICP), compromising cerebral perfusion.</p>
+            
+            <h4 style="margin-top: 1rem; color: var(--primary);">4 Broad Routes of Microbial Entry:</h4>
+            <ul style="padding-left: 1.2rem; margin-bottom: 1rem;">
+                <li><strong>Hematogenous Spread (Most Common):</strong> Pathogens enter via bloodstream bacteremia, interact with cerebral microvascular endothelial cells, and cross the BBB. Typical for <em>S. pneumoniae</em>, <em>N. meningitidis</em>, <em>Mycobacteria</em>, fungi, and septic emboli (e.g., Infective Endocarditis).</li>
+                <li><strong>Contiguous Spread:</strong> Direct extension from adjacent infected structures: paranasal sinuses, mastoid air cells, middle ear (otitis media), dental abscesses, or cranial osteomyelitis. Crucial in brain abscess development.</li>
+                <li><strong>Direct Inoculation:</strong> Pathogens introduced via penetrating head trauma, neurosurgical procedures, CSF shunts, external ventricular drains, or basilar skull fracture defects with CSF leaks.</li>
+                <li><strong>Neural Spread:</strong> Retrograde axonal transport along peripheral or cranial nerves. Classically exploited by <strong>Herpes Simplex Virus (HSV-1)</strong> along trigeminal (CN V) or olfactory pathways to temporal/limbic structures, as well as Rabies virus.</li>
+            </ul>
+
+            <div class="callout callout-pearl">
+                <div class="callout-title">💡 Clinical Pearl: BBB Breakdown</div>
+                The Blood-Brain Barrier (BBB) is formed by microvascular endothelial cells with tight junctions, basement membrane, pericytes, and astrocytic end-feet. Inflammatory cytokines ($TNF-\alpha$, $IL-1\beta$) disrupt these tight junctions, increasing permeability. Plasma proteins enter CSF (elevating CSF protein) and leukocytes migrate across (pleocytosis), driving <strong>vasogenic cerebral edema</strong>.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">2. Intracranial Pressure (ICP) & Cerebral Perfusion Dynamics</div>
+            <p>Cerebral Perfusion Pressure (CPP) is defined by the mathematical relationship:</p>
+            <div style="text-align: center; margin: 1rem 0; font-family: 'Space Mono', monospace; font-size: 1.2rem; background: #f1f5f9; padding: 0.75rem; border-radius: 8px;">
+                $$CPP = MAP - ICP$$
+            </div>
+            <p>Where <strong>MAP</strong> is Mean Arterial Pressure and <strong>ICP</strong> is Intracranial Pressure. Normal ICP in adults is $100-180\text{ mmH}_2\text{O}$ ($8-14\text{ mmHg}$). Elevated ICP reduces CPP, leading to global ischemia, drowsiness, herniation, and death.</p>
+            
+            <div class="diagram-container">
+                <span class="flow-step">Bacterial Lysis / Pathogen Component Release</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Cytokine Release ($TNF-\alpha$, $IL-1$)</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">BBB Disruption & Leukocyte Recruitment</span>
+                <br><br>
+                <span class="flow-arrow">↓</span>
+                <br>
+                <span class="flow-step">Cerebral Edema (Vasogenic, Cytotoxic, Interstitial)</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Impaired CSF Absorption at Arachnoid Granulations</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Marked ICP Rise & Decreased CPP</span>
+            </div>
+
+            <div class="callout callout-pitfall">
+                <div class="callout-title">⚠️ Common Pitfall: Temporal Profile Nuances</div>
+                Note slight classification differences between educators:
+                <ul>
+                    <li><strong>Dr. Mesina:</strong> Hyperacute (<hours - pyogenic bacterial), Acute (days - bacterial/viral), Subacute (days to weeks - TB, fungal, neurosyphilis).</li>
+                    <li><strong>Dr. Guillermo:</strong> Acute (<1 week), Subacute (1-2 weeks), Chronic (>2 weeks).</li>
+                </ul>
+                Always correlate temporal evolution with host immune status! Immunocompromised patients may blunt acute inflammatory responses.
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 3: CSF ANALYSIS ==================== -->
+    <div id="topic2" class="tab-content">
+        <div class="section-header">
+            <h2>Topic 2: CSF Pattern Analysis & Diagnostic Approach</h2>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>Master CSF Diagnostic Profiles</span>
+                <button class="btn-copy-table" onclick="copyTable('csf-table')">Copy Table</button>
+            </div>
+            <div class="table-wrapper">
+                <table id="csf-table">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Acute Bacterial Meningitis</th>
+                            <th>Viral Meningitis / Encephalitis</th>
+                            <th>Tuberculous Meningitis</th>
+                            <th>Fungal (Cryptococcal) Meningitis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Opening Pressure</strong></td>
+                            <td>Elevated ($>180\text{ mmH}_2\text{O}$; often $>300$)</td>
+                            <td>Usually Normal or mildly elevated</td>
+                            <td>Elevated</td>
+                            <td><strong>Markedly Elevated</strong> (can be $>300-500\text{ mmH}_2\text{O}$)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WBC Count</strong></td>
+                            <td><strong>1,000 - 5,000 /µL</strong> (up to 100,000)</td>
+                            <td>5 - 1,000 /µL</td>
+                            <td>5 - 500 /µL</td>
+                            <td>5 - 500 /µL (May be low in severe HIV)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cell Differential</strong></td>
+                            <td><strong>Predominantly Neutrophilic</strong> (85-95%)</td>
+                            <td><strong>Predominantly Lymphocytic</strong></td>
+                            <td><strong>Predominantly Lymphocytic</strong></td>
+                            <td><strong>Predominantly Lymphocytic</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Protein</strong></td>
+                            <td>Markedly Elevated ($100 - 500+\text{ mg/dL}$)</td>
+                            <td>Normal or mildly elevated ($<100\text{ mg/dL}$)</td>
+                            <td><strong>Markedly Elevated</strong> ($100 - 500+\text{ mg/dL}$)</td>
+                            <td>Elevated ($100 - 500\text{ mg/dL}$)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Glucose (CSF:Serum)</strong></td>
+                            <td><strong>Low (Hypoglycorrhachia)</strong> ($<40\text{ mg/dL}$ or $<40\%$)</td>
+                            <td>Usually Normal ($>50\%-60\%$ of serum)</td>
+                            <td><strong>Low</strong> ($<40\text{ mg/dL}$ or $<40\%$)</td>
+                            <td><strong>Low</strong> ($<40\text{ mg/dL}$)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Core Confirmatory Tests</strong></td>
+                            <td>Gram stain, Bacterial Culture, Multiplex PCR</td>
+                            <td>CSF Viral PCR / NAAT (HSV, VZV, Enterovirus)</td>
+                            <td>GeneXpert MTB/RIF, AFB smear/culture</td>
+                            <td>Cryptococcal Antigen (CALAS), India Ink, Fungal Culture</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Clinical Indications for Cranial CT/MRI Prior to Lumbar Puncture</div>
+            <p>Performing an LP in the presence of a focal space-occupying lesion or severe pressure gradient creates a caudally directed pressure differential, triggering <strong>transtentorial or tonsillar brain herniation</strong>.</p>
+            
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ 5 Key Indications to Obtain Neuroimaging BEFORE LP</div>
+                <ol style="padding-left: 1.2rem;">
+                    <li><strong>Focal Neurologic Deficits</strong> (e.g., hemiparesis, cranial nerve palsy, aphasia).</li>
+                    <li><strong>Papilledema</strong> on fundoscopic exam.</li>
+                    <li><strong>New-onset Seizures</strong> (within 1 week of presentation).</li>
+                    <li><strong>Markedly Depressed Sensorium / Encephalopathy</strong> (GCS $<10$ or severe confusion).</li>
+                    <li><strong>Severely Immunocompromised State</strong> (e.g., advanced HIV, post-transplant, chemotherapy).</li>
+                </ol>
+            </div>
+
+            <div class="callout callout-pitfall">
+                <div class="callout-title">⚠️ Mandatory Protocol If CT Is Delayed</div>
+                If CT scanning is required before LP, <strong>DO NOT WAIT FOR THE CT SCAN TO ADMINISTER ANTIBIOTICS!</strong><br>
+                <strong>Correct Order:</strong> 1. Draw Blood Cultures → 2. Immediately start Empiric IV Antibiotics + Dexamethasone → 3. Send for Urgent Neuroimaging → 4. Perform LP if imaging rules out mass effect.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Critical CSF Diagnostic Pitfalls</div>
+            <ul style="padding-left: 1.2rem;">
+                <li><strong>Early Bacterial Meningitis:</strong> Very early in course, WBC count may be only modestly elevated (<100/µL). Do not exclude bacterial meningitis if clinical suspicion is high!</li>
+                <li><strong>Partially Treated Bacterial Meningitis:</strong> Self-medication or prior antibiotic administration (2-3 days prior) shifts the WBC differential toward <em>lymphocytic predominance</em> and sterilizes CSF cultures. However, low glucose and high protein persist! Use multiplex PCR.</li>
+                <li><strong>Early Viral Meningitis:</strong> Within the first 24 hours, viral meningitis can transiently show a <em>neutrophilic predominance</em> before shifting to lymphocytic.</li>
+                <li><strong>Non-specificity of Hypoglycorrhachia:</strong> Low CSF glucose is NOT specific for bacterial meningitis; it also occurs in TB meningitis, fungal meningitis, neurosarcoidosis, and carcinomatous meningitis.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 4: BACTERIAL MENINGITIS ==================== -->
+    <div id="topic3" class="tab-content">
+        <div class="section-header">
+            <h2>Topic 3: Acute Bacterial Meningitis (Leptomeningitis)</h2>
+        </div>
+
+        <div class="card">
+            <div class="card-header">1. Clinical Presentation & The Classic Triad</div>
+            <p>Acute bacterial meningitis is inflammation of the leptomeninges (pia mater, arachnoid mater) and subarachnoid CSF. It evolves rapidly (over hours to <7 days).</p>
+            
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ The Classic Clinical Triad</div>
+                <div style="display: flex; gap: 1rem; justify-content: space-around; margin-top: 0.5rem; text-align: center;">
+                    <div style="background: white; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--primary-light);"><strong>1. Fever</strong></div>
+                    <div style="background: white; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--primary-light);"><strong>2. Nuchal Rigidity</strong></div>
+                    <div style="background: white; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--primary-light);"><strong>3. Altered Mental Status</strong></div>
+                </div>
+                <p style="margin-top: 0.8rem; font-size: 0.9rem;"><em>Clinical Reality:</em> All 3 elements are present in only ~44-50% of patients. However, almost all (>95%) present with at least two of: headache, fever, neck stiffness, or altered sensorium.</p>
+            </div>
+
+            <h4 style="margin-top: 1rem; color: var(--primary);">Meningeal Irritation Signs:</h4>
+            <ul style="padding-left: 1.2rem;">
+                <li><strong>Nuchal Rigidity:</strong> Inability to passively flex the neck forward due to severe muscle spasm.</li>
+                <li><strong>Kernig Sign:</strong> Resistance or painful extension of the leg at the knee when the hip is flexed at 90 degrees.</li>
+                <li><strong>Brudzinski Sign:</strong> Involuntary flexion of the hips and knees upon passive neck flexion.</li>
+                <li><strong>Petechial/Purpuric Rash:</strong> Indicates invasive <em>Neisseria meningitidis</em> (Meningococcemia) with DIC and endotoxemia.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>2. Age & Setting-Based Etiology & Empiric Therapy</span>
+                <button class="btn-copy-table" onclick="copyTable('empiric-table')">Copy Table</button>
+            </div>
+            <p style="font-size: 0.9rem; margin-bottom: 0.8rem;">Reconciled from Dr. Mesina and Dr. Guillermo (Adams & Victor 12th Ed.):</p>
+            <div class="table-wrapper">
+                <table id="empiric-table">
+                    <thead>
+                        <tr>
+                            <th>Age Group / Setting</th>
+                            <th>Major Etiologic Pathogens</th>
+                            <th>Empiric Antibiotic Regimen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Neonates (0 - 4 weeks)</strong></td>
+                            <td><em>Group B Streptococcus</em>, <em>E. coli</em>, <em>Listeria monocytogenes</em></td>
+                            <td><strong>Ampicillin + Cefotaxime</strong> (or Ampicillin + Gentamicin)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infants (4 - 12 weeks)</strong></td>
+                            <td><em>S. pneumoniae</em>, <em>N. meningitidis</em>, <em>H. influenzae</em>, GBS, <em>Listeria</em></td>
+                            <td><strong>Ampicillin + 3rd-Gen Cephalosporin</strong> (± Dexamethasone)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Children & Adults (3 mos - 50 yrs)</strong></td>
+                            <td><em>Streptococcus pneumoniae</em>, <em>Neisseria meningitidis</em></td>
+                            <td><strong>3rd-Gen Cephalosporin</strong> (Ceftriaxone / Cefotaxime) + <strong>Vancomycin</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Older Adults (>50 yrs), Pregnancy, Alcoholism</strong></td>
+                            <td><em>S. pneumoniae</em>, <em>N. meningitidis</em>, <strong>Listeria monocytogenes</strong>, Gram-neg bacilli</td>
+                            <td><strong>3rd-Gen Cephalosporin + Vancomycin + AMPICILLIN</strong> (for <em>Listeria</em>)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Immunocompromised State</strong></td>
+                            <td><em>S. pneumoniae</em>, <em>L. monocytogenes</em>, Gram-neg bacilli (Pseudomonas)</td>
+                            <td><strong>Vancomycin + Ampicillin + Ceftazidime</strong> (or Meropenem)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Basilar Skull Fracture / CSF Leak</strong></td>
+                            <td><em>S. pneumoniae</em>, upper respiratory flora</td>
+                            <td><strong>3rd-Gen Cephalosporin + Vancomycin</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Post-Neurosurgery / CSF Shunt / Head Trauma</strong></td>
+                            <td><em>Staphylococci</em> (S. aureus, CoNS), <em>Pseudomonas aeruginosa</em></td>
+                            <td><strong>Vancomycin + Ceftazidime</strong> (or Cefepime / Meropenem)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">3. Dexamethasone Corticosteroid Therapy: Detailed Nuance</div>
+            <p>The administration of adjunctive corticosteroids in acute bacterial meningitis has historical and modern clinical debate detailed across both lectures:</p>
+            <ul style="padding-left: 1.2rem;">
+                <li><strong>Pathophysiologic Rationale:</strong> Bactericidal antibiotics induce rapid bacterial lysis, releasing cell wall endotoxins and teichoic acid. This amplifies subarachnoid space cytokine production ($TNF$, $IL-1$), worsening cerebral edema and hearing loss.</li>
+                <li><strong>WHO & Modern Guidelines (Dr. Mesina):</strong> Dexamethasone ($10\text{ mg IV}$ q6h for 4 days) is indicated in suspected/proven <strong>Pneumococcal meningitis</strong>. <em>Timing is vital:</em> Must be given <strong>10-20 minutes before or WITH the first antibiotic dose</strong>. Giving it after antibiotics confers no benefit.</li>
+                <li><strong>Historical / Adams & Victor Perspective (Dr. Guillermo):</strong> Notes that early clinical trials failed to show consistent overall mortality benefits in all adult bacterial meningitides, and routinely avoids it in non-pneumococcal cases or HIV co-infection. Continuances depend on microbiologic confirmation.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 5: VIRAL ENCEPHALITIS ==================== -->
+    <div id="topic4" class="tab-content">
+        <div class="section-header">
+            <h2>Topic 4: Acute Viral Meningitis & Encephalitis</h2>
+        </div>
+
+        <div class="card">
+            <div class="card-header">1. Aseptic Meningitis vs. Viral Encephalitis</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Acute Aseptic Meningitis</th>
+                            <th>Acute Viral Encephalitis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Anatomic Focus</strong></td>
+                            <td>Meninges & subarachnoid CSF only</td>
+                            <td>Brain parenchyma (± meninges = meningoencephalitis)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cognition / Sensorium</strong></td>
+                            <td><strong>Preserved.</strong> Alert, oriented, mild lethargy.</td>
+                            <td><strong>Altered.</strong> Confusion, delirium, stupor, coma, behavioral changes.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Focal Deficits / Seizures</strong></td>
+                            <td>Absent.</td>
+                            <td><strong>Present.</strong> Focal seizures, aphasia, hemiparesis, dyskinesias.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Most Common Etiology</strong></td>
+                            <td><strong>Enteroviruses</strong> (Echovirus, Coxsackievirus B)</td>
+                            <td><strong>HSV-1</strong> (Most common sporadic cause worldwide)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mortality / Prognosis</strong></td>
+                            <td>Rarely fatal; self-limiting.</td>
+                            <td>High mortality and severe morbidity without acyclovir.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">2. Herpes Simplex Virus (HSV-1) Encephalitis</div>
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ Classic Phenotype & Localization of HSV-1</div>
+                HSV-1 gains access to the brain via retrograde neural spread along trigeminal or olfactory nerves. It displays a tropism for <strong>inferior/medial temporal lobes and limbic structures</strong>.
+                <br><br>
+                <strong>Clinical Clues:</strong> Rapid onset fever, headache, acute memory loss/amnesia (hippocampus), personality/behavioral changes (limbic system), aphasia (dominant temporal cortex), focal temporal seizures, and olfactory/gustatory hallucinations.
+            </div>
+
+            <h4 style="margin-top: 1rem; color: var(--primary);">Diagnostic & Imaging Findings:</h4>
+            <ul style="padding-left: 1.2rem;">
+                <li><strong>MRI (Gold Standard):</strong> T2/FLAIR hyperintensity and restricted diffusion (DWI) in asymmetric medial temporal lobes, insular cortices, and orbitofrontal lobes. <strong>Basal ganglia are spared</strong> (distinguishes HSV from MCA infarction!).</li>
+                <li><strong>CSF PCR:</strong> High sensitivity (>95%) and specificity for HSV-1 DNA. CSF may show lymphocytic pleocytosis, elevated protein, and <em>red blood cells (RBCs)</em> due to necrotizing hemorrhagic lesions.</li>
+                <li><strong>Treatment:</strong> Immediate <strong>Empiric IV Acyclovir</strong> ($10\text{ mg/kg}$ IV q8h or $30\text{ mg/kg/day}$ for 14-21 days). <em>DO NOT WAIT FOR PCR RESULTS TO START ACYCLOVIR!</em></li>
+            </ul>
+
+            <div class="callout callout-pearl">
+                <div class="callout-title">💡 Japanese Encephalitis B (Flavivirus) Clue</div>
+                JE virus is an endemic mosquito-borne arbovirus in Asia. Unlike HSV, JE specifically targets deep gray matter structures (thalamus, basal ganglia, brainstem), producing encephalitis accompanied by <strong>movement disorders (parkinsonism, dystonia, myarrhythmia) or flaccid paralysis</strong>.
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 6: CHRONIC & OPPORTUNISTIC ==================== -->
+    <div id="topic5" class="tab-content">
+        <div class="section-header">
+            <h2>Topic 5: Chronic & Opportunistic CNS Infections</h2>
+        </div>
+
+        <div class="card">
+            <div class="card-header">1. Tuberculous Meningitis (TBM)</div>
+            <p>Caused by <em>Mycobacterium tuberculosis</em>. Highly prevalent in the Philippines. It presents subacutely over 1 to 4 weeks with low-grade fever, weight loss, night sweats, and progressive headache.</p>
+            
+            <h4 style="margin-top: 1rem; color: var(--primary);">Pathophysiology & Anatomical Complications:</h4>
+            <p>TBM produces thick gelatinous inflammatory exudates concentrated at the <strong>basal meninges (basal cisterns and Sylvian fissures)</strong>. This accounts for its 3 primary complications:</p>
+            <ol style="padding-left: 1.2rem; margin-bottom: 1rem;">
+                <li><strong>Cranial Neuropathies (Craniopathies):</strong> Entrapment of cranial nerves at the base of the skull, most commonly <strong>CN III, VI (ocular motor palsies)</strong> and CN VII.</li>
+                <li><strong>Communicating Hydrocephalus:</strong> Impaired CSF resorption through arachnoid granulations due to basal exudates blocking subarachnoid spaces.</li>
+                <li><strong>Basal Ganglia / Internal Capsule Infarctions:</strong> Inflammatory endarteritis/vasculitis involving deep perforating vessels (lenticulostriate arteries) passing through the Circle of Willis.</li>
+            </ol>
+
+            <h4 style="color: var(--primary);">Treatment Protocol:</h4>
+            <p><strong>Antituberculous Regimen:</strong> 2 months Intensive Phase (Isoniazid + Rifampin + Pyrazinamide + Ethambutol) followed by 7-10 months Continuation Phase (Isoniazid + Rifampin).<br>
+            <strong>Adjunctive Dexamethasone:</strong> Tapered over 8 weeks ($0.3-0.4\text{ mg/kg/day}$ initial). Shown to significantly reduce mortality in HIV-negative TBM patients!</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">2. Cryptococcal Meningitis & Fungal Infections</div>
+            <p>Common opportunistic fungal infection in advanced HIV infection ($CD4 < 100/\text{µL}$) or organ transplant recipients receiving immunosuppression.</p>
+            <ul style="padding-left: 1.2rem;">
+                <li><strong>Dominant Pathophysiologic Problem:</strong> <strong>Markedly elevated Intracranial Pressure (ICP)</strong> due to fungal capsular polysaccharide clogging arachnoid villi.</li>
+                <li><strong>Classic MRI Finding:</strong> <strong>"Soap-bubble" gelatinous pseudocysts</strong> located in the basal ganglia and Virchow-Robin perivascular spaces.</li>
+                <li><strong>Diagnosis:</strong> Cryptococcal Antigen Latex Agglutination System (CALAS) (>95% sensitive), India Ink preparation (shows budding encapsulated yeast), and fungal culture.</li>
+                <li><strong>Management:</strong> Induction with Amphotericin B + Flucytosine, followed by Fluconazole. Active management of high ICP with repeated therapeutic LPs.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">3. Neurocysticercosis (NCC)</div>
+            <p>Caused by the encysted larval stage of the pork tapeworm, <em>Taenia solium</em>. Most common cause of acquired epilepsy in endemic developing regions (including the Philippines).</p>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Staging</th>
+                            <th>Imaging Features (CT / MRI)</th>
+                            <th>Clinical & Inflammatory Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Vesicular Stage</strong></td>
+                            <td>Cystic lesion with visible eccentric dot (the <strong>scolex</strong>). No edema.</td>
+                            <td>Viable parasite. Asymptomatic or mild symptoms. Immune tolerance.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Colloidal Stage</strong></td>
+                            <td><strong>Ring-enhancing lesion</strong> with prominent surrounding vasogenic edema.</td>
+                            <td>Degenerating parasite releasing antigens. <strong>Provokes severe inflammation & seizures.</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Granular-Nodular</strong></td>
+                            <td>Thickening cyst wall, involuting lesion, declining edema.</td>
+                            <td>Healing stage. Parasite dying.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Calcified Stage</strong></td>
+                            <td>Small calcified punctate nodule best seen on non-contrast CT.</td>
+                            <td>Inactive, dead parasite. Acts as a chronic epileptogenic focus.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-pitfall">
+                <div class="callout-title">⚠️ Treatment Pitfall: Antiparasitic Administration</div>
+                Administering antiparasitic drugs (Praziquantel / Albendazole) causes massive parasite lysis, dramatically increasing local edema and seizures. Always co-administer high-dose corticosteroids (Dexamethasone) and evaluate for hydrocephalus before initiating anti-helminthics!
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 7: BRAIN ABSCESS ==================== -->
+    <div id="topic6" class="tab-content">
+        <div class="section-header">
+            <h2>Topic 6: Focal CNS Infections & Brain Abscess</h2>
+        </div>
+
+        <div class="card">
+            <div class="card-header">1. Etiology & Anatomic Pathways</div>
+            <p>A brain abscess is a focal, encapsulated parenchymal collection of pus. Etiology depends on entry route:</p>
+            <ul style="padding-left: 1.2rem;">
+                <li><strong>Otogenic (Middle ear / Mastoiditis):</strong> Localizes to <strong>Temporal Lobe</strong> (causing visual field deficits or aphasia) or <strong>Cerebellum</strong> (causing ataxia, nystagmus, 4th ventricle obstruction).</li>
+                <li><strong>Sinusitis (Frontal / Ethmoid sinuses):</strong> Localizes to <strong>Frontal Lobe</strong> (causing executive dysfunction, personality changes).</li>
+                <li><strong>Hematogenous (Endocarditis, Pulmonary AV fistulas, IVDU):</strong> Characterized by <strong>multiple lesions</strong> distributed at the gray-white matter junction in the MCA distribution.</li>
+                <li><strong>Most Common Pathogens:</strong> Virulent <strong>Streptococci</strong> (anaerobic or microaerophilic, 30-50%), often mixed with oral anaerobes (Bacteroides, Prevotella) or <em>Staphylococcus aureus</em> (post-trauma/endocarditis).</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>2. Stages of Abscess Formation (Parenchymal Evolution)</span>
+                <button class="btn-copy-table" onclick="copyTable('abscess-table')">Copy Table</button>
+            </div>
+            <div class="table-wrapper">
+                <table id="abscess-table">
+                    <thead>
+                        <tr>
+                            <th>Stage</th>
+                            <th>Timeline</th>
+                            <th>Pathologic Features</th>
+                            <th>Imaging Characteristics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Early Cerebritis</strong></td>
+                            <td>Days 1 - 3</td>
+                            <td>Unconfined inflammatory response, localized edema, vascular congestion, early necrosis.</td>
+                            <td>Non-enhancing or patchy enhancement; patchy high FLAIR signal.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Late Cerebritis</strong></td>
+                            <td>Days 4 - 7</td>
+                            <td>Progressive central liquefactive necrosis; early peripheral fibroblasts.</td>
+                            <td>Irregular thin ring enhancement; central hyperintensity on T2.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Early Capsule</strong></td>
+                            <td>Days 8 - 14</td>
+                            <td>Development of neovascularized collagenous capsule; central pus formation.</td>
+                            <td><strong>Well-defined rim enhancement</strong> on T1+C; ring lesion.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Late Capsule</strong></td>
+                            <td>> 14 Days</td>
+                            <td>Dense mature collagenous wall with dense gliosis surrounding the lesion.</td>
+                            <td>Thick, smooth, uniformly hyper-enhancing rim; persistent central necrosis.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ MRI Diffusion-Weighted Imaging (DWI) Hallmark</div>
+                On brain MRI, a pyogenic brain abscess shows <strong>Restricted Diffusion (Hyperintense on DWI, Hypointense on ADC)</strong> within its necrotic center due to viscous, hypercellular pus. This key finding distinguishes an abscess from a necrotic cystic tumor (metastosis or glioblastoma, which shows free diffusion)!
+            </div>
+
+            <div class="callout callout-pitfall">
+                <div class="callout-title">⚠️ LP Contraindication & Preferred Management</div>
+                <strong>Lumbar puncture is strictly contraindicated</strong> in brain abscess due to high herniation risk and low diagnostic yield. Preferred initial definitive management is <strong>CT/MRI-guided Stereotactic Needle Aspiration</strong> (for decompression and pathogen isolation) plus 6-8 weeks of targeted IV antibiotic therapy.
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 8: ANTI-NMDAR & PRION ==================== -->
+    <div id="topic7" class="tab-content">
+        <div class="section-header">
+            <h2>Topic 7: Anti-NMDA Receptor Encephalitis & Prion Disease</h2>
+        </div>
+
+        <div class="card">
+            <div class="card-header">1. Autoimmune Anti-NMDA Receptor Encephalitis</div>
+            <p>An autoimmune encephalitis that closely mimics viral encephalitis. Frequently affects young females and children, and is strongly associated with <strong>Ovarian Teratomas</strong> (paraneoplastic mechanism).</p>
+            
+            <h4 style="margin-top: 1rem; color: var(--primary);">Multistage Clinical Progression:</h4>
+            <ol style="padding-left: 1.2rem; margin-bottom: 1rem;">
+                <li><strong>Prodromal Phase:</strong> Nonspecific fever, headache, upper respiratory symptoms.</li>
+                <li><strong>Psychiatric Phase:</strong> Severe anxiety, insomnia, mania, paranoia, hallucinations, catatonia.</li>
+                <li><strong>Neurologic / Movement Phase:</strong> Memory loss, seizures, <strong>orofacial dyskinesias, choreoathetosis, limb myarrhythmias</strong>.</li>
+                <li><strong>Autonomic Instability Phase:</strong> Hypoventilation, cardiac arrhythmias, blood pressure fluctuations, coma.</li>
+            </ol>
+
+            <div class="callout callout-must-know">
+                <div class="callout-title">⭐ Confirmatory Laboratory Diagnosis</div>
+                Definite diagnosis is confirmed by detecting <strong>IgG antibodies against the GluN1 (NR1) subunit</strong> of the NMDA receptor in CSF or serum. EEG may show "Extreme Delta Brush".
+                <br><br>
+                <strong>Management:</strong> 1. First-line Immunotherapy (IV Methylprednisolone, IVIG, or Plasma Exchange) → 2. Tumor Screening (Pelvic Ultrasound/MRI for ovarian teratoma) & Surgical Excision → 3. Second-line Immunotherapy (Rituximab or Cyclophosphamide) if refractory.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">2. Prion Diseases & Sporadic Creutzfeldt-Jakob Disease (sCJD)</div>
+            <p>Prion diseases are transmissible, fatal neurodegenerative disorders caused by conformational misfolding of normal cellular prion protein ($PrP^C$) into an abnormal scrapie isoform ($PrP^{Sc}$). $PrP^{Sc}$ acts as a template, promoting progressive protein aggregation, spongiform vacuolation, and neuronal cell death <em>without inducing a cellular inflammatory immune response</em>.</p>
+            
+            <h4 style="margin-top: 1rem; color: var(--primary);">Sporadic CJD Clinical Phenotype:</h4>
+            <ul style="padding-left: 1.2rem;">
+                <li><strong>Rapidly Progressive Dementia:</strong> Cognitive decline evolving over weeks to months.</li>
+                <li><strong>Startle Myoclonus:</strong> Involuntary muscle jerks elicited by auditory or tactile stimuli.</li>
+                <li><strong>Cerebellar & Extrapyramidal Dysfunction:</strong> Ataxia, rigidity, akinetic mutism.</li>
+            </ul>
+
+            <h4 style="margin-top: 1rem; color: var(--primary);">Diagnostic Biomarkers & Imaging:</h4>
+            <ul style="padding-left: 1.2rem;">
+                <li><strong>MRI Brain:</strong> <strong>"Cortical Ribboning"</strong> (diffusion restriction on DWI in cerebral cortex) and hyperintensity in caudate nucleus and putamen.</li>
+                <li><strong>CSF Real-Time Quaking-Induced Conversion (RT-QuIC):</strong> Highly specific assay detecting minute amounts of misfolded prion protein.</li>
+                <li><strong>CSF 14-3-3 & Total Tau Proteins:</strong> Elevated surrogate markers reflecting rapid, severe neuronal lysis (nonspecific; elevated in acute stroke/encephalitis).</li>
+                <li><strong>EEG:</strong> Periodic sharp wave complexes (PSWCs).</li>
+            </ul>
+
+            <div class="callout callout-pitfall">
+                <div class="callout-title">⚠️ Mandatory Exclusions in Suspected CJD</div>
+                Never diagnose CJD without actively excluding <strong>treatable mimics of rapidly progressive dementia</strong>: Autoimmune encephalitis (Anti-LGI1, Anti-CASPR2), HSV encephalitis, Neurosyphilis, HIV encephalopathy, Nonconvulsive Status Epilepticus, Toxic/Metabolic encephalopathy, and CNS Lymphoma!
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 9: COMPARISONS ==================== -->
+    <div id="comparisons" class="tab-content">
+        <div class="section-header">
+            <h2>Topic 8: Side-by-Side Diagnostic Comparison Tables</h2>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>1. High-Yield Differential: Meningitis vs. Encephalitis vs. Abscess vs. CJD</span>
+                <button class="btn-copy-table" onclick="copyTable('comp-table-1')">Copy Table</button>
+            </div>
+            <div class="table-wrapper">
+                <table id="comp-table-1">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Acute Bacterial Meningitis</th>
+                            <th>HSV-1 Encephalitis</th>
+                            <th>Brain Abscess</th>
+                            <th>Sporadic CJD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Onset Profile</strong></td>
+                            <td>Hyperacute / Acute (<24 hrs to days)</td>
+                            <td>Acute (days)</td>
+                            <td>Subacute (1 to 3 weeks)</td>
+                            <td>Subacute / Rapidly Progressive (weeks - mos)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sensorium</strong></td>
+                            <td>Preserved early; lethargy late</td>
+                            <td><strong>Altered early</strong> (confusion, coma)</td>
+                            <td>Variable; depressed with raised ICP</td>
+                            <td><strong>Rapidly Progressive Dementia</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Focal Deficits</strong></td>
+                            <td>Uncommon initially</td>
+                            <td><strong>Common</strong> (aphasia, memory loss)</td>
+                            <td><strong>Prominent</strong> (hemiparesis, field cut)</td>
+                            <td>Myoclonus, ataxia, extrapyramidal signs</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Meningismus</strong></td>
+                            <td><strong>Marked</strong> (Nuchal rigidity +)</td>
+                            <td>Variable / Mild</td>
+                            <td>Absent or mild</td>
+                            <td>Absent</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Neuroimaging</strong></td>
+                            <td>Leptomeningeal enhancement</td>
+                            <td>Temporal lobe hyperintensity (T2/FLAIR)</td>
+                            <td><strong>Ring-enhancing lesion</strong> + core restriction</td>
+                            <td><strong>Cortical ribboning</strong> & caudate sign</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CSF Key Marker</strong></td>
+                            <td>PMN pleocytosis, low glucose, high protein</td>
+                            <td>Lymphocytes, HSV PCR positive, RBCs</td>
+                            <td><strong>LP CONTRAINDICATED</strong></td>
+                            <td><strong>RT-QuIC positive</strong>, protein 14-3-3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>2. Reconciled Educator Nuance: Dr. Mesina vs. Dr. Guillermo Perspectives</span>
+                <button class="btn-copy-table" onclick="copyTable('educator-table')">Copy Table</button>
+            </div>
+            <div class="table-wrapper">
+                <table id="educator-table">
+                    <thead>
+                        <tr>
+                            <th>Topic Domain</th>
+                            <th>Dr. Mesina-Nepomuceno Focus Points</th>
+                            <th>Dr. Guillermo Focus Points</th>
+                            <th>PLE Board Exam Synthesis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Temporal Profile</strong></td>
+                            <td>Emphasizes functional profiles: Hyperacute (<hrs), Acute (days), Subacute (days-wks).</td>
+                            <td>Strict time windows: Acute (<1 wk), Subacute (1-2 wks), Chronic (>2 wks).</td>
+                            <td>Acute pyogenic = hours/days; TBM/Fungal = subacute/chronic (>2 wks).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dexamethasone Role</strong></td>
+                            <td>WHO Guidelines: Mandates IV Dexamethasone WITH 1st antibiotic dose for Pneumococcal.</td>
+                            <td>Adams & Victor perspective: Highlights historical trial controversy; stresses selective use (TBM & proven pneumococcal).</td>
+                            <td>Give Dexamethasone before/with antibiotics in suspected adult pneumococcal meningitis & TBM.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Empiric Regimens</strong></td>
+                            <td>Focused on clinical setting (Community adult, >50 Listeria, Neurosurgical).</td>
+                            <td>Detailed age-stratified tables (0-4w, 4-12w, 3m-18y, 18-50y, >50y).</td>
+                            <td><strong>Always add Ampicillin</strong> for age >50, neonates, pregnancy, or cellular immunocompromise!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Special Entities</strong></td>
+                            <td>Detailed breakdown of Neurocysticercosis stages & Cryptococcal pressure management.</td>
+                            <td>Detailed diagnostic criteria for <strong>Anti-NMDA Receptor Encephalitis</strong> (IgG GluN1) & myarrhythmias.</td>
+                            <td>Master both Anti-NMDAR diagnostic criteria and Neurocysticercosis CT staging.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 10: FLASHCARDS ==================== -->
+    <div id="flashcards" class="tab-content">
+        <div class="section-header">
+            <h2>Topic 9: Active Recall Flashcards (50 Items)</h2>
+        </div>
+
+        <div class="flashcard-controls">
+            <div>
+                <label for="fcSectionFilter" style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.85rem; margin-right:0.5rem;">Filter Section:</label>
+                <select id="fcSectionFilter" onchange="filterFlashcards()" style="padding:0.4rem 0.8rem; border-radius:6px; border:1px solid var(--border);">
+                    <option value="ALL">All Sections (50 Cards)</option>
+                    <option value="Fundamentals">Fundamentals & Pathophysiology</option>
+                    <option value="CSF">CSF Analysis</option>
+                    <option value="Bacterial">Bacterial Meningitis</option>
+                    <option value="Viral">Viral Encephalitis</option>
+                    <option value="Chronic">Chronic & Opportunistic</option>
+                    <option value="Abscess">Brain Abscess</option>
+                    <option value="Autoimmune">Anti-NMDAR & Prion</option>
+                </select>
+            </div>
+            <div>
+                <span id="fcTracker" class="mono" style="margin-right: 1rem;">Card 1 of 50</span>
+                <button class="btn btn-secondary" onclick="shuffleFlashcards()">Shuffle Cards</button>
+            </div>
+        </div>
+
+        <div class="flashcard-stage" onclick="flipFlashcard()">
+            <div class="flashcard-inner" id="fcInner">
+                <div class="flashcard-front">
+                    <div class="flashcard-tag" id="fcTagFront">Fundamentals</div>
+                    <div class="flashcard-text" id="fcTextFront">Question Loading...</div>
+                    <div style="font-size:0.75rem; color:#94a3b8; position:absolute; bottom:15px;">Click or Press Spacebar to Flip</div>
+                </div>
+                <div class="flashcard-back">
+                    <div class="flashcard-tag" id="fcTagBack">Answer</div>
+                    <div class="flashcard-text" id="fcTextBack">Answer Loading...</div>
+                    <div style="font-size:0.75rem; color:#94a3b8; position:absolute; bottom:15px;">Click to Flip Back</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fc-btn-group">
+            <button class="btn btn-secondary" onclick="prevFlashcard()">← Previous</button>
+            <button class="btn btn-primary" onclick="nextFlashcard()">Next Card →</button>
+        </div>
+    </div>
+
+    <!-- ==================== TAB 11: SELF-ASSESSMENT ==================== -->
+    <div id="quiz" class="tab-content">
+        <div class="section-header">
+            <h2>Topic 10: Self-Assessment Multiple-Choice Examination (50 Questions)</h2>
+        </div>
+
+        <div class="quiz-score-banner">
+            <div>
+                <h3 style="font-family:'Syne',sans-serif; margin-bottom:0.2rem;">Board Exam Simulation Tracker</h3>
+                <p style="font-size:0.85rem; color:#94a3b8;">Complete all questions to unlock detailed performance review.</p>
+            </div>
+            <div style="text-align:right;">
+                <span id="quizScoreText" style="font-family:'Space Mono',monospace; font-size:1.8rem; font-weight:700; color:var(--accent);">0 / 50</span>
+            </div>
+        </div>
+
+        <div id="quizContainer">
+            <!-- Dynamically Rendered via JS -->
+        </div>
+    </div>
+
+    <!-- ==================== TAB 12: CRAM SHEET ==================== -->
+    <div id="cram" class="tab-content">
+        <div class="section-header">
+            <h2>Topic 11: Ultra-Condensed Rapid Cram Sheet (< 10 Min Read)</h2>
+        </div>
+
+        <div class="card" style="border-left: 6px solid var(--accent);">
+            <div class="card-header" style="color:var(--accent);">⚡ Rapid Diagnostic Buzzwords ("If You See X → Think Y")</div>
+            <ul style="padding-left: 1.2rem; font-size:0.95rem;">
+                <li><strong>Petechial / Purpuric Rash in Febrile Patient:</strong> → <em>Neisseria meningitidis</em> (Meningococcemia).</li>
+                <li><strong>Fever + Headache + Acute Memory Loss + Behavioral Changes + Focal Temporal Seizures:</strong> → <strong>HSV-1 Encephalitis</strong>.</li>
+                <li><strong>Encephalitis + Parkinsonian Movement Disorder / Flaccid Paralysis:</strong> → <strong>Japanese Encephalitis B Virus</strong>.</li>
+                <li><strong>Meningitis + Cranial Nerve Palsies (CN III, VI) + Basal Ganglia Infarcts:</strong> → <strong>Tuberculous Meningitis</strong>.</li>
+                <li><strong>Gelatinous "Soap-Bubble" Pseudocysts in Basal Ganglia:</strong> → <strong>Cryptococcal Meningitis</strong>.</li>
+                <li><strong>Otitis Media / Mastoiditis → Temporal Lobe or Cerebellar Ring-Enhancing Lesion:</strong> → <strong>Otogenic Brain Abscess</strong> (Streptococci/Anaerobes).</li>
+                <li><strong>Frontal Sinusitis → Frontal Lobe Mass Effect:</strong> → <strong>Frontal Brain Abscess</strong>.</li>
+                <li><strong>Ring-Enhancing Lesion with Central Restricted Diffusion on DWI:</strong> → <strong>Pyogenic Brain Abscess</strong> (vs Free Diffusion in Metastasis).</li>
+                <li><strong>Young Female + Psychiatric Prodrome + Orofacial Dyskinesias + Autonomic Instability:</strong> → <strong>Anti-NMDA Receptor Encephalitis</strong> (Check for Ovarian Teratoma!).</li>
+                <li><strong>Rapidly Progressive Dementia + Startle Myoclonus + Cortical Ribboning on MRI:</strong> → <strong>Sporadic Creutzfeldt-Jakob Disease (sCJD)</strong>.</li>
+                <li><strong>Pork Tapeworm Endemic Area + Seizures + Ring Lesion with Eccentric Scolex:</strong> → <strong>Neurocysticercosis</strong> (<em>Taenia solium</em>).</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">⚡ Rapid CSF Profile Cheat Sheet</div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Diagnosis</th>
+                            <th>Opening Pressure</th>
+                            <th>Cell Count & Type</th>
+                            <th>Protein</th>
+                            <th>Glucose Ratio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Bacterial</strong></td>
+                            <td>Elevated (>180)</td>
+                            <td>1,000 - 5,000 (Neutrophils)</td>
+                            <td>Markedly High (>100-500)</td>
+                            <td><strong>Markedly Low (<40%)</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Viral</strong></td>
+                            <td>Normal / Mild ↑</td>
+                            <td>5 - 1,000 (Lymphocytes)</td>
+                            <td>Normal / Mild ↑ (<100)</td>
+                            <td><strong>Normal (>50-60%)</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tuberculous</strong></td>
+                            <td>Elevated</td>
+                            <td>5 - 500 (Lymphocytes)</td>
+                            <td><strong>Markedly High (>100-500)</strong></td>
+                            <td><strong>Low (<40%)</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fungal</strong></td>
+                            <td><strong>Strikingly High (>300)</strong></td>
+                            <td>5 - 500 (Lymphocytes)</td>
+                            <td>Elevated</td>
+                            <td><strong>Low (<40%)</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">⚡ Rapid Empiric Antimicrobial Summary</div>
+            <ul style="padding-left: 1.2rem; font-size:0.9rem;">
+                <li><strong>Adult Community-Acquired (<50y):</strong> Ceftriaxone ($2\text{g IV}$ q12h) + Vancomycin ($15-20\text{ mg/kg IV}$ q8-12h).</li>
+                <li><strong>Older Adult (>50y) / Pregnancy / Immunocompromised:</strong> Ceftriaxone + Vancomycin + <strong>Ampicillin ($2\text{g IV}$ q4h)</strong>.</li>
+                <li><strong>Post-Neurosurgery / Shunt:</strong> Vancomycin + <strong>Ceftazidime ($2\text{g IV}$ q8h)</strong> or Cefepime.</li>
+                <li><strong>Suspected HSV Encephalitis:</strong> Add <strong>IV Acyclovir ($10\text{ mg/kg}$ q8h)</strong> immediately.</li>
+                <li><strong>Pneumococcal Steroids:</strong> <strong>IV Dexamethasone ($10\text{ mg}$)</strong> given 10-20 min BEFORE or WITH first antibiotic dose.</li>
+            </ul>
+        </div>
+    </div>
+
+</main>
+
+<button id="btn-top" onclick="scrollToTop()" title="Scroll to Top">↑</button>
+
+<script>
+    /* ==================== FLASHCARDS DATA ARRAY (50 ITEMS) ==================== */
+    const flashcardsData = [
+        // Fundamentals
+        { id: 1, section: "Fundamentals", q: "What is the primary anatomic site involved in acute meningitis?", a: "The leptomeninges (pia mater and arachnoid mater) and the subarachnoid space CSF." },
+        { id: 2, section: "Fundamentals", q: "What clinical manifestation distinguishes encephalitis from uncomplicated viral meningitis?", a: "Altered mental status / brain parenchymal dysfunction (confusion, behavioral changes, focal deficits, seizures)." },
+        { id: 3, section: "Fundamentals", q: "What is the formula for Cerebral Perfusion Pressure (CPP)?", a: "CPP = MAP - ICP (Mean Arterial Pressure minus Intracranial Pressure)." },
+        { id: 4, section: "Fundamentals", q: "What is the most common route of microbial invasion into the CNS?", a: "Hematogenous spread (bacteremia crossing the Blood-Brain Barrier)." },
+        { id: 5, section: "Fundamentals", q: "Neural spread along trigeminal or olfactory nerves is classically associated with which pathogen?", a: "Herpes Simplex Virus Type 1 (HSV-1)." },
+        { id: 6, section: "Fundamentals", q: "Contiguous spread to the CNS typically originates from which anatomic structures?", a: "Paranasal sinuses, middle ear (otitis media), mastoid air cells, or dental infection." },
+        { id: 7, section: "Fundamentals", q: "What normal physiological structures form the Blood-Brain Barrier?", a: "Cerebral endothelial cells with tight junctions, basement membrane, pericytes, and astrocytic end-feet." },
+        { id: 8, section: "Fundamentals", q: "What temporal classification defines chronic CNS infection according to Dr. Guillermo?", a: "Duration of illness greater than 2 weeks (>14 days)." },
+
+        // CSF Analysis
+        { id: 9, section: "CSF", q: "What is the classic CSF white blood cell count range in acute bacterial meningitis?", a: "1,000 to 5,000 cells/µL (with neutrophilic predominance of 85-95%)." },
+        { id: 10, section: "CSF", q: "What normal opening pressure range is expected during adult lumbar puncture?", a: "100 to 180 mmH2O (8 to 14 mmHg)." },
+        { id: 11, section: "CSF", q: "What CSF glucose ratio defines hypoglycorrhachia in bacterial meningitis?", a: "CSF-to-serum glucose ratio < 0.40 (or absolute CSF glucose < 40 mg/dL)." },
+        { id: 12, section: "CSF", q: "Name 3 absolute indications for CT neuroimaging prior to performing an LP.", a: "1. Focal neurologic deficit, 2. Papilledema, 3. New-onset seizure, 4. Depressed sensorium, 5. Severe immunocompromise." },
+        { id: 13, section: "CSF", q: "If CT imaging is required before LP, what must be done regarding antimicrobial therapy?", a: "Draw blood cultures and immediately start empiric antibiotics/steroids BEFORE sending for CT." },
+        { id: 14, section: "CSF", q: "Why may early viral meningitis mimic bacterial meningitis on initial CSF analysis?", a: "Within the first 24 hours, early viral meningitis can transiently show neutrophilic predominance." },
+        { id: 15, section: "CSF", q: "What CSF finding is uniquely striking in Cryptococcal meningitis?", a: "Markedly elevated opening pressure (often > 300 to 500 mmH2O)." },
+        { id: 16, section: "CSF", q: "How does prior antibiotic exposure alter the CSF profile in bacterial meningitis?", a: "It sterilizes cultures and shifts cell differential toward lymphocytes, but protein remains high and glucose low." },
+
+        // Bacterial Meningitis
+        { id: 17, section: "Bacterial", q: "What is the classic clinical triad of acute bacterial meningitis?", a: "Fever, Nuchal Rigidity, and Altered Mental Status." },
+        { id: 18, section: "Bacterial", q: "What pathogen causes acute bacterial meningitis accompanied by a purpuric or petechial rash?", a: "Neisseria meningitidis (Meningococcemia)." },
+        { id: 19, section: "Bacterial", q: "What 2 pathogens account for the vast majority of community-acquired adult meningitis?", a: "Streptococcus pneumoniae and Neisseria meningitidis." },
+        { id: 20, section: "Bacterial", q: "Why must Ampicillin be added to empiric regimens for adults > 50 years old?", a: "To cover Listeria monocytogenes." },
+        { id: 21, section: "Bacterial", q: "What empiric antibiotic coverage is indicated for post-neurosurgical or CSF shunt meningitis?", a: "Vancomycin PLUS Ceftazidime (or Cefepime/Meropenem) to cover Staphylococci and Pseudomonas." },
+        { id: 22, section: "Bacterial", q: "What is the correct timing for administering IV Dexamethasone in pneumococcal meningitis?", a: "10 to 20 minutes BEFORE or WITH the first dose of IV antibiotics." },
+        { id: 23, section: "Bacterial", q: "What sign is elicited by passive neck flexion causing involuntary hip/knee flexion?", a: "Brudzinski sign." },
+        { id: 24, section: "Bacterial", q: "What sign is positive when knee extension is resisted/painful with hip flexed at 90°?", a: "Kernig sign." },
+        { id: 25, section: "Bacterial", q: "What is the standard duration of IV antibiotic therapy for uncomplicated bacterial meningitis?", a: "10 to 14 days." },
+
+        // Viral Encephalitis
+        { id: 26, section: "Viral", q: "What is the most common cause of sporadic viral encephalitis worldwide?", a: "Herpes Simplex Virus Type 1 (HSV-1)." },
+        { id: 27, section: "Viral", q: "Which brain regions are characteristically targeted by HSV-1 encephalitis?", a: "Medial and inferior temporal lobes, limbic system, and orbitofrontal cortices." },
+        { id: 28, section: "Viral", q: "What classic MRI pattern distinguishes HSV-1 encephalitis from MCA ischemic stroke?", a: "Bilateral asymmetric temporal/limbic T2 hyperintensity with SPARING of the basal ganglia." },
+        { id: 29, section: "Viral", q: "What is the empiric drug of choice and dosage for suspected HSV encephalitis?", a: "IV Acyclovir 10 mg/kg q8h (or 30 mg/kg/day) for 14 to 21 days." },
+        { id: 30, section: "Viral", q: "What virus is the most common cause of acute aseptic meningitis?", a: "Enteroviruses (Echovirus and Coxsackievirus)." },
+        { id: 31, section: "Viral", q: "Which neuroinvasive arbovirus classically produces encephalitis with parkinsonian movement disorders?", a: "Japanese Encephalitis B Virus (Flavivirus)." },
+        { id: 32, section: "Viral", q: "Why may red blood cells (RBCs) be present in CSF during HSV encephalitis?", a: "Because HSV-1 produces acute necrotizing, hemorrhagic parenchymal lesions." },
+
+        // Chronic & Opportunistic
+        { id: 33, section: "Chronic", q: "Where does inflammatory exudate concentrate in Tuberculous Meningitis (TBM)?", a: "At the basal meninges / basal cisterns." },
+        { id: 34, section: "Chronic", q: "What are the 3 major neuro-complications of Tuberculous Meningitis?", a: "1. Cranial neuropathies (CN III, VI), 2. Hydrocephalus, 3. Basal ganglia vasculitis/infarcts." },
+        { id: 35, section: "Chronic", q: "What MRI finding is characteristic of Cryptococcal CNS infection?", a: "Gelatinous 'soap-bubble' pseudocysts in the basal ganglia and Virchow-Robin spaces." },
+        { id: 36, section: "Chronic", q: "What rapid diagnostic test is preferred for Cryptococcal meningitis?", a: "Cryptococcal Antigen Latex Agglutination System (CALAS)." },
+        { id: 37, section: "Chronic", q: "What organism causes Neurocysticercosis?", a: "Taenia solium (larval stage of pork tapeworm)." },
+        { id: 38, section: "Chronic", q: "Which stage of Neurocysticercosis provokes severe host inflammation and seizures?", a: "The Colloidal vesicular stage (degenerating cyst wall with edema)." },
+        { id: 39, section: "Chronic", q: "What CT feature identifies the scolex in Neurocysticercosis?", a: "An eccentric hyperdense nodule inside a cystic lesion." },
+
+        // Brain Abscess
+        { id: 40, section: "Abscess", q: "What clinical triad characterizes a Brain Abscess?", a: "Headache, focal neurological deficit, and mass effect / signs of raised ICP." },
+        { id: 41, section: "Abscess", q: "Otogenic infections (ear/mastoid) typically spread to which brain regions?", a: "Temporal lobe or Cerebellum." },
+        { id: 42, section: "Abscess", q: "What key MRI DWI finding distinguishes a pyogenic abscess from a necrotic tumor?", a: "Restricted diffusion (hyperintense on DWI) in the central necrotic core." },
+        { id: 43, section: "Abscess", q: "What is the most common bacterial pathogen group isolated from brain abscesses?", a: "Microaerophilic and anaerobic Streptococci." },
+        { id: 44, section: "Abscess", q: "Why is Lumbar Puncture contraindicated in suspected brain abscess?", a: "High risk of fatal brain herniation and poor diagnostic yield." },
+        { id: 45, section: "Abscess", q: "What is the preferred initial surgical management for a brain abscess?", a: "CT- or MRI-guided stereotactic needle aspiration." },
+
+        // Autoimmune & Prion
+        { id: 46, section: "Autoimmune", q: "Anti-NMDA Receptor Encephalitis is confirmed by detecting IgG antibodies against what subunit?", a: "The GluN1 (NR1) subunit of the NMDA receptor." },
+        { id: 47, section: "Autoimmune", q: "What systemic neoplasm is most strongly associated with Anti-NMDAR encephalitis in young females?", a: "Ovarian Teratoma." },
+        { id: 48, section: "Autoimmune", q: "What classic movement abnormalities occur in Anti-NMDAR encephalitis?", a: "Orofacial dyskinesias, choreoathetosis, and limb myarrhythmias." },
+        { id: 49, section: "Autoimmune", q: "What misfolded protein conversion causes Sporadic Creutzfeldt-Jakob Disease (sCJD)?", a: "Conversion of normal cellular prion protein (PrPC) into abnormal scrapie isoform (PrPSc)." },
+        { id: 50, section: "Autoimmune", q: "What MRI sign is pathognomonic for sCJD?", a: "'Cortical ribboning' (diffusion restriction in cerebral cortex) and hyperintensity in caudate/putamen." }
+    ];
+
+    /* ==================== MCQS DATA ARRAY (50 ITEMS) ==================== */
+    const mcqData = [
+        {
+            id: 1,
+            question: "A 35-year-old male presents with 2 days of severe headache, fever (39.2°C), and photophobia. On exam, he is fully alert and oriented. Passive neck flexion causes marked resistance and pain. Hips and knees flex involuntarily during neck flexion. What is the localized anatomic compartment and primary diagnosis?",
+            options: [
+                "Brain parenchyma; Acute Encephalitis",
+                "Leptomeninges & CSF; Acute Bacterial Meningitis",
+                "Spinal cord; Acute Myelitis",
+                "Frontal lobe; Brain Abscess"
+            ],
+            correct: 1,
+            explanation: "The combination of fever, severe headache, photophobia, intact cognition, and positive Brudzinski sign (involuntary hip/knee flexion) localizes the pathology to the leptomeninges and CSF (Acute Meningitis).",
+            distractors: {
+                0: "Encephalitis requires altered mental status or focal parenchymal deficits, which are absent here.",
+                2: "Myelitis presents with motor weakness, sensory level, and sphincter dysfunction.",
+                3: "Brain abscess presents with focal deficits and mass effect, with fever frequently absent."
+            }
+        },
+        {
+            id: 2,
+            question: "Which mathematical formula correctly governs Cerebral Perfusion Pressure (CPP) dynamics in severe bacterial meningitis with elevated ICP?",
+            options: [
+                "CPP = MAP + ICP",
+                "CPP = MAP - ICP",
+                "CPP = ICP - MAP",
+                "CPP = Systolic BP / ICP"
+            ],
+            correct: 1,
+            explanation: "Cerebral Perfusion Pressure is calculated as CPP = MAP - ICP. As intracranial pressure rises due to edema or hydrocephalus without a compensatory MAP rise, CPP falls, leading to global brain ischemia.",
+            distractors: {
+                0: "Adding ICP to MAP is mathematically incorrect.",
+                2: "Subtracting MAP from ICP would yield a negative perfusion gradient.",
+                3: "CPP is not a division ratio of systolic BP."
+            }
+        },
+        {
+            id: 3,
+            question: "A 68-year-old diabetic female presents with acute fever, confusion, and nuchal rigidity. Lumbar puncture is performed. Which empiric antibiotic combination is mandatory for her age group?",
+            options: [
+                "Ceftriaxone + Vancomycin",
+                "Ampicillin + Gentamicin",
+                "Ceftriaxone + Vancomycin + Ampicillin",
+                "Vancomycin + Ceftazidime"
+            ],
+            correct: 2,
+            explanation: "In adults aged > 50 years (and immunocompromised or pregnant patients), Ampicillin MUST be added to 3rd-generation Cephalosporin + Vancomycin to cover Listeria monocytogenes.",
+            distractors: {
+                0: "Lacks Ampicillin, leaving the patient unprotected against Listeria monocytogenes.",
+                1: "Ampicillin + Gentamicin is the regimen for neonates (0-4 weeks).",
+                3: "Vancomycin + Ceftazidime is indicated for health-care associated / post-neurosurgical meningitis."
+            }
+        },
+        {
+            id: 4,
+            question: "Regarding adjunctive IV Dexamethasone therapy in suspected acute adult pneumococcal meningitis, which timing protocol is recommended by WHO and clinical guidelines?",
+            options: [
+                "Administer 24 hours after initiating antibiotics",
+                "Administer 10-20 minutes before or concurrently with the first dose of IV antibiotics",
+                "Administer only if blood cultures return negative after 48 hours",
+                "Administer as a continuous infusion for 14 consecutive days"
+            ],
+            correct: 1,
+            explanation: "Dexamethasone (10 mg IV q6h x 4 days) must be given BEFORE or WITH the first dose of antibiotics to inhibit cytokine cascade release triggered by rapid antibiotic-induced bacterial lysis.",
+            distractors: {
+                0: "Giving steroids 24 hours after antibiotics fails to attenuate the initial inflammatory peak.",
+                2: "Waiting 48 hours misses the therapeutic window completely.",
+                3: "The standard course is 4 days, not 14 days."
+            }
+        },
+        {
+            id: 5,
+            question: "A 22-year-old college student presents with rapid onset fever, severe headache, confusion, and a non-blanching petechial and purpuric rash over his lower extremities. What is the most likely pathogen?",
+            options: [
+                "Streptococcus pneumoniae",
+                "Neisseria meningitidis",
+                "Listeria monocytogenes",
+                "Haemophilus influenzae"
+            ],
+            correct: 1,
+            explanation: "The presence of a non-blanching petechial or purpuric rash in a young adult with acute meningitis is pathognomonic for invasive Neisseria meningitidis (Meningococcemia).",
+            distractors: {
+                0: "S. pneumoniae is the most common adult cause but typically does not cause a petechial/purpuric rash.",
+                2: "Listeria presents in older/immunocompromised patients without purpura.",
+                3: "H. influenzae is rare in vaccinated young adults and lacks purpuric skin lesions."
+            }
+        },
+        {
+            id: 6,
+            question: "Which set of CSF findings is classic for Acute Bacterial Meningitis?",
+            options: [
+                "WBC 10/µL (Lymphs), Protein 30 mg/dL, Glucose 60 mg/dL, OP 120 mmH2O",
+                "WBC 2,500/µL (88% PMNs), Protein 350 mg/dL, Glucose 18 mg/dL, OP 320 mmH2O",
+                "WBC 150/µL (90% Lymphs), Protein 45 mg/dL, Glucose 65 mg/dL, OP 140 mmH2O",
+                "WBC 300/µL (85% Lymphs), Protein 400 mg/dL, Glucose 20 mg/dL, OP 280 mmH2O"
+            ],
+            correct: 1,
+            explanation: "Bacterial meningitis shows high opening pressure (>180), marked neutrophilic pleocytosis (1,000-5,000+), markedly elevated protein (>100), and hypoglycorrhachia (CSF glucose < 40 mg/dL or ratio < 0.40).",
+            distractors: {
+                0: "Represents normal CSF values.",
+                2: "Classic for Viral Meningitis (lymphocytic, normal glucose).",
+                3: "Classic for Tuberculous Meningitis (lymphocytic pleocytosis, high protein, low glucose)."
+            }
+        },
+        {
+            id: 7,
+            question: "A 19-year-old female presents with fever, behavioral change, dysphasia, and focal temporal lobe seizures. MRI reveals asymmetric T2/FLAIR hyperintensity in the medial temporal lobes with basal ganglia sparing. What is the treatment of choice?",
+            options: [
+                "IV Ceftriaxone + Vancomycin",
+                "IV Acyclovir 10 mg/kg q8h",
+                "Oral Ganciclovir 500 mg q12h",
+                "IV Methylprednisolone 1g daily"
+            ],
+            correct: 1,
+            explanation: "The presentation and limbic/temporal MRI findings are classic for HSV-1 Encephalitis. The mandatory treatment is immediate IV Acyclovir (10 mg/kg q8h for 14-21 days).",
+            distractors: {
+                0: "Indicated for bacterial meningitis, not viral encephalitis.",
+                2: "Ganciclovir is used for CMV, not HSV-1.",
+                3: "High-dose steroids are used for autoimmune encephalitis, not primary acute HSV."
+            }
+        },
+        {
+            id: 8,
+            question: "What key anatomic feature explains why Tuberculous Meningitis (TBM) frequently causes cranial nerve palsies (CN III, VI) and internal capsule lacunar infarcts?",
+            options: [
+                "Formation of cortical abscesses in the precentral gyrus",
+                "Thick gelatinous inflammatory exudates accumulating at the basal cisterns",
+                "Direct invasion of peripheral motor nerves in the spinal roots",
+                "Demyelination of the corpus callosum"
+            ],
+            correct: 1,
+            explanation: "TBM produces dense inflammatory exudates concentrated at the basal leptomeninges (basal cisterns). This traps cranial nerves (CN III, VI) and causes vasculitis of perforating lenticulostriate arteries.",
+            distractors: {
+                0: "TBM causes basal exudates, not cortical motor abscesses.",
+                2: "TBM affects cranial nerves at the skull base, not peripheral spinal roots.",
+                3: "Demyelination of the corpus callosum is seen in MS, not TBM."
+            }
+        },
+        {
+            id: 9,
+            question: "An HIV-positive patient (CD4 = 45/µL) presents with subacute severe headache and papilledema. CSF opening pressure is 420 mmH2O. India Ink shows encapsulated budding yeast. What MRI finding is classic for this condition?",
+            options: [
+                "Cortical ribboning on DWI",
+                "Gelatinous 'soap-bubble' pseudocysts in the basal ganglia",
+                "Ring enhancement in the medial temporal lobe",
+                "Periventricular demyelinating plaques"
+            ],
+            correct: 1,
+            explanation: "Cryptococcal meningitis in advanced HIV produces dilated Virchow-Robin perivascular spaces filled with fungal mucopolysaccharides, visible as 'soap-bubble' pseudocysts in the basal ganglia.",
+            distractors: {
+                0: "Cortical ribboning is pathognomonic for sCJD.",
+                2: "Temporal ring enhancement is typical for HSV or brain abscess.",
+                3: "Periventricular plaques are seen in Multiple Sclerosis."
+            }
+        },
+        {
+            id: 10,
+            question: "A 45-year-old male with chronic otitis media presents with 2 weeks of progressive headache, right-sided motor weakness, and motor aphasia. Cranial MRI demonstrates a smooth ring-enhancing lesion in the left temporal lobe. DWI shows marked hyperintensity (restricted diffusion) in the necrotic core. What is the preferred diagnostic and therapeutic procedure?",
+            options: [
+                "Immediate diagnostic Lumbar Puncture",
+                "Stereotactic CT/MRI-guided needle aspiration + IV antibiotics",
+                "Open surgical lobectomy",
+                "High-dose IV Dexamethasone monotherapy"
+            ],
+            correct: 1,
+            explanation: "For a pyogenic brain abscess, CT/MRI-guided needle aspiration provides therapeutic decompression and pathogen identification. LP is strictly contraindicated due to herniation risk.",
+            distractors: {
+                0: "LP is strictly contraindicated due to high risk of brain herniation.",
+                2: "Open lobectomy causes unnecessary neurological sequelae compared to needle aspiration.",
+                3: "Steroids alone will not treat an encapsulated bacterial collection."
+            }
+        },
+        // Questions 11 to 50 generated dynamically below for full coverage
+        {
+            id: 11,
+            question: "Which mechanism accounts for hypoglycorrhachia (low CSF glucose) in acute bacterial meningitis?",
+            options: [
+                "Decreased systemic blood glucose levels only",
+                "Increased glycolysis by bacteria/leukocytes and impaired carrier-mediated glucose transport across BBB",
+                "Hyperventilation-induced respiratory alkalosis",
+                "Rapid destruction of choroid plexus endothelial cells"
+            ],
+            correct: 1,
+            explanation: "Low CSF glucose results from active glucose consumption (glycolytic pathway) by multiplying bacteria and infiltrating neutrophils, combined with downregulation/inhibition of GLUT-1 transport across the inflamed BBB.",
+            distractors: {
+                0: "Hypoglycorrhachia is defined relative to serum glucose; systemic hypoglycemia alone is not the sole cause.",
+                2: "Respiratory alkalosis changes CSF pH but does not deplete CSF glucose.",
+                3: "Choroid plexus destruction is not the primary driver of glucose transport reduction."
+            }
+        },
+        {
+            id: 12,
+            question: "A 24-year-old female presents with acute behavioral change, insomnia, paranoid delusions, and focal seizures. Over 5 days, she develops prominent orofacial dyskinesias, choreoathetosis, and autonomic instability. Pelvic ultrasound reveals a 4 cm ovarian mass. What antibody confirms the diagnosis?",
+            options: [
+                "Anti-Hu (ANNA-1) IgG",
+                "IgG against GluN1 (NR1) subunit of NMDA receptor",
+                "Anti-LGI1 IgG",
+                "Anti-Aquaporin-4 (AQP4) IgG"
+            ],
+            correct: 1,
+            explanation: "The clinical presentation (psychiatric prodrome, dyskinesias, autonomic instability, ovarian teratoma) is classic for Anti-NMDA Receptor Encephalitis, confirmed by IgG anti-GluN1 antibodies.",
+            distractors: {
+                0: "Anti-Hu is associated with small cell lung cancer and sensory neuronopathy.",
+                2: "Anti-LGI1 is associated with limbic encephalitis and faciobrachial dystonic seizures in older adults.",
+                3: "Anti-AQP4 is the biomarker for Neuromyelitis Optica Spectrum Disorder (NMOSD)."
+            }
+        },
+        {
+            id: 13,
+            question: "A 62-year-old male presents with rapid memory decline over 2 months, startle myoclonus, and cerebellar ataxia. EEG shows periodic sharp wave complexes. Brain MRI shows 'cortical ribboning' on DWI. Which test provides highly specific laboratory support for this diagnosis?",
+            options: [
+                "CSF Gram Stain",
+                "CSF Real-Time Quaking-Induced Conversion (RT-QuIC)",
+                "Serum Oligoclonal Bands",
+                "CSF Cryptococcal Antigen"
+            ],
+            correct: 1,
+            explanation: "RT-QuIC directly detects misfolded prion protein ($PrP^{Sc}$) with high sensitivity and specificity in Sporadic Creutzfeldt-Jakob Disease (sCJD).",
+            distractors: {
+                0: "Gram stain is negative because prions are non-bacterial proteinaceous infectious particles.",
+                2: "Oligoclonal bands suggest MS or neuroinflammation, not prion disease.",
+                3: "Cryptococcal antigen tests for fungal infection."
+            }
+        },
+        {
+            id: 14,
+            question: "What route of entry is responsible for brain abscesses occurring at the gray-white matter junction of the Middle Cerebral Artery distribution in a patient with bacterial endocarditis?",
+            options: [
+                "Direct Inoculation",
+                "Contiguous Extension",
+                "Hematogenous Spread",
+                "Retrograde Axonal Spread"
+            ],
+            correct: 2,
+            explanation: "Septic emboli from valvular endocarditis travel via the bloodstream (hematogenous spread) to lodge in terminal arterioles at the gray-white matter junction.",
+            distractors: {
+                0: "Direct inoculation requires penetrating trauma or neurosurgery.",
+                1: "Contiguous extension causes single solitary abscesses adjacent to sinuses/ears.",
+                3: "Retrograde axonal spread is characteristic of viruses like HSV or Rabies."
+            }
+        },
+        {
+            id: 15,
+            question: "A 28-year-old post-neurosurgery patient with an external ventricular drain develops fever and cloudy CSF. What pathogens must be empirically covered?",
+            options: [
+                "S. pneumoniae and N. meningitidis",
+                "Staphylococcus aureus, Coagulase-negative Staphylococci, and Pseudomonas aeruginosa",
+                "Listeria monocytogenes and Cryptococcus",
+                "HSV-1 and Varicella Zoster Virus"
+            ],
+            correct: 1,
+            explanation: "Health-care associated / post-neurosurgical CNS infections are driven by skin flora (Staphylococci) and nosocomial Gram-negative bacilli (Pseudomonas). Coverage requires Vancomycin + Antipseudomonal Beta-lactam (Ceftazidime/Cefepime).",
+            distractors: {
+                0: "This is the regimen for community-acquired adult meningitis.",
+                2: "Indicated for cellular immune impairment or HIV.",
+                3: "Indicated for viral encephalitis."
+            }
+        },
+        {
+            id: 16,
+            question: "In Neurocysticercosis, which neuroimaging stage is characterized by a cystic lesion containing a visible eccentric scolex without surrounding vasogenic edema?",
+            options: [
+                "Colloidal vesicular stage",
+                "Vesicular stage",
+                "Granular-nodular stage",
+                "Calcified stage"
+            ],
+            correct: 1,
+            explanation: "The Vesicular stage features intact, viable larvae where the wall is intact, the scolex is visible as an eccentric dot, and host immune response/edema is absent.",
+            distractors: {
+                0: "Colloidal stage shows degenerating cyst wall with marked surrounding edema.",
+                2: "Granular-nodular stage shows involuting, shrinking lesion with thick wall.",
+                3: "Calcified stage shows dead punctate calcified lesion on CT."
+            }
+        },
+        {
+            id: 17,
+            question: "Why can early bacterial meningitis present with a lower-than-expected CSF white-cell count?",
+            options: [
+                "Bacteria produce anti-inflammatory cytokines that eliminate neutrophils",
+                "Lumbar puncture performed very early in the disease course precedes maximal leukocyte recruitment",
+                "Neutrophils are trapped in the spleen",
+                "CSF protein neutralizes white blood cells"
+            ],
+            correct: 1,
+            explanation: "Very early in hyperacute bacterial meningitis, rapid bacterial proliferation in the subarachnoid space precedes full leukocyte migration across the BBB, leading to modest initial pleocytosis.",
+            distractors: {
+                0: "Bacteria produce pro-inflammatory components (endotoxin/teichoic acid), not neutrophil inhibitors.",
+                2: "Neutrophils are recruited to the CNS, not trapped in the spleen.",
+                3: "High CSF protein does not destroy leukocytes."
+            }
+        },
+        {
+            id: 18,
+            question: "Which cranial nerve palsy is most commonly observed in patients with Tuberculous Meningitis due to basal exudates?",
+            options: [
+                "CN I (Olfactory)",
+                "CN VI (Abducens)",
+                "CN V (Trigeminal)",
+                "CN XII (Hypoglossal)"
+            ],
+            correct: 1,
+            explanation: "CN VI (Abducens nerve) has a long intracranial course along the skull base, making it extremely vulnerable to compression and inflammation by TBM basal exudates, resulting in lateral rectus palsy.",
+            distractors: {
+                0: "CN I is rarely affected by basal exudates.",
+                2: "CN V sensory loss is not the classic craniopathy of TBM.",
+                3: "CN XII exits posteriorly and is less affected than ocular motor nerves (CN III, VI)."
+            }
+        },
+        {
+            id: 19,
+            question: "What is the primary mechanism of cerebral edema in acute bacterial meningitis resulting from blood-brain barrier tight junction disruption?",
+            options: [
+                "Cytotoxic edema",
+                "Vasogenic edema",
+                "Interstitial edema",
+                "Osmotic edema"
+            ],
+            correct: 1,
+            explanation: "BBB disruption permits plasma proteins and fluid to leak into the extracellular space, causing vasogenic cerebral edema. (Note: Bacterial meningitis also produces cytotoxic and interstitial edema, but BBB breakdown specifically causes vasogenic edema).",
+            distractors: {
+                0: "Cytotoxic edema results from cellular/neuronal swelling due to ischemia/toxins.",
+                2: "Interstitial edema results from CSF outflow obstruction in hydrocephalus.",
+                3: "Osmotic edema is driven by acute hyponatremia."
+            }
+        },
+        {
+            id: 20,
+            question: "Which antiviral drug is indicated for acute aseptic meningitis caused by uncomplicated Enterovirus?",
+            options: [
+                "IV Acyclovir",
+                "Oral Oseltamivir",
+                "Supportive care only (No specific antiviral recommended)",
+                "IV Ganciclovir"
+            ],
+            correct: 2,
+            explanation: "Enteroviral aseptic meningitis is self-limiting and managed with supportive care (analgesics, hydration). Acyclovir has no activity against enteroviruses.",
+            distractors: {
+                0: "Acyclovir targets HSV and VZV, not Enteroviruses.",
+                1: "Oseltamivir targets Influenza.",
+                3: "Ganciclovir targets CMV."
+            }
+        }
+    ];
+
+    // Populate remaining 30 MCQs dynamically to reach exact 50 requirement
+    const extraMCQs = [
+        { q: "What is the key clinical hallmark that distinguishes Encephalitis from Meningitis?", o: ["Headache", "Fever", "Altered Mental Status / Behavioral Change", "Neck Stiffness"], c: 2, e: "Altered mental status indicates brain parenchymal involvement (Encephalitis).", d: {0:"Present in both.", 1:"Present in both.", 3:"Meningitis hallmark."} },
+        { q: "Which antibiotic is added for Listeria coverage in meningitis patients over 50?", o: ["Vancomycin", "Ampicillin", "Ceftriaxone", "Gentamicin"], c: 1, e: "Ampicillin covers Listeria monocytogenes.", d: {0:"Covers Pneumococcus/Staph.", 2:"Covers Gram negatives.", 3:"Synergistic aminoglycoside."} },
+        { q: "What opening pressure on LP indicates severe brain swelling and risk of herniation?", o: ["> 100 mmH2O", "> 180 mmH2O", "> 350 mmH2O", "> 500 mmH2O"], c: 2, e: "Opening pressure > 350 mmH2O reflects severe intracranial hypertension.", d: {0:"Normal.", 1:"Mild elevation.", 3:"Striking elevation in crypto."} },
+        { q: "Japanese Encephalitis virus targets which deep gray matter structure?", o: ["Cerebral cortex", "Basal Ganglia & Thalamus", "Spinal cord", "Corpus callosum"], c: 1, e: "JE virus targets deep gray structures causing parkinsonian signs.", d: {0:"Targeted by HSV.", 2:"Targeted by Polio/EV71.", 3:"Demyelinating sites."} },
+        { q: "Which diagnostic test confirms Cryptococcal Meningitis within minutes?", o: ["AFB Stain", "Cryptococcal Antigen (CALAS)", "Viral PCR", "RT-QuIC"], c: 1, e: "CALAS latex agglutination provides rapid antigen detection.", d: {0:"For TB.", 2:"For HSV.", 3:"For Prions."} },
+        { q: "What stage of Brain Abscess formation occurs at Days 8-14?", o: ["Early Cerebritis", "Late Cerebritis", "Early Capsule Stage", "Late Capsule Stage"], c: 2, e: "Early encapsulation occurs around Days 8-14.", d: {0:"Days 1-3.", 1:"Days 4-7.", 3:">14 Days."} },
+        { q: "Cortical ribboning on DWI MRI is pathognomonic for:", o: ["HSV Encephalitis", "Sporadic CJD", "Brain Abscess", "Tuberculous Meningitis"], c: 1, e: "Cortical ribboning represents prion vacuolation in sCJD.", d: {0:"Temporal hyperintensity.", 2:"Ring enhancement.", 3:"Basal exudates."} },
+        { q: "Which route does HSV-1 take to reach the temporal lobe?", o: ["Hematogenous", "Trigeminal / Olfactory neural pathways", "Contiguous mastoiditis", "Direct CSF penetration"], c: 1, e: "HSV-1 travels via retrograde transport along CN V or olfactory nerves.", d: {0:"Bacterial route.", 2:"Abscess route.", 3:"Trauma route."} },
+        { q: "First-line immunotherapy for Anti-NMDA Receptor Encephalitis includes:", o: ["IV Methylprednisolone + IVIG", "Infliximab", "Methotrexate", "Acyclovir"], c: 0, e: "High-dose steroids and IVIG/plasma exchange form 1st line therapy.", d: {1:"TNF inhibitor.", 2:"Antimetabolite.", 3:"Antiviral."} },
+        { q: "What CSF protein value is typical for acute bacterial meningitis?", o: ["< 15 mg/dL", "15-45 mg/dL", "100-500+ mg/dL", "Exactly 0 mg/dL"], c: 2, e: "Protein is markedly elevated (>100-500+ mg/dL) due to BBB breakdown.", d: {0:"Abnormally low.", 1:"Normal adult range.", 3:"Impossible."} },
+        { q: "In a patient with suspected bacterial meningitis, when should antibiotics be started?", o: ["After CT scan and LP results are fully finalized", "Immediately after blood cultures are drawn (or without delay if LP is delayed)", "Only after hospital admission is complete", "After 24 hours of observation"], c: 1, e: "Bacterial meningitis is an emergency; start antibiotics immediately after blood cultures.", d: {0:"Causes fatal delays.", 2:"Administrative delay.", 3:"Fatal delay."} },
+        { q: "Which feature distinguishes a Brain Abscess from Acute Meningitis on CT?", o: ["Diffuse leptomeningeal enhancement", "Focal ring-enhancing lesion with surrounding vasogenic edema", "Normal ventricles", "Widespread cortical atrophy"], c: 1, e: "Abscess is a focal parenchymal collection showing ring enhancement.", d: {0:"Feature of meningitis.", 2:"Nonspecific.", 3:"Degenerative."} },
+        { q: "What is the primary clinical utility of CSF RT-QuIC?", o: ["Diagnosing Enterovirus", "Detecting misfolded prion protein in CJD", "Measuring CSF glucose", "Identifying Staphylococci"], c: 1, e: "RT-QuIC amplifies and detects misfolded scrapie prions.", d: {0:"PCR used.", 2:"Chemistry test.", 3:"Gram stain/culture."} },
+        { q: "The scolex in Neurocysticercosis is best visualized in which stage?", o: ["Calcified", "Vesicular", "Colloidal", "Fibrotic"], c: 1, e: "Vesicular stage clearly shows the intact scolex as an eccentric dot.", d: {0:"Dead calcified dot.", 2:"Degenerating scolex.", 3:"Non-existent stage."} },
+        { q: "Which organism is the most common cause of community-acquired bacterial meningitis in adults?", o: ["Streptococcus pneumoniae", "Listeria monocytogenes", "Pseudomonas aeruginosa", "Staphylococcus epidermidis"], c: 0, e: "S. pneumoniae is the leading cause across adult age groups.", d: {1:"Common in >50y.", 2:"Nosocomial.", 3:"Shunt related."} },
+        { q: "Basal ganglia lacunar-type infarctions in Tuberculous Meningitis result from:", o: ["Emboli from infective endocarditis", "Inflammatory endarteritis/vasculitis of perforating arteries", "Venous sinus thrombosis only", "Direct toxic neuronal lysis"], c: 1, e: "TB exudates induce arteritis in lenticulostriate perforating vessels.", d: {0:"Cardiogenic cause.", 2:"Venous cause.", 3:"Parenchymal cause."} },
+        { q: "A 4-week-old infant develops meningitis. Which pathogen combination is most likely?", o: ["S. pneumoniae + N. meningitidis", "Group B Streptococcus + E. coli + Listeria", "Staphylococcus aureus + Pseudomonas", "Cryptococcus + HSV-2"], c: 1, e: "Neonatal meningitis is dominated by GBS, E. coli, and Listeria monocytogenes.", d: {0:"Older children/adults.", 2:"Neurosurgical.", 3:"Opportunistic."} },
+        { q: "Which CSF cell differential predominates in chronic Tuberculous Meningitis?", o: ["Neutrophils (85%)", "Eosinophils (50%)", "Lymphocytes", "Basophils"], c: 2, e: "TBM characteristically produces a lymphocytic pleocytosis.", d: {0:"Bacterial profile.", 1:"Parasitic/fungal allergic profile.", 3:"Nonspecific."} },
+        { q: "What complication can arise if high ICP from cryptococcal meningitis is unmanaged?", o: ["Visual loss and cranial nerve palsies due to optic nerve traction/ischemia", "Acute pancreatitis", "Thyroid storm", "Rheumatoid arthritis"], c: 0, e: "High ICP compresses the optic nerve sheath leading to papilledema and permanent blindness.", d: {1:"Unrelated.", 2:"Unrelated.", 3:"Unrelated."} },
+        { q: "What is the classic EEG pattern described in Sporadic CJD?", o: ["Extreme Delta Brush", "Periodic Sharp Wave Complexes (PSWCs)", "3 Hz Spike and Wave", "Hypsarrhythmia"], c: 1, e: "PSWCs are characteristic periodic electroencephalographic features of sCJD.", d: {0:"Anti-NMDAR encephalitis.", 2:"Absence seizures.", 3:"Infantile spasms."} },
+        { q: "Which brain lobe is predominantly affected in Frontal Sinusitis-derived brain abscess?", o: ["Temporal Lobe", "Occipital Lobe", "Frontal Lobe", "Cerebellum"], c: 2, e: "Direct contiguous spread from frontal sinuses involves the frontal lobe.", d: {0:"Otogenic source.", 1:"Visual cortex source.", 3:"Mastoid source."} },
+        { q: "What CSF-to-serum glucose ratio is considered normal?", o: ["< 0.10", "< 0.40", "> 0.60 (60%)", "Exactly 0.0"], c: 2, e: "Normal CSF glucose is roughly 60% (0.60) of simultaneous serum glucose.", d: {0:"Severe hypoglycorrhachia.", 1:"Bacterial/TB threshold.", 3:"Impossible."} },
+        { q: "Kernig and Brudzinski signs indicate irritation of which structures?", o: ["Cerebellar peduncles", "Spinal nerve roots and inflamed meninges", "Peripheral brachial plexus", "Autonomic sympathetic chain"], c: 1, e: "Stretching inflamed spinal nerve roots and meninges provokes pain and protective spasm.", d: {0:"Cerebellar signs.", 2:"Arm signs.", 3:"Autonomic signs."} },
+        { q: "Why is Fungal Meningitis CSF opening pressure often extremely high?", o: ["Fungal capsular polysaccharide clogs arachnoid villi, impairing CSF outflow", "Fungi produce massive amounts of CSF fluid", "Massive cerebral arterial vasodilation", "Loss of skull bone density"], c: 0, e: "Cryptococcal capsular antigen accumulates in arachnoid granulations, blocking reabsorption.", d: {1:"Incorrect physiology.", 2:"Vascular cause.", 3:"Bone cause."} },
+        { q: "In acute bacterial meningitis, what type of cerebral edema is caused by neutrophil degranulation and toxic metabolites?", o: ["Vasogenic edema", "Cytotoxic edema", "Interstitial edema", "Hydrocephalic edema"], c: 1, e: "Leukocyte degranulation and cellular breakdown cause cytotoxic swelling of neurons and glia.", d: {0:"BBB breakdown cause.", 2:"CSF flow block cause.", 3:"Ventricle block cause."} },
+        { q: "What empiric regimen is recommended for meningitis following basilar skull fracture with CSF leak?", o: ["Vancomycin + Ceftriaxone", "Ampicillin alone", "Acyclovir alone", "Gentamicin alone"], c: 0, e: "Covers Pneumococcus and respiratory flora traversing the bony defect.", d: {1:"Insufficient.", 2:"Antiviral.", 3:"Inadequate single agent."} },
+        { q: "What clinical sign in Anti-NMDA Receptor Encephalitis refers to slow, rhythmic limb contractions?", o: ["Myarrhythmia", "Asterixis", "Chorea", "Fasciculation"], c: 0, e: "Limb myarrhythmia is described in pediatric/adolescent Anti-NMDAR cases.", d: {1:"Flapping tremor in metabolic encephalopathy.", 2:"Rapid jerky movement.", 3:"Single muscle fiber twitch."} },
+        { q: "In brain abscess diagnosis, why is CT contrast enhancement rim smooth and thinner on the medial wall?", o: ["Medial wall has poorer vascularity, increasing risk of rupture into ventricles", "Medial wall has higher capillary density", "Medial wall is protected by dura", "Medial wall contains no collagen"], c: 0, e: "The medial cortex wall has less vascular supply, making capsule thinner and prone to intraventricular rupture.", d: {1:"Opposite.", 2:"Not adjacent to dura.", 3:"Contains collagen."} },
+        { q: "Which diagnostic test differentiates HSV-1 from Autoimmune Encephalitis?", o: ["CSF HSV PCR", "Cranial CT", "Serum Sodium", "Bedside Glucose"], c: 0, e: "CSF PCR confirms HSV viral DNA presence.", d: {1:"Imaging can overlap.", 2:"Nonspecific.", 3:"Nonspecific."} },
+        { q: "How long should empiric antibiotic therapy be continued for uncomplicated S. pneumoniae meningitis?", o: ["3 days", "7 days", "10 to 14 days", "6 months"], c: 2, e: "Standard duration for pneumococcal meningitis is 10-14 days of IV therapy.", d: {0:"Inadequate.", 1:"Too short for pneumococcus.", 3:"TBM duration."} }
+    ];
+
+    // Combine base and extra MCQs
+    extraMCQs.forEach((item, idx) => {
+        mcqData.push({
+            id: 21 + idx,
+            question: item.q,
+            options: item.o,
+            correct: item.c,
+            explanation: item.e,
+            distractors: item.d
+        });
+    });
+
+    /* ==================== JS APPLICATION LOGIC ==================== */
+
+    // Tab Switching
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+        
+        const targetContent = document.getElementById(tabId);
+        if(targetContent) targetContent.classList.add('active');
+        
+        const targetTab = Array.from(document.querySelectorAll('.nav-tab')).find(btn => btn.getAttribute('onclick').includes(tabId));
+        if(targetTab) targetTab.classList.add('active');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Global Search / Filter
+    function filterContent() {
+        const query = document.getElementById('globalSearch').value.toLowerCase();
+        const activeTab = document.querySelector('.tab-content.active');
+        if(!activeTab) return;
+
+        const cards = activeTab.querySelectorAll('.card, .callout, details');
+        cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            if(text.includes(query)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Scroll Progress & Top Button
+    window.onscroll = function() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progressBar").style.width = scrolled + "%";
+
+        const btnTop = document.getElementById("btn-top");
+        if (winScroll > 300) {
+            btnTop.style.display = "flex";
+        } else {
+            btnTop.style.display = "none";
+        }
+    };
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Copy Table Data
+    function copyTable(tableId) {
+        const table = document.getElementById(tableId);
+        if(!table) return;
+        let text = '';
+        for (let row of table.rows) {
+            let rowData = [];
+            for (let cell of row.cells) {
+                rowData.push(cell.innerText.replace(/\n/g, ' '));
+            }
+            text += rowData.join('\t') + '\n';
+        }
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Table data copied to clipboard!');
+        });
+    }
+
+    /* ==================== FLASHCARD LOGIC ==================== */
+    let currentFCList = [...flashcardsData];
+    let currentFCIndex = 0;
+
+    function renderFlashcard() {
+        if(currentFCList.length === 0) {
+            document.getElementById('fcTextFront').innerText = "No flashcards match the selected filter.";
+            document.getElementById('fcTextBack').innerText = "No data.";
+            document.getElementById('fcTagFront').innerText = "EMPTY";
+            document.getElementById('fcTagBack').innerText = "EMPTY";
+            document.getElementById('fcTracker').innerText = "0 of 0";
+            return;
+        }
+
+        const card = currentFCList[currentFCIndex];
+        document.getElementById('fcInner').classList.remove('flipped');
+        
+        setTimeout(() => {
+            document.getElementById('fcTagFront').innerText = card.section;
+            document.getElementById('fcTagBack').innerText = card.section + " (Answer)";
+            document.getElementById('fcTextFront').innerText = card.q;
+            document.getElementById('fcTextBack').innerText = card.a;
+            document.getElementById('fcTracker').innerText = `Card ${currentFCIndex + 1} of ${currentFCList.length}`;
+        }, 150);
+    }
+
+    function flipFlashcard() {
+        document.getElementById('fcInner').classList.toggle('flipped');
+    }
+
+    function nextFlashcard() {
+        if(currentFCList.length === 0) return;
+        currentFCIndex = (currentFCIndex + 1) % currentFCList.length;
+        renderFlashcard();
+    }
+
+    function prevFlashcard() {
+        if(currentFCList.length === 0) return;
+        currentFCIndex = (currentFCIndex - 1 + currentFCList.length) % currentFCList.length;
+        renderFlashcard();
+    }
+
+    function shuffleFlashcards() {
+        for (let i = currentFCList.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [currentFCList[i], currentFCList[j]] = [currentFCList[j], currentFCList[i]];
+        }
+        currentFCIndex = 0;
+        renderFlashcard();
+    }
+
+    function filterFlashcards() {
+        const val = document.getElementById('fcSectionFilter').value;
+        if(val === 'ALL') {
+            currentFCList = [...flashcardsData];
+        } else {
+            currentFCList = flashcardsData.filter(item => item.section === val);
+        }
+        currentFCIndex = 0;
+        renderFlashcard();
+    }
+
+    // Keyboard navigation for flashcards
+    document.addEventListener('keydown', (e) => {
+        const fcTabActive = document.getElementById('flashcards').classList.contains('active');
+        if(!fcTabActive) return;
+
+        if(e.code === 'Space') {
+            e.preventDefault();
+            flipFlashcard();
+        } else if(e.code === 'ArrowRight') {
+            nextFlashcard();
+        } else if(e.code === 'ArrowLeft') {
+            prevFlashcard();
+        }
+    });
+
+    /* ==================== QUIZ LOGIC ==================== */
+    let userAnswers = {};
+
+    function renderQuiz() {
+        const container = document.getElementById('quizContainer');
+        container.innerHTML = '';
+
+        mcqData.forEach((q, idx) => {
+            const qCard = document.createElement('div');
+            qCard.className = 'quiz-card';
+            qCard.id = `quiz-q-${idx}`;
+
+            let optionsHTML = '';
+            q.options.forEach((opt, optIdx) => {
+                optionsHTML += `
+                    <div class="quiz-option" id="opt-${idx}-${optIdx}" onclick="selectQuizOption(${idx}, ${optIdx})">
+                        <strong>${String.fromCharCode(65 + optIdx)}.</strong> ${opt}
+                    </div>
+                `;
+            });
+
+            let distractorsHTML = '';
+            if(q.distractors) {
+                for(let dIdx in q.distractors) {
+                    distractorsHTML += `<li><strong>Option ${String.fromCharCode(65 + parseInt(dIdx))}:</strong> ${q.distractors[dIdx]}</li>`;
+                }
+            }
+
+            qCard.innerHTML = `
+                <div class="quiz-q-num">QUESTION ${idx + 1} OF ${mcqData.length}</div>
+                <div class="quiz-question">${q.question}</div>
+                <div class="quiz-options">${optionsHTML}</div>
+                <div class="quiz-explanation" id="exp-${idx}">
+                    <div style="font-weight:700; color:var(--success); margin-bottom:0.4rem;">✓ Correct Answer: ${String.fromCharCode(65 + q.correct)}</div>
+                    <p><strong>Rationale:</strong> ${q.explanation}</p>
+                    <div style="margin-top:0.6rem; font-size:0.83rem; color:var(--text-muted);">
+                        <strong>Distractor Analysis:</strong>
+                        <ul style="padding-left:1.2rem; margin-top:0.2rem;">${distractorsHTML}</ul>
+                    </div>
+                </div>
+            `;
+            container.appendChild(qCard);
+        });
+    }
+
+    function selectQuizOption(qIdx, optIdx) {
+        if(userAnswers[qIdx] !== undefined) return; // Prevent re-selection
+
+        userAnswers[qIdx] = optIdx;
+        const qData = mcqData[qIdx];
+        const isCorrect = optIdx === qData.correct;
+
+        // Highlight selected
+        const selectedOpt = document.getElementById(`opt-${qIdx}-${optIdx}`);
+        if(isCorrect) {
+            selectedOpt.classList.add('correct-choice');
+        } else {
+            selectedOpt.classList.add('wrong-choice');
+            // Highlight correct
+            document.getElementById(`opt-${qIdx}-${qData.correct}`).classList.add('correct-choice');
+        }
+
+        // Show explanation
+        document.getElementById(`exp-${qIdx}`).style.display = 'block';
+
+        updateQuizScore();
+    }
+
+    function updateQuizScore() {
+        let score = 0;
+        Object.keys(userAnswers).forEach(qIdx => {
+            if(userAnswers[qIdx] === mcqData[qIdx].correct) {
+                score++;
+            }
+        });
+        document.getElementById('quizScoreText').innerText = `${score} / ${mcqData.length}`;
+    }
+
+    // Initialize on DOM load
+    document.addEventListener('DOMContentLoaded', () => {
+        renderFlashcard();
+        renderQuiz();
+    });
+</script>
