@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surgery Reviewer: Abdominal Wall, Hernias, Omentum, Mesentery & Retroperitoneum</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1A365D;
+            --primary-light: #2B6CB0;
+            --secondary: #2C7A7B;
+            --accent: #E53E3E;
+            --bg-light: #F7FAFC;
+            --bg-white: #FFFFFF;
+            --text-main: #2D3748;
+            --text-muted: #4A5568;
+            --border: #E2E8F0;
+            --must-know: #EBF8FF;
+            --pitfall: #FFF5F5;
+            --pearl: #FFFFF0;
+            --exam-tip: #F0FFF4;
+            --font-head: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); color: var(--text-main); background-color: var(--bg-light); line-height: 1.6; }
+        h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+        
+        /* Layout */
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { background: var(--primary); color: white; padding: 2rem; border-radius: 8px 8px 0 0; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { color: white; margin-bottom: 0; }
+        
+        /* Search */
+        .search-container { position: relative; width: 300px; }
+        .search-container input { width: 100%; padding: 10px; border-radius: 20px; border: none; font-family: var(--font-body); }
+        
+        /* Navigation Tabs */
+        .tabs { display: flex; flex-wrap: wrap; background: var(--bg-white); border-bottom: 2px solid var(--border); position: sticky; top: 0; z-index: 100; padding: 10px 20px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .tab-btn { padding: 12px 20px; border: none; background: none; font-family: var(--font-head); font-weight: 600; font-size: 1rem; color: var(--text-muted); cursor: pointer; transition: all 0.2s; border-bottom: 3px solid transparent; }
+        .tab-btn:hover { color: var(--primary-light); }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+        
+        /* Content Sections */
+        .tab-content { display: none; padding: 2rem 0; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Cards & Sections */
+        .section-card { background: var(--bg-white); border-radius: 8px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 4px solid var(--primary-light); }
+        
+        /* Expandable Details */
+        details { background: #f8fafc; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 1rem; }
+        summary { padding: 1rem; font-weight: 600; cursor: pointer; background: var(--bg-white); border-radius: 6px; }
+        details[open] summary { border-bottom: 1px solid var(--border); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+        .details-content { padding: 1rem; }
+
+        /* Highlight Boxes */
+        .box { padding: 1rem; border-radius: 6px; margin: 1rem 0; border-left: 4px solid; }
+        .must-know { background: var(--must-know); border-color: #3182CE; }
+        .pitfall { background: var(--pitfall); border-color: #E53E3E; }
+        .pearl { background: var(--pearl); border-color: #D69E2E; }
+        .exam-tip { background: var(--exam-tip); border-color: #38A169; }
+
+        /* Tables */
+        .table-wrapper { overflow-x: auto; margin: 1.5rem 0; }
+        table { width: 100%; border-collapse: collapse; background: var(--bg-white); font-size: 0.95rem; }
+        th, td { padding: 12px 15px; border: 1px solid var(--border); text-align: left; }
+        th { background: var(--primary); color: white; font-family: var(--font-head); position: sticky; top: 0; }
+        tr:nth-child(even) { background-color: #F7FAFC; }
+        tr:hover { background-color: #EDF2F7; }
+
+        /* Figures & Images Placeholder */
+        .figure-box { border: 2px dashed var(--border); padding: 1.5rem; text-align: center; background: var(--bg-white); margin: 1.5rem 0; border-radius: 8px; }
+        .figure-caption { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; }
+        .figure-clinical { font-size: 0.9rem; font-style: italic; color: var(--secondary); margin-top: 0.5rem; }
+
+        /* Flashcards */
+        .flashcard-controls { display: flex; justify-content: space-between; margin-bottom: 1rem; align-items: center; }
+        .flashcard-container { perspective: 1000px; width: 100%; max-width: 600px; margin: 0 auto 2rem; height: 300px; }
+        .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
+        .flashcard.is-flipped { transform: rotateY(180deg); }
+        .flashcard-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .flashcard-front { background: var(--primary); color: white; }
+        .flashcard-back { background: var(--bg-white); color: var(--primary); transform: rotateY(180deg); border: 2px solid var(--primary); }
+        .btn { padding: 8px 16px; background: var(--primary-light); color: white; border: none; border-radius: 4px; cursor: pointer; font-family: var(--font-head); }
+        .btn:hover { background: var(--primary); }
+
+        /* MCQs */
+        .mcq-container { background: var(--bg-white); padding: 2rem; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1.5rem; }
+        .mcq-options { list-style: none; margin: 1rem 0; }
+        .mcq-options li { padding: 10px 15px; border: 1px solid var(--border); margin-bottom: 8px; border-radius: 4px; cursor: pointer; transition: 0.2s; }
+        .mcq-options li:hover { background: var(--bg-light); }
+        .mcq-options li.selected { border-color: var(--primary-light); background: #EBF8FF; }
+        .mcq-options li.correct { border-color: #38A169; background: #C6F6D5; }
+        .mcq-options li.incorrect { border-color: #E53E3E; background: #FED7D7; }
+        .mcq-explanation { display: none; margin-top: 1rem; padding: 1rem; background: var(--bg-light); border-left: 4px solid var(--primary); border-radius: 4px; }
+        .mcq-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+
+        /* Cram Sheet */
+        .cram-list { column-count: 2; column-gap: 2rem; list-style-type: none; }
+        .cram-list li { margin-bottom: 1rem; break-inside: avoid; background: var(--bg-white); padding: 10px; border-radius: 4px; border-left: 3px solid var(--accent); }
+        
+        .scroll-top { position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; text-decoration: none; display: none; z-index: 1000;}
+
+        @media (max-width: 768px) {
+            .tabs { flex-direction: column; }
+            .cram-list { column-count: 1; }
+            header { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1>SURG2-LE2 Reviewer</h1>
+            <p>Abdominal Wall Hernias, Omentum, Mesentery & Retroperitoneum</p>
+            <p style="font-size: 0.8rem; opacity: 0.8;">Based on 2027 Trans, Dr. Napoleon B. Alcedo Jr.</p>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search across reviewer..." onkeyup="searchContent()">
+        </div>
+    </header>
+
+    <nav class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'tab-overview')">1. Overview</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-inguinal')">2. Inguinal Hernias</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-management')">3. Management & Complications</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-abdominal')">4. Abdominal Wall</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-omr')">5. Omentum, Mesentery, Retroperitoneum</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-comparisons')">6. Comparisons</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-flashcards')">7. Flashcards</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-mcqs')">8. Self-Assessment</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-cram')">9. Cram Sheet</button>
+    </nav>
+
+    <main id="main-content">
+        <!-- TAB 1: OVERVIEW -->
+        <div id="tab-overview" class="tab-content active searchable">
+            <div class="section-card">
+                <h2>Overview & Core Concepts</h2>
+                <div class="box must-know">
+                    <strong>⭐ Core Definition:</strong> A hernia is defined as a protrusion of a viscus through an opening in the wall of a cavity in which it is contained[cite: 1]. The term is derived from the Latin word for "rupture"[cite: 1].
+                </div>
+                
+                <p>Inguinal hernias are the most common abdominal wall hernias (accounting for almost 75%), with a lifetime risk of 27% in men and 3% in women[cite: 1]. Groin hernias include both inguinal and femoral hernias[cite: 1].</p>
+                
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type of External Hernia</th>
+                                <th>Incidence</th>
+                                <th>Location Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Inguinal hernia</strong></td>
+                                <td>80% (Most common)</td>
+                                <td>Occurs around the groin area[cite: 1]. Incidence is 12x more common in males[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Incisional hernia</strong></td>
+                                <td>10%</td>
+                                <td>Develops in sites of previous abdominal incisions[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Femoral hernia</strong></td>
+                                <td>5%</td>
+                                <td>Occurs around the groin area, specifically below the inguinal ligament[cite: 1]. High risk of strangulation[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Umbilical hernia</strong></td>
+                                <td>4%</td>
+                                <td>Congenital or acquired due to increased intra-abdominal pressure[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Epigastric hernia</strong></td>
+                                <td>&lt;1%</td>
+                                <td>Located between umbilicus and xiphoid[cite: 1].</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Anatomy of the Abdominal Wall</h3>
+                <p>From outermost to innermost layers[cite: 1]:</p>
+                <ol>
+                    <li>Skin[cite: 1]</li>
+                    <li>Subcutaneous tissue[cite: 1]</li>
+                    <li>Abdominal muscles (3 layers):
+                        <ul>
+                            <li>External oblique (outermost)[cite: 1]</li>
+                            <li>Internal oblique (middle)[cite: 1]</li>
+                            <li>Transversus abdominis (innermost)[cite: 1]</li>
+                        </ul>
+                    </li>
+                    <li>Transversalis fascia[cite: 1]</li>
+                    <li>Peritoneum (inner lining of the abdominal cavity)[cite: 1]</li>
+                    <li>Small intestines / Viscera[cite: 1]</li>
+                </ol>
+
+                <div class="box pearl">
+                    <strong>💡 Epidemiology Pearl:</strong> The incidence of inguinal hernia has a bimodal distribution with peaks before one year of age and then again after 40 years of age[cite: 1].
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: INGUINAL HERNIAS -->
+        <div id="tab-inguinal" class="tab-content searchable">
+            <div class="section-card">
+                <h2>Inguinal Hernias: Anatomy & Pathophysiology</h2>
+                
+                <details>
+                    <summary>Inguinal Canal Anatomy</summary>
+                    <div class="details-content">
+                        <p>The inguinal canal is a crucial 4-6cm passage in the lower abdominal wall serving as a conduit for the spermatic cord in males and the round ligament in females[cite: 1].</p>
+                        <ul>
+                            <li><strong>Anterior boundary:</strong> External oblique aponeurosis[cite: 1]. (First major structure encountered in anterior approach surgeries[cite: 1]).</li>
+                            <li><strong>Posterior boundary:</strong> Transversalis fascia & Conjoint tendon[cite: 1]. (Often referred to as the floor by surgeons[cite: 1]).</li>
+                            <li><strong>Floor:</strong> Inguinal ligament[cite: 1].</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Hesselbach's Triangle (Inguinal Triangle)</summary>
+                    <div class="details-content">
+                        <p>An area of weakness in the anterior abdominal wall where direct inguinal hernias pass[cite: 1].</p>
+                        <ul>
+                            <li><strong>Base:</strong> Inguinal ligament[cite: 1].</li>
+                            <li><strong>Lateral border:</strong> Inferior epigastric vessels[cite: 1].</li>
+                            <li><strong>Medial border:</strong> Lateral border of the rectus abdominis muscle[cite: 1].</li>
+                        </ul>
+                        <div class="box exam-tip">
+                            <strong>🧠 Exam Tip:</strong> The <em>Inferior Epigastric Artery</em> is the key landmark separating direct from indirect hernias. Indirect hernias are LATERAL to it, direct hernias are MEDIAL to it[cite: 1].
+                        </div>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Pathophysiology & Etiology</summary>
+                    <div class="details-content">
+                        <p><strong>Pediatric (Indirect Hernia):</strong> It is a developmental defect caused by the failure of the processus vaginalis to close[cite: 1]. If it fails to close completely, abdominal contents can descend, causing a scrotal hernia[cite: 1]. If minimally patent, it may just allow fluid, causing a hydrocele[cite: 1].</p>
+                        <p><strong>Adults (Acquired):</strong> Caused by a combination of weakness in the abdominal wall (aging, previous surgery, genetics) and increased intra-abdominal pressure[cite: 1]. Precipitating factors include straining, chronic cough, heavy lifting, obesity, pregnancy, and ascites[cite: 1]. Loss of collagen integrity (e.g., from smoking) is also a factor[cite: 1].</p>
+                    </div>
+                </details>
+
+                <h3>Clinical Presentation & Diagnosis</h3>
+                <p>Common symptoms include a visible groin lump, heaviness/discomfort, pain on exertion, and enlargement of the lump with coughing[cite: 1].</p>
+                
+                <div class="box pitfall">
+                    <strong>⚠️ Common Pitfall:</strong> Do not just evaluate the hernia. In adults presenting with late-onset hernias, always evaluate the GI tract (e.g., rectal cancer causing constipation), urinary tract (BPH causing straining), and pulmonary function (COPD causing chronic cough)[cite: 1]. You must treat the underlying cause of increased abdominal pressure first[cite: 1].
+                </div>
+
+                <p><strong>Physical Examination:</strong> The most important diagnostic tool. A good clinician can diagnose without imaging[cite: 1].</p>
+                <ul>
+                    <li>Insert the index finger through the scrotum towards the external inguinal ring and ask the patient to cough/Valsalva[cite: 1].</li>
+                    <li>If you feel the pulse at the <strong>tip</strong> of your finger = Indirect Hernia[cite: 1].</li>
+                    <li>If you feel the pulse at the <strong>base/side</strong> of your finger = Direct Hernia[cite: 1].</li>
+                </ul>
+
+                <p><strong>Imaging:</strong> Used only when diagnosis is ambiguous (e.g., obese patients, irreducible mass)[cite: 1].</p>
+                <ul>
+                    <li><strong>Ultrasound:</strong> Cheapest, dynamic (shows peristalsis), no radiation[cite: 1]. Can have false positives in thin individuals[cite: 1].</li>
+                    <li><strong>CT Scan / MRI:</strong> Static images. MRI is most sensitive and specific (95%, 96%) but expensive and time-consuming[cite: 1].</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 3: MANAGEMENT & COMPLICATIONS -->
+        <div id="tab-management" class="tab-content searchable">
+            <div class="section-card">
+                <h2>Treatment Options for Inguinal Hernias</h2>
+                <p>Hernias are not an emergency unless complicated by incarceration or strangulation[cite: 1]. Surgery is the definitive treatment[cite: 1].</p>
+                
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Approach</th>
+                                <th>Techniques</th>
+                                <th>Indications & Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Watchful Waiting</strong></td>
+                                <td>Observation</td>
+                                <td>For asymptomatic patients[cite: 1]. Risk of incarceration is low[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Taxis (Manual Reduction)</strong></td>
+                                <td>Analgesics, light sedatives (Diazepam), Trendelenburg position</td>
+                                <td>Attempted for incarcerated hernias WITHOUT sequelae of strangulation[cite: 1]. Never do this if strangulation is suspected[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Open Tissue Repair</strong></td>
+                                <td>Bassini, Shouldice, McVay, Desarda</td>
+                                <td>Used when prosthetic material cannot be used safely due to infection or fecal contamination[cite: 1]. Shouldice has the least recurrence (1%) among tissue repairs[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Open Prosthetic (Mesh)</strong></td>
+                                <td>Lichtenstein (Gold Standard), Plug and Patch</td>
+                                <td>Tension-free. Lichtenstein has lowest recurrence rate (~0.2%)[cite: 1]. Mesh reinforces the floor of Hesselbach's triangle[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Laparoscopic Repair</strong></td>
+                                <td>TAPP, TEP, IPOM</td>
+                                <td>Minimizes recovery time[cite: 1]. Superior for recurrent or bilateral hernias[cite: 1]. Requires general anesthesia[cite: 1].</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Key Surgical Principles</h3>
+                <p>The repair of inguinal hernias has two primary aspects[cite: 1]:</p>
+                <ol>
+                    <li>High ligation of the sac (at the level of internal oblique muscle before it becomes cremaster muscle)[cite: 1].</li>
+                    <li>Strengthening of the floor (posterior part of Hesselbach's triangle) via tissue or mesh[cite: 1].</li>
+                </ol>
+
+                <div class="box must-know">
+                    <strong>⭐ TAPP vs TEP:</strong><br>
+                    - <strong>TAPP (Transabdominal Preperitoneal):</strong> Enters the intra-abdominal cavity[cite: 1]. Associated with higher incidence of ileus because the peritoneal cavity is entered[cite: 1].<br>
+                    - <strong>TEP (Totally Extraperitoneal):</strong> Accesses preperitoneal space without entering the intraperitoneal cavity, usually via balloon dissection[cite: 1]. Minimizes injury to intra-abdominal organs[cite: 1].
+                </div>
+
+                <h3>Complications</h3>
+                <ul>
+                    <li><strong>Acute:</strong> Infection, Urinary retention (common in elderly with BPH; trial voiding, insert catheter)[cite: 1]. Hematoma/Seroma (observe, do NOT aspirate seromas unless severely symptomatic to avoid abscess)[cite: 1].</li>
+                    <li><strong>Chronic:</strong> Post-herniorrhaphy inguinodynia (chronic pain as high as 63%)[cite: 1]. Can be nociceptive, neuropathic (nerve entrapment), or visceral[cite: 1]. 
+                        <ul>
+                            <li><em>Nerve entrapment risk:</em> Ilioinguinal and iliohypogastric (anterior repair), Genitofemoral and lateral femoral cutaneous (endoscopic)[cite: 1].</li>
+                        </ul>
+                    </li>
+                    <li><strong>Vascular/Visceral (Lap specific):</strong> Iliac/femoral vessel injury is most severe (exsanguination)[cite: 1]. Inferior epigastric and external iliac arteries most commonly injured[cite: 1].</li>
+                    <li><strong>Testicular Atrophy/Ischemic Orchitis:</strong> Caused by injury to the <em>pampiniform plexus</em> rather than the testicular artery[cite: 1]. Do not deliver the testis out of the scrotum to prevent scrotal artery severing[cite: 1].</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 4: ABDOMINAL WALL -->
+        <div id="tab-abdominal" class="tab-content searchable">
+            <div class="section-card">
+                <h2>Abdominal Wall & Incisions</h2>
+                <p>The goal of an efficacious incision is to provide adequate exposure with minimal perturbation of abdominal wall function[cite: 1].</p>
+                <ul>
+                    <li><strong>Longitudinal (Midline):</strong> Most common[cite: 1].</li>
+                    <li><strong>Transverse/Oblique:</strong> Associated with lower incisional hernia rates but higher rates of wound infection[cite: 1].</li>
+                </ul>
+
+                <h3>Congenital Anomalies</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Condition</th>
+                                <th>Pathology</th>
+                                <th>Covering</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Omphalocele</strong></td>
+                                <td>Failure of midgut to reenter abdomen at 12 wks AOG. Protrudes through umbilicus[cite: 1].</td>
+                                <td>Covered with amniotic/peritoneal membrane[cite: 1].</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gastroschisis</strong></td>
+                                <td>Viscera protrudes through a defect lateral to umbilicus (usually right)[cite: 1].</td>
+                                <td><strong>WITHOUT</strong> amniotic sac covering[cite: 1].</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Acquired Abnormalities</h3>
+                <ul>
+                    <li><strong>Epigastric Hernias:</strong> Between umbilicus and xiphoid. Contains omentum or falciform ligament[cite: 1].</li>
+                    <li><strong>Umbilical Hernias:</strong> Congenital usually closes by 5 yrs[cite: 1]. Acquired adult form more common in females (pregnancy, obesity, ascites)[cite: 1].</li>
+                    <li><strong>Spigelian Hernias:</strong> Occurs along the arcuate line due to lack of posterior rectus sheath below it[cite: 1]. High incarceration rate (20%)[cite: 1].</li>
+                    <li><strong>Incisional Hernias:</strong> 20% of midline incisions develop a hernia. Sublay mesh technique is recommended. Simple suture repair has a 54% recurrence rate (unacceptable tension)[cite: 1].</li>
+                </ul>
+
+                <div class="box pitfall">
+                    <strong>⚠️ Rectus Abdominis Diastasis:</strong> Abnormal separation (>2cm) of rectus muscles[cite: 1]. <em>It is NOT a true hernia</em> because the midline fascia is intact[cite: 1]. Incarceration/strangulation do not occur[cite: 1]. Does not require surgery; improves with weight loss/exercise[cite: 1].
+                </div>
+
+                <h3>Rectus Sheath Hematoma</h3>
+                <p>Disruption of the inferior epigastric artery, usually around the arcuate line[cite: 1]. Causes include trauma, vigorous coughing/sneezing[cite: 1].</p>
+                <p><strong>Fothergill's Sign:</strong> A palpable abdominal mass that does NOT change with contraction of the rectus abdominis muscle[cite: 1].</p>
+                
+                <h3>Desmoid Tumors (Aggressive Fibromatosis)</h3>
+                <p>Fibroblastic neoplasia with aggressive behavior but NO metastatic potential[cite: 1]. Gold standard treatment: margin-negative resection with immediate mesh reconstruction[cite: 1].</p>
+            </div>
+        </div>
+
+        <!-- TAB 5: OMENTUM, MESENTERY, RETROPERITONEUM -->
+        <div id="tab-omr" class="tab-content searchable">
+            <div class="section-card">
+                <h2>Omentum</h2>
+                <p>A fibrous adipose apron. The <strong>Greater Omentum</strong> acts as the "Policeman of the abdominal cavity" (peritoneal defense organ)[cite: 1]. It migrates to areas of inflammation and forms a fibrin bridge to minimize risk of spread/perforation[cite: 1].</p>
+                <ul>
+                    <li><strong>Graham Patch Repair:</strong> Uses this principle. A small omental patch is used to cover perforated ulcers in the stomach/duodenum[cite: 1].</li>
+                    <li><strong>Omental Infarction:</strong> Presents with right-sided abdominal pain/mass. CT shows streaking whirling pattern of fat[cite: 1].</li>
+                </ul>
+
+                <h2>Mesentery</h2>
+                <p>Suspends bowel and houses neurovascular/lymphatic structures[cite: 1].</p>
+                <ul>
+                    <li><strong>Sclerosing Mesenteritis:</strong> Idiopathic fibrosis. Diagnosed via CT (Fat ring sign - preserved fat near vessels crossing fibrosis). Aggressive surgery NOT indicated; use steroids/hormonal therapy[cite: 1].</li>
+                    <li><strong>Mesenteric Cyst:</strong> Fluid-filled mass. <strong>Tillaux's Sign:</strong> Mass is mobile <em>only laterally</em> (unlike omental cysts which move in all directions)[cite: 1].</li>
+                    <li><strong>Mesenteric Tumors:</strong> Lymphoma is the most common (appears as bulky lymphadenopathy, requires biopsy only, no resection)[cite: 1].</li>
+                </ul>
+
+                <div class="box pitfall">
+                    <strong>⚠️ Mesenteric Surgery Pitfall:</strong> When treating mesenteric problems, be cautious not to resect too much mesentery, as it contains the blood supply for the bowel. Excessive resection causes bowel ischemia and Short Bowel Syndrome[cite: 1].
+                </div>
+
+                <h2>Retroperitoneum</h2>
+                <p>Bound anteriorly by peritoneum, posteriorly by iliopsoas/lumbar muscles[cite: 1]. Contains three spaces: Anterior pararenal, Perirenal, Posterior pararenal[cite: 1].</p>
+                <ul>
+                    <li><strong>Retroperitoneal Infections:</strong> Can present with flank pain and erythema of umbilicus or flank (Grey Turner Sign)[cite: 1]. High morbidity (25%) due to delayed diagnosis. Treat with source control (drainage) and antibiotics[cite: 1].</li>
+                    <li><strong>Retroperitoneal Fibrosis:</strong> Chronic periaortitis causing encasement of ureters/IVC/aorta. Bilateral in 70%[cite: 1]. Presents with back pain, decreased urine output, or hydrocele/varicocele. Treat by relieving obstruction (medical or surgical lysis)[cite: 1].</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 6: COMPARISONS -->
+        <div id="tab-comparisons" class="tab-content searchable">
+            <div class="section-card">
+                <h2>High-Yield Comparisons</h2>
+
+                <h3>1. Direct vs. Indirect Inguinal Hernia[cite: 1]</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Indirect Inguinal Hernia</th>
+                                <th>Direct Inguinal Hernia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Prevalence</strong></td>
+                                <td>Most common type</td>
+                                <td>Less common</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pathophysiology</strong></td>
+                                <td>Patent processus vaginalis / congenital defect</td>
+                                <td>Weakness in the floor of the inguinal canal (Hesselbach's)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Landmark (Inf. Epigastric Artery)</strong></td>
+                                <td>LATERAL to inferior epigastric artery</td>
+                                <td>MEDIAL to inferior epigastric artery</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Route</strong></td>
+                                <td>Passes through BOTH deep and superficial rings. Can enter scrotum.</td>
+                                <td>Passes ONLY through superficial ring. Does not usually enter scrotum.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Finger Test (Valsalva)</strong></td>
+                                <td>Pulse felt at the <strong>TIP</strong> of the finger</td>
+                                <td>Pulse felt at the <strong>BASE / SIDE</strong> of the finger</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>2. Hernia Repair Techniques[cite: 1]</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Specific Repair</th>
+                                <th>Key Characteristics</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="4"><strong>Tissue Repair</strong> (No mesh. Used for infected fields)</td>
+                                <td>Bassini</td>
+                                <td>Sutures conjoint tendon to inguinal ligament.</td>
+                            </tr>
+                            <tr>
+                                <td>Shouldice</td>
+                                <td>Multi-layer native tissue repair. <strong>Least recurrence (1%)</strong> among tissue repairs.</td>
+                            </tr>
+                            <tr>
+                                <td>McVay (Cooper's)</td>
+                                <td>Sutures transversalis fascia to Cooper's ligament.</td>
+                            </tr>
+                            <tr>
+                                <td>Desarda</td>
+                                <td>Uses living flap of external oblique aponeurosis.</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2"><strong>Prosthetic (Anterior)</strong></td>
+                                <td>Lichtenstein</td>
+                                <td><strong>Gold standard</strong>. Tension-free polypropylene mesh. ~0.2% recurrence.</td>
+                            </tr>
+                            <tr>
+                                <td>Plug & Patch</td>
+                                <td>Cone-shaped mesh plug in defect + onlay patch.</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3"><strong>Laparoscopic (Posterior)</strong></td>
+                                <td>TAPP</td>
+                                <td>Enters abdominal cavity. Higher risk of ileus/visceral injury.</td>
+                            </tr>
+                            <tr>
+                                <td>TEP</td>
+                                <td>Stays extraperitoneal (balloon dissection). Preferred to avoid visceral injury.</td>
+                            </tr>
+                            <tr>
+                                <td>IPOM</td>
+                                <td>Mesh is in direct contact with bowel; requires expensive anti-adhesion mesh.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TAB 7: FLASHCARDS -->
+        <div id="tab-flashcards" class="tab-content">
+            <div class="section-card">
+                <h2>Active Recall Flashcards</h2>
+                <div class="flashcard-controls">
+                    <button class="btn" onclick="prevCard()">&#8592; Previous</button>
+                    <span id="flashcard-progress" style="font-weight:bold;">1 / 50</span>
+                    <button class="btn" onclick="nextCard()">Next &#8594;</button>
+                </div>
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="flashcard-face flashcard-front">
+                            <h3 style="color:white; margin-bottom:15px;">Question:</h3>
+                            <p id="flashcard-q" style="font-size: 1.2rem;"></p>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <h3 style="color:var(--primary); margin-bottom:15px;">Answer:</h3>
+                            <p id="flashcard-a" style="font-size: 1.1rem;"></p>
+                        </div>
+                    </div>
+                </div>
+                <p style="text-align:center; color:var(--text-muted); font-size:0.9rem;">Click the card to flip</p>
+            </div>
+        </div>
+
+        <!-- TAB 8: MCQs -->
+        <div id="tab-mcqs" class="tab-content">
+            <div class="section-card">
+                <h2>Self-Assessment (50 Items)</h2>
+                <div class="mcq-controls">
+                    <button class="btn" onclick="prevMCQ()">&#8592; Prev</button>
+                    <span id="mcq-progress" style="font-weight:bold;">1 / 50</span>
+                    <button class="btn" onclick="nextMCQ()">Next &#8594;</button>
+                </div>
+                
+                <div class="mcq-container">
+                    <h3 id="mcq-q" style="margin-bottom: 1rem;"></h3>
+                    <ul class="mcq-options" id="mcq-options-list"></ul>
+                    <div class="mcq-explanation" id="mcq-explanation"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 9: CRAM SHEET -->
+        <div id="tab-cram" class="tab-content searchable">
+            <div class="section-card">
+                <h2>Ultra-Condensed Cram Sheet</h2>
+                <ul class="cram-list">
+                    <li><strong>Definition of Hernia:</strong> Protrusion of a viscus through an opening in the wall of a cavity[cite: 1].</li>
+                    <li><strong>Most common hernia overall:</strong> Inguinal Hernia (80%)[cite: 1].</li>
+                    <li><strong>Highest strangulation risk:</strong> Femoral hernia (below inguinal ligament)[cite: 1].</li>
+                    <li><strong>Hesselbach's Triangle:</strong> Inguinal ligament (base), Inf. Epigastric vessels (lateral), Rectus abdominis (medial)[cite: 1].</li>
+                    <li><strong>Indirect Hernia:</strong> Lateral to inferior epigastric artery. Passes through deep ring. Processus vaginalis issue[cite: 1].</li>
+                    <li><strong>Direct Hernia:</strong> Medial to inferior epigastric artery. Due to floor weakness. Only passes superficial ring[cite: 1].</li>
+                    <li><strong>Finger Test (Pulse at Tip):</strong> Indirect Hernia[cite: 1].</li>
+                    <li><strong>Finger Test (Pulse at Base/Side):</strong> Direct Hernia[cite: 1].</li>
+                    <li><strong>Gold Standard Open Repair:</strong> Lichtenstein (mesh, tension-free, 0.2% recurrence)[cite: 1].</li>
+                    <li><strong>Best Tissue Repair (lowest recurrence):</strong> Shouldice (1%)[cite: 1].</li>
+                    <li><strong>When to use tissue repair:</strong> Infected field, fecal contamination, no mesh available[cite: 1].</li>
+                    <li><strong>TAPP vs TEP:</strong> TAPP enters peritoneum (higher ileus risk). TEP stays out (balloon dissection)[cite: 1].</li>
+                    <li><strong>Complication: Testicular Atrophy:</strong> Due to injury to pampiniform plexus (ischemic orchitis), not just testicular artery[cite: 1].</li>
+                    <li><strong>Seroma Management:</strong> Reassurance/warm compress. Do NOT aspirate (risk of abscess) unless highly symptomatic[cite: 1].</li>
+                    <li><strong>Nerve Injury (Ejaculation Pain):</strong> Visceral nerve injury[cite: 1].</li>
+                    <li><strong>Omphalocele vs Gastroschisis:</strong> Omphalocele = amniotic sac. Gastroschisis = NO sac[cite: 1].</li>
+                    <li><strong>Spigelian Hernia:</strong> Hernia at the arcuate line due to lack of posterior rectus sheath[cite: 1].</li>
+                    <li><strong>Diastasis Recti:</strong> Separation >2cm. Midline fascia intact. Not a hernia. Manage with weight loss[cite: 1].</li>
+                    <li><strong>Fothergill's Sign:</strong> Mass doesn't change with muscle contraction = Rectus Sheath Hematoma[cite: 1].</li>
+                    <li><strong>Desmoid Tumor:</strong> Aggressive fibromatosis, no metastasis. Requires wide excision + mesh[cite: 1].</li>
+                    <li><strong>Omentum function:</strong> "Policeman of abdomen", forms fibrin bridges (basis of Graham patch)[cite: 1].</li>
+                    <li><strong>Mesenteric Cyst (Tillaux's sign):</strong> Mobile ONLY laterally[cite: 1].</li>
+                    <li><strong>Sclerosing Mesenteritis:</strong> Fat ring sign on CT. Treat medically (steroids), NOT aggressive surgery[cite: 1].</li>
+                    <li><strong>Most common mesenteric tumor:</strong> Lymphoma (bulky lymphadenopathy, biopsy only)[cite: 1].</li>
+                    <li><strong>Grey Turner Sign:</strong> Flank erythema/bruising = Retroperitoneal infection/hemorrhage[cite: 1].</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+</div>
+<a href="#" class="scroll-top" id="scrollTopBtn" onclick="scrollToTop(event)">&#8679;</a>
+
+<script>
+    // Tab Navigation
+    function openTab(evt, tabId) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        evt.currentTarget.classList.add('active');
+    }
+
+    // Search Logic
+    function searchContent() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let contents = document.querySelectorAll('.searchable p, .searchable li, .searchable td');
+        contents.forEach(el => {
+            if(el.textContent.toLowerCase().includes(input) && input.length > 2) {
+                el.style.backgroundColor = 'var(--pearl)';
+            } else {
+                el.style.backgroundColor = 'transparent';
+            }
+        });
+    }
+
+    // Scroll to Top
+    window.onscroll = function() {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            document.getElementById("scrollTopBtn").style.display = "flex";
+        } else {
+            document.getElementById("scrollTopBtn").style.display = "none";
+        }
+    };
+    function scrollToTop(e) {
+        e.preventDefault();
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // Flashcard Data (50 Items)
+    const flashcards = [
+        {q:"What is the definition of a hernia according to Schwartz?", a:"A protrusion of a viscus through an opening in the wall of a cavity in which it is contained."},
+        {q:"What is the most common external hernia?", a:"Inguinal hernia (80%)."},
+        {q:"What is the bimodal age distribution of inguinal hernias?", a:"Peaks before 1 year of age and after 40 years of age."},
+        {q:"What forms the anterior boundary of the inguinal canal?", a:"External oblique aponeurosis."},
+        {q:"What structures form the posterior boundary of the inguinal canal?", a:"Transversalis fascia and Conjoint tendon."},
+        {q:"What are the boundaries of Hesselbach's Triangle?", a:"Base: Inguinal ligament. Lateral: Inferior epigastric vessels. Medial: Lateral border of rectus abdominis."},
+        {q:"What distinguishes an indirect from a direct inguinal hernia relative to the inferior epigastric artery?", a:"Indirect is lateral; Direct is medial."},
+        {q:"Which hernia passes through both the deep and superficial inguinal rings?", a:"Indirect inguinal hernia."},
+        {q:"In pediatric patients, what is the primary cause of an indirect hernia?", a:"Failure of the processus vaginalis to close."},
+        {q:"During digital exam, if you feel a pulse at the tip of your finger, what type of hernia is it?", a:"Indirect inguinal hernia."},
+        {q:"During digital exam, if you feel a pulse at the base or side of your finger, what type of hernia is it?", a:"Direct inguinal hernia."},
+        {q:"What imaging modality is cheapest and dynamic for hernia diagnosis?", a:"Ultrasound."},
+        {q:"When is Watchful Waiting indicated for a hernia?", a:"For asymptomatic patients (risk of incarceration is low)."},
+        {q:"What is 'Taxis' in hernia management?", a:"Manual reduction of intra-abdominal contents within the hernial sac, done WITHOUT sequelae of strangulation."},
+        {q:"Why is mesh repair avoided in an infected surgical field?", a:"Mesh is a foreign body and will lead to severe infection and failure/recurrence."},
+        {q:"What is the gold standard open repair technique for inguinal hernias?", a:"Lichtenstein tension-free mesh repair (0.2% recurrence)."},
+        {q:"Which tissue repair has the lowest recurrence rate (1%)?", a:"Shouldice repair."},
+        {q:"Which tissue repair utilizes Cooper's ligament?", a:"McVay repair."},
+        {q:"Which tissue repair uses a living flap of the external oblique aponeurosis?", a:"Desarda repair."},
+        {q:"What does TAPP stand for?", a:"Transabdominal Preperitoneal Repair."},
+        {q:"What does TEP stand for?", a:"Totally Extraperitoneal Repair."},
+        {q:"Which laparoscopic approach utilizes balloon dissection to avoid entering the abdominal cavity?", a:"TEP repair."},
+        {q:"Which complication manifests within one week of surgery as an enlarged, painful testis?", a:"Ischemic orchitis (due to pampiniform plexus injury)."},
+        {q:"How should a 3cm asymptomatic seroma one week post-op be managed?", a:"Watchful waiting/warm compress. Do NOT aspirate."},
+        {q:"What type of pain results from ligamentous or muscular trauma and reproduces with contraction?", a:"Nociceptive (Somatic) pain."},
+        {q:"Osteitis pubis presents as medial groin pain reproduced by what movement?", a:"Thigh adduction."},
+        {q:"Which laparoscopic technique is associated with a higher incidence of paralytic ileus?", a:"TAPP (because the peritoneal cavity is entered)."},
+        {q:"What is the most severe laparoscopic complication that can cause rapid exsanguination?", a:"Vascular injury (Iliac or femoral vessels)."},
+        {q:"What determines if a congenital abdominal wall defect is an omphalocele vs gastroschisis?", a:"Omphalocele is covered by a sac; Gastroschisis has NO sac."},
+        {q:"Where is a Spigelian hernia located?", a:"Along the arcuate line (due to lack of posterior rectus sheath)."},
+        {q:"What is the recommended technique for incisional hernia repair to reduce recurrence?", a:"Mesh repair using the Sublay technique."},
+        {q:"Is rectus abdominis diastasis a true hernia?", a:"No, because the midline fascia is intact."},
+        {q:"What is Fothergill's sign?", a:"Palpation of a mass that does not change with rectus abdominis contraction (indicates Rectus Sheath Hematoma)."},
+        {q:"What is the definitive treatment for Desmoid tumors?", a:"Margin-negative resection with immediate mesh reconstruction."},
+        {q:"What structure is known as the 'policeman of the abdominal cavity'?", a:"Greater Omentum."},
+        {q:"What surgical procedure uses omentum to cover a perforated stomach ulcer?", a:"Graham Patch Repair."},
+        {q:"What is the CT finding for omental infarction?", a:"Streaking whirling pattern of fatty tissue in the anterior abdomen."},
+        {q:"What is Tillaux's sign?", a:"An abdominal mass that is only mobile laterally, characteristic of a Mesenteric Cyst."},
+        {q:"What rare disorder involves idiopathic fibrosis of the mesentery and the 'fat ring sign' on CT?", a:"Sclerosing Mesenteritis."},
+        {q:"What is the most common mesenteric tumor?", a:"Lymphoma."},
+        {q:"Should aggressive surgical resection be done for Sclerosing Mesenteritis?", a:"No, it is treated medically (steroids, hormonal therapy)."},
+        {q:"Why must you be careful not to resect too much mesentery?", a:"It houses the blood supply to the bowel; excessive resection causes short bowel syndrome."},
+        {q:"What spaces make up the retroperitoneum?", a:"Anterior pararenal, Perirenal, Posterior pararenal."},
+        {q:"What does Grey Turner's sign indicate in the context of retroperitoneal infection?", a:"Flank erythema/bruising indicating retroperitoneal pathology."},
+        {q:"Is retroperitoneal fibrosis usually unilateral or bilateral?", a:"Bilateral in 70% of cases."},
+        {q:"What vascular structure is most at risk for injury during anterior hernia repair if sutures are misplaced deeply?", a:"Inferior epigastric vessels or external iliacs."},
+        {q:"If an adult presents with a new onset hernia, why must you ask about bowel and urinary habits?", a:"To rule out GI/GU pathology (like colon cancer or BPH) causing increased intra-abdominal pressure."},
+        {q:"What is the risk of observing a femoral hernia vs an inguinal hernia?", a:"Femoral hernias have a much higher risk of strangulation (up to 45% at 2 years)."},
+        {q:"How is an umbilical hernia managed in a 2-year-old?", a:"Observation; most congenital umbilical hernias close spontaneously by age 5."},
+        {q:"What material is commonly used in Lichtenstein repair?", a:"Synthetic non-absorbable Polypropylene mesh."}
+    ];
+
+    let currentCard = 0;
+    function flipCard() {
+        document.getElementById('flashcard').classList.toggle('is-flipped');
+    }
+    function updateCard() {
+        document.getElementById('flashcard').classList.remove('is-flipped');
+        setTimeout(() => {
+            document.getElementById('flashcard-q').innerText = flashcards[currentCard].q;
+            document.getElementById('flashcard-a').innerText = flashcards[currentCard].a;
+            document.getElementById('flashcard-progress').innerText = `${currentCard + 1} / ${flashcards.length}`;
+        }, 150);
+    }
+    function nextCard() { currentCard = (currentCard + 1) % flashcards.length; updateCard(); }
+    function prevCard() { currentCard = (currentCard - 1 + flashcards.length) % flashcards.length; updateCard(); }
+    
+    // MCQ Data (50 Items)
+    const mcqs = [
+        {q:"1. When is the BEST time to offer surgical repair for an indirect inguinal hernia associated with discomfort and bloating?", opts:["A. In the presence of fever and vomiting","B. Upon confirmation of diagnosis","C. When strangulation is suspected","D. When there is a significant increase in the size of the hernia"], correct:2, exp:"Indication for urgent surgery: Strangulation occurs when hernia contents are trapped, compromising blood flow. This is a surgical emergency[cite: 1]."},
+        {q:"2. What is the MOST important factor in choosing the type of incision?", opts:["A. Adequate exposure with minimal perturbation of function","B. Low incidence of infection","C. Low incidence of ventral hernia","D. Minimal post op pain"], correct:0, exp:"The goal of an efficacious incision is to provide adequate exposure to perform the procedure with minimal perturbation of the abdominal wall function[cite: 1]."},
+        {q:"3. Which layer of the abdominal wall coincides with the hiatus of the deep/internal inguinal ring?", opts:["A. External Oblique Aponeurosis","B. Internal Oblique Muscle","C. Peritoneum","D. Transversalis fascia"], correct:3, exp:"The spermatic cord passes through the transversalis fascia to enter the inguinal canal at the deep ring[cite: 1]."},
+        {q:"4. A 45yo male underwent Lichtenstein repair. One week later, his right scrotum is enlarged, indurated, and painful. Diagnosis?", opts:["A. Ischemic orchitis","B. Seroma","C. SSI","D. Testicular atrophy"], correct:0, exp:"Manifests within one week of repair as enlarged, indurated, painful testis due to pampiniform plexus injury; self-limited[cite: 1]. Testicular atrophy happens much later."},
+        {q:"5. What is the best approach for a recurrent inguinal hernia who underwent a Lichtenstein repair previously?", opts:["A. Desarda","B. Laparoscopic Approach","C. Plug and Mesh","D. Shouldice"], correct:1, exp:"Laparoscopic approach is superior for recurrent hernias to utilize virgin planes[cite: 1]."},
+        {q:"6. What is the treatment of choice for a 3cm asymptomatic seroma one week after hernia repair?", opts:["A. Aspiration","B. Inguinal exploration","C. Warm compress & Reassurance","D. Watchful waiting"], correct:2, exp:"Treatment includes reassurance and warm compress. Should NOT be aspirated to avoid infection/abscess unless severely limiting[cite: 1]."},
+        {q:"7. A 30yo male complains of a right inguinal bulge after lifting. Most important diagnostic step?", opts:["A. CT Scan","B. History and PE","C. MRI","D. Ultrasound"], correct:1, exp:"History and PE is the most important first step in making a diagnosis[cite: 1]."},
+        {q:"8. What is the ideal approach to an asymptomatic 40yo male with an inguinal hernia?", opts:["A. Immediate TAPP","B. Elective open tissue repair","C. Watchful waiting","D. Emergent open mesh repair"], correct:2, exp:"Watchful waiting is indicated for asymptomatic patients as the risk of incarceration is low[cite: 1]."},
+        {q:"9. Which is false regarding mesenteric tumors?", opts:["A. Wide resection is the surgical procedure of choice for malignancies","B. Primary malignant tumors are usually sarcomas","C. Primary tumors of the mesentery are common","D. Lymphoma is the most common"], correct:2, exp:"Primary mesenteric tumors are rare[cite: 1]."},
+        {q:"10. Hernia surgery-related nerve injury typically causes what type of pain?", opts:["A. Localized","B. Neuropathic","C. Nociceptive","D. Visceral"], correct:1, exp:"Nerve entrapment (e.g., ilioinguinal nerve caught in sutures) causes neuropathic pain[cite: 1]."},
+        {q:"11. True or False: Lesions of the retroperitoneum tend to expand anteriorly.", opts:["A. True","B. False"], correct:0, exp:"Given the compliance of the anterior boundary of the retroperitoneum and the rigidity of posterior muscles, they expand anteriorly[cite: 1]."},
+        {q:"12. What rare condition is characterized by idiopathic fibrosis of the mesentery?", opts:["A. Mesenteric cysts","B. Sclerosing mesenteritis","C. Mesenteric tumor","D. Desmoid tumor"], correct:1, exp:"Sclerosing mesenteritis is characterized by idiopathic fibrosis[cite: 1]."},
+        {q:"13. The omentum acting as a policeman forms a fibrin bridge. This is the principle behind which repair?", opts:["A. Lichtenstein","B. Desarda","C. Graham Patch repair","D. Bassini"], correct:2, exp:"The Graham Patch repair utilizes an omental patch to cover perforated ulcers, utilizing its fibrin-bridging capabilities[cite: 1]."},
+        // Generating remaining 37 to meet the 50 requirement based tightly on the source text[cite: 1]
+        {q:"14. What percentage of abdominal wall hernias are inguinal hernias?", opts:["A. 50%","B. 75%","C. 90%","D. 10%"], correct:1, exp:"Inguinal hernias account for almost 75% of abdominal wall hernias[cite: 1]."},
+        {q:"15. In males, the lifetime risk of developing an inguinal hernia is:", opts:["A. 3%","B. 10%","C. 27%","D. 50%"], correct:2, exp:"Lifetime risk is 27% in men and 3% in women[cite: 1]."},
+        {q:"16. Which structure forms the floor of the inguinal canal?", opts:["A. Transversalis fascia","B. Conjoint tendon","C. External oblique aponeurosis","D. Inguinal ligament"], correct:3, exp:"The inguinal ligament forms the floor[cite: 1]."},
+        {q:"17. A hernia protruding medial to the inferior epigastric artery is a:", opts:["A. Direct inguinal hernia","B. Indirect inguinal hernia","C. Femoral hernia","D. Spigelian hernia"], correct:0, exp:"Direct hernias protrude medial to the inferior epigastric vessels through Hesselbach's triangle[cite: 1]."},
+        {q:"18. Which maneuver is used during a physical exam to test for an inguinal hernia impulse?", opts:["A. Fothergill's","B. Valsalva","C. Tillaux's","D. Trendelenburg"], correct:1, exp:"Patient is asked to cough or perform the Valsalva maneuver to feel the impulse[cite: 1]."},
+        {q:"19. Which imaging modality has the highest sensitivity (95%) and specificity (96%) for inguinal hernias?", opts:["A. Ultrasound","B. CT Scan","C. MRI","D. X-ray"], correct:2, exp:"MRI is the most sensitive and specific, though expensive[cite: 1]."},
+        {q:"20. A patient presents with a hernia below the inguinal ligament. What is the diagnosis?", opts:["A. Direct inguinal","B. Indirect inguinal","C. Femoral","D. Obturator"], correct:2, exp:"Femoral hernias occur below the inguinal ligament[cite: 1]."},
+        {q:"21. Which repair uses the patient's own native tissues specifically anchoring to Cooper's ligament?", opts:["A. Bassini","B. Shouldice","C. McVay","D. Desarda"], correct:2, exp:"McVay (Cooper's ligament) repair anchors transversalis fascia to Cooper's ligament[cite: 1]."},
+        {q:"22. The most popular anterior approach mesh repair with the lowest recurrence rate is:", opts:["A. TAPP","B. Lichtenstein","C. Shouldice","D. TEP"], correct:1, exp:"Lichtenstein is a tension-free mesh repair that is the gold standard[cite: 1]."},
+        {q:"23. A patient cannot undergo general anesthesia. Which repair should be avoided?", opts:["A. Lichtenstein","B. Bassini","C. Laparoscopic repair (TEP/TAPP)","D. Desarda"], correct:2, exp:"Laparoscopic repairs are not advised for patients who cannot undergo general anesthesia[cite: 1]."},
+        {q:"24. Which laparoscopic approach involves accessing the preperitoneal space without entering the intraperitoneal cavity?", opts:["A. TAPP","B. TEP","C. IPOM","D. Sublay"], correct:1, exp:"TEP (Totally Extraperitoneal) repair uses balloon dissection to avoid entering the abdominal cavity[cite: 1]."},
+        {q:"25. Which mesh material is most popularly used and is permanent/hydrophobic?", opts:["A. Polyglactin","B. Polypropylene","C. Polyester","D. Silk"], correct:1, exp:"Polypropylene is the most popularly used synthetic non-absorbable mesh[cite: 1]."},
+        {q:"26. Visceral pain after hernia repair is often poorly localized and may occur during:", opts:["A. Urination","B. Ejaculation","C. Coughing","D. Flexion of thigh"], correct:1, exp:"Visceral pain is poorly localized and may occur during ejaculation[cite: 1]."},
+        {q:"27. Osteitis pubis is an inflammation of the pubic symphysis caused by suture injury. How is it confirmed?", opts:["A. Ultrasound","B. Bone scan","C. Urinalysis","D. MRI"], correct:1, exp:"Bone scan is confirmatory for Osteitis Pubis showing inflammatory/lytic changes[cite: 1]."},
+        {q:"28. Testicular atrophy post-hernia repair is typically caused by damage to:", opts:["A. Pampiniform plexus","B. Testicular artery","C. Ilioinguinal nerve","D. Vas deferens"], correct:1, exp:"Testicular atrophy is caused by injury to the testicular artery/vascular structures over time[cite: 1]. Ischemic orchitis is from pampiniform injury."},
+        {q:"29. True obstruction post-laparoscopic repair warrants:", opts:["A. Warm compress","B. Reoperation","C. Taxis","D. Watchful waiting"], correct:1, exp:"True obstruction warrants reoperation to assess the cause[cite: 1]."},
+        {q:"30. Congenital anomaly where midgut fails to reenter the abdomen and is covered by amniotic membrane:", opts:["A. Gastroschisis","B. Omphalocele","C. Epigastric hernia","D. Urachal cyst"], correct:1, exp:"Omphalocele is covered with amniotic/peritoneal membrane[cite: 1]."},
+        {q:"31. Gastroschisis typically presents with the defect located:", opts:["A. At the umbilicus","B. Lateral to the umbilicus (usually right)","C. In the epigastrium","D. At the arcuate line"], correct:1, exp:"Viscera protrudes through a defect lateral to the umbilicus (usually right) without a sac[cite: 1]."},
+        {q:"32. Epigastric hernias are located:", opts:["A. Below the umbilicus","B. Between umbilicus and xiphoid","C. Along the arcuate line","D. At Hesselbach's triangle"], correct:1, exp:"Located between the umbilicus and xiphoid[cite: 1]."},
+        {q:"33. A Spigelian hernia occurs:", opts:["A. At the deep inguinal ring","B. Through the umbilicus","C. Along the arcuate line","D. At previous incision sites"], correct:2, exp:"Occurs along the arcuate line due to lack of posterior rectus sheath[cite: 1]."},
+        {q:"34. What is the incarceration rate of Spigelian hernias?", opts:["A. 5%","B. 10%","C. 20%","D. 50%"], correct:2, exp:"Spigelian hernias have a 20% incarceration rate[cite: 1]."},
+        {q:"35. Simple suture repair of incisional hernias is discouraged because of a recurrence rate of:", opts:["A. 16%","B. 33%","C. 54%","D. 80%"], correct:2, exp:"Simple suture repair is associated with a 54% recurrence rate due to tension[cite: 1]."},
+        {q:"36. The recommended plane for mesh placement in incisional hernias is:", opts:["A. Inlay","B. Sublay","C. Onlay","D. IPOM"], correct:1, exp:"Sublay technique (plane between rectus muscle and posterior sheath) is recommended[cite: 1]."},
+        {q:"37. Rectus abdominis diastasis is defined by a separation of at least:", opts:["A. 1 cm","B. 2 cm","C. 5 cm","D. 10 cm"], correct:1, exp:"Distance of 2 cm is considered abnormal[cite: 1]."},
+        {q:"38. Does Rectus abdominis diastasis carry a risk of strangulation?", opts:["A. Yes, high risk","B. Yes, low risk","C. No, because it is not a true hernia","D. Only in obese patients"], correct:2, exp:"It is not a true hernia as the midline fascia is intact; incarceration/strangulation do not occur[cite: 1]."},
+        {q:"39. Rectus sheath hematoma typically results from disruption of which artery?", opts:["A. Superior epigastric","B. Inferior epigastric","C. External iliac","D. Femoral"], correct:1, exp:"Disruption of the inferior epigastric artery branches[cite: 1]."},
+        {q:"40. Fothergill's sign helps diagnose:", opts:["A. Spigelian hernia","B. Rectus sheath hematoma","C. Desmoid tumor","D. Omphalocele"], correct:1, exp:"Palpation of a mass that doesn't change with muscle contraction confirms Rectus sheath hematoma[cite: 1]."},
+        {q:"41. Desmoid tumors are also known as:", opts:["A. Omental cysts","B. Aggressive fibromatosis","C. Sclerosing mesenteritis","D. Liposarcoma"], correct:1, exp:"Also known as aggressive fibromatosis[cite: 1]."},
+        {q:"42. Omental infarction on CT scan appears as:", opts:["A. Fluid-filled sac","B. Streaking whirling pattern of fat","C. Calcified mass","D. Gas bubbles"], correct:1, exp:"Streaking whirling pattern of fatty tissue in the anterior abdomen[cite: 1]."},
+        {q:"43. Omental cysts differ from mesenteric cysts because they are:", opts:["A. Mobile only laterally","B. Mobile in all directions","C. Always malignant","D. Completely immobile"], correct:1, exp:"Omental cysts are mobile in all directions, whereas mesenteric cysts (Tillaux's sign) are mobile only laterally[cite: 1]."},
+        {q:"44. The most common cause of omental neoplasms is:", opts:["A. Primary lipoma","B. Metastatic disease (ovarian cancer)","C. Gastrointestinal stromal tumor","D. Desmoid tumor"], correct:1, exp:"Most are metastatic disease, with ovarian cancer being the most common[cite: 1]."},
+        {q:"45. Sclerosing mesenteritis is characterized on CT by the:", opts:["A. Fat ring sign","B. Whirling sign","C. Target sign","D. String sign"], correct:0, exp:"CT shows a soft tissue mass with the 'Fat ring sign'[cite: 1]."},
+        {q:"46. Aggressive surgical resection for Sclerosing Mesenteritis is:", opts:["A. The gold standard","B. Indicated for all patients","C. Not indicated","D. Done via laparoscopy"], correct:2, exp:"Aggressive surgical treatment is not indicated; symptoms may improve with medical intervention[cite: 1]."},
+        {q:"47. Tillaux's sign is characteristic of:", opts:["A. Omental cyst","B. Mesenteric cyst","C. Urachal cyst","D. Desmoid tumor"], correct:1, exp:"Tillaux's sign (mass mobile only laterally) is seen in Mesenteric cysts[cite: 1]."},
+        {q:"48. The retroperitoneum is bound anteriorly by the:", opts:["A. Iliopsoas muscle","B. Levator ani","C. Peritoneum","D. Diaphragm"], correct:2, exp:"Bound by peritoneum anteriorly, iliopsoas/lumbar muscles posteriorly[cite: 1]."},
+        {q:"49. Grey Turner Sign is associated with:", opts:["A. Omphalocele","B. Incarcerated hernia","C. Retroperitoneal infections/hemorrhage","D. Rectus diastasis"], correct:2, exp:"Erythema/bruising of the flank indicates retroperitoneal pathology[cite: 1]."},
+        {q:"50. Retroperitoneal fibrosis presents with:", opts:["A. Chronic back or flank pain","B. Right lower quadrant pain","C. Projectile vomiting","D. Jaundice"], correct:0, exp:"Presents with chronic or acute back or flank pains, often encasing ureters[cite: 1]."}
+    ];
+
+    let currentMCQ = 0;
+    function renderMCQ() {
+        const qData = mcqs[currentMCQ];
+        document.getElementById('mcq-q').innerText = qData.q;
+        const optsList = document.getElementById('mcq-options-list');
+        optsList.innerHTML = '';
+        document.getElementById('mcq-explanation').style.display = 'none';
+        
+        qData.opts.forEach((opt, idx) => {
+            let li = document.createElement('li');
+            li.innerText = opt;
+            li.onclick = () => selectAnswer(li, idx, qData.correct, qData.exp);
+            optsList.appendChild(li);
+        });
+        document.getElementById('mcq-progress').innerText = `${currentMCQ + 1} / ${mcqs.length}`;
+    }
+    
+    function selectAnswer(li, selectedIdx, correctIdx, expText) {
+        if (li.parentNode.querySelector('.correct')) return; // already answered
+        
+        const children = li.parentNode.children;
+        if (selectedIdx === correctIdx) {
+            li.classList.add('correct');
+        } else {
+            li.classList.add('incorrect');
+            children[correctIdx].classList.add('correct');
+        }
+        
+        const expDiv = document.getElementById('mcq-explanation');
+        expDiv.innerHTML = `<strong>Explanation:</strong> ${expText}`;
+        expDiv.style.display = 'block';
+    }
+
+    function nextMCQ() { currentMCQ = (currentMCQ + 1) % mcqs.length; renderMCQ(); }
+    function prevMCQ() { currentMCQ = (currentMCQ - 1 + mcqs.length) % mcqs.length; renderMCQ(); }
+
+    // Initialize content on load
+    window.onload = () => {
+        updateCard();
+        renderMCQ();
+    };
+</script>
+
+</body>
+</html>
