@@ -1,0 +1,2625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PIDS Reviewer: Healthcare-Associated Infections & Fever of Unknown Origin</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      
+      --primary: #0284c7;
+      --primary-light: #e0f2fe;
+      --primary-dark: #0369a1;
+      
+      --teal: #0d9488;
+      --teal-light: #ccfbf1;
+      
+      --rose: #e11d48;
+      --rose-light: #ffe4e6;
+      
+      --amber: #d97706;
+      --amber-light: #fef3c7;
+      
+      --indigo: #4f46e5;
+      --indigo-light: #e0e7ff;
+      
+      --emerald: #059669;
+      --emerald-light: #d1fae5;
+      
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      
+      --font-heading: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    /* Dark Mode Theme Adjustments */
+    body.dark-mode {
+      --bg-main: #0f172a;
+      --bg-card: #1e293b;
+      --bg-subtle: #334155;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --border-dark: #475569;
+      --primary-light: #0369a1;
+      --teal-light: #115e59;
+      --rose-light: #9f1239;
+      --amber-light: #92400e;
+      --indigo-light: #3730a3;
+      --emerald-light: #065f46;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding-bottom: 60px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Header & Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-bar {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--teal));
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+    }
+
+    .brand-title h1 {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .brand-title p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .search-box {
+      position: relative;
+      width: 280px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 8px 12px 8px 36px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background-color: var(--bg-subtle);
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+      background-color: var(--bg-card);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .btn-toggle {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-toggle:hover {
+      background-color: var(--border);
+    }
+
+    /* Tab Navigation */
+    .nav-tabs-wrapper {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .nav-tabs {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      padding: 0 16px;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav-tab {
+      padding: 12px 18px;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-tab:hover {
+      color: var(--primary);
+      background-color: rgba(2, 132, 199, 0.04);
+    }
+
+    .nav-tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background-color: rgba(2, 132, 199, 0.08);
+    }
+
+    .tab-badge {
+      background-color: var(--bg-subtle);
+      color: var(--text-secondary);
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-family: var(--font-mono);
+    }
+
+    .nav-tab.active .tab-badge {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    /* Reading Progress Bar */
+    .progress-bar-container {
+      height: 3px;
+      width: 100%;
+      background-color: transparent;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--teal));
+      width: 0%;
+      transition: width 0.1s ease;
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1400px;
+      margin: 24px auto;
+      padding: 0 24px;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card System */
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    /* High-Yield Callout Boxes */
+    .callout {
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      margin: 16px 0;
+      border-left: 5px solid;
+      font-size: 0.92rem;
+    }
+
+    .callout-must-know {
+      background-color: var(--amber-light);
+      border-left-color: var(--amber);
+      color: var(--text-primary);
+    }
+
+    .callout-pitfall {
+      background-color: var(--rose-light);
+      border-left-color: var(--rose);
+      color: var(--text-primary);
+    }
+
+    .callout-pearl {
+      background-color: var(--teal-light);
+      border-left-color: var(--teal);
+      color: var(--text-primary);
+    }
+
+    .callout-exam-tip {
+      background-color: var(--indigo-light);
+      border-left-color: var(--indigo);
+      color: var(--text-primary);
+    }
+
+    .callout-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Tables */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 16px 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    th {
+      background-color: var(--bg-subtle);
+      color: var(--text-primary);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--border);
+      position: sticky;
+      top: 0;
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td {
+      background-color: rgba(241, 245, 249, 0.4);
+    }
+
+    body.dark-mode tr:nth-child(even) td {
+      background-color: rgba(51, 65, 85, 0.3);
+    }
+
+    tr:hover td {
+      background-color: rgba(2, 132, 199, 0.05);
+    }
+
+    /* Badges & Tags */
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-blue { background-color: var(--primary-light); color: var(--primary-dark); }
+    .badge-teal { background-color: var(--teal-light); color: var(--teal); }
+    .badge-rose { background-color: var(--rose-light); color: var(--rose); }
+    .badge-amber { background-color: var(--amber-light); color: var(--amber); }
+    .badge-indigo { background-color: var(--indigo-light); color: var(--indigo); }
+    .badge-emerald { background-color: var(--emerald-light); color: var(--emerald); }
+
+    /* Reconstructed CSS Diagrams */
+    .diagram-box {
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .diagram-caption {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    .flow-node {
+      background: var(--bg-card);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin: 8px auto;
+      max-width: 400px;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .flow-arrow {
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin: 4px 0;
+      font-weight: bold;
+    }
+
+    /* Accordion / Expandable */
+    .accordion {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .accordion-header {
+      background-color: var(--bg-subtle);
+      padding: 14px 18px;
+      cursor: pointer;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .accordion-header:hover {
+      background-color: var(--border);
+    }
+
+    .accordion-content {
+      padding: 18px;
+      display: none;
+      border-top: 1px solid var(--border);
+      background-color: var(--bg-card);
+    }
+
+    .accordion.open .accordion-content {
+      display: block;
+    }
+
+    .accordion-icon {
+      transition: transform 0.2s ease;
+    }
+
+    .accordion.open .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Flashcards Component */
+    .flashcard-wrapper {
+      max-width: 650px;
+      margin: 0 auto;
+      perspective: 1000px;
+    }
+
+    .flashcard {
+      width: 100%;
+      min-height: 320px;
+      background-color: var(--bg-card);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .flashcard.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 32px;
+      box-sizing: border-box;
+      border-radius: var(--radius-lg);
+    }
+
+    .flashcard-front {
+      background-color: var(--bg-card);
+      color: var(--text-primary);
+    }
+
+    .flashcard-back {
+      background-color: var(--primary-light);
+      color: var(--text-primary);
+      transform: rotateY(180deg);
+    }
+
+    body.dark-mode .flashcard-back {
+      background-color: #0c4a6e;
+      color: #f8fafc;
+    }
+
+    .flashcard-tag {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+    }
+
+    .flashcard-num {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .flashcard-q {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .flashcard-a {
+      font-size: 1.05rem;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .flashcard-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: none;
+      background-color: var(--primary);
+      color: white;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-subtle);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--border);
+    }
+
+    /* MCQ Self-Assessment Component */
+    .mcq-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .mcq-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .mcq-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .mcq-question {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .mcq-option {
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background-color: var(--bg-subtle);
+      cursor: pointer;
+      font-size: 0.92rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mcq-option:hover {
+      border-color: var(--primary);
+      background-color: rgba(2, 132, 199, 0.05);
+    }
+
+    .mcq-option-letter {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      flex-shrink: 0;
+    }
+
+    .mcq-option.correct {
+      background-color: var(--emerald-light);
+      border-color: var(--emerald);
+      color: var(--text-primary);
+    }
+
+    .mcq-option.correct .mcq-option-letter {
+      background-color: var(--emerald);
+      color: white;
+      border-color: var(--emerald);
+    }
+
+    .mcq-option.incorrect {
+      background-color: var(--rose-light);
+      border-color: var(--rose);
+      color: var(--text-primary);
+    }
+
+    .mcq-option.incorrect .mcq-option-letter {
+      background-color: var(--rose);
+      color: white;
+      border-color: var(--rose);
+    }
+
+    .mcq-explanation {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background-color: var(--bg-subtle);
+      border-left: 4px solid var(--primary);
+      font-size: 0.88rem;
+      display: none;
+    }
+
+    .mcq-explanation.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* Score Tracker Bar */
+    .score-tracker {
+      position: sticky;
+      top: 110px;
+      z-index: 100;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Floating Utilities */
+    .floating-btns {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .btn-float {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-float:hover {
+      transform: scale(1.1);
+      background-color: var(--primary-dark);
+    }
+
+    /* Print Styles */
+    @media print {
+      header, .floating-btns, .nav-tabs-wrapper, .flashcard-controls, .search-box {
+        display: none !important;
+      }
+      .tab-panel {
+        display: block !important;
+      }
+      body {
+        background-color: white !important;
+        color: black !important;
+      }
+      .card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="top-bar">
+      <div class="brand">
+        <div class="brand-logo">Px</div>
+        <div class="brand-title">
+          <h1>Pediatrics LE2 Interactive Reviewer</h1>
+          <p>PIDS: Healthcare-Associated Infections & Fever of Unknown Origin</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="global-search" placeholder="Search keywords, diseases, drugs..." onkeyup="filterContent()">
+        </div>
+        <button class="btn-toggle" onclick="toggleDarkMode()">
+          <span id="theme-icon">🌙</span> <span id="theme-text">Dark</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs-wrapper">
+      <ul class="nav-tabs">
+        <li class="nav-tab active" onclick="switchTab('tab-overview')">
+          🌐 Overview <span class="tab-badge">Core</span>
+        </li>
+        <li class="nav-tab" onclick="switchTab('tab-core1')">
+          🏥 Core 1: HAIs & Isolation <span class="tab-badge">Topic</span>
+        </li>
+        <li class="nav-tab" onclick="switchTab('tab-core2')">
+          💊 Core 2: AMR & Employee Health <span class="tab-badge">Topic</span>
+        </li>
+        <li class="nav-tab" onclick="switchTab('tab-core3')">
+          🤒 Core 3: FUO Etiologies <span class="tab-badge">Topic</span>
+        </li>
+        <li class="nav-tab" onclick="switchTab('tab-core4')">
+          🔍 Core 4: Diagnostic Approach <span class="tab-badge">Case</span>
+        </li>
+        <li class="nav-tab" onclick="switchTab('tab-comparisons')">
+          ⚖️ Confused Pairs <span class="tab-badge">Matrix</span>
+        </li>
+        <li class="nav-tab" onclick="switchTab('tab-flashcards')">
+          🎴 Active Recall <span class="tab-badge">50 Cards</span>
+        </li>
+        <li class="nav-tab" onclick="switchTab('tab-mcq')">
+          📝 Board MCQs <span class="tab-badge">50 Qs</span>
+        </li>
+        <li class="nav-tab" onclick="switchTab('tab-cram')">
+          ⚡ Ultra-Cram Sheet <span class="tab-badge">10 Min</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="reading-progress"></div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========================================== -->
+    <!-- TAB 1: OVERVIEW                            -->
+    <!-- ========================================== -->
+    <div id="tab-overview" class="tab-panel active">
+      
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">📖 Module Executive Overview & Learning Objectives</h2>
+            <p class="card-subtitle">Pediatrics 2 - LE2 Trans 5 | Lecturer: Abigail Chiong-Rivera, M.D. (09/16/2026)</p>
+          </div>
+          <span class="badge badge-blue">PLE & Board High-Yield</span>
+        </div>
+
+        <p style="margin-bottom: 16px;">
+          This interactive learning suite integrates the full curriculum on <strong>Pediatric Healthcare-Associated Infections (HAIs)</strong> and <strong>Fever of Unknown Origin (FUO)</strong>. It is designed specifically for 3rd-year medical students in the Philippines preparing for Departmental Long Examinations, Shelf Exams, and the Physician Licensure Examination (PLE).
+        </p>
+
+        <div class="grid-2">
+          <div class="callout callout-pearl">
+            <div class="callout-title">🎯 Module Learning Objectives</div>
+            <ul style="padding-left: 20px;">
+              <li>Discuss the national & global epidemiology and burden of Healthcare-Associated Infections (HAIs) in pediatric patients.</li>
+              <li>Enumerate key interventions and bundle protocols in the prevention and control of pediatric HAIs (CLABSI, VAP, CA-UTI).</li>
+              <li>Master standard and transmission-based isolation precautions (Contact, Droplet, Airborne).</li>
+              <li>Define Fever of Unknown Origin (FUO) and differentiate classic FUO from Fever Without Source (FWS).</li>
+              <li>Systematically approach a child with FUO: infectious causes (TB, Typhoid, Bartonella, CMV, EBV), connective tissue disorders, and malignancies.</li>
+            </ul>
+          </div>
+
+          <div class="callout callout-must-know">
+            <div class="callout-title">⭐ Core Definitions Baseline</div>
+            <p><strong>Healthcare-Associated Infection (HAI):</strong> Infection acquired during hospitalization or healthcare stay that was NOT present or incubating at admission. Occurs in 3–5% of hospitalized pediatric patients.</p>
+            <p style="margin-top: 8px;"><strong>Classic Pediatric FUO:</strong> Temperature &gt; 38.0°C for &gt; 3 weeks as an outpatient OR &gt; 1 week in the hospital with no identified cause after thorough evaluation.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">📊 Executive Summary Matrix: HAIs vs. FUO</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Domain</th>
+                <th>Healthcare-Associated Infections (HAIs)</th>
+                <th>Fever of Unknown Origin (FUO)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Primary Scope</strong></td>
+                <td>Hospital-acquired nosocomial conditions (CLABSI, VAP, CA-UTI, SSI).</td>
+                <td>Prolonged fever without apparent cause despite initial evaluation.</td>
+              </tr>
+              <tr>
+                <td><strong>Incidence / Prevalence</strong></td>
+                <td>3% to 5% of hospitalized pediatric patients.</td>
+                <td>High outpatient & inpatient tertiary pediatric referral burden.</td>
+              </tr>
+              <tr>
+                <td><strong>Primary Vector / Source</strong></td>
+                <td><strong>Hands of Healthcare Workers</strong> (direct contact).</td>
+                <td>Infectious (59% bacterial) &gt; Autoimmune &gt; Malignancy.</td>
+              </tr>
+              <tr>
+                <td><strong>First-Line Action</strong></td>
+                <td>Strict Hand Hygiene (15-sec scrub) &amp; Standard Precautions.</td>
+                <td>Detailed H&amp;P; <strong>Avoid routine empirical antibiotics</strong>.</td>
+              </tr>
+              <tr>
+                <td><strong>Prognosis</strong></td>
+                <td>Highly preventable; significant morbidity if unaddressed.</td>
+                <td><strong>Better in children</strong> than in adults (mostly treatable infections).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 2: CORE TOPIC 1 - HAIs & ISOLATION     -->
+    <!-- ========================================== -->
+    <div id="tab-core1" class="tab-panel">
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">1. Healthcare-Associated Infections (HAIs) &amp; Transmission</h2>
+          <span class="badge badge-teal">Core Section I</span>
+        </div>
+
+        <p><strong>Healthcare-Associated Infections (HAIs)</strong>, formerly called nosocomial infections, refer to infections acquired during hospitalization or in other healthcare settings that were not present or incubating at the time of admission. Approximately <strong>3% to 5% of pediatric patients</strong> acquire an HAI during their hospital stay.</p>
+
+        <h3 style="margin-top: 20px; font-family: var(--font-heading);">A. Susceptibility Factors in Children</h3>
+        <ul style="padding-left: 20px; margin-top: 8px;">
+          <li><strong>Host Factors:</strong> Anatomic abnormalities, abnormal skin or breaks in skin barrier, organ dysfunction, severe malnutrition, or underlying chronic comorbidities.</li>
+          <li><strong>Recent Invasive Procedures:</strong> Breaches normal anatomic host protective barriers, allowing direct microbial access.</li>
+          <li><strong>Catheters and Devices:</strong> Provide direct access to sterile anatomic sites for minimally pathogenic organisms (e.g., <em>Staphylococcus epidermidis</em> and other coagulase-negative Staphylococci). Devices like Nasogastric Tubes (NGT) disrupt normal protective mucus flow.</li>
+          <li><strong>Prolonged Antibiotic Use:</strong> Alters normal protective bowel flora, encouraging overgrowth and multiplication of invasive pathogens present in small numbers in the gut (e.g., <em>Clostridium difficile</em>, <em>Salmonella</em> spp.).</li>
+        </ul>
+
+        <div class="diagram-box">
+          <h4 style="font-family: var(--font-heading); color: var(--primary);">Reconstructed Figure 1: Routes of Infection Transmission in Healthcare Settings</h4>
+          <div class="grid-3" style="margin-top: 16px;">
+            <div style="background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
+              <span class="badge badge-rose">Close Contact</span>
+              <p style="font-size: 0.85rem; margin-top: 6px;">Direct inhalation or spray of airborne/droplet viruses during coughing, sneezing, talking.</p>
+            </div>
+            <div style="background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
+              <span class="badge badge-blue">Airborne Nuclei</span>
+              <p style="font-size: 0.85rem; margin-top: 6px;">Evaporation leaves small nuclei (&le;5 &mu;m) suspended in air currents over long distances/time.</p>
+            </div>
+            <div style="background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
+              <span class="badge badge-amber">Fomite / Contact</span>
+              <p style="font-size: 0.85rem; margin-top: 6px;">Surface deposition of pathogens &rarr; transferred via unwashed hands to nose/mouth touch.</p>
+            </div>
+          </div>
+          <p class="diagram-caption"><strong>Clinical Significance:</strong> The hands of healthcare workers represent the <em>single most common and important route</em> of hospital pathogen transmission.</p>
+        </div>
+
+        <div class="callout callout-must-know">
+          <div class="callout-title">⭐ Hand Hygiene &amp; The 5 Moments (INICC Benchmark)</div>
+          <p>A <strong>15-second friction scrub</strong> with soap and water removes the majority of transient surface flora. Friction is essential, especially when hands are visibly soiled with blood or bodily fluids. Alcohol hand rubs are acceptable when hands are not visibly soiled.</p>
+          <p style="margin-top: 8px;"><strong>The 5 Moments for Hand Hygiene:</strong></p>
+          <ol style="padding-left: 20px;">
+            <li>Before patient contact</li>
+            <li>Before a clean or aseptic procedure (e.g., administering IV medications, dressing changes)</li>
+            <li>After body fluid exposure risk (e.g., handling urine bags, diapers, blood samples)</li>
+            <li>After patient contact</li>
+            <li>After contact with patient surroundings (e.g., bed rails, monitors, tables)</li>
+          </ol>
+          <p style="margin-top: 6px; font-size: 0.85rem; color: var(--rose);"><em>Note (INICC Data):</em> Data from the International Nosocomial Infection Control Consortium shows that <strong>physicians are the least compliant</strong> healthcare discipline in performing hand hygiene!</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">🛡️ Isolation Precautions &amp; Transmission-Based Bundles</h3>
+        
+        <div class="grid-3" style="margin-bottom: 20px;">
+          <div style="border: 2px solid var(--amber); border-radius: var(--radius-md); padding: 16px; background-color: var(--amber-light);">
+            <h4 style="color: var(--amber); font-family: var(--font-heading);">STOP: Contact Precautions</h4>
+            <p style="font-size: 0.85rem; margin-top: 6px;"><strong>Requirements:</strong> Hand hygiene before/after, Gown + Gloves before room entry. Discard before exit. Dedicated equipment.</p>
+            <p style="font-size: 0.85rem; margin-top: 6px;"><strong>Indications:</strong> <em>C. difficile</em>, MRSA, ESBL+, Varicella/Zoster lesions, RSV/respiratory viruses, infectious diarrhea in diapered patients, undrained abscesses, Enterovirus meningitis, Viral Hemorrhagic Fevers.</p>
+          </div>
+
+          <div style="border: 2px solid var(--teal); border-radius: var(--radius-md); padding: 16px; background-color: var(--teal-light);">
+            <h4 style="color: var(--teal); font-family: var(--font-heading);">STOP: Droplet Precautions</h4>
+            <p style="font-size: 0.85rem; margin-top: 6px;"><strong>Requirements:</strong> Large particles (&gt;5 &mu;m), travel &lt;3 feet. Gown, gloves, mask, eye/face shield. Patient wears mask during transport. Cohort &gt;6ft if single room unavailable.</p>
+            <p style="font-size: 0.85rem; margin-top: 6px;"><strong>Indications:</strong> Meningococcemia (<em>N. meningitidis</em>), Pertussis, Group A Streptococcus, Influenza, Adenovirus, Parainfluenza.</p>
+          </div>
+
+          <div style="border: 2px solid var(--rose); border-radius: var(--radius-md); padding: 16px; background-color: var(--rose-light);">
+            <h4 style="color: var(--rose); font-family: var(--font-heading);">STOP: Airborne Precautions</h4>
+            <p style="font-size: 0.85rem; margin-top: 6px;"><strong>Requirements:</strong> Droplet nuclei (&le;5 &mu;m). Fit-tested N95 or higher respirator, negative-pressure room (6–12 air changes/hr), door MUST remain closed.</p>
+            <p style="font-size: 0.85rem; margin-top: 6px;"><strong>Mnemonic (MTVS):</strong> <strong>M</strong>easles, <strong>T</strong>uberculosis, <strong>V</strong>aricella, <strong>S</strong>ARS-CoV-2 (also MERS-CoV, Avian Flu).</p>
+          </div>
+        </div>
+
+        <h3 style="font-family: var(--font-heading); margin-top: 24px;">F. Prevention Measures for Neonatal Device-Associated Infections</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Device-Associated Infection</th>
+                <th>Anatomic / Pathophysiologic Context</th>
+                <th>Evidence-Based Prevention Bundle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>CLABSI</strong><br>(Central Line-Associated Bloodstream Infection)</td>
+                <td>Central catheters inserted via IJV, subclavian vein, or Umbilical Vein Catheter (UVC in neonates) leading to right atrium. Biofilm formation by <em>S. epidermidis</em> or GNB.</td>
+                <td>
+                  • Hand hygiene &amp; maximal sterile barriers during insertion.<br>
+                  • <strong>&gt;0.5% Chlorhexidine with alcohol</strong> skin prep (term infants &gt;2 wks; plain alcohol if &lt;2 wks).<br>
+                  • Change transparent dressing every 7 days, gauze every 3 days (or when damp/soiled).<br>
+                  • Scrub needleless hub/cap with disinfectant before every entry.<br>
+                  • Daily review and prompt removal when line no longer needed.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>VAP</strong><br>(Ventilator-Associated Pneumonia)</td>
+                <td>Endotracheal intubation bypasses upper airway defenses, allowing microaspiration of contaminated secretions into the lower respiratory tract.</td>
+                <td>
+                  • Elevate head of bed <strong>15° to 30°</strong>.<br>
+                  • Oral care with antiseptic solution or sterile water.<br>
+                  • Hand hygiene &amp; gloves when manipulating ETT or secretions.<br>
+                  • Frequently drain condensate away from circuit; <strong>change circuit ONLY when visibly soiled or malfunctioning</strong>.<br>
+                  • Daily assessment for extubation readiness.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>CA-UTI</strong><br>(Catheter-Associated Urinary Tract Infection)</td>
+                <td>Indwelling Foley catheter provides intraluminal and extraluminal pathways for periurethral bacteria to ascend into the bladder.</td>
+                <td>
+                  • Insert using strict sterile/aseptic technique.<br>
+                  • Maintain an uninterrupted closed drainage system.<br>
+                  • Keep drainage bag below bladder level without touching the floor.<br>
+                  • Daily review and prompt catheter removal.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 3: CORE TOPIC 2 - AMR & WORKER HEALTH  -->
+    <!-- ========================================== -->
+    <div id="tab-core2" class="tab-panel">
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">2. Antimicrobial Resistance (AMR) &amp; Employee Health</h2>
+          <span class="badge badge-amber">Core Section II</span>
+        </div>
+
+        <p><strong>Antimicrobial Resistance (AMR)</strong> is the ability of microorganisms causing disease to withstand attack by antimicrobial agents. Antibiotic use among children in daycare/childcare settings is <strong>2 to 4 times higher</strong> than those cared for at home, with a mean treatment duration 4 times longer, dramatically increasing resistant flora in respiratory and intestinal tracts (e.g., <em>S. pneumoniae</em>, <em>H. influenzae</em>, <em>M. catarrhalis</em>, <em>E. coli</em> O157:H7, <em>Shigella</em>).</p>
+
+        <div class="callout callout-exam-tip">
+          <div class="callout-title">🧠 Board Exam Definitions of Antimicrobial Resistance Categories</div>
+          <div class="table-container" style="margin-top: 10px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Category Term</th>
+                  <th>Standardized Definition</th>
+                  <th>Clinical Vignette Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="badge badge-amber">MDR</span><br><strong>Multidrug-Resistant</strong></td>
+                  <td>Acquired non-susceptibility to <strong>at least ONE agent in 3 or more</strong> antimicrobial categories.</td>
+                  <td><em>Pseudomonas aeruginosa</em> resistant to Amikacin (aminoglycoside), Ceftazidime (cephalosporin), and Meropenem (carbapenem). OR <em>E. coli</em> resistant to Ampicillin, Cefuroxime, and Gentamicin.</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-rose">XDR</span><br><strong>Extensively Drug-Resistant</strong></td>
+                  <td>Non-susceptibility to at least one agent in <strong>ALL BUT TWO OR FEWER</strong> antimicrobial categories (resistant to almost everything; only 1 or 2 drug classes remain active).</td>
+                  <td><em>Acinetobacter baumannii</em> resistant to all antibiotic classes except Colistin and Tigecycline.</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-rose">PDR</span><br><strong>Pan-Drug Resistant</strong></td>
+                  <td>Non-susceptibility to <strong>ALL agents in ALL</strong> antimicrobial categories. No viable antibiotic options remain.</td>
+                  <td>Isolate demonstrating in vitro resistance to every tested antibiotic class.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">💉 Recommended Immunization Schedule for Filipino Healthcare Workers (HCWs)</h3>
+        <p class="card-subtitle">Per Philippine Infectious Diseases Society &amp; Hospital Employee Health Guidelines</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Vaccine Type</th>
+                <th>Route</th>
+                <th>Recommended Schedule &amp; Dosing</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="5"><span class="badge badge-rose">Strongly Recommended</span></td>
+                <td><strong>Tdap</strong> (Tetanus, Diphtheria, Acellular Pertussis)</td>
+                <td>IM</td>
+                <td>3-dose series at 0, 1, 6–12 months (1 dose Tdap + 2 doses Td). Booster vaccination with Td every 10 years.</td>
+              </tr>
+              <tr>
+                <td><strong>Hepatitis B Vaccine</strong></td>
+                <td>IM</td>
+                <td>3-dose series at 0, 1, 6 months (Alternate: 4 doses at 0, 1, 2, 12 months after anti-HBs screening). Booster NOT routinely recommended.</td>
+              </tr>
+              <tr>
+                <td><strong>Influenza Vaccine</strong></td>
+                <td>IM</td>
+                <td>1 dose annually (preferably administered from January to July).</td>
+              </tr>
+              <tr>
+                <td><strong>Varicella Vaccine</strong>*</td>
+                <td>SC</td>
+                <td>2 doses at a 4-week interval. (*Indicated for First-Line Healthcare Workers).</td>
+              </tr>
+              <tr>
+                <td><strong>MMR Vaccine</strong>* (Measles, Mumps, Rubella)</td>
+                <td>SC</td>
+                <td>2 doses at a 4-week interval. (*Indicated for First-Line Healthcare Workers).</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">Recommended</span></td>
+                <td><strong>Pneumococcal Polysaccharide Vaccine</strong> (PPSV23)</td>
+                <td>IM</td>
+                <td>Single dose.</td>
+              </tr>
+              <tr>
+                <td rowspan="4"><span class="badge badge-amber">Recommended for Selected HCW</span></td>
+                <td><strong>Rabies Vaccine</strong></td>
+                <td>IM / ID</td>
+                <td>Primary 3-dose series (IM or ID) on Days 0, 7, and 21 or 28. Booster: single dose IM/ID every 3–5 years.</td>
+              </tr>
+              <tr>
+                <td><strong>Meningococcal Vaccine</strong></td>
+                <td>IM</td>
+                <td>Single dose.</td>
+              </tr>
+              <tr>
+                <td><strong>Varicella Vaccine</strong> (Alternate)</td>
+                <td>IM</td>
+                <td>Single dose with booster every 3–5 years OR 2-dose schedule at 0 and 6–12 months.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 4: CORE TOPIC 3 - FUO ETIOLOGIES        -->
+    <!-- ========================================== -->
+    <div id="tab-core3" class="tab-panel">
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">3. Fever of Unknown Origin (FUO): Definitions &amp; Breakdown</h2>
+          <span class="badge badge-rose">Core Section III</span>
+        </div>
+
+        <p><strong>Fever of Unknown Origin (FUO)</strong> is defined as fever (&gt;38.0°C) lasting for <strong>more than 1 week (&ge;8 days)</strong>, for which the cause could not be identified after 3 weeks of outpatient evaluation or 1 week of comprehensive evaluation in the hospital.</p>
+
+        <div class="callout callout-pitfall">
+          <div class="callout-title">⚠️ Diagnostic Distinction: FUO vs. Fever Without Source (FWS)</div>
+          <p><strong>Fever Without Source (FWS):</strong> Fever of <em>recent onset (&lt;1 week)</em> with no adequate explanation and no apparent anatomic site of infection after thorough history and physical exam. The vast majority of FWS cases in children are self-limiting <strong>viral infections</strong>.</p>
+          <p style="margin-top: 6px;"><strong>Key Distinction:</strong> FUO requires a prolonged duration (&gt;1–3 weeks) and an extensive diagnostic workup, whereas FWS is acute and managed with risk-stratification algorithms.</p>
+        </div>
+
+        <h3 style="font-family: var(--font-heading); margin-top: 20px;">Four Clinical Categories of FUO</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>FUO Category</th>
+                <th>Diagnostic Criteria</th>
+                <th>Most Common Etiologies</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Classic FUO</strong></td>
+                <td>&gt;38.0°C for &gt;3 weeks outpatient or &gt;1 week inpatient.</td>
+                <td>Infections (most common, 59% bacterial), Connective Tissue Diseases, Malignancy.</td>
+              </tr>
+              <tr>
+                <td><strong>Healthcare-Associated FUO</strong></td>
+                <td>&ge;38.0°C for &ge;1 week in hospitalized patient, not present or incubating on admission.</td>
+                <td>HAIs (CLABSI, VAP, UTI), <em>C. difficile</em> enterocolitis, septic thrombophlebitis, drug fever (resolves 48–72h after drug cessation).</td>
+              </tr>
+              <tr>
+                <td><strong>Immunodeficient FUO</strong></td>
+                <td>&ge;38.0°C for &gt;1 week with negative cultures after 48 hours.</td>
+                <td>Infections (bacterial, fungal, viral); documented in only 40–60% of cases.</td>
+              </tr>
+              <tr>
+                <td><strong>HIV-Related FUO</strong></td>
+                <td>&gt;38.0°C for &gt;3 weeks outpatient or &gt;1 week inpatient in confirmed HIV infection.</td>
+                <td>Primary HIV, opportunistic pathogens (Mycobacteria, <em>P. jirovecii</em>, CMV, Toxoplasmosis, Cryptococcus), Lymphomas, IRIS.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">🦠 Detailed Analysis of Infectious Etiologies of FUO</h3>
+        
+        <!-- Accordion 1: Tuberculosis -->
+        <div class="accordion open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🫁 1. Tuberculosis (TB) &amp; Pediatric Diagnostic Criteria</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>Tuberculosis remains a primary infectious cause of FUO in developing countries like the Philippines. Diagnostic criteria for children (&lt;15 years old) are stratified into Presumptive vs. Active TB:</p>
+
+            <div class="grid-2" style="margin-top: 12px;">
+              <div style="background: var(--bg-subtle); padding: 14px; border-radius: 8px;">
+                <h5 style="color: var(--amber); font-family: var(--font-heading);">Presumptive TB (&ge;3 of 6 Clinical Criteria):</h5>
+                <ul style="padding-left: 18px; font-size: 0.88rem;">
+                  <li>Coughing or wheezing of &ge;2 weeks duration</li>
+                  <li>Unexplained fever of &ge;2 weeks duration</li>
+                  <li>Weight loss, failure to gain weight, weight faltering, or loss of appetite</li>
+                  <li>Failure to respond to 2 weeks of appropriate antibiotics for LRTI</li>
+                  <li>Failure to regain previous state of health 2 weeks after viral infection/exanthema</li>
+                  <li>Fatigue, reduced playfulness, or lethargy</li>
+                </ul>
+              </div>
+
+              <div style="background: var(--bg-subtle); padding: 14px; border-radius: 8px;">
+                <h5 style="color: var(--emerald); font-family: var(--font-heading);">Active TB (&ge;3 of 5 Master Domains):</h5>
+                <ul style="padding-left: 18px; font-size: 0.88rem;">
+                  <li><strong>Epidemiologic:</strong> Exposure to an adult/adolescent with active TB</li>
+                  <li><strong>Immunologic:</strong> Positive TST or IGRA</li>
+                  <li><strong>Clinical:</strong> Signs and symptoms consistent with TB</li>
+                  <li><strong>Radiologic:</strong> Suggestive CXR (hilar adenopathy, cavitary lesion, miliary seed, effusion)</li>
+                  <li><strong>Laboratory:</strong> Positive AFB smear, GeneXpert, culture, or suggestive histology</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="callout callout-pearl" style="margin-top: 14px;">
+              <div class="callout-title">💡 Tuberculin Skin Test (TST) &amp; IGRA Pearls</div>
+              <p>• <strong>Standard Positive Cutoff:</strong> Induration <strong>&ge;10 mm</strong> regardless of BCG status.</p>
+              <p>• <strong>Positive Cutoff at &ge;5 mm:</strong> Severely malnourished children, immunocompromised, HIV-infected, close contact with active TB source, or CXR consistent with prior untreated TB.</p>
+              <p>• <strong>Window Period:</strong> 2 to 12 weeks between exposure and skin test reactivity. Repeat TST/IGRA at 3 months if initial test is negative but suspicion remains high.</p>
+              <p>• <strong>IGRA vs. TST:</strong> IGRA measures IFN-&gamma; generation by T-cells; does NOT cross-react with BCG vaccine. Preferred in BCG-vaccinated children &ge;2 years. <strong>TST is preferred in children &lt;2 years old</strong>.</p>
+              <p>• <strong>TB Meningitis Cranial CT Triad:</strong> 1) Tuberculoma, 2) Basal meningeal enhancement, 3) Ventricular dilatation (hydrocephalus).</p>
+            </div>
+
+            <h5 style="font-family: var(--font-heading); margin-top: 14px;">National Pediatric TB Treatment Regimens:</h5>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Regimen Code</th>
+                    <th>Drug Combination &amp; Duration</th>
+                    <th>Target Patient Indications</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Regimen 1</strong></td>
+                    <td><strong>2 HRZE / 4 HR</strong><br>(2 months Intensive HRZE + 4 months Continuation HR)</td>
+                    <td>Pulmonary TB (PTB) or Extrapulmonary TB (EPTB) <em>except CNS, bones, joints</em> (new or retreatment, RIF sensitive/indeterminate/clinically diagnosed).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Regimen 2</strong></td>
+                    <td><strong>2 HRZE / 10 HR</strong><br>(2 months Intensive HRZE + 10 months Continuation HR)</td>
+                    <td>EPTB involving <strong>CNS, Bones, or Joints</strong> (TB Meningitis, Pott's Disease, TB Arthritis). Total duration = 12 months.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion 2: Typhoid Fever & Cat Scratch -->
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🦠 2. Enteric (Typhoid) Fever &amp; Cat-Scratch Disease</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <div class="grid-2">
+              <div>
+                <h4 style="color: var(--primary); font-family: var(--font-heading);">Enteric / Typhoid Fever (<em>Salmonella enterica</em> serovar Typhi)</h4>
+                <ul style="padding-left: 18px; font-size: 0.88rem; margin-top: 6px;">
+                  <li><strong>Clinical Features:</strong> Step-ladder fever, headache, abdominal pain, hepatosplenomegaly, leukopenia, and <strong>relative bradycardia</strong> (temperature-pulse dissociation / Faget sign).</li>
+                  <li><strong>Rose Spots:</strong> Transient, salmon-pink macules seen on the trunk.</li>
+                  <li><strong>Diagnostic Workup:</strong> <strong>Blood culture is the GOLD STANDARD</strong> (highest yield in 1st week). Stool and urine cultures become positive after the 1st week.</li>
+                  <li><strong style="color: var(--rose);">Widal Test Warning:</strong> Widal test is OBSOLETE due to low sensitivity, low specificity, and extremely high rate of false positives.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 style="color: var(--primary); font-family: var(--font-heading);">Cat-Scratch Disease (<em>Bartonella henselae</em>)</h4>
+                <ul style="padding-left: 18px; font-size: 0.88rem; margin-top: 6px;">
+                  <li><strong>Transmission:</strong> Scratches or bites from cats (and occasionally dogs), or kitten flea contact.</li>
+                  <li><strong>Hallmark:</strong> <strong>Chronic regional lymphadenitis</strong> appearing 1 to 4 weeks after exposure.</li>
+                  <li><strong>FUO Presentation:</strong> Disseminated illness occurs in ~14% of patients, presenting with prolonged high fever lasting several weeks and hepato-splenic granulomas.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion 3: Viral, Autoimmune, & Malignancy -->
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🔴 3. Viral Infections, Kawasaki Disease, &amp; Malignancies</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Viral Pathogens:</strong> CMV (Cytomegalovirus) and EBV (Infectious Mononucleosis) are the primary viral etiologies of FUO. CMV can present as encephalitis, retinitis, pneumonia, or colitis, but may present <em>solely as prolonged fever</em> without organ symptoms.</p>
+            
+            <div class="callout callout-must-know" style="margin-top: 12px;">
+              <div class="callout-title">⭐ Kawasaki Disease: Diagnostic Mnemonic (CRASH and BURN)</div>
+              <p>Kawasaki disease is a systemic vasculitis of medium-sized arteries with a strong predilection for the <strong>coronary arteries</strong> (risk of coronary aneurysms).</p>
+              <ul style="padding-left: 20px; margin-top: 6px;">
+                <li><strong>C</strong> – <strong>Conjunctivitis:</strong> Bilateral, non-exudative with limbal sparing.</li>
+                <li><strong>R</strong> – <strong>Rash:</strong> Polymorphous, morbilliform, macular, or papular.</li>
+                <li><strong>A</strong> – <strong>Adenopathy:</strong> Cervical, usually unilateral, &gt;1.5 cm in diameter.</li>
+                <li><strong>S</strong> – <strong>Strawberry Tongue / Mucosal:</strong> Erythematous, cracked, or peeling lips, strawberry tongue.</li>
+                <li><strong>H</strong> – <strong>Hands &amp; Feet:</strong> Extremity changes (edema, erythema of palms/soles, periungual desquamation).</li>
+                <li><strong>BURN</strong> – <strong>Fever:</strong> High fever lasting for <strong>5 or more days</strong> duration.</li>
+              </ul>
+            </div>
+
+            <p style="margin-top: 12px;"><strong>Pediatric Malignancies:</strong> <strong>Leukemia and Lymphoma</strong> represent the most common malignancies presenting as FUO in children. Other causes include Neuroblastoma, Wilms tumor, Hepatoma, Sarcomas, and Atrial Myxoma.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 5: CORE TOPIC 4 - DIAGNOSTIC APPROACH  -->
+    <!-- ========================================== -->
+    <div id="tab-core4" class="tab-panel">
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">4. Systematic Diagnostic Approach to Pediatric FUO</h2>
+          <span class="badge badge-indigo">Core Section IV &amp; Case Study</span>
+        </div>
+
+        <p>Evaluation of FUO must be <strong>systematic and stepwise</strong> rather than ordering shotgun laboratory panels. Evaluation begins with a detailed history and meticulous physical examination.</p>
+
+        <div class="diagram-box">
+          <h4 style="font-family: var(--font-heading); color: var(--primary);">Reconstructed Diagnostic Algorithm for FUO</h4>
+          
+          <div class="flow-node" style="border-color: var(--amber);">Child with FUO (&gt;38.0°C for &gt;3 wks outpatient OR &gt;1 wk inpatient)</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node">Complete History &amp; Detailed Physical Examination</div>
+          <div class="flow-arrow">↓</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">If Specific Localizing Findings Present &rarr; Order Targeted Diagnostic Testing</p>
+          <div class="flow-arrow">↓ (If No Localizing Clues)</div>
+          <div class="flow-node" style="border-color: var(--primary);">
+            <strong>Tier 1 Initial Screening Panel:</strong><br>
+            CBC, Electrolytes, Blood Culture, Urinalysis, Urine Culture, ESR/CRP, TST/PPD, CXR, Sputum AFB Smear/Culture
+          </div>
+          <div class="flow-arrow">↓ (If Tier 1 Unrevealing)</div>
+          <div class="flow-node" style="border-color: var(--teal);">
+            <strong>Abdominal &amp; Pelvic CT Scan with Contrast</strong><br>(High sensitivity to detect occult intra-abdominal abscesses or masses)
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node" style="border-color: var(--rose);">Categorize into Infectious, Malignant, Autoimmune, or Miscellaneous Etiology</div>
+        </div>
+
+        <h3 style="font-family: var(--font-heading); margin-top: 24px;">Physical Exam Clues with Special Diagnostic Significance</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Anatomic Body Site</th>
+                <th>Physical Examination Finding</th>
+                <th>Diagnostic Clue / Associated Condition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Head &amp; Sinuses</strong></td>
+                <td>Sinus tenderness on palpation</td>
+                <td>Sinusitis</td>
+              </tr>
+              <tr>
+                <td><strong>Temporal Artery</strong></td>
+                <td>Nodules, reduced pulsation, tenderness</td>
+                <td>Temporal arteritis / Vasculitis</td>
+              </tr>
+              <tr>
+                <td><strong>Oropharynx</strong></td>
+                <td>Mucosal ulcerations<br>Tender tooth on percussion</td>
+                <td>Histoplasmosis, SLE, IBD, Behcet syndrome, Periodic fever<br>Periapical dental abscess</td>
+              </tr>
+              <tr>
+                <td><strong>Fundi / Eyes</strong></td>
+                <td>Choroid tubercles<br>Roth spots (retinal hemorrhages)</td>
+                <td>Disseminated Tuberculosis / Granulomatosis<br>Infective Endocarditis</td>
+              </tr>
+              <tr>
+                <td><strong>Heart</strong></td>
+                <td>New or changing heart murmur</td>
+                <td>Infective or Marantic Endocarditis</td>
+              </tr>
+              <tr>
+                <td><strong>Abdomen / Rectum</strong></td>
+                <td>Enlarged iliac crest nodes, splenomegaly<br>Perirectal fluctuance or tenderness</td>
+                <td>Lymphoma, Endocarditis, Disseminated TB<br>Perirectal abscess</td>
+              </tr>
+              <tr>
+                <td><strong>Skin &amp; Nails</strong></td>
+                <td>Petechiae, <strong>Splinter hemorrhages</strong><br><strong>Osler nodes</strong> (painful finger pad nodules)<br><strong>Janeway lesions</strong> (painless palm/sole macules)</td>
+                <td>Infective Endocarditis, Systemic Vasculitis</td>
+              </tr>
+              <tr>
+                <td><strong>Conjunctivae</strong></td>
+                <td>Conjunctival suffusion (redness without pus)</td>
+                <td>Leptospirosis</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-pitfall" style="margin-top: 20px;">
+          <div class="callout-title">⚠️ Principles of Antimicrobial Therapy in FUO</div>
+          <p><strong>Avoid empirical trials of antibiotics!</strong> Empirical antibiotics alter bacterial culture yields, obscure clinical signs, delay definitive diagnosis, and promote drug resistance.</p>
+          <p style="margin-top: 8px;"><strong>Strict Exceptions (Only 2 Indications for Empirical Antimicrobials):</strong></p>
+          <ol style="padding-left: 20px;">
+            <li>Culture-negative Infective Endocarditis with hemodynamic instability</li>
+            <li>High clinical and epidemiological suspicion for Disseminated / Miliary Tuberculosis</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Case Analysis Card -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">📋 Clinical Case Analysis: R.J. (9-Month-Old Male)</h3>
+          <span class="badge badge-rose">Synchronous Case Study</span>
+        </div>
+
+        <p><strong>History:</strong> R.J., a 9-month-old male, was brought to the ER due to a <strong>4-week history of fever</strong>. Fever occurred mostly in the afternoon and night, temporarily relieved by paracetamol. 3 weeks PTA, CBC, urinalysis, stool exam, and CXR were normal. He was given a 7-day oral antibiotic course without improvement. He became increasingly irritable, with decreased oral intake, weight loss, and occasional cough.</p>
+
+        <p style="margin-top: 10px;"><strong>ER Evaluation &amp; Diagnostics:</strong></p>
+        <ul style="padding-left: 20px;">
+          <li>CBC: Unremarkable | CRP: 10 mg/L | Urinalysis: Normal</li>
+          <li>Blood &amp; Urine Cultures: Negative</li>
+          <li>Chest X-ray: Suspicious infiltrates in perihilar area with hilar lymphadenopathy</li>
+          <li><strong>Tuberculin Skin Test (TST): 15 mm induration</strong></li>
+        </ul>
+
+        <div class="callout callout-pearl" style="margin-top: 14px;">
+          <div class="callout-title">💡 Case Rationale &amp; Clinical Reasoning</div>
+          <p>1. <strong>Does R.J. meet FUO criteria?</strong> YES (&gt;38.0°C for &gt;1 week / &ge;8 days, lasting 4 weeks).</p>
+          <p>2. <strong>Working Impression:</strong> <strong>Pulmonary Tuberculosis (PTB)</strong>.</p>
+          <p>3. <strong>Criteria Met:</strong> Meets Active TB criteria (&ge;3 domains: Epidemiologic exposure, Immunologic [+TST 15mm], Clinical [fever, weight loss, cough], Radiologic [hilar lymphadenopathy]).</p>
+          <p>4. <strong>Unique Feature in Children:</strong> Pediatric TB presents with protean systemic manifestations (fever, weight loss, lethargy) and is <em>paucibacillary</em> (low bacterial load, non-infectious to others, but higher risk of rapid dissemination in the child).</p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 6: COMPARISONS                         -->
+    <!-- ========================================== -->
+    <div id="tab-comparisons" class="tab-panel">
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">⚖️ Side-by-Side Diagnostic Comparison Matrix</h2>
+          <span class="badge badge-blue">High-Yield Confused Pairs</span>
+        </div>
+
+        <h3 style="font-family: var(--font-heading); margin-top: 12px;">1. Isolation Precautions: Contact vs. Droplet vs. Airborne</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Contact Precautions</th>
+                <th>Droplet Precautions</th>
+                <th>Airborne Precautions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Particle Size / Vector</strong></td>
+                <td>Direct contact or fomites</td>
+                <td>Large droplets (<strong>&gt;5 &mu;m</strong>)</td>
+                <td>Droplet nuclei (<strong>&le;5 &mu;m</strong>)</td>
+              </tr>
+              <tr>
+                <td><strong>Distance Traveled</strong></td>
+                <td>Direct physical transfer</td>
+                <td>Short distance (&lt;3 feet / 1 meter)</td>
+                <td>Long distance / suspended in air</td>
+              </tr>
+              <tr>
+                <td><strong>Required PPE</strong></td>
+                <td>Gown + Gloves before room entry</td>
+                <td>Gown, Gloves, Mask, Eye/Face Shield</td>
+                <td>Fit-tested <strong>N95 respirator</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Room Requirements</strong></td>
+                <td>Single room or dedicated equipment</td>
+                <td>Single room or cohorting (&gt;6 ft apart)</td>
+                <td><strong>Negative pressure room</strong> (6–12 ACH)</td>
+              </tr>
+              <tr>
+                <td><strong>Key Pathogens</strong></td>
+                <td><em>C. difficile</em>, MRSA, ESBL, RSV, Diarrhea</td>
+                <td><em>N. meningitidis</em>, Pertussis, GAS, Flu</td>
+                <td><strong>MTVS:</strong> Measles, TB, Varicella, SARS-CoV-2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="font-family: var(--font-heading); margin-top: 24px;">2. Diagnostic Diagnostics: TST vs. IGRA</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Tuberculin Skin Test (TST / Mantoux)</th>
+                <th>Interferon-Gamma Release Assay (IGRA)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Mechanism</strong></td>
+                <td>In vivo delayed-type hypersensitivity (PPD)</td>
+                <td>In vitro T-cell IFN-&gamma; release to MTB antigens</td>
+              </tr>
+              <tr>
+                <td><strong>BCG Cross-Reactivity</strong></td>
+                <td><strong>YES</strong> (causes false positives)</td>
+                <td><strong>NO</strong> (highly specific)</td>
+              </tr>
+              <tr>
+                <td><strong>Age Preference</strong></td>
+                <td><strong>Preferred in children &lt;2 years old</strong></td>
+                <td>Preferred in children &ge;2 years &amp; BCG vaccinated</td>
+              </tr>
+              <tr>
+                <td><strong>Return Visit</strong></td>
+                <td>Requires return in 48–72 hours to measure induration</td>
+                <td>Single blood draw; no return visit required</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="font-family: var(--font-heading); margin-top: 24px;">3. Physical Signs of Infective Endocarditis: Osler Nodes vs. Janeway Lesions</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Osler Nodes</th>
+                <th>Janeway Lesions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Pathophysiology</strong></td>
+                <td>Immunologic complex deposition</td>
+                <td>Microseptic emboli with microabscesses</td>
+              </tr>
+              <tr>
+                <td><strong>Pain / Tenderness</strong></td>
+                <td><strong style="color: var(--rose);">PAINFUL / Tender</strong></td>
+                <td><strong style="color: var(--emerald);">PAINLESS / Non-tender</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Location</strong></td>
+                <td>Pads of fingers and toes</td>
+                <td>Palms of hands and soles of feet</td>
+              </tr>
+              <tr>
+                <td><strong>Appearance</strong></td>
+                <td>Raised, erythematous subcutaneous nodules</td>
+                <td>Flat, erythematous or hemorrhagic macules</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 7: FLASHCARDS                          -->
+    <!-- ========================================== -->
+    <div id="tab-flashcards" class="tab-panel">
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">🎴 Active-Recall Flashcard System</h2>
+          <span class="badge badge-teal" id="flashcard-progress">Card 1 of 50</span>
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-bottom: 20px; justify-content: center;">
+          <select id="flashcard-filter" class="btn btn-secondary" onchange="filterFlashcards()">
+            <option value="all">All Topics (50 Cards)</option>
+            <option value="core1">Core 1: HAIs &amp; Isolation</option>
+            <option value="core2">Core 2: AMR &amp; Vaccines</option>
+            <option value="core3">Core 3: FUO Etiologies</option>
+            <option value="core4">Core 4: Diagnostic Approach</option>
+          </select>
+          <button class="btn btn-secondary" onclick="shuffleFlashcards()">🔀 Shuffle</button>
+        </div>
+
+        <div class="flashcard-wrapper">
+          <div class="flashcard" id="active-card" onclick="flipCard()">
+            <div class="flashcard-front">
+              <span class="badge badge-blue flashcard-tag" id="fc-tag">Tag</span>
+              <span class="flashcard-num" id="fc-num">1/50</span>
+              <p class="flashcard-q" id="fc-question">Question loading...</p>
+              <p style="font-size: 0.75rem; color: var(--text-muted); position: absolute; bottom: 16px;">(Click or press Spacebar to flip)</p>
+            </div>
+            <div class="flashcard-back">
+              <p class="flashcard-a" id="fc-answer">Answer loading...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard-controls">
+          <button class="btn btn-secondary" onclick="prevCard()">← Previous</button>
+          <button class="btn" onclick="flipCard()">🔄 Flip Card</button>
+          <button class="btn btn-secondary" onclick="nextCard()">Next →</button>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 8: SELF-ASSESSMENT MCQs               -->
+    <!-- ========================================== -->
+    <div id="tab-mcq" class="tab-panel">
+
+      <div class="score-tracker">
+        <div>
+          <span style="font-family: var(--font-heading); font-weight: 700;">Board-Style Self-Assessment</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted); margin-left: 10px;">(50 Questions)</span>
+        </div>
+        <div>
+          <span class="badge badge-emerald" style="font-size: 0.9rem;" id="score-display">Score: 0 / 0 (0%)</span>
+        </div>
+      </div>
+
+      <div class="mcq-container" id="mcq-list">
+        <!-- MCQs injected dynamically via JS -->
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 9: CRAM SHEET                          -->
+    <!-- ========================================== -->
+    <div id="tab-cram" class="tab-panel">
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">⚡ High-Yield Ultra-Cram Sheet (10-Minute Read)</h2>
+          <span class="badge badge-rose">Last-Minute Exam Clues</span>
+        </div>
+
+        <div class="callout callout-must-know">
+          <div class="callout-title">🎯 "IF YOU SEE THIS &rarr; THINK THAT" Rapid Clinical Clues</div>
+          <div class="grid-2" style="margin-top: 10px;">
+            <ul style="padding-left: 18px; font-size: 0.88rem;">
+              <li><strong>Rose spots on trunk + Step-ladder fever</strong> &rarr; Typhoid Fever (<em>Salmonella</em>)</li>
+              <li><strong>Conjunctival suffusion + High fever</strong> &rarr; Leptospirosis</li>
+              <li><strong>Bilateral non-exudative conjunctivitis + Strawberry tongue</strong> &rarr; Kawasaki Disease</li>
+              <li><strong>Chronic regional lymphadenitis after kitten contact</strong> &rarr; Cat-Scratch Disease (<em>Bartonella</em>)</li>
+              <li><strong>Painful finger pad nodules (Osler) + New murmur</strong> &rarr; Infective Endocarditis</li>
+              <li><strong>Painless palm/sole macules (Janeway)</strong> &rarr; Infective Endocarditis</li>
+              <li><strong>Retinal hemorrhages with pale centers (Roth spots)</strong> &rarr; Infective Endocarditis</li>
+              <li><strong>Fever &gt;38°C for &gt;3 wks outpatient / &gt;1 wk inpatient</strong> &rarr; Classic FUO</li>
+            </ul>
+            <ul style="padding-left: 18px; font-size: 0.88rem;">
+              <li><strong>Aerosol transmission (MTVS)</strong> &rarr; Measles, TB, Varicella, SARS-CoV-2</li>
+              <li><strong>Resistant to 1 agent in &ge;3 drug classes</strong> &rarr; Multidrug-Resistant (MDR)</li>
+              <li><strong>Resistant to all but &le;2 drug classes</strong> &rarr; Extensively Drug-Resistant (XDR)</li>
+              <li><strong>Resistant to ALL agents in ALL classes</strong> &rarr; Pan-Drug Resistant (PDR)</li>
+              <li><strong>Childhood HCW lowest hand hygiene compliance</strong> &rarr; Physicians!</li>
+              <li><strong>TST induration &ge;5 mm positive in</strong> &rarr; HIV, Malnutrition, Active contact, Prior TB CXR</li>
+              <li><strong>CT Triad: Tuberculoma + Basal enhancement + Hydrocephalus</strong> &rarr; TB Meningitis</li>
+              <li><strong>2HRZE / 10HR (12 months total) indicated for</strong> &rarr; CNS, Bone, Joint TB</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 style="font-family: var(--font-heading); margin-top: 20px;">⚡ Bullet High-Yield Rapid Review</h3>
+        <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.8;">
+          <li><strong>Hand Hygiene Friction:</strong> 15-second friction scrub is the most important component of handwashing.</li>
+          <li><strong>CLABSI Skin Antisepsis:</strong> &gt;0.5% Chlorhexidine with alcohol for term infants &gt;2 wks. Plain alcohol for &lt;2 wks.</li>
+          <li><strong>VAP Prevention:</strong> Elevate head of bed 15–30°. Change ventilator circuit ONLY when visibly soiled or malfunctioning.</li>
+          <li><strong>CA-UTI Prevention:</strong> Maintain closed drainage system; daily review for prompt removal.</li>
+          <li><strong>Drug Fever Resolution:</strong> Resolves within 48 to 72 hours following drug discontinuation.</li>
+          <li><strong>Widal Test Status:</strong> OBSOLETE due to low specificity and high false positives.</li>
+          <li><strong>Typhoid Gold Standard:</strong> Blood culture (1st week); Stool/Urine culture (&gt;1st week).</li>
+          <li><strong>Empirical Antibiotics in FUO:</strong> STRICTLY CONTRAINDICATED except for culture-negative endocarditis or high suspicion of disseminated TB.</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Floating Utilities -->
+  <div class="floating-btns">
+    <button class="btn-float" onclick="scrollToTop()" title="Scroll to Top">↑</button>
+    <button class="btn-float" onclick="window.print()" title="Print Reviewer">🖨️</button>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       1. GLOBAL NAVIGATION & UI CONTROLS
+       ========================================================================== */
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
+      document.getElementById('theme-text').textContent = isDark ? 'Light' : 'Dark';
+    }
+
+    function toggleAccordion(headerElem) {
+      const accordion = headerElem.parentElement;
+      accordion.classList.toggle('open');
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Scroll Progress Indicator
+    window.onscroll = function() {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('reading-progress').style.width = scrolled + '%';
+    };
+
+    // Filter Content Search Bar
+    function filterContent() {
+      const input = document.getElementById('global-search').value.toLowerCase();
+      if (input.length < 2) return;
+      
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(input)) {
+          card.style.display = 'block';
+        } else {
+          // Keep active tab context visible
+        }
+      });
+    }
+
+    /* ==========================================================================
+       2. FLASHCARDS SYSTEM DATA & LOGIC (50 CARDS)
+       ========================================================================== */
+    const flashcardsData = [
+      // Core 1: HAIs & Isolation (13)
+      { cat: 'core1', q: 'Primary definition of Healthcare-Associated Infection (HAI)?', a: 'Infection acquired during hospitalization that was not present or incubating at admission. Occurs in 3-5% of hospitalized pediatric patients.' },
+      { cat: 'core1', q: 'Most common and important route of HAI pathogen transmission?', a: 'Direct contact through the hands of healthcare workers!' },
+      { cat: 'core1', q: 'Particle size cutoff distinguishing Airborne vs Droplet transmission?', a: 'Droplet > 5 µm (lands within 3 ft); Airborne ≤ 5 µm (aerosolized droplet nuclei).' },
+      { cat: 'core1', q: 'Mnemonic for Airborne Isolation pathogens?', a: 'MTVS = Measles, Tuberculosis, Varicella-zoster, SARS-CoV-2 (also MERS-CoV, Avian Flu).' },
+      { cat: 'core1', q: 'Duration of friction required in standard hand hygiene?', a: 'At least 15 seconds of vigorous friction with soap and water.' },
+      { cat: 'core1', q: 'Enumerate the 5 Moments of Hand Hygiene.', a: '1) Before patient contact, 2) Before aseptic procedure, 3) After body fluid exposure risk, 4) After patient contact, 5) After contact with surroundings.' },
+      { cat: 'core1', q: 'What is the "Fishing Technique" in safe injection practices?', a: 'Scooping the needle cap off a flat surface or against a wall without using the other hand to prevent needle-stick injuries.' },
+      { cat: 'core1', q: 'Skin antiseptic of choice prior to central line insertion in term infants >2 weeks?', a: '>0.5% Chlorhexidine with alcohol. (Use plain alcohol for infants <2 weeks).' },
+      { cat: 'core1', q: 'Recommended dressing change schedule for Central Venous Lines?', a: 'Every 7 days for transparent dressings, every 3 days for gauze, or when damp/soiled.' },
+      { cat: 'core1', q: 'Recommended head-of-bed elevation to prevent VAP?', a: '15° to 30° elevation.' },
+      { cat: 'core1', q: 'When should mechanical ventilator circuits be routinely changed?', a: 'ONLY when visibly soiled or malfunctioning (NOT on a routine schedule).' },
+      { cat: 'core1', q: 'Primary measure to prevent Catheter-Associated UTI (CA-UTI)?', a: 'Aseptic insertion, closed drainage system, and daily review for prompt catheter removal.' },
+      { cat: 'core1', q: 'Organism producing sticky biofilms on vascular catheters?', a: 'Staphylococcus epidermidis (Coagulase-Negative Staphylococcus).' },
+
+      // Core 2: AMR & Vaccines (12)
+      { cat: 'core2', q: 'Definition of Multidrug-Resistant (MDR) organism?', a: 'Acquired non-susceptibility to at least 1 agent in 3 or more antimicrobial categories.' },
+      { cat: 'core2', q: 'Definition of Extensively Drug-Resistant (XDR) organism?', a: 'Non-susceptibility to at least 1 agent in ALL BUT 2 OR FEWER antimicrobial categories.' },
+      { cat: 'core2', q: 'Definition of Pan-Drug Resistant (PDR) organism?', a: 'Non-susceptibility to ALL agents in ALL antimicrobial categories.' },
+      { cat: 'core2', q: 'Why is antibiotic use in daycare/childcare settings concerning?', a: 'Use is 2-4x higher and duration 4x longer, driving resistance in respiratory/GI flora.' },
+      { cat: 'core2', q: 'Tdap vaccination schedule for Filipino Healthcare Workers?', a: '3-dose series at 0, 1, 6-12 months; Td booster every 10 years.' },
+      { cat: 'core2', q: 'Hepatitis B vaccine schedule and booster recommendation for HCWs?', a: '3 doses at 0, 1, 6 months. Booster is NOT routinely recommended after completing series.' },
+      { cat: 'core2', q: 'Strongly recommended live vaccines for 1st-line HCWs & route?', a: 'Varicella (SC, 2 doses 4 wks apart) and MMR (SC, 2 doses 4 wks apart).' },
+      { cat: 'core2', q: 'Influenza vaccine schedule for HCWs in the Philippines?', a: '1 dose annually, preferably administered from January to July.' },
+      { cat: 'core2', q: 'Pneumococcal vaccine recommendation for Filipino HCWs?', a: 'Single IM dose of Pneumococcal Polysaccharide Vaccine (PPSV23).' },
+      { cat: 'core2', q: 'Rabies vaccine schedule for selected high-risk HCWs?', a: 'Primary 3-dose series (Days 0, 7, 21 or 28); single-dose booster every 3-5 years.' },
+      { cat: 'core2', q: 'Which HCW group has lowest hand hygiene compliance per INICC?', a: 'Physicians!' },
+      { cat: 'core2', q: 'Goal of Antimicrobial Stewardship Programs in hospitals?', a: 'To optimize clinical outcomes while minimizing resistance emergence and HAIs.' },
+
+      // Core 3: FUO Etiologies (13)
+      { cat: 'core3', q: 'Definition of Classic Fever of Unknown Origin (FUO) in children?', a: 'Fever >38.0°C lasting >3 weeks outpatient or >1 week in hospital without cause.' },
+      { cat: 'core3', q: 'How does Pediatric FUO differ from Adult FUO in prognosis?', a: 'Pediatric FUO has a significantly BETTER prognosis (mostly treatable infections).' },
+      { cat: 'core3', q: 'Definition of Fever Without Source (FWS)?', a: 'Acute fever (<1 week) without apparent source on exam; most commonly viral.' },
+      { cat: 'core3', q: 'Timeframe for Drug Fever resolution after drug cessation?', a: 'Within 48 to 72 hours after stopping the offending drug.' },
+      { cat: 'core3', q: 'Top 3 broad categories of pediatric FUO in decreasing frequency?', a: '1. Infectious (59% bacterial) > 2. Autoimmune/CTD > 3. Malignancy.' },
+      { cat: 'core3', q: 'Significance of joint involvement in a child with FUO?', a: 'Signifies serious underlying disease: CTD (JIA/SLE), Infective Endocarditis, or Leukemia.' },
+      { cat: 'core3', q: 'Clinical criteria threshold for Presumptive TB in children (<15 yo)?', a: 'At least 3 of 6 clinical criteria (cough ≥2 wks, fever ≥2 wks, weight loss, etc.).' },
+      { cat: 'core3', q: 'Standard cutoff for positive TST induration in children?', a: '≥10 mm induration regardless of BCG status. (≥5 mm in high-risk/HIV/malnutrition).' },
+      { cat: 'core3', q: 'Window period for TST reactivity after TB exposure?', a: '2 to 12 weeks. Repeat TST/IGRA at 3 months if suspicious.' },
+      { cat: 'core3', q: 'Age threshold for TST vs IGRA preference?', a: 'TST preferred in children <2 years old; IGRA preferred in ≥2 years & BCG vaccinated.' },
+      { cat: 'core3', q: 'Classic Cranial CT triad in TB Meningitis?', a: '1) Tuberculoma, 2) Basal meningeal enhancement, 3) Ventricular dilatation (hydrocephalus).' },
+      { cat: 'core3', q: 'Gold standard diagnostic test for Enteric / Typhoid Fever?', a: 'Blood culture (highest yield in 1st week). Stool/Urine positive after 1st week.' },
+      { cat: 'core3', q: 'Hallmark finding in Cat-Scratch Disease (Bartonella henselae)?', a: 'Chronic regional lymphadenitis developing 1-4 weeks after cat/dog scratch.' },
+
+      // Core 4: Diagnostic Approach (12)
+      { cat: 'core4', q: 'Kawasaki Disease diagnostic mnemonic and components?', a: 'CRASH and BURN = Conjunctivitis, Rash, Adenopathy, Strawberry tongue/lips, Hands/feet, BURN (Fever ≥5 days).' },
+      { cat: 'core4', q: 'Osler Nodes vs Janeway Lesions in Endocarditis?', a: 'Osler = PAINFUL finger/toe pad nodules; Janeway = PAINLESS palm/sole macules.' },
+      { cat: 'core4', q: 'Retinal physical exam sign in Infective Endocarditis?', a: 'Roth spots (retinal hemorrhages with pale central centers).' },
+      { cat: 'core4', q: 'Significance of conjunctival suffusion in FUO patient?', a: 'Pathognomonic sign for Leptospirosis!' },
+      { cat: 'core4', q: 'Tier 1 initial laboratory screening panel for FUO?', a: 'CBC, Electrolytes, Blood Culture, Urinalysis, Urine Culture, ESR/CRP, TST, CXR, Sputum AFB.' },
+      { cat: 'core4', q: 'Next imaging step if Tier 1 FUO workup is unrevealing?', a: 'Abdominal and Pelvic CT scan with contrast (to detect occult abscesses/masses).' },
+      { cat: 'core4', q: 'Are empirical antibiotics recommended in FUO?', a: 'NO! Empirical antibiotics obscure etiology, delay diagnosis, and drive resistance.' },
+      { cat: 'core4', q: 'Two ONLY clinical indications for empirical antimicrobials in FUO?', a: '1) Culture-negative endocarditis, and 2) High suspicion of disseminated TB.' },
+      { cat: 'core4', q: 'Pediatric TB Regimen 1 drugs and duration for PTB?', a: '2HRZE / 4HR (2 months HRZE + 4 months HR = 6 months total).' },
+      { cat: 'core4', q: 'Pediatric TB Regimen 2 drugs and duration for CNS/Bone TB?', a: '2HRZE / 10HR (2 months HRZE + 10 months HR = 12 months total).' },
+      { cat: 'core4', q: 'Unique feature of pediatric TB compared to adult TB?', a: 'Protean systemic manifestations, higher dissemination risk, paucibacillary (low transmissibility).' },
+      { cat: 'core4', q: 'Why is Widal test no longer recommended in typhoid evaluation?', a: 'Obsolete due to extremely low specificity and high rate of false positives.' }
+    ];
+
+    let currentFCList = [...flashcardsData];
+    let currentFCIndex = 0;
+
+    function renderFlashcard() {
+      if (currentFCList.length === 0) return;
+      const card = currentFCList[currentFCIndex];
+      document.getElementById('fc-tag').textContent = card.cat.toUpperCase();
+      document.getElementById('fc-num').textContent = `${currentFCIndex + 1}/${currentFCList.length}`;
+      document.getElementById('fc-question').textContent = card.q;
+      document.getElementById('fc-answer').textContent = card.a;
+      document.getElementById('flashcard-progress').textContent = `Card ${currentFCIndex + 1} of ${currentFCList.length}`;
+      document.getElementById('active-card').classList.remove('flipped');
+    }
+
+    function flipCard() {
+      document.getElementById('active-card').classList.toggle('flipped');
+    }
+
+    function nextCard() {
+      currentFCIndex = (currentFCIndex + 1) % currentFCList.length;
+      renderFlashcard();
+    }
+
+    function prevCard() {
+      currentFCIndex = (currentFCIndex - 1 + currentFCList.length) % currentFCList.length;
+      renderFlashcard();
+    }
+
+    function shuffleFlashcards() {
+      for (let i = currentFCList.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [currentFCList[i], currentFCList[j]] = [currentFCList[j], currentFCList[i]];
+      }
+      currentFCIndex = 0;
+      renderFlashcard();
+    }
+
+    function filterFlashcards() {
+      const cat = document.getElementById('flashcard-filter').value;
+      if (cat === 'all') {
+        currentFCList = [...flashcardsData];
+      } else {
+        currentFCList = flashcardsData.filter(item => item.cat === cat);
+      }
+      currentFCIndex = 0;
+      renderFlashcard();
+    }
+
+    // Keyboard Navigation for Flashcards
+    document.addEventListener('keydown', function(e) {
+      if (document.getElementById('tab-flashcards').classList.contains('active')) {
+        if (e.code === 'Space') {
+          e.preventDefault();
+          flipCard();
+        } else if (e.code === 'ArrowRight') {
+          nextCard();
+        } else if (e.code === 'ArrowLeft') {
+          prevCard();
+        }
+      }
+    });
+
+    /* ==========================================================================
+       3. MCQs SYSTEM DATA & LOGIC (50 BOARD-STYLE MCQs)
+       ========================================================================== */
+    const mcqData = [
+      {
+        q: "1. Which of the following represents the single most common and important route of pathogen transmission in hospital settings?",
+        options: ["Airborne aerosol droplets", "Direct contact via hands of healthcare workers", "Contaminated hospital food supplies", "Hospital air conditioning units"],
+        answer: 1,
+        rationale: "Direct contact through the hands of healthcare workers is universally recognized as the most common and critical route for transmitting hospital-acquired pathogens.",
+        distractors: [
+          "Airborne transmission accounts for specific pathogens (MTVS) but is not the primary overall route.",
+          "Food-borne outbreaks occur rarely and sporadically.",
+          "Physical environment vectors (e.g. AC units) are secondary compared to direct hand contact."
+        ]
+      },
+      {
+        q: "2. A 4-year-old child admitted for severe pneumonia requires a central venous line. To prevent Central Line-Associated Bloodstream Infection (CLABSI), which skin antiseptic should be used prior to insertion?",
+        options: ["70% Isopropyl Alcohol alone", ">0.5% Chlorhexidine with alcohol", "10% Povidone-Iodine aqueous solution", "Sterile Normal Saline scrub"],
+        answer: 1,
+        rationale: ">0.5% Chlorhexidine with alcohol is the evidence-based skin antiseptic of choice for central line preparation in term infants >2 weeks of age and children.",
+        distractors: [
+          "Plain alcohol lacks prolonged residual bactericidal activity compared to chlorhexidine combination.",
+          "Povidone-iodine is less effective and requires longer drying time.",
+          "Normal saline has no antiseptic efficacy."
+        ]
+      },
+      {
+        q: "3. An 8-year-old patient with suspected Pulmonary Tuberculosis is admitted. According to hospital infection control guidelines, which isolation precautions are indicated?",
+        options: ["Contact Precautions", "Droplet Precautions", "Airborne Precautions", "Standard Precautions only"],
+        answer: 2,
+        rationale: "Tuberculosis is transmitted via droplet nuclei (≤5 µm) and strictly requires Airborne Precautions (N95 respirator, negative pressure room with 6-12 air changes/hr).",
+        distractors: [
+          "Contact precautions target direct/indirect contact pathogens like C. difficile or MRSA.",
+          "Droplet precautions apply to large particles >5 µm like N. meningitidis.",
+          "Standard precautions alone are insufficient for airborne mycobacteria."
+        ]
+      },
+      {
+        q: "4. A bacterial isolate from a blood culture is found to be non-susceptible to Amikacin, Ceftazidime, and Meropenem. How should this organism be classified under AMR definitions?",
+        options: ["Multidrug-Resistant (MDR)", "Extensively Drug-Resistant (XDR)", "Pan-Drug Resistant (PDR)", "Antimicrobial-Sensitive"],
+        answer: 0,
+        rationale: "MDR is defined as acquired non-susceptibility to at least one agent in THREE OR MORE antimicrobial categories (here: aminoglycoside, cephalosporin, and carbapenem).",
+        distractors: [
+          "XDR requires non-susceptibility to all but two or fewer categories.",
+          "PDR requires non-susceptibility to all agents in all categories.",
+          "It is resistant, not sensitive."
+        ]
+      },
+      {
+        q: "5. A 5-year-old child presents with a 6-day history of high fever, bilateral non-exudative conjunctivitis, erythematous cracked lips, cervical lymphadenopathy (1.8 cm), and palmar erythema. What is the most likely diagnosis?",
+        options: ["Cat-Scratch Disease", "Kawasaki Disease", "Typhoid Fever", "Infective Endocarditis"],
+        answer: 1,
+        rationale: "The patient fulfills the CRASH and BURN criteria for Kawasaki Disease (Conjunctivitis, Rash, Adenopathy, Strawberry/lip changes, Extremity changes, and Fever ≥5 days).",
+        distractors: [
+          "Cat-scratch disease presents primarily with chronic regional lymphadenitis following animal contact.",
+          "Typhoid fever presents with rose spots, abdominal pain, and step-ladder fever.",
+          "Infective endocarditis presents with heart murmurs, Osler nodes, and Janeway lesions."
+        ]
+      },
+      {
+        q: "6. Classic Fever of Unknown Origin (FUO) in pediatric outpatient practice is defined as a temperature >38.0°C for at least what duration without an identified cause?",
+        options: ["5 days", "1 week", "2 weeks", "More than 3 weeks"],
+        answer: 3,
+        rationale: "Classic FUO is defined as fever >38.0°C lasting >3 weeks in outpatients (or >1 week in hospitalized patients) with no cause identified after evaluation.",
+        distractors: [
+          "5 days is the threshold for Kawasaki disease fever.",
+          "1 week is the hospital-based evaluation threshold for classic/healthcare FUO.",
+          "2 weeks is a threshold used in presumptive TB criteria, not classic FUO definition."
+        ]
+      },
+      {
+        q: "7. Which group of healthcare providers has been identified by INICC surveillance data as having the lowest compliance rate for hand hygiene?",
+        options: ["Nurses", "Physicians", "Physical Therapists", "Respiratory Therapists"],
+        answer: 1,
+        rationale: "INICC data consistently demonstrates that physicians have the lowest compliance rate among healthcare disciplines.",
+        distractors: [
+          "Nurses maintain higher compliance rates than physicians.",
+          "Physical therapists have higher compliance rates.",
+          "Respiratory therapists generally follow strict protocol due to direct airway manipulation."
+        ]
+      },
+      {
+        q: "8. In a 7-year-old child being evaluated for FUO, physical exam reveals painful, tender subcutaneous nodules on the pads of the fingers. What are these lesions called?",
+        options: ["Janeway lesions", "Osler nodes", "Roth spots", "Rose spots"],
+        answer: 1,
+        rationale: "Osler nodes are painful, tender erythematous subcutaneous nodules located on the pads of fingers and toes, characteristic of Infective Endocarditis.",
+        distractors: [
+          "Janeway lesions are PAINLESS macules on palms and soles.",
+          "Roth spots are retinal hemorrhages with pale centers.",
+          "Rose spots are salmon-pink macules on the trunk in Typhoid fever."
+        ]
+      },
+      {
+        q: "9. Which of the following live attenuated vaccines is strongly recommended specifically for First-Line Healthcare Workers in the Philippines (2 doses, 4 weeks apart)?",
+        options: ["Yellow Fever vaccine", "MMR vaccine", "Oral Polio vaccine", "BCG vaccine"],
+        answer: 1,
+        rationale: "MMR vaccine (and Varicella vaccine) is strongly recommended for first-line HCWs as 2 doses at a 4-week interval.",
+        distractors: [
+          "Yellow fever vaccine is for travelers, not routine HCW immunization.",
+          "Oral polio is not part of adult HCW immunization schedule.",
+          "BCG is given at birth, not routine adult HCW schedule."
+        ]
+      },
+      {
+        q: "10. What is the recommended head-of-bed elevation to assist in preventing Ventilator-Associated Pneumonia (VAP) in hospitalized patients?",
+        options: ["Flat (0°)", "15° to 30°", "45° to 60°", "90° upright"],
+        answer: 1,
+        rationale: "Elevating the head of the bed between 15° and 30° reduces aspiration risk and is a key bundle component for VAP prevention.",
+        distractors: [
+          "Flat positioning increases microaspiration risk.",
+          "45-60° may cause sliding and shear stress in neonates.",
+          "90° upright is impractical for mechanically ventilated infants."
+        ]
+      },
+      {
+        q: "11. A 10-year-old child with high persistent fever develops painless erythematous macules on the palms of his hands. What is the pathophysiologic mechanism of these lesions?",
+        options: ["Immune complex deposition", "Microseptic emboli with microabscesses", "Type I IgE-mediated hypersensitivity", "Direct viral cytopathic destruction"],
+        answer: 1,
+        rationale: "Janeway lesions are painless palmar/plantar macules caused by microseptic emboli originating from endocardial vegetations.",
+        distractors: [
+          "Immune complex deposition causes Osler nodes (tender nodules).",
+          "Type I IgE hypersensitivity causes urticaria.",
+          "Viral cytopathic destruction causes viral exanthems."
+        ]
+      },
+      {
+        q: "12. In the diagnostic evaluation of a child with FUO, what is the next recommended diagnostic step if Tier 1 screening tests (CBC, cultures, CXR, ESR/CRP) are unrevealing?",
+        options: ["Empirical broad-spectrum IV antibiotics", "Contrast-enhanced CT scan of abdomen and pelvis", "Immediate exploratory laparotomy", "Bone marrow aspiration"],
+        answer: 1,
+        rationale: "When Tier 1 tests are negative, an Abdominal/Pelvic CT scan with contrast is recommended to search for occult abscesses or deep lymphadenopathy/masses.",
+        distractors: [
+          "Empirical antibiotics mask infection sources and are contraindicated.",
+          "Exploratory laparotomy is invasive and premature before non-invasive cross-sectional imaging.",
+          "Bone marrow aspiration is indicated later if hematologic malignancy is suspected."
+        ]
+      },
+      {
+        q: "13. What is the standard positive Tuberculin Skin Test (TST) induration cutoff for an immunocompetent pediatric patient in the Philippines regardless of BCG status?",
+        options: ["≥2 mm", "≥5 mm", "≥10 mm", "≥15 mm"],
+        answer: 2,
+        rationale: "An induration of ≥10 mm is considered positive for TST in pediatric patients regardless of prior BCG vaccination.",
+        distractors: [
+          "≥2 mm is negative.",
+          "≥5 mm is positive ONLY in high-risk groups (HIV, severe malnutrition, close contacts, prior TB on CXR).",
+          "≥15 mm is positive but ≥10 mm is the standard diagnostic threshold."
+        ]
+      },
+      {
+        q: "14. A 2-year-old child presents with a 3-week fever, cervical lymphadenopathy, and a history of playing with kittens. What is the causative pathogen?",
+        options: ["Toxoplasma gondii", "Bartonella henselae", "Brucella abortus", "Rickettsia rickettsii"],
+        answer: 1,
+        rationale: "Bartonella henselae is the causative agent of Cat-Scratch Disease, presenting with chronic regional lymphadenitis after cat contact.",
+        distractors: [
+          "Toxoplasma is associated with ingesting undercooked meat or cat feces, causing lymphadenopathy without cat scratch history.",
+          "Brucella is associated with unpasteurized dairy.",
+          "Rickettsia causes Rocky Mountain spotted fever."
+        ]
+      },
+      {
+        q: "15. Which pediatric TB drug treatment regimen is specifically indicated for Tuberculosis involving the Central Nervous System, Bones, or Joints?",
+        options: ["Regimen 1: 2 HRZE / 4 HR (6 months)", "Regimen 2: 2 HRZE / 10 HR (12 months)", "Regimen 3: 2 HR / 4 HR (6 months)", "Regimen 4: 9 HRZE (9 months)"],
+        answer: 1,
+        rationale: "Regimen 2 (2 HRZE / 10 HR for a total of 12 months) is specifically indicated for EPTB involving CNS, bones, or joints.",
+        distractors: [
+          "Regimen 1 is for PTB and EPTB excluding CNS, bones, and joints.",
+          "2 HR / 4 HR lacks intensive quad-therapy.",
+          "9 HRZE is not a standard Philippine NTP pediatric regimen."
+        ]
+      },
+      {
+        q: "16. In which of the following scenarios is empirical antimicrobial therapy justified in a patient presenting with Fever of Unknown Origin?",
+        options: ["Fever lasting 3 weeks with normal physical exam", "High clinical suspicion of Disseminated Tuberculosis", "Elevated ESR and CRP of undetermined cause", "Persistent low-grade fever following viral URI"],
+        answer: 1,
+        rationale: "Empirical antimicrobials in FUO are strictly reserved for two scenarios: 1) High suspicion of Disseminated TB, and 2) Culture-negative endocarditis.",
+        distractors: [
+          "Unexplained fever without instability does not justify empirical antibiotics.",
+          "Isolated elevated ESR/CRP requires workup, not empirical drugs.",
+          "Post-viral fever requires observation, not antibiotics."
+        ]
+      },
+      {
+        q: "17. What is the gold standard diagnostic test for Enteric (Typhoid) Fever during the first week of fever illness?",
+        options: ["Widal Serology Test", "Stool Culture", "Blood Culture", "Urine Culture"],
+        answer: 2,
+        rationale: "Blood culture is the gold standard diagnostic test for Typhoid fever with highest sensitivity during the first week of illness.",
+        distractors: [
+          "Widal test is obsolete due to poor sensitivity and specificity.",
+          "Stool culture becomes positive primarily after the first week.",
+          "Urine culture becomes positive after the first week."
+        ]
+      },
+      {
+        q: "18. How rapidly does a Drug-Induced Fever typically resolve following discontinuation of the offending medication?",
+        options: ["Within 12 hours", "Within 48 to 72 hours", "After 14 days", "After 1 month"],
+        answer: 1,
+        rationale: "Drug fever characteristically resolves within 48 to 72 hours after stopping the offending drug.",
+        distractors: [
+          "12 hours is too brief for drug clearance and immune complex wash-out.",
+          "14 days and 1 month are far too long for true drug fever resolution."
+        ]
+      },
+      {
+        q: "19. Which diagnostic test for Tuberculosis detects Interferon-gamma release and does NOT cross-react with prior BCG vaccination?",
+        options: ["Tuberculin Skin Test (TST)", "Interferon Gamma Release Assay (IGRA)", "GeneXpert Ultra MTB/RIF", "Sputum AFB Smear"],
+        answer: 1,
+        rationale: "IGRA measures T-cell IFN-γ response to specific MTB antigens (ESAT-6, CFP-10) and does not cross-react with BCG.",
+        distractors: [
+          "TST cross-reacts with BCG causing false positives.",
+          "GeneXpert is a nucleic acid amplification test, not an IFN-γ assay.",
+          "AFB smear detects acid-fast bacilli microscopically."
+        ]
+      },
+      {
+        q: "20. What is the primary overall etiology category of FUO in pediatric patients?",
+        options: ["Autoimmune / Connective Tissue Diseases", "Infectious Diseases", "Malignancies", "Drug Reactions"],
+        answer: 1,
+        rationale: "Infections represent the single most common cause of FUO in children (~59% bacterial), followed by connective tissue disease and malignancy.",
+        distractors: [
+          "Autoimmune conditions are the second most common category.",
+          "Malignancies are the third most common category.",
+          "Drug reactions are a less common miscellaneous cause."
+        ]
+      },
+      {
+        q: "21. A 9-month-old infant with prolonged fever has a TST of 15mm, hilar lymphadenopathy on CXR, and exposure to a coughing aunt. Which unique feature characterizes pediatric TB compared to adult TB?",
+        options: ["High bacterial load in sputum", "Paucibacillary character and higher dissemination risk", "Cavitation as the primary initial presentation", "Low risk of complications"],
+        answer: 1,
+        rationale: "Pediatric TB is paucibacillary (low bacillary load, non-infectious to others) but carries a significantly higher risk for rapid hematogenous dissemination and death.",
+        distractors: [
+          "Pediatric TB is paucibacillary, not high load.",
+          "Cavitation is common in adult secondary TB, rare in young children.",
+          "Children have a much higher risk of serious complications like miliary TB."
+        ]
+      },
+      {
+        q: "22. What physical exam finding in a patient with FUO is considered pathognomonic for Leptospirosis?",
+        options: ["Rose spots", "Conjunctival suffusion", "Janeway lesions", "Choroid tubercles"],
+        answer: 1,
+        rationale: "Conjunctival suffusion (bilateral conjunctival redness without purulent discharge) is a characteristic clue pointing to Leptospirosis.",
+        distractors: [
+          "Rose spots indicate Typhoid fever.",
+          "Janeway lesions indicate Infective Endocarditis.",
+          "Choroid tubercles indicate Disseminated TB."
+        ]
+      },
+      {
+        q: "23. Which isolation precaution requires a negative-pressure room with 6 to 12 air changes per hour?",
+        options: ["Contact Precautions", "Droplet Precautions", "Airborne Precautions", "Standard Precautions"],
+        answer: 2,
+        rationale: "Airborne Precautions strictly require negative-pressure isolation rooms with 6-12 air changes per hour to prevent droplet nuclei dissemination.",
+        distractors: [
+          "Contact precautions require dedicated equipment and single room.",
+          "Droplet precautions require spatial separation >6ft or single room.",
+          "Standard precautions apply to standard ward rooms."
+        ]
+      },
+      {
+        q: "24. What is the mnemonic for pathogens requiring Airborne Precautions?",
+        options: ["CRASH", "MTVS", "INICC", "CLABSI"],
+        answer: 1,
+        rationale: "MTVS stands for Measles, Tuberculosis, Varicella-zoster, and SARS-CoV-2.",
+        distractors: [
+          "CRASH is the clinical mnemonic for Kawasaki disease.",
+          "INICC is the nosocomial surveillance organization.",
+          "CLABSI is central line bloodstream infection."
+        ]
+      },
+      {
+        q: "25. Which of the following is defined as non-susceptibility to ALL agents in ALL antimicrobial categories?",
+        options: ["Multidrug-Resistant (MDR)", "Extensively Drug-Resistant (XDR)", "Pan-Drug Resistant (PDR)", "Extended-Spectrum Beta-Lactamase (ESBL)"],
+        answer: 2,
+        rationale: "PDR (Pan-Drug Resistance) refers to non-susceptibility to all agents across all antimicrobial classes.",
+        distractors: [
+          "MDR requires non-susceptibility in ≥3 categories.",
+          "XDR requires non-susceptibility in all but ≤2 categories.",
+          "ESBL is a specific enzymatic resistance mechanism."
+        ]
+      },
+      {
+        q: "26. How often should transparent dressings on central venous lines be routinely changed in pediatric patients?",
+        options: ["Every 24 hours", "Every 3 days", "Every 7 days", "Every 14 days"],
+        answer: 2,
+        rationale: "Transparent semi-permeable dressings on central lines should be changed every 7 days (or immediately if damp, loose, or soiled). Gauze dressings are changed every 3 days.",
+        distractors: [
+          "24 hours is unnecessary and increases line disruption risk.",
+          "Every 3 days is the schedule for gauze dressings.",
+          "14 days is too long and increases infection risk."
+        ]
+      },
+      {
+        q: "27. What classic cranial CT finding forms part of the diagnostic triad for TB Meningitis?",
+        options: ["Basal meningeal enhancement", "Temporal lobe ring-enhancing abscess", "Subdural empyema", "Cortical calcifications"],
+        answer: 0,
+        rationale: "The cranial CT triad for TB Meningitis consists of: 1) Tuberculoma, 2) Basal meningeal enhancement, and 3) Ventricular dilatation (hydrocephalus).",
+        distractors: [
+          "Temporal ring lesions suggest pyogenic brain abscess.",
+          "Subdural empyema is a complication of pyogenic bacterial meningitis.",
+          "Cortical calcifications suggest congenital infections (TORCH)."
+        ]
+      },
+      {
+        q: "28. Which of the following is an example of a droplet-transmitted pathogen requiring Droplet Isolation Precautions?",
+        options: ["Neisseria meningitidis", "Mycobacterium tuberculosis", "Measles virus", "Clostridium difficile"],
+        answer: 0,
+        rationale: "Neisseria meningitidis is transmitted via large respiratory droplets (>5 µm) and requires Droplet Precautions for the first 24 hours of effective antibiotics.",
+        distractors: [
+          "TB requires Airborne precautions.",
+          "Measles requires Airborne precautions.",
+          "C. difficile requires Contact precautions."
+        ]
+      },
+      {
+        q: "29. What is the recommended Tdap / Td booster interval for healthcare workers who have completed their primary vaccination series?",
+        options: ["Every 1 year", "Every 3 years", "Every 5 years", "Every 10 years"],
+        answer: 3,
+        rationale: "After completing the primary series, HCWs should receive a Td booster every 10 years.",
+        distractors: [
+          "1 year is the influenza vaccine interval.",
+          "3 years is not standard for Td.",
+          "5 years is used for rabies boosters in selected high-risk HCWs."
+        ]
+      },
+      {
+        q: "30. Which condition presents with step-ladder fever, relative bradycardia, abdominal pain, and leukopenia?",
+        options: ["Typhoid Fever", "Kawasaki Disease", "Cat-Scratch Disease", "Infective Endocarditis"],
+        answer: 0,
+        rationale: "Enteric (Typhoid) fever characteristically presents with step-ladder fever, Faget sign (relative bradycardia), abdominal pain, hepatosplenomegaly, and leukopenia.",
+        distractors: [
+          "Kawasaki disease features high fever, rash, conjunctivitis, and coronary vasculitis.",
+          "Cat-scratch features regional lymphadenitis.",
+          "Infective endocarditis features murmurs and embolic phenomena."
+        ]
+      },
+      {
+        q: "31. What is the minimum duration of fever required to diagnose Kawasaki Disease according to classic diagnostic criteria?",
+        options: ["3 days", "5 days", "8 days", "14 days"],
+        answer: 1,
+        rationale: "Kawasaki disease criteria require fever lasting for at least 5 days ('BURN' in CRASH & BURN).",
+        distractors: [
+          "3 days is insufficient for Kawasaki criteria.",
+          "8 days is the cutoff for FUO timeline (≥8 days / >1 week).",
+          "14 days is 2 weeks, exceeding Kawasaki threshold."
+        ]
+      },
+      {
+        q: "32. A child with FUO has retinal hemorrhages with pale central centers noted on fundoscopic exam. What are these called?",
+        options: ["Choroid tubercles", "Roth spots", "Janeway macules", "Osler nodes"],
+        answer: 1,
+        rationale: "Roth spots are retinal hemorrhages with pale centers composed of fibrin-platelet plugs, classic for Infective Endocarditis.",
+        distractors: [
+          "Choroid tubercles are pale granulomatous nodules seen in Miliary TB.",
+          "Janeway macules are palmar/plantar lesions.",
+          "Osler nodes are painful finger pad nodules."
+        ]
+      },
+      {
+        q: "33. Which diagnostic test is preferred over IGRA in children under 2 years of age due to higher sensitivity in this age group?",
+        options: ["Tuberculin Skin Test (TST)", "GeneXpert MTB/RIF", "Sputum Culture", "Gastric Aspirate AFB"],
+        answer: 0,
+        rationale: "TST is explicitly preferred over IGRA in children under 2 years of age because IGRA has lower sensitivity in infants.",
+        distractors: [
+          "GeneXpert is a molecular assay, not an immunologic skin test alternative.",
+          "Sputum culture is bacteriologic.",
+          "Gastric aspirate is for obtaining specimen."
+        ]
+      },
+      {
+        q: "34. What is the primary clinical feature of Cat-Scratch Disease in immunocompetent pediatric patients?",
+        options: ["Generalized maculopapular rash", "Chronic regional lymphadenitis", "Bilateral conjunctivitis with exudate", "Hepatic abscesses"],
+        answer: 1,
+        rationale: "Chronic regional lymphadenitis developing 1-4 weeks post-exposure is the cardinal hallmark of Cat-Scratch Disease.",
+        distractors: [
+          "Generalized rash is rare in cat-scratch.",
+          "Conjunctivitis in cat-scratch (Parinaud oculoglandular syndrome) is unilateral and uncommon.",
+          "Hepatic abscesses occur in disseminated disease (~14%)."
+        ]
+      },
+      {
+        q: "35. What is the proper technique for needle capping to avoid accidental needle-stick injuries?",
+        options: ["Two-handed recapping", "Fishing technique against a wall or table", "Direct manual alignment", "Bending the needle prior to capping"],
+        answer: 1,
+        rationale: "The 'fishing technique' (scooping cap off table/wall single-handedly) prevents using the non-dominant hand near the exposed needle tip.",
+        distractors: [
+          "Two-handed recapping is the leading cause of needle-stick injuries.",
+          "Direct manual alignment risks puncture.",
+          "Bending needles creates occupational puncture hazard."
+        ]
+      },
+      {
+        q: "36. Which pediatric malignancies represent the most common neoplastic cause of FUO in children?",
+        options: ["Neuroblastoma and Wilms Tumor", "Leukemia and Lymphoma", "Osteosarcoma and Ewing Sarcoma", "Hepatoma and Teratoma"],
+        answer: 1,
+        rationale: "Leukemia and Lymphoma are the leading malignancies causing FUO in pediatric populations.",
+        distractors: [
+          "Neuroblastoma and Wilms tumor are common solid tumors but less frequent FUO causes than hematologic cancers.",
+          "Bone sarcomas present primarily with localized pain.",
+          "Hepatoma is rare in children."
+        ]
+      },
+      {
+        q: "37. What window period should be considered between exposure to Tuberculosis and TST skin test reactivity?",
+        options: ["24 to 48 hours", "1 to 2 weeks", "2 to 12 weeks", "6 months"],
+        answer: 2,
+        rationale: "The window period between TB exposure and immunologic TST reactivity ranges from 2 to 12 weeks.",
+        distractors: [
+          "24-48 hours is too short for cell-mediated immune conversion.",
+          "1-2 weeks is early in the window period.",
+          "6 months exceeds the standard conversion window."
+        ]
+      },
+      {
+        q: "38. Which component of hand hygiene is considered the MOST critical aspect for removing transient surface flora when hands are visibly soiled?",
+        options: ["The brand of cleansing soap", "Friction under running water", "Water temperature", "Drying with cloth towels"],
+        answer: 1,
+        rationale: "Friction under water with soap is the single most important mechanism for removing transient surface flora and visible contaminants.",
+        distractors: [
+          "Soap brand is secondary to mechanical friction.",
+          "Water temperature does not affect microbial removal.",
+          "Drying technique does not substitute for friction washing."
+        ]
+      },
+      {
+        q: "39. Fever Without Source (FWS) is defined as a fever of recent onset without apparent source. What is the maximum duration of fever for FWS?",
+        options: ["<1 week", "<2 weeks", "<3 weeks", "<1 month"],
+        answer: 0,
+        rationale: "FWS is defined as fever of recent onset (<1 week) without an obvious anatomic source.",
+        distractors: [
+          "<2 weeks overlaps with FUO evaluation timeline.",
+          "<3 weeks is classic FUO territory.",
+          "<1 month is prolonged fever."
+        ]
+      },
+      {
+        q: "40. What is the indication for performing a Lumbar Puncture in the diagnostic algorithm of a child with FUO?",
+        options: ["Routine screening for all FUO patients", "Suspicion of TB Meningitis or parasitic/fungal CNS infection", "All patients with high CRP", "Patients with Kawasaki disease"],
+        answer: 1,
+        rationale: "Lumbar puncture in FUO evaluation is indicated when CNS infection (TB meningitis, fungal, or parasitic) is suspected.",
+        distractors: [
+          "LP is not a routine screening test for all FUO cases.",
+          "Elevated CRP alone does not warrant LP without CNS symptoms.",
+          "Kawasaki disease does not routinely require LP."
+        ]
+      },
+      {
+        q: "41. An 11-year-old child presents with a 4-week fever, weight loss, and new cardiac murmur. TTE is negative but suspicion for Endocarditis remains high. What is the next best imaging step?",
+        options: ["Transesophageal Echocardiogram (TEE)", "Repeat Chest X-ray", "Coronary Angiography", "Cardiac MRI"],
+        answer: 0,
+        rationale: "Transesophageal Echocardiogram (TEE) offers superior sensitivity to detect small cardiac vegetations missed on routine transthoracic echo (TTE).",
+        distractors: [
+          "Chest X-ray does not visualize endocardial vegetations.",
+          "Coronary angiography evaluates coronary arteries, not valvular vegetations.",
+          "Cardiac MRI is less practical than TEE for acute vegetation detection."
+        ]
+      },
+      {
+        q: "42. Which organism is a frequent cause of HAI acute gastroenteritis in hospitalized pediatric wards?",
+        options: ["Rotavirus", "Mycobacterium avium", "Listeria monocytogenes", "Cryptococcus neoformans"],
+        answer: 0,
+        rationale: "Rotavirus is a classic seasonal viral etiology of healthcare-associated acute gastroenteritis in pediatric units.",
+        distractors: [
+          "M. avium causes opportunistic systemic infection in advanced HIV.",
+          "Listeria causes neonatal sepsis/meningitis.",
+          "Cryptococcus causes fungal meningitis."
+        ]
+      },
+      {
+        q: "43. What is the recommended annual timing for Influenza vaccination among Healthcare Workers in the Philippines?",
+        options: ["October to December", "January to July", "August to September", "Any single month"],
+        answer: 1,
+        rationale: "Influenza vaccination for Filipino HCWs is recommended annually, preferably administered from January to July.",
+        distractors: [
+          "October to December is the Western hemisphere flu schedule.",
+          "August to September falls outside the primary recommended window.",
+          "January to July aligns with tropical southern hemisphere vaccine strain formulation."
+        ]
+      },
+      {
+        q: "44. Which of the following conditions requires BOTH Contact AND Droplet Isolation precautions?",
+        options: ["Respiratory Syncytial Virus (RSV) bronchiolitis", "Clostridium difficile colitis", "Measles virus", "Neisseria meningitidis"],
+        answer: 0,
+        rationale: "Pediatric respiratory infections like RSV require combined Contact (fomite/secretion transmission) and Droplet precautions.",
+        distractors: [
+          "C. difficile requires Contact precautions alone.",
+          "Measles requires Airborne precautions.",
+          "N. meningitidis requires Droplet precautions alone."
+        ]
+      },
+      {
+        q: "45. What is the role of antipyretic medications (Paracetamol/Ibuprofen) in the management of FUO?",
+        options: ["Curative treatment to eradicate infection", "Symptomatic relief and controlling fever in high-risk patients", "Diagnostic trial to rule out malignancy", "Prophylaxis against drug fever"],
+        answer: 1,
+        rationale: "Antipyretics provide symptomatic comfort and prevent metabolic stress in patients at risk (cardiopulmonary disease, febrile seizure risk). They do not cure underlying etiologies.",
+        distractors: [
+          "Antipyretics do not eradicate pathogens.",
+          "Antipyretic response does not differentiate infection from malignancy.",
+          "They do not prevent drug fever."
+        ]
+      },
+      {
+        q: "46. False-negative Tuberculin Skin Test (TST) reactions can occur in which of the following clinical settings?",
+        options: ["Prior BCG vaccination", "Infection with non-tuberculous mycobacteria", "Severe protein-energy malnutrition and corticosteroids", "Incorrect high antigen strength"],
+        answer: 2,
+        rationale: "Anergy secondary to severe malnutrition, corticosteroids, live virus vaccines, or overwhelming MTB infection causes false-negative TST results.",
+        distractors: [
+          "Prior BCG causes false-POSITIVE TST.",
+          "Non-tuberculous mycobacteria cause false-POSITIVE TST.",
+          "Incorrect high antigen strength causes false-POSITIVE TST."
+        ]
+      },
+      {
+        q: "47. Which diagnostic test is obsolete for evaluating Typhoid fever due to high false-positive rates?",
+        options: ["Blood Culture", "Widal Test", "Bone Marrow Culture", "Stool Culture"],
+        answer: 1,
+        rationale: "The Widal serology test is obsolete and strongly discouraged due to poor sensitivity and very high false-positive rates.",
+        distractors: [
+          "Blood culture is gold standard.",
+          "Bone marrow culture has highest sensitivity in treated typhoid.",
+          "Stool culture is reliable after 1st week."
+        ]
+      },
+      {
+        q: "48. In a patient with FUO, finding choroid tubercles on retinal examination strongly points toward which diagnosis?",
+        options: ["Disseminated Tuberculosis", "Kawasaki Disease", "Leptospirosis", "Cat-Scratch Disease"],
+        answer: 0,
+        rationale: "Choroid tubercles are yellowish granulomatous lesions in the choroid of the retina, highly specific for Disseminated / Miliary TB.",
+        distractors: [
+          "Kawasaki disease features non-exudative conjunctivitis.",
+          "Leptospirosis features conjunctival suffusion.",
+          "Cat-scratch features neuroretinitis with macular star, not choroid tubercles."
+        ]
+      },
+      {
+        q: "49. What is the first-line empirical isolation precaution that should be instituted as soon as a patient is encountered in any healthcare facility?",
+        options: ["Contact Precautions", "Standard Precautions", "Airborne Precautions", "Droplet Precautions"],
+        answer: 1,
+        rationale: "Standard Precautions must be applied to ALL patients immediately upon encounter, regardless of suspected diagnosis.",
+        distractors: [
+          "Contact precautions are added based on specific suspected pathogens.",
+          "Airborne precautions are added for specific aerosol pathogens.",
+          "Droplet precautions are added for large droplet pathogens."
+        ]
+      },
+      {
+        q: "50. A 6-year-old child with FUO has elevated ESR and CRP, fever for 3 weeks, negative blood cultures, and normal CXR. Which diagnostic domain should be evaluated next before considering invasive biopsies?",
+        options: ["Whole Abdominal & Pelvic Contrast CT Scan", "Immediate Bone Marrow Biopsy", "Empirical Broad-Spectrum Antibiotic Trial", "Exploratory Laparotomy"],
+        answer: 0,
+        rationale: "Contrast CT scan of the abdomen and pelvis is the recommended non-invasive next step to identify occult abscesses, deep lymphadenopathy, or visceral masses before invasive biopsies.",
+        distractors: [
+          "Bone marrow biopsy is indicated if CT is negative and hematologic disease is suspected.",
+          "Empirical antibiotic trial is contraindicated in FUO.",
+          "Exploratory laparotomy is an extreme last resort."
+        ]
+      }
+    ];
+
+    let userScores = {};
+
+    function renderMCQs() {
+      const container = document.getElementById('mcq-list');
+      container.innerHTML = '';
+
+      mcqData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'mcq-card';
+        card.id = `mcq-card-${index}`;
+
+        let optionsHTML = '';
+        item.options.forEach((opt, optIdx) => {
+          const letter = String.fromCharCode(65 + optIdx);
+          optionsHTML += `
+            <div class="mcq-option" onclick="checkMCQ(${index}, ${optIdx})" id="mcq-opt-${index}-${optIdx}">
+              <div class="mcq-option-letter">${letter}</div>
+              <div>${opt}</div>
+            </div>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="mcq-header">
+            <span class="badge badge-blue">Question ${index + 1} of 50</span>
+          </div>
+          <div class="mcq-question">${item.q}</div>
+          <div class="mcq-options">${optionsHTML}</div>
+          <div class="mcq-explanation" id="mcq-exp-${index}">
+            <p><strong>Correct Answer:</strong> ${String.fromCharCode(65 + item.answer)} - ${item.options[item.answer]}</p>
+            <p style="margin-top: 6px; color: var(--emerald);"><strong>Rationale:</strong> ${item.rationale}</p>
+            <div style="margin-top: 8px; font-size: 0.82rem; color: var(--text-muted);">
+              <strong>Distractor Breakdown:</strong>
+              <ul style="padding-left: 16px; margin-top: 4px;">
+                ${item.distractors.map(d => `<li>${d}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function checkMCQ(qIndex, selectedOpt) {
+      if (userScores[qIndex] !== undefined) return; // Prevent re-answering
+
+      const question = mcqData[qIndex];
+      const isCorrect = selectedOpt === question.answer;
+      userScores[qIndex] = isCorrect;
+
+      const selectedElem = document.getElementById(`mcq-opt-${qIndex}-${selectedOpt}`);
+      if (isCorrect) {
+        selectedElem.classList.add('correct');
+      } else {
+        selectedElem.classList.add('incorrect');
+        document.getElementById(`mcq-opt-${qIndex}-${question.answer}`).classList.add('correct');
+      }
+
+      document.getElementById(`mcq-exp-${qIndex}`).classList.add('visible');
+      updateScoreTracker();
+    }
+
+    function updateScoreTracker() {
+      const totalAnswered = Object.keys(userScores).length;
+      const correctCount = Object.values(userScores).filter(v => v === true).length;
+      const percentage = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
+
+      document.getElementById('score-display').textContent = `Score: ${correctCount} / ${totalAnswered} (${percentage}%)`;
+    }
+
+    /* Initialize App */
+    window.onload = function() {
+      renderFlashcard();
+      renderMCQs();
+    };
+  </script>
+</body>
+</html>
