@@ -1,0 +1,2461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNS Tumors: Comprehensive Interactive Reviewer | Philippine Medical Board Exam</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --accent-blue: #2563eb;
+            --accent-blue-light: #eff6ff;
+            --accent-teal: #0d9488;
+            --accent-teal-light: #ccfbf1;
+            --accent-purple: #7c3aed;
+            --accent-purple-light: #f3e8ff;
+            --accent-amber: #d97706;
+            --accent-amber-light: #fef3c7;
+            --accent-rose: #e11d48;
+            --accent-rose-light: #ffe4e6;
+            --accent-emerald: #059669;
+            --accent-emerald-light: #d1fae5;
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-code: 'Space Mono', monospace;
+        }
+
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --border-hover: #475569;
+            --accent-blue-light: #1e3a8a;
+            --accent-teal-light: #134e4a;
+            --accent-purple-light: #4c1d95;
+            --accent-amber-light: #78350f;
+            --accent-rose-light: #881337;
+            --accent-emerald-light: #064e3b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+            padding-bottom: 60px;
+        }
+
+        /* Reading Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-teal));
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-teal));
+            color: white;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-box {
+            position: relative;
+            width: 260px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            font-size: 0.875rem;
+        }
+
+        .theme-toggle-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Nav Tabs Bar */
+        .nav-tabs-wrapper {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-tabs-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-tabs {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 1.5rem;
+            gap: 0.25rem;
+        }
+
+        .tab-btn {
+            padding: 0.875rem 1rem;
+            border: none;
+            background: none;
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background-color: var(--bg-tertiary);
+        }
+
+        .tab-btn.active {
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+
+        .tab-badge {
+            background-color: var(--bg-tertiary);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .tab-btn.active .tab-badge {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+
+        /* Main Layout */
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Cards & Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-hover);
+        }
+
+        .card-accent-blue { border-left: 5px solid var(--accent-blue); }
+        .card-accent-teal { border-left: 5px solid var(--accent-teal); }
+        .card-accent-purple { border-left: 5px solid var(--accent-purple); }
+        .card-accent-amber { border-left: 5px solid var(--accent-amber); }
+        .card-accent-rose { border-left: 5px solid var(--accent-rose); }
+        .card-accent-emerald { border-left: 5px solid var(--accent-emerald); }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            font-size: 0.925rem;
+            line-height: 1.5;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .callout-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .callout-must-know {
+            background-color: var(--accent-amber-light);
+            border: 1px solid rgba(217, 119, 6, 0.3);
+            color: var(--text-primary);
+        }
+
+        .callout-pitfall {
+            background-color: var(--accent-rose-light);
+            border: 1px solid rgba(225, 29, 72, 0.3);
+            color: var(--text-primary);
+        }
+
+        .callout-pearl {
+            background-color: var(--accent-teal-light);
+            border: 1px solid rgba(13, 148, 136, 0.3);
+            color: var(--text-primary);
+        }
+
+        .callout-tip {
+            background-color: var(--accent-purple-light);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            color: var(--text-primary);
+        }
+
+        /* Key Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.2rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-blue { background-color: var(--accent-blue-light); color: var(--accent-blue); }
+        .badge-teal { background-color: var(--accent-teal-light); color: var(--accent-teal); }
+        .badge-purple { background-color: var(--accent-purple-light); color: var(--accent-purple); }
+        .badge-amber { background-color: var(--accent-amber-light); color: var(--accent-amber); }
+        .badge-rose { background-color: var(--accent-rose-light); color: var(--accent-rose); }
+        .badge-emerald { background-color: var(--accent-emerald-light); color: var(--accent-emerald); }
+
+        /* Tables */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.25rem 0;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            position: relative;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.875rem;
+        }
+
+        th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            padding: 0.875rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) td {
+            background-color: rgba(241, 245, 249, 0.4);
+        }
+
+        body.dark-mode tr:nth-child(even) td {
+            background-color: rgba(51, 65, 85, 0.3);
+        }
+
+        tr:hover td {
+            background-color: rgba(37, 99, 235, 0.04);
+        }
+
+        .table-copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            cursor: pointer;
+            z-index: 20;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .table-copy-btn:hover { opacity: 1; }
+
+        /* Diagrams & CSS Illustrations */
+        .diagram-box {
+            background-color: var(--bg-tertiary);
+            border: 1px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            margin: 1.25rem 0;
+            text-align: center;
+        }
+
+        .diagram-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .flowchart-nodes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .flow-node {
+            background-color: var(--bg-secondary);
+            border: 2px solid var(--accent-blue);
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            max-width: 220px;
+        }
+
+        .flow-arrow {
+            color: var(--accent-blue);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Expandable Accordions */
+        .accordion {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            background-color: var(--bg-secondary);
+        }
+
+        .accordion-header {
+            padding: 1rem 1.25rem;
+            background-color: var(--bg-secondary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: background-color 0.2s;
+            user-select: none;
+        }
+
+        .accordion-header:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .accordion-content {
+            padding: 0 1.25rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1), padding 0.3s;
+            border-top: 0 solid var(--border-color);
+        }
+
+        .accordion.open .accordion-content {
+            padding: 1.25rem;
+            max-height: 2000px;
+            border-top-width: 1px;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s;
+        }
+
+        .accordion.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Flashcard System */
+        .fc-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .fc-filter select {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .flashcard-wrapper {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 650px;
+            height: 380px;
+            margin: 0 auto 1.5rem auto;
+            cursor: pointer;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .fc-front, .fc-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+        }
+
+        .fc-back {
+            transform: rotateY(180deg);
+            background-color: var(--bg-tertiary);
+            border-color: var(--accent-blue);
+        }
+
+        .fc-tag {
+            align-self: flex-start;
+        }
+
+        .fc-question {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin: auto 0;
+            line-height: 1.4;
+        }
+
+        .fc-answer {
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: left;
+            margin: auto 0;
+            color: var(--text-primary);
+            overflow-y: auto;
+        }
+
+        .fc-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .fc-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.25rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+        }
+
+        /* MCQ Section */
+        .mcq-container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .mcq-card {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .mcq-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .mcq-qnum {
+            font-family: var(--font-code);
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .mcq-question {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .mcq-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-btn {
+            padding: 0.875rem 1.25rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            text-align: left;
+            font-size: 0.925rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: var(--bg-tertiary);
+            border-color: var(--accent-blue);
+        }
+
+        .option-prefix {
+            font-weight: 700;
+            font-family: var(--font-code);
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct {
+            background-color: var(--accent-emerald-light) !important;
+            border-color: var(--accent-emerald) !important;
+            color: #064e3b !important;
+            font-weight: 600;
+        }
+
+        .option-btn.incorrect {
+            background-color: var(--accent-rose-light) !important;
+            border-color: var(--accent-rose) !important;
+            color: #881337 !important;
+        }
+
+        .mcq-explanation {
+            display: none;
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            animation: fadeIn 0.3s;
+        }
+
+        .mcq-explanation.show {
+            display: block;
+        }
+
+        .exp-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .distractor-breakdown {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        .score-board {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .score-stat {
+            text-align: center;
+        }
+
+        .score-num {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+        }
+
+        .score-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Cram Sheet Styling */
+        .cram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .cram-box {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+        }
+
+        .cram-box h3 {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            color: var(--accent-blue);
+            margin-bottom: 0.75rem;
+            border-bottom: 2px solid var(--bg-tertiary);
+            padding-bottom: 0.4rem;
+        }
+
+        .cram-list {
+            list-style: none;
+            font-size: 0.875rem;
+        }
+
+        .cram-list li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .cram-list li::before {
+            content: "⚡";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 0.75rem;
+        }
+
+        /* Floating Scroll to Top */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 90;
+        }
+
+        .scroll-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-btn:hover {
+            transform: translateY(-3px);
+            background-color: #1d4ed8;
+        }
+
+        /* Print Friendly Styles */
+        @media print {
+            header, .nav-tabs-wrapper, .fc-controls, .fc-nav, .scroll-top-btn, #progress-bar, .theme-toggle-btn, .search-box {
+                display: none !important;
+            }
+
+            body {
+                background-color: white !important;
+                color: black !important;
+            }
+
+            .tab-content {
+                display: block !important;
+            }
+
+            .card, .table-container, .accordion {
+                break-inside: avoid;
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .header-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-box {
+                width: 100%;
+            }
+            .flashcard-wrapper {
+                height: 420px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progress-bar"></div>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-area">
+                <div class="logo-icon">CNS</div>
+                <div class="logo-text">
+                    <h1>CNS Tumors Reviewer</h1>
+                    <p>Philippine Medical Board Exam (PLE) & LE2 Standard</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="global-search" placeholder="Search keywords (e.g., IDH, Rosettes, Uncal)...">
+                </div>
+                <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Light/Dark Mode">
+                    🌙
+                </button>
+            </div>
+        </div>
+        <div class="nav-tabs-wrapper">
+            <nav class="nav-tabs">
+                <button class="tab-btn active" data-tab="tab-overview">
+                    📌 Overview & Principles <span class="tab-badge">01</span>
+                </button>
+                <button class="tab-btn" data-tab="tab-gliomas">
+                    🧠 Diffuse Gliomas <span class="tab-badge">02</span>
+                </button>
+                <button class="tab-btn" data-tab="tab-embryonal">
+                    🔬 Ependymal & Embryonal <span class="tab-badge">03</span>
+                </button>
+                <button class="tab-btn" data-tab="tab-extraaxial">
+                    🛡️ Meningiomas & Schwannomas <span class="tab-badge">04</span>
+                </button>
+                <button class="tab-btn" data-tab="tab-sellar">
+                    👁️ Sellar, Ventricular & PCNSL <span class="tab-badge">05</span>
+                </button>
+                <button class="tab-btn" data-tab="tab-metastases">
+                    🩸 Metastases, Paraneoplastic & Spine <span class="tab-badge">06</span>
+                </button>
+                <button class="tab-btn" data-tab="tab-comparisons">
+                    ⚖️ Master Comparisons <span class="tab-badge">07</span>
+                </button>
+                <button class="tab-btn" data-tab="tab-flashcards">
+                    🃏 Active Recall Cards <span class="tab-badge" id="fc-badge-count">50</span>
+                </button>
+                <button class="tab-btn" data-tab="tab-mcqs">
+                    📝 Board Exam MCQs <span class="tab-badge" id="mcq-badge-count">50</span>
+                </button>
+                <button class="tab-btn" data-tab="tab-cram">
+                    ⚡ 10-Min Cram Sheet <span class="tab-badge">08</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- TAB 1: OVERVIEW & GENERAL PRINCIPLES -->
+        <section id="tab-overview" class="tab-content active">
+            <div class="card card-accent-blue">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Intracranial Dynamics & Monro-Kellie Doctrine</h2>
+                        <p class="card-subtitle">Fundamental pathophysiology governing mass effect, ICP-volume curves, and cerebral perfusion.</p>
+                    </div>
+                    <span class="badge badge-blue">Core Physiology</span>
+                </div>
+                
+                <p>The rigid skull forms an unyielding container holding three non-compressible components: <strong>Brain Tissue (~80%)</strong>, <strong>Cerebrospinal Fluid (~10%)</strong>, and <strong>Blood (~10%)</strong>. According to the <strong>Monro-Kellie Doctrine</strong>, because the cranial vault volume is fixed, any increase in the volume of one component must be compensated by an equal reduction in the volume of the others.</p>
+
+                <div class="diagram-box">
+                    <div class="diagram-title">Compensatory Cascade in Expanding Intracranial Mass</div>
+                    <div class="flowchart-nodes">
+                        <div class="flow-node">Expanding Tumor Mass</div>
+                        <span class="flow-arrow">➔</span>
+                        <div class="flow-node" style="border-color: var(--accent-amber);">1. CSF Displacement into Spinal Axis</div>
+                        <span class="flow-arrow">➔</span>
+                        <div class="flow-node" style="border-color: var(--accent-amber);">2. Venous Blood Compression</div>
+                        <span class="flow-arrow">➔</span>
+                        <div class="flow-node" style="border-color: var(--accent-rose);">3. Decompensation (~220 mmHg Tipping Point)</div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--accent-blue);">Cerebral Perfusion Pressure (CPP)</h3>
+                        <p style="font-size: 0.9rem;">The brain's oxygenation relies directly on maintaining adequate CPP. Calculated as:</p>
+                        <div style="background-color: var(--bg-tertiary); padding: 0.75rem; border-radius: var(--radius-md); font-family: var(--font-code); font-weight: 700; text-align: center; margin: 0.5rem 0;">
+                            CPP = MAP - ICP
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">where Mean Arterial Pressure $\text{MAP} = \frac{\text{SBP} + 2(\text{DBP})}{3}$.</p>
+                        <ul style="font-size: 0.85rem; margin-top: 0.5rem; padding-left: 1.25rem;">
+                            <li><strong>Target Normal CPP:</strong> 70 to 120 mmHg.</li>
+                            <li><strong>CPP &lt; 70 mmHg:</strong> Induces severe ischemic/hypoxic neuronal damage.</li>
+                            <li><strong>CPP &gt; 120 mmHg:</strong> Causes "breakthrough" hyperperfusion, worsening cerebral edema.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--accent-blue);">Cushing's Triad (Terminal High ICP)</h3>
+                        <div class="callout callout-pitfall">
+                            <span class="callout-icon">⚠️</span>
+                            <div>
+                                <strong>Decompensation Indicator:</strong> Signifies impending brainstem herniation!
+                                <ol style="margin-top: 0.25rem; padding-left: 1.2rem; font-size: 0.85rem;">
+                                    <li><strong>Hypertension</strong> (with widening pulse pressure)</li>
+                                    <li><strong>Bradycardia</strong></li>
+                                    <li><strong>Irregular/Cheyne-Stokes Respirations</strong></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="callout callout-must-know">
+                    <span class="callout-icon">⭐</span>
+                    <div>
+                        <strong>Must Know Epidemiology (CBTRUS Data):</strong>
+                        <ul style="margin-top: 0.25rem; padding-left: 1.2rem; font-size: 0.875rem;">
+                            <li><strong>Adults (&gt;20 y/o):</strong> Most common <em>primary overall</em> = <strong>Meningioma (~36-40%)</strong>. Most common <em>primary malignant</em> = <strong>Glioma (Glioblastoma)</strong>. However, overall most common brain tumor in adults is <strong>Metastatic (Secondary)</strong>.</li>
+                            <li><strong>Pediatrics (0-14 y/o):</strong> CNS tumors are the <strong>#1 cause of cancer mortality</strong> and the <strong>#1 overall cancer</strong> in this age bracket. Most common malignant histologies = Gliomas and Embryonal tumors (Medulloblastoma).</li>
+                            <li><strong>Anatomic Predilection:</strong> 70% of adult brain tumors are <strong>Supratentorial</strong>; 70% of pediatric brain tumors are <strong>Infratentorial</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PERITUMORAL EDEMA & HERNIATIONS CARD -->
+            <div class="card card-accent-rose">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Vasogenic Brain Edema & Herniation Syndromes</h2>
+                        <p class="card-subtitle">Pathophysiology of BBB breakdown, edema management, and mechanical displacement syndromes.</p>
+                    </div>
+                    <span class="badge badge-rose">High Yield Emergency</span>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1rem; color: var(--accent-rose); margin-bottom: 0.5rem;">Vasogenic vs Cytotoxic Edema</h3>
+                        <p style="font-size: 0.875rem;">Brain tumor edema is <strong>predominantly Vasogenic</strong> (not cytotoxic). Occurs due to breakdown of tight endothelial junctions, tumor secretion of vascular transudative factors, active vesicular transport across endothelial cells, and tumor proteases disrupting the BBB. Characteristically <strong>confined to the cerebral white matter</strong> (appears hyperintense on T2/FLAIR MRI).</p>
+                        
+                        <div style="margin-top: 0.75rem; background-color: var(--bg-tertiary); padding: 0.75rem; border-radius: var(--radius-md);">
+                            <strong style="font-size: 0.85rem; color: var(--text-primary);">Medical Management of Raised ICP & Edema:</strong>
+                            <ul style="font-size: 0.825rem; margin-top: 0.25rem; padding-left: 1.25rem;">
+                                <li><strong>Corticosteroids:</strong> Dexamethasone 4 mg IV/PO every 6 hours (reduces BBB permeability).</li>
+                                <li><strong>Osmotherapy:</strong> Mannitol 0.5–1.0 g/kg BW (25% solution) over 2–10 mins OR Hypertonic Saline (3%, 7%, or 23%).</li>
+                                <li><strong>ER Acute Control:</strong> Controlled hyperventilation (induces cerebral vasoconstriction).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1rem; color: var(--accent-rose); margin-bottom: 0.5rem;">Summary Table: Herniation Syndromes</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Herniation Type</th>
+                                        <th>Anatomic Displacement</th>
+                                        <th>Key Clinical Manifestations</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Uncal (Lateral Transtentorial)</strong></td>
+                                        <td>Medial temporal lobe (uncus) across tentorial notch</td>
+                                        <td>Ipsilateral CN III palsy ("blown pupil") + contralateral hemiplegia.<br><em>Kernohan's Notch:</em> False-localizing sign causing <strong>ipsilateral hemiplegia</strong> due to contralateral cerebral peduncle compression.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Central Transtentorial</strong></td>
+                                        <td>Diencephalon/midbrain displaced caudally through notch</td>
+                                        <td>Coma, bilateral small pupils $\rightarrow$ decorticate/decerebrate posturing, loss of rostral-to-caudal brainstem reflexes.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Subfalcine (Cingulate)</strong></td>
+                                        <td>Cingulate gyrus under the falx cerebri</td>
+                                        <td>Coma + contralateral leg weakness (compression of Anterior Cerebral Artery - ACA).</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tonsillar (Cerebellar)</strong></td>
+                                        <td>Cerebellar tonsils through foramen magnum</td>
+                                        <td>Medullary compression $\rightarrow$ respiratory arrest, cardiac instability, rapid coma, sudden death.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: DIFFUSE GLIOMAS -->
+        <section id="tab-gliomas" class="tab-content">
+            <div class="card card-accent-purple">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">WHO 2021 Integrated Molecular Classification of Gliomas</h2>
+                        <p class="card-subtitle">Layered diagnostic structure combining histopathology and critical genetic markers.</p>
+                    </div>
+                    <span class="badge badge-purple">2021 WHO Benchmark</span>
+                </div>
+
+                <div class="diagram-box">
+                    <div class="diagram-title">Diagnostic Algorithm for Adult-Type Diffuse Gliomas</div>
+                    <div class="flowchart-nodes">
+                        <div class="flow-node">Diffuse Infiltrating Glioma</div>
+                        <span class="flow-arrow">➔</span>
+                        <div class="flow-node" style="border-color: var(--accent-purple);">Test IDH1 / IDH2 Status</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-around; margin-top: 1rem; flex-wrap: wrap; gap: 1rem;">
+                        <div style="background-color: var(--bg-secondary); border: 2px solid var(--accent-rose); padding: 0.75rem; border-radius: var(--radius-md); max-width: 380px; text-align: left;">
+                            <strong style="color: var(--accent-rose);">IDH-Wildtype Path:</strong>
+                            <p style="font-size: 0.825rem; margin-top: 0.25rem;">Assess microvascular proliferation, necrosis, TERT promoter mutation, EGFR amplification, or +7/-10 chromosome changes.<br>➔ <strong>Glioblastoma, IDH-wildtype (CNS WHO Grade 4)</strong></p>
+                        </div>
+                        <div style="background-color: var(--bg-secondary); border: 2px solid var(--accent-emerald); padding: 0.75rem; border-radius: var(--radius-md); max-width: 380px; text-align: left;">
+                            <strong style="color: var(--accent-emerald);">IDH-Mutated Path:</strong>
+                            <p style="font-size: 0.825rem; margin-top: 0.25rem;">Check 1p/19q status & ATRX:<br>
+                            • <strong>1p/19q Co-deleted:</strong> Oligodendroglioma, IDH-mutated (Grade 2/3)<br>
+                            • <strong>1p/19q Intact / ATRX loss:</strong> Astrocytoma, IDH-mutated (Grade 2-4; homozygous CDKN2A/B deletion = Grade 4 regardless of low-grade histology!)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <button class="table-copy-btn">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                               <th>Entity</th>
+                               <th>WHO Grade</th>
+                               <th>Histological Hallmark</th>
+                               <th>Key Molecular Biomarkers</th>
+                               <th>Clinical & Treatment Features</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                               <td><strong>Low-Grade Astrocytoma</strong></td>
+                               <td>Grade 1 - 2</td>
+                               <td>Fibrillary background, well-differentiated astrocytes, microcysts. GFAP(+)</td>
+                               <td>IDH1/2 mutation, ATRX mutation, TP53 mutation. 1p/19q intact.</td>
+                               <td>Presents with seizures ($>66\%$). Infiltrative. Surgery $\pm$ RT/Chemo. 10-yr survival 11-40%.</td>
+                            </tr>
+                            <tr>
+                               <td><strong>Oligodendroglioma</strong></td>
+                               <td>Grade 2 - 3</td>
+                               <td>"Fried egg" appearance (clear cytoplasm around round nuclei), "chicken-wire" branching capillaries, calcifications.</td>
+                               <td><strong>IDH mutation + 1p/19q co-deletion</strong> (mandatory for diagnosis).</td>
+                               <td>Highly chemo-sensitive. PCV regimen (Procarbazine, CCNU, Vincristine) + RT extends median survival to 13.8 yrs.</td>
+                            </tr>
+                            <tr>
+                               <td><strong>Glioblastoma (GBM)</strong></td>
+                               <td>Grade 4</td>
+                               <td><strong>AMEN criteria:</strong> Atypia, Mitoses, Endovascular proliferation, Necrosis (pseudopalisading cells surrounding central necrosis).</td>
+                               <td>IDH-wildtype, TERT promoter mutation, EGFR amplification, +7/-10.</td>
+                               <td>Most aggressive primary malignant tumor in adults. Ring-enhancing lesion on MRI. Median survival 14.6 months with Stupp protocol (Surgery + RT + Temozolomide).</td>
+                            </tr>
+                            <tr>
+                               <td><strong>Gliomatosis Cerebri</strong></td>
+                               <td>Grade 3 - 4</td>
+                               <td>Diffuse infiltration of neoplastic glial cells involving $\ge3$ cerebral lobes; neuronal preservation; no discrete tumor mass.</td>
+                               <td>Variable glial mutations.</td>
+                               <td>Presents with subtle dementia, personality change, seizures. Thickening of corpus callosum on MRI with scant contrast enhancement. Poor prognosis.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="callout callout-pearl">
+                    <span class="callout-icon">💡</span>
+                    <div>
+                        <strong>Clinical Pearl — Histology Buzzword Key:</strong>
+                        <ul style="font-size: 0.85rem; margin-top: 0.25rem; padding-left: 1.2rem;">
+                            <li><strong>"Fried Egg" cells + Chicken-wire vessels:</strong> Oligodendroglioma</li>
+                            <li><strong>Pseudopalisading Necrosis + Microvascular Proliferation:</strong> Glioblastoma</li>
+                            <li><strong>Cyst with a Mural Nodule:</strong> Pilocytic Astrocytoma (Childhood Grade 1; Rosenthal fibers + eosinophilic granular bodies).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: EPENDYMAL, EMBRYONAL & GLIONEURAL -->
+        <section id="tab-embryonal" class="tab-content">
+            <div class="card card-accent-teal">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Ependymal, Embryonal & Glioneural Neoplasms</h2>
+                        <p class="card-subtitle">Key pediatric and young-adult brain tumors, histopathology, and molecular subgroups.</p>
+                    </div>
+                    <span class="badge badge-teal">Pediatric Focus</span>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--accent-teal); margin-bottom: 0.5rem;">Ependymoma</h3>
+                        <p style="font-size: 0.875rem;">Derived from ependymal cells lining ventricles and central canal. Most common intracranial site = <strong>Floor of 4th Ventricle</strong> (children); Most common spinal site = Filum terminale (Adults, Myxopapillomatous variant).</p>
+                        <ul style="font-size: 0.85rem; margin-top: 0.5rem; padding-left: 1.25rem;">
+                            <li><strong>Histology:</strong> <em>True Ependymal Rosettes</em> (lumens) and <em>Perivascular Pseudorosettes</em> (cells arranged around blood vessels with anuclear zones).</li>
+                            <li><strong>Molecular Note:</strong> RELA fusion positive in supratentorial pediatric cases.</li>
+                            <li><strong>Management:</strong> Maximal surgical resection + Craniospinal RT (if CSF seeding present). Chemotherapy response is poor/suboptimal.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--accent-teal); margin-bottom: 0.5rem;">Medulloblastoma</h3>
+                        <p style="font-size: 0.875rem;">Highly malignant (WHO Grade 4) embryonal tumor arising from cerebellar vermis in children (ages 4-8). Propensity for CSF drop metastases along the neuraxis.</p>
+                        <ul style="font-size: 0.85rem; margin-top: 0.5rem; padding-left: 1.25rem;">
+                            <li><strong>Histology:</strong> Small round blue cells, dense cellularity, <em>Homer-Wright Rosettes</em> (cells around central neuropil).</li>
+                            <li><strong>Associated Syndromes:</strong> Gorlin (PTCH1), Turcot (mismatch repair), Li-Fraumeni (TP53), Rubinstein-Taybi, Fanconi Anemia.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- MEDULLOBLASTOMA SUBGROUPS TABLE -->
+                <h3 style="font-family: var(--font-heading); font-size: 1.1rem; margin: 1rem 0 0.5rem 0;">Medulloblastoma Molecular Subgroups (Lecture Appendix Data)</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subgroup</th>
+                                <th>Frequency</th>
+                                <th>Peak Age</th>
+                                <th>Anatomic Location</th>
+                                <th>Genetics & Chromosomes</th>
+                                <th>Prognosis (5-Yr Survival)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>WNT</strong></td>
+                                <td>10-15%</td>
+                                <td>Children/Adults (&gt;17 y)</td>
+                                <td>Cerebellopontine angle / Peduncle</td>
+                                <td>CTNNB1, DDX3X; Monosomy 6</td>
+                                <td><span class="badge badge-emerald">Best (&gt;95%)</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>SHH</strong></td>
+                                <td>28-30%</td>
+                                <td>Infants (&lt;3) & Adults (&gt;17)</td>
+                                <td>Cerebellar Hemisphere</td>
+                                <td>PTCH1, SUFU, TP53, MYCN ampl; 9q del</td>
+                                <td>Intermediate (67–88%)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Group 3 (G3)</strong></td>
+                                <td>25-28%</td>
+                                <td>Infants & Children (0-10)</td>
+                                <td>Midline (4th Ventricle)</td>
+                                <td>MYC amplification, OTX2 gain; Iso 17q</td>
+                                <td><span class="badge badge-rose">Worst (41–66%)</span> High metastasis</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Group 4 (G4)</strong></td>
+                                <td>40-45%</td>
+                                <td>Children/Adolescents (3-17)</td>
+                                <td>Midline (4th Ventricle)</td>
+                                <td>SNCAIP duplication, MYCN ampl; Iso 17q</td>
+                                <td>Intermediate (66–82%)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- GLIONEURAL TUMORS GRID -->
+                <div class="grid-3" style="margin-top: 1.5rem;">
+                    <div class="card" style="margin-bottom:0;">
+                        <span class="badge badge-purple">Glioneural</span>
+                        <h4 style="font-family: var(--font-heading); margin: 0.5rem 0;">Lhermitte-Duclos Disease</h4>
+                        <p style="font-size: 0.825rem; color: var(--text-secondary);">Dysplastic Gangliocytoma of Cerebellum. Benign, slow-growing mass of disorganized granule and Purkinje cells.<br><strong>MRI Hallmark:</strong> Pathognomonic <strong>"Tiger Stripe"</strong> appearance in cerebellum. Associated with Cowden syndrome (PTEN).</p>
+                    </div>
+
+                    <div class="card" style="margin-bottom:0;">
+                        <span class="badge badge-amber">Glioneural</span>
+                        <h4 style="font-family: var(--font-heading); margin: 0.5rem 0;">DNET</h4>
+                        <p style="font-size: 0.825rem; color: var(--text-secondary);">Dysembryoplastic Neuroepithelial Tumor. Cortical lesion in temporal lobe causing intractable childhood seizures.<br><strong>MRI Hallmark:</strong> Cluster of small cysts ("soap-bubble" appearance). Surgical resection is curative.</p>
+                    </div>
+
+                    <div class="card" style="margin-bottom:0;">
+                        <span class="badge badge-rose">Astrocytic</span>
+                        <h4 style="font-family: var(--font-heading); margin: 0.5rem 0;">SEGA</h4>
+                        <p style="font-size: 0.825rem; color: var(--text-secondary);">Subependymal Giant Cell Astrocytoma. Arises at the Foramen of Monro in up to 20% of <strong>Tuberous Sclerosis</strong> patients.<br><strong>Treatment:</strong> Surgical excision or targeted <strong>Oral Everolimus</strong> (mTOR inhibitor).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: MENINGIOMAS & EXTRA-AXIAL -->
+        <section id="tab-extraaxial" class="tab-content">
+            <div class="card card-accent-amber">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Meningioma & Vestibular Schwannoma</h2>
+                        <p class="card-subtitle">Extra-axial neoplasms of the meninges and cranial nerves.</p>
+                    </div>
+                    <span class="badge badge-amber">Extra-Axial Dominance</span>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--accent-amber); margin-bottom: 0.5rem;">Meningioma Overview</h3>
+                        <p style="font-size: 0.875rem;">Most common primary non-glial intracranial tumor in adults (36-40%). Peak incidence 6th–7th decades; Female predominance (2:1 to 3:1). Arises from <strong>Arachnoid Cap Cells</strong>. Strongly associated with <strong>NF2 gene (merlin) mutations on Chromosome 22q</strong>.</p>
+                        
+                        <ul style="font-size: 0.85rem; margin-top: 0.5rem; padding-left: 1.25rem;">
+                            <li><strong>Histopathology:</strong> Concentric cellular whorls, <strong>Psammoma bodies</strong> (laminated calcific concretions), and "Orphan Annie eyes" nuclei (central clearing).</li>
+                            <li><strong>Neuroimaging:</strong> Extra-axial, dural-based mass with <strong>"Dural Tail" sign</strong>, intense homogeneous contrast enhancement, hyperostosis of adjacent skull.</li>
+                        </ul>
+
+                        <div class="callout callout-tip">
+                            <span class="callout-icon">🧠</span>
+                            <div>
+                                <strong>WHO 2021 Meningioma Grading:</strong>
+                                <ul style="font-size: 0.8rem; margin-top: 0.2rem; padding-left: 1rem;">
+                                    <li><strong>Grade 1 (80.8%):</strong> Meningothelial, fibroblastic, transitional, psammomatous.</li>
+                                    <li><strong>Grade 2 (18.3%):</strong> Atypical, clear cell, choroid. Brain invasion OR 4–19 mitoses/10 HPF.</li>
+                                    <li><strong>Grade 3 (1.6%):</strong> Anaplastic/Malignant, papillary, rhabdoid. $\ge20$ mitoses/10 HPF OR <strong>TERT promoter mutation</strong> or <strong>CDKN2A/B homozygous deletion</strong>.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--accent-amber); margin-bottom: 0.5rem;">Simpson Grade of Meningioma Resection</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Grade</th>
+                                        <th>Extent of Resection</th>
+                                        <th>10-Yr Recurrence</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Grade 0</strong></td>
+                                        <td>Complete removal + 2 cm dural margin</td>
+                                        <td>Lowest</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Grade 1</strong></td>
+                                        <td>Macroscopically complete + excision of dural attachment & abnormal bone</td>
+                                        <td>9%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Grade 2</strong></td>
+                                        <td>Macroscopically complete + coagulation of dural attachment</td>
+                                        <td>19%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Grade 3</strong></td>
+                                        <td>Macroscopically complete without dural excision/coagulation</td>
+                                        <td>29%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Grade 4</strong></td>
+                                        <td>Subtotal resection</td>
+                                        <td>44%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Grade 5</strong></td>
+                                        <td>Simple decompression</td>
+                                        <td>100%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1.5rem 0;">
+
+                <!-- VESTIBULAR SCHWANNOMA -->
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--accent-amber); margin-bottom: 0.5rem;">Vestibular Schwannoma (Acoustic Neuroma)</h3>
+                        <p style="font-size: 0.875rem;">Benign nerve sheath tumor arising from the vestibular division of CN VIII in the Cerebellopontine Angle (CPA).</p>
+                        <ul style="font-size: 0.85rem; margin-top: 0.5rem; padding-left: 1.25rem;">
+                            <li><strong>Presentation:</strong> Asymmetric sensorineural hearing loss, progressive unilateral tinnitus, unsteady gait. Large masses compress CN V (facial numbness) and CN VII (facial weakness).</li>
+                            <li><strong>Bilateral Acoustic Neuromas:</strong> Pathognomonic diagnostic criterion for <strong>Neurofibromatosis Type 2 (NF2)</strong> in patients &lt;21 y/o.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--accent-amber); margin-bottom: 0.5rem;">Biphasic Histology Patterns</h3>
+                        <div style="background-color: var(--bg-tertiary); padding: 1rem; border-radius: var(--radius-md);">
+                            <p style="font-size: 0.875rem; margin-bottom: 0.5rem;"><strong>1. Antoni A Pattern:</strong> Hypercellular, compact spindle cells arranged in fascicles with nuclear palisading surrounding acellular eosinophilic zones known as <strong>Verocay Bodies</strong>.</p>
+                            <p style="font-size: 0.875rem;"><strong>2. Antoni B Pattern:</strong> Hypocellular, loose myxoid stroma with stellate cells and sparse reticulin fibers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: SELLAR, VENTRICULAR & PCNSL -->
+        <section id="tab-sellar" class="tab-content">
+            <div class="card card-accent-blue">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Sellar, Ventricular & Primary CNS Lymphoma</h2>
+                        <p class="card-subtitle">Endocrine-active tumors, acute ventricular cysts, and primary hematologic malignancies.</p>
+                    </div>
+                    <span class="badge badge-blue">Deep Midline Tumors</span>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--accent-blue); margin-bottom: 0.5rem;">Pituitary Adenoma & Apoplexy</h3>
+                        <p style="font-size: 0.875rem;">Classified as Microadenomas (&lt;10 mm) or Macroadenomas (&gt;10 mm). Non-functional tumors present with mass effect (compression of optic chiasm $\rightarrow$ <strong>Bitemporal Hemianopia</strong>). Functional tumors secrete excess hormones:</p>
+                        <ul style="font-size: 0.825rem; margin-top: 0.25rem; padding-left: 1.2rem;">
+                            <li><strong>Prolactinoma (60-70%):</strong> Amenorrhea, galactorrhea, gynecomastia, hypogonadism. First-line rx: Medical (Bromocriptine / Cabergoline).</li>
+                            <li><strong>GH-Secreting (10-15%):</strong> Acromegaly / Gigantism. Rx: Octreotide / Surgery.</li>
+                            <li><strong>ACTH-Secreting:</strong> Cushing's Disease.</li>
+                        </ul>
+
+                        <div class="callout callout-pitfall" style="margin-top: 0.75rem;">
+                            <span class="callout-icon">🚨</span>
+                            <div>
+                                <strong>PITUITARY APOPLEXY EMERGENCY:</strong>
+                                Acute hemorrhage/infarction into an adenoma. Presents with sudden severe retro-orbital headache, rapid bilateral visual loss, ophthalmoplegia, and collapse.
+                                <br><strong>STAT Management:</strong> High-dose <strong>Hydrocortisone</strong> (treat acute Addisonian crisis!) followed by urgent transsphenoidal sellar decompression.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--accent-blue); margin-bottom: 0.5rem;">Craniopharyngioma</h3>
+                        <p style="font-size: 0.875rem;">Benign suprasellar mass derived from remnants of <strong>Rathke's Pouch</strong>. Bimodal age peak (children ~10 y/o; adults 50-60 y/o). Compresses optic chiasm from above/behind $\rightarrow$ <strong>Bitemporal Lower Quadrantanopia</strong>.</p>
+                        
+                        <div class="table-container" style="margin-top: 0.5rem;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Adamantinomatous</th>
+                                        <th>Papillary</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Demographics</strong></td>
+                                        <td>Children (Predominant)</td>
+                                        <td>Adults Almost Exclusively</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Histology</strong></td>
+                                        <td>Stellate reticulum, <strong>"Wet Keratin"</strong> (ghost cells), peripheral palisading.</td>
+                                        <td>Well-differentiated non-keratinizing squamous pseudopapillae.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Cyst Fluid</strong></td>
+                                        <td>Viscous, cholesterol-rich <strong>"Motor Oil"</strong> fluid; Rim calcifications.</td>
+                                        <td>Viscous fluid; Calcification and wet keratin are <em>ABSENT</em>.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Genetics</strong></td>
+                                        <td>CTNNB1 mutations</td>
+                                        <td><strong>BRAF V600E mutations</strong> (responds to BRAF inhibitors).</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1.5rem 0;">
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--accent-blue); margin-bottom: 0.5rem;">Colloid Cyst of 3rd Ventricle</h3>
+                        <p style="font-size: 0.875rem;">Benign cyst derived from ependymal cells of the paraphysis located at the Foramen of Monro.</p>
+                        <div class="callout callout-must-know">
+                            <span class="callout-icon">⭐</span>
+                            <div>
+                                <strong>Classic Presentation:</strong> Intermittent severe positional headaches modified by head posture (<strong>"ball-valve" mechanism</strong>) and sudden <strong>"Drop Attacks"</strong> without loss of consciousness. Can cause sudden fatal acute obstructive hydrocephalus.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--accent-rose); margin-bottom: 0.5rem;">Primary CNS Lymphoma (PCNSL)</h3>
+                        <p style="font-size: 0.875rem;">Malignant Diffuse Large B-Cell Lymphoma (DLBCL). Strongly associated with EBV and immunosuppression (HIV/AIDS, transplants), though incidence in immunocompetent elderly is rising. Deep periventricular, perivascular cuffing histology.</p>
+                        <div class="callout callout-pitfall">
+                            <span class="callout-icon">⚠️</span>
+                            <div>
+                                <strong>HIGH-YIELD EXAMINATION PITFALL:</strong>
+                                <strong>DO NOT give Corticosteroids (Dexamethasone) before diagnostic stereotactic biopsy!</strong> Corticosteroids induce rapid tumor lysis ("ghost tumor"), causing transient disappearance on imaging and leading to false-negative biopsy and delayed care.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: METASTASES, PARANEOPLASTIC & SPINE -->
+        <section id="tab-metastases" class="tab-content">
+            <div class="card card-accent-rose">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Brain Metastases, Leptomeningeal & Paraneoplastic Syndromes</h2>
+                        <p class="card-subtitle">Secondary CNS involvement, autoantibody profiles, and spinal axis tumors.</p>
+                    </div>
+                    <span class="badge badge-rose">Secondary & Systemic</span>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--accent-rose); margin-bottom: 0.5rem;">Brain Metastases</h3>
+                        <p style="font-size: 0.875rem;">Most common overall intracranial tumor in adults. Typically settle hematogenously at the <strong>Gray-White Matter Junction</strong> due to abrupt blood vessel caliber change. Well-circumscribed, intense ring-enhancement with disproportionate surrounding vasogenic edema.</p>
+                        <ul style="font-size: 0.825rem; margin-top: 0.5rem; padding-left: 1.25rem;">
+                            <li><strong>Most Common Primary Sources:</strong> Non-Small Cell Lung Ca ($&gt;50\%$) &gt; Breast Ca &gt; Melanoma &gt; Renal Cell Ca &gt; GI.</li>
+                            <li><strong>Highest Propensity to Met to Brain:</strong> Malignant Melanoma ($75\%$).</li>
+                            <li><strong>Most Prone to Hemorrhage:</strong> Melanoma, Choriocarcinoma, Renal Cell Ca, Thyroid, Lung Adenocarcinoma.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--accent-rose); margin-bottom: 0.5rem;">Leptomeningeal Carcinomatosis</h3>
+                        <p style="font-size: 0.875rem;">Widespread tumor seeding across meninges and ventricles ("sugar coating"). Presents with multi-level neurological deficits: headache, back pain, polyradiculopathies, and multiple cranial neuropathies.</p>
+                        <p style="font-size: 0.825rem; margin-top: 0.25rem;"><strong>Diagnosis:</strong> Gadolinium MRI shows nodular basilar leptomeningeal enhancement. Confirmed by CSF Cytology / Flow Cytometry.</p>
+                    </div>
+                </div>
+
+                <!-- PARANEOPLASTIC AUTOANTIBODIES TABLE -->
+                <h3 style="font-family: var(--font-heading); font-size: 1.1rem; margin: 1.25rem 0 0.5rem 0;">High-Yield Paraneoplastic Autoantibody Matrix</h3>
+                <div class="table-container">
+                    <button class="table-copy-btn">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Autoantibody</th>
+                                <th>Neurological Paraneoplastic Syndrome</th>
+                                <th>Most Common Associated Tumors</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Anti-Yo (Anti-Purkinje)</strong></td>
+                                <td>Subacute Cerebellar Degeneration (Ataxia, dysarthria)</td>
+                                <td>Ovarian, Breast, Fallopian Tube Carcinomas</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anti-Hu (ANNA-1)</strong></td>
+                                <td>Subacute Sensory Neuronopathy, Encephalomyelitis, Limbic Encephalitis</td>
+                                <td>Small Cell Lung Cancer (SCLC), Neuroblastoma</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anti-Ri (ANNA-2)</strong></td>
+                                <td>Opsoclonus-Myoclonus-Ataxia ("Dancing eyes, dancing feet")</td>
+                                <td>Breast Cancer, Small Cell Lung Cancer</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anti-VGCC</strong></td>
+                                <td>Lambert-Eaton Myasthenic Syndrome (LEMS - proximal fatiguing weakness, dry mouth)</td>
+                                <td>Small Cell Lung Cancer (SCLC)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anti-NMDAR</strong></td>
+                                <td>Autoimmune Encephalitis (Psychosis, seizures, dyskinesia, autonomic instability)</td>
+                                <td>Ovarian Teratoma</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anti-Amphiphysin / Anti-GAD</strong></td>
+                                <td>Stiff-Person Syndrome (Muscle spasms & rigidity)</td>
+                                <td>Breast Cancer, SCLC</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- SPINAL CORD TUMORS -->
+                <h3 style="font-family: var(--font-heading); font-size: 1.1rem; margin: 1.25rem 0 0.5rem 0;">Spinal Cord Tumor Classification</h3>
+                <div class="grid-3">
+                    <div class="card" style="margin-bottom:0;">
+                        <span class="badge badge-rose">80% of Spine Tumors</span>
+                        <h4 style="font-family: var(--font-heading); margin: 0.5rem 0;">Extradural Tumors</h4>
+                        <p style="font-size: 0.825rem; color: var(--text-secondary);">Located outside the dura. Almost exclusively <strong>Metastatic Carcinoma</strong> (prostate, breast, lung, renal, myeloma) via Batson's venous plexus. Causes bony destruction and spinal cord compression.</p>
+                    </div>
+
+                    <div class="card" style="margin-bottom:0;">
+                        <span class="badge badge-amber">15% of Spine Tumors</span>
+                        <h4 style="font-family: var(--font-heading); margin: 0.5rem 0;">Intradural-Extramedullary (IDEM)</h4>
+                        <p style="font-size: 0.825rem; color: var(--text-secondary);">Inside dura, outside cord parenchyma. Most common = <strong>Schwannoma</strong> and <strong>Meningioma</strong>. Compresses cord from periphery.</p>
+                    </div>
+
+                    <div class="card" style="margin-bottom:0;">
+                        <span class="badge badge-purple">5% of Spine Tumors</span>
+                        <h4 style="font-family: var(--font-heading); margin: 0.5rem 0;">Intramedullary (IMSCT)</h4>
+                        <p style="font-size: 0.825rem; color: var(--text-secondary);">Inside spinal cord parenchyma. Overall most common in adults = <strong>Ependymoma</strong> (esp filum terminale); Most common in children = <strong>Astrocytoma</strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: MASTER COMPARISONS -->
+        <section id="tab-comparisons" class="tab-content">
+            <div class="card card-accent-emerald">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Side-by-Side Master Comparison Matrices</h2>
+                        <p class="card-subtitle">Direct differential diagnosis tables for high-yield, easily confused entity pairs.</p>
+                    </div>
+                    <span class="badge badge-emerald">Rapid Synthesis</span>
+                </div>
+
+                <div class="accordion open">
+                    <div class="accordion-header">
+                        <span>1. Intra-Axial vs Extra-Axial CNS Mass Lesions</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Parameter</th>
+                                        <th>Intra-Axial Tumors</th>
+                                        <th>Extra-Axial Tumors</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Anatomic Origin</strong></td>
+                                        <td>Brain/Spinal cord parenchyma itself</td>
+                                        <td>Meninges, cranial nerves, pituitary, skull base</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Prototypic Entities</strong></td>
+                                        <td>Gliomas (Astrocytoma, GBM), Metastases, Lymphoma</td>
+                                        <td>Meningioma, Vestibular Schwannoma, Epidermoid</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Brain Boundary</strong></td>
+                                        <td>Infiltrates parenchyma, ill-defined margins</td>
+                                        <td>Pushes/compresses brain; preserved CSF/vascular cleft</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Radiologic Clues</strong></td>
+                                        <td>Expanded cortex, peritumoral edema within tract</td>
+                                        <td><strong>Dural tail sign</strong>, bony hyperostosis, broad dural base</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <span>2. Adamantinomatous vs Papillary Craniopharyngioma</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Adamantinomatous Craniopharyngioma</th>
+                                        <th>Papillary Craniopharyngioma</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Age Group</strong></td>
+                                        <td>Children & Adolescents (Peak ~10 yrs)</td>
+                                        <td>Adults (5th–6th decades)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Histology</strong></td>
+                                        <td>Stellate reticulum, peripheral palisading, <strong>Wet Keratin</strong></td>
+                                        <td>Non-keratinizing squamous pseudopapillae</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Cysts & Calcification</strong></td>
+                                        <td>Cystic with <strong>"Motor Oil"</strong> fluid; Calcifications common</td>
+                                        <td>Predominantly solid; Calcifications/wet keratin <em>ABSENT</em></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Molecular Driver</strong></td>
+                                        <td>CTNNB1 mutations ($\beta$-catenin)</td>
+                                        <td><strong>BRAF V600E mutation</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <span>3. Vestibular Schwannoma Histology: Antoni A vs Antoni B</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Antoni A Pattern</th>
+                                        <th>Antoni B Pattern</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Cellular Density</strong></td>
+                                        <td>Hypercellular, densely packed</td>
+                                        <td>Hypocellular, loose myxoid stroma</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Cell Architecture</strong></td>
+                                        <td>Spindle cells in compact intertwining fascicles</td>
+                                        <td>Stellate/spindle cells, disorganized</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Diagnostic Highlight</strong></td>
+                                        <td><strong>Verocay Bodies</strong> (nuclear palisading)</td>
+                                        <td>Sparse reticulin, microcysts, hyalinized vessels</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <span>4. Medulloblastoma vs Ependymoma (Posterior Fossa Pediatric Mass)</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Medulloblastoma</th>
+                                        <th>Infratentorial Ependymoma</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Exact Origin</strong></td>
+                                        <td>Cerebellar Vermis (roof of 4th ventricle)</td>
+                                        <td>Floor of 4th Ventricle (ependymal lining)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Growth Pattern</strong></td>
+                                        <td>Fills 4th ventricle, invades cerebellar hemispheres</td>
+                                        <td>"Squeezes" out of foramina of Luschka/Magendie ("plastic")</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Histology Rosette</strong></td>
+                                        <td><strong>Homer-Wright Rosettes</strong> (pseudorosettes, no central lumen)</td>
+                                        <td><strong>True Ependymal Rosettes</strong> (central lumen) + Perivascular pseudorosettes</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Calcifications</strong></td>
+                                        <td>Rare</td>
+                                        <td>Common on CT/MRI</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 8: FLASHCARDS -->
+        <section id="tab-flashcards" class="tab-content">
+            <div class="card card-accent-purple">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Active Recall Flashcard Deck</h2>
+                        <p class="card-subtitle">50 board-style flashcards covering all core lecture topics.</p>
+                    </div>
+                    <span class="badge badge-purple">Interactive Study</span>
+                </div>
+
+                <div class="fc-controls">
+                    <div class="fc-filter">
+                        <label for="fc-topic-select" style="font-size: 0.875rem; font-weight: 600; margin-right: 0.5rem;">Filter Section:</label>
+                        <select id="fc-topic-select">
+                            <option value="all">All Topics (50)</option>
+                            <option value="overview">Overview & ICP</option>
+                            <option value="gliomas">Gliomas & GBM</option>
+                            <option value="embryonal">Ependymal & Medulloblastoma</option>
+                            <option value="extraaxial">Meningioma & Schwannoma</option>
+                            <option value="sellar">Sellar & PCNSL</option>
+                            <option value="metastases">Metastases, Paraneoplastic & Spine</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary" id="fc-shuffle-btn">🔀 Shuffle Deck</button>
+                    </div>
+                </div>
+
+                <div class="flashcard-wrapper" id="flashcard-container">
+                    <div class="flashcard" id="active-flashcard">
+                        <div class="fc-front">
+                            <span class="badge badge-blue fc-tag" id="fc-tag">Overview</span>
+                            <div class="fc-question" id="fc-question">Loading question...</div>
+                            <div class="fc-hint">Click or press Spacebar to flip 🔄</div>
+                        </div>
+                        <div class="fc-back">
+                            <span class="badge badge-teal fc-tag">Answer & Explanation</span>
+                            <div class="fc-answer" id="fc-answer">Loading answer...</div>
+                            <div class="fc-hint">Click to flip back</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fc-nav">
+                    <button class="btn btn-secondary" id="fc-prev-btn">◀ Previous</button>
+                    <span id="fc-counter" style="font-family: var(--font-code); font-weight: 700;">Card 1 / 50</span>
+                    <button class="btn btn-primary" id="fc-next-btn">Next ▶</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 9: SELF-ASSESSMENT MCQS -->
+        <section id="tab-mcqs" class="tab-content">
+            <div class="mcq-container">
+                <div class="score-board">
+                    <div class="score-stat">
+                        <div class="score-num" id="mcq-score">0</div>
+                        <div class="score-label">Correct</div>
+                    </div>
+                    <div class="score-stat">
+                        <div class="score-num" id="mcq-total-answered">0</div>
+                        <div class="score-label">Answered</div>
+                    </div>
+                    <div class="score-stat">
+                        <div class="score-num" id="mcq-pct">0%</div>
+                        <div class="score-label">Accuracy</div>
+                    </div>
+                    <button class="btn btn-secondary" id="mcq-reset-btn">🔄 Reset Exam</button>
+                </div>
+
+                <div id="mcq-card-container">
+                    <!-- MCQ Cards rendered via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 10: 10-MIN CRAM SHEET -->
+        <section id="tab-cram" class="tab-content">
+            <div class="card card-accent-amber">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">10-Minute Last Minute Board Exam Cram Sheet</h2>
+                        <p class="card-subtitle">Ultra-condensed rapid review: high-yield buzzwords, "If you see X $\rightarrow$ Think Y", and core facts.</p>
+                    </div>
+                    <span class="badge badge-amber">PLE Ultra-Rapid</span>
+                </div>
+
+                <div class="cram-grid">
+                    <div class="cram-box">
+                        <h3>If You See X $\rightarrow$ Think Y Lines</h3>
+                        <ul class="cram-list">
+                            <li><strong>Fried egg cells + chicken-wire vessels:</strong> Oligodendroglioma (check IDH & 1p/19q co-deletion).</li>
+                            <li><strong>Pseudopalisading necrosis + vascular proliferation:</strong> Glioblastoma (GBM).</li>
+                            <li><strong>Psammoma bodies + whorls + dural tail:</strong> Meningioma.</li>
+                            <li><strong>Rosenthal fibers + eosinophilic granular bodies + cyst with mural nodule:</strong> Pilocytic Astrocytoma.</li>
+                            <li><strong>Verocay bodies + Antoni A/B patterns:</strong> Vestibular Schwannoma.</li>
+                            <li><strong>Homer-Wright rosettes in pediatric vermis:</strong> Medulloblastoma.</li>
+                            <li><strong>True rosettes + perivascular pseudorosettes in 4th ventricle:</strong> Ependymoma.</li>
+                            <li><strong>"Tiger stripe" MRI pattern in cerebellum:</strong> Lhermitte-Duclos disease.</li>
+                            <li><strong>Soap-bubble cortical temporal lobe cysts + childhood seizures:</strong> DNET.</li>
+                            <li><strong>Subependymal nodule at Foramen of Monro + Tuberous Sclerosis:</strong> SEGA.</li>
+                            <li><strong>Positional "ball-valve" headaches + drop attacks:</strong> Colloid Cyst of 3rd Ventricle.</li>
+                            <li><strong>Bitemporal lower quadrantanopia + wet keratin + motor oil fluid:</strong> Adamantinomatous Craniopharyngioma.</li>
+                            <li><strong>DO NOT give steroids prior to biopsy:</strong> Primary CNS Lymphoma.</li>
+                            <li><strong>Multiple ring-enhancing lesions at gray-white junction:</strong> Brain Metastases.</li>
+                            <li><strong>Opsoclonus-Myoclonus-Ataxia ("dancing eyes, dancing feet"):</strong> Anti-Ri antibody (Breast/SCLC).</li>
+                        </ul>
+                    </div>
+
+                    <div class="cram-box">
+                        <h3>Critical Numerical Values & Formulas</h3>
+                        <ul class="cram-list">
+                            <li><strong>CPP Formula:</strong> $\text{CPP} = \text{MAP} - \text{ICP}$. Normal range = <strong>70–120 mmHg</strong>.</li>
+                            <li><strong>Monro-Kellie Tipping Point:</strong> Sudden ICP spike occurs at ~<strong>220 mmHg</strong> volume equivalent decompensation.</li>
+                            <li><strong>Dexamethasone Edema Dose:</strong> <strong>4 mg IV/PO every 6 hours</strong>.</li>
+                            <li><strong>Mannitol Dosing:</strong> <strong>0.5–1.0 g/kg BW</strong> (25% solution) over 2–10 mins.</li>
+                            <li><strong>Meningioma Prevalence:</strong> <strong>#1 primary adult brain tumor (~36–40%)</strong>. Grade 1 = 80.8%, Grade 2 = 18.3%, Grade 3 = 1.6%.</li>
+                            <li><strong>GBM Median Survival:</strong> <strong>14.6 months</strong> with Stupp Protocol (Surgery + RT + Temozolomide).</li>
+                            <li><strong>Oligodendroglioma Survival:</strong> <strong>13.8 years</strong> median survival with PCV + RT.</li>
+                        </ul>
+                    </div>
+
+                    <div class="cram-box">
+                        <h3>Diagnostic Buzzword Cheat Sheet</h3>
+                        <ul class="cram-list">
+                            <li><strong>Kernohan's Notch:</strong> False-localizing sign in uncal herniation causing <em>ipsilateral hemiplegia</em> via compression of contralateral cerebral peduncle.</li>
+                            <li><strong>AMEN Histology Criteria (GBM):</strong> Atypia, Mitoses, Endovascular proliferation, Necrosis.</li>
+                            <li><strong>Orphan Annie Eye Nuclei:</strong> Central nuclear clearing seen in Meningioma.</li>
+                            <li><strong>Motor Oil Cyst Fluid:</strong> Viscous cholesterol-rich fluid in Adamantinomatous Craniopharyngioma.</li>
+                            <li><strong>Batson's Venous Plexus:</strong> Valveless venous system mediating spinal extradural metastases from prostate/breast.</li>
+                            <li><strong>BRAF V600E Mutation:</strong> Targetable mutation in Papillary Craniopharyngioma and Pleomorphic Xanthoastrocytoma.</li>
+                            <li><strong>RELA Fusion:</strong> Supratentorial pediatric Ependymoma driver.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <button class="scroll-top-btn" id="scroll-top-btn" title="Back to top">↑</button>
+
+    <script>
+        /* INLINE JAVASCRIPT ENGINE */
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Theme Toggle ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            themeToggleBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                themeToggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            });
+
+            // --- Scroll Progress Bar & Scroll to Top ---
+            const progressBar = document.getElementById('progress-bar');
+            const scrollTopBtn = document.getElementById('scroll-top-btn');
+
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + '%';
+
+                if (winScroll > 300) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // --- Navigation Tabs System ---
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetTab = btn.getAttribute('data-tab');
+
+                    tabButtons.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    btn.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+
+            // --- Accordion Toggle ---
+            const accordions = document.querySelectorAll('.accordion-header');
+            accordions.forEach(header => {
+                header.addEventListener('click', () => {
+                    const accordion = header.parentElement;
+                    accordion.classList.toggle('open');
+                });
+            });
+
+            // --- Copy Table Button Functionality ---
+            const copyBtns = document.querySelectorAll('.table-copy-btn');
+            copyBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const table = btn.nextElementSibling;
+                    if (table) {
+                        const range = document.createRange();
+                        range.selectNode(table);
+                        window.getSelection().removeAllRanges();
+                        window.getSelection().addRange(range);
+                        document.execCommand('copy');
+                        window.getSelection().removeAllRanges();
+                        btn.textContent = 'Copied!';
+                        setTimeout(() => btn.textContent = 'Copy Table', 2000);
+                    }
+                });
+            });
+
+            // --- Global Search Filter ---
+            const searchInput = document.getElementById('global-search');
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                if (query.length < 2) {
+                    document.querySelectorAll('.card, tr').forEach(el => el.style.display = '');
+                    return;
+                }
+
+                // Filter cards and table rows
+                document.querySelectorAll('.card').forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    if (text.includes(query)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+
+            // ==========================================
+            // FLASHCARD SYSTEM DATA & CONTROLLER
+            // ==========================================
+            const flashcardsData = [
+                // Overview
+                { category: 'overview', tag: 'Overview', q: 'What is the Monro-Kellie Doctrine?', a: 'The principle stating that the cranial vault is a rigid box containing Brain Tissue (~80%), CSF (~10%), and Blood (~10%). An increase in one component must be offset by a compensatory decrease in another to prevent raised ICP.' },
+                { category: 'overview', tag: 'Overview', q: 'What is the target therapeutic range for Cerebral Perfusion Pressure (CPP)?', a: '70 to 120 mmHg. CPP = MAP - ICP. <70 mmHg causes cerebral ischemia; >120 mmHg causes hyperperfusion and worsens vasogenic edema.' },
+                { category: 'overview', tag: 'Overview', q: 'What clinical signs constitute Cushing\'s Triad?', a: '1. Hypertension (with widening pulse pressure), 2. Bradycardia, 3. Irregular/Cheyne-Stokes respirations. Indicates terminal high ICP and impending brainstem herniation.' },
+                { category: 'overview', tag: 'Overview', q: 'What is Kernohan\'s Notch Phenomenon?', a: 'A false-localizing sign in uncal herniation where the contralateral cerebral peduncle is compressed against the tentorial edge, resulting in IPSECATERAL hemiplegia.' },
+                { category: 'overview', tag: 'Overview', q: 'What is the primary mechanism of cerebral edema surrounding brain tumors?', a: 'Vasogenic Edema (disruption of tight BBB endothelial junctions, microvascular transudate, and active vesicular transport). Confined to white matter.' },
+                { category: 'overview', tag: 'Overview', q: 'What is the standard acute medication dosing to treat tumor-associated vasogenic brain edema?', a: 'Dexamethasone 4 mg IV or Oral every 6 hours.' },
+                { category: 'overview', tag: 'Overview', q: 'What is the most common primary brain tumor in adults vs children?', a: 'Adults: Meningioma (~36-40%). Children (0-14 yrs): Malignant Gliomas & Embryonal Tumors (Medulloblastoma).' },
+                { category: 'overview', tag: 'Overview', q: 'What is the anatomic rule of thumb for adult vs pediatric CNS tumor locations?', a: 'Adults: 70% Supratentorial. Children: 70% Infratentorial.' },
+                
+                // Gliomas
+                { category: 'gliomas', tag: 'Gliomas', q: 'According to WHO 2021 guidelines, what key molecular alteration differentiates Oligodendroglioma from Astrocytoma?', a: 'Oligodendroglioma strictly requires both an IDH mutation AND 1p/19q co-deletion.' },
+                { category: 'gliomas', tag: 'Gliomas', q: 'What is the histological hallmark of Oligodendroglioma?', a: '"Fried egg" cell appearance (round nuclei with clear cytoplasmic halos) and "chicken-wire" delicate branching capillaries.' },
+                { category: 'gliomas', tag: 'Gliomas', q: 'What histology criteria define Glioblastoma (AMEN criteria)?', a: 'Atypia, Mitoses, Endovascular proliferation, and Necrosis (pseudopalisading cells surrounding central necrosis).' },
+                { category: 'gliomas', tag: 'Gliomas', q: 'What is the median survival of Glioblastoma with standard Stupp protocol treatment?', a: '14.6 months (Surgery + Radiation + Temozolomide).' },
+                { category: 'gliomas', tag: 'Gliomas', q: 'What genetic mutation in low-grade IDH-mutated Astrocytoma automatically upgrades it to WHO Grade 4?', a: 'Homozygous CDKN2A/B deletion.' },
+                { category: 'gliomas', tag: 'Gliomas', q: 'What chemotherapy regimen significantly prolongs survival in Oligodendroglioma?', a: 'PCV Chemotherapy (Procarbazine, CCNU / Lomustine, Vincristine).' },
+                { category: 'gliomas', tag: 'Gliomas', q: 'What is Gliomatosis Cerebri?', a: 'A diffuse infiltrating glial tumor involving $\\ge3$ cerebral lobes, preserving neuronal elements without forming a discrete mass.' },
+
+                // Embryonal & Ependymal
+                { category: 'embryonal', tag: 'Ependymal/Embryonal', q: 'What is the classic histological rosette seen in Ependymoma vs Medulloblastoma?', a: 'Ependymoma = True Ependymal Rosettes (central lumen) & Perivascular Pseudorosettes. Medulloblastoma = Homer-Wright Rosettes.' },
+                { category: 'embryonal', tag: 'Ependymal/Embryonal', q: 'Where do Ependymomas most commonly occur in children vs adults?', a: 'Children = Floor of the 4th Ventricle. Adults = Spinal Cord (Filum terminale - Myxopapillomatous).' },
+                { category: 'embryonal', tag: 'Ependymal/Embryonal', q: 'Which Medulloblastoma molecular subgroup has the best prognosis (>95% 5-yr survival)?', a: 'The WNT Subgroup (associated with CTNNB1 mutation and monosomy 6).' },
+                { category: 'embryonal', tag: 'Ependymal/Embryonal', q: 'Which Medulloblastoma molecular subgroup has the worst prognosis with high metastasis rates?', a: 'Group 3 (G3), characterized by MYC amplification and Isochromosome 17q.' },
+                { category: 'embryonal', tag: 'Ependymal/Embryonal', q: 'What MRI appearance is pathognomonic for Lhermitte-Duclos disease?', a: '"Tiger stripe" (striated) appearance in the cerebellar hemisphere.' },
+                { category: 'embryonal', tag: 'Ependymal/Embryonal', q: 'What is the clinical presentation and MRI feature of DNET?', a: 'Childhood intractable temporal lobe seizures; MRI shows a cluster of small cortical cysts ("soap bubbles").' },
+                { category: 'embryonal', tag: 'Ependymal/Embryonal', q: 'SEGA (Subependymal Giant Cell Astrocytoma) is strongly associated with which neurocutaneous syndrome?', a: 'Tuberous Sclerosis (TSC1/TSC2 mutations). Responds to oral Everolimus.' },
+
+                // Meningioma & Extra-axial
+                { category: 'extraaxial', tag: 'Meningioma/Schwannoma', q: 'From which cell type do Meningiomas originate?', a: 'Arachnoid Cap Cells.' },
+                { category: 'extraaxial', tag: 'Meningioma/Schwannoma', q: 'What are the classic histological features of Meningioma?', a: 'Cellular whorls, Psammoma bodies (laminated calcific concretions), and "Orphan Annie eye" nuclear clearing.' },
+                { category: 'extraaxial', tag: 'Meningioma/Schwannoma', q: 'What pathognomonic radiologic sign is seen on contrast MRI for Meningioma?', a: 'The "Dural Tail" sign (thickened enhancing dura adjacent to the extra-axial mass).' },
+                { category: 'extraaxial', tag: 'Meningioma/Schwannoma', q: 'Which gene mutation on Chromosome 22q is strongly associated with Meningioma and Acoustic Neuroma?', a: 'The NF2 gene (encoding the Merlin protein).' },
+                { category: 'extraaxial', tag: 'Meningioma/Schwannoma', q: 'What defines WHO Grade 3 (Anaplastic) Meningioma under 2021 WHO rules?', a: 'Mitotic rate $\\ge20$ per 10 HPF OR presence of TERT promoter mutation OR CDKN2A/B homozygous deletion.' },
+                { category: 'extraaxial', tag: 'Meningioma/Schwannoma', q: 'What is the diagnostic significance of bilateral Vestibular Schwannomas?', a: 'Pathognomonic criterion for Neurofibromatosis Type 2 (NF2) in patients under 21 years old.' },
+                { category: 'extraaxial', tag: 'Meningioma/Schwannoma', q: 'Describe the Antoni A histological pattern of Vestibular Schwannoma.', a: 'Hypercellular areas of dense spindle cells with nuclear palisading around acellular eosinophilic zones (Verocay Bodies).' },
+
+                // Sellar & PCNSL
+                { category: 'sellar', tag: 'Sellar/PCNSL', q: 'Visual field cut produced by Pituitary Macroadenoma vs Craniopharyngioma?', a: 'Pituitary Macroadenoma = Bitemporal Hemianopia (compresses chiasm from below). Craniopharyngioma = Bitemporal Lower Quadrantanopia (compresses chiasm from above/behind).' },
+                { category: 'sellar', tag: 'Sellar/PCNSL', q: 'What emergency medication must be administered IMMEDIATELY in suspected Pituitary Apoplexy?', a: 'High-dose IV Hydrocortisone (to prevent fatal acute hypoadrenal crisis).' },
+                { category: 'sellar', tag: 'Sellar/PCNSL', q: 'Compare cyst fluid of Adamantinomatous vs Papillary Craniopharyngioma.', a: 'Adamantinomatous = Viscous "Motor Oil" cholesterol fluid with wet keratin/calcifications. Papillary = Lacks motor oil fluid, wet keratin, and calcifications.' },
+                { category: 'sellar', tag: 'Sellar/PCNSL', q: 'What targeted mutation is present in Papillary Craniopharyngioma?', a: 'BRAF V600E mutation.' },
+                { category: 'sellar', tag: 'Sellar/PCNSL', q: 'What is the hallmark symptom of a Colloid Cyst of the 3rd Ventricle?', a: 'Intermittent severe positional "ball-valve" headaches and sudden "drop attacks" without loss of consciousness.' },
+                { category: 'sellar', tag: 'Sellar/PCNSL', q: 'Why are Corticosteroids strictly contraindicated prior to biopsy in Primary CNS Lymphoma?', a: 'Corticosteroids cause rapid tumor lysis ("ghost tumor"), producing false-negative biopsies and delaying definitive treatment.' },
+
+                // Metastases, Paraneoplastic & Spine
+                { category: 'metastases', tag: 'Metastases/Spine', q: 'What is the most common primary source of brain metastases overall?', a: 'Non-Small Cell Lung Carcinoma (NSCLC, $>50\\%$ of cases).' },
+                { category: 'metastases', tag: 'Metastases/Spine', q: 'Which primary cancer has the highest propensity (%) to metastasize to the brain?', a: 'Malignant Melanoma (75% metastasis rate).' },
+                { category: 'metastases', tag: 'Metastases/Spine', q: 'Where do hematogenous brain metastases predominantly lodge?', a: 'At the Gray-White Matter Junction (due to sudden narrowing of blood vessel caliber).' },
+                { category: 'metastases', tag: 'Metastases/Spine', q: 'Which autoantibody is associated with Paraneoplastic Cerebellar Degeneration in ovarian/breast cancer?', a: 'Anti-Yo (Anti-Purkinje cell) antibody.' },
+                { category: 'metastases', tag: 'Metastases/Spine', q: 'Which autoantibody causes Paraneoplastic Opsoclonus-Myoclonus-Ataxia?', a: 'Anti-Ri (ANNA-2) antibody.' },
+                { category: 'metastases', tag: 'Metastases/Spine', q: 'What autoantibody causes Lambert-Eaton Myasthenic Syndrome (LEMS) in SCLC?', a: 'Anti-VGCC (Voltage-Gated Calcium Channel) antibody.' },
+                { category: 'metastases', tag: 'Metastases/Spine', q: 'What is the most common extradural spinal tumor vs intramedullary spinal tumor?', a: 'Extradural = Metastatic Carcinoma (via Batson plexus). Intramedullary = Ependymoma (overall adult) / Astrocytoma (pedia).' }
+            ];
+
+            let fcCurrentDeck = [...flashcardsData];
+            let fcIndex = 0;
+
+            const fcQuestionEl = document.getElementById('fc-question');
+            const fcAnswerEl = document.getElementById('fc-answer');
+            const fcTagEl = document.getElementById('fc-tag');
+            const fcCounterEl = document.getElementById('fc-counter');
+            const fcCardEl = document.getElementById('active-flashcard');
+            const fcContainerEl = document.getElementById('flashcard-container');
+            const fcFilterSelect = document.getElementById('fc-topic-select');
+            const fcShuffleBtn = document.getElementById('fc-shuffle-btn');
+
+            function renderFlashcard() {
+                if (fcCurrentDeck.length === 0) {
+                    fcQuestionEl.textContent = "No flashcards found for this topic.";
+                    fcAnswerEl.textContent = "";
+                    fcCounterEl.textContent = "0 / 0";
+                    return;
+                }
+                const card = fcCurrentDeck[fcIndex];
+                fcQuestionEl.textContent = card.q;
+                fcAnswerEl.textContent = card.a;
+                fcTagEl.textContent = card.tag;
+                fcCounterEl.textContent = `Card ${fcIndex + 1} / ${fcCurrentDeck.length}`;
+                fcCardEl.classList.remove('flipped');
+            }
+
+            fcContainerEl.addEventListener('click', () => {
+                fcCardEl.classList.toggle('flipped');
+            });
+
+            document.getElementById('fc-next-btn').addEventListener('click', () => {
+                if (fcCurrentDeck.length === 0) return;
+                fcIndex = (fcIndex + 1) % fcCurrentDeck.length;
+                renderFlashcard();
+            });
+
+            document.getElementById('fc-prev-btn').addEventListener('click', () => {
+                if (fcCurrentDeck.length === 0) return;
+                fcIndex = (fcIndex - 1 + fcCurrentDeck.length) % fcCurrentDeck.length;
+                renderFlashcard();
+            });
+
+            fcFilterSelect.addEventListener('change', (e) => {
+                const cat = e.target.value;
+                if (cat === 'all') {
+                    fcCurrentDeck = [...flashcardsData];
+                } else {
+                    fcCurrentDeck = flashcardsData.filter(item => item.category === cat);
+                }
+                fcIndex = 0;
+                renderFlashcard();
+            });
+
+            fcShuffleBtn.addEventListener('click', () => {
+                for (let i = fcCurrentDeck.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [fcCurrentDeck[i], fcCurrentDeck[j]] = [fcCurrentDeck[j], fcCurrentDeck[i]];
+                }
+                fcIndex = 0;
+                renderFlashcard();
+            });
+
+            renderFlashcard();
+
+
+            // ==========================================
+            // MCQ SYSTEM DATA & CONTROLLER
+            // ==========================================
+            const mcqData = [
+                {
+                    q: "A 52-year-old male presents with 6 weeks of progressive morning headache, projectile vomiting, and right-sided hemiparesis. T1 contrast MRI reveals a left frontal ring-enhancing mass with central necrosis and extensive peritumoral edema. Biopsy shows pleomorphic cells, pseudopalisading necrosis, and prominent microvascular proliferation. Molecular testing reveals IDH-wildtype status. What is the diagnosis?",
+                    options: [
+                        "Anaplastic Oligodendroglioma",
+                        "Glioblastoma, IDH-wildtype (CNS WHO Grade 4)",
+                        "Primary CNS Lymphoma",
+                        "Metastatic Adenocarcinoma"
+                    ],
+                    correct: 1,
+                    exp: "Glioblastoma, IDH-wildtype (Grade 4) is characterized histologically by the AMEN criteria (Atypia, Mitoses, Endovascular proliferation, Necrosis with pseudopalisading nuclei). Contrast MRI shows classic ring enhancement.",
+                    distractors: [
+                        "Option A is incorrect because Oligodendroglioma requires IDH mutation AND 1p/19q co-deletion.",
+                        "Option C is incorrect because Primary CNS Lymphoma shows dense homogeneous enhancement without necrosis.",
+                        "Option D is incorrect because metastases are usually well-circumscribed at the gray-white junction and lack pseudopalisading glia."
+                    ]
+                },
+                {
+                    q: "A 34-year-old female presents with a new-onset focal seizure. Brain MRI reveals a hypodense cortical temporal lobe mass with intratumoral calcifications and a 'chicken-wire' vascular network. Biopsy demonstrates uniform round cells with clear perinuclear halos ('fried egg' appearance). Which molecular profile is REQUIRED to confirm this diagnosis under 2021 WHO criteria?",
+                    options: [
+                        "EGFR amplification + TERT promoter mutation",
+                        "IDH mutation + Chromosome 1p/19q co-deletion",
+                        "BRAF V600E mutation + TP53 loss",
+                        "RELA gene fusion + H3 K27M mutation"
+                    ],
+                    correct: 1,
+                    exp: "Under WHO 2021 guidelines, the definitive diagnosis of Oligodendroglioma strictly mandates the co-existence of an IDH mutation AND 1p/19q co-deletion.",
+                    distractors: [
+                        "Option A is molecularly characteristic of IDH-wildtype Glioblastoma.",
+                        "Option C is associated with Papillary Craniopharyngioma and Pleomorphic Xanthoastrocytoma.",
+                        "Option D is found in pediatric Ependymoma and Midline Gliomas."
+                    ]
+                },
+                {
+                    q: "A 45-year-old male with a suspected deep periventricular intracranial mass is being prepared for a stereotactic needle biopsy. The resident suggests starting high-dose Dexamethasone immediately to treat perilesional edema. Why should corticosteroids be WITHHELD prior to biopsy if there is no acute herniation risk?",
+                    options: [
+                        "Corticosteroids increase intraoperative bleeding risk.",
+                        "Corticosteroids induce rapid tumor lysis and transient disappearance of Lymphoma ('ghost tumor'), causing false-negative biopsy.",
+                        "Corticosteroids neutralize the chemotherapy agents given during surgery.",
+                        "Corticosteroids provoke acute obstructive hydrocephalus."
+                    ],
+                    correct: 1,
+                    exp: "Primary CNS Lymphoma is exquisitely sensitive to corticosteroids. Administering steroids prior to biopsy causes rapid tumor regression ('ghost tumor'), resulting in non-diagnostic false-negative biopsy tissue.",
+                    distractors: [
+                        "Option A is false; steroids do not significantly increase surgical bleeding risk.",
+                        "Option C is false; chemotherapy is not administered intraoperatively during needle biopsy.",
+                        "Option D is false; steroids reduce edema and decrease hydrocephalus risk."
+                    ]
+                },
+                {
+                    q: "According to the Monro-Kellie Doctrine, which three components maintain intracranial volume equilibrium inside the rigid skull?",
+                    options: [
+                        "Brain tissue, CSF, and Blood",
+                        "Brain tissue, Meninges, and Cranial Nerves",
+                        "CSF, Blood, and Lymphatic fluid",
+                        "Brain parenchyma, Dura mater, and Skull bone"
+                    ],
+                    correct: 0,
+                    exp: "The Monro-Kellie doctrine dictates that the total intracranial volume is fixed and composed of Brain tissue (~80%), CSF (~10%), and Blood (~10%).",
+                    distractors: [
+                        "Option B includes rigid structural tissue (meninges/nerves) that do not volumetric compensate.",
+                        "Option C is incorrect because the brain lacks classic lymphatic fluid compartments inside the cranium.",
+                        "Option D includes unyielding bony vault and dura."
+                    ]
+                },
+                {
+                    q: "A 28-year-old trauma patient with an intracranial mass has a Blood Pressure of 160/100 mmHg and a measured Intracranial Pressure (ICP) of 20 mmHg. What is the patient's Cerebral Perfusion Pressure (CPP), and is it within normal therapeutic limits?",
+                    options: [
+                        "CPP = 100 mmHg; Elevated above normal limits",
+                        "CPP = 100 mmHg; Within normal limits (70-120 mmHg)",
+                        "CPP = 80 mmHg; Within normal limits (70-120 mmHg)",
+                        "CPP = 140 mmHg; Dangerously high"
+                    ],
+                    correct: 1,
+                    exp: "MAP = [160 + 2(100)] / 3 = 360 / 3 = 120 mmHg. CPP = MAP - ICP = 120 - 20 = 100 mmHg. Normal CPP range is 70 to 120 mmHg, so this is within target.",
+                    distractors: [
+                        "Option A incorrectly states 100 mmHg is elevated; the normal upper limit is 120 mmHg.",
+                        "Option C miscalculated the MAP.",
+                        "Option D miscalculated CPP by adding ICP to MAP."
+                    ]
+                },
+                {
+                    q: "A 6-year-old boy presents with morning headaches, ataxia, and persistent vomiting. MRI reveals a midline mass in the cerebellar vermis occupying the 4th ventricle. Histopathology shows small round blue cells with Homer-Wright rosettes. Molecular analysis confirms CTNNB1 mutation and monosomy 6. Which subgroup and prognosis apply?",
+                    options: [
+                        "SHH Subgroup; Poor prognosis",
+                        "WNT Subgroup; Excellent prognosis (>95% 5-year survival)",
+                        "Group 3 Subgroup; Worst prognosis",
+                        "Group 4 Subgroup; Intermediate prognosis"
+                    ],
+                    correct: 1,
+                    exp: "Medulloblastoma WNT subgroup is defined by CTNNB1 mutations, monosomy 6, classic histology, and carries the best overall prognosis (>95% 5-yr survival).",
+                    distractors: [
+                        "Option A is incorrect because SHH subgroup is characterized by PTCH1/SUFU/TP53 mutations.",
+                        "Option C is incorrect because Group 3 is characterized by MYC amplification.",
+                        "Option D is incorrect because Group 4 is characterized by SNCAIP duplication."
+                    ]
+                },
+                {
+                    q: "A 48-year-old female presents with progressive unilateral right-sided hearing loss and persistent tinnitus. MRI reveals an extra-axial mass in the right cerebellopontine angle (CPA) extending into the internal auditory meatus. Histopathology reveals hypercellular Antoni A areas with Verocay bodies. What is the diagnosis?",
+                    options: [
+                        "Meningioma",
+                        "Vestibular Schwannoma (Acoustic Neuroma)",
+                        "Epidermoid Cyst",
+                        "Ependymoma"
+                    ],
+                    correct: 1,
+                    exp: "Vestibular Schwannoma arises from CN VIII in the CPA. Histology is classic for biphasic Antoni A ( dense spindle cells with Verocay bodies) and Antoni B patterns.",
+                    distractors: [
+                        "Option A is incorrect because Meningioma presents with dural tail and psammoma bodies.",
+                        "Option C is incorrect because Epidermoid cysts show restricted diffusion without enhancement.",
+                        "Option D is intra-axial and arises inside ventricles."
+                    ]
+                },
+                {
+                    q: "A 9-year-old girl presents with short stature, delayed puberty, and bitemporal lower quadrantanopia. Sagittal MRI shows a suprasellar calcified mass with cystic components filled with viscous 'motor oil' fluid. Histopathology shows wet keratin and stellate reticulum. What is the diagnosis?",
+                    options: [
+                        "Pituitary Adenoma",
+                        "Adamantinomatous Craniopharyngioma",
+                        "Papillary Craniopharyngioma",
+                        "Rathke Cleft Cyst"
+                    ],
+                    correct: 1,
+                    exp: "Adamantinomatous Craniopharyngioma occurs in children, features 'motor oil' cholesterol fluid, wet keratin, rim calcifications, and causes bitemporal lower quadrantanopia.",
+                    distractors: [
+                        "Option A is incorrect because Pituitary adenomas occur in adults and cause bitemporal hemianopia.",
+                        "Option C is incorrect because Papillary craniopharyngioma occurs in adults and lacks wet keratin/calcification.",
+                        "Option D lacks solid neoplastic proliferation and wet keratin."
+                    ]
+                },
+                {
+                    q: "A 65-year-old female with a history of treated breast carcinoma presents with subacute progressive unsteady gait, slurred speech, and limb ataxia. MRI brain is normal. Blood testing reveals Anti-Yo (Anti-Purkinje cell) autoantibodies. What is the underlying syndrome?",
+                    options: [
+                        "Subacute Sensory Neuronopathy",
+                        "Paraneoplastic Cerebellar Degeneration",
+                        "Opsoclonus-Myoclonus-Ataxia",
+                        "Lambert-Eaton Myasthenic Syndrome"
+                    ],
+                    correct: 1,
+                    exp: "Anti-Yo antibodies are characteristically associated with Paraneoplastic Cerebellar Degeneration secondary to gynecologic (ovarian/breast) carcinomas.",
+                    distractors: [
+                        "Option A is associated with Anti-Hu (ANNA-1) antibodies in SCLC.",
+                        "Option C is associated with Anti-Ri (ANNA-2) antibodies.",
+                        "Option D is caused by Anti-VGCC antibodies in SCLC."
+                    ]
+                },
+                {
+                    q: "A 42-year-old male presents with sudden severe positional headaches triggered by bending forward, accompanied by episodic 'drop attacks' without loss of consciousness. Imaging shows a smooth, homogeneous lesion at the Foramen of Monro. What is the optimal surgical target?",
+                    options: [
+                        "Pituitary Macroadenoma",
+                        "Colloid Cyst of the 3rd Ventricle",
+                        "Subependymal Giant Cell Astrocytoma",
+                        "Ependymoma of 4th Ventricle"
+                    ],
+                    correct: 1,
+                    exp: "Colloid Cyst of the 3rd Ventricle sits at the Foramen of Monro, producing 'ball-valve' positional headaches and sudden drop attacks due to transient hydrocephalus.",
+                    distractors: [
+                        "Option A is located in the sella turcica.",
+                        "Option C is associated with tuberous sclerosis.",
+                        "Option D is located in the posterior fossa 4th ventricle."
+                    ]
+                }
+            ];
+
+            let mcqAnswers = {};
+
+            function renderMCQs() {
+                const container = document.getElementById('mcq-card-container');
+                container.innerHTML = '';
+
+                mcqData.forEach((q, idx) => {
+                    const card = document.createElement('div');
+                    card.className = 'mcq-card';
+                    card.id = `mcq-card-${idx}`;
+
+                    let optionsHTML = '';
+                    q.options.forEach((opt, oIdx) => {
+                        const prefix = String.fromCharCode(65 + oIdx);
+                        optionsHTML += `
+                            <button class="option-btn" data-q="${idx}" data-opt="${oIdx}">
+                                <span class="option-prefix">${prefix}.</span>
+                                <span>${opt}</span>
+                            </button>
+                        `;
+                    });
+
+                    card.innerHTML = `
+                        <div class="mcq-header">
+                            <span class="mcq-qnum">QUESTION ${idx + 1} OF ${mcqData.length}</span>
+                            <span class="badge badge-blue">PLE Board Style</span>
+                        </div>
+                        <div class="mcq-question">${q.q}</div>
+                        <div class="mcq-options">${optionsHTML}</div>
+                        <div class="mcq-explanation" id="mcq-exp-${idx}">
+                            <div class="exp-title">💡 Explanation & Distractor Analysis</div>
+                            <p style="margin-bottom:0.5rem;">${q.exp}</p>
+                            <div class="distractor-breakdown">
+                                <strong>Distractor Breakdown:</strong>
+                                <ul style="margin-top:0.25rem; padding-left:1.2rem;">
+                                    ${q.distractors.map(d => `<li>${d}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+
+                    container.appendChild(card);
+                });
+
+                // Attach Event Listeners
+                document.querySelectorAll('.option-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const qIdx = parseInt(btn.getAttribute('data-q'));
+                        const optIdx = parseInt(btn.getAttribute('data-opt'));
+
+                        if (mcqAnswers[qIdx] !== undefined) return; // Already answered
+
+                        mcqAnswers[qIdx] = optIdx;
+                        const qData = mcqData[qIdx];
+                        const card = document.getElementById(`mcq-card-${qIdx}`);
+                        const optionBtns = card.querySelectorAll('.option-btn');
+
+                        optionBtns.forEach((b, i) => {
+                            b.disabled = true;
+                            if (i === qData.correct) {
+                                b.classList.add('correct');
+                            } else if (i === optIdx) {
+                                b.classList.add('incorrect');
+                            }
+                        });
+
+                        document.getElementById(`mcq-exp-${qIdx}`).classList.add('show');
+                        updateMCQScore();
+                    });
+                });
+            }
+
+            function updateMCQScore() {
+                let correctCount = 0;
+                let answeredCount = Object.keys(mcqAnswers).length;
+
+                Object.keys(mcqAnswers).forEach(qIdx => {
+                    if (mcqAnswers[qIdx] === mcqData[qIdx].correct) {
+                        correctCount++;
+                    }
+                });
+
+                document.getElementById('mcq-score').textContent = correctCount;
+                document.getElementById('mcq-total-answered').textContent = answeredCount;
+                const pct = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+                document.getElementById('mcq-pct').textContent = pct + '%';
+            }
+
+            document.getElementById('mcq-reset-btn').addEventListener('click', () => {
+                mcqAnswers = {};
+                updateMCQScore();
+                renderMCQs();
+            });
+
+            renderMCQs();
+
+        });
+    </script>
+</body>
+</html>
