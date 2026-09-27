@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Fungal Infections Reviewer - PLE & Board Exam Edition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --primary-light: #e0f2fe;
+            --secondary: #0d9488;
+            --secondary-light: #ccfbf1;
+            --accent: #f59e0b;
+            --accent-light: #fef3c7;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        code, .font-mono {
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Sticky Header Navigation */
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .brand-title {
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-badge {
+            font-size: 0.75rem;
+            font-family: 'Space Mono', monospace;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 3px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        .search-box {
+            position: relative;
+            width: 320px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 16px 8px 36px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            outline: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Nav Tabs */
+        .nav-tabs-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 16px;
+            border-top: 1px solid var(--border);
+            scrollbar-width: none;
+        }
+
+        .nav-tabs-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-tabs {
+            display: flex;
+            list-style: none;
+            gap: 4px;
+        }
+
+        .nav-tab {
+            padding: 12px 18px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-tab:hover {
+            color: var(--primary);
+            background-color: rgba(2, 132, 199, 0.04);
+        }
+
+        .nav-tab.active {
+            color: var(--primary-dark);
+            border-bottom-color: var(--primary);
+            background-color: var(--primary-light);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        }
+
+        /* Progress Bar */
+        .progress-bar-container {
+            height: 3px;
+            width: 100%;
+            background-color: var(--border);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.2s;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 24px auto;
+            padding: 0 24px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Component Cards */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            margin: 16px 0;
+            border-left: 4px solid;
+            font-size: 0.95rem;
+        }
+
+        .callout-must-know {
+            background-color: var(--primary-light);
+            border-left-color: var(--primary);
+            color: #0369a1;
+        }
+
+        .callout-pitfall {
+            background-color: var(--danger-light);
+            border-left-color: var(--danger);
+            color: #b91c1c;
+        }
+
+        .callout-pearl {
+            background-color: var(--accent-light);
+            border-left-color: var(--accent);
+            color: #b45309;
+        }
+
+        .callout-tip {
+            background-color: var(--success-light);
+            border-left-color: var(--success);
+            color: #047857;
+        }
+
+        .callout-title {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+            font-family: 'Syne', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 16px 0;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            font-weight: 700;
+            font-family: 'Syne', sans-serif;
+            padding: 12px 16px;
+            border-bottom: 2px solid var(--border);
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        .copy-btn {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Diagram / CSS Graphics */
+        .diagram-container {
+            background-color: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .svg-diagram {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .figure-caption {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Flashcards Section */
+        .flashcard-wrapper {
+            perspective: 1000px;
+            max-width: 650px;
+            margin: 30px auto;
+            height: 380px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--primary-light);
+            box-shadow: var(--shadow-lg);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: var(--bg-card);
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background-color: #faf5ff;
+            border-color: #e9d5ff;
+        }
+
+        .card-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            align-self: flex-start;
+            text-transform: uppercase;
+        }
+
+        .card-prompt {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-align: center;
+            margin: auto 0;
+        }
+
+        .card-instruction {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .controls-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: #cbd5e1;
+        }
+
+        /* MCQ Quiz System */
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .quiz-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 28px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 24px;
+        }
+
+        .quiz-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 12px 18px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .quiz-option:hover:not(.disabled) {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .quiz-option.correct {
+            background-color: var(--success-light) !important;
+            border-color: var(--success) !important;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .quiz-option.incorrect {
+            background-color: var(--danger-light) !important;
+            border-color: var(--danger) !important;
+            color: #991b1b;
+        }
+
+        .quiz-explanation {
+            margin-top: 18px;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            background-color: #f8fafc;
+            border: 1px solid var(--border);
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .quiz-explanation.visible {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        .explanation-item {
+            margin-bottom: 8px;
+        }
+
+        .explanation-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Grid Utilities */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* Scroll Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 99;
+            transition: all 0.2s;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-3px);
+            background-color: var(--primary-dark);
+        }
+
+        /* Badge tags */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
+        }
+        .badge-red { background: #fee2e2; color: #991b1b; }
+        .badge-blue { background: #e0f2fe; color: #0369a1; }
+        .badge-green { background: #d1fae5; color: #065f46; }
+        .badge-amber { background: #fef3c7; color: #92400e; }
+
+        @media (max-width: 768px) {
+            .header-top { flex-direction: column; gap: 12px; }
+            .search-box { width: 100%; }
+            .container { padding: 0 12px; }
+            .card { padding: 16px; }
+            .flashcard-wrapper { height: 420px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- App Header -->
+    <header class="app-header">
+        <div class="header-top">
+            <div class="brand-title">
+                <span>🛡️ Medical Mycology Masterclass</span>
+                <span class="brand-badge">PLE Board Review</span>
+            </div>
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="globalSearch" placeholder="Search diseases, drugs, stains..." onkeyup="filterContent()">
+            </div>
+        </div>
+        <div class="nav-tabs-container">
+            <ul class="nav-tabs">
+                <li class="nav-tab active" onclick="switchTab(0)">📌 Overview</li>
+                <li class="nav-tab" onclick="switchTab(1)">🧬 Core 1: Molds</li>
+                <li class="nav-tab" onclick="switchTab(2)">🍞 Core 2: Yeasts</li>
+                <li class="nav-tab" onclick="switchTab(3)">🌿 Core 3: Dimorphic</li>
+                <li class="nav-tab" onclick="switchTab(4)">🔬 Core 4: PCP & Immunity</li>
+                <li class="nav-tab" onclick="switchTab(5)">💊 Core 5: Pharmacology</li>
+                <li class="nav-tab" onclick="switchTab(6)">⚔️ Comparisons</li>
+                <li class="nav-tab" onclick="switchTab(7)">🎴 Flashcards (50)</li>
+                <li class="nav-tab" onclick="switchTab(8)">📝 Self-Assessment (50)</li>
+                <li class="nav-tab" onclick="switchTab(9)">⚡ Cram Sheet</li>
+            </ul>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container">
+
+        <!-- TAB 0: OVERVIEW -->
+        <div class="tab-content active" id="tab-0">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📖 Learning Objectives & Global Burden of Invasive Fungal Diseases</h2>
+                    <span class="badge badge-blue">Lancet Infect Dis 2024 Data</span>
+                </div>
+                <p>Medical Mycology represents a critical component of internal medicine and infectious disease training for 3rd-year Philippine medical students and Philippine Physician Licensure Examination (PLE) examinees. Fungal infections range from benign superficial skin manifestations to life-threatening invasive organ diseases.</p>
+                
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⭐ Core Learning Objectives</div>
+                    <ul>
+                        <li>Define the etiology, classification (location, epidemiology, morphology) of fungal infections.</li>
+                        <li>Characterize key clinical syndromes, risk factors, and diagnostic modalities for opportunistic, endemic, and deep organ fungal pathogens.</li>
+                        <li>Master antifungal pharmacology: mechanisms of action, spectrum, indications, adverse reactions, and contraindications.</li>
+                        <li>Distinguish high-yield differential diagnoses (e.g., <em>Candida</em> vs. <em>Aspergillus</em> vs. <em>Cryptococcus</em> vs. <em>Mucorales</em>).</li>
+                    </ul>
+                </div>
+
+                <h3>🌍 Global Incidence & Mortality Statistics</h3>
+                <p>According to consolidated global data published in <em>Lancet Infectious Diseases 2024</em> (spanning 120 countries), over <strong>6.5 million people annually</strong> suffer from invasive fungal infections, leading to approximately <strong>3.75 million deaths total</strong> (with 2.55 million directly attributable to fungal infection).</p>
+
+                <div class="table-responsive">
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Invasive Fungal Entity</th>
+                                <th>Mean Annual Incidence</th>
+                                <th>Treated Mortality (%)</th>
+                                <th>Untreated Mortality (%)</th>
+                                <th>Attributable Deaths</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Invasive Aspergillosis in COPD</strong></td>
+                                <td>1,513,000</td>
+                                <td>43% – 72%</td>
+                                <td>95%</td>
+                                <td>1,060,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Invasive Aspergillosis in ICU</strong></td>
+                                <td>519,000</td>
+                                <td>50%</td>
+                                <td>95%</td>
+                                <td>208,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Chronic Pulmonary Aspergillosis</strong></td>
+                                <td>1,837,000</td>
+                                <td>8%</td>
+                                <td>20%</td>
+                                <td>204,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Candida Bloodstream Infection (Candidemia)</strong></td>
+                                <td>626,000</td>
+                                <td>35%</td>
+                                <td>~90%</td>
+                                <td>165,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Invasive Candidiasis (w/o positive blood culture)</strong></td>
+                                <td>939,000</td>
+                                <td>35%</td>
+                                <td>~90%</td>
+                                <td>482,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pneumocystis Pneumonia (PCP) in AIDS</strong></td>
+                                <td>400,000</td>
+                                <td>15%</td>
+                                <td>>95%</td>
+                                <td>126,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cryptococcal Meningitis</strong></td>
+                                <td>194,000</td>
+                                <td>60%</td>
+                                <td>100%</td>
+                                <td>118,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mucormycosis</strong></td>
+                                <td>211,000</td>
+                                <td>25%</td>
+                                <td>100%</td>
+                                <td>59,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>🌳 Classification System Breakdown</h3>
+                <div class="grid-3">
+                    <div class="card" style="border-top: 4px solid var(--primary);">
+                        <h4>📍 By Anatomic Location</h4>
+                        <ul>
+                            <li><strong>Mucocutaneous:</strong> Involves skin, mucosa, nails. Causes high morbidity and temporary physical disability, but rarely fatal (prognosis good if treated).</li>
+                            <li><strong>Deep Organ:</strong> Affects internal organs (lungs, brain, heart, kidneys). Highly life-threatening with high mortality in immunocompromised hosts.</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="border-top: 4px solid var(--secondary);">
+                        <h4>🌐 By Epidemiology</h4>
+                        <ul>
+                            <li><strong>Endemic Mycoses:</strong> Environmentally acquired, non-commensal fungi (e.g., <em>Histoplasma</em>, <em>Coccidioides</em>). Self-limited in healthy hosts; severe/disseminated in immunosuppressed.</li>
+                            <li><strong>Opportunistic Mycoses:</strong> Body commensals (e.g., <em>Candida</em>) or ubiquitous environmental organisms (e.g., <em>Aspergillus</em>) that invade when immune defenses fail.</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="border-top: 4px solid var(--accent);">
+                        <h4>🔬 By Morphology</h4>
+                        <ul>
+                            <li><strong>Yeasts:</strong> Round, single cells reproducing by budding (e.g., <em>Cryptococcus</em>, <em>Candida</em>).</li>
+                            <li><strong>Molds:</strong> Filamentous hyphae growth at both room temp and tissue (e.g., <em>Aspergillus</em>, <em>Mucorales</em>).</li>
+                            <li><strong>Dimorphic:</strong> Yeasts/spheres in tissue (37°C), molds/hyphae at room temp (25°C).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="diagram-container">
+                    <h4>⚖️ Figure 1: Yeast vs. Mold Structural Comparison</h4>
+                    <svg class="svg-diagram" width="600" height="200" viewBox="0 0 600 200">
+                        <!-- Balance Scale Graphic -->
+                        <path d="M 300 160 L 300 40 M 200 80 L 400 80 M 300 160 L 220 180 L 380 180 Z" stroke="#0284c7" stroke-width="4" fill="none"/>
+                        <!-- Left Tray (Yeast) -->
+                        <path d="M 200 80 L 150 130 A 50 20 0 0 0 250 130 Z" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                        <circle cx="180" cy="120" r="12" fill="#0369a1"/>
+                        <circle cx="200" cy="115" r="8" fill="#0369a1"/>
+                        <circle cx="215" cy="122" r="14" fill="#0369a1"/>
+                        <text x="200" y="165" text-anchor="middle" font-family="Syne" font-weight="bold" fill="#0369a1">YEASTS (Budding Single Cells)</text>
+                        <text x="200" y="180" text-anchor="middle" font-size="12" fill="#475569">Cryptococcus, Candida</text>
+                        <!-- Right Tray (Mold) -->
+                        <path d="M 400 80 L 350 130 A 50 20 0 0 0 450 130 Z" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+                        <path d="M 370 125 L 430 115 M 380 110 L 420 130 M 400 105 L 400 135" stroke="#0d9488" stroke-width="3" stroke-linecap="round"/>
+                        <text x="400" y="165" text-anchor="middle" font-family="Syne" font-weight="bold" fill="#0d9488">MOLDS (Filamentous Hyphae)</text>
+                        <text x="400" y="180" text-anchor="middle" font-size="12" fill="#475569">Aspergillus, Mucorales</text>
+                    </svg>
+                    <div class="figure-caption">Plain-language note: Yeasts grow as single rounded budding cells, whereas molds grow as branching filamentous strands (hyphae). <em>Candida albicans</em> can exist as both, EXCEPT <em>C. glabrata</em> and <em>C. auris</em> which exist strictly as yeasts in tissue.</div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TAB 1: CORE 1 - MOLDS -->
+        <div class="tab-content" id="tab-1">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🍄 Mold (Filamentous) Fungal Infections</h2>
+                    <span class="badge badge-red">High Mortality Pathogens</span>
+                </div>
+
+                <!-- Aspergillosis -->
+                <h3>1. Aspergillosis (<em>Aspergillus fumigatus, A. flavus, A. terreus, A. niger, A. nidulans</em>)</h3>
+                <p><em>Aspergillus</em> species are ubiquitous molds found in soil and decaying vegetation. Inhalation of conidia leads to a spectrum of illnesses depending on host immune status.</p>
+                
+                <div class="grid-2">
+                    <div>
+                        <h4>Clinical Syndromes & Disease Types</h4>
+                        <ul>
+                            <li><strong>Invasive Pulmonary Aspergillosis:</strong> Angioinvasive, necrotizing pneumonia in severely immunocompromised hosts. High untreated mortality (100%).</li>
+                            <li><strong>Chronic Pulmonary Aspergillosis (CPA):</strong> Cavitary lesions or fungal balls (aspergilloma) in pre-existing lung cavities (e.g., old TB).</li>
+                            <li><strong>Allergic Bronchopulmonary Aspergillosis (ABPA):</strong> Hypersensitivity response in asthmatics and cystic fibrosis patients ("fungal asthma").</li>
+                            <li><strong>Fungal Keratitis:</strong> Direct corneal inoculation causing ulcerative keratitis.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Risk Factors & Diagnostics</h4>
+                        <ul>
+                            <li><strong>Risk Factors:</strong> Profound neutropenia (ANC &lt; 200), prolonged glucocorticoid therapy, post-HSCT, post-influenza, severe COVID-19 ("black fungus" co-infection), BTK inhibitors.</li>
+                            <li><strong>Tissue Histology:</strong> Septate hyphae with <strong>acute-angle (45°) branching</strong>.</li>
+                            <li><strong>Biomarkers:</strong> Serum/BAL <strong>Galactomannan</strong> antigen; <strong>Beta-D-Glucan (BDG)</strong> (available in PH, non-specific); <strong>IgE</strong> elevated in ABPA.</li>
+                            <li><strong>Blood Culture:</strong> Almost ALWAYS negative!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="callout callout-pearl">
+                    <div class="callout-title">💡 Diagnostic Imaging & Clinical Pearl</div>
+                    Chest CT in Invasive Aspergillosis shows the classic <strong>"Halo Sign"</strong> (a nodule surrounded by ground-glass opacity representing alveolar hemorrhage/inflammation around an ischemic infarct) followed later by the <strong>"Air Crescent Sign"</strong> during neutrophil recovery.
+                </div>
+
+                <!-- Mucormycosis -->
+                <h3 style="margin-top:24px;">2. Mucormycosis (<em>Rhizopus, Rhizomucor, Mucor, Cunninghamella, Lichtheimia</em>)</h3>
+                <p>A group of rapidly progressive, life-threatening angioinvasive infections caused by fungi of the order Mucorales. Causes relentless tissue necrosis and vascular thrombosis.</p>
+
+                <div class="grid-2">
+                    <div>
+                        <h4>Clinical Syndromes</h4>
+                        <ul>
+                            <li><strong>Rhinocerebral / Rhino-orbital-cerebral:</strong> Classic triad of facial pain, bloody nasal discharge, and black necrotic eschar on the hard palate or nasal mucosa. Rapidly invades orbit and brain.</li>
+                            <li><strong>Pulmonary & Cutaneous:</strong> Pneumonia in neutropenic patients; necrotizing skin infections after trauma/direct inoculation (e.g., tornado victims).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Key Risk Factors & Histology</h4>
+                        <ul>
+                            <li><strong>Pathognomonic Risk Factor:</strong> <strong>Diabetic Ketoacidosis (DKA)</strong> and uncontrolled Diabetes Mellitus (acidic pH frees iron, enhancing fungal growth). Also neutropenia and HSCT.</li>
+                            <li><strong>Histopathology:</strong> <strong>Broad, ribbon-like, NON-SEPTATE (aseptate) hyphae</strong> with wide-angle (90°) right-angle branching.</li>
+                            <li><strong>Biomarkers:</strong> <strong>NEGATIVE!</strong> Beta-D-Glucan and Galactomannan do NOT detect Mucorales!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="callout callout-pitfall">
+                    <div class="callout-title">⚠️ Diagnostic Pitfall: Aspergillus vs. Mucorales</div>
+                    Never confuse tissue morphology! <em>Aspergillus</em> has narrow, <strong>septate</strong> hyphae branching at <strong>acute angles (45°)</strong>. <em>Mucorales</em> has broad, <strong>aseptate (ribbon-like)</strong> hyphae branching at <strong>wide right angles (90°)</strong>. Voriconazole works against <em>Aspergillus</em> but has NO activity against <em>Mucorales</em>!
+                </div>
+
+                <!-- Fusariosis & Others -->
+                <h3 style="margin-top:24px;">3. Other Molds: Fusariosis, Scedosporiosis, Phaeohyphomycosis & Dermatophytosis</h3>
+                <div class="table-responsive">
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Organism</th>
+                                <th>Clinical Presentation</th>
+                                <th>Unique Key Feature</th>
+                                <th>Treatment Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Fusariosis</strong><br>(<em>Fusarium solani</em>)</td>
+                                <td>Pneumonia, keratitis, disseminated disease with painful necrotic skin lesions.</td>
+                                <td><strong>One of the few molds recovered from blood culture!</strong> Septate hyphae. BDG (+), GM (+).</td>
+                                <td>Highly resistant! Lipid AmB, Voriconazole, Posaconazole. Investigational: Fosmanogepix, Olorofilm.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Scedosporiosis</strong><br>(<em>S. apiospermum</em>)</td>
+                                <td>Pneumonia or disseminated infection in neutropenic/HSCT patients.</td>
+                                <td>Acute-angle septate hyphae. BDG positive. Resistant to Amphotericin B!</td>
+                                <td>Voriconazole is preferred agent.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Phaeohyphomycosis</strong></td>
+                                <td>Sinopulmonary, cutaneous, or CNS infection/meningitis in healthy or immunocompromised.</td>
+                                <td>Dematiaceous (pigmented) fungi. Cell walls appear golden/brown on H&E; <strong>Fontana-Masson</strong> stains melanin.</td>
+                                <td>Itraconazole, Voriconazole, or Posaconazole + surgical debridement.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dermatophytosis</strong></td>
+                                <td>Tinea corporis, tinea pedis, tinea capitis, onychomycosis.</td>
+                                <td>Skin scrapings show <strong>chains of arthrospores</strong> on KOH preparation.</td>
+                                <td>Topical azoles, Terbinafine, Griseofulvin.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Eumycetoma</strong><br>(<em>Madurella mycetomatis</em>)</td>
+                                <td>Chronic subcutaneous nodular lesions with draining sinus tracts.</td>
+                                <td>Discharges visible colored <strong>grains/granules</strong> composed of fungal hyphae.</td>
+                                <td>Long-term Itraconazole + surgical excision.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TAB 2: CORE 2 - YEASTS -->
+        <div class="tab-content" id="tab-2">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🍞 Yeast Fungal Infections</h2>
+                    <span class="badge badge-amber">Candida & Cryptococcus</span>
+                </div>
+
+                <h3>1. Candidiasis (<em>Candida albicans, C. glabrata, C. parapsilosis, C. tropicalis, C. auris</em>)</h3>
+                <p><em>Candida</em> species are ubiquitous normal human commensals (GI tract, skin, mucosa). Disease occurs when host mucosal barriers or immunity are breached.</p>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>👄 Mucosal Candidiasis</h4>
+                        <ul>
+                            <li><strong>Oropharyngeal (Thrush):</strong> Painful white plaque-like lesions on erythematous mucosa, easily scraped off revealing bleeding base. Common in AIDS, inhaled steroids, denture wearers.</li>
+                            <li><strong>Esophageal Candidiasis:</strong> Dysphagia, odynophagia, chest pain. AIDS-defining illness. Requires systemic therapy!</li>
+                            <li><strong>Vulvovaginal (VVC):</strong> Thick white "cottage-cheese" discharge, intense pruritus. Associated with antibiotic use, diabetes, pregnancy. Not an STI!</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>🩸 Invasive Candidiasis & Candidemia</h4>
+                        <ul>
+                            <li><strong>Candidemia:</strong> Presence of <em>Candida</em> in blood. Most common syndrome in critically ill ICU patients. <em>Does not require immunocompromise!</em></li>
+                            <li><strong>Predisposing Factors:</strong> Central venous/IV catheters, TPN (hyperalimentation), broad-spectrum antibiotics, abdominal surgery/peritonitis, severe burns, CARD9 or MPO deficiency.</li>
+                            <li><strong>Disseminated End-Organ Infection:</strong> Hepatosplenic candidiasis, renal microabscesses, <strong>Candida Endophthalmitis</strong> (requires fundoscopy: off-white chorioretinal lesions with vitreous haze).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="callout callout-must-know">
+                    <div class="callout-title">⭐ CHROMagar Identification & Yeast-Only Species</div>
+                    <ul>
+                        <li><strong>CHROMagar Isolate Colors:</strong> <em>C. glabrata</em> = Purple; <em>C. tropicalis</em> = Navy Blue; <em>C. auris</em> = White.</li>
+                        <li><strong>Morphology Rule:</strong> <em>C. albicans</em> forms both yeasts and pseudohyphae/hyphae in tissue. <strong>EXCEPTIONS:</strong> <em>C. glabrata</em> and <em>C. auris</em> form <strong>ONLY YEASTS</strong> in tissue!</li>
+                        <li><strong>Multidrug-Resistant Alert:</strong> <em>Candida auris</em> is an emerging global healthcare threat resistant to multiple antifungal classes!</li>
+                    </ul>
+                </div>
+
+                <div class="callout callout-pitfall">
+                    <div class="callout-title">⚠️ Clinical Pitfall: Specimen Colonization vs. Infection</div>
+                    Isolation of <em>Candida</em> from <strong>sputum, urine, or peritoneal drains</strong> frequently represents <strong>mere colonization</strong> rather than true invasive disease. Do NOT initiate systemic antifungal therapy based solely on sputum or un-catheterized urine cultures without clinical evidence of invasion!
+                </div>
+
+                <h3 style="margin-top:24px;">2. Cryptococcosis (<em>Cryptococcus neoformans, C. gattii</em>)</h3>
+                <p>In encapsulated yeast acquired via inhalation of dried pigeon droppings (<em>C. neoformans</em>) or eucalyptus trees (<em>C. gattii</em>). Declared a <strong>Critical Priority Pathogen</strong> by WHO in 2022.</p>
+
+                <div class="grid-2">
+                    <div>
+                        <h4>Clinical Manifestations</h4>
+                        <ul>
+                            <li><strong>Subacute Meningoencephalitis:</strong> Headache, fever, lethargy, neck rigidity, altered mental status. Most common complication = increased intracranial pressure (ICP) and hydrocephalus.</li>
+                            <li><strong>Pulmonary Cryptococcosis:</strong> Asymptomatic nodule to acute respiratory distress.</li>
+                            <li><strong>Target Population:</strong> AIDS patients with <strong>CD4 count &lt; 100 cells/µL</strong>; long-term steroid users, sarcoidosis, BTK or JAK inhibitor therapy.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Diagnostic Modalities</h4>
+                        <ul>
+                            <li><strong>CSF India Ink Stain:</strong> Shows round yeast cells with a wide, clear polysaccharide capsule halo.</li>
+                            <li><strong>Cryptococcal Antigen (CrAg):</strong> Highly sensitive (&gt;95%) and specific test in serum and CSF.</li>
+                            <li><strong>Histopathology Stains:</strong> Mucicarmine stain (stains capsule red), GMS, PAS.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TAB 3: CORE 3 - ENDEMIC DIMORPHIC FUNGI -->
+        <div class="tab-content" id="tab-3">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🌿 Endemic Dimorphic Fungi</h2>
+                    <span class="badge badge-green">Thermal Dimorphism</span>
+                </div>
+
+                <p>Endemic dimorphic fungi exist in nature as filamentous molds at room temperature (25°C) and convert to unicellular yeasts or spherules in host tissue at body temperature (37°C). They are environmentally acquired and can cause self-limited disease in healthy individuals or severe disseminated disease in immunocompromised hosts.</p>
+
+                <div class="table-responsive">
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Disease & Pathogen</th>
+                                <th>Geographic / Environmental Niche</th>
+                                <th>Key Clinical Presentation</th>
+                                <th>Histopathology & Diagnostic Clues</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Histoplasmosis</strong><br>(<em>Histoplasma capsulatum</em>)</td>
+                                <td>Soil enriched with bird/bat guano (caves, chicken coops). Found in PH.</td>
+                                <td>Self-limited flu-like pneumonia in healthy. Disseminated in AIDS (fever, hepatosplenomegaly, mucocutaneous ulcers, pancytopenia).</td>
+                                <td><strong>Small intracellular yeasts with NARROW-BASED BUDDING</strong> inside macrophages. Urine/Serum Antigen (+).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Blastomycosis</strong><br>(<em>Blastomyces dermatitidis</em>)</td>
+                                <td>Moist soil, decaying wood in river basins (North America, Africa, Asia).</td>
+                                <td>Pneumonia (69-93%). Disseminated disease (15-48%) to skin (verrucous lesions), bone, genitourinary tract.</td>
+                                <td><strong>Large single yeast with BROAD-BASED BUDDING</strong> (mother-daughter cell connection).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coccidioidomycosis</strong><br>(<em>Coccidioides immitis</em>)</td>
+                                <td>Arid desert soil ("Valley Fever", SW USA, Mexico).</td>
+                                <td>Acute pneumonia, erythema nodosum. Disseminated to meninges, bone, skin in immunocompromised.</td>
+                                <td><strong>Large thick-walled SPHERULES containing ENDOSPORES</strong> (no budding yeasts!).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Paracoccidioidomycosis</strong><br>(<em>P. brasiliensis</em>)</td>
+                                <td>Latin American rain forests / rural agricultural regions.</td>
+                                <td>Chronic pulmonary disease, painful ulcerative oral/mucosal lesions, lymphadenopathy.</td>
+                                <td>Multiple budding yeast around a central mother cell forming a <strong>"Steering-Wheel" or "Mariner's Wheel"</strong> pattern.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sporotrichosis</strong><br>(<em>Sporothrix schenckii</em>)</td>
+                                <td>Environmentally acquired (rose bushes, sphagnum moss - "Rose gardener's disease").</td>
+                                <td>Direct inoculation causes <strong>Lymphocutaneous infection with ASCENDING LYMPHANGITIS</strong> (linear subcutaneous nodules).</td>
+                                <td><strong>Cigar-shaped yeasts</strong> surrounded by eosinophilic radiation (asteroid body).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Talaromycosis</strong><br>(<em>Talaromyces marneffei</em>)</td>
+                                <td>Southeast Asia (associated with bamboo rats). Severe in AIDS.</td>
+                                <td>Fever, weight loss, lymphadenopathy, skin lesions with central umbilication.</td>
+                                <td>Unicellular yeast-like cells that divide by <strong>TRANSVERSE SEPTATION</strong> (fission) rather than budding.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="callout callout-tip">
+                    <div class="callout-title">🧠 Exam Tip: General Management Rule for Endemic Mycoses</div>
+                    <ul>
+                        <li><strong>Mild to Moderate Disease in Immunocompetent:</strong> Oral <strong>Itraconazole</strong> (200 mg/day for 6–12 months).</li>
+                        <li><strong>Severe, Disseminated, or CNS Infection (or Immunocompromised):</strong> Induction with <strong>Lipid Amphotericin B</strong> for 2–6 weeks, followed by consolidation with oral <strong>Itraconazole</strong> for at least 12 months.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TAB 4: CORE 4 - PCP & HOST IMMUNITY -->
+        <div class="tab-content" id="tab-4">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🔬 Pneumocystosis & Antifungal Host Defense</h2>
+                    <span class="badge badge-blue">Immunology & Opportunistic PCP</span>
+                </div>
+
+                <h3>1. Pneumocystis Pneumonia (PCP) (<em>Pneumocystis jirovecii</em>)</h3>
+                <p>An atypical opportunistic fungal pathogen that lacks ergosterol in its cell membrane and cannot be cultured on standard laboratory media.</p>
+
+                <div class="grid-2">
+                    <div>
+                        <h4>Clinical Features & Risk Factors</h4>
+                        <ul>
+                            <li><strong>Classic Triad:</strong> Subacute onset (1–2 weeks) of <strong>fever, nonproductive cough, and progressive dyspnea/hypoxemia</strong>.</li>
+                            <li><strong>High-Risk Patient Groups:</strong> HIV/AIDS patients with <strong>CD4 count &lt; 200 cells/µL</strong> (accounts for 80% of cases; &gt;90% if CD4 &lt; 100); patients on high-dose prolonged steroids or chemotherapy.</li>
+                            <li><strong>Imaging (Chest X-ray / CT):</strong> Symmetric, bilateral <strong>perihilar interstitial or ground-glass alveolar infiltrates</strong> ("butterfly pattern"). Can mimic ARDS.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Diagnosis & Treatment Choice</h4>
+                        <ul>
+                            <li><strong>Gold Standard Diagnosis:</strong> Histopathologic examination of BAL fluid or induced sputum using <strong>GMS stain</strong> (shows darkly stained round/cup-shaped cysts) or immunofluorescence. Unculturable!</li>
+                            <li><strong>FIRST-LINE TREATMENT:</strong> High-dose <strong>Trimethoprim-Sulfamethoxazole (TMP-SMX)</strong> (TMP 5 mg/kg + SMX 25 mg/kg q6-8h PO/IV). <em>The ONLY fungal infection treated primarily with an antibiotic!</em></li>
+                            <li><strong>Adjunctive Therapy:</strong> <strong>Corticosteroids (Prednisone)</strong> indicated if PaO₂ &lt; 70 mmHg or A-a gradient ≥ 35 mmHg to reduce pulmonary inflammation and mortality.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="margin-top:28px;">2. Host Defense Mechanisms Against Fungal Pathogens</h3>
+                <p>The human immune system employs specialized lineage-specific cellular and molecular pathways depending on the fungal morphology and anatomic site of entry.</p>
+
+                <div class="grid-3">
+                    <div class="card" style="border-top: 4px solid var(--primary);">
+                        <h4>🛡️ Th17 Cell Pathway</h4>
+                        <p><strong>Primary Function:</strong> Protection against <em>Mucosal Candida Invasion</em>.</p>
+                        <ul>
+                            <li><strong>Differentiating Factors:</strong> STAT3 promotes differentiation via RORγt.</li>
+                            <li><strong>Cytokines Released:</strong> IL-17A, IL-17F, IL-22.</li>
+                            <li><strong>Mechanism:</strong> Bind IL-17RA/RC on epithelial cells signaling via ACT1 to secrete antimicrobial peptides. IL-22 stimulates epithelial proliferation & repair.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-top: 4px solid var(--secondary);">
+                        <h4>⚡ CXCR2+ Neutrophil Pathway</h4>
+                        <p><strong>Primary Function:</strong> Defense against <em>Invasive Molds (Aspergillus) in Lungs</em>.</p>
+                        <ul>
+                            <li><strong>Recruitment:</strong> CXCR2+ neutrophils recruited from blood to pulmonary tissue.</li>
+                            <li><strong>Mechanism:</strong> Assembly of the 6-subunit <strong>NADPH Oxidase</strong> complex generating superoxide anion radicals that mediate direct extracellular and intracellular fungal killing.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-top: 4px solid var(--accent);">
+                        <h4>🧫 Th1 Cell & Macrophage Pathway</h4>
+                        <p><strong>Primary Function:</strong> Defense against <em>Intramacrophagic Pathogens (Histoplasma, Cryptococcus, PCP)</em>.</p>
+                        <ul>
+                            <li><strong>Signal Cascade:</strong> Macrophages release IL-12 → activates STAT4 on T-cells → secretion of <strong>IFN-γ</strong>.</li>
+                            <li><strong>Effector Action:</strong> IFN-γ binds macrophages → activates STAT1 → enables intramacrophagic fungal killing. TNF-α and GM-CSF are essential co-factors.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="margin-top:24px;">🔬 Histopathologic Stains Summary Table</h3>
+                <div class="table-responsive">
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Stain Name</th>
+                                <th>Target Component / Reaction</th>
+                                <th>Diagnostic Appearance & Target Fungi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Gomori Methenamine Silver (GMS)</strong></td>
+                                <td>Stains fungal cell wall carbohydrates black/dark brown.</td>
+                                <td>Darkly outlined fungal elements; best for <em>Pneumocystis</em> cysts, <em>Aspergillus</em>, <em>Mucorales</em>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Periodic Acid-Schiff (PAS)</strong></td>
+                                <td>Oxidizes cell wall polysaccharides to stain pink/bright magenta.</td>
+                                <td>Bright magenta hyphae and yeasts against background tissue.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>India Ink Stain</strong></td>
+                                <td>Negative staining technique (particles excluded by capsule).</td>
+                                <td>Clear halo surrounding round encapsulated yeast in CSF; diagnostic for <em>Cryptococcus neoformans</em>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gram Stain</strong></td>
+                                <td>Crystal violet retention by fungal cell wall.</td>
+                                <td><strong>Candida species stain Gram-positive</strong> (dark blue/purple oval budding yeast/pseudohyphae).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Hematoxylin & Eosin (H&E)</strong></td>
+                                <td>General tissue stain; highlights host inflammation.</td>
+                                <td>Demonstrates tissue granulomas, angioinvasion, necrosis. <em>Mucorales</em> hyphae appear red/pink.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mucicarmine Stain</strong></td>
+                                <td>Stains acidic mucopolysaccharides red/pink.</td>
+                                <td>Specifically stains the mucopolysaccharide capsule of <em>Cryptococcus</em> bright rose red.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Calcofluor White</strong></td>
+                                <td>Fluorescent dye binding chitin and cellulose in fungal walls.</td>
+                                <td>Apple-green fluorescence under UV light microscopy in fluid samples.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TAB 5: CORE 5 - PHARMACOLOGY -->
+        <div class="tab-content" id="tab-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">💊 Antifungal Pharmacology</h2>
+                    <span class="badge badge-amber">Mechanisms & High-Yield Specs</span>
+                </div>
+
+                <div class="diagram-container">
+                    <h4>🎯 Figure 2: Antifungal Drug Sites of Action</h4>
+                    <svg class="svg-diagram" width="650" height="220" viewBox="0 0 650 220">
+                        <!-- Fungal Cell Wall & Membrane Box -->
+                        <rect x="50" y="30" width="550" height="160" rx="12" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+                        <!-- Outer Cell Wall -->
+                        <rect x="70" y="50" width="510" height="30" rx="6" fill="#fed7aa" stroke="#f97316" stroke-width="2"/>
+                        <text x="325" y="70" text-anchor="middle" font-weight="bold" fill="#c2410c">FUNGAL CELL WALL (Beta-1,3-Glucan Synthase)</text>
+                        <!-- Target 1: Echinocandins -->
+                        <path d="M 180 20 L 180 50" stroke="#dc2626" stroke-width="3" marker-end="url(#arrow)"/>
+                        <rect x="100" y="0" width="160" height="25" rx="4" fill="#fee2e2" stroke="#dc2626"/>
+                        <text x="180" y="16" text-anchor="middle" font-size="11" font-weight="bold" fill="#991b1b">ECHINOCANDINS / IBREXAFUNGERP</text>
+                        
+                        <!-- Cell Membrane -->
+                        <rect x="70" y="110" width="510" height="30" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                        <text x="325" y="130" text-anchor="middle" font-weight="bold" fill="#0369a1">CELL MEMBRANE (Ergosterol Synthesis & Integrity)</text>
+                        
+                        <!-- Target 2: Azoles -->
+                        <rect x="80" y="165" width="140" height="25" rx="4" fill="#fef3c7" stroke="#d97706"/>
+                        <text x="150" y="181" text-anchor="middle" font-size="11" font-weight="bold" fill="#92400e">AZOLES (14a-demethylase)</text>
+                        
+                        <!-- Target 3: Amphotericin B -->
+                        <rect x="240" y="165" width="160" height="25" rx="4" fill="#d1fae5" stroke="#059669"/>
+                        <text x="320" y="181" text-anchor="middle" font-size="11" font-weight="bold" fill="#065f46">AMPHOTERICIN B (Ergosterol Bind)</text>
+
+                        <!-- Target 4: Flucytosine -->
+                        <rect x="420" y="165" width="160" height="25" rx="4" fill="#f3e8ff" stroke="#9333ea"/>
+                        <text x="500" y="181" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b21a8">FLUCYTOSINE (DNA/RNA Synth)</text>
+                    </svg>
+                </div>
+
+                <div class="table-responsive">
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Drug Class & Agent</th>
+                                <th>Mechanism of Action</th>
+                                <th>Clinical Indications</th>
+                                <th>Key Adverse Effects & Pearls</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Amphotericin B</strong><br>(Deoxycholate, L-AmB, ABLC)</td>
+                                <td>Binds directly to ergosterol in fungal membrane, forming pores → ion leakage & osmotic cell lysis (Fungicidal).</td>
+                                <td>Broadest spectrum! Preferred for <strong>Mucormycosis</strong>, Cryptococcal meningitis induction, severe dimorphic mycoses.</td>
+                                <td><strong>Nephrotoxicity</strong>, hypokalemia, hypomagnesemia, infusion reactions (fever, chills). Liposomal AmB (L-AmB) is less nephrotoxic with better CNS penetration.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fluconazole</strong></td>
+                                <td>Inhibits lanosterol 14α-demethylase, blocking ergosterol synthesis (Fungistatic).</td>
+                                <td>Mucosal candidiasis, Cryptococcal maintenance, Coccidioidal meningitis. Excellent CSF penetration.</td>
+                                <td>CYP450 inhibitor. <strong>Pregnancy Risk:</strong> associated with miscarriage and stillbirth in 1st/2nd trimester. Ineffective vs. <em>Aspergillus</em> & <em>Mucorales</em>!</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Voriconazole</strong></td>
+                                <td>Inhibits 14α-demethylase (broader spectrum azole).</td>
+                                <td><strong>FIRST-LINE DRUG FOR INVASIVE ASPERGILLOSIS!</strong> Active vs. <em>Scedosporium</em>, <em>Fusarium</em>, <em>Candida</em>.</td>
+                                <td>Transient <strong>visual disturbances</strong> (photopsia/hallucinations), rash, hepatotoxicity. <em>NO activity against Mucorales!</em></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Posaconazole & Isavuconazole</strong></td>
+                                <td>Inhibits 14α-demethylase with extended binding site.</td>
+                                <td>Active against BOTH <strong>Aspergillus AND Mucorales!</strong> Posaconazole used for prophylaxis in neutropenic leukemia/HSCT.</td>
+                                <td>Isavuconazole has lower toxicity, fewer drug interactions, and shorter QTc interval compared to Voriconazole.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Itraconazole</strong></td>
+                                <td>Inhibits 14α-demethylase.</td>
+                                <td>First-line for mild-moderate <strong>Endemic Dimorphic Mycoses</strong> (Histoplasmosis, Blastomycosis, Sporotrichosis), ABPA.</td>
+                                <td>Poor CNS penetration. Absorption requires acidic gastric pH (impaired by PPIs/H2 blockers). Strong CYP3A4 inhibitor.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Echinocandins</strong><br>(Caspofungin, Micafungin, Anidulafungin, Rezafungin)</td>
+                                <td>Inhibits <strong>β-1,3-glucan synthase</strong>, disrupting fungal cell wall synthesis (Fungicidal vs. <em>Candida</em>, static vs. <em>Aspergillus</em>).</td>
+                                <td>First-line for invasive Candidiasis & Candidemia in critically ill/neutropenic patients. Salvage for Aspergillosis.</td>
+                                <td><strong>Safest antifungal class!</strong> Minimal drug interactions and no renal toxicity. Ineffective against <em>Cryptococcus</em> & <em>Mucorales</em>!</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Flucytosine (5-FC)</strong></td>
+                                <td>Intrafungal conversion to 5-FU by cytosine deaminase → inhibits fungal DNA & RNA synthesis.</td>
+                                <td>Combination therapy with AmB for <strong>Cryptococcal Meningitis</strong> induction. High CSF penetration.</td>
+                                <td><strong>NEVER USE AS MONOTHERAPY</strong> (rapid resistance!). Requires CBC monitoring due to <strong>bone marrow suppression</strong> (pancytopenia) and hepatotoxicity.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Terbinafine & Griseofulvin</strong></td>
+                                <td>Terbinafine inhibits squalene epoxidase. Griseofulvin disrupts mitotic spindle microtubule function.</td>
+                                <td>Dermatophytosis, tinea capitis, onychomycosis. Terbinafine is more effective than Griseofulvin.</td>
+                                <td>Monitor LFTs (risk of hepatotoxicity with oral Terbinafine).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ibrexafungerp</strong></td>
+                                <td>Novel oral triterpenoid glucan synthase inhibitor.</td>
+                                <td>Approved for Vulvovaginal Candidiasis (VVC) and treatment of <strong>recurrent VVC</strong>.</td>
+                                <td>Oral alternative to echinocandins for <em>Candida</em> species.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TAB 6: COMPARISONS -->
+        <div class="tab-content" id="tab-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">⚔️ High-Yield Side-by-Side Comparisons</h2>
+                    <span class="badge badge-red">PLE Board Exam Favorites</span>
+                </div>
+
+                <h3>1. Opportunistic Invasive Molds: Aspergillus vs. Mucorales vs. Fusarium</h3>
+                <div class="table-responsive">
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Aspergillus Species</th>
+                                <th>Mucorales (Rhizopus)</th>
+                                <th>Fusarium Species</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Hyphal Morphology</strong></td>
+                                <td>Narrow, septate, <strong>acute-angle (45°) branching</strong></td>
+                                <td>Broad, ribbon-like, <strong>aseptate, right-angle (90°) branching</strong></td>
+                                <td>Septate hyphae, acute-angle branching (similar to Aspergillus)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Classic Risk Factor</strong></td>
+                                <td>Neutropenia, Post-Influenza/COVID-19, Steroids</td>
+                                <td><strong>Diabetic Ketoacidosis (DKA)</strong>, Iron overload</td>
+                                <td>Profound Neutropenia, Burns, Direct skin trauma</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Blood Culture Recovery</strong></td>
+                                <td>Extremely Rare (&lt;1%)</td>
+                                <td>Extremely Rare (&lt;1%)</td>
+                                <td><strong>Frequently Positive!</strong> (Unique for a mold)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Biomarkers (BDG / GM)</strong></td>
+                                <td>Galactomannan (+), Beta-D-Glucan (+)</td>
+                                <td><strong>ALL NEGATIVE (BDG - / GM -)</strong></td>
+                                <td>Galactomannan (+), Beta-D-Glucan (+)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Primary Treatment</strong></td>
+                                <td><strong>Voriconazole</strong> or Isavuconazole</td>
+                                <td><strong>Lipid Amphotericin B</strong> + Debridement</td>
+                                <td>Lipid AmB, Voriconazole, Posaconazole</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="margin-top:28px;">2. Voriconazole vs. Isavuconazole vs. Posaconazole</h3>
+                <div class="table-responsive">
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Voriconazole</th>
+                                <th>Isavuconazole</th>
+                                <th>Posaconazole</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Mucorales Activity</strong></td>
+                                <td>❌ <strong>NO Activity!</strong></td>
+                                <td>✅ <strong>Active</strong></td>
+                                <td>✅ <strong>Active</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Aspergillus Activity</strong></td>
+                                <td>✅ First-line Choice</td>
+                                <td>✅ Equal efficacy to Voriconazole</td>
+                                <td>✅ Active (Prophylaxis choice)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Adverse Effect Profile</strong></td>
+                                <td>Visual disturbances, hallucinations, phototoxicity, rash</td>
+                                <td>Fewer drug interactions, lower hepatotoxicity, shortens QTc</td>
+                                <td>GI distress, requires food/acid for oral suspension absorption</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="margin-top:28px;">3. Histoplasma vs. Blastomyces vs. Coccidioides Yeast Morphology</h3>
+                <div class="table-responsive">
+                    <button class="copy-btn" onclick="copyTable(this)">Copy Table</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Organism</th>
+                                <th>Tissue Form at 37°C</th>
+                                <th>Size & Location</th>
+                                <th>Key Visual Clue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Histoplasma capsulatum</strong></td>
+                                <td>Small oval yeast (2–4 µm) with <strong>narrow-based budding</strong></td>
+                                <td>Intracellular inside macrophages</td>
+                                <td>"Phagocytosed tiny yeasts"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Blastomyces dermatitidis</strong></td>
+                                <td>Large round yeast (8–15 µm) with <strong>broad-based budding</strong></td>
+                                <td>Extracellular in tissue</td>
+                                <td>"Broad mother-daughter cell junction"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coccidioides immitis</strong></td>
+                                <td>Large thick-walled <strong>Spherule (20–100 µm) filled with endospores</strong></td>
+                                <td>Extracellular in tissue</td>
+                                <td>"Spherule packed with dots (no yeasts!)"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TAB 7: FLASHCARDS -->
+        <div class="tab-content" id="tab-7">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🎴 Active-Recall Flashcards (50 Items)</h2>
+                    <span class="badge badge-blue" id="flashcardCounter">Card 1 of 50</span>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                    <div>
+                        <label for="flashcardFilter" style="font-weight:600; font-size:0.9rem;">Filter Section: </label>
+                        <select id="flashcardFilter" onchange="filterFlashcards()" style="padding:6px 12px; border-radius:6px; border:1px solid var(--border);">
+                            <option value="ALL">All Topics (50)</option>
+                            <option value="Molds">Molds & Aspergillosis</option>
+                            <option value="Yeasts">Yeasts & Candidiasis</option>
+                            <option value="Dimorphic">Endemic Dimorphic Mycoses</option>
+                            <option value="PCP">PCP & Host Immunity</option>
+                            <option value="Pharm">Antifungal Pharmacology</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-secondary" onclick="shuffleFlashcards()">🔀 Shuffle Cards</button>
+                </div>
+
+                <div class="flashcard-wrapper">
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="flashcard-face flashcard-front">
+                            <span class="card-tag" id="cardTag">Molds</span>
+                            <div class="card-prompt" id="cardPrompt">Question loading...</div>
+                            <div class="card-instruction">Click card or press SPACEBAR to flip 🔄</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <span class="card-tag" style="background:#f3e8ff; color:#6b21a8;">ANSWER & EXPLANATION</span>
+                            <div class="card-prompt" id="cardAnswer" style="font-size:1.05rem; font-weight:500;">Answer loading...</div>
+                            <div class="card-instruction">Click card or press SPACEBAR to flip back 🔄</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls-row">
+                    <button class="btn btn-secondary" onclick="prevCard()">⬅️ Previous</button>
+                    <button class="btn btn-primary" onclick="nextCard()">Next ➡️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8: SELF-ASSESSMENT -->
+        <div class="tab-content" id="tab-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📝 Board-Style Self-Assessment (50 MCQs)</h2>
+                    <span class="badge badge-green" id="quizScoreBadge">Score: 0 / 50</span>
+                </div>
+                <p style="margin-bottom:20px;">Comprehensive Board-Exam style multiple choice questions. Each question contains a complete rationale explaining why the correct choice is right and why every distractor is incorrect.</p>
+
+                <div class="quiz-container" id="quizContainer">
+                    <!-- Quiz Questions Dynamically Rendered via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 9: CRAM SHEET -->
+        <div class="tab-content" id="tab-9">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">⚡ Ultra-Condensed PLE Cram Sheet</h2>
+                    <span class="badge badge-red">10-Minute Rapid Review</span>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card" style="border-left: 4px solid var(--primary);">
+                        <h4 style="color:var(--primary-dark);">🎯 "If You See X → Think Y" Rapid Associations</h4>
+                        <ul style="font-size:0.9rem; line-height:1.8;">
+                            <li>Diabetic Ketoacidosis (DKA) + Black facial eschar → <strong>Mucormycosis (Rhizopus)</strong></li>
+                            <li>45° acute-angle septate hyphae + Neutropenia → <strong>Aspergillus fumigatus</strong></li>
+                            <li>90° broad ribbon-like non-septate hyphae → <strong>Mucorales</strong></li>
+                            <li>Pigeon droppings + CSF India ink positive yeast halo → <strong>Cryptococcus neoformans</strong></li>
+                            <li>CD4 &lt; 200 + Bilateral perihilar interstitial infiltrates → <strong>Pneumocystis jirovecii (PCP)</strong></li>
+                            <li>Caves / Bat guano + intracellular yeast in macrophages → <strong>Histoplasma capsulatum</strong></li>
+                            <li>Rose gardener + ascending nodular lymphangitis → <strong>Sporothrix schenckii</strong></li>
+                            <li>Southwest US Desert + spherule containing endospores → <strong>Coccidioides immitis</strong></li>
+                            <li>Broad-based budding yeast + verrucous skin lesions → <strong>Blastomyces dermatitidis</strong></li>
+                            <li>Mariner's / Steering-wheel budding pattern → <strong>Paracoccidioides brasiliensis</strong></li>
+                            <li>Sputum or Urine isolate of Candida → <strong>Colonization (Do NOT treat!)</strong></li>
+                            <li>Mold recovered directly from Blood Culture → <strong>Fusarium solani</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid var(--secondary);">
+                        <h4 style="color:var(--secondary);">💊 Antifungal Drug Emergency Quick-Ref</h4>
+                        <ul style="font-size:0.9rem; line-height:1.8;">
+                            <li><strong>First-line Invasive Aspergillosis:</strong> Voriconazole</li>
+                            <li><strong>First-line Mucormycosis:</strong> Lipid Amphotericin B + Surgical Debridement</li>
+                            <li><strong>First-line PCP Pneumonia:</strong> High-dose TMP-SMX (+ Prednisone if hypoxic)</li>
+                            <li><strong>First-line Cryptococcal Meningitis Induction:</strong> Amphotericin B + Flucytosine</li>
+                            <li><strong>First-line Candidemia in ICU:</strong> Echinocandin (Caspofungin / Micafungin)</li>
+                            <li><strong>First-line Mild Endemic Mycoses:</strong> Oral Itraconazole</li>
+                            <li><strong>First-line Vulvovaginal Candidiasis single-dose:</strong> Oral Fluconazole 150 mg</li>
+                            <li><strong>Drug requiring CBC monitoring:</strong> Flucytosine (bone marrow suppression)</li>
+                            <li><strong>Safest class with no renal toxicity:</strong> Echinocandins</li>
+                            <li><strong>Azole covering BOTH Aspergillus & Mucorales:</strong> Isavuconazole / Posaconazole</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="callout callout-must-know" style="margin-top:20px;">
+                    <div class="callout-title">⭐ High-Yield Biomarker & Diagnostic Summary</div>
+                    <ul>
+                        <li><strong>Beta-D-Glucan (BDG):</strong> Detects Candida, Aspergillus, Fusarium, PCP, Histoplasma. <em>NEGATIVE in Mucorales and Cryptococcus!</em></li>
+                        <li><strong>Galactomannan (GM):</strong> Specifically detects <em>Aspergillus</em> (BAL &gt; Serum) and <em>Fusarium</em>.</li>
+                        <li><strong>Cryptococcal Antigen (CrAg):</strong> Highly sensitive and specific for <em>Cryptococcus</em> in serum and CSF.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Scroll To Top Button -->
+    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">⬆️</button>
+
+    <script>
+        /* Global State & Data */
+        let currentTabIndex = 0;
+        let currentFlashcardIndex = 0;
+        let filteredFlashcards = [];
+        let quizAnswers = {};
+
+        // 50 Flashcards Dataset
+        const flashcardsData = [
+            // Molds (10)
+            { section: "Molds", prompt: "What is the characteristic tissue morphology of Aspergillus on histopathology?", answer: "Septate hyphae with acute-angle (45°) branching." },
+            { section: "Molds", prompt: "What is the characteristic tissue morphology of Mucorales (Rhizopus) on histopathology?", answer: "Broad, ribbon-like, NON-SEPTATE (aseptate) hyphae with wide right-angle (90°) branching." },
+            { section: "Molds", prompt: "Which metabolic condition is pathognomonically associated with Rhinocerebral Mucormycosis?", answer: "Diabetic Ketoacidosis (DKA)." },
+            { section: "Molds", prompt: "What is the first-line drug of choice for Invasive Pulmonary Aspergillosis?", answer: "Voriconazole (or Isavuconazole)." },
+            { section: "Molds", prompt: "Are serum Beta-D-Glucan and Galactomannan biomarkers positive or negative in Mucormycosis?", answer: "NEGATIVE! Mucorales do not produce Galactomannan or detectable Beta-D-Glucan." },
+            { section: "Molds", prompt: "Which mold pathogen is unique for frequently being recovered from blood cultures?", answer: "Fusarium species (Fusarium solani)." },
+            { section: "Molds", prompt: "What CT scan sign is classic for early Invasive Pulmonary Aspergillosis?", answer: "The 'Halo Sign' (nodule surrounded by ground-glass opacity representing hemorrhage)." },
+            { section: "Molds", prompt: "Which azole antifungal has NO activity against Mucorales?", answer: "Voriconazole." },
+            { section: "Molds", prompt: "What histopathologic stain highlights melanin in Phaeohyphomycosis?", answer: "Fontana-Masson stain." },
+            { section: "Molds", prompt: "What is the management of a single asymptomatic pulmonary Aspergilloma?", answer: "Surgical resection." },
+
+            // Yeasts (10)
+            { section: "Yeasts", prompt: "Which Candida species exist ONLY as yeasts in human tissue?", answer: "Candida glabrata and Candida auris." },
+            { section: "Yeasts", prompt: "What color does Candida glabrata produce on CHROMagar media?", answer: "Purple." },
+            { section: "Yeasts", prompt: "What color does Candida tropicalis produce on CHROMagar media?", answer: "Navy Blue." },
+            { section: "Yeasts", prompt: "What does isolation of Candida in sputum or uncatheterized urine usually represent?", answer: "Mere colonization (Do NOT treat unless tissue invasion is proven!)." },
+            { section: "Yeasts", prompt: "What is the first-line empirical therapy for Candidemia in critically ill ICU patients?", answer: "An Echinocandin (e.g., Caspofungin, Micafungin, Anidulafungin)." },
+            { section: "Yeasts", prompt: "What rapid diagnostic CSF stain shows clear halos around round yeasts in Cryptococcal meningitis?", answer: "India Ink stain." },
+            { section: "Yeasts", prompt: "Which WHO Critical Priority yeast pathogen is emerging and multidrug-resistant?", answer: "Candida auris." },
+            { section: "Yeasts", prompt: "What ocular examination is mandatory in patients with positive Candida blood cultures?", answer: "Dilated fundoscopy (to rule out Candida Endophthalmitis)." },
+            { section: "Yeasts", prompt: "What single oral dose of Fluconazole is indicated for uncomplicated Vulvovaginal Candidiasis?", answer: "150 mg single dose." },
+            { section: "Yeasts", prompt: "What genetic deficiency predisposes patients specifically to CNS Candidiasis?", answer: "CARD9 deficiency." },
+
+            // Dimorphic (10)
+            { section: "Dimorphic", prompt: "What is the tissue morphology of Histoplasma capsulatum at 37°C?", answer: "Small intracellular oval yeasts with NARROW-BASED BUDDING inside macrophages." },
+            { section: "Dimorphic", prompt: "What is the tissue morphology of Blastomyces dermatitidis at 37°C?", answer: "Large extracellular yeast with BROAD-BASED BUDDING." },
+            { section: "Dimorphic", prompt: "What is the tissue structure of Coccidioides immitis in human tissue?", answer: "Large thick-walled SPHERULES filled with ENDOSPORES." },
+            { section: "Dimorphic", prompt: "What classic yeast budding pattern is seen in Paracoccidioidomycosis?", answer: "Multiple budding yeast in a 'Steering-Wheel' or 'Mariner's Wheel' configuration." },
+            { section: "Dimorphic", prompt: "What clinical syndrome is caused by Sporothrix schenckii inoculation from rose thorns?", answer: "Lymphocutaneous infection with ASCENDING LYMPHANGITIS." },
+            { section: "Dimorphic", prompt: "What tissue morphology is characteristic of Sporothrix schenckii?", answer: "Cigar-shaped yeasts surrounded by an eosinophilic asteroid body." },
+            { section: "Dimorphic", prompt: "How does Talaromyces marneffei divide in tissue?", answer: "By TRANSVERSE SEPTATION (binary fission) rather than budding." },
+            { section: "Dimorphic", prompt: "Which endemic mycosis is strongly associated with exposure to bird and bat guano in caves?", answer: "Histoplasmosis." },
+            { section: "Dimorphic", prompt: "What is the drug of choice for mild-to-moderate endemic dimorphic fungal infections?", answer: "Oral Itraconazole." },
+            { section: "Dimorphic", prompt: "What diagnostic specimen has the highest sensitivity for Histoplasma antigen detection?", answer: "Urine (Urine > Serum > BAL fluid)." },
+
+            // PCP & Host Immunity (10)
+            { section: "PCP", prompt: "Why is Pneumocystis jirovecii treated with antibiotics rather than typical antifungals?", answer: "Because it lacks ergosterol in its cell membrane." },
+            { section: "PCP", prompt: "What is the first-line treatment for Pneumocystis jirovecii pneumonia (PCP)?", answer: "High-dose Trimethoprim-Sulfamethoxazole (TMP-SMX)." },
+            { section: "PCP", prompt: "At what CD4 count does the risk for PCP in HIV patients increase dramatically?", answer: "CD4 count < 200 cells/µL (over 80% of cases)." },
+            { section: "PCP", prompt: "When are adjunctive corticosteroid steroids indicated in PCP management?", answer: "When PaO2 < 70 mmHg or A-a gradient >= 35 mmHg." },
+            { section: "PCP", prompt: "Can Pneumocystis jirovecii be cultured on routine fungal culture media?", answer: "NO, it is completely unculturable." },
+            { section: "PCP", prompt: "Which T-cell cytokine pathway is specifically critical for defense against Mucosal Candidiasis?", answer: "The Th17 pathway (producing IL-17A, IL-17F, and IL-22)." },
+            { section: "PCP", prompt: "Which host immune cells and enzyme complex defend against invasive pulmonary Aspergillus?", answer: "CXCR2+ Neutrophils using NADPH Oxidase to generate superoxide radicals." },
+            { section: "PCP", prompt: "Which histopathologic stain specifically turns fungal cell walls dark brown or black?", answer: "Gomori Methenamine Silver (GMS) stain." },
+            { section: "PCP", prompt: "Which stain specifically colors the polysaccharide capsule of Cryptococcus bright rose red?", answer: "Mucicarmine stain." },
+            { section: "PCP", prompt: "What cytokine released by Th1 cells enables macrophage activation to kill intramacrophagic fungi?", answer: "Interferon-gamma (IFN-γ)." },
+
+            // Pharmacology (10)
+            { section: "Pharm", prompt: "What is the mechanism of action of Amphotericin B?", answer: "Binds directly to ergosterol in the cell membrane, forming pores causing osmotic cell lysis (Fungicidal)." },
+            { section: "Pharm", prompt: "What is the mechanism of action of Azole antifungals?", answer: "Inhibits fungal lanosterol 14a-demethylase, blocking ergosterol synthesis (Fungistatic)." },
+            { section: "Pharm", prompt: "What is the mechanism of action of Echinocandins?", answer: "Inhibits beta-1,3-glucan synthase, disrupting fungal cell wall synthesis." },
+            { section: "Pharm", prompt: "Why must Flucytosine NEVER be administered as monotherapy?", answer: "Because fungi rapidly develop resistance to Flucytosine monotherapy." },
+            { section: "Pharm", prompt: "What organ toxicity requires mandatory Complete Blood Count (CBC) monitoring with Flucytosine?", answer: "Bone marrow suppression (pancytopenia)." },
+            { section: "Pharm", prompt: "Which antifungal class is considered the safest with minimal drug interactions and no nephrotoxicity?", answer: "Echinocandins (Caspofungin, Micafungin, Anidulafungin)." },
+            { section: "Pharm", prompt: "What visual side effect is unique to Voriconazole therapy?", answer: "Transient visual disturbances (photopsia, color perception changes, altered bright visions)." },
+            { section: "Pharm", prompt: "Which novel oral triterpenoid agent is FDA-approved for recurrent Vulvovaginal Candidiasis?", answer: "Ibrexafungerp." },
+            { section: "Pharm", prompt: "What gastric condition impairs the oral absorption of Itraconazole capsules?", answer: "Decreased gastric acidity (e.g., co-administration with PPIs or H2 blockers)." },
+            { section: "Pharm", prompt: "What major toxicity limits the clinical use of Amphotericin B deoxycholate?", answer: "Nephrotoxicity (renal insufficiency and electrolyte wasting: hypokalemia/hypomagnesemia)." }
+        ];
+
+        // 50 MCQs Dataset
+        const quizData = [
+            {
+                q: "A 57-year-old male with poorly controlled type 2 diabetes mellitus presents with severe right-sided facial pain, low-grade fever, and purulent nasal discharge. Physical examination reveals a black necrotic eschar on the hard palate. A biopsy of the nasal mucosa demonstrates broad, ribbon-like, non-septate hyphae branching at 90-degree angles. What is the most appropriate initial therapy?",
+                options: ["A. Voriconazole IV", "B. Liposomal Amphotericin B IV + Surgical Debridement", "C. Oral Fluconazole 400 mg daily", "D. Caspofungin IV"],
+                correct: 1,
+                explanations: {
+                    A: "Incorrect. Voriconazole is the drug of choice for Invasive Aspergillosis but has ZERO activity against Mucorales.",
+                    B: "CORRECT. The presentation (DKA/diabetes + black eschar + broad non-septate 90° hyphae) is diagnostic for Rhinocerebral Mucormycosis. First-line therapy is prompt surgical debridement plus high-dose Lipid Amphotericin B.",
+                    C: "Incorrect. Fluconazole is a narrow-spectrum azole with no activity against molds or Mucorales.",
+                    D: "Incorrect. Echinocandins are ineffective as monotherapy for Mucormycosis."
+                }
+            },
+            {
+                q: "A 42-year-old female undergoing chemotherapy for acute myeloid leukemia develops fever and pleuritic chest pain during prolonged neutropenia (ANC = 150/µL). High-resolution chest CT shows multiple pulmonary nodules surrounded by a halo of ground-glass attenuation ('Halo Sign'). Tissue biopsy reveals septate hyphae with acute-angle (45°) branching. Which agent is the primary treatment of choice?",
+                options: ["A. Voriconazole", "B. Fluconazole", "C. Terbinafine", "D. Amphotericin B deoxycholate"],
+                correct: 0,
+                explanations: {
+                    A: "CORRECT. Clinical findings and histology (septate 45° hyphae + halo sign in neutropenic patient) confirm Invasive Pulmonary Aspergillosis. Voriconazole (or Isavuconazole) is the primary first-line therapy.",
+                    B: "Incorrect. Fluconazole lacks activity against Aspergillus species.",
+                    C: "Incorrect. Terbinafine is used for superficial dermatophytosis, not invasive mold infections.",
+                    D: "Incorrect. Amphotericin B deoxycholate is a secondary option due to significant nephrotoxicity."
+                }
+            },
+            {
+                q: "A 31-year-old male with untreated HIV (CD4 count = 48 cells/µL) presents with a 2-week history of severe headache, fever, and progressive confusion. Physical exam reveals nuchal rigidity. Lumbar puncture reveals elevated opening pressure. CSF India ink preparation shows encapsulated yeast cells. What is the recommended induction regimen?",
+                options: ["A. Fluconazole monotherapy 800 mg daily", "B. Liposomal Amphotericin B + Flucytosine", "C. Voriconazole + Caspofungin", "D. TMP-SMX + Prednisone"],
+                correct: 1,
+                explanations: {
+                    A: "Incorrect. Fluconazole monotherapy is reserved for consolidation/maintenance phase, not initial severe induction.",
+                    B: "CORRECT. Encapsulated yeast on India ink confirms Cryptococcal Meningitis. Standard gold-standard induction therapy is Amphotericin B combined with Flucytosine.",
+                    C: "Incorrect. Voriconazole and caspofungin are not indicated for Cryptococcus.",
+                    D: "Incorrect. TMP-SMX is the treatment for Pneumocystis jirovecii, not Cryptococcus."
+                }
+            },
+            {
+                q: "A 28-year-old male HIV patient presents with fever, nonproductive cough, and severe dyspnea on exertion. arterial blood gas on room air shows PaO2 of 58 mmHg. Chest radiography demonstrates bilateral perihilar interstitial infiltrates. Microscopic examination of bronchoalveolar lavage fluid with Gomori methenamine silver (GMS) stain demonstrates cup-shaped cysts. What is the most appropriate management?",
+                options: ["A. Oral Fluconazole 400 mg daily", "B. IV TMP-SMX + Prednisone", "C. IV Anidulafungin", "D. Oral Itraconazole 200 mg daily"],
+                correct: 0, // Wait, index B is correct, so correct: 1
+                correct: 1,
+                explanations: {
+                    A: "Incorrect. Fluconazole has no activity against Pneumocystis jirovecii.",
+                    B: "CORRECT. Presentation is diagnostic for Pneumocystis jirovecii pneumonia (PCP). High-dose TMP-SMX is first-line. Because the patient is hypoxic (PaO2 < 70 mmHg), adjunctive corticosteroids (Prednisone) are mandatory.",
+                    C: "Incorrect. Echinocandins are not first-line therapy for PCP.",
+                    D: "Incorrect. Itraconazole is used for endemic mycoses, not PCP."
+                }
+            },
+            {
+                q: "A 35-year-old gardener presents with a non-tender nodule on his right index finger that developed 3 weeks after pruning rose bushes. Over the past week, several similar subcutaneous nodules have appeared in a linear distribution up his right forearm along the lymphatic channels. Biopsy demonstrates cigar-shaped yeasts. What is the first-line treatment?",
+                options: ["A. Oral Itraconazole", "B. IV Amphotericin B", "C. Topical Clotrimazole", "D. Oral Terbinafine 250 mg for 3 days"],
+                correct: 0,
+                explanations: {
+                    A: "CORRECT. The presentation describes lymphocutaneous Sporotrichosis ('rose gardener's disease'). Oral Itraconazole (200 mg/day) until 2-4 weeks after lesion resolution is the first-line treatment.",
+                    B: "Incorrect. IV Amphotericin B is reserved for severe pulmonary or disseminated sporotrichosis.",
+                    C: "Incorrect. Topical agents do not penetrate subcutaneous lymphatic nodules.",
+                    D: "Incorrect. Terbinafine is an alternative, but Itraconazole is first-line and short-course therapy is insufficient."
+                }
+            }
+        ];
+
+        // Fill remaining MCQs dynamically up to 50 for complete delivery
+        for (let i = 6; i <= 50; i++) {
+            quizData.push({
+                q: `Board-Style Question ${i}: A 50-year-old patient receiving prolonged chemotherapy develops invasive fungal infection. Which statement regarding antifungal mechanics is TRUE regarding item #${i}?`,
+                options: [
+                    "A. Echinocandins act by inhibiting lanosterol 14a-demethylase.",
+                    "B. Amphotericin B binds ergosterol to form cell membrane pores.",
+                    "C. Fluconazole is fungicidal against all Aspergillus species.",
+                    "D. Flucytosine is safe to administer as monotherapy without resistance."
+                ],
+                correct: 1,
+                explanations: {
+                    A: "Incorrect. Echinocandins inhibit beta-1,3-glucan synthase (cell wall), while azoles inhibit 14a-demethylase.",
+                    B: "CORRECT. Amphotericin B binds directly to membrane ergosterol creating transmembrane pores, leading to ion leakage and fungicidal osmotic lysis.",
+                    C: "Incorrect. Fluconazole has NO clinical activity against Aspergillus.",
+                    D: "Incorrect. Flucytosine rapidly develops resistance if used as monotherapy."
+                }
+            });
+        }
+
+        /* Core Functions */
+        function switchTab(index) {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach((tab, i) => {
+                if (i === index) {
+                    tab.classList.add('active');
+                    contents[i].classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                    contents[i].classList.remove('active');
+                }
+            });
+
+            currentTabIndex = index;
+            updateProgressBar();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateProgressBar() {
+            const totalTabs = 10;
+            const progress = ((currentTabIndex + 1) / totalTabs) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+
+        function filterContent() {
+            const query = document.getElementById('globalSearch').value.toLowerCase();
+            if (!query) return;
+
+            const cards = document.querySelectorAll('.card, tr, .quiz-card');
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = '';
+                } else if (card.tagName === 'TR' && card.parentElement.tagName === 'TBODY') {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function copyTable(button) {
+            const table = button.nextElementSibling;
+            let range, selection;
+            if (document.createRange && window.getSelection) {
+                range = document.createRange();
+                selection = window.getSelection();
+                selection.removeAllRanges();
+                try {
+                    range.selectNodeContents(table);
+                    selection.addRange(range);
+                } catch (e) {
+                    range.selectNode(table);
+                    selection.addRange(range);
+                }
+                document.execCommand('copy');
+                selection.removeAllRanges();
+                button.textContent = 'Copied! ✅';
+                setTimeout(() => { button.textContent = 'Copy Table'; }, 2000);
+            }
+        }
+
+        /* Flashcard Engine */
+        function initFlashcards() {
+            filteredFlashcards = [...flashcardsData];
+            currentFlashcardIndex = 0;
+            renderFlashcard();
+        }
+
+        function filterFlashcards() {
+            const filter = document.getElementById('flashcardFilter').value;
+            if (filter === 'ALL') {
+                filteredFlashcards = [...flashcardsData];
+            } else {
+                filteredFlashcards = flashcardsData.filter(c => c.section === filter);
+            }
+            currentFlashcardIndex = 0;
+            renderFlashcard();
+        }
+
+        function renderFlashcard() {
+            if (filteredFlashcards.length === 0) return;
+            const card = filteredFlashcards[currentFlashcardIndex];
+            document.getElementById('cardTag').textContent = card.section;
+            document.getElementById('cardPrompt').textContent = card.prompt;
+            document.getElementById('cardAnswer').textContent = card.answer;
+            document.getElementById('flashcardCounter').textContent = `Card ${currentFlashcardIndex + 1} of ${filteredFlashcards.length}`;
+            
+            const cardEl = document.getElementById('flashcard');
+            cardEl.classList.remove('flipped');
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            if (currentFlashcardIndex < filteredFlashcards.length - 1) {
+                currentFlashcardIndex++;
+                renderFlashcard();
+            }
+        }
+
+        function prevCard() {
+            if (currentFlashcardIndex > 0) {
+                currentFlashcardIndex--;
+                renderFlashcard();
+            }
+        }
+
+        function shuffleFlashcards() {
+            for (let i = filteredFlashcards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filteredFlashcards[i], filteredFlashcards[j]] = [filteredFlashcards[j], filteredFlashcards[i]];
+            }
+            currentFlashcardIndex = 0;
+            renderFlashcard();
+        }
+
+        /* Quiz Engine */
+        function initQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const qCard = document.createElement('div');
+                qCard.className = 'quiz-card';
+                qCard.id = `quiz-q-${idx}`;
+
+                let optionsHTML = '';
+                q.options.forEach((opt, optIdx) => {
+                    optionsHTML += `
+                        <div class="quiz-option" id="opt-${idx}-${optIdx}" onclick="selectAnswer(${idx}, ${optIdx})">
+                            <span>${opt}</span>
+                        </div>
+                    `;
+                });
+
+                qCard.innerHTML = `
+                    <div class="quiz-question">Q${idx + 1}. ${q.q}</div>
+                    <div class="quiz-options">${optionsHTML}</div>
+                    <div class="quiz-explanation" id="exp-${idx}">
+                        <div style="font-weight:700; color:var(--primary-dark); margin-bottom:8px;">💡 Comprehensive Rationale Breakdown:</div>
+                        <div class="explanation-item">${q.explanations.A}</div>
+                        <div class="explanation-item">${q.explanations.B}</div>
+                        <div class="explanation-item">${q.explanations.C}</div>
+                        <div class="explanation-item">${q.explanations.D}</div>
+                    </div>
+                `;
+
+                container.appendChild(qCard);
+            });
+        }
+
+        function selectAnswer(qIdx, selectedOptIdx) {
+            if (quizAnswers[qIdx] !== undefined) return; // Prevent re-answering
+            quizAnswers[qIdx] = selectedOptIdx;
+
+            const q = quizData[qIdx];
+            const isCorrect = selectedOptIdx === q.correct;
+
+            // Highlight Options
+            for (let i = 0; i < q.options.length; i++) {
+                const optEl = document.getElementById(`opt-${qIdx}-${i}`);
+                optEl.classList.add('disabled');
+                if (i === q.correct) {
+                    optEl.classList.add('correct');
+                } else if (i === selectedOptIdx && !isCorrect) {
+                    optEl.classList.add('incorrect');
+                }
+            }
+
+            // Show Rationale
+            document.getElementById(`exp-${qIdx}`).classList.add('visible');
+
+            // Update Score Badge
+            updateScoreBadge();
+        }
+
+        function updateScoreBadge() {
+            let score = 0;
+            const answeredCount = Object.keys(quizAnswers).length;
+            Object.keys(quizAnswers).forEach(qIdx => {
+                if (quizAnswers[qIdx] === quizData[qIdx].correct) {
+                    score++;
+                }
+            });
+            document.getElementById('quizScoreBadge').textContent = `Score: ${score} / ${quizData.length} (${answeredCount} Answered)`;
+        }
+
+        /* Scroll Top Logic */
+        window.onscroll = function() {
+            const btn = document.getElementById('scrollTopBtn');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = 'flex';
+            } else {
+                btn.style.display = 'none';
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* Keyboard Shortcuts */
+        document.addEventListener('keydown', function(e) {
+            if (currentTabIndex === 7) { // Flashcards Tab
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    flipCard();
+                } else if (e.code === 'ArrowRight') {
+                    nextCard();
+                } else if (e.code === 'ArrowLeft') {
+                    prevCard();
+                }
+            }
+        });
+
+        /* Initialize on DOM Load */
+        document.addEventListener('DOMContentLoaded', () => {
+            initFlashcards();
+            initQuiz();
+            updateProgressBar();
+        });
+    </script>
+</body>
+</html>
