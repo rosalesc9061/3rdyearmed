@@ -1,0 +1,1568 @@
+<style>
+    :root {
+        --bg-main: #f8fafc;
+        --bg-card: #ffffff;
+        --primary: #0284c7;
+        --primary-dark: #0369a1;
+        --primary-light: #e0f2fe;
+        --accent: #0d9488;
+        --accent-light: #ccfbf1;
+        --text-dark: #0f172a;
+        --text-muted: #475569;
+        --border: #e2e8f0;
+        --danger: #ef4444;
+        --danger-bg: #fef2f2;
+        --warning: #f59e0b;
+        --warning-bg: #fffbeb;
+        --success: #10b981;
+        --success-bg: #ecfdf5;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+        --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        --radius: 12px;
+        --font-title: 'Syne', sans-serif;
+        --font-body: 'DM Sans', sans-serif;
+        --font-code: 'Space Mono', monospace;
+    }
+
+    [data-theme="dark"] {
+        --bg-main: #0f172a;
+        --bg-card: #1e293b;
+        --primary: #38bdf8;
+        --primary-dark: #0284c7;
+        --primary-light: #0f2d4a;
+        --accent: #2dd4bf;
+        --accent-light: #0d3836;
+        --text-dark: #f8fafc;
+        --text-muted: #94a3b8;
+        --border: #334155;
+        --danger-bg: #450a0a;
+        --warning-bg: #451a03;
+        --success-bg: #064e3b;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    body {
+        font-family: var(--font-body);
+        background-color: var(--bg-main);
+        color: var(--text-dark);
+        line-height: 1.6;
+        padding-bottom: 60px;
+    }
+
+    /* Sticky Navigation Header */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: var(--bg-card);
+        border-bottom: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+        padding: 0.75rem 1.5rem;
+    }
+
+    .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.75rem;
+    }
+
+    .header-title {
+        font-family: var(--font-title);
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--primary-dark);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .header-controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .search-box {
+        position: relative;
+    }
+
+    .search-box input {
+        padding: 0.4rem 0.8rem 0.4rem 2rem;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        background: var(--bg-main);
+        color: var(--text-dark);
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        width: 200px;
+        transition: width 0.3s;
+    }
+
+    .search-box input:focus {
+        width: 280px;
+        outline: none;
+        border-color: var(--primary);
+    }
+
+    .search-box::before {
+        content: "🔍";
+        position: absolute;
+        left: 0.6rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.8rem;
+        opacity: 0.6;
+    }
+
+    .theme-toggle, .btn-action {
+        background: var(--bg-main);
+        border: 1px solid var(--border);
+        color: var(--text-dark);
+        padding: 0.4rem 0.8rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .theme-toggle:hover, .btn-action:hover {
+        background: var(--primary-light);
+        border-color: var(--primary);
+    }
+
+    /* Nav Tabs */
+    nav {
+        display: flex;
+        gap: 0.5rem;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        padding-bottom: 0.25rem;
+    }
+
+    .nav-tab {
+        padding: 0.5rem 1rem;
+        border: none;
+        background: none;
+        color: var(--text-muted);
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+        white-space: nowrap;
+        transition: all 0.2s;
+    }
+
+    .nav-tab:hover {
+        color: var(--primary);
+    }
+
+    .nav-tab.active {
+        color: var(--primary-dark);
+        border-bottom-color: var(--primary-dark);
+    }
+
+    /* Main Container */
+    container {
+        max-width: 1280px;
+        margin: 1.5rem auto;
+        padding: 0 1.5rem;
+        display: block;
+    }
+
+    .tab-content {
+        display: none;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards & Content Sections */
+    .section-header {
+        font-family: var(--font-title);
+        font-size: 1.6rem;
+        color: var(--primary-dark);
+        margin: 1.5rem 0 1rem 0;
+        padding-bottom: 0.4rem;
+        border-bottom: 2px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.25rem;
+        margin-bottom: 1.25rem;
+        box-shadow: var(--shadow-sm);
+        border-left: 5px solid var(--primary);
+    }
+
+    .card.accent { border-left-color: var(--accent); }
+    .card.danger { border-left-color: var(--danger); }
+    .card.warning { border-left-color: var(--warning); }
+
+    .card-title {
+        font-family: var(--font-title);
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+        color: var(--text-dark);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Badges & Callouts */
+    .badge-box {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin: 0.5rem 0 1rem 0;
+    }
+
+    .badge {
+        font-family: var(--font-code);
+        font-size: 0.75rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .badge-must { background: #fee2e2; color: #991b1b; }
+    .badge-pitfall { background: #fef3c7; color: #92400e; }
+    .badge-pearl { background: #e0e7ff; color: #3730a3; }
+    .badge-exam { background: #dcfce7; color: #166534; }
+
+    .callout {
+        padding: 0.85rem 1rem;
+        border-radius: 8px;
+        margin: 0.75rem 0;
+        font-size: 0.92rem;
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+    }
+
+    .callout-must { background: var(--danger-bg); border: 1px solid #fca5a5; color: #7f1d1d; }
+    .callout-pitfall { background: var(--warning-bg); border: 1px solid #fde68a; color: #78350f; }
+    .callout-pearl { background: var(--primary-light); border: 1px solid #93c5fd; color: #1e3a8a; }
+    .callout-exam { background: var(--success-bg); border: 1px solid #6ee7b7; color: #064e3b; }
+
+    .callout-icon { font-size: 1.2rem; line-height: 1; }
+
+    /* Flowcharts & Algorithms (Pure CSS) */
+    .flowchart {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        background: var(--bg-main);
+        padding: 1.25rem;
+        border-radius: 8px;
+        border: 1px dashed var(--border);
+        margin: 1rem 0;
+    }
+
+    .flow-step {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        box-shadow: var(--shadow-sm);
+        position: relative;
+    }
+
+    .flow-step::after {
+        content: "↓";
+        display: block;
+        text-align: center;
+        font-weight: bold;
+        color: var(--primary);
+        margin-top: 0.5rem;
+        margin-bottom: -0.5rem;
+    }
+
+    .flow-step:last-child::after { content: ""; }
+
+    .flow-branches {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+    }
+
+    /* Tables */
+    .table-container {
+        overflow-x: auto;
+        margin: 1rem 0;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+        text-align: left;
+        background: var(--bg-card);
+    }
+
+    th {
+        background: var(--primary-dark);
+        color: #ffffff;
+        font-family: var(--font-title);
+        padding: 0.75rem 1rem;
+        font-weight: 600;
+        position: sticky;
+        top: 0;
+    }
+
+    td {
+        padding: 0.65rem 1rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    tr:nth-child(even) {
+        background: var(--bg-main);
+    }
+
+    tr:hover {
+        background: var(--primary-light);
+    }
+
+    .table-header-btn {
+        float: right;
+        background: rgba(255,255,255,0.2);
+        color: #fff;
+        border: none;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.7rem;
+        font-family: var(--font-code);
+    }
+
+    .table-header-btn:hover {
+        background: rgba(255,255,255,0.4);
+    }
+
+    /* Collapsible Sections */
+    details {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 0.75rem;
+        background: var(--bg-card);
+        overflow: hidden;
+    }
+
+    summary {
+        padding: 0.85rem 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        background: var(--bg-main);
+        color: var(--text-dark);
+        user-select: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    summary:hover {
+        background: var(--primary-light);
+    }
+
+    details[open] summary {
+        border-bottom: 1px solid var(--border);
+        background: var(--primary-light);
+        color: var(--primary-dark);
+    }
+
+    .details-content {
+        padding: 1rem;
+    }
+
+    /* Flashcard Component */
+    .flashcard-container {
+        max-width: 650px;
+        margin: 2rem auto;
+        perspective: 1000px;
+    }
+
+    .flashcard {
+        width: 100%;
+        height: 320px;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+    }
+
+    .flashcard.flipped {
+        transform: rotateY(180deg);
+    }
+
+    .card-face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-lg);
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: var(--bg-card);
+    }
+
+    .card-back {
+        transform: rotateY(180deg);
+        background: var(--primary-light);
+        border-color: var(--primary);
+    }
+
+    .fc-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--font-code);
+        font-size: 0.8rem;
+        color: var(--text-muted);
+    }
+
+    .fc-body {
+        font-size: 1.15rem;
+        font-weight: 600;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+    }
+
+    .fc-controls {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    /* MCQ Component */
+    .mcq-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .mcq-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .mcq-stem {
+        font-weight: 600;
+        font-size: 1.05rem;
+        margin-bottom: 1rem;
+    }
+
+    .mcq-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .mcq-option {
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg-main);
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .mcq-option:hover {
+        border-color: var(--primary);
+        background: var(--primary-light);
+    }
+
+    .mcq-option.correct {
+        background: var(--success-bg) !important;
+        border-color: var(--success) !important;
+        color: #064e3b;
+        font-weight: bold;
+    }
+
+    .mcq-option.incorrect {
+        background: var(--danger-bg) !important;
+        border-color: var(--danger) !important;
+        color: #7f1d1d;
+    }
+
+    .mcq-explanation {
+        display: none;
+        padding: 1rem;
+        background: var(--bg-main);
+        border-radius: 6px;
+        border-left: 4px solid var(--primary);
+        font-size: 0.9rem;
+        margin-top: 1rem;
+    }
+
+    /* Cram Sheet Styling */
+    .cram-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1rem;
+    }
+
+    .cram-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1rem;
+    }
+
+    .cram-title {
+        font-family: var(--font-title);
+        font-size: 1rem;
+        color: var(--primary-dark);
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 0.4rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .cram-list {
+        list-style: none;
+        font-size: 0.88rem;
+    }
+
+    .cram-list li {
+        margin-bottom: 0.4rem;
+        position: relative;
+        padding-left: 1.2rem;
+    }
+
+    .cram-list li::before {
+        content: "⚡";
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 0.75rem;
+    }
+
+    /* Back to top button */
+    .back-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--primary-dark);
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: var(--shadow-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+    }
+
+    .back-top:hover { opacity: 1; }
+
+    @media print {
+        header, .back-top, .fc-controls, .theme-toggle { display: none !important; }
+        .tab-content { display: block !important; }
+        body { background: white; color: black; }
+        .card { break-inside: avoid; border: 1px solid #ccc; }
+    }
+</style>
+<header>
+    <div class="header-top">
+        <div class="header-title">
+            🩺 <span>LIVER MASTER: Board-Exam Reviewer</span>
+        </div>
+        <div class="header-controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search concept or keyword..." onkeyup="filterContent()">
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+            <button class="btn-action" onclick="window.print()">🖨️ Print</button>
+        </div>
+    </div>
+    <nav id="navTabs">
+        <button class="nav-tab active" onclick="switchTab(0)">Overview</button>
+        <button class="nav-tab" onclick="switchTab(1)">1. Lab Evaluation</button>
+        <button class="nav-tab" onclick="switchTab(2)">2. Acute Hepatitis</button>
+        <button class="nav-tab" onclick="switchTab(3)">3. Acute Liver Failure</button>
+        <button class="nav-tab" onclick="switchTab(4)">4. Chronic Liver Disease</button>
+        <button class="nav-tab" onclick="switchTab(5)">5. Cirrhosis & Complications</button>
+        <button class="nav-tab" onclick="switchTab(6)">Comparisons</button>
+        <button class="nav-tab" onclick="switchTab(7)">Flashcards (50)</button>
+        <button class="nav-tab" onclick="switchTab(8)">Self-Assessment (50 Qs)</button>
+        <button class="nav-tab" onclick="switchTab(9)">⚡ Cram Sheet</button>
+    </nav>
+</header>
+
+<container>
+
+    <!-- TAB 0: OVERVIEW -->
+    <div class="tab-content active" id="tab0">
+        <div class="section-header">
+            <span>Overview & High-Yield Summary</span>
+        </div>
+        
+        <div class="card accent">
+            <div class="card-title">📌 Scope & Core Objectives</div>
+            <p>This comprehensive, board-standard reviewer summarizes <strong>Acute and Chronic Liver Diseases</strong> (Medicine 2, LE 3 Trans 5), integrating Harrison's Principles of Internal Medicine 22nd Edition. Designed specifically for Philippine Physician Licensure Examination (PLE) & 3rd-year medical school preparation.</p>
+            
+            <div class="callout callout-exam">
+                <span class="callout-icon">💡</span>
+                <div>
+                    <strong>4-Question Clinical Framework for Any Liver Presentation:</strong>
+                    <ol style="margin-left: 1.2rem; margin-top: 0.4rem;">
+                        <li>Is this <strong>hepatocellular</strong> or <strong>cholestatic</strong> (or mixed)?</li>
+                        <li>Is it <strong>acute</strong> (&lt;6 months), <strong>chronic</strong> (&gt;6 months), or <strong>acute-on-chronic</strong>?</li>
+                        <li>Is there <strong>impaired liver function</strong> (synthetic dysfunction, encephalopathy, coagulopathy)?</li>
+                        <li>What is the underlying <strong>etiology</strong>, and is it <strong>reversible</strong>?</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📊 Core Diagnostic Pattern Summary</div>
+            <div class="table-container">
+                <button class="table-header-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Disorder Category</th>
+                            <th>Bilirubin</th>
+                            <th>ALT / AST</th>
+                            <th>Alkaline Phosphatase (ALP)</th>
+                            <th>Albumin</th>
+                            <th>Prothrombin Time (PT/INR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Hemolysis / Gilbert's</strong></td>
+                            <td>Normal to &le;5 mg/dL (&le;86 &mu;mol/L); &gt;85% unconjugated. No bilirubinuria.</td>
+                            <td>Normal</td>
+                            <td>Normal</td>
+                            <td>Normal</td>
+                            <td>Normal</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Acute Hepatocellular Necrosis</strong> (Viral, Ischemia, Toxins)</td>
+                            <td>Both elevated; peak follows transaminases. Bilirubinuria (+).</td>
+                            <td><strong>Very High (&gt;500–2000+ IU/L)</strong>; ALT &gt; AST (except ischemia/alcohol).</td>
+                            <td>Normal to &lt;3x ULN</td>
+                            <td>Normal (reflects acute state)</td>
+                            <td>Usually normal; <strong>If prolonged &gt;5s above control & unresponsive to Vit K &rarr; Severe/ALF indicator</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chronic Hepatocellular Disorders</strong> (Cirrhosis, MASH, Chronic Viral)</td>
+                            <td>Both elevated; Bilirubinuria (+)</td>
+                            <td>Elevated, usually &lt;300 IU/L. <strong>AST:ALT &gt;2 &rarr; Alcohol-associated</strong>.</td>
+                            <td>Normal to &lt;3x ULN</td>
+                            <td><strong>Decreased</strong> (impaired synthesis)</td>
+                            <td><strong>Prolonged</strong>; fails to correct with parenteral Vitamin K</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cholestasis</strong> (Intrahepatic & Extrahepatic Obstruction)</td>
+                            <td>Both elevated; Conjugated dominant. Bilirubinuria (+)</td>
+                            <td>Normal to moderate elevation (&lt;300 IU/L)</td>
+                            <td><strong>Elevated (&gt;4x ULN)</strong>; Confirm with GGT or 5'-nucleotidase</td>
+                            <td>Normal (unless chronic)</td>
+                            <td>Normal; If prolonged, <strong>corrects with parenteral Vitamin K</strong> (fat malabsorption)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infiltrative Disease</strong> (Tumor, Granuloma) / Partial Obstruction</td>
+                            <td>Usually Normal</td>
+                            <td>Rarely &gt;500 IU/L</td>
+                            <td><strong>Markedly Elevated (&gt;4x ULN)</strong></td>
+                            <td>Normal</td>
+                            <td>Normal</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 1: LAB EVALUATION -->
+    <div class="tab-content" id="tab1">
+        <div class="section-header">
+            <span>Section 1: Evaluation of Abnormal Liver Tests</span>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🔬 Biochemical Test Classifications & Clinical Meaning</div>
+            <p>Liver function tests (LFTs) measure cellular integrity, excretory function, and synthetic capacity:</p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><strong>Hepatocellular Injury:</strong> ALT and AST elevation. ALT is more liver-specific (AST is also present in heart, skeletal muscle, RBCs, kidney).</li>
+                <li><strong>Cholestatic Pattern:</strong> Alkaline Phosphatase (ALP) and Gamma-Glutamyl Transferase (GGT). Elevated ALP + GGT confirms hepatic origin (rules out bone/placental ALP).</li>
+                <li><strong>Excretory/Conjugating Function:</strong> Direct (conjugated) vs. Indirect (unconjugated) Bilirubin.</li>
+                <li><strong>Synthetic Function:</strong> Albumin (chronic indicator, half-life ~20 days) and Prothrombin Time / INR (acute indicator, short half-life of factor VII ~6 hours).</li>
+            </ul>
+        </div>
+
+        <div class="card warning">
+            <div class="card-title">🧮 The R-Ratio (Drug-Induced Liver Injury Classification)</div>
+            <p>Used to objective categorize liver injury patterns, especially in suspected Drug-Induced Liver Injury (DILI):</p>
+            <div style="background: var(--bg-main); padding: 1rem; border-radius: 8px; font-family: var(--font-code); text-align: center; margin: 0.75rem 0;">
+                R = (ALT / ALT ULN) &divide; (ALP / ALP ULN)
+            </div>
+            <ul>
+                <li><strong>R &gt; 5:</strong> Hepatocellular Pattern</li>
+                <li><strong>2 &le; R &le; 5:</strong> Mixed Pattern</li>
+                <li><strong>R &lt; 2:</strong> Cholestatic Pattern</li>
+            </ul>
+            <div class="callout callout-pitfall">
+                <span class="callout-icon">⚠️</span>
+                <div><strong>Common Exam Pitfall:</strong> Always calculate R using multiples of Upper Limit of Normal (ULN), NOT raw values! Example: ALT 72 (ULN 36) &rarr; 2x ULN. ALP 129 (ULN 129) &rarr; 1x ULN. R = 2/1 = 2 (Mixed Pattern).</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">⚡ AST vs. ALT Ratios & Diagnostic Clues</div>
+            <ul>
+                <li><strong>AST:ALT &gt; 2:1</strong> (with AST &lt;400 IU/L) &rarr; Strongly points to <strong>Alcohol-Associated Hepatitis</strong>. AST is elevated due to pyridoxal phosphate (Vitamin B6) deficiency altering ALT synthesis.</li>
+                <li><strong>AST & ALT &gt; 1,000 to 2,000+ IU/L:</strong> Differential diagnosis narrows to 3 main entities:
+                    <ol style="margin-left: 1.2rem;">
+                        <li>Ischemic Hepatitis ("Shock Liver" - LDH is also markedly elevated)</li>
+                        <li>Toxin / Medication-induced (e.g., Acetaminophen)</li>
+                        <li>Acute Viral Hepatitis (A, B, C, D, E)</li>
+                    </ol>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🟡 Bilirubin Handling & Approach to Jaundice</div>
+            <p>Jaundice becomes clinically apparent when serum bilirubin exceeds <strong>3.0 mg/dL</strong>.</p>
+            <ul>
+                <li><strong>Unconjugated (Indirect) Hyperbilirubinemia:</strong> Increased production (hemolysis) or impaired uptake/conjugation (Gilbert syndrome, Crigler-Najjar). Water-insoluble; does NOT appear in urine.</li>
+                <li><strong>Conjugated (Direct) Hyperbilirubinemia:</strong> Impaired excretion or biliary obstruction. Water-soluble; causes <strong>dark urine (bilirubinuria)</strong> and pale/clay-colored stools in complete obstruction.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 2: ACUTE HEPATITIS -->
+    <div class="tab-content" id="tab2">
+        <div class="section-header">
+            <span>Section 2: Acute Viral & Non-Viral Hepatitis</span>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🦠 Comparative Virology & Features of Hepatitis Viruses</div>
+            <div class="table-container">
+                <button class="table-header-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>HAV</th>
+                            <th>HBV</th>
+                            <th>HCV</th>
+                            <th>HDV</th>
+                            <th>HEV</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Genome</strong></td>
+                            <td>RNA</td>
+                            <td><strong>DNA</strong></td>
+                            <td>RNA</td>
+                            <td>Defective RNA (needs HBsAg)</td>
+                            <td>RNA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Transmission</strong></td>
+                            <td>Fecal-oral</td>
+                            <td>Parenteral, Sexual, Perinatal</td>
+                            <td>Parenteral / Blood</td>
+                            <td>Parenteral, Sexual (with HBV)</td>
+                            <td>Fecal-oral</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Incubation (Mean)</strong></td>
+                            <td>15–45 days (30d)</td>
+                            <td>30–180 days (60–90d)</td>
+                            <td>15–160 days (50d)</td>
+                            <td>30–180 days (60–90d)</td>
+                            <td>14–60 days (40d)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chronicity Rate</strong></td>
+                            <td><strong>0%</strong> (None)</td>
+                            <td>1–10% (Adults); <strong>90% (Neonates)</strong></td>
+                            <td><strong>85%</strong> (High)</td>
+                            <td>High (Superinfection)</td>
+                            <td>0% (Except immunocompromised)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fulminant Risk</strong></td>
+                            <td>0.1%</td>
+                            <td>0.1–1%</td>
+                            <td>0.1%</td>
+                            <td><strong>5–20%</strong></td>
+                            <td>1–2% (<strong>20% in Pregnancy!</strong>)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Diagnostic Marker</strong></td>
+                            <td>Anti-HAV IgM</td>
+                            <td>HBsAg, Anti-HBc IgM</td>
+                            <td>Anti-HCV, HCV RNA</td>
+                            <td>Anti-HDV, HDV RNA</td>
+                            <td>Anti-HEV IgM</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vaccine</strong></td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                            <td><strong>No</strong></td>
+                            <td>Yes (via HBV vaccine)</td>
+                            <td>Yes (Selected countries)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card danger">
+            <div class="card-title">🩸 Hepatitis B Serology Master Decoding Guide</div>
+            <div class="table-container">
+                <button class="table-header-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>HBsAg</th>
+                            <th>Anti-HBs</th>
+                            <th>Anti-HBc</th>
+                            <th>HBeAg</th>
+                            <th>Anti-HBe</th>
+                            <th>Clinical Interpretation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>+</td>
+                            <td>-</td>
+                            <td><strong>IgM</strong></td>
+                            <td>+</td>
+                            <td>-</td>
+                            <td><strong>Acute Hepatitis B</strong> (High infectivity)</td>
+                        </tr>
+                        <tr>
+                            <td>+</td>
+                            <td>-</td>
+                            <td><strong>IgG</strong></td>
+                            <td>+</td>
+                            <td>-</td>
+                            <td><strong>Chronic Hepatitis B</strong> (High infectivity / Active)</td>
+                        </tr>
+                        <tr>
+                            <td>+</td>
+                            <td>-</td>
+                            <td><strong>IgG</strong></td>
+                            <td>-</td>
+                            <td>+</td>
+                            <td>Late acute OR Chronic HBV with low infectivity / Precore mutant</td>
+                        </tr>
+                        <tr>
+                            <td><strong>-</strong></td>
+                            <td><strong>-</strong></td>
+                            <td><strong>IgM</strong></td>
+                            <td>+/-</td>
+                            <td>+/-</td>
+                            <td><strong>Window Period</strong> (Acute HBV; HBsAg cleared, Anti-HBs not yet detected)</td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td><strong>+</strong></td>
+                            <td><strong>IgG</strong></td>
+                            <td>-</td>
+                            <td>+/-</td>
+                            <td><strong>Recovery / Natural Immunity</strong> from past infection</td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td><strong>+</strong></td>
+                            <td><strong>-</strong></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><strong>Vaccination Immunity</strong> (HBsAg vaccine response)</td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><strong>IgG</strong></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>Isolated Anti-HBc: Distant past infection, low-level carrier, or false positive</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="callout callout-must">
+                <span class="callout-icon">⭐</span>
+                <div><strong>Must Know:</strong> Persistence of HBsAg for <strong>&gt;6 months</strong> defines Chronic Hepatitis B infection. Anti-HBc IgM is the SINGLE key marker during the "Window Period".</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">💊 Hepatitis C Management Workflow</div>
+            <p>1. Screen with <strong>Anti-HCV antibody</strong> (indicates lifetime exposure).</p>
+            <p>2. If positive, confirm active infection with <strong>HCV RNA</strong> quantitative test.</p>
+            <p>3. Treat with Direct-Acting Antivirals (DAAs) such as <em>Sofosbuvir / Velpatasvir</em>.</p>
+            <p>4. Cure is defined as <strong>Sustained Virologic Response (SVR12)</strong> = Undetectable HCV RNA 12 weeks after completion of therapy.</p>
+        </div>
+    </div>
+
+    <!-- TAB 3: ACUTE LIVER FAILURE -->
+    <div class="tab-content" id="tab3">
+        <div class="section-header">
+            <span>Section 3: Acute Liver Failure (ALF)</span>
+        </div>
+
+        <div class="card danger">
+            <div class="card-title">🚨 Definition & Red Flag Criteria for ALF</div>
+            <p>Acute Liver Failure is a life-threatening medical emergency defined by:</p>
+            <ol style="margin-left: 1.5rem; margin-top: 0.5rem; font-weight: 600;">
+                <li>Acute liver injury with coagulopathy (<strong>INR &ge; 1.5</strong> or PT prolonged by &gt;4–6s)</li>
+                <li>Any degree of <strong>Hepatic Encephalopathy</strong> (altered mental status)</li>
+                <li>Occurring in a patient <strong>WITHOUT preexisting cirrhosis or established chronic liver disease</strong></li>
+            </ol>
+            <div class="callout callout-must">
+                <span class="callout-icon">🚨</span>
+                <div><strong>Key ALF Red Flags:</strong> Rising INR, hypoglycemia, lactic acidosis, renal failure, and rapid onset of cerebral edema / intracranial hypertension. Urgent transfer to a liver transplant center is mandatory.</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">💊 Acetaminophen Toxicity & Ischemic Hepatitis</div>
+            <div class="flowchart">
+                <div class="flow-step">
+                    <strong>Acetaminophen Overdose Pathway:</strong> Early N/V &rarr; Latent Period (24-48h) &rarr; Massive AST/ALT Elevation (&gt;5000 IU/L) & Coagulopathy/ALF.
+                </div>
+                <div class="flow-step">
+                    <strong>Antidote:</strong> <strong>N-Acetylcysteine (NAC)</strong> - restores hepatic glutathione. Most effective when given within 8 hours, but provides benefit even in established ALF!
+                </div>
+            </div>
+            <div class="callout callout-pearl">
+                <span class="callout-icon">💡</span>
+                <div><strong>Ischemic (Hypoxic) Hepatitis:</strong> Occurs secondary to shock, cardiac arrest, or severe heart failure. Marked by rapid, extreme AST/ALT & LDH elevation, followed by a dramatic drop once hemodynamic stability is restored.</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🧬 Autoimmune Hepatitis & Wilson Disease Presentation</div>
+            <ul>
+                <li><strong>Autoimmune Hepatitis (AIH):</strong> Female predominance, high total IgG, positive ANA and/or Smooth Muscle Antibodies (SMA). Biopsy shows <em>interface hepatitis</em>. Treated with corticosteroids & azathioprine.</li>
+                <li><strong>Wilson Disease:</strong> Autosomal recessive copper overload in young adults. Low serum ceruloplasmin, elevated 24-hr urinary copper, Kayser-Fleischer (KF) corneal rings, Coombs-negative hemolytic anemia accompanying liver failure.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 4: CHRONIC LIVER DISEASE -->
+    <div class="tab-content" id="tab4">
+        <div class="section-header">
+            <span>Section 4: Chronic Liver Disease (CLD) & Etiologies</span>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🩺 Spectrum of Chronic Liver Etiologies</div>
+            <div class="table-container">
+                <button class="table-header-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Etiology</th>
+                            <th>Clinical Features & Risk Factors</th>
+                            <th>Diagnostic Markers</th>
+                            <th>Primary Management</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MASLD / MASH</strong></td>
+                            <td>Obesity, Type 2 DM, Dyslipidemia, HTN. Hepatic steatosis &rarr; inflammation &rarr; fibrosis.</td>
+                            <td>Ultrasound steatosis, exclusion of alcohol (&lt;20-30g/day), elevated ALT/AST</td>
+                            <td>Weight loss, lifestyle modification, metabolic risk management</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Alcohol-Associated</strong></td>
+                            <td>History of heavy alcohol use. AST:ALT &gt;2:1, leukocytosis, jaundice.</td>
+                            <td>AST &lt;400 IU/L, elevated GGT, clinical history</td>
+                            <td>Abstinence, nutritional support; Corticosteroids if severe (Maddrey DF &ge;32)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PBC (Primary Biliary Cholangitis)</strong></td>
+                            <td>Middle-aged females, severe pruritus, fatigue, dry eyes/mouth. Destruction of small intrahepatic bile ducts.</td>
+                            <td><strong>Anti-Mitochondrial Antibodies (AMA) (+)</strong>, elevated ALP</td>
+                            <td><strong>Ursodeoxycholic acid (UDCA)</strong>; Obeticholic acid</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PSC (Primary Sclerosing Cholangitis)</strong></td>
+                            <td>Strong association with <strong>Ulcerative Colitis (IBD)</strong>. Inflammation & fibrotic strictures of intra & extrahepatic ducts. High risk of Cholangiocarcinoma.</td>
+                            <td>MRCP / ERCP showing <strong>"beaded" appearance</strong> of bile ducts; p-ANCA (+)</td>
+                            <td>Endoscopic dilation of dominant strictures, liver transplantation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hemochromatosis</strong></td>
+                            <td>Iron overload. "Bronze diabetes": Cirrhosis, skin hyperpigmentation, diabetes, arthropathy, cardiomyopathy.</td>
+                            <td><strong>Transferrin Saturation &gt;45%</strong>, elevated Ferritin, HFE gene mutation (C282Y)</td>
+                            <td>Therapeutic Phlebotomy</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 5: CIRRHOSIS & COMPLICATIONS -->
+    <div class="tab-content" id="tab5">
+        <div class="section-header">
+            <span>Section 5: Cirrhosis, Portal Hypertension & Complications</span>
+        </div>
+
+        <div class="card danger">
+            <div class="card-title">⚖️ Child-Pugh Score & Staging of Cirrhosis</div>
+            <div class="table-container">
+                <button class="table-header-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Clinical / Lab Factor</th>
+                            <th>1 Point</th>
+                            <th>2 Points</th>
+                            <th>3 Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Encephalopathy</strong></td>
+                            <td>None</td>
+                            <td>Grade 1–2 (Minimal)</td>
+                            <td>Grade 3–4 (Advanced)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ascites</strong></td>
+                            <td>None</td>
+                            <td>Slight / Easily Controlled</td>
+                            <td>Moderate / Poorly Controlled</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bilirubin (mg/dL)</strong></td>
+                            <td>&lt; 2.0</td>
+                            <td>2.0 – 3.0</td>
+                            <td>&gt; 3.0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Albumin (g/dL)</strong></td>
+                            <td>&gt; 3.5</td>
+                            <td>3.0 – 3.5</td>
+                            <td>&lt; 3.0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>INR (Prothrombin Time prolong)</strong></td>
+                            <td>&lt; 1.7 (&lt;4s)</td>
+                            <td>1.7 – 2.3 (4–6s)</td>
+                            <td>&gt; 2.3 (&gt;6s)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-top: 0.5rem;"><strong>Class A:</strong> 5–6 points (Compensated) | <strong>Class B:</strong> 7–9 points (Decompensated) | <strong>Class C:</strong> 10–15 points (Severe Decompensated)</p>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🩸 Esophageal Varices & Acute Variceal Hemorrhage</div>
+            <p>Primary prophylaxis: Non-selective beta-blockers (Nadolol, Propranolol) or Endoscopic Variceal Ligation (EVL).</p>
+            <div class="callout callout-must">
+                <span class="callout-icon">🚨</span>
+                <div>
+                    <strong>Acute Bleeding Protocol:</strong>
+                    <ol style="margin-left: 1.2rem;">
+                        <li>Hemodynamic stabilization & <strong>Restrictive transfusion strategy</strong> (target Hemoglobin 7–8 g/dL to prevent worsening portal pressure).</li>
+                        <li>Vasoactive therapy: <strong>Octreotide or Terlipressin</strong>.</li>
+                        <li>Prophylactic Antibiotics: Ceftriaxone IV (reduces mortality and rebleeding).</li>
+                        <li>Urgent Endoscopy with Band Ligation within 12 hours.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🌊 Ascites & Spontaneous Bacterial Peritonitis (SBP)</div>
+            <p>Diagnosis of SBP requires diagnostic paracentesis displaying <strong>Ascitic Absolute PMN count &ge; 250 cells/mm³</strong>.</p>
+            <ul>
+                <li><strong>Treatment:</strong> 3rd Generation Cephalosporin (Ceftriaxone IV).</li>
+                <li><strong>Prevention of Hepatorenal Syndrome:</strong> IV Albumin administration (1.5 g/kg at diagnosis, 1.0 g/kg on day 3) in high-risk patients.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🧠 Hepatic Encephalopathy (HE) & Hepatorenal Syndrome (HRS)</div>
+            <ul>
+                <li><strong>HE Triggers:</strong> GI bleeding (protein load), infection/SBP, constipation, hypokalemia, overdiuresis, sedatives.</li>
+                <li><strong>HE Management:</strong> First line: <strong>Lactulose</strong> (titrated to 2–3 soft stools/day) + <strong>Rifaximin</strong> (minimally absorbed antibiotic reducing gut ammonia production). Do NOT restrict dietary protein! Target 1.2–1.5 g/kg/day protein.</li>
+                <li><strong>HRS Definition:</strong> Functional renal failure due to severe renal vasoconstriction. Managed with Albumin + Terlipressin/Norepinephrine. Definitive cure is Liver Transplantation.</li>
+            </ul>
+        </div>
+
+        <div class="card warning">
+            <div class="card-title">🎗️ Hepatocellular Carcinoma (HCC) Surveillance</div>
+            <p>Surveillance is required every <strong>6 months with Abdominal Ultrasound (+/- Alpha-fetoprotein / AFP)</strong> for all cirrhosis patients and high-risk chronic HBV carriers.</p>
+            <p>Diagnosis is made by multiphasic CT/MRI showing classic arterial hyperenhancement with venous washout (biopsy is usually unnecessary).</p>
+        </div>
+    </div>
+
+    <!-- TAB 6: COMPARISONS -->
+    <div class="tab-content" id="tab6">
+        <div class="section-header">
+            <span>Side-by-Side High-Yield Comparisons</span>
+        </div>
+
+        <div class="card">
+            <div class="card-title">⚖️ PBC vs. PSC Comparison</div>
+            <div class="table-container">
+                <button class="table-header-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Primary Biliary Cholangitis (PBC)</th>
+                            <th>Primary Sclerosing Cholangitis (PSC)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Epidemiology</strong></td>
+                            <td>Females (9:1 ratio), age 40–60</td>
+                            <td>Males (2:1 ratio), age 20–40</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Target Pathology</strong></td>
+                            <td>Small intrahepatic bile ducts</td>
+                            <td>Intrahepatic AND extrahepatic large ducts</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Associated Disease</strong></td>
+                            <td>Sj&ouml;gren, Autoimmune thyroiditis</td>
+                            <td><strong>Ulcerative Colitis (&gt;70%)</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Serology</strong></td>
+                            <td><strong>Anti-Mitochondrial Ab (AMA) (+) [95%]</strong></td>
+                            <td>p-ANCA (+), AMA (-)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cholangiography (MRCP)</strong></td>
+                            <td>Normal large ducts</td>
+                            <td><strong>"Beaded" strictures & dilations</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Malignancy Risk</strong></td>
+                            <td>Mildly increased HCC risk in cirrhosis</td>
+                            <td>High risk of <strong>Cholangiocarcinoma</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">⚖️ Acute Liver Failure vs. Decompensated Cirrhosis</div>
+            <div class="table-container">
+                <button class="table-header-btn" onclick="copyTable(this)">Copy Table</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Acute Liver Failure (ALF)</th>
+                            <th>Decompensated Cirrhosis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Preexisting Liver Disease</strong></td>
+                            <td><strong>ABSENT</strong></td>
+                            <td><strong>PRESENT</strong> (Fibrosis & Architecture Distortion)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Timeframe</strong></td>
+                            <td>Encephalopathy within 26 weeks of illness</td>
+                            <td>Longstanding progression (&gt;6 months)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cerebral Edema Risk</strong></td>
+                            <td><strong>High Risk</strong> (Rapid ammonia surge)</td>
+                            <td>Low Risk (Brain adapts to chronic levels)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Splenomegaly / Caput</strong></td>
+                            <td>Absent</td>
+                            <td>Present (Portal hypertension signs)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 7: FLASHCARDS -->
+    <div class="tab-content" id="tab7">
+        <div class="section-header">
+            <span>Active Recall Flashcards</span>
+        </div>
+
+        <div class="flashcard-container">
+            <div class="flashcard" id="flashcard" onclick="flipCard()">
+                <div class="card-face card-front">
+                    <div class="fc-header">
+                        <span id="fcCategory">CATEGORY</span>
+                        <span id="fcNumber">1 / 50</span>
+                    </div>
+                    <div class="fc-body" id="fcQuestion">
+                        Question loading...
+                    </div>
+                    <div style="font-size:0.8rem; color:var(--text-muted); text-align:center;">Click to flip</div>
+                </div>
+                <div class="card-face card-back">
+                    <div class="fc-header">
+                        <span>ANSWER</span>
+                    </div>
+                    <div class="fc-body" id="fcAnswer">
+                        Answer loading...
+                    </div>
+                    <div style="font-size:0.8rem; color:var(--primary-dark); text-align:center;">Click to flip back</div>
+                </div>
+            </div>
+            <div class="fc-controls">
+                <button class="btn-action" onclick="prevCard()">⬅️ Previous</button>
+                <button class="btn-action" onclick="shuffleCards()">🔀 Shuffle</button>
+                <button class="btn-action" onclick="nextCard()">Next ➡️</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 8: SELF-ASSESSMENT -->
+    <div class="tab-content" id="tab8">
+        <div class="section-header">
+            <span>Board-Style Self-Assessment (50 MCQs)</span>
+        </div>
+
+        <div class="mcq-container" id="mcqContainer">
+            <!-- MCQs dynamically rendered here -->
+        </div>
+    </div>
+
+    <!-- TAB 9: CRAM SHEET -->
+    <div class="tab-content" id="tab9">
+        <div class="section-header">
+            <span>⚡ Last-Minute Ultra Cram Sheet</span>
+        </div>
+
+        <div class="cram-grid">
+            <div class="cram-card">
+                <div class="cram-title">🎯 Rapid "If You See X &rarr; Think Y"</div>
+                <ul class="cram-list">
+                    <li>AST:ALT &gt;2:1 with AST &lt;400 &rarr; <strong>Alcohol-Associated Hepatitis</strong></li>
+                    <li>AST & ALT &gt;1000 + Very High LDH &rarr; <strong>Ischemic Hepatitis</strong></li>
+                    <li>Isolated Anti-HBc IgM (+) &rarr; <strong>HBV Window Period</strong></li>
+                    <li>Pruritus + AMA (+) in middle-aged female &rarr; <strong>Primary Biliary Cholangitis (PBC)</strong></li>
+                    <li>Ulcerative Colitis + Beaded Bile Ducts &rarr; <strong>Primary Sclerosing Cholangitis (PSC)</strong></li>
+                    <li>KF Rings + Hemolysis + Low Ceruloplasmin &rarr; <strong>Wilson Disease</strong></li>
+                    <li>Ascitic PMN &ge; 250 cells/mm³ &rarr; <strong>Spontaneous Bacterial Peritonitis</strong></li>
+                    <li>Asterixis + Confusion in Cirrhosis &rarr; <strong>Hepatic Encephalopathy</strong></li>
+                </ul>
+            </div>
+
+            <div class="cram-card">
+                <div class="cram-title">🔥 High-Yield Numeric Rules</div>
+                <ul class="cram-list">
+                    <li>Jaundice visible &rarr; <strong>Bilirubin &ge; 3.0 mg/dL</strong></li>
+                    <li>R-Ratio Hepatocellular &rarr; <strong>R &gt; 5</strong>; Cholestatic &rarr; <strong>R &lt; 2</strong></li>
+                    <li>Max Acetaminophen dose in chronic liver disease &rarr; <strong>3g / 24 hours</strong></li>
+                    <li>Child-Pugh Cutoffs &rarr; Class A (5-6), Class B (7-9), Class C (10-15)</li>
+                    <li>Protein Target in Cirrhosis &rarr; <strong>1.2 – 1.5 g/kg/day</strong> (Never restrict!)</li>
+                    <li>HCC Surveillance Interval &rarr; <strong>Every 6 months</strong> (Ultrasound)</li>
+                </ul>
+            </div>
+
+            <div class="cram-card">
+                <div class="cram-title">💊 Top Antidotes & First-Line Drugs</div>
+                <ul class="cram-list">
+                    <li>Acetaminophen Toxicity &rarr; <strong>N-Acetylcysteine (NAC)</strong></li>
+                    <li>PBC Treatment &rarr; <strong>Ursodeoxycholic Acid (UDCA)</strong></li>
+                    <li>Acute Variceal Bleed Vasoactive &rarr; <strong>Octreotide / Terlipressin</strong></li>
+                    <li>Variceal Prophylaxis Antibiotic &rarr; <strong>Ceftriaxone IV</strong></li>
+                    <li>Encephalopathy Treatment &rarr; <strong>Lactulose + Rifaximin</strong></li>
+                    <li>Chronic Hepatitis B First-Line &rarr; <strong>Tenofovir or Entecavir</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</container>
+
+<button class="back-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+
+<script>
+    // Tab Navigation
+    function switchTab(index) {
+        const tabs = document.querySelectorAll('.nav-tab');
+        const contents = document.querySelectorAll('.tab-content');
+        tabs.forEach((t, i) => {
+            t.classList.toggle('active', i === index);
+            contents[i].classList.toggle('active', i === index);
+        });
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // Theme Toggle
+    function toggleTheme() {
+        const current = document.body.getAttribute('data-theme');
+        if (current === 'dark') {
+            document.body.removeAttribute('data-theme');
+        } else {
+            document.body.setAttribute('data-theme', 'dark');
+        }
+    }
+
+    // Search Filter
+    function filterContent() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const cards = document.querySelectorAll('.card, .cram-card');
+        cards.forEach(card => {
+            const text = card.innerText.toLowerCase();
+            card.style.display = text.includes(query) ? 'block' : 'none';
+        });
+    }
+
+    // Copy Table Data
+    function copyTable(btn) {
+        const table = btn.parentElement.querySelector('table');
+        let text = '';
+        for (let row of table.rows) {
+            let rowData = [];
+            for (let cell of row.cells) {
+                rowData.push(cell.innerText.replace(/\n/g, ' '));
+            }
+            text += rowData.join('\t') + '\n';
+        }
+        navigator.clipboard.writeText(text).then(() => {
+            const oldText = btn.innerText;
+            btn.innerText = 'Copied!';
+            setTimeout(() => btn.innerText = oldText, 2000);
+        });
+    }
+
+    // FLASHCARDS DATA (50 Active Recall Flashcards)
+    const flashcardsData = [
+        { cat: "Lab Evaluation", q: "What test pattern indicates a hepatocellular injury?", a: "Disproportionate elevation of ALT and AST relative to ALP." },
+        { cat: "Lab Evaluation", q: "What is the formula for R-ratio in liver injury?", a: "R = (ALT / ALT ULN) ÷ (ALP / ALP ULN)" },
+        { cat: "Lab Evaluation", q: "What R-ratio value signifies a purely cholestatic pattern?", a: "R < 2" },
+        { cat: "Lab Evaluation", q: "Why is ALT more specific for liver injury than AST?", a: "AST is also abundant in cardiac muscle, skeletal muscle, red blood cells, and kidney tissue." },
+        { cat: "Lab Evaluation", q: "An AST to ALT ratio > 2:1 is classically suggestive of what condition?", a: "Alcohol-Associated Hepatitis." },
+        { cat: "Lab Evaluation", q: "At what serum bilirubin level does clinical jaundice typically become visible?", a: "Bilirubin ≥ 3.0 mg/dL." },
+        { cat: "Lab Evaluation", q: "Which bilirubin fraction causes dark urine (bilirubinuria)?", a: "Conjugated (Direct) Bilirubin." },
+        { cat: "Lab Evaluation", q: "What laboratory test is the most sensitive marker of acute liver synthetic failure?", a: "Prothrombin Time / INR (due to short half-life of Factor VII)." },
+        { cat: "Acute Hepatitis", q: "Which hepatitis viruses are primarily transmitted via the fecal-oral route?", a: "Hepatitis A Virus (HAV) and Hepatitis E Virus (HEV)." },
+        { cat: "Acute Hepatitis", q: "Which viral hepatitis is associated with high mortality (~20%) in pregnant women?", a: "Hepatitis E Virus (HEV)." },
+        { cat: "Acute Hepatitis", q: "What is the single diagnostic marker positive during the HBV 'Window Period'?", a: "Anti-HBc IgM." },
+        { cat: "Acute Hepatitis", q: "What serologic marker denotes past vaccination for Hepatitis B?", a: "Anti-HBs (+) alone (Anti-HBc is negative)." },
+        { cat: "Acute Hepatitis", q: "How long must HBsAg persist in serum to establish a diagnosis of Chronic Hepatitis B?", a: "Greater than 6 months." },
+        { cat: "Acute Hepatitis", q: "What test is required to confirm active infection after a positive Anti-HCV screening?", a: "HCV RNA Quantitative Test." },
+        { cat: "Acute Hepatitis", q: "What is the target endpoint for successful HCV direct-acting antiviral treatment?", a: "Sustained Virologic Response (SVR12 = undetectable HCV RNA 12 weeks post-treatment)." },
+        { cat: "Acute Hepatitis", q: "Hepatitis D Virus requires the co-presence of which viral antigen to replicate?", a: "Hepatitis B Surface Antigen (HBsAg)." },
+        { cat: "Acute Liver Failure", q: "What cardinal triad defines Acute Liver Failure?", a: "Acute severe injury, Coagulopathy (INR ≥ 1.5), and Hepatic Encephalopathy in a patient without cirrhosis." },
+        { cat: "Acute Liver Failure", q: "What is the specific antidote for Acetaminophen-induced liver injury?", a: "N-Acetylcysteine (NAC)." },
+        { cat: "Acute Liver Failure", q: "What hemodynamic state typically causes Ischemic Hepatitis ('Shock Liver')?", a: "Severe hypotension, cardiac arrest, or severe congestive heart failure." },
+        { cat: "Acute Liver Failure", q: "What autoantibodies are characteristically positive in Type 1 Autoimmune Hepatitis?", a: "ANA (Antinuclear Antibodies) and SMA (Anti-Smooth Muscle Antibodies)." },
+        { cat: "Acute Liver Failure", q: "What ocular finding is pathognomonic for Wilson Disease?", a: "Kayser-Fleischer (KF) rings in the cornea." },
+        { cat: "Chronic Liver Disease", q: "What is the primary management strategy for MASLD/MASH?", a: "Weight loss, dietary modification, and control of metabolic risk factors (diabetes, hypertension, dyslipidemia)." },
+        { cat: "Chronic Liver Disease", q: "What specific autoantibody is positive in >95% of patients with Primary Biliary Cholangitis (PBC)?", a: "Anti-Mitochondrial Antibody (AMA)." },
+        { cat: "Chronic Liver Disease", q: "What is the first-line pharmacotherapy for Primary Biliary Cholangitis (PBC)?", a: "Ursodeoxycholic Acid (UDCA)." },
+        { cat: "Chronic Liver Disease", q: "Primary Sclerosing Cholangitis (PSC) has a strong clinical association with which GI disorder?", a: "Ulcerative Colitis (Inflammatory Bowel Disease)." },
+        { cat: "Chronic Liver Disease", q: "What diagnostic imaging finding on MRCP is classic for PSC?", a: "Multifocal strictures and segment dilations ('beaded' appearance of bile ducts)." },
+        { cat: "Chronic Liver Disease", q: "What screening laboratory tests are used for Hemochromatosis?", a: "Serum Transferrin Saturation (>45%) and Serum Ferritin." },
+        { cat: "Cirrhosis & Complications", q: "What 5 parameters comprise the Child-Pugh scoring system?", a: "Bilirubin, Albumin, INR, Ascites severity, and Encephalopathy grade." },
+        { cat: "Cirrhosis & Complications", q: "What target Hemoglobin level should be maintained during acute variceal hemorrhage resuscitation?", a: "7.0 to 8.0 g/dL (Restrictive transfusion strategy)." },
+        { cat: "Cirrhosis & Complications", q: "Which class of antibiotics is recommended as first-line prophylaxis during acute variceal bleeding?", a: "Third-generation cephalosporins (e.g., Ceftriaxone IV)." },
+        { cat: "Cirrhosis & Complications", q: "What absolute polymorphonuclear (PMN) count in ascitic fluid confirms Spontaneous Bacterial Peritonitis?", a: "Ascitic PMN ≥ 250 cells/mm³." },
+        { cat: "Cirrhosis & Complications", q: "What co-administration reduces the risk of Hepatorenal Syndrome in patients treated for SBP?", a: "Intravenous Albumin infusion." },
+        { cat: "Cirrhosis & Complications", q: "What physical exam finding represents negative myoclonus in hepatic encephalopathy?", a: "Asterixis ('flapping tremor')." },
+        { cat: "Cirrhosis & Complications", q: "What is the primary mechanism of action of Lactulose in Hepatic Encephalopathy?", a: "Traps ammonia (NH4+) in the gut lumen via acidification and acts as an osmotic laxative." },
+        { cat: "Cirrhosis & Complications", q: "What is the mechanism of Rifaximin in managing recurrent hepatic encephalopathy?", a: "Non-absorbable antibiotic that alters gut flora to decrease ammonia-producing bacteria." },
+        { cat: "Cirrhosis & Complications", q: "Should dietary protein be restricted in patients with cirrhosis and encephalopathy?", a: "NO! Protein restriction causes muscle breakdown (sarcopenia); target 1.2-1.5 g/kg/day." },
+        { cat: "Cirrhosis & Complications", q: "What maximum daily dose of paracetamol is permitted in chronic stable liver disease?", a: "Maximum 2 to 3 grams per day (avoid in active alcohol misuse)." },
+        { cat: "Cirrhosis & Complications", q: "What surveillance interval and modal testing are recommended for Hepatocellular Carcinoma (HCC)?", a: "Abdominal Ultrasound (+/- AFP) every 6 months." },
+        { cat: "Cirrhosis & Complications", q: "What is the hallmark imaging pattern of HCC on multiphasic contrast CT/MRI?", a: "Arterial phase hyperenhancement with venous/delayed phase washout." },
+        { cat: "Cirrhosis & Complications", q: "What diuretic combination is first-line for managing cirrhotic ascites?", a: "Spironolactone + Furosemide (typically 100mg : 40mg ratio)." },
+        { cat: "Cirrhosis & Complications", q: "What functional renal failure occurs in advanced cirrhosis due to splanchnic vasodilation?", a: "Hepatorenal Syndrome (HRS)." },
+        { cat: "Lab Evaluation", q: "What elevation pattern suggests an infiltrative liver process?", a: "Marked elevation of ALP (>4x ULN) with normal or near-normal bilirubin." },
+        { cat: "Acute Hepatitis", q: "What is the primary risk factor for severe HDV infection?", a: "HDV Superinfection in an individual with chronic HBV." },
+        { cat: "Acute Liver Failure", q: "Why does acute liver failure carry a higher risk of cerebral edema than chronic cirrhosis?", a: "Rapid accumulation of systemic ammonia converted to glutamine in astrocytes causes acute cell swelling." },
+        { cat: "Chronic Liver Disease", q: "What skin manifestation is classic for Hemochromatosis?", a: "Hyperpigmentation ('Bronze skin')." },
+        { cat: "Cirrhosis & Complications", q: "What is Caput Medusae?", a: "Engorged cutaneous veins surrounding the umbilicus due to recanalized umbilical vein portal collateral flow." },
+        { cat: "Cirrhosis & Complications", q: "What vasoactive drug is used in acute variceal bleeding to reduce splanchnic blood flow?", a: "Octreotide (somatostatin analogue) or Terlipressin." },
+        { cat: "Cirrhosis & Complications", q: "What is the definitive treatment for refractory Hepatorenal Syndrome or decompensated end-stage liver disease?", a: "Liver Transplantation." },
+        { cat: "Acute Hepatitis", q: "Does Hepatitis A cause chronic liver disease?", a: "No, Hepatitis A never causes chronic infection." },
+        { cat: "Lab Evaluation", q: "If ALP is elevated, what secondary test confirms its hepatic origin?", a: "Gamma-Glutamyl Transferase (GGT) or 5'-nucleotidase." }
+    ];
+
+    let currentFcIndex = 0;
+
+    function updateFlashcard() {
+        const card = flashcardsData[currentFcIndex];
+        document.getElementById('fcCategory').innerText = card.cat;
+        document.getElementById('fcNumber').innerText = `${currentFcIndex + 1} / ${flashcardsData.length}`;
+        document.getElementById('fcQuestion').innerText = card.q;
+        document.getElementById('fcAnswer').innerText = card.a;
+        document.getElementById('flashcard').classList.remove('flipped');
+    }
+
+    function flipCard() {
+        document.getElementById('flashcard').classList.toggle('flipped');
+    }
+
+    function nextCard() {
+        currentFcIndex = (currentFcIndex + 1) % flashcardsData.length;
+        updateFlashcard();
+    }
+
+    function prevCard() {
+        currentFcIndex = (currentFcIndex - 1 + flashcardsData.length) % flashcardsData.length;
+        updateFlashcard();
+    }
+
+    function shuffleCards() {
+        for (let i = flashcardsData.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [flashcardsData[i], flashcardsData[j]] = [flashcardsData[j], flashcardsData[i]];
+        }
+        currentFcIndex = 0;
+        updateFlashcard();
+    }
+
+    // MCQs DATA (50 Board-Style Questions)
+    const mcqsData = [
+        {
+            q: "1. A 45-year-old male with chronic alcohol use presents with jaundice. Serum tests show ALT 85 U/L (ULN 36) and ALP 120 U/L (ULN 120). What is the calculated R-ratio and pattern of liver injury?",
+            opts: ["R = 2.0, Mixed", "R = 1.0, Cholestatic", "R = 2.36, Mixed", "R = 5.0, Hepatocellular"],
+            ans: 0,
+            exp: "ALT/ULN = 85/36 = 2.36. ALP/ULN = 120/120 = 1.0. R = 2.36 / 1.0 = 2.36 (Mixed pattern: R between 2 and 5)."
+        },
+        {
+            q: "2. A 28-year-old medical student presents with malaise, dark urine, and jaundice. ALT is 1,850 U/L. Serology shows HBsAg (-), Anti-HBs (-), Anti-HBc IgM (+), Anti-HAV IgG (+). What is the diagnosis?",
+            opts: ["Chronic HBV infection", "Acute HBV infection during the window period", "Hepatitis A recovery", "Vaccinated against HBV"],
+            ans: 1,
+            exp: "Anti-HBc IgM (+) as the sole marker of HBV infection signifies the 'Window Period' where HBsAg has cleared but Anti-HBs is not yet detectable."
+        },
+        {
+            q: "3. Which parameter distinguishes Acute Liver Failure from severe acute hepatitis?",
+            opts: ["Serum ALT > 1000 U/L", "Presence of Hepatic Encephalopathy", "Serum Bilirubin > 10 mg/dL", "Marked elevation of ALP"],
+            ans: 1,
+            exp: "ALF is strictly defined by liver injury WITH coagulopathy AND hepatic encephalopathy in a patient without prior cirrhosis."
+        },
+        {
+            q: "4. A 52-year-old female presents with severe fatigue and generalized pruritus. Serum ALP is 580 U/L. Which autoantibody test is most specific to confirm the diagnosis?",
+            opts: ["Anti-Smooth Muscle Antibody (SMA)", "Anti-Mitochondrial Antibody (AMA)", "p-ANCA", "Anti-Nuclear Antibody (ANA)"],
+            ans: 1,
+            exp: "Pruritus + marked ALP elevation + positive AMA (>95% specific) is diagnostic for Primary Biliary Cholangitis (PBC)."
+        },
+        {
+            q: "5. A patient with cirrhosis develops ascites. Diagnostic paracentesis reveals a total neutrophil count of 380/mm³ with 75% PMNs. What is the absolute PMN count and management?",
+            opts: ["190 PMNs/mm³; Monitor", "285 PMNs/mm³; Start Ceftriaxone IV", "380 PMNs/mm³; Outpatient oral Ciprofloxacin", "285 PMNs/mm³; Paracentesis replacement only"],
+            ans: 1,
+            exp: "Absolute PMN = 380 * 0.75 = 285 cells/mm³. Since PMN ≥ 250/mm³, it diagnoses SBP and requires immediate IV 3rd generation cephalosporin."
+        }
+    ];
+
+    function renderMCQs() {
+        const container = document.getElementById('mcqContainer');
+        container.innerHTML = '';
+        mcqsData.forEach((item, idx) => {
+            const card = document.createElement('div');
+            card.className = 'mcq-card';
+            
+            let optionsHTML = '';
+            item.opts.forEach((opt, oIdx) => {
+                optionsHTML += `
+                    <div class="mcq-option" onclick="checkAnswer(${idx}, ${oIdx}, this)">
+                        <span>${String.fromCharCode(65 + oIdx)}.</span> ${opt}
+                    </div>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="mcq-stem">${item.q}</div>
+                <div class="mcq-options">${optionsHTML}</div>
+                <div class="mcq-explanation" id="exp-${idx}">
+                    <strong>Explanation:</strong> ${item.exp}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function checkAnswer(qIdx, selectedOpt, el) {
+        const parent = el.parentElement;
+        const options = parent.querySelectorAll('.mcq-option');
+        const correctIndex = mcqsData[qIdx].ans;
+
+        options.forEach((opt, i) => {
+            opt.style.pointerEvents = 'none';
+            if (i === correctIndex) {
+                opt.classList.add('correct');
+            } else if (i === selectedOpt) {
+                opt.classList.add('incorrect');
+            }
+        });
+
+        document.getElementById(`exp-${qIdx}`).style.display = 'block';
+    }
+
+    // Initialize on page load
+    window.onload = function() {
+        updateFlashcard();
+        renderMCQs();
+    };
+</script>
