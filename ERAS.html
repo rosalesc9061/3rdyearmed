@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERAS Interactive Reviewer</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Light Mode Theme - Medical Palette */
+            --primary: #005f73; /* Deep Teal/Blue */
+            --secondary: #0a9396; /* Lighter Teal */
+            --accent: #94d2bd; /* Mint */
+            --accent-light: #e9d8a6; /* Pale Yellow/Gold */
+            --warning: #ee9b00; /* Orange */
+            --danger: #ae2012; /* Dark Red */
+            --bg-main: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-main: #2b2d42;
+            --text-muted: #6c757d;
+            --border: #dee2e6;
+            
+            --font-head: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        /* Dark Mode variables (optional toggle) */
+        [data-theme="dark"] {
+            --primary: #94d2bd;
+            --secondary: #0a9396;
+            --bg-main: #121212;
+            --bg-card: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --border: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: var(--font-head);
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* Sticky Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg-card);
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        button {
+            font-family: var(--font-body);
+            cursor: pointer;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: var(--bg-card);
+            padding: 0 2rem;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 70px;
+            z-index: 999;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-bottom: 3px solid transparent;
+            margin-right: 0.5rem;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards & Sections */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary);
+        }
+
+        .card.warning { border-left-color: var(--warning); }
+        .card.danger { border-left-color: var(--danger); }
+        .card.accent { border-left-color: var(--secondary); }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--accent-light);
+            color: var(--text-main);
+        }
+
+        .badge.must-know { background-color: var(--danger); color: white; }
+        .badge.pearl { background-color: var(--secondary); color: white; }
+        .badge.pitfall { background-color: var(--warning); color: #fff; }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font-body);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-family: var(--font-head);
+            position: sticky;
+            top: 0;
+        }
+
+        tr:nth-child(even) { background-color: rgba(0,0,0,0.02); }
+        tr:hover { background-color: rgba(10, 147, 150, 0.05); }
+        
+        [data-theme="dark"] tr:nth-child(even) { background-color: rgba(255,255,255,0.02); }
+        [data-theme="dark"] tr:hover { background-color: rgba(255,255,255,0.05); }
+
+        /* Figures & CSS Diagrams */
+        .figure-box {
+            border: 2px dashed var(--secondary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            background-color: rgba(10, 147, 150, 0.05);
+        }
+        
+        .diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .diagram-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .node {
+            background: var(--bg-card);
+            border: 2px solid var(--primary);
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .node.red { border-color: var(--danger); }
+        .node.yellow { border-color: var(--warning); }
+        .node.blue { border-color: var(--secondary); }
+        
+        .arrow {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-family: var(--font-mono);
+        }
+
+        /* Flashcards */
+        .flashcard-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .flashcard {
+            background-color: transparent;
+            perspective: 1000px;
+            height: 200px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.is-flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+
+        .flashcard-front {
+            background-color: var(--bg-card);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .flashcard-back {
+            background-color: var(--primary);
+            color: white;
+            transform: rotateY(180deg);
+            font-size: 1rem;
+        }
+
+        /* MCQs */
+        .mcq-container {
+            margin-top: 1.5rem;
+        }
+        
+        .mcq-question {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .mcq-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .mcq-option {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mcq-option:hover {
+            background-color: rgba(0, 95, 115, 0.1);
+        }
+
+        .mcq-option.correct {
+            background-color: rgba(148, 210, 189, 0.3);
+            border-color: var(--secondary);
+        }
+
+        .mcq-option.incorrect {
+            background-color: rgba(174, 32, 18, 0.1);
+            border-color: var(--danger);
+        }
+
+        .mcq-explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: rgba(233, 216, 166, 0.2);
+            border-left: 4px solid var(--warning);
+            border-radius: 4px;
+            display: none;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: var(--border);
+            border-radius: 4px;
+            height: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* Cram Sheet */
+        .cram-list {
+            list-style: none;
+        }
+        
+        .cram-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cram-list li::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            color: var(--warning);
+        }
+
+        .cram-think {
+            font-family: var(--font-mono);
+            background-color: rgba(0,0,0,0.05);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        /* Utilities */
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        
+        #scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        @media print {
+            .tab-nav, header, button, #scroll-top { display: none !important; }
+            .tab-content { display: block !important; animation: none !important; }
+            body { background: white; color: black; }
+            .card { border: 1px solid #ccc; box-shadow: none; break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title">ERAS Reviewer <span style="font-size: 0.5em; font-weight:normal; color: var(--text-muted);">[SUR2 - LE 3] 01</span></div>
+        <div class="controls">
+            <button class="btn-outline" onclick="toggleDarkMode()">🌓 Theme</button>
+            <button class="btn-primary" onclick="window.print()">🖨️ Print</button>
+        </div>
+    </header>
+
+    <div class="tab-nav" id="tabNav">
+        <button class="tab-btn active" data-target="tab-overview">1. Overview & Intro</button>
+        <button class="tab-btn" data-target="tab-cancer">2. Cancer Cachexia</button>
+        <button class="tab-btn" data-target="tab-preadmission">3. Pre-admission</button>
+        <button class="tab-btn" data-target="tab-intra">4. Pre/Intra-operative</button>
+        <button class="tab-btn" data-target="tab-postop">5. Post-operative</button>
+        <button class="tab-btn" data-target="tab-comparisons">6. Comparisons</button>
+        <button class="tab-btn" data-target="tab-flashcards">7. Flashcards (50)</button>
+        <button class="tab-btn" data-target="tab-mcqs">8. Self-Assessment (50)</button>
+        <button class="tab-btn" data-target="tab-cram">9. Cram Sheet</button>
+    </div>
+
+    <main>
+        <!-- TAB 1: OVERVIEW -->
+        <div id="tab-overview" class="tab-content active">
+            <h2>1. Overview: Enhanced Recovery After Surgery (ERAS)</h2>
+            <div class="card">
+                <span class="badge must-know">⭐ Core Concept</span>
+                <p><strong>Enhanced Recovery After Surgery (ERAS)</strong> is also known as <strong>"Fast Track Surgery"</strong> or <strong>"Outpatient Day Surgery"</strong>. It involves evidence-based interventions spanning three phases of surgery (Preoperative, Intraoperative, and Postoperative) to optimize patient outcomes.</p>
+            </div>
+            
+            <div class="card accent">
+                <h3>Goals of ERAS</h3>
+                <ul>
+                    <li><strong>Surgical efficacy:</strong> Reduce physiological stress during the operation.</li>
+                    <li><strong>Metabolism:</strong> Early return to <em>anabolic homeostasis</em> (balanced state).</li>
+                    <li><strong>Economics:</strong> Shorter hospital stay leading to fewer expenses.</li>
+                    <li><strong>Recovery:</strong> Prompt return to normal daily activity.</li>
+                </ul>
+            </div>
+
+            <div class="card warning">
+                <h3>Surgical Metabolism</h3>
+                <span class="badge pitfall">⚠️ Pathophysiology</span>
+                <p>Following surgical injury or stress, the body enters a hypermetabolic state characterized by:</p>
+                <ul>
+                    <li>Increased total body expenditure of macromolecules.</li>
+                    <li>Urinary nitrogen washing.</li>
+                    <li>Collective alteration in the metabolism of amino acids (protein), carbohydrates, and fats.</li>
+                </ul>
+            </div>
+
+            <div class="figure-box">
+                <h4>ERAS Flow Chart (Summary)</h4>
+                <div class="diagram">
+                    <div class="diagram-row">
+                        <div class="node blue"><strong>Preadmission</strong><br><small>Nutritional support, Smoke/Alcohol cessation, Medical optimization</small></div>
+                        <div class="arrow">➔</div>
+                        <div class="node blue"><strong>Preoperative</strong><br><small>Selective bowel prep, CHO loading, No NPO, PONV prophylaxis</small></div>
+                    </div>
+                    <div class="diagram-row">
+                        <div class="node blue"><strong>Intraoperative</strong><br><small>Minimally invasive, Opioid-sparing, Balanced fluid, Normothermia</small></div>
+                        <div class="arrow">➔</div>
+                        <div class="node blue"><strong>Postoperative</strong><br><small>Early drains removal, Stop IV fluids, Early feeding/mobilization</small></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: CANCER CACHEXIA -->
+        <div id="tab-cancer" class="tab-content">
+            <h2>2. ERAS of Cancer Patients & Cachexia</h2>
+            <div class="card danger">
+                <span class="badge must-know">⭐ Definition</span>
+                <p><strong>Cancer Cachexia:</strong> A complex metabolic syndrome characterized by muscle and fat wasting, commonly seen in advanced cancer. It results in a severe loss of <strong>Lean Body Mass (LBM)</strong> which is intrinsically tied to immunity, recovery, and wound healing.</p>
+            </div>
+
+            <div class="figure-box">
+                <h4>Pathophysiology of Cancer Cachexia (Fig 1 & 2)</h4>
+                <div class="diagram">
+                    <div class="diagram-row">
+                        <div class="node yellow"><strong>TUMOR</strong><br><small>Produces PIF (proteolysis)<br>Produces LMF (lipolysis)</small></div>
+                        <div class="arrow">➔</div>
+                        <div class="node red"><strong>WEIGHT LOSS</strong></div>
+                    </div>
+                    <div class="diagram-row">
+                        <div class="node red"><strong>BODY</strong><br><small>WBCs release Cytokines<br>Cell ischemia/destruction</small></div>
+                        <div class="arrow">➔</div>
+                        <div class="node yellow"><strong>↓ Appetite / ↑ Satiety</strong><br><strong>↑ Inflammation</strong></div>
+                    </div>
+                </div>
+                <p class="mt-1"><small><strong>Clinical Pearl:</strong> Tumor cells mobilize protein and lipids massively. Concurrently, body cells react via inflammation and cytokines, suppressing appetite.</small></p>
+            </div>
+
+            <div class="table-wrapper">
+                <h3>Table 1: Loss of Lean Body Mass (LBM) Associated with Mortality</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Loss of Total LBM</th>
+                            <th>Complications</th>
+                            <th>Associated Mortality</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>10%</strong></td>
+                            <td>Decreased immunity, Increased infections</td>
+                            <td>10%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>20%</strong></td>
+                            <td>Decrease in healing, Increased weakness & infection</td>
+                            <td>30%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>30%</strong></td>
+                            <td>Too weak to sit, pressure ulcers, pneumonia, lack of healing</td>
+                            <td>50%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>40%</strong></td>
+                            <td>Death, usually from pneumonia</td>
+                            <td>100%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB 3: PREADMISSION -->
+        <div id="tab-preadmission" class="tab-content">
+            <h2>3. Pre-admission Period</h2>
+            
+            <div class="card">
+                <h3>Health Condition Optimization</h3>
+                <ul>
+                    <li><strong>Diabetes Mellitus:</strong> Maintain blood sugar at <strong>140-180 mg/dL</strong> (7.8-11 mmol/L). <br><span class="badge pitfall">⚠️ Uncontrolled DM = Gastroparesis</span></li>
+                    <li><strong>Hypertension & CV:</strong> Control BP, optimize cardiovascular function.</li>
+                    <li><strong>Respiratory (Asthma, COPD, TB):</strong> Improve respiratory function (crucial for anesthesia application).</li>
+                    <li><strong>Renal disease:</strong> Optimize function, remove waste products.</li>
+                </ul>
+            </div>
+
+            <div class="card warning">
+                <h3>Social and Behavioral Factors</h3>
+                <table style="width: 100%; border: none;">
+                    <tr style="background: transparent;">
+                        <td><strong>Tobacco/Smoking/Vaping</strong></td>
+                        <td>Leads to hypersecretion (aspiration risk), prolonged intubation, poor wound healing.<br><strong>Intervention:</strong> Cease smoking <strong>4 to 8 weeks</strong> prior.</td>
+                    </tr>
+                    <tr style="background: transparent;">
+                        <td><strong>Alcohol dependency</strong></td>
+                        <td>May decrease immunity and ↑ post-op infections.<br><strong>Intervention:</strong> Limit to max <strong>2 units</strong> (e.g., ≤150mL of 13% wine, ≤500mL of 4% beer).</td>
+                    </tr>
+                    <tr style="background: transparent;">
+                        <td><strong>Illicit drug use</strong></td>
+                        <td>Strongly discouraged.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>Nutritional Status</h3>
+                <p>Most underweight surgical patients have GI problems (large/small bowel, esophagus, stomach). Malnutrition leads to worse outcomes, cardiac cachexia, and higher infection rates.</p>
+                <ul>
+                    <li><strong>Mild to Moderate Malnutrition:</strong> Operation may proceed immediately.</li>
+                    <li><strong>Severe Malnutrition:</strong> <span class="badge pearl">💡 Management:</span> Build up nutrition for <strong>at least 1 week</strong> if surgery can be delayed. Monitor intake to avoid <em>Refeeding Syndrome</em> (electrolyte/acid-base shifts).</li>
+                </ul>
+            </div>
+
+            <div class="card accent">
+                <h3>Anemia Management</h3>
+                <p>Blood is essential for nutrient, O2, and IV med delivery.</p>
+                <ul>
+                    <li><strong>WHO Criteria:</strong> Men Hb < 130 g/L; Women Hb < 120 g/L (Note: Trans says mg/L but standard is g/L or g/dL; faithfully transcribing exact text: Men Hb &lt; 130 mg/L, Women Hb &lt; 120 mg/L - likely a typo in source for g/L).</li>
+                    <li><strong>Diagnostics:</strong> Serum ferritin and transferrin saturation. <br>Without inflammation: &lt; 30 µg/L. With inflammation: &lt; 100 µg/L.</li>
+                    <li><strong>Management:</strong> 
+                        <ul>
+                            <li>Oral Fe: 40-60 mg daily for a week (often tolerated poorly).</li>
+                            <li><strong>Standard Treatment:</strong> <strong>IV ferric carboxymaltose</strong> at 15 mg/kg (max 1000 mg) over 15 mins for a week.</li>
+                            <li><span class="badge pitfall">⚠️ Avoid Blood Transfusion/EPO:</span> Has LOW recommendation due to complication risks (reactions, blood-borne diseases). Transfuse only if Hb ≤ 7 g/dL.</li>
+                            <li>Autotransfusion must be done at least 1 week prior.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 4: PRE & INTRAOP -->
+        <div id="tab-intra" class="tab-content">
+            <h2>4. Pre- and Intra-operative Period</h2>
+            
+            <div class="card">
+                <h3>Premedication & Antibiotics</h3>
+                <ul>
+                    <li><strong>Premedication:</strong> Keep minimal to zero. Avoid long-acting agents. <br>
+                    Avoid <em>Benzodiazepines</em> (prolonged sedation). Avoid excess <em>Opioids</em> (PONV, ileus, resp depression).</li>
+                    <li><strong>Bowel Prep:</strong> <em>Low recommendation</em> (leads to dehydration/electrolyte imbalance).</li>
+                    <li><strong>Antibiotics:</strong> Administer <strong>30 to 60 minutes</strong> before skin incision for max tissue concentration. <br>
+                    <span class="badge pearl">💡 Redosing:</span> Give an additional dose if the operating time exceeds <strong>4 hours</strong>.</li>
+                </ul>
+            </div>
+
+            <div class="table-wrapper">
+                <h3>Wound Classification (Table 3)</h3>
+                <table>
+                    <thead>
+                        <tr><th>Type</th><th>Description</th><th>Antibiotic Need</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Clean</strong></td><td>Uninfected; resp/alimentary/GU tracts NOT entered.</td><td>NO antibiotics needed</td></tr>
+                        <tr><td><strong>Clean/Contaminated</strong></td><td>Elective entry into tracts w/o unusual contamination. (Most surgeries)</td><td>Single antibiotic dose</td></tr>
+                        <tr><td><strong>Contaminated</strong></td><td>Open/fresh accidental wounds, major breaks in sterile tech, gross GI spillage.</td><td>Prolonged antibiotics</td></tr>
+                        <tr><td><strong>Dirty</strong></td><td>Old traumatic wounds w/ devitalized tissue, existing infection, perforated viscera.</td><td>Prolonged antibiotics</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card warning">
+                <h3>Thromboprophylaxis & Anesthesia</h3>
+                <ul>
+                    <li><strong>Thrombus Prevention:</strong> Use <strong>LMW Heparin</strong>. Should NOT exceed 28 days if ambulatory. Use graduated compression stockings (arch support, gentle compression).</li>
+                    <li><strong>Anesthesia:</strong> Favor <strong>short-acting agents</strong> (e.g., Propofol) for easy reversal and early ambulation.<br>
+                    <span class="badge pitfall">⚠️ Avoid:</span> Long-acting anesthesia and long-acting neuromuscular blocking agents (NMBAs).</li>
+                </ul>
+            </div>
+
+            <div class="card danger">
+                <h3>Fluid Management & Overload (Fig 10)</h3>
+                <p><strong>Goal:</strong> Restrictive fluid therapy with near <strong>zero balance</strong> input/output. Correct fluid deficit pre-op. Usual post-op deficit is ±500 mL.</p>
+                <div class="figure-box" style="text-align: left;">
+                    <strong>Pathophysiology of Fluid Overload:</strong><br>
+                    Salt/water overload ➔ ↑ Intra-abdominal pressure ➔ ↓ Mesentery blood flow AND Intestinal Edema ➔ Ileus & poor wound healing (↓ OH-proline) ➔ Dehiscence.<br>
+                    <br>
+                    <span class="badge must-know">⭐ Rule:</span> Daily accumulated fluid balance should NOT go beyond <strong>75% of interstitial fluid volume</strong> (or 12% of patient's weight).
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <h3>Fasting & Carbohydrate Loading</h3>
+                <p><span class="badge must-know">⭐ NO SOLID FOOD for at least 6 hours.</span><br>
+                <span class="badge pearl">💡 Clear Liquids:</span> Can be given up to <strong>2 hours</strong> prior to OR (prevents dehydration/hypoglycemia).</p>
+                <p><strong>CHO Loading Benefits:</strong> Shifts fasting to fed state, ↓ post-op insulin resistance, ↓ post-op weight loss, preserves LBM.<br>
+                <span class="badge pitfall">⚠️ Caution:</span> Low recommendation for diabetic patients (risk of gastroparesis / poor emptying).</p>
+                <table>
+                    <thead><tr><th>Food Type</th><th>Gastric Emptying Time</th></tr></thead>
+                    <tbody>
+                        <tr><td>Water (Aspirin, Alcohol)</td><td>~0-12 mins</td></tr>
+                        <tr><td>Juice / Liquids</td><td>15-30 mins</td></tr>
+                        <tr><td>Solid Food (Cooked Meat, Fish)</td><td>3-4 hours</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>Temperature, Glycemic Control, & Surgery Type</h3>
+                <ul>
+                    <li><strong>Temperature:</strong> Prevent hypothermia (shivering ↑ muscle activity, causes coagulopathy and SSI).<br>
+                        <span class="badge danger">⚠️ Triad of Death:</span> Hypothermia (<35°C), Acidosis (pH <7.1), Coagulopathy (INR >1.5).
+                    </li>
+                    <li><strong>Glycemic Control:</strong> Maintain <strong>140-180 mg/dL</strong>. <br>
+                        Acute hypo = fast emptying. Chronic hyper + ox stress = fast emptying.<br>
+                        Chronic hyper + inflamm stress = slow emptying. Uncontrolled = delayed motility / PONV.
+                    </li>
+                    <li><strong>Surgery Type:</strong> Laparoscopic favored (smaller incision, ↓ pro-inflammatory cytokines, better pulmonary care).<br>
+                        If open surgery: use <strong>Transversus Abdominis Plane (TAP) Block</strong>. Avoid epidural (causes postural hypotension/delays ambulation).
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 5: POSTOP -->
+        <div id="tab-postop" class="tab-content">
+            <h2>5. Post-operative Period</h2>
+            
+            <div class="card accent">
+                <h3>Pain & Fluid Management</h3>
+                <ul>
+                    <li><strong>Pain Management:</strong> Multimodal approach. Paracetamol 1g QID + NSAID (Ketorolac 15-30mg OD) OR COX2 Inhibitor (200mg BID). COX2 is preferred as it doesn't affect platelet aggregation. Reduces stress, allows early ambulation.</li>
+                    <li><strong>Fluid Management:</strong> Balanced salt solution (Lactated Ringer's) at <strong>50 mL/hour</strong>. Boluses of 100-150 mL if needed. Monitor via Urine Output (target: <strong>0.5-1 cc/kg/hr</strong>). Restrictive intraoperative hydration significantly lowers complication rates.</li>
+                </ul>
+            </div>
+
+            <div class="table-wrapper">
+                <h3>Postoperative Nausea and Vomiting (PONV)</h3>
+                <p><strong>Prophylaxis:</strong> Dexamethasone 8-10 mg IV (start of OR, promotes appetite) + 5-HT3 antagonist (Ondansetron 4 mg IV at end of OR). Avoid Dopamine inhibitors (delays motility).</p>
+                <table>
+                    <thead><tr><th>Risk Factor Category</th><th>Specific Factors (Traditional Approach)</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Patient</strong></td><td>Female gender, Non-smoking status, Hx of PONV, Hx of motion sickness</td></tr>
+                        <tr><td><strong>Anesthetic</strong></td><td>Volatile agents, Nitrous oxide, Intraop opioids, Neostigmine (>2.5mg)</td></tr>
+                        <tr><td><strong>Surgical</strong></td><td><strong>Lengthy surgical procedures (MOST IMPORTANT)</strong>, Intra-abdominal, Gynecological, Laparoscopic, Breast, Neuro, ENT</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card warning">
+                <h3>Infective Complications & Tubes</h3>
+                <ul>
+                    <li><strong>Predictor of Infection:</strong> <strong>C-reactive Protein (CRP)</strong>. A Day 3 CRP <strong>> 150 mg/L</strong> or persistent elevation predicts infective complication in colorectal ops.</li>
+                    <li><strong>Drainage & NGT:</strong> Avoid routine use. Remove ASAP.<br>
+                        Peritoneal drainage does NOT prevent intestinal leak. NGT/foley restricts breathing, delays oral intake, risks pneumonia/UTI. 
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <span class="badge must-know">⭐ Early Feeding & Ambulation</span>
+                <p><strong>Early Feeding:</strong> Done within 1st 24 hours. Prevents negative protein balance, maintains intestinal mucosal integrity/immunity, prevents bacterial translocation.</p>
+                <p><span class="badge pitfall">⚠️ Common Myth:</span> Bowel sounds and passage of flatus are <strong>NOT absolute prerequisites</strong> for initiating early feeding! Adequate resuscitation (urine output) is key.</p>
+                <p><strong>Early Ambulation:</strong> Promotes faster recovery and shorter hospital stay.</p>
+            </div>
+        </div>
+
+        <!-- TAB 6: COMPARISONS -->
+        <div id="tab-comparisons" class="tab-content">
+            <h2>6. Comparisons</h2>
+            
+            <div class="table-wrapper">
+                <h3>Table 11: ERAS vs Traditional Approach</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Traditional Approach</th>
+                            <th>ERAS Approach</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Nutrition</strong></td>
+                            <td>No routine pre-op protein/CHO supplementation.</td>
+                            <td>Routine pre-op protein/CHO supplementation (up to 2hrs before).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Intravenous Fluid</strong></td>
+                            <td>Liberal fluid use.</td>
+                            <td>Goal-directed / balanced / restrictive fluids.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pain Control</strong></td>
+                            <td>Reliance on opioids.</td>
+                            <td>Multimodal pain therapy (incl. TAP block, COX2).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GI Function / Oral Intake</strong></td>
+                            <td>NPO until return of bowel function, use of feeding tubes.</td>
+                            <td>Clear liquid diet post-op Day 0, advance as tolerated, NO routine feeding tube.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Drains and Tubes</strong></td>
+                            <td>Routine use of NGT and abdominal drains.</td>
+                            <td>Use ONLY when indicated; removed ASAP.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Post-op Level of Care</strong></td>
+                            <td>Intensive care unit (ICU).</td>
+                            <td>Intermediate/step-down, early ambulation.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-wrapper">
+                <h3>Laparoscopic vs Open Surgery</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Laparoscopic (Preferred)</th>
+                            <th>Open Surgery</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Incision Size</strong></td>
+                            <td>Small</td>
+                            <td>Large</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Inflammatory Response</strong></td>
+                            <td>Decreased mediator release (less cytokines)</td>
+                            <td>Higher pro-inflammatory response</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pulmonary Care</strong></td>
+                            <td>Better post-op pulmonary function</td>
+                            <td>Higher risk of respiratory depression / pain guarding</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bowel Function</strong></td>
+                            <td>Easy return (minimal manipulation)</td>
+                            <td>Higher risk of prolonged ileus</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Anesthesia Recommendation</strong></td>
+                            <td>Local infiltration (Bupivacaine) at ports</td>
+                            <td>TAP Block recommended. Avoid epidurals.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB 7: FLASHCARDS -->
+        <div id="tab-flashcards" class="tab-content">
+            <h2>7. Active-Recall Flashcards (50)</h2>
+            <div class="progress-container"><div class="progress-bar" id="fc-progress"></div></div>
+            <div class="controls mb-1">
+                <button class="btn-outline" onclick="shuffleFlashcards()">🔀 Shuffle</button>
+            </div>
+            <div class="flashcard-container" id="fc-container">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <!-- TAB 8: MCQs -->
+        <div id="tab-mcqs" class="tab-content">
+            <h2>8. Self-Assessment (50 Board-Style MCQs)</h2>
+            <div class="progress-container"><div class="progress-bar" id="mcq-progress"></div></div>
+            <p>Score: <span id="mcq-score">0</span> / 50</p>
+            <div class="mcq-container" id="mcq-container">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <!-- TAB 9: CRAM SHEET -->
+        <div id="tab-cram" class="tab-content">
+            <h2>9. Cram Sheet (Last-Minute Review)</h2>
+            <div class="card">
+                <ul class="cram-list">
+                    <li><span class="cram-think">IF YOU SEE</span> "Fast Track Surgery" ➔ <span class="cram-think">THINK</span> ERAS.</li>
+                    <li><span class="cram-think">IF YOU SEE</span> Cancer patient with muscle wasting ➔ <span class="cram-think">THINK</span> Cachexia (Tumor=PIF/LMF, Body=Cytokines/Inflammation).</li>
+                    <li><span class="cram-think">IF YOU SEE</span> Severe malnutrition pre-op ➔ <span class="cram-think">THINK</span> Delay surgery 1 week for nutrition build-up (watch out for refeeding syndrome).</li>
+                    <li><span class="cram-think">IF YOU SEE</span> Pre-op diabetic patient ➔ <span class="cram-think">THINK</span> Target BS 140-180 mg/dL. Caution with CHO loading due to Gastroparesis.</li>
+                    <li><span class="cram-think">IF YOU SEE</span> Smoking patient ➔ <span class="cram-think">THINK</span> Stop 4-8 weeks prior to reduce hypersecretion/aspiration.</li>
+                    <li><span class="cram-think">IF YOU SEE</span> Pre-op Anemia ➔ <span class="cram-think">THINK</span> IV ferric carboxymaltose (Blood transfusion is LOW recommendation unless Hb ≤ 7).</li>
+                    <li><span class="cram-think">IF YOU SEE</span> Prolonged surgery (>4 hrs) ➔ <span class="cram-think">THINK</span> Give additional dose of prophylactic antibiotics.</li>
+                    <li><span class="cram-think">IF YOU SEE</span> NPO guidelines ➔ <span class="cram-think">THINK</span> Solid food = 6 hours max fasting. Clear liquids = up to 2 hours before OR.</li>
+                    <li><span class="cram-think">IF YOU SEE</span> Fluid overload intra-op ➔ <span class="cram-think">THINK</span> Bowel edema ➔ Ileus ➔ Anastomotic dehiscence. Target Near-Zero Balance.</li>
+                    <li><span class="cram-think">IF YOU SEE</span> Triad of Death ➔ <span class="cram-think">THINK</span> Hypothermia (<35°C), Acidosis (pH <7.1), Coagulopathy (INR >1.5).</li>
+                    <li><span class="cram-think">IF YOU SEE</span> Open abdominal surgery pain control ➔ <span class="cram-think">THINK</span> TAP block (avoid Epidural due to postural hypotension).</li>
+                    <li><span class="cram-think">IF YOU SEE</span> PONV Prophylaxis ➔ <span class="cram-think">THINK</span> Dexamethasone (start of OR) + Ondansetron (end of OR). Lengthy surgery is biggest risk factor.</li>
+                    <li><span class="cram-think">IF YOU SEE</span> Day 3 post-op CRP > 150 mg/L ➔ <span class="cram-think">THINK</span> Infective complication (colorectal).</li>
+                    <li><span class="cram-think">IF YOU SEE</span> Post-op Feeding ➔ <span class="cram-think">THINK</span> Start within 24 hours. Bowel sounds/flatus are NOT required!</li>
+                    <li><span class="cram-think">IF YOU SEE</span> Drains/NGT ➔ <span class="cram-think">THINK</span> Remove ASAP. They do not prevent leaks; they delay recovery and cause infections.</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <button id="scroll-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
+
+    <script>
+        // Tab Navigation Logic
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.target).classList.add('active');
+            });
+        });
+
+        // Dark Mode Logic
+        function toggleDarkMode() {
+            const body = document.body;
+            if(body.dataset.theme === 'dark') {
+                body.dataset.theme = 'light';
+            } else {
+                body.dataset.theme = 'dark';
+            }
+        }
+
+        // Scroll to Top button
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('scroll-top');
+            if (window.scrollY > 300) btn.style.display = 'block';
+            else btn.style.display = 'none';
+        });
+
+        // ==========================================
+        // 50 FLASHCARDS DATA
+        // ==========================================
+        const flashcardsData = [
+            { q: "What are two other names for ERAS?", a: "Fast Track Surgery or Outpatient Day Surgery." },
+            { q: "What is the primary pathophysiology of weight loss in cancer cachexia driven by the tumor?", a: "Massive protein (via PIF) and lipid (via LMF) mobilization and use." },
+            { q: "What is the body's reaction to a tumor that contributes to cachexia?", a: "WBCs produce cytokines leading to decreased appetite/increased satiety and inflammation." },
+            { q: "A 10% loss of Lean Body Mass (LBM) is associated with what mortality rate?", a: "10% mortality (along with decreased immunity/increased infections)." },
+            { q: "At what % loss of LBM is mortality almost certain (100%)?", a: "40% loss of LBM." },
+            { q: "What happens to macromolecules and urinary nitrogen following surgical stress?", a: "Increased total body expenditure of macromolecules and urinary nitrogen washing." },
+            { q: "What is the target blood sugar for patients with Diabetes Mellitus undergoing ERAS?", a: "140-180 mg/dL." },
+            { q: "Why is uncontrolled blood sugar a problem for preoperative fasting?", a: "It leads to gastroparesis (decreased gastric motility/delayed emptying)." },
+            { q: "How long before surgery should a patient be advised to cease smoking?", a: "4 to 8 weeks." },
+            { q: "What is the maximum alcohol limit allowed pre-admission to avoid post-op infection risks?", a: "Not more than 2 units (e.g., 150 mL wine or 500 mL 4% beer)." },
+            { q: "How should severe malnutrition be handled if surgery can be delayed?", a: "Build up nutrition for at least 1 week, monitoring for refeeding syndrome." },
+            { q: "What are the WHO criteria for anemia in men and women?", a: "Men: Hb < 130 mg/L (g/L), Women: Hb < 120 mg/L (g/L)." },
+            { q: "What serum ferritin level diagnoses anemia WITHOUT inflammation?", a: "< 30 µg/L." },
+            { q: "What is the standard ERAS treatment for preoperative anemia?", a: "IV ferric carboxymaltose (15 mg/kg for 15 mins)." },
+            { q: "Why are benzodiazepines avoided as premedication in ERAS?", a: "They cause prolonged sedation and impaired motor function." },
+            { q: "Why is routine bowel preparation given a 'low' recommendation?", a: "It may lead to dehydration, electrolyte imbalance, and discomfort, especially in elderly." },
+            { q: "When should prophylactic antibiotics be given?", a: "30 to 60 minutes before the operation (skin incision)." },
+            { q: "When should an additional dose of antibiotic be given intraoperatively?", a: "If the operating time exceeds 4 hours." },
+            { q: "What medication is used for thromboprophylaxis in ERAS?", a: "Low Molecular Weight (LMW) Heparin." },
+            { q: "What type of anesthesia agents are favored in ERAS?", a: "Short-acting agents (e.g., Propofol)." },
+            { q: "What type of fluid therapy is recommended intraoperatively?", a: "Restrictive / near-zero balance input and output." },
+            { q: "What is the physiological consequence of salt and water overload intraoperatively?", a: "Intestinal edema, leading to ileus and anastomosis dehiscence." },
+            { q: "What is the maximum allowed daily accumulated fluid balance relative to interstitial fluid?", a: "Should not go beyond 75% of interstitial fluid volume (or 12% of patient weight)." },
+            { q: "What is the maximum fasting time for SOLID food?", a: "NO solid food for at least 6 hours." },
+            { q: "Clear liquids can be given up to how many hours prior to OR?", a: "Up to 2 hours prior." },
+            { q: "What is a major metabolic benefit of preoperative carbohydrate loading?", a: "Decreases post-op insulin resistance and preserves lean body mass." },
+            { q: "Which patient population has a low recommendation for CHO loading?", a: "Diabetic patients (due to gastroparesis risk)." },
+            { q: "What comprises the 'Triad of Death' in trauma/surgery?", a: "Hypothermia (<35°C), Acidosis (pH < 7.1), Coagulopathy (INR > 1.5)." },
+            { q: "What effect does shivering have on surgical patients?", a: "Increases muscle activity, causing anaerobic acidosis and coagulopathy (prevents platelet aggregation)." },
+            { q: "Chronic hyperglycemia combined with inflammatory stress results in what gastric motility change?", a: "Slower gastric emptying." },
+            { q: "Why is laparoscopic surgery favored over open surgery regarding inflammation?", a: "Small skin incisions lead to decreased mediator release (less pro-inflammatory cytokines)." },
+            { q: "What regional anesthesia is recommended for open abdominal surgery?", a: "Transversus Abdominis Plane (TAP) block." },
+            { q: "Why is epidural anesthesia avoided in ERAS?", a: "Due to postural hypotension and delayed ambulation." },
+            { q: "What combination of non-opioid drugs is recommended for post-op pain management?", a: "Paracetamol + NSAID (Ketorolac) or COX2 Inhibitor." },
+            { q: "Why is a COX2 inhibitor preferred over standard NSAIDs post-op?", a: "It does not affect platelet aggregation." },
+            { q: "What is the MOST IMPORTANT surgical risk factor for Postoperative Nausea and Vomiting (PONV)?", a: "Lengthy surgical procedures." },
+            { q: "What two drugs are given for PONV prophylaxis and when?", a: "Dexamethasone (at start of OR) and Ondansetron (at end of OR)." },
+            { q: "What lab value on post-op day 3 strongly predicts an infective complication in colorectal surgery?", a: "C-reactive Protein (CRP) > 150 mg/L." },
+            { q: "What is the target rate for post-op maintenance IV fluids (Lactated Ringer's)?", a: "50 mL/hour." },
+            { q: "When should early feeding be initiated post-op?", a: "Within the 1st 24 hours." },
+            { q: "Are bowel sounds and passage of flatus absolute prerequisites for early feeding?", a: "NO. They are not required if adequately resuscitated (indicated by urine output)." },
+            { q: "What is the main benefit of early enteral feeding?", a: "Maintains intestinal mucosal integrity, normal microvilli, and prevents bacterial dislocation." },
+            { q: "What is the ERAS stance on peritoneal drainage?", a: "Avoid routine use; it does NOT prevent intestinal leak and should be removed ASAP." },
+            { q: "What happens to the gastric emptying time for a diabetic with uncontrolled blood sugar?", a: "It becomes prolonged/unpredictable due to gastroparesis." },
+            { q: "What is the typical post-op fluid deficit after correcting for intra-op losses?", a: "±500 mL." },
+            { q: "According to Table 11, what is the traditional approach to postoperative oral intake?", a: "NPO until return of bowel function (with feeding tubes)." },
+            { q: "According to Table 11, what is the ERAS approach to postoperative oral intake?", a: "Clear liquid diet on Day 0, advance as tolerated, no feeding tube." },
+            { q: "What complication arises if the bowel wall becomes edematous from liberal fluid therapy?", a: "The anastomosis repair may burst (dehiscence)." },
+            { q: "How long does solid food (cooked meat/fish) take for gastric transit time?", a: "3 to 4 hours." },
+            { q: "In the context of PONV, which anesthetic agents increase risk?", a: "Volatile agents, Nitrous oxide, Intraoperative opioids, Neostigmine (>2.5 mg)." }
+        ];
+
+        const fcContainer = document.getElementById('fc-container');
+        const fcProgress = document.getElementById('fc-progress');
+        
+        function renderFlashcards(cards) {
+            fcContainer.innerHTML = '';
+            let flippedCount = 0;
+            cards.forEach((card, index) => {
+                const el = document.createElement('div');
+                el.className = 'flashcard';
+                el.innerHTML = `
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">${index + 1}. ${card.q}</div>
+                        <div class="flashcard-back">${card.a}</div>
+                    </div>
+                `;
+                let isFlipped = false;
+                el.addEventListener('click', () => {
+                    if(!isFlipped) {
+                        isFlipped = true;
+                        flippedCount++;
+                        fcProgress.style.width = `${(flippedCount / cards.length) * 100}%`;
+                    }
+                    el.classList.toggle('is-flipped');
+                });
+                fcContainer.appendChild(el);
+            });
+        }
+        
+        function shuffleFlashcards() {
+            const shuffled = [...flashcardsData].sort(() => Math.random() - 0.5);
+            renderFlashcards(shuffled);
+            fcProgress.style.width = '0%';
+        }
+        
+        renderFlashcards(flashcardsData);
+
+        // ==========================================
+        // 50 MCQs DATA (Includes original 10 + 40 generated strictly from source)
+        // ==========================================
+        const mcqData = [
+            // Original 10 Questions
+            { q: "Which of the following patients will MOST likely NOT benefit from a two hour preoperative liquid diet?", options: ["50-year-old male with breast cancer", "55-year-old male with diabetes", "60-year-old female with COPD", "65-year-old male for hemorrhoidectomy"], a: 1, exp: "Patients with diabetes suffer from gastroparesis (poor gastric emptying), making CHO loading contraindicated/risky." },
+            { q: "Which of the following is the metabolic advantage of giving a high carbohydrate diet prior to the operation?", options: ["Eliminates food craving", "Prevents food aspiration", "Promotes lipid storage", "Stabilizes insulin release (decreases insulin resistance)"], a: 3, exp: "CHO loading shifts fasting to a fed state which decreases post-op insulin resistance." },
+            { q: "Which among the following anesthesia procedure is prone to exhibit postural hypotension after a major abdominal operation?", options: ["Epidural anesthesia", "General anesthesia", "Spinal anesthesia", "Transversus abdominis plane block"], a: 0, exp: "Epidural anesthesia is avoided in ERAS due to postural hypotension and delay of ambulation." },
+            { q: "Which of the following intraoperative management will favor early feeding in a 55 year old male patient for elective rectal cancer operation?", options: ["Nerve blocking agent application", "Zero balance fluid management", "Temperature maintenance", "Proper pulmonary management"], a: 1, exp: "Zero balance prevents fluid overload that causes intestinal edema and ileus, thereby favoring early feeding." },
+            { q: "When should the operative schedule be if a patient had a high carbohydrate fluid at 6 AM?", options: ["2 PM", "12 NN", "8 AM", "10 AM"], a: 2, exp: "Clear liquids (high CHO fluid) can be given up to 2 hours before the operation. 6 AM + 2 hrs = 8 AM." },
+            { q: "A 68-year-old male with colorectal cancer is found to have severe malnutrition. Operation can safely be postponed. MOST appropriate management?", options: ["Proceed immediately with surgery", "Provide nutritional optimization for at least one week", "Administer high-dose corticosteroids", "Keep NPO until operation"], a: 1, exp: "ERAS recommends nutritional build-up for at least 1 week for severely malnourished patients when surgery can be delayed." },
+            { q: "Recommended perioperative blood glucose target for a patient with Type 2 DM?", options: ["70-100 mg/dL", "100-120 mg/dL", "140-180 mg/dL", "200-250 mg/dL"], a: 2, exp: "ERAS target is 140-180 mg/dL to prevent extremes that alter gastric emptying." },
+            { q: "Excessive IV fluids during colorectal surgery leads to delayed bowel movement and nausea. Mechanism?", options: ["Increased intestinal perfusion", "Intestinal edema leading to impaired bowel motility/ileus", "Increased gastric acid", "Decreased inflammatory cytokine production"], a: 1, exp: "Salt/water overload causes intestinal edema which impairs motility (ileus) and risks dehiscence." },
+            { q: "On post-op day 3, CRP is 180 mg/L. Interpretation according to ERAS?", options: ["Expected, excludes infection", "Normal wound healing", "Suggests a possible post-op infective complication", "Can be safely discharged"], a: 2, exp: "Day 3 CRP > 150 mg/L strongly predicts infective complications in colorectal operations." },
+            { q: "Post-op day 1, patient is hemodynamically stable, adequate urine output, NO bowel sounds or flatus. Management?", options: ["Delay feeding until bowel sounds return", "Initiate early oral feeding as tolerated despite no bowel sounds", "Insert NGT routinely", "Start TPN immediately"], a: 1, exp: "Bowel sounds/flatus are NOT absolute prerequisites for early feeding. It maintains mucosal integrity." },
+            // Generated 40 Questions
+            { q: "What is another commonly used term for Enhanced Recovery After Surgery (ERAS)?", options: ["Prolonged Inpatient Pathway", "Fast Track Surgery", "Sequential Perioperative Care", "Standard Conventional Surgery"], a: 1, exp: "ERAS is also called Fast Track Surgery or Outpatient Day Surgery." },
+            { q: "Which of the following cytokines is NOT typically associated with the body's reaction causing cancer cachexia?", options: ["TNF-alpha", "IL-1", "IL-10", "IFN-gamma"], a: 2, exp: "Pro-inflammatory cytokines (TNF, IL-1, IFN) drive cachexia. IL-10 is anti-inflammatory." },
+            { q: "A patient with 30% loss of lean body mass is most likely to present with:", options: ["Decreased immunity only", "Decreased healing but ambulatory", "Pressure ulcers, pneumonia, too weak to sit", "Immediate death"], a: 2, exp: "Table 1 states 30% LBM loss causes severe weakness (cannot sit), pressure ulcers, and pneumonia (50% mortality)." },
+            { q: "A patient with 40% loss of lean body mass has an associated mortality of:", options: ["10%", "30%", "50%", "100%"], a: 3, exp: "Table 1 states 40% LBM loss is associated with 100% mortality, usually from pneumonia." },
+            { q: "What is the primary goal of ERAS during the operative phase?", options: ["Increase metabolic stress", "Achieve a catabolic state", "Reduce stress and return to anabolic homeostasis", "Prolong hospital stay for monitoring"], a: 2, exp: "Goals include reducing surgical stress and facilitating early return to anabolic homeostasis." },
+            { q: "How long before surgery should a patient cease smoking to significantly shorten recovery?", options: ["1 to 2 weeks", "4 to 8 weeks", "2 to 3 days", "12 to 24 hours"], a: 1, exp: "Smoking cessation is advised 4 to 8 weeks prior to reduce hypersecretion and improve wound healing." },
+            { q: "According to ERAS, what is the maximum recommended alcohol intake preoperatively?", options: ["No limit", "2 units", "4 units", "6 units"], a: 1, exp: "Not more than 2 units (150mL 13% wine or 500mL 4% beer) to avoid decreasing immunity." },
+            { q: "Mild to moderate malnutrition preoperatively requires which intervention according to ERAS?", options: ["Delay surgery 1 week", "Delay surgery 2 weeks", "TPN for 7 days", "Operation may proceed immediately"], a: 3, exp: "Only severe malnutrition requires a 1-week build-up if surgery can be delayed; mild/moderate can proceed." },
+            { q: "What is the WHO criteria for anemia in a female patient?", options: ["Hb < 140 g/L", "Hb < 130 g/L", "Hb < 120 g/L", "Hb < 110 g/L"], a: 2, exp: "WHO criteria: Men < 130 mg/L (g/L), Women < 120 mg/L (g/L)." },
+            { q: "In a patient WITH systemic inflammation, what serum ferritin level is diagnostic for iron deficiency?", options: ["< 30 µg/L", "< 100 µg/L", "< 200 µg/L", "< 500 µg/L"], a: 1, exp: "Ferritin < 100 µg/L is diagnostic if inflammation is present; < 30 µg/L if without inflammation." },
+            { q: "Why is blood transfusion given a LOW recommendation for preoperative anemia optimization?", options: ["It is too expensive", "It is ineffective at raising Hb", "Risk of foreign substance reactions and blood-borne diseases", "It causes immediate hypothermia"], a: 2, exp: "Transfusion risks complications (reactions, Hepatitis/HIV). IV Iron (ferric carboxymaltose) is preferred." },
+            { q: "Premedication with benzodiazepines should be avoided in ERAS to prevent:", options: ["Gastric hypersecretion", "Prolonged sedation and impaired motor function", "Hypertension", "Renal failure"], a: 1, exp: "Benzodiazepines cause prolonged sedation and impair motor function, delaying early ambulation." },
+            { q: "Prophylactic antibiotics should be administered within what timeframe prior to surgery?", options: ["1 to 2 hours", "30 to 60 minutes", "Immediately post-op", "24 hours prior"], a: 1, exp: "Given 30 to 60 minutes before skin incision for maximum efficacy." },
+            { q: "An additional dose of prophylactic antibiotics is required if the operating time exceeds:", options: ["1 hour", "2 hours", "4 hours", "6 hours"], a: 2, exp: "Redose if >4 hours because the antibiotic blood level has fallen by that time." },
+            { q: "What class of wound is an uninfected operative wound where respiratory/GI/GU tracts are NOT entered?", options: ["Clean", "Clean/Contaminated", "Contaminated", "Dirty"], a: 0, exp: "Clean wounds do not require antibiotics according to the ERAS Table 3." },
+            { q: "Which pharmacologic agent is recommended for thromboprophylaxis in ERAS?", options: ["Aspirin", "Clopidogrel", "LMW Heparin", "Warfarin"], a: 2, exp: "LMW Heparin is used to prevent thrombus complications like pulmonary embolism." },
+            { q: "Which characteristic of anesthetic agents is favored in ERAS?", options: ["Long-acting sedation", "High lipophilicity", "Short-acting and easy to reverse", "Prolonged neuromuscular blockade"], a: 2, exp: "Short-acting agents (like Propofol) allow prompt recovery and early ambulation." },
+            { q: "The usual estimated fluid deficit post-operatively in a restrictive ERAS protocol is:", options: ["± 100 mL", "± 500 mL", "± 1000 mL", "± 2000 mL"], a: 1, exp: "After correcting the pre-op deficit, the usual post-op deficit goal is ±500 mL (near-zero balance)." },
+            { q: "Which of the following is a direct consequence of salt and water overload in bowel surgery?", options: ["Gastric atrophy", "Intestinal edema and ileus", "Hyperglycemia", "Decreased intra-abdominal pressure"], a: 1, exp: "Overload increases intra-abdominal pressure, causing intestinal edema, ileus, and dehiscence." },
+            { q: "ERAS protocol mandates NO solid food for at least how many hours pre-op?", options: ["2 hours", "4 hours", "6 hours", "8 hours"], a: 2, exp: "Solid food must be stopped at least 6 hours before surgery." },
+            { q: "The 'Triad of Death' in severely injured/surgical patients consists of:", options: ["Hypothermia, Alkalosis, Bleeding", "Hyperthermia, Acidosis, Thrombosis", "Hypothermia, Acidosis, Coagulopathy", "Sepsis, Hypoxia, Hypovolemia"], a: 2, exp: "Triad = Hypothermia (<35C), Acidosis (pH<7.1), Coagulopathy (INR>1.5)." },
+            { q: "Shivering during surgery contributes to coagulopathy by preventing:", options: ["Fibrinolysis", "Platelet aggregation", "Thrombin generation", "Red blood cell production"], a: 1, exp: "Shivering/hypothermia prevents platelet aggregation, hindering the clotting mechanism." },
+            { q: "A patient with chronic hyperglycemia and active inflammatory stress will likely exhibit:", options: ["Faster gastric emptying", "Slower gastric emptying", "Normal gastric emptying", "Immediate vomiting"], a: 1, exp: "According to Fig 14, Chronic Hyperglycemia + Inflammatory stress = Slow Gastric Emptying." },
+            { q: "Which surgical approach is generally favored by ERAS due to decreased mediator release?", options: ["Exploratory laparotomy", "Laparoscopic surgery", "Open surgery with wide margins", "Robotic surgery only"], a: 1, exp: "Laparoscopic surgery causes a smaller incision and decreased pro-inflammatory mediator release." },
+            { q: "For open abdominal surgery, what is the preferred regional anesthesia block in ERAS?", options: ["Epidural block", "Spinal block", "Transversus Abdominis Plane (TAP) block", "Brachial plexus block"], a: 2, exp: "TAP block is preferred to avoid the postural hypotension associated with epidurals." },
+            { q: "A multimodal pain regimen in ERAS often combines Paracetamol with a COX2 inhibitor because the latter:", options: ["Is a stronger opioid", "Causes deep sedation", "Does not affect platelet aggregation", "Reverses neuromuscular blockade"], a: 2, exp: "COX2 inhibitors (200 mg BID) provide anti-inflammatory effects without affecting platelet aggregation." },
+            { q: "Which of the following is considered a 'Traditional' specific patient risk factor for PONV?", options: ["Male gender", "Smoking status", "History of motion sickness", "Use of total intravenous anesthesia"], a: 2, exp: "Traditional patient risk factors for PONV include female gender, non-smoking, Hx of PONV, and Hx of motion sickness." },
+            { q: "Which medication is given as PONV prophylaxis specifically at the START of the operation?", options: ["Ondansetron", "Metoclopramide", "Dexamethasone", "Promethazine"], a: 2, exp: "Dexamethasone (8-10 mg IV) is given once at the start; Ondansetron is given at the end." },
+            { q: "Postoperative maintenance fluid with Lactated Ringer's should be run at approximately:", options: ["20 mL/hour", "50 mL/hour", "100 mL/hour", "150 mL/hour"], a: 1, exp: "Balanced salt solution (LR) is run at a restrictive rate of 50 mL/hour." },
+            { q: "What is the targeted urine output to confirm adequate hydration post-operatively?", options: ["0.1 - 0.3 cc/kg/hr", "0.5 - 1 cc/kg/hr", "2 - 3 cc/kg/hr", "5 cc/kg/hr"], a: 1, exp: "Adequate hydration is monitored by urine output at 0.5-1 cc/kg/hr." },
+            { q: "Early enteral feeding prevents bacterial dislocation by:", options: ["Creating an acidic stomach environment", "Maintaining intestinal mucosal integrity and immunity", "Mechanically flushing bacteria", "Sterilizing the gut lumen"], a: 1, exp: "Early feeding maintains intestinal mucosal integrity, normal microvilli, and mucosal immunity, preventing bacterial translocation." },
+            { q: "Why is the routine use of Nasogastric Tubes (NGT) discouraged in ERAS?", options: ["It prevents intestinal leaks", "It increases gastric emptying", "It is a foreign body that risks pneumonia, discomfort, and delays oral intake", "It causes immediate bowel ischemia"], a: 2, exp: "NGT causes discomfort, delays oral intake, and increases risk of pneumonia." },
+            { q: "According to Table 11 (ERAS vs Traditional), the Traditional approach to Gl function post-op is:", options: ["Immediate clear liquids", "NPO until return of bowel function", "Aggressive enteral tube feeding", "Solid food immediately"], a: 1, exp: "Traditional relies on NPO until bowel function returns; ERAS starts clear liquids on Day 0." },
+            { q: "Tumor cells induce proteolysis to cause weight loss via which mediator?", options: ["LMF", "PIF", "TNF-a", "IL-6"], a: 1, exp: "Tumor produces PIF (Proteolysis Inducing Factor) and LMF (Lipid Mobilizing Factor)." },
+            { q: "The daily accumulated fluid balance should not exceed what percentage of the patient's weight to prevent edema?", options: ["5%", "12%", "20%", "50%"], a: 1, exp: "It should not go beyond 75% of interstitial fluid volume, which equals 12% of the patient's weight." },
+            { q: "Which drink is given up to 2 hours preoperatively to decrease insulin resistance?", options: ["Milk", "Carbohydrate (CHO) loading drink", "Pulp-heavy fruit juice", "Protein shake"], a: 1, exp: "A 400 mL carbohydrate supplement drink can be given 2 hrs prior." },
+            { q: "What effect does hypothermia (<35C) have on wound healing?", options: ["Improves tensile strength", "Increases surgical site infection", "Promotes collagen deposition", "Reduces scar tissue"], a: 1, exp: "Hypothermia increases surgical site infection and causes coagulopathy/cardiac events." },
+            { q: "Which class of drugs used for PONV prophylaxis may delay gastric motility and is generally avoided?", options: ["5-HT3 antagonists", "Corticosteroids", "Dopamine inhibitors", "NK1 receptor antagonists"], a: 2, exp: "Dopamine inhibitors are noted in the lecture to delay motility." },
+            { q: "Liberal intraoperative hydration (compared to restrictive) results in:", options: ["Higher odds ratio for complications", "Faster return of bowel function", "Decreased risk of pneumonia", "Better tissue healing"], a: 0, exp: "Table 9 shows restrictive fluid has an odds ratio of 0.4 for complications vs liberal hydration." },
+            { q: "Which action is NOT an ERAS recommendation for immediate post-op care?", options: ["Remove Foley catheter early", "Keep patient on prolonged bed rest to heal", "Remove abdominal drains if not strictly indicated", "Encourage early oral feeding"], a: 1, exp: "Early ambulation is heavily promoted to prevent complications; prolonged bed rest is avoided." }
+        ];
+
+        const mcqContainer = document.getElementById('mcq-container');
+        let currentScore = 0;
+        let answered = new Array(mcqData.length).fill(false);
+
+        mcqData.forEach((q, index) => {
+            const block = document.createElement('div');
+            block.className = 'card';
+            
+            let html = `<div class="mcq-question">${index + 1}. ${q.q}</div><div class="mcq-options">`;
+            q.options.forEach((opt, optIndex) => {
+                html += `<div class="mcq-option" data-q="${index}" data-opt="${optIndex}">${String.fromCharCode(65 + optIndex)}. ${opt}</div>`;
+            });
+            html += `</div><div class="mcq-explanation" id="exp-${index}"><strong>Explanation:</strong> ${q.exp}</div>`;
+            block.innerHTML = html;
+            mcqContainer.appendChild(block);
+        });
+
+        document.querySelectorAll('.mcq-option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                const qIndex = parseInt(this.getAttribute('data-q'));
+                const optIndex = parseInt(this.getAttribute('data-opt'));
+                
+                if(answered[qIndex]) return; // prevent multiple guesses
+                answered[qIndex] = true;
+
+                const correctIndex = mcqData[qIndex].a;
+                const optionsNodes = this.parentElement.children;
+
+                // Highlight chosen & correct
+                if(optIndex === correctIndex) {
+                    this.classList.add('correct');
+                    currentScore++;
+                    document.getElementById('mcq-score').innerText = currentScore;
+                } else {
+                    this.classList.add('incorrect');
+                    optionsNodes[correctIndex].classList.add('correct');
+                }
+
+                // Show explanation
+                document.getElementById(`exp-${qIndex}`).style.display = 'block';
+
+                // Update progress bar
+                const totalAnswered = answered.filter(Boolean).length;
+                document.getElementById('mcq-progress').style.width = `${(totalAnswered / mcqData.length) * 100}%`;
+            });
+        });
+    </script>
+</body>
+</html>
