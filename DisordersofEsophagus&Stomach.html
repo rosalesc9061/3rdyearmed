@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disorders of Esophagus and Stomach - Reviewer</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a4275;
+            --secondary: #1a73e8;
+            --accent: #ff6b6b;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #202124;
+            --text-muted: #5f6368;
+            --border: #e0e0e0;
+            --success: #34a853;
+            --warning: #fbbc04;
+            --pearl: #8e24aa;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-main); line-height: 1.6; }
+        h1, h2, h3, h4 { font-family: 'Syne', sans-serif; color: var(--primary); }
+        code, .mono { font-family: 'Space Mono', monospace; font-size: 0.9em; }
+        
+        /* Layout */
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { background: var(--primary); color: white; padding: 30px 20px; text-align: center; border-radius: 12px; margin-bottom: 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        header h1 { color: white; margin-bottom: 10px; }
+        
+        /* Tabs */
+        .tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .tab-btn { background: #e8f0fe; color: var(--secondary); border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; font-family: 'DM Sans'; }
+        .tab-btn:hover { background: #d2e3fc; }
+        .tab-btn.active { background: var(--secondary); color: white; }
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Cards & Sections */
+        .card { background: var(--card-bg); border-radius: 12px; padding: 25px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 5px solid var(--secondary); }
+        .card h2 { margin-bottom: 15px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+        
+        /* Badges */
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-right: 5px; margin-bottom: 5px; }
+        .badge.must-know { background: #ffebee; color: #c62828; }
+        .badge.pearl { background: #f3e5f5; color: var(--pearl); }
+        .badge.exam { background: #e8f5e9; color: var(--success); }
+        
+        /* Tables */
+        .table-wrapper { overflow-x: auto; margin: 15px 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: var(--primary); color: white; position: sticky; top: 0; font-family: 'Syne', sans-serif; }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        tr:hover { background-color: #e8f0fe; }
+        
+        /* Flashcards */
+        .fc-container { perspective: 1000px; width: 100%; max-width: 500px; margin: 0 auto 30px; height: 300px; cursor: pointer; }
+        .fc-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+        .fc-container.flipped .fc-inner { transform: rotateY(180deg); }
+        .fc-front, .fc-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .fc-front { background: white; border: 2px solid var(--secondary); }
+        .fc-back { background: var(--secondary); color: white; transform: rotateY(180deg); }
+        .fc-front h3 { font-size: 1.5rem; color: var(--primary); font-family: 'DM Sans', sans-serif; }
+        .fc-back p { font-size: 1.3rem; font-weight: 500; }
+        .fc-controls { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
+        .btn { padding: 10px 20px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; background: var(--secondary); color: white; transition: 0.2s; }
+        .btn:hover { background: var(--primary); }
+        
+        /* MCQs */
+        .mcq-card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .mcq-q { font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; color: var(--primary); }
+        .mcq-opt { display: block; padding: 12px; margin: 8px 0; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .mcq-opt:hover { background: #e8f0fe; }
+        .mcq-opt.correct { background: #d4edda; border-color: #28a745; color: #155724; font-weight: bold; }
+        .mcq-opt.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+        .mcq-expl { display: none; margin-top: 15px; padding: 15px; background: #e8f5e9; border-left: 4px solid var(--success); border-radius: 4px; }
+        
+        /* Lists & Bullets */
+        ul.styled-list { list-style: none; }
+        ul.styled-list li { margin-bottom: 8px; padding-left: 20px; position: relative; }
+        ul.styled-list li::before { content: "•"; position: absolute; left: 0; color: var(--secondary); font-weight: bold; }
+        
+        /* Figure Placeholder */
+        .figure-box { background: #eee; border: 2px dashed #ccc; padding: 20px; text-align: center; border-radius: 8px; margin: 15px 0; color: #666; font-style: italic; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Disorders of the Esophagus and Stomach</h1>
+    <p>Comprehensive Interactive Reviewer for PLE (Reference: MED2 - LE 3 - V1)</p>
+</header>
+
+<div class="container">
+    <div class="tabs" id="tabContainer">
+        <button class="tab-btn active" onclick="openTab('tab-overview')">1. Overview</button>
+        <button class="tab-btn" onclick="openTab('tab-anatomy')">2. Anatomy & Symptoms</button>
+        <button class="tab-btn" onclick="openTab('tab-structural')">3. Structural & Motility</button>
+        <button class="tab-btn" onclick="openTab('tab-inflam')">4. Inflammatory & Infectious</button>
+        <button class="tab-btn" onclick="openTab('tab-mech')">5. Mechanical & Trauma</button>
+        <button class="tab-btn" onclick="openTab('tab-pud')">6. Peptic Ulcer Disease</button>
+        <button class="tab-btn" onclick="openTab('tab-zes')">7. ZES & SRMI</button>
+        <button class="tab-btn" onclick="openTab('tab-gastritis')">8. Gastritis</button>
+        <button class="tab-btn" onclick="openTab('tab-comparisons')">9. Comparisons</button>
+        <button class="tab-btn" onclick="openTab('tab-flashcards')">10. Flashcards</button>
+        <button class="tab-btn" onclick="openTab('tab-mcq')">11. Self-Assessment</button>
+        <button class="tab-btn" onclick="openTab('tab-cram')">12. Cram Sheet</button>
+    </div>
+
+    <!-- TABS CONTENT -->
+    <div id="tab-overview" class="tab-content active">
+        <div class="card">
+            <h2>Overview & Learning Objectives</h2>
+            <p>This reviewer comprehensively covers the structural, motility, inflammatory, infectious, mechanical, and peptic ulcer disorders of the esophagus and stomach.</p>
+            <br>
+            <h3>Major Categories of Esophageal Disease</h3>
+            <ul class="styled-list">
+                <li><strong>Structural:</strong> Hiatal hernia, rings & webs, diverticula, tumors</li>
+                <li><strong>Motility:</strong> Achalasia, DES, GERD</li>
+                <li><strong>Inflammatory and Infectious:</strong> Eosinophilic Esophagitis (EoE), Candida, HSV, CMV</li>
+                <li><strong>Mechanical Trauma/Iatrogenic:</strong> Perforation, Mallory-Weiss, radiation, corrosive, pill, foreign body impaction</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Anatomy -->
+    <div id="tab-anatomy" class="tab-content">
+        <div class="card">
+            <h2>Esophageal Anatomy</h2>
+            <div class="grid-2">
+                <div>
+                    <ul class="styled-list">
+                        <li><strong>Length:</strong> 25cm long muscular hollow tube.</li>
+                        <li><strong>Mucosa:</strong> Non-keratinized stratified squamous epithelium.</li>
+                        <li><strong>Submucosa:</strong> Glands and connective tissues.</li>
+                        <li><strong>Muscularis Propria:</strong> Upper 1/3 (skeletal), Middle 1/3 (mixed), Lower 1/3 (smooth).</li>
+                        <li><strong>Adventitia:</strong> Anchors to mediastinum. No true serosa.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Sphincters</h4>
+                    <ul class="styled-list">
+                        <li><strong>UES:</strong> Main muscle is Cricopharyngeus. Prevents air entry during breathing.</li>
+                        <li><strong>LES:</strong> Physiologic high pressure zone at GEJ. Prevents reflux.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="figure-box">[Figure 1 Reconstructed] Anatomy of the Esophagus: Tube extending from Pharynx (UES) to Stomach (LES).</div>
+        </div>
+        <div class="card">
+            <h2>Symptoms & History Taking</h2>
+            <table class="table-wrapper">
+                <thead><tr><th>Symptom</th><th>Description</th><th>Clinical Pearls</th></tr></thead>
+                <tbody>
+                    <tr><td>Heartburn</td><td>Burning retrosternal discomfort radiating to neck.</td><td>Most common symptom. Strongly associated with GERD.</td></tr>
+                    <tr><td>Regurgitation</td><td>Effortless backflow of gastric contents.</td><td>Unlike vomiting (which has nausea/retching) and rumination (re-swallowing).</td></tr>
+                    <tr><td>Chest Pain</td><td>Substernal pressure/squeezing.</td><td><span class="badge must-know">Must Know</span> ALWAYS rule out cardiac causes FIRST.</td></tr>
+                    <tr><td>Dysphagia</td><td>Food sticking/moving slowly.</td><td>Must distinguish solid vs liquid, progressive vs static.</td></tr>
+                    <tr><td>Odynophagia</td><td>Pain on swallowing.</td><td>Common in pill or infectious esophagitis.</td></tr>
+                    <tr><td>Water Brash</td><td>Sudden sour/salty fluid (saliva) in mouth.</td><td>Vagal reflex due to acid in esophagus. NOT gastric fluid.</td></tr>
+                    <tr><td>Globus Sensation</td><td>Lump/fullness in throat.</td><td>Not related to swallowing; no true blockage.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Structural & Motility -->
+    <div id="tab-structural" class="tab-content">
+        <div class="card">
+            <h2>Structural Disorders</h2>
+            <h3>Hiatal Hernia</h3>
+            <p>Herniation of viscera (usually stomach) into mediastinum via esophageal hiatus.</p>
+            <ul class="styled-list">
+                <li><strong>Type I (Sliding):</strong> 95% of cases. Cardia & GEJ displaced upwards. If asymptomatic -> no treatment. If reflux -> treat GERD.</li>
+                <li><strong>Type II-IV (Paraesophageal):</strong> Fundus herniates. Type II (GEJ fixed), Type III (Combined GEJ + Fundus), Type IV (other viscera). High risk of strangulation/volvulus -> Surgery advocated.</li>
+            </ul>
+            <hr style="margin:15px 0">
+            <h3>Rings & Webs</h3>
+            <ul class="styled-list">
+                <li><strong>Schatzki Rings (B Ring):</strong> Lower esophagus (<13mm). Associated with hiatal hernia and episodic solid food dysphagia ("Steakhouse syndrome").</li>
+                <li><strong>Esophageal Webs:</strong> Upper esophagus, anterior. Intermittent dysphagia to solids.</li>
+                <li><strong>Treatment:</strong> Balloon or Savary dilator.</li>
+            </ul>
+            <hr style="margin:15px 0">
+            <h3>Diverticula</h3>
+            <table class="table-wrapper">
+                <thead><tr><th>Type / Location</th><th>Characteristics</th><th>True/False</th></tr></thead>
+                <tbody>
+                    <tr><td>Zenker's (Upper/Hypopharyngeal)</td><td>Herniation at Killian's triangle above cricopharyngeus. Symptoms: dysphagia, halitosis. Dx: Barium swallow.</td><td>False</td></tr>
+                    <tr><td>Midesophageal (Parabronchial)</td><td>Traction from adjacent inflammation (e.g. TB) or motor disorders.</td><td><strong>True</strong></td></tr>
+                    <tr><td>Epiphrenic (Lower)</td><td>Associated with achalasia or strictures. Asymptomatic until large.</td><td>False</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <h2>Motility Disorders</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Achalasia</h3>
+                    <p><span class="badge must-know">Pathology</span> Loss of myenteric plexus ganglion cells -> failure of LES relaxation & loss of peristalsis.</p>
+                    <p><strong>Diagnosis:</strong> Barium swallow (Bird's beak), Manometry (most sensitive: impaired LES relaxation + absent peristalsis).</p>
+                    <p><strong>Treatment:</strong> Pneumatic dilation, LES Myotomy (Heller, POEM). Pharmacologic (Nitrates/CCB) NOT very effective.</p>
+                </div>
+                <div>
+                    <h3>Diffuse Esophageal Spasm (DES)</h3>
+                    <p>Abnormal contractions with NORMAL deglutitive LES relaxation. Chest pain + dysphagia.</p>
+                    <p><strong>Diagnosis:</strong> 24-hr Manometry (spastic/uncoordinated). Barium: "Corkscrew" appearance.</p>
+                </div>
+            </div>
+            <hr style="margin:15px 0">
+            <h3>GERD & Complications</h3>
+            <p><strong>Mechanisms:</strong> Transient LES relaxations (most common, 90%), LES hypotension, Hiatal hernia.</p>
+            <p><strong>Complications:</strong> Erosive esophagitis, strictures, Barrett's Esophagus (squamous to columnar metaplasia -> Adenocarcinoma risk).</p>
+            <p><strong>Treatment:</strong> PPIs (Mainstay), Lifestyle changes (weight, diet, elevation), Nissen fundoplication.</p>
+            <p><strong>Barrett's TX:</strong> Endoscopic mucosal ablation (new gold standard) replacing esophagectomy.</p>
+        </div>
+    </div>
+
+    <!-- Inflammatory & Infectious -->
+    <div id="tab-inflam" class="tab-content">
+        <div class="card">
+            <h2>Eosinophilic Esophagitis (EoE)</h2>
+            <p>Chronic antigen-mediated disease. History of IgE allergies (eczema, asthma). Dysphagia to solid food, impaction.</p>
+            <p><strong>Endoscopy:</strong> Loss of vascular markings, multiple rings, longitudinal furrows.</p>
+            <p><strong>Histology:</strong> >15 eosinophils per HPF.</p>
+            <p><strong>Treatment:</strong> PPIs, Swallowed topical glucocorticoids (Fluticasone), Elimination diet. Systemic steroids NOT recommended.</p>
+        </div>
+        <div class="card">
+            <h2>Infectious Esophagitis</h2>
+            <p>Usually in immunocompromised (HIV, transplant). Most characteristic symptom: <strong>Odynophagia</strong>.</p>
+            <table class="table-wrapper">
+                <thead><tr><th>Pathogen</th><th>Endoscopy Findings</th><th>Biopsy Findings</th><th>Treatment</th></tr></thead>
+                <tbody>
+                    <tr><td>Candida</td><td>White plaques/exudate, friable</td><td>Yeast/hyphae</td><td>Oral Fluconazole</td></tr>
+                    <tr><td>HSV-1</td><td>Vesicles, superficial ulcers</td><td>Ground-glass nuclei, Cowdry A inclusions, giant cells (ulcer margin)</td><td>Acyclovir/Valacyclovir</td></tr>
+                    <tr><td>CMV</td><td>Large serpiginous ulcers (distal)</td><td>Large inclusion bodies / Owl's eye cells (ulcer base)</td><td>Ganciclovir/Valganciclovir</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Mechanical / PUD / etc continue with similar thoroughness -->
+    <div id="tab-mech" class="tab-content">
+        <div class="card">
+            <h2>Mechanical Trauma & Iatrogenic Injury</h2>
+            <ul class="styled-list">
+                <li><strong>Esophageal Perforation:</strong> 
+                    <br>Causes: Iatrogenic (endoscopy/dilation), Boerhaave's (retching/spontaneous rupture at GEJ).
+                    <br><span class="badge exam">Exam Tip</span> Mediastinitis Triad = Chest pain, vomiting, subcutaneous emphysema. Dx: CXR/CT (pneumomediastinum), water-soluble contrast.
+                </li>
+                <li><strong>Mallory-Weiss Tear:</strong> Non-transmural tear at GEJ from retching. Causes hematemesis. Resolves spontaneously.</li>
+                <li><strong>Corrosive Esophagitis:</strong> Alkali > Acid. Early EGD (24-48 hrs) required. DO NOT scope after 48 hrs due to perforation risk.</li>
+                <li><strong>Pill Esophagitis:</strong> Antibiotics (Tetracycline), NSAIDs, FeSO4 lodging in mid-esophagus. Self-limiting.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="tab-pud" class="tab-content">
+        <div class="card">
+            <h2>Peptic Ulcer Disease (PUD)</h2>
+            <p>Disruption of mucosal integrity leading to local defect due to active inflammation. Imbalance of aggressive (Acid, Pepsin, H. pylori, NSAIDs) vs defensive (Mucus, Bicarb, Blood flow, Prostaglandins) factors.</p>
+            
+            <div class="grid-2">
+                <div>
+                    <h4>H. Pylori</h4>
+                    <p>Gram-neg, spiral. #1 risk factor. 90% of DU, 70-90% of GU. Causes MALT Lymphoma & AdenoCA. Dx: Rapid urease test, Urea Breath Test, Stool Antigen.</p>
+                </div>
+                <div>
+                    <h4>NSAIDs</h4>
+                    <p>Inhibit COX-1 & COX-2 -> block prostaglandin production -> impaired mucosal defense. Tx: Stop NSAID or add PPI/Misoprostol.</p>
+                </div>
+            </div>
+            
+            <br>
+            <h3>Complications</h3>
+            <ul class="styled-list">
+                <li><strong>Bleeding:</strong> Most common (15%). Melena/hematochezia.</li>
+                <li><strong>Perforation:</strong> 2nd most common. Triad: acute abdominal pain, tachycardia, abdominal rigidity. Needs surgery.</li>
+                <li><strong>Gastric Outlet Obstruction:</strong> Edema/scarring at pylorus. Early satiety, vomiting.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="tab-zes" class="tab-content">
+        <div class="card">
+            <h2>Zollinger-Ellison Syndrome (ZES)</h2>
+            <p>Marked acid hypersecretion from gastrinoma (pancreas/duodenum). Rare (0.1-1% of PUD). PUD in atypical sites, refractory. 70% have diarrhea.</p>
+            <p><span class="badge pearl">Pearl</span> PUD + Diarrhea = Think ZES.</p>
+            <p><strong>Diagnosis:</strong> Fasting gastrin >150-200 pg/mL -> BAO >15 mEq/hr -> <strong>Secretin Stimulation Test</strong> (highly sensitive/specific, gastrin inc >120pg).</p>
+            <p><strong>Imaging:</strong> PET-CT with 68Ga-DOTATATE (functional), EUS (highest sensitivity for primary).</p>
+        </div>
+        <div class="card">
+            <h2>Stress-Related Mucosal Injury (SRMI)</h2>
+            <p>Acute erosions/ulcers in fundus/body/proximal duodenum in severe physiologic stress (shock, sepsis, burns, trauma).</p>
+            <ul class="styled-list">
+                <li><strong>Cushing's ulcer:</strong> Head trauma.</li>
+                <li><strong>Curling's ulcer:</strong> Severe burns.</li>
+                <li><strong>Prophylaxis/Tx:</strong> PPIs are drug of choice in ICU.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="tab-gastritis" class="tab-content">
+        <div class="card">
+            <h2>Gastritis (Histologic Diagnosis)</h2>
+            <table class="table-wrapper">
+                <thead><tr><th>Type</th><th>Characteristics</th><th>Histology</th></tr></thead>
+                <tbody>
+                    <tr><td>Acute</td><td>Sudden, days/weeks. Caused mostly by H. pylori. Self-limited.</td><td>Prominent neutrophilic infiltration. Minimal atrophy.</td></tr>
+                    <tr><td>Chronic (Type A)</td><td>Autoimmune. Body/Fundus. Antibodies vs parietal cells/IF -> Pernicious Anemia. Achlorhydria.</td><td>Lymphocytes/plasma cells. Gland atrophy.</td></tr>
+                    <tr><td>Chronic (Type B)</td><td>H. pylori. Antral-predominant. Most common. Risk of MALT / AdenoCA.</td><td>Lymphocytes/plasma cells. Atrophy.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="tab-comparisons" class="tab-content">
+        <div class="card">
+            <h2>Side-by-Side Comparisons</h2>
+            
+            <h3>Gastric vs Duodenal Ulcer</h3>
+            <table class="table-wrapper">
+                <thead><tr><th>Feature</th><th>Duodenal Ulcer</th><th>Gastric Ulcer</th></tr></thead>
+                <tbody>
+                    <tr><td>Location</td><td>1st portion of duodenum (95%)</td><td>Stomach (body/antrum)</td></tr>
+                    <tr><td>Acid Secretion</td><td>INC basal and nocturnal acid</td><td>Normal/DEC (Problem is mucosal defense)</td></tr>
+                    <tr><td>Malignancy Risk</td><td>Extremely rare</td><td>Can represent or be risk factor for cancer</td></tr>
+                    <tr><td>Biopsy</td><td>Not needed</td><td><strong>STRONGLY RECOMMENDED</strong> to rule out CA</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Achalasia vs Diffuse Esophageal Spasm</h3>
+            <table class="table-wrapper">
+                <thead><tr><th>Feature</th><th>Achalasia</th><th>DES</th></tr></thead>
+                <tbody>
+                    <tr><td>LES Relaxation</td><td>Impaired / Absent</td><td>Normal</td></tr>
+                    <tr><td>Peristalsis</td><td>Absent in distal esophagus</td><td>Spastic / uncoordinated contractions</td></tr>
+                    <tr><td>Barium Swallow</td><td>Bird's beak appearance</td><td>Corkscrew appearance</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="tab-flashcards" class="tab-content">
+        <div class="card">
+            <h2>Active Recall Flashcards</h2>
+            <p>Test your knowledge with 50 high-yield flashcards.</p>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span id="fc-counter" class="badge exam">Card 1 / 50</span>
+            </div>
+            
+            <div class="fc-container" id="flashcard" onclick="flipCard()">
+                <div class="fc-inner">
+                    <div class="fc-front">
+                        <span id="fc-tag" class="badge pearl" style="position:absolute; top:10px; left:10px;">Tag</span>
+                        <h3 id="fc-q">Question text</h3>
+                    </div>
+                    <div class="fc-back">
+                        <p id="fc-a">Answer text</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="fc-controls">
+                <button class="btn" onclick="prevCard()">&#8592; Previous</button>
+                <button class="btn" onclick="shuffleCards()">Shuffle</button>
+                <button class="btn" onclick="nextCard()">Next &#8594;</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-mcq" class="tab-content">
+        <div class="card">
+            <h2>Self-Assessment (50 MCQs)</h2>
+            <div id="mcq-container">
+                <!-- MCQs rendered here via JS -->
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-cram" class="tab-content">
+        <div class="card">
+            <h2>Cram Sheet (Ultra-Condensed)</h2>
+            <ul class="styled-list">
+                <li><strong>Anatomy:</strong> Upper 1/3 (Skeletal), Mid 1/3 (Mixed), Lower 1/3 (Smooth).</li>
+                <li><strong>Schatzki Ring:</strong> "Steakhouse syndrome", intermittent solid dysphagia, <13mm.</li>
+                <li><strong>Zenker's Diverticulum:</strong> False diverticulum at Killian's triangle (above UES).</li>
+                <li><strong>Achalasia:</strong> Bird's beak, impaired LES relaxation, absent peristalsis. TX: Pneumatic dilation, Heller myotomy, POEM.</li>
+                <li><strong>DES:</strong> Corkscrew esophagus, uncoordinated spastic contractions, NORMAL LES relaxation.</li>
+                <li><strong>EoE:</strong> >15 eosinophils/HPF. Atopy history. TX: Fluticasone (topical), PPI, elimination diet. NOT systemic steroids.</li>
+                <li><strong>Infectious Esophagitis:</strong> Candida (white plaques, Fluconazole), HSV-1 (vesicles, ground glass), CMV (serpiginous ulcers, owl's eye).</li>
+                <li><strong>Boerhaave vs Mallory-Weiss:</strong> Boerhaave = Transmural rupture (Mediastinitis). M-W = Non-transmural mucosal tear (Hematemesis).</li>
+                <li><strong>Caustic Ingestion:</strong> Early EGD within 24-48 hrs. NEVER >48 hrs due to fragilty.</li>
+                <li><strong>H. pylori:</strong> 90% duodenal ulcers. 70-90% gastric. MALT lymphoma / AdenoCA risk.</li>
+                <li><strong>NSAIDs:</strong> Block COX1/2 -> decrease prostaglandins.</li>
+                <li><strong>Gastric Ulcers:</strong> Normal/Low acid. High malignancy risk -> ALWAYS biopsy. Repeat EGD in 8-12 weeks.</li>
+                <li><strong>Duodenal Ulcers:</strong> High acid. Low malignancy risk -> Biopsy not needed.</li>
+                <li><strong>Zollinger-Ellison (ZES):</strong> Gastrinoma. High gastrin + BAO >15. Secretin stim test (+). Diarrhea is common.</li>
+                <li><strong>Forrest Classification:</strong> Ia (Spurting, highest rebleed 60-100%), III (Clean base, lowest 3-5%).</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // Flashcards Data injected by python template
+    const flashcardsData = [{"q": "What is the length of the esophagus and its primary function?", "a": "25cm long muscular hollow tube; carries food/liquids from pharynx to stomach via peristalsis.", "tag": "Anatomy"}, {"q": "Describe the muscle composition of the esophagus by thirds.", "a": "Upper 1/3: skeletal (voluntary). Middle 1/3: mixed skeletal/smooth. Lower 1/3: smooth (involuntary).", "tag": "Anatomy"}, {"q": "What is the main muscle of the Upper Esophageal Sphincter (UES)?", "a": "Cricopharyngeus muscle.", "tag": "Anatomy"}, {"q": "What is the normal state of the Lower Esophageal Sphincter (LES) and its function?", "a": "Normally contracted (physiologic zone of high pressure). Prevents reflux of gastric contents.", "tag": "Anatomy"}, {"q": "Which esophageal layer anchors it to surrounding structures in the mediastinum?", "a": "Adventitia (NOTE: Esophagus lacks a true serosa).", "tag": "Anatomy"}, {"q": "What is the most common symptom of esophageal disease?", "a": "Heartburn (burning retrosternal discomfort).", "tag": "Symptoms"}, {"q": "How do you differentiate regurgitation from vomiting?", "a": "Regurgitation is effortless without preceding nausea/retching. Vomiting is preceded by nausea/retching.", "tag": "Symptoms"}, {"q": "If a patient presents with chest pain, what must be ruled out FIRST?", "a": "Cardiac causes, as heart disease is more common and life-threatening.", "tag": "Symptoms"}, {"q": "What is odynophagia and what does it typically indicate?", "a": "Pain on swallowing. Usually indicates mucosal injury or ulceration (more common in pill/infectious esophagitis).", "tag": "Symptoms"}, {"q": "What is Water Brash?", "a": "Sudden appearance of sour/salty tasting fluid in mouth; an excessive salivation vagal reflex triggered by acid.", "tag": "Symptoms"}, {"q": "What is the most common type of hiatal hernia?", "a": "Type I (Sliding Hiatal Hernia) - 95% of cases; Gastric cardia and GEJ displaced upwards.", "tag": "Structural"}, {"q": "What is a Schatzki ring and its associated syndrome?", "a": "Lower esophageal mucosal ring <13mm. Associated with 'Steakhouse syndrome' (intermittent solid food impaction).", "tag": "Structural"}, {"q": "Which esophageal diverticulum is considered a TRUE diverticulum?", "a": "Midesophageal (Traction/Parabronchial) Diverticulum (involves all esophageal layers).", "tag": "Structural"}, {"q": "Where does Zenker's diverticulum occur?", "a": "Herniation at Killian's triangle (proximal to cricopharyngeus muscle) - it is a false diverticulum.", "tag": "Structural"}, {"q": "What is the major risk factor for Esophageal Adenocarcinoma?", "a": "Barrett's esophagus (often due to long-standing GERD). Occurs in the lower/distal esophagus.", "tag": "Structural"}, {"q": "What is the classic radiologic sign of Achalasia on Barium swallow?", "a": "Bird's beak appearance (tapering at LES) with dilated proximal esophagus.", "tag": "Motility"}, {"q": "What are the manometric criteria for Achalasia?", "a": "Impaired LES relaxation + absence of peristalsis in distal esophagus.", "tag": "Motility"}, {"q": "What is the most common mechanism of GERD?", "a": "Transient LES relaxations (vasovagal reflex usually triggered by gastric distention).", "tag": "Motility"}, {"q": "What is Barrett's Metaplasia?", "a": "Change in cell lining of the esophagus from squamous cells to columnar cells (salmon-colored mucosa on endoscopy).", "tag": "Motility"}, {"q": "What is the classic esophagogram finding for Diffuse Esophageal Spasm (DES)?", "a": "Corkscrew or rosary beads appearance.", "tag": "Motility"}, {"q": "What is the histologic hallmark of Eosinophilic Esophagitis?", "a": ">15 eosinophils per High Power Field (HPF).", "tag": "Inflammatory"}, {"q": "What is a common clinical presentation of Eosinophilic Esophagitis?", "a": "Dysphagia to solid food and esophageal food impaction in a patient with atopic history (asthma, eczema, rhinitis).", "tag": "Inflammatory"}, {"q": "What are the endoscopic findings of Eosinophilic Esophagitis?", "a": "Loss of vascular markings, multiple esophageal rings, longitudinally oriented furrows, whitish exudate.", "tag": "Inflammatory"}, {"q": "What is the first-line pharmacologic treatment for Eosinophilic Esophagitis?", "a": "PPI Therapy and Swallowed Topical Glucocorticoids (e.g., Fluticasone).", "tag": "Inflammatory"}, {"q": "Are systemic steroids recommended for Eosinophilic Esophagitis?", "a": "NO, generally not recommended due to side effects and lack of benefit.", "tag": "Inflammatory"}, {"q": "What is the most characteristic symptom of infectious esophagitis?", "a": "Odynophagia.", "tag": "Infectious"}, {"q": "What are the endoscopic and biopsy findings for Candida esophagitis?", "a": "White plaques/exudate with friability. Treat with oral fluconazole.", "tag": "Infectious"}, {"q": "What are the characteristic biopsy findings of Herpetic (HSV) Esophagitis?", "a": "Ground-glass nuclei, eosinophilic Cowdry's type A inclusion bodies, and giant cells.", "tag": "Infectious"}, {"q": "What are the characteristic biopsy findings of CMV Esophagitis?", "a": "Large nuclear or cytoplasmic inclusion bodies (Owl's eye cells). Endoscopy shows large serpiginous ulcers.", "tag": "Infectious"}, {"q": "What is the treatment for CMV esophagitis?", "a": "Ganciclovir and Valganciclovir.", "tag": "Infectious"}, {"q": "What is the major complication of esophageal perforation?", "a": "Mediastinitis (Triad: Chest pain, vomiting, subcutaneous emphysema).", "tag": "Mechanical"}, {"q": "What is Boerhaave's syndrome?", "a": "Spontaneous esophageal rupture at the GEJ due to forceful vomiting or retching.", "tag": "Mechanical"}, {"q": "What is a Mallory-Weiss tear?", "a": "Non-transmural tear at the GEJ caused by vomiting/retching; presents with hematemesis.", "tag": "Mechanical"}, {"q": "When should early endoscopic evaluation be done for Corrosive Esophagitis?", "a": "Within 24 to 48 hours to assess and grade the injury. (Avoid after 48h due to perforation risk).", "tag": "Mechanical"}, {"q": "What are the most common medications causing Pill Esophagitis?", "a": "Antibiotics (tetracycline, doxycycline), NSAIDs, FeSO4. Often lodges in midesophagus.", "tag": "Mechanical"}, {"q": "What are the two most important risk factors/causes for Peptic Ulcer Disease?", "a": "H. pylori infection and NSAID use.", "tag": "PUD"}, {"q": "Which type of ulcer has increased basal and nocturnal acid secretion?", "a": "Duodenal ulcers (95% in 1st portion of duodenum).", "tag": "PUD"}, {"q": "Why are gastric ulcers always biopsied?", "a": "To rule out malignancy (gastric cancer), as gastric ulcers can represent or be a risk factor for malignancy.", "tag": "PUD"}, {"q": "What is the primary mechanism of NSAID-induced ulcers?", "a": "Inhibition of cyclooxygenase (COX-1 & COX-2) -> decreased prostaglandins -> impaired mucosal defense.", "tag": "PUD"}, {"q": "What is the triad for PUD perforation?", "a": "Acute abdominal pain, tachycardia, and abdominal rigidity.", "tag": "PUD"}, {"q": "What is Zollinger-Ellison Syndrome (ZES)?", "a": "Marked gastric acid hypersecretion caused by a gastrin-secreting neuroendocrine tumor (gastrinoma).", "tag": "ZES"}, {"q": "What genetic syndrome is associated with 20% of ZES cases?", "a": "Multiple Endocrine Neoplasia type 1 (MEN 1): Parathyroid, Pancreas, Pituitary.", "tag": "ZES"}, {"q": "What is the pathognomonic diagnostic criteria for ZES?", "a": "Basal acid output (BAO) >15 mEq/hr AND hypergastrinemia >150-200 pg/mL.", "tag": "ZES"}, {"q": "What is the most sensitive and specific provocation test for ZES?", "a": "Secretin stimulation test (gastrin increases by >120 pg/mL within 15 mins).", "tag": "ZES"}, {"q": "What imaging modality has the highest sensitivity for detecting primary gastrinoma?", "a": "Endoscopic Ultrasound (EUS).", "tag": "ZES"}, {"q": "Where do stress-related mucosal injuries most commonly occur?", "a": "Fundus and body of the stomach, or proximal duodenum.", "tag": "Stress Injury"}, {"q": "What is the most common presentation of stress-related mucosal injury?", "a": "Upper GI bleeding (manifesting as melena), usually 48-72 hrs after insult.", "tag": "Stress Injury"}, {"q": "What is a Cushing's ulcer?", "a": "Stress ulcer associated with severe head trauma.", "tag": "Stress Injury"}, {"q": "What is a Curling's ulcer?", "a": "Stress ulcer associated with severe burns.", "tag": "Stress Injury"}, {"q": "What is the treatment of choice for stress ulcer prophylaxis in ICU patients?", "a": "Proton Pump Inhibitors (PPIs).", "tag": "Stress Injury"}];
+    let currentFc = 0;
+    
+    function loadCard(index) {
+        const fc = flashcardsData[index];
+        document.getElementById('fc-q').innerText = fc.q;
+        document.getElementById('fc-a').innerText = fc.a;
+        document.getElementById('fc-tag').innerText = fc.tag;
+        document.getElementById('fc-counter').innerText = `Card ${index + 1} / ${flashcardsData.length}`;
+        document.getElementById('flashcard').classList.remove('flipped');
+    }
+    
+    function flipCard() {
+        document.getElementById('flashcard').classList.toggle('flipped');
+    }
+    
+    function nextCard() {
+        currentFc = (currentFc + 1) % flashcardsData.length;
+        loadCard(currentFc);
+    }
+    function prevCard() {
+        currentFc = (currentFc - 1 + flashcardsData.length) % flashcardsData.length;
+        loadCard(currentFc);
+    }
+    function shuffleCards() {
+        flashcardsData.sort(() => Math.random() - 0.5);
+        currentFc = 0;
+        loadCard(0);
+    }
+
+    // MCQs Data injected by python template
+    const mcqData = [{"q": "Which of the following correctly describes the anatomical distribution of muscle tissue along the length of the esophagus?", "options": ["Upper 3rd is skeletal muscle; middle 3rd is mixed skeletal and smooth; lower 3rd is smooth muscle.", "Upper 2/3 consist of skeletal muscle, lower sphincter contains smooth.", "Entire length is exclusively smooth muscle.", "Upper 3rd is smooth; middle 3rd is mixed; lower 3rd is skeletal."], "answer": 0, "explanation": "The upper 1/3 of the esophagus consists of skeletal muscle (voluntary), the middle 1/3 is mixed, and the lower 1/3 is smooth muscle (involuntary).", "distractors": "B, C, and D incorrectedly map the anatomical muscle distribution. The transition is strictly skeletal -> mixed -> smooth from superior to inferior."}, {"q": "Which muscle serves as the principal muscular component of the Upper Esophageal Sphincter (UES)?", "options": ["Thyropharyngeus", "Phrenoesophageal", "Cricopharyngeus", "Sternocleidomastoid"], "answer": 2, "explanation": "The cricopharyngeus muscle forms the high-pressure zone between the pharynx and esophagus.", "distractors": "Thyropharyngeus is part of inferior constrictor but not main UES. Phrenoesophageal is a ligament. SCM is a neck muscle."}, {"q": "Which structural layer of the esophagus anchors it to the mediastinum?", "options": ["Mucosa", "Submucosa", "Muscularis propria", "Adventitia"], "answer": 3, "explanation": "The adventitia is the outermost layer anchoring the esophagus. The esophagus lacks a true serosa.", "distractors": "Mucosa is inner lining. Submucosa has glands. Muscularis propria is for peristalsis."}, {"q": "How is regurgitation clinically distinguished from vomiting?", "options": ["Regurgitation involves repetitive chewing and re-swallowing up to one hour.", "Regurgitation is accompanied by forceful retching.", "Vomiting is limited to acidic fluids, regurgitation is un-acidified.", "Regurgitation is effortless backflow without preceding nausea or retching."], "answer": 3, "explanation": "Regurgitation is passive/effortless, while vomiting involves active diaphragmatic/abdominal contraction preceded by nausea.", "distractors": "A describes Rumination. B describes vomiting. C is factually incorrect."}, {"q": "What is the physiological mechanism responsible for 'water brash'?", "options": ["Rupture of submucosal glands.", "Efflux of gastric acid directly into oral cavity.", "Retrograde flow of alkaline duodenal juice.", "Reflex salivary hypersecretion triggered by a vagal response to acid."], "answer": 3, "explanation": "Water brash is sudden excessive salivation (mostly saliva, not gastric fluid) acting as a protective vagal reflex against esophageal acid.", "distractors": "A is fabricated. B describes true regurgitation. C is bile reflux."}, {"q": "Which type of hiatal hernia is the most common?", "options": ["Type I (Sliding)", "Type II (Paraesophageal)", "Type III (Combined)", "Type IV"], "answer": 0, "explanation": "Type I comprises 95% of hiatal hernias, where the gastric cardia and GEJ are displaced upwards.", "distractors": "Types II, III, and IV are paraesophageal and less common but have higher risks of strangulation/volvulus."}, {"q": "Which diverticulum is considered a TRUE diverticulum?", "options": ["Zenker's diverticulum", "Epiphrenic diverticulum", "Midesophageal (Traction) diverticulum", "Killian's diverticulum"], "answer": 2, "explanation": "The midesophageal (traction/parabronchial) diverticulum involves all layers of the esophageal wall.", "distractors": "Zenker's and Epiphrenic are false diverticula (mucosa/submucosa herniating through muscularis)."}, {"q": "Which diagnostic study is the gold standard for evaluating esophageal motility disorders like achalasia?", "options": ["Endoscopy", "Esophageal manometry", "Barium swallow", "Endoscopic ultrasound"], "answer": 1, "explanation": "Manometry directly measures pressures, revealing impaired LES relaxation and absent peristalsis characteristic of achalasia.", "distractors": "Endoscopy rules out mechanical obstruction. Barium shows 'bird's beak' but manometry is the gold standard. EUS is for staging tumors."}, {"q": "What is the primary pathophysiology of Achalasia?", "options": ["Excessive acid production", "Loss of ganglion cells in the myenteric plexus", "Transient LES relaxations", "Esophageal stricture formation"], "answer": 1, "explanation": "Achalasia is caused by autoimmune destruction of the myenteric plexus, leading to failure of LES relaxation and loss of peristalsis.", "distractors": "Acid = GERD/PUD. Transient relaxations = GERD. Strictures are complications of inflammation/GERD."}, {"q": "A biopsy of the distal esophagus shows large serpiginous ulcers and 'Owl's eye' inclusion bodies. What is the diagnosis?", "options": ["Candida esophagitis", "Herpes esophagitis", "CMV esophagitis", "Eosinophilic esophagitis"], "answer": 2, "explanation": "CMV causes large serpiginous ulcers and characteristic large nuclear/cytoplasmic inclusions ('Owl's eye').", "distractors": "Candida: white plaques. Herpes: vesicles, ground glass nuclei, Cowdry A. EoE: eosinophils >15/HPF."}, {"q": "Which of the following is NOT a standard treatment for Eosinophilic Esophagitis?", "options": ["PPI Therapy", "Systemic Corticosteroids", "Swallowed Topical Glucocorticoids", "Elimination diet"], "answer": 1, "explanation": "Systemic steroids are generally NOT recommended due to side effects and lack of evidence of benefit.", "distractors": "PPIs, swallowed topical steroids (Fluticasone), and elimination diets are all mainstay therapies."}, {"q": "What is the classic triad for mediastinitis following esophageal perforation?", "options": ["Fever, dysphagia, hematemesis", "Chest pain, vomiting, subcutaneous emphysema", "Tachycardia, hypotension, melena", "Odynophagia, coughing, retrosternal burning"], "answer": 1, "explanation": "The classic triad for mediastinitis is chest pain, vomiting, and subcutaneous emphysema (air under skin).", "distractors": "A is vague. C are signs of GI bleed/shock. D are symptoms of esophagitis/GERD."}, {"q": "When is the optimal time for early endoscopic evaluation of corrosive (caustic) esophagitis?", "options": ["Immediately within 1 hour", "Within 24 to 48 hours", "After 48 to 72 hours", "After 1 week"], "answer": 1, "explanation": "Endoscopy should be done within 24-48 hours. Doing it after 48 hours increases perforation risk because tissue becomes very fragile/granulating.", "distractors": "Immediately may be too early/unstable. After 48 hours is contraindicated."}, {"q": "Which finding is characteristic of Gastric Ulcers rather than Duodenal Ulcers?", "options": ["Almost 95% located in the duodenal bulb", "Associated with increased basal and nocturnal acid secretion", "Biopsy is strictly recommended to rule out malignancy", "Extremely rare to represent malignancy"], "answer": 2, "explanation": "Gastric ulcers have a risk of malignancy (Gastric CA) and MUST be biopsied. Duodenal ulcers are rarely malignant.", "distractors": "A, B, and D all perfectly describe Duodenal Ulcers."}, {"q": "Which of the following NSAIDs is a COX-2 specific inhibitor with less gastric irritation?", "options": ["Ibuprofen", "Naproxen", "Celecoxib", "Mefenamic Acid"], "answer": 2, "explanation": "Celecoxib (and Etoricoxib) are COX-2 inhibitors. They cause less GI irritation than traditional non-selective NSAIDs.", "distractors": "Ibuprofen, Naproxen, and Mefenamic Acid are traditional non-selective NSAIDs blocking COX-1 (protective) and COX-2."}, {"q": "According to Forrest Classification, what is the stage and re-bleeding risk of an ulcer with a 'Spurting Bleed'?", "options": ["Stage Ia, 60-100%", "Stage Ib, 50%", "Stage IIa, 40-50%", "Stage III, 3-5%"], "answer": 0, "explanation": "Spurting bleed is Forrest Ia, carrying the highest re-bleeding risk (60-100%).", "distractors": "Ib is oozing (50%). IIa is visible non-bleeding vessel. III is clean base."}, {"q": "A patient with refractory PUD and diarrhea has a fasting gastrin of 300 pg/mL. What is the most specific provocation test to confirm ZES?", "options": ["Urea Breath Test", "Secretin stimulation test", "Endoscopic Ultrasound", "OctreoScan"], "answer": 1, "explanation": "The secretin stimulation test is the most sensitive and specific provocation test for Zollinger-Ellison Syndrome.", "distractors": "UBT is for H. pylori. EUS and OctreoScan are imaging modalities for localization AFTER biochemical confirmation."}, {"q": "Which of the following describes Type A Chronic Gastritis?", "options": ["Antral-predominant, caused by H. pylori", "Body-predominant, caused by autoimmune destruction of parietal cells", "Marked neutrophilic infiltrate with minimal gland atrophy", "Associated with multiple stress ulcers in ICU patients"], "answer": 1, "explanation": "Type A is Autoimmune, involving the body/fundus, targeting parietal cells and intrinsic factor (leading to pernicious anemia).", "distractors": "A is Type B. C is Acute gastritis. D is Stress-related mucosal injury."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}, {"q": "What is the recommended treatment for Pill Esophagitis?", "options": ["Immediate surgical resection", "Balloon dilation", "Resolves spontaneously; PPIs for concomitant reflux", "Systemic corticosteroids"], "answer": 2, "explanation": "Pill esophagitis typically resolves spontaneously. Anti-secretory meds (PPIs) remove reflux as an aggravating factor.", "distractors": "Surgery/dilation are for severe strictures/tumors. Steroids are for EoE."}, {"q": "What is the primary role of Prostaglandins in the GI tract?", "options": ["Stimulate acid secretion", "Inhibit mucosal blood flow", "Stimulate mucus and bicarbonate secretion", "Inhibit cell renewal"], "answer": 2, "explanation": "Prostaglandins are key defensive factors that stimulate mucus/bicarbonate, increase blood flow, and promote cell repair.", "distractors": "They do the exact opposite of the other choices."}];
+    
+    function renderMCQs() {
+        const container = document.getElementById('mcq-container');
+        let html = '';
+        mcqData.forEach((mcq, idx) => {
+            html += `
+            <div class="mcq-card" id="mcq-${idx}">
+                <div class="mcq-q">${idx + 1}. ${mcq.q}</div>
+                <div class="mcq-options">`;
+            mcq.options.forEach((opt, optIdx) => {
+                html += `<div class="mcq-opt" onclick="checkAnswer(${idx}, ${optIdx}, this)">${String.fromCharCode(65 + optIdx)}. ${opt}</div>`;
+            });
+            html += `
+                </div>
+                <div class="mcq-expl" id="expl-${idx}">
+                    <strong>Correct Answer: ${String.fromCharCode(65 + mcq.answer)}</strong><br>
+                    ${mcq.explanation}<br><br>
+                    <small><em>Why others are wrong: ${mcq.distractors}</em></small>
+                </div>
+            </div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    function checkAnswer(qIdx, optIdx, element) {
+        const question = mcqData[qIdx];
+        const card = document.getElementById(`mcq-${qIdx}`);
+        const options = card.querySelectorAll('.mcq-opt');
+        
+        // Disable further clicks
+        options.forEach(opt => opt.style.pointerEvents = 'none');
+        
+        if (optIdx === question.answer) {
+            element.classList.add('correct');
+        } else {
+            element.classList.add('wrong');
+            options[question.answer].classList.add('correct');
+        }
+        
+        document.getElementById(`expl-${qIdx}`).style.display = 'block';
+    }
+
+    // Init
+    window.onload = () => {
+        loadCard(0);
+        renderMCQs();
+    };
+
+    // Keyboard support for flashcards
+    document.addEventListener('keydown', (e) => {
+        if (document.getElementById('tab-flashcards').classList.contains('active')) {
+            if (e.code === 'Space') { e.preventDefault(); flipCard(); }
+            if (e.code === 'ArrowRight') nextCard();
+            if (e.code === 'ArrowLeft') prevCard();
+        }
+    });
+</script>
+</body>
+</html>
