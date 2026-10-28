@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lower Gastrointestinal Bleeding | Interactive Reviewer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@500;600;700;800&display=swap');
+
+        :root {
+            --primary: #0f766e; /* Teal 700 */
+            --primary-light: #ccfbf1; /* Teal 50 */
+            --secondary: #0369a1; /* Sky 700 */
+            --accent: #be123c; /* Rose 700 */
+            --bg-body: #f8fafc; /* Slate 50 */
+            --bg-surface: #ffffff;
+            --text-main: #334155; /* Slate 700 */
+            --text-heading: #0f172a; /* Slate 900 */
+            --text-muted: #64748b; /* Slate 500 */
+            --border: #e2e8f0; /* Slate 200 */
+            --success: #15803d;
+            --warning: #b45309;
+            --info: #0369a1;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Syne', sans-serif; color: var(--text-heading); }
+        .mono { font-family: 'Space Mono', monospace; font-size: 0.9em; background: var(--bg-body); padding: 0.1rem 0.3rem; border-radius: 4px; }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        header h1 { color: white; margin-bottom: 0.5rem; }
+        header p { opacity: 0.9; }
+
+        .search-container { margin-top: 1rem; }
+        .search-container input {
+            width: 100%; max-width: 400px; padding: 0.75rem 1rem;
+            border: none; border-radius: 99px; font-family: 'DM Sans';
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); outline: none;
+        }
+
+        .container { display: flex; max-width: 1400px; margin: 0 auto; padding: 2rem 5%; gap: 2rem; }
+        
+        /* Navigation */
+        .sidebar { flex: 0 0 250px; position: sticky; top: 150px; height: fit-content; }
+        .nav-tabs { display: flex; flex-direction: column; gap: 0.5rem; }
+        .nav-btn {
+            background: transparent; border: none; text-align: left; padding: 1rem;
+            font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1rem;
+            color: var(--text-muted); cursor: pointer; border-radius: 8px;
+            transition: all 0.2s; border-left: 4px solid transparent;
+        }
+        .nav-btn:hover { background: var(--primary-light); color: var(--primary); }
+        .nav-btn.active { background: var(--bg-surface); color: var(--primary); border-left-color: var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+        /* Content */
+        .main-content { flex: 1; min-width: 0; }
+        .tab-pane { display: none; animation: fadeIn 0.3s ease; }
+        .tab-pane.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Cards & Sections */
+        .card {
+            background: var(--bg-surface); border-radius: 12px; padding: 2rem;
+            margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid var(--border); border-left: 5px solid var(--primary);
+        }
+        .card h2 { margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+        .card h3 { margin: 1.5rem 0 0.75rem 0; color: var(--secondary); }
+        
+        /* Callouts */
+        .callout { padding: 1rem 1.5rem; border-radius: 8px; margin: 1rem 0; font-weight: 500; }
+        .callout.must-know { background: #fefce8; border-left: 4px solid #eab308; color: #854d0e; }
+        .callout.pitfall { background: #fef2f2; border-left: 4px solid #ef4444; color: #991b1b; }
+        .callout.pearl { background: #f0fdf4; border-left: 4px solid #22c55e; color: #166534; }
+        .callout.exam-tip { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e40af; }
+        
+        /* Tables */
+        .table-responsive { overflow-x: auto; margin: 1.5rem 0; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 1rem; border-bottom: 1px solid var(--border); }
+        th { background: var(--primary-light); color: var(--primary); font-family: 'Syne', sans-serif; position: sticky; top: 0; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        tr:hover { background-color: #f1f5f9; }
+        .badge { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .badge.red { background: #fee2e2; color: #991b1b; }
+        .badge.blue { background: #dbeafe; color: #1e40af; }
+
+        /* Figures */
+        figure { background: white; padding: 1rem; border: 1px solid var(--border); border-radius: 8px; margin: 1.5rem 0; text-align: center; }
+        figure img { max-width: 100%; height: auto; border-radius: 4px; }
+        figcaption { margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-muted); }
+        .css-diagram { padding: 2rem; background: var(--bg-body); border-radius: 8px; margin: 1rem 0; text-align: left; }
+
+        /* Flashcards */
+        .flashcard-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .fc-container { perspective: 1000px; width: 100%; height: 300px; margin-bottom: 2rem; cursor: pointer; }
+        .fc-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .fc-container.flipped .fc-inner { transform: rotateY(180deg); }
+        .fc-front, .fc-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); font-size: 1.25rem; font-family: 'Syne', sans-serif; background: white; border: 2px solid var(--primary); }
+        .fc-back { transform: rotateY(180deg); background: var(--primary); color: white; flex-direction: column; }
+        .fc-back .fc-meta { font-size: 0.8rem; margin-top: 1rem; font-family: 'DM Sans'; opacity: 0.8; }
+        .fc-btn { background: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-family: 'DM Sans'; }
+        
+        /* MCQs */
+        .mcq-progress { background: var(--border); height: 8px; border-radius: 4px; margin-bottom: 2rem; overflow: hidden; }
+        .mcq-bar { background: var(--primary); height: 100%; width: 0%; transition: width 0.3s; }
+        .mcq-card { background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 1rem; display: none; }
+        .mcq-card.active { display: block; }
+        .mcq-opt { display: block; padding: 1rem; margin: 0.5rem 0; border: 2px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.2s; background: var(--bg-body); }
+        .mcq-opt:hover { border-color: var(--primary); background: var(--primary-light); }
+        .mcq-opt.selected { border-color: var(--primary); background: var(--primary-light); font-weight: bold; }
+        .mcq-opt.correct { border-color: var(--success); background: #f0fdf4; color: #166534; }
+        .mcq-opt.wrong { border-color: var(--accent); background: #fef2f2; color: #991b1b; }
+        .mcq-exp { display: none; margin-top: 1rem; padding: 1rem; background: var(--bg-body); border-left: 4px solid var(--info); border-radius: 4px; }
+        .mcq-controls { display: flex; justify-content: space-between; margin-top: 1rem; }
+        .mcq-score { font-size: 1.25rem; font-weight: bold; color: var(--primary); text-align: center; margin-top: 2rem; display: none; }
+
+        /* Expandable Sections */
+        .expander { width: 100%; text-align: left; background: var(--bg-body); border: none; padding: 1rem; font-family: 'Syne'; font-weight: 600; cursor: pointer; border-radius: 4px; margin-top: 0.5rem; display: flex; justify-content: space-between; }
+        .expander::after { content: '+'; }
+        .expander.open::after { content: '-'; }
+        .expand-content { display: none; padding: 1rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 4px 4px; }
+        .expand-content.open { display: block; }
+
+        /* Scroll to top */
+        #scrollTopBtn { display: none; position: fixed; bottom: 20px; right: 20px; z-index: 99; border: none; outline: none; background-color: var(--primary); color: white; cursor: pointer; padding: 15px; border-radius: 50%; font-size: 18px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        #scrollTopBtn:hover { background-color: var(--secondary); }
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .sidebar { position: static; }
+        }
+        @media print {
+            .sidebar, header, .fc-container, .mcq-card, .search-container { display: none !important; }
+            .tab-pane { display: block !important; page-break-after: always; }
+            body { background: white; }
+            .card { box-shadow: none; border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Lower Gastrointestinal Bleeding (LGIB)</h1>
+    <p>Comprehensive Interactive Reviewer for PLE | Based on <em>SURGERY 2-LEC: LE 3 | TRANS 3</em></p>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search within active tab (e.g., Diverticulosis)..." onkeyup="filterContent()">
+    </div>
+</header>
+
+<div class="container">
+    <nav class="sidebar">
+        <div class="nav-tabs">
+            <button class="nav-btn active" onclick="openTab(event, 'tab-overview')">1. Overview</button>
+            <button class="nav-btn" onclick="openTab(event, 'tab-causes')">2. Specific Causes</button>
+            <button class="nav-btn" onclick="openTab(event, 'tab-approach')">3. Clinical Approach & Workup</button>
+            <button class="nav-btn" onclick="openTab(event, 'tab-comparisons')">4. Comparisons</button>
+            <button class="nav-btn" onclick="openTab(event, 'tab-flashcards')">5. Flashcards</button>
+            <button class="nav-btn" onclick="openTab(event, 'tab-mcqs')">6. Self-Assessment (MCQs)</button>
+            <button class="nav-btn" onclick="openTab(event, 'tab-cram')">7. Cram Sheet</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- TAB 1: OVERVIEW -->
+        <div id="tab-overview" class="tab-pane active search-target">
+            <div class="card">
+                <h2>Overview & Core Concepts</h2>
+                <div class="callout must-know">
+                    <strong>Definition:</strong> Lower Gastrointestinal Bleeding (LGIB) is defined as any bleeding that originates <strong>distal to (beyond) the Ligament of Treitz</strong>.
+                </div>
+                <h3>Anatomical Landmark</h3>
+                <p>The <strong>Ligament of Treitz</strong> serves as the critical anatomical divider between the duodenum and the jejunum. Any hemorrhage occurring beyond this point is categorized as a lower GI bleed.</p>
+                
+                <h3>Broad Categories of LGIB</h3>
+                <ul>
+                    <li><strong>Vascular / Structural:</strong> Diverticular bleeding, Angiodysplasia, Aortoenteric fistula, Radiation proctitis, Hemorrhoids.</li>
+                    <li><strong>Neoplastic Diseases:</strong> Colorectal Cancer (CRC), Small Intestine neoplasms/hemangiomas.</li>
+                    <li><strong>Inflammatory / Ischemic:</strong> Inflammatory Bowel Disease (IBD), Autoimmune Disorders/Vasculitis, Ischemic Colitis.</li>
+                    <li><strong>Mechanical / Traumatic:</strong> Penetrating/Blunt Trauma, Intussusception.</li>
+                    <li><strong>Post-Procedural Bleeding:</strong> Most common after anastomosis of intestinal segments (e.g., post-colectomy). Bleeding is from vessels surrounding the luminal margin. Managed conservatively; may require repeat resection if persistent.</li>
+                </ul>
+
+                <div class="callout exam-tip">
+                    <strong>High-Yield Anatomy:</strong> The Ligament of Treitz connects the duodenojejunal flexure to the right crus of the diaphragm.
+                </div>
+
+                <h3>Common Causes: UGIB vs LGIB</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Upper GI Bleed (Proximal to Ligament of Treitz)</th>
+                                <th>Lower GI Bleed (Distal to Ligament of Treitz)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Erosive esophagitis</td><td>Angiodysplasia</td></tr>
+                            <tr><td>Gastric varices</td><td>Radiation proctitis</td></tr>
+                            <tr><td>Esophageal varices</td><td>Hemangioma</td></tr>
+                            <tr><td>Dieulafoy's lesion</td><td>Diverticulosis</td></tr>
+                            <tr><td>Aortoduodenal fistula</td><td>Neoplastic diseases</td></tr>
+                            <tr><td>Mallory-Weiss tear</td><td>Trauma</td></tr>
+                            <tr><td>Peptic ulcer disease</td><td>Vasculitis</td></tr>
+                            <tr><td>Trauma</td><td>Hemorrhoids</td></tr>
+                            <tr><td>Neoplastic disease</td><td>Aortoenteric fistula / Intussusception / Ischemic & IBD / Postprocedure</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: SPECIFIC CAUSES -->
+        <div id="tab-causes" class="tab-pane search-target">
+            <div class="card">
+                <h2>Specific Causes of LGIB</h2>
+                
+                <button class="expander">A. Diverticular Disease</button>
+                <div class="expand-content">
+                    <ul>
+                        <li><strong>Epidemiology:</strong> Common in the <strong>&gt;40 age group</strong> (elderly patients).</li>
+                        <li><strong>Pathophysiology:</strong> <strong>Solitary cavitations/diverticula</strong> cause the bleeding, NOT the "Swiss cheese" type of diverticular lesions. The underlying vasa recta rupture.</li>
+                        <li><strong>Incidence/Prognosis:</strong> 3-15% of patients with diverticula may bleed. <strong>75% stop spontaneously</strong>. 10% have rebleeds within 1 year.</li>
+                        <li><strong>Anatomy:</strong> <strong>Right-sided diverticulosis</strong> has a HIGHER chance of bleeding than left-sided.</li>
+                        <li><strong>Clinical Presentation:</strong> Bouts of diverticulitis, Left lower quadrant pain, Severe bleeding (in some cases).</li>
+                        <li><strong>Treatment & Management:</strong>
+                            <ul>
+                                <li>Can resolve spontaneously.</li>
+                                <li>Conservative: Low residue diet during flares, medications. Afterwards, high fiber diet.</li>
+                                <li>Interventions: Colonoscopic control, Angiography + embolization.</li>
+                                <li><strong>Surgical Indications:</strong> Complications (bleeding, perforation, stricture).</li>
+                                <li>Surgery type: Colonic Resection (Blind colectomy/Subtotal) if uncontrolled by scopes/angio. Left Hemicolectomy if extensive left-sided disease. Formal oncologic colectomy is not warranted.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <button class="expander">B. Angiodysplasia (Arteriovenous Malformations)</button>
+                <div class="expand-content">
+                    <ul>
+                        <li><strong>Definition:</strong> Degenerative vascular lesions in the elderly.</li>
+                        <li><strong>Epidemiology:</strong> 80-90 year olds have greater disposition.</li>
+                        <li><strong>Anatomy:</strong> Lesions are often <strong>right-sided</strong> (cecum/ascending colon).</li>
+                        <li><strong>Prognosis:</strong> Spontaneous resolution of bleed is common, but a handful present with massive bleeding.</li>
+                        <li><strong>Treatment Pipeline:</strong>
+                            <ol>
+                                <li>Colonoscopy control (epinephrine, clip placement, electrocoagulation, sclerosing agents).</li>
+                                <li>Angiography + embolization / intra-arterial vasopressin.</li>
+                                <li>Colonic resection (<strong>last line</strong>).</li>
+                            </ol>
+                        </li>
+                    </ul>
+                    <div class="callout pitfall">
+                        <strong>⚠️ Elderly Surgical Risk:</strong> Make sure the patient is prepared with adequate blood products and cardiac/pulmonary clearance prior to radical surgeries. Tailor approach because elderly patients might not have safe outcomes compared to younger patients.
+                    </div>
+                </div>
+
+                <button class="expander">C. Neoplasia</button>
+                <div class="expand-content">
+                    <ul>
+                        <li><strong>Gastrointestinal Stromal Tumor (GIST):</strong> More common in the upper GI tract (small intestine). Treat with resection if not too bulky, or colonic diversion proximal to the lesion.</li>
+                        <li><strong>Polyps:</strong> Endoscopic removal/control (Polypectomy) or Colectomy if too large.</li>
+                        <li><strong>Adenocarcinoma:</strong> <strong>Most common encountered neoplasia.</strong> Treat with resection or diversion.</li>
+                    </ul>
+                    <div class="callout pearl">
+                        <strong>💡 Surgical Management for Unresectable/Unstable Tumors:</strong> If the tumor is adherent and the patient is unstable/unfit, perform a <strong>proximal diversion</strong> (e.g., transverse colostomy for a bleeding sigmoid CA). This diverts stool, lowering bleeding risk while you nutritionally and medically build the patient up for formal resection later.
+                    </div>
+                </div>
+
+                <button class="expander">D. Colitis</button>
+                <div class="expand-content">
+                    <ul>
+                        <li><strong>Inflammatory Bowel Disease (IBD):</strong> More common in Caucasians, rare in Filipinos. <strong>Ulcerative Colitis</strong> is a more common cause of LGIB than Crohn's disease.
+                            <ul><li><strong>Presentation:</strong> Up to 20 bloody bowel movements per day, crampy abdominal pain, tenesmus.</li>
+                            <li><strong>Tx:</strong> Medical (common) or Surgical (Total colectomy; solves UC but requires lifelong surveillance).</li></ul>
+                        </li>
+                        <li><strong>Infectious Colitis:</strong> Requires history + stool culture. Pathogens: <em>C. difficile, Cytomegalovirus</em>. Treat medically.</li>
+                        <li><strong>Radiation Proctitis:</strong> Commonly seen after gynecologic malignancy treatment (e.g., cervical cancer radiation). 
+                            <ul><li><strong>Tx:</strong> Treat conservatively (Hydrocortisone enemas, Formalin ablation). Surgery (proctectomy) is rare.</li></ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <button class="expander">E. Occult Blood Loss & Obscure Bleeding</button>
+                <div class="expand-content">
+                    <ul>
+                        <li><strong>Occult Blood Loss:</strong> Presents as Iron Deficiency Anemia (IDA), FOBT/FIT (+). 
+                            <ul><li><strong>Tx:</strong> Treat conservatively with iron supplementation; usually resolves. If unexplained, do colonoscopy.</li></ul>
+                        </li>
+                        <li><strong>Obscure Bleeding:</strong> Defined by negative findings on BOTH upper (EGD) and lower endoscopy.
+                            <ul><li>80% respond to iron supplementation.</li></ul>
+                        </li>
+                        <li><strong>Obscure-Overt Bleeding (1%):</strong> Visible bleeding but scopes negative. Source is often the <strong>small intestine</strong> (e.g., small bowel ulcers, polyps, Crohn's). Requires Capsule Endoscopy or Enteroscopy.</li>
+                    </ul>
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>Differential Diagnosis of Obscure GI Bleeding (Box 46-3)</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>Upper GI:</strong> Angiodysplasia, PUD, Aortoenteric fistula, Neoplasia, Dieulafoy, Hemobilia, Hemosuccus pancreaticus, GAVE</td></tr>
+                                <tr><td><strong>Small Bowel:</strong> Crohn's, Meckel's diverticulum, Radiation enteritis, NSAID erosions, Angiodysplasia</td></tr>
+                                <tr><td><strong>Colon:</strong> Colitis (UC, Crohn's, Ischemic, Radiation, Infective), Solitary rectal ulcer, Hemorrhoids, Angiodysplasia</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <button class="expander">F. Hemorrhoids</button>
+                <div class="expand-content">
+                    <p><strong>Incidence:</strong> Hemorrhoids are the <strong>most common cause of ANY lower GI bleeding</strong>.</p>
+                    <ul>
+                        <li><strong>Conservative Management (First-line):</strong> Resolves bleeding in 50-80%. High-fiber diet, lifestyle mods, Flavonoids/Diosmin.</li>
+                        <li><strong>Interventional (Last-line):</strong> Rubber Band Ligation (RBL) for bleeding internal hemorrhoids, Hemorrhoidectomy.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: APPROACH & WORKUP -->
+        <div id="tab-approach" class="tab-pane search-target">
+            <div class="card">
+                <h2>Clinical Approach and Diagnostic Workup</h2>
+                
+                <div class="callout must-know">
+                    <strong>Rule #1 of GI Bleeding:</strong> Immediate resuscitation precedes diagnostic localization. <em>"It is pointless to start looking for where the bleeding is coming from if your patient is already crashing."</em>
+                </div>
+
+                <h3>1. Initial Management (Unstable Patient)</h3>
+                <ul>
+                    <li>Insert two large-bore IV catheters.</li>
+                    <li>Rapidly prepare blood products (PRBCs) for volume replacement.</li>
+                    <li>Correct coagulopathies.</li>
+                    <li>Once stabilized, identify source. Differentiate UGIB from LGIB (Nasogastric aspirate).</li>
+                </ul>
+
+                <h3>2. Age-Based Evaluation Strategy (Stable Patients)</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr><th>Patients &lt;40 years old (Lower malignancy risk)</th><th>Patients &gt;40 years old (Higher neoplasia risk)</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <ol>
+                                        <li>Visual Inspection & DRE (check anal/rectal lesions)</li>
+                                        <li>Anoscopy / Proctosigmoidoscopy</li>
+                                        <li>Flexible Sigmoidoscopy / Office Colonoscopy</li>
+                                        <li>Formal Colonoscopy under IV Sedation (if persistent)</li>
+                                    </ol>
+                                </td>
+                                <td>
+                                    <ol>
+                                        <li>Immediate bedside evaluation: DRE, Anoscopy, Proctosigmoidoscopy</li>
+                                        <li><strong>Formal Colonoscopy:</strong> Paramount to rule out colonic neoplasia.</li>
+                                    </ol>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>3. Endoscopic Evaluation (Colonoscopy)</h3>
+                <p>Primary diagnostic and therapeutic tool.</p>
+                <ul>
+                    <li><strong>Bowel Prep (2-3 Day Protocol):</strong> 
+                        <ul>
+                            <li>Day 1-2: General liquid diet (water, clear soup, gelatin, crackers). <strong>NO BREAD</strong>.</li>
+                            <li>Day before: CLEAR liquids only + Purging agents (Castor Oil or Dulcolax).</li>
+                            <li>1-2 Hours Before: Fleet Enema to evacuate distal rectum/sigmoid.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Technique:</strong> Left Lateral Decubitus position under IV anesthesia. Advance through sigmoid to cecum/appendiceal orifice. Attempt ileal intubation to evaluate terminal ileum. Inspect on withdrawal (360°).</li>
+                    <li><strong>Therapeutic Options:</strong> Epinephrine injection (submucosa), Hemoclips / Deployable clips for immediate hemostasis.</li>
+                    <li><strong>Acute/Emergent challenges:</strong> Poor bowel prep = blood clots requiring continuous flushing.</li>
+                </ul>
+
+                <h3>4. Imaging Modalities</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Modality</th>
+                                <th>Details & Sensitivity</th>
+                                <th>Pros / Cons</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Radionuclide Scanning (99mTc RBC)</strong></td>
+                                <td>Tracer mixed with 10-15cc blood, reinfused. Extremely sensitive up to <strong>0.1 mL/min</strong>.</td>
+                                <td>Pros: Highly sensitive. Cons: Presumptive (only determines quadrant, not exact segment), limited availability, costly.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>CT Angiography</strong></td>
+                                <td>Computed tomography + IV contrast.</td>
+                                <td>Pros: Better localization. Cons: <strong>NOT therapeutic</strong>, Risk of Contrast-Induced Nephropathy (kidney injury), especially in elderly.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mesenteric Angiography</strong></td>
+                                <td>Diagnostic and <strong>Therapeutic</strong>. Requires brisk bleeding (<strong>0.5 - 1.0 mL/min</strong>).</td>
+                                <td>Pros: Can infuse vasopressin or embolize. Cons: Complications (thrombosis, hematoma, renal failure, dye rxn). Costly.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Video Capsule Endoscopy</strong></td>
+                                <td>Swallowed capsule records video of small bowel.</td>
+                                <td>Pros: Visualizes areas beyond Ligament of Treitz. Cons: Not gold standard, 90% success, 30-40% failure in localizing obscure bleeds.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="callout pearl">
+                    <strong>Obscure GI Bleeding Algorithm:</strong> Minor (intermittent) -> Enteroscopy/Capsule. Major (persistent) -> If stable, Tagged RBC scan; If unstable -> Operating Room (Intraoperative Endoscopy / Serial clamping).
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: COMPARISONS -->
+        <div id="tab-comparisons" class="tab-pane search-target">
+            <div class="card">
+                <h2>Clinical Comparisons</h2>
+                
+                <h3>Melena vs Hematochezia</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Melena</th>
+                                <th>Hematochezia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Origin</strong></td>
+                                <td>Upper GI Bleed (Proximal to Ligament of Treitz)</td>
+                                <td>Lower GI Bleed (Distal to Ligament of Treitz)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Appearance</strong></td>
+                                <td>Jet-black, tarry stools (Compare to "dinuguan")</td>
+                                <td>Dark red, maroon, or fresh/bright red blood</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pathophysiology</strong></td>
+                                <td>Blood has undergone oxidation and acid hematin formation</td>
+                                <td>Rapid transit or lower colonic source; unoxidized</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Transit Time</strong></td>
+                                <td>Prolonged stay required (<strong>~14 hours</strong>)</td>
+                                <td>Fast transit time</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Clinical Pitfall ⚠️</strong></td>
+                                <td colspan="2">A patient with a severe, torrentially bleeding upper GI source (massive PUD/varices) can present with <strong>hematochezia</strong> due to rapid transit. Always consider NGT aspirate to rule out massive UGIB.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Diverticulosis vs Angiodysplasia (Common LGIB in Elderly)</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Diverticular Bleeding</th>
+                                <th>Angiodysplasia (AVMs)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Pathology</strong></td>
+                                <td>Solitary cavitations; rupture of vasa recta</td>
+                                <td>Degenerative vascular malformations</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Age Group</strong></td>
+                                <td>> 40 years old</td>
+                                <td>80-90 years old</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Common Location</strong></td>
+                                <td>Right-sided diverticula bleed more (though diverticula are common on left)</td>
+                                <td>Predominantly Right-sided (Cecum/Ascending)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Clinical Course</strong></td>
+                                <td>75% stop spontaneously; 10% rebleed in 1 year</td>
+                                <td>Spontaneous resolution common, but can have massive hemorrhage</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: FLASHCARDS -->
+        <div id="tab-flashcards" class="tab-pane">
+            <div class="card">
+                <h2>Active Recall Flashcards</h2>
+                <div class="flashcard-controls">
+                    <span>Card <span id="fc-current">1</span> of <span id="fc-total">50</span></span>
+                    <div>
+                        <button class="fc-btn" onclick="prevCard()">Previous</button>
+                        <button class="fc-btn" onclick="shuffleCards()">Shuffle</button>
+                        <button class="fc-btn" onclick="nextCard()">Next</button>
+                    </div>
+                </div>
+                <div class="fc-container" onclick="this.classList.toggle('flipped')" id="fc-container">
+                    <div class="fc-inner">
+                        <div class="fc-front" id="fc-front">Question</div>
+                        <div class="fc-back">
+                            <span id="fc-back">Answer</span>
+                            <span class="fc-meta">Click to flip</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: MCQs -->
+        <div id="tab-mcqs" class="tab-pane">
+            <div class="card">
+                <h2>Self-Assessment (Board-Style MCQs)</h2>
+                <div class="mcq-progress"><div class="mcq-bar" id="mcq-bar"></div></div>
+                <div id="mcq-container"></div>
+                <div class="mcq-controls">
+                    <button class="fc-btn" id="mcq-prev" onclick="prevMCQ()" style="display:none;">Previous</button>
+                    <button class="fc-btn" id="mcq-next" onclick="nextMCQ()">Next Question</button>
+                </div>
+                <div class="mcq-score" id="mcq-score-display"></div>
+            </div>
+        </div>
+
+        <!-- TAB 7: CRAM SHEET -->
+        <div id="tab-cram" class="tab-pane search-target">
+            <div class="card">
+                <h2>Last-Minute Cram Sheet</h2>
+                
+                <h3>Top-Yield Buzzwords & Associations</h3>
+                <ul>
+                    <li><strong>Ligament of Treitz:</strong> Divides UGIB (melena) and LGIB (hematochezia).</li>
+                    <li><strong>Massive UGIB:</strong> Can present as hematochezia due to rapid transit. Rule out with NGT aspirate.</li>
+                    <li><strong>Melena transit time:</strong> Requires ~14 hours in the GI tract. "Dinuguan" appearance.</li>
+                    <li><strong>Most common cause of ANY lower GI bleed:</strong> Hemorrhoids.</li>
+                    <li><strong>Most common cause of LGIB in adults (per review Qs):</strong> Diverticulosis (typically right-sided bleeds).</li>
+                    <li><strong>Bleeding Diverticula:</strong> Caused by solitary cavitations, NOT "Swiss cheese" diverticulitis. 75% stop spontaneously.</li>
+                    <li><strong>Angiodysplasia:</strong> Degenerative AVMs, 80-90 y/o, Right-sided colon.</li>
+                    <li><strong>Bleeding post-gynecologic malignancy radiation:</strong> Radiation proctitis. Treat with hydrocortisone enema or formalin.</li>
+                    <li><strong>Post-procedural bleeding:</strong> Bleeding from vessels at luminal margin of anastomosis.</li>
+                    <li><strong>20 bloody BMs/day + tenesmus:</strong> Ulcerative Colitis.</li>
+                    <li><strong>Obscure GI Bleed:</strong> Negative EGD & Colonoscopy. Next step: Trial of Iron (80% respond). If overt/persistent, suspect small bowel (Capsule endoscopy).</li>
+                </ul>
+
+                <h3>Diagnostic Modalities Cheat Sheet</h3>
+                <ul>
+                    <li><strong>Radionuclide Scan (Tagged RBC):</strong> MOST SENSITIVE. Detects 0.1 mL/min. Presumptive (quadrant only).</li>
+                    <li><strong>Mesenteric Angiography:</strong> Diagnostic + THERAPEUTIC (vasopressin/embolize). Needs brisk bleed (0.5 - 1.0 mL/min).</li>
+                    <li><strong>CT Angiography:</strong> Localizes well, NOT therapeutic. Beware kidney injury (contrast).</li>
+                    <li><strong>Colonoscopy Prep:</strong> No bread 2-3 days prior. Castor oil/Dulcolax day before. Fleet enema 1-2 hrs before. Patient in Left Lateral Decubitus.</li>
+                </ul>
+
+                <h3>"If You See X → Think Y"</h3>
+                <div class="css-diagram">
+                    <p><strong>If you see:</strong> Hemodynamic instability + Hematochezia</p>
+                    <p><strong>→ Think:</strong> Massive UGIB or Massive Diverticular/Arterial bleed. <em>Action: Resuscitate (2 large bore IVs) before scopes!</em></p>
+                    <hr style="margin: 1rem 0; border: 0; border-top: 1px solid var(--border);">
+                    <p><strong>If you see:</strong> Elderly patient >80 with painless right-sided bleeding</p>
+                    <p><strong>→ Think:</strong> Angiodysplasia (AVM).</p>
+                    <hr style="margin: 1rem 0; border: 0; border-top: 1px solid var(--border);">
+                    <p><strong>If you see:</strong> Young patient <40 with bright red blood per rectum</p>
+                    <p><strong>→ Think:</strong> Hemorrhoids or IBD. <em>Action: DRE and Anoscopy/Flex Sig.</em></p>
+                    <hr style="margin: 1rem 0; border: 0; border-top: 1px solid var(--border);">
+                    <p><strong>If you see:</strong> Patient >40 with stable LGIB</p>
+                    <p><strong>→ Think:</strong> Rule out Malignancy (Adenocarcinoma). <em>Action: Formal Colonoscopy.</em></p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<button id="scrollTopBtn" onclick="window.scrollTo(0,0)">↑</button>
+
+<script>
+    // Tab Navigation
+    function openTab(evt, tabName) {
+        let i, tabcontent, navbtns;
+        tabcontent = document.getElementsByClassName("tab-pane");
+        for (i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
+        navbtns = document.getElementsByClassName("nav-btn");
+        for (i = 0; i < navbtns.length; i++) navbtns[i].classList.remove("active");
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    // Expanders
+    document.querySelectorAll('.expander').forEach(button => {
+        button.addEventListener('click', () => {
+            button.classList.toggle('open');
+            button.nextElementSibling.classList.toggle('open');
+        });
+    });
+
+    // Scroll to Top
+    window.onscroll = function() {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            document.getElementById("scrollTopBtn").style.display = "block";
+        } else {
+            document.getElementById("scrollTopBtn").style.display = "none";
+        }
+    };
+
+    // Search Filter
+    function filterContent() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const activeTab = document.querySelector('.tab-pane.active');
+        if(!activeTab.classList.contains('search-target')) return;
+        
+        const elements = activeTab.querySelectorAll('p, li, td, h3, h4');
+        elements.forEach(el => {
+            const text = el.innerText.toLowerCase();
+            if(text.includes(input)) {
+                el.style.backgroundColor = input ? '#fef08a' : 'transparent'; // highlight
+                el.style.color = input ? '#000' : '';
+            } else {
+                el.style.backgroundColor = 'transparent';
+                el.style.color = '';
+            }
+        });
+    }
+
+    // FLASHCARDS DATA (50 items)
+    const fcData = [
+        {q:"What anatomic landmark divides upper and lower GI bleeding?", a:"Ligament of Treitz (divides duodenum and jejunum)"},
+        {q:"What is the required GI transit time for blood to present as melena?", a:"Approximately 14 hours"},
+        {q:"A patient presents with hematochezia and hemodynamic shock. What upper GI pitfall must you consider?", a:"Massive Upper GI Bleed with rapid transit time"},
+        {q:"What is the most common cause of ANY lower GI bleeding?", a:"Hemorrhoidal disease"},
+        {q:"In adults, what is the most common cause of significant LGIB?", a:"Diverticulosis (typically right-sided)"},
+        {q:"Which age group is most predisposed to Angiodysplasia?", a:"Elderly (80-90 years old)"},
+        {q:"What is the most common post-procedural cause of LGIB?", a:"Bleeding after intestinal anastomosis (from vessels at luminal margin)"},
+        {q:"What type of diverticular lesion causes bleeding: Swiss cheese or solitary cavitations?", a:"Solitary cavitations (rupture of vasa recta)"},
+        {q:"Do right-sided or left-sided diverticula have a higher chance of bleeding?", a:"Right-sided diverticulosis"},
+        {q:"What is the first-line treatment for bleeding internal hemorrhoids if conservative management fails?", a:"Rubber Band Ligation (RBL)"},
+        {q:"What is the primary goal and first step in managing acute severe LGIB?", a:"Immediate resuscitation (2 large bore IVs, PRBCs) precedes localization"},
+        {q:"For a stable patient <40 y/o with LGIB, what is the first step of stepwise evaluation?", a:"Visual inspection and DRE, followed by Anoscopy/Proctosigmoidoscopy"},
+        {q:"For a stable patient >40 y/o with LGIB, what is the paramount diagnostic evaluation?", a:"Formal Colonoscopy (to rule out colonic neoplasia)"},
+        {q:"What food must be strictly avoided during the 2-3 day bowel prep for colonoscopy?", a:"BREAD"},
+        {q:"What position is the patient placed in for colonoscopy?", a:"Left Lateral Decubitus position"},
+        {q:"What diagnostic modality is most sensitive, detecting bleeding as low as 0.1 mL/min?", a:"Radionuclide Scanning (99mTc RBC)"},
+        {q:"What diagnostic modality is both diagnostic and therapeutic for LGIB?", a:"Mesenteric Angiography"},
+        {q:"What minimum bleeding rate is required for Mesenteric Angiography to detect a bleed?", a:"Brisk bleeding of 0.5 - 1.0 mL/min"},
+        {q:"What is a major contraindication/risk of CT Angiography in elderly patients?", a:"Risk of contrast-induced kidney injury"},
+        {q:"What endoscopic intervention is used to treat bleeding polyps?", a:"Polypectomy"},
+        {q:"What pharmacological agent is injected submucosally to achieve hemostasis during colonoscopy?", a:"Epinephrine"},
+        {q:"What surgical option is considered if an unresectable bleeding sigmoid CA is found in an unstable patient?", a:"Proximal colonic diversion (e.g., transverse colostomy)"},
+        {q:"Which inflammatory bowel disease is more commonly associated with LGIB?", a:"Ulcerative Colitis (more than Crohn's)"},
+        {q:"A patient has a history of radiation for cervical cancer and now has LGIB. Diagnosis?", a:"Radiation Proctitis"},
+        {q:"What is the conservative treatment for radiation proctitis?", a:"Hydrocortisone enemas or Formalin ablation"},
+        {q:"How is Obscure GI bleeding defined?", a:"Negative findings on both upper (EGD) and lower endoscopy with persistent/intermittent bleeding"},
+        {q:"What is the most likely source of Obscure-overt bleeding?", a:"Small intestine lesions"},
+        {q:"What diagnostic tool is used for Obscure GI bleeding to visualize the small bowel?", a:"Video Capsule Endoscopy"},
+        {q:"In a patient with obscure GI bleeding, what therapy do 80% of patients respond to?", a:"Iron supplementation therapy"},
+        {q:"What is the most common encountered neoplasia in the lower GI tract causing bleeding?", a:"Colorectal Adenocarcinoma"},
+        {q:"What percentage of diverticular bleeds stop spontaneously?", a:"75%"},
+        {q:"What is the defining clinical presentation of hematochezia?", a:"Stools containing dark red, maroon, or fresh/bright red blood"},
+        {q:"What is the pathophysiologic reason melena is black?", a:"Blood undergoes oxidation and acid hematin formation due to prolonged transit"},
+        {q:"What local dish is melena commonly compared to for patient communication?", a:"Dinuguan"},
+        {q:"Is Ischemic Colitis classified as a vascular, neoplastic, or inflammatory/ischemic cause?", a:"Inflammatory / Ischemic"},
+        {q:"What is the last-line treatment for angiodysplasia if endoscopic and angiographic control fails?", a:"Colonic resection"},
+        {q:"What is the success rate of conservative management for hemorrhoidal bleeding?", a:"50% to 80%"},
+        {q:"What purging agents are given the day before a formal colonoscopy?", a:"Castor Oil or Dulcolax"},
+        {q:"During colonoscopy, inspection for polyps/tumors is best done during insertion or withdrawal?", a:"360° Luminal Inspection upon scope withdrawal"},
+        {q:"What therapeutic option can be used in mesenteric angiography for LGIB?", a:"Intra-arterial vasopressin infusion or embolization"},
+        {q:"What is the definitive surgical management for uncontrolled bleeding UC?", a:"Total colectomy"},
+        {q:"What infectious agents cause infectious colitis presenting as LGIB?", a:"C. difficile, Cytomegalovirus (CMV)"},
+        {q:"If a massive lower GI bleed cannot be localized and is life-threatening, what radical surgery might be considered?", a:"Total colectomy (requires careful patient selection due to extreme risk)"},
+        {q:"What diagnostic test involves a swallowed camera and has a 90% success rate in obscure bleeds?", a:"Video Capsule Endoscopy"},
+        {q:"What are deployable hemoclips used for during colonoscopy?", a:"Placed over mucosal tears, actively bleeding vessels, or post-polypectomy sites"},
+        {q:"What is the anatomic distribution preference for Angiodysplasia?", a:"Often right-sided (cecum and ascending colon)"},
+        {q:"How many large-bore IVs should be inserted for emergency resuscitation in unstable GI bleed?", a:"Two large-bore IV catheters"},
+        {q:"What is an indication for surgery in diverticular disease?", a:"Complications (bleeding, perforation, or stricture formation)"},
+        {q:"What is the risk of performing formal oncologic colectomy for bleeding diverticulosis?", a:"It is not warranted; blind subtotal or segmental resection is preferred"},
+        {q:"Does occult bleeding present with visible blood in the stool?", a:"No, it presents as Iron Deficiency Anemia or FOBT/FIT (+)"}
+    ];
+
+    let currentFc = 0;
+    const fcFront = document.getElementById('fc-front');
+    const fcBack = document.getElementById('fc-back');
+    const fcContainer = document.getElementById('fc-container');
+    
+    function loadFc() {
+        fcContainer.classList.remove('flipped');
+        setTimeout(() => {
+            fcFront.innerText = fcData[currentFc].q;
+            fcBack.innerText = fcData[currentFc].a;
+            document.getElementById('fc-current').innerText = currentFc + 1;
+        }, 150); // wait for flip animation to clear
+    }
+    function nextCard() { currentFc = (currentFc + 1) % fcData.length; loadFc(); }
+    function prevCard() { currentFc = (currentFc - 1 + fcData.length) % fcData.length; loadFc(); }
+    function shuffleCards() {
+        for (let i = fcData.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [fcData[i], fcData[j]] = [fcData[j], fcData[i]];
+        }
+        currentFc = 0;
+        loadFc();
+    }
+    // init
+    loadFc();
+
+    // MCQs DATA (50 items)
+    const mcqData = [
+        {q:"1. Which is the most common source of lower GI bleeding in adults? (Review Q1)", o:["Hemorrhoids","Diverticulosis","Angiodysplasia","Colorectal Cancer"], a:1, e:"B is correct. Per the appendix, Diverticulosis is the most common cause of LGIB in adults, typically right-sided. (Note: Text mentions hemorrhoids as most common of *any* LGIB, but for board-style review Q1, Diverticulosis is the key)."},
+        {q:"2. Which finding most strongly suggests an upper GI source despite presenting with hematochezia? (Review Q2)", o:["Maroon stool","Bright red blood with hemodynamic instability","Blood mixed with mucus","Coffee ground emesis"], a:1, e:"B is correct. Massive UGIB can present as hematochezia and shock due to rapid transit time. A is wrong as maroon can be right colon. C is wrong as mucus suggests colitis. D is wrong as it doesn't present as hematochezia."},
+        {q:"3. Which of the following best differentiates occult from overt lower GI bleeding? (Review Q3)", o:["Occult bleeding presents with acute blood loss","Overt bleeding shows visible blood in stool","Occult bleeding always presents with abdominal pain","Overt bleeding only occurs in the small bowel"], a:1, e:"B is correct. Overt implies visible blood (melena/hematochezia). Occult is microscopic/chronic (IDA/FOBT+)."},
+        {q:"4. A key first step in managing a patient with acute LGIB and unstable vitals is: (Review Q4)", o:["Colonoscopy","Immediate angiography","Fluid resuscitation and blood transfusion","Nasogastric intubation"], a:2, e:"C is correct. Resuscitation (2 large IVs, PRBCs) always precedes diagnostic localization. You cannot scope a crashing patient."},
+        {q:"5. Which diagnostic test is most sensitive for detecting bleeding as low as 0.1 mL/min? (Review Q5)", o:["CT angiography","Radionuclide (RBC-tagged) scan","Mesenteric angiography","Capsule endoscopy"], a:1, e:"B is correct. Tagged RBC scan detects 0.1 mL/min. Angiography needs 0.5-1.0 mL/min."},
+        {q:"6. In patients >40-45 years old with LGIB and stable vitals, the preferred initial diagnostic test is: (Review Q6)", o:["Rigid sigmoidoscopy","Colonoscopy","Capsule endoscopy","Barium enema"], a:1, e:"B is correct. Recommended due to the higher incidence of neoplasia/polyps in this age group."},
+        {q:"7. Angiodysplasia is most commonly found in which anatomical location? (Review Q7)", o:["Rectum","Right colon","Left colon","Transverse colon"], a:1, e:"B is correct. Angiodysplasia primarily occurs in the right colon (cecum and ascending colon)."},
+        {q:"8. A patient with 20 bloody bowel movements per day, tenesmus, and abdominal pain most likely has: (Review Q8)", o:["Ulcerative colitis","Crohn's disease","Infectious colitis","Diverticulitis"], a:0, e:"A is correct. UC classically presents with frequent bloody stools and tenesmus, and is more common than Crohn's to cause LGIB."},
+        {q:"9. A negative EGD and colonoscopy in a patient with persistent bleeding suggests: (Review Q9)", o:["Upper GI bleeding","Obscure GI bleeding","Functional bowel disorder","Hemorrhoids"], a:1, e:"B is correct. Obscure GI bleeding is defined by negative upper and lower endoscopy."},
+        {q:"10. Which of the following is both diagnostic and therapeutic for active LGIB? (Review Q10)", o:["Mesenteric angiography","FOBT","Capsule endoscopy","Radionuclide scan"], a:0, e:"A is correct. It allows identification of the bleeding vessel and therapeutic intervention (embolization/vasopressin)."},
+        
+        // Generated 11-50
+        {q:"11. The Ligament of Treitz separates which two anatomical structures?", o:["Stomach and Duodenum","Duodenum and Jejunum","Jejunum and Ileum","Ileum and Cecum"], a:1, e:"B is correct. It is the critical divider defining upper vs lower GI bleeding."},
+        {q:"12. What transit time is typically required for blood to appear as melena?", o:["2 hours","6 hours","14 hours","24 hours"], a:2, e:"C is correct. ~14 hours of GI transit is required for oxidation and breakdown."},
+        {q:"13. Which of the following is an Inflammatory/Ischemic cause of LGIB?", o:["Aortoenteric fistula","Angiodysplasia","Ischemic colitis","Intussusception"], a:2, e:"C is correct. The others are Vascular/Structural (A, B) or Mechanical (D)."},
+        {q:"14. Post-procedural LGIB most commonly occurs after:", o:["Appendectomy","Intestinal anastomosis","Hernia repair","Cholecystectomy"], a:1, e:"B is correct. Bleeding occurs from vessels surrounding the luminal margin of the anastomosis."},
+        {q:"15. A 25-year-old stable patient presents with bright red blood per rectum. What is the most appropriate FIRST diagnostic step?", o:["Formal colonoscopy","Mesenteric angiography","DRE and Anoscopy","CT Angiography"], a:2, e:"C is correct. In patients <40, step 1 is visual inspection, DRE, and anoscopy/proctosigmoidoscopy."},
+        {q:"16. During colonoscopy bowel prep, which food item is specifically prohibited on Days 1-2?", o:["Clear soup","Gelatin","Bread","Crackers"], a:2, e:"C is correct. The lecture explicitly states 'NO BREAD'."},
+        {q:"17. What position is the patient placed in for a colonoscopy?", o:["Prone","Right lateral decubitus","Left lateral decubitus","Lithotomy"], a:2, e:"C is correct. Left lateral decubitus under IV anesthesia."},
+        {q:"18. During colonoscopy, a 360-degree luminal inspection is best performed during:", o:["Insertion through sigmoid","Ileal intubation","Scope withdrawal","Bowel preparation"], a:2, e:"C is correct. Inspection for polyps/early tumors is conducted upon scope withdrawal."},
+        {q:"19. What pharmacological agent is injected into the submucosa for endoscopic hemostasis?", o:["Vasopressin","Epinephrine","Atropine","Lidocaine"], a:1, e:"B is correct. Epinephrine is injected around the bleeding lesion."},
+        {q:"20. A major drawback of Radionuclide Scanning for LGIB is:", o:["Risk of kidney injury","Cannot detect slow bleeds","Presumptive exact location","Causes bowel perforation"], a:2, e:"C is correct. It determines quadrant but cannot detect the exact segment of bowel, making it presumptive."},
+        {q:"21. Which imaging modality for LGIB carries a risk of contrast-induced injury to the kidneys?", o:["Radionuclide scan","CT Angiography","Capsule endoscopy","Plain abdominal radiograph"], a:1, e:"B is correct. CT Angiography requires IV contrast which can harm renal function, especially in the elderly."},
+        {q:"22. Mesenteric angiography requires what bleeding rate to be diagnostic?", o:["0.1 mL/min","0.5 - 1.0 mL/min","5.0 mL/min","Active spurting only"], a:1, e:"B is correct. Radionuclide needs 0.1, Angiography needs 0.5-1.0."},
+        {q:"23. What percentage of diverticular bleeds stop spontaneously?", o:["10%","25%","50%","75%"], a:3, e:"D is correct. 75% stop spontaneously."},
+        {q:"24. The pathophysiology of diverticular bleeding involves:", o:["Inflammation of the diverticular dome","Rupture of vasa recta in solitary cavitations","Autoimmune destruction of mucosa","Arteriovenous malformations"], a:1, e:"B is correct. It is caused by solitary cavitations, not the inflammatory 'Swiss cheese' type of diverticulitis."},
+        {q:"25. Which procedure is considered 'last line' for bleeding Angiodysplasia?", o:["Endoscopic epinephrine","Angiographic embolization","Colonic resection","Electrocoagulation"], a:2, e:"C is correct. Colonic resection is the last line treatment."},
+        {q:"26. An unresectable, actively bleeding sigmoid adenocarcinoma in an unstable patient can be managed with:", o:["Immediate total colectomy","Proximal colonic diversion (Transverse colostomy)","Radionuclide scanning","High fiber diet"], a:1, e:"B is correct. Diversion reduces bleeding risk while stabilizing the patient."},
+        {q:"27. Radiation proctitis is most commonly secondary to treatment for:", o:["Prostate cancer","Gynecologic malignancies (e.g. cervical cancer)","Anal melanoma","Spinal cord tumors"], a:1, e:"B is correct."},
+        {q:"28. What is the first-line treatment for radiation proctitis?", o:["Proctectomy","Hydrocortisone enemas","Segmental resection","Rubber band ligation"], a:1, e:"B is correct. Treat conservatively with hydrocortisone or formalin ablation."},
+        {q:"29. Occult blood loss typically presents clinically as:", o:["Hematemesis","Iron Deficiency Anemia (IDA)","Tenesmus","Acute hypotension"], a:1, e:"B is correct."},
+        {q:"30. Obscure-overt bleeding (visible bleed, negative scopes) most commonly originates from the:", o:["Stomach","Small intestine","Rectum","Esophagus"], a:1, e:"B is correct. Small bowel lesions (ulcers, Crohn's, polyps) are common sources."},
+        {q:"31. According to Box 46-3, which of the following is a Small Bowel cause of obscure GI bleeding?", o:["Dieulafoy lesion","Meckel's diverticulum","Solitary rectal ulcer","GAVE"], a:1, e:"B is correct. Dieulafoy and GAVE are Upper GI. Solitary rectal ulcer is Colon."},
+        {q:"32. In the algorithm for Obscure GI bleeding, a stable patient with major persistent bleeding should undergo:", o:["Enteroclysis","Tagged RBC scan","Operating room","Repeat EGD"], a:1, e:"B is correct. Unstable goes to OR, stable goes to Tagged RBC scan."},
+        {q:"33. A 60yo male presents with massive LGIB. NGT aspirate is negative. Proctoscopy is negative. Bleeding continues moderately. What is the next step?", o:["Elective colonoscopy","99mTc RBC scintigraphy or Urgent colonoscopy","Mesenteric arteriography","Total colectomy"], a:1, e:"B is correct. Per Fig 7, moderate continued bleeding leads to RBC scan or Urgent colonoscopy."},
+        {q:"34. In the same patient (massively bleeding, NGT negative), if bleeding is 'life-threatening' and torrential, the next step is:", o:["Elective colonoscopy","Mesenteric arteriography","Observe","Tagged RBC scan"], a:1, e:"B is correct. Massive life-threatening bleed bypasses waiting and goes to Mesenteric arteriography."},
+        {q:"35. Total colectomy for LGIB is reserved for:", o:["First line treatment of diverticular bleed","Persistent, unlocalized massive colonic bleeding when all else fails","Bleeding hemorrhoids","Stable young patients with polyps"], a:1, e:"B is correct. It is a radical procedure of last resort requiring careful patient selection."},
+        {q:"36. Video Capsule Endoscopy has a reported success rate of approximately:", o:["50%","70%","90%","100%"], a:2, e:"C is correct. Success in 90%, failure in 30-40% (per slide text, though math is weird in source)."},
+        {q:"37. Intraoperative Endoscopy involves:", o:["Swallowing a pill camera","Operative exploration of abdomen accompanied by endoscopy to locate bleeding","Using CT contrast to guide the endoscope","Endoscopy done exclusively in the ICU"], a:1, e:"B is correct."},
+        {q:"38. What is the most common cause of recurrent diverticular bleeding within 1 year?", o:["Failure to do total colectomy","About 10% rebleed naturally","Infection with C. diff","Transformation to adenocarcinoma"], a:1, e:"B is correct. 10% have rebleeds in 1 year."},
+        {q:"39. A patient with bleeding internal hemorrhoids fails a high-fiber diet and diosmin. Next step?", o:["Abdominoperineal resection","Rubber Band Ligation (RBL)","Colostomy","Hydrocortisone enema"], a:1, e:"B is correct."},
+        {q:"40. Which of the following is NOT a conservative management option for hemorrhoids?", o:["High-fiber diet","Flavonoids / Diosmin administration","Rubber Band Ligation","Lifestyle modifications"], a:2, e:"C is correct. RBL is an interventional/surgical treatment."},
+        {q:"41. Why is the Ligament of Treitz a critical surgical landmark?", o:["It suspends the transverse colon","It differentiates UGIB from LGIB sources","It is the most common site of angiodysplasia","It marks the ileocecal valve"], a:1, e:"B is correct."},
+        {q:"42. When communicating with a local patient, melena is best described as looking like:", o:["Ketchup","Dinuguan","Coffee grounds","Soy sauce"], a:1, e:"B is correct. This is a specific clinical communication tip from the lecture."},
+        {q:"43. What percentage of patients with obscure GI bleeding respond simply to iron supplementation?", o:["20%","50%","80%","95%"], a:2, e:"C is correct. 80% respond to iron therapy."},
+        {q:"44. Which IBD presents with up to 20 bloody BMs/day and tenesmus?", o:["Crohn's Disease","Ulcerative Colitis","Microscopic Colitis","Indeterminate Colitis"], a:1, e:"B is correct."},
+        {q:"45. Which of the following indicates a higher risk for bleeding in diverticular disease?", o:["Left-sided lesions","Right-sided lesions","Transverse colon lesions","Rectal diverticula"], a:1, e:"B is correct. Right-sided diverticulosis has a higher chance of bleeding."},
+        {q:"46. Gastrointestinal Stromal Tumors (GIST) most commonly bleed from the:", o:["Esophagus","Stomach/Small intestine","Rectum","Anus"], a:1, e:"B is correct. More common in upper GI/small intestine."},
+        {q:"47. In evaluating obscure GI bleeding, what maneuver can be done in the operating room to localize the bleed?", o:["Serial clamping of the bowel","Blind subtotal colectomy","Prophylactic appendectomy","Hepatic wedge biopsy"], a:0, e:"A is correct. Serial clamping or intraoperative enteroscopy."},
+        {q:"48. A patient has an Aortoenteric fistula. What category of LGIB does this fall under?", o:["Neoplastic","Mechanical","Vascular / Structural","Post-procedural"], a:2, e:"C is correct."},
+        {q:"49. What medication is used as 'provocative therapy' during CT angiography to help identify a bleed?", o:["Epinephrine","Vasopressin","Anticoagulants","Tranexamic acid"], a:2, e:"C is correct. CT angio + anticoagulants as provocative therapy (per obscure bleed slide)."},
+        {q:"50. The definitive treatment for an identified small bowel bleeding source (e.g. obscure overt) is:", o:["Formalin ablation","Small bowel resection","Total colectomy","High-fiber diet"], a:1, e:"B is correct. Treat source, e.g. small bowel resection."}
+    ];
+
+    let currentMcq = 0;
+    let score = 0;
+    let answered = new Array(mcqData.length).fill(false);
+    const mcqContainer = document.getElementById('mcq-container');
+    const mcqBar = document.getElementById('mcq-bar');
+    const mcqPrevBtn = document.getElementById('mcq-prev');
+    const mcqNextBtn = document.getElementById('mcq-next');
+    const mcqScoreDisplay = document.getElementById('mcq-score-display');
+
+    function initMCQs() {
+        mcqData.forEach((data, index) => {
+            let card = document.createElement('div');
+            card.className = `mcq-card ${index === 0 ? 'active' : ''}`;
+            card.id = `mcq-${index}`;
+            
+            let qTitle = document.createElement('h3');
+            qTitle.innerText = data.q;
+            card.appendChild(qTitle);
+
+            data.o.forEach((optText, oIndex) => {
+                let opt = document.createElement('div');
+                opt.className = 'mcq-opt';
+                opt.innerText = optText;
+                opt.onclick = () => selectOption(index, oIndex, opt);
+                card.appendChild(opt);
+            });
+
+            let exp = document.createElement('div');
+            exp.className = 'mcq-exp';
+            exp.id = `exp-${index}`;
+            exp.innerHTML = `<strong>Explanation:</strong> ${data.e}`;
+            card.appendChild(exp);
+
+            mcqContainer.appendChild(card);
+        });
+        updateProgress();
+    }
+
+    function selectOption(qIndex, oIndex, optElement) {
+        if(answered[qIndex]) return; // already answered
+        answered[qIndex] = true;
+        
+        const card = document.getElementById(`mcq-${qIndex}`);
+        const opts = card.getElementsByClassName('mcq-opt');
+        
+        if(oIndex === mcqData[qIndex].a) {
+            optElement.classList.add('correct');
+            score++;
+        } else {
+            optElement.classList.add('wrong');
+            opts[mcqData[qIndex].a].classList.add('correct');
+        }
+        
+        document.getElementById(`exp-${qIndex}`).style.display = 'block';
+        updateProgress();
+    }
+
+    function updateProgress() {
+        let percent = ((currentMcq + 1) / mcqData.length) * 100;
+        mcqBar.style.width = percent + '%';
+        
+        let answeredCount = answered.filter(Boolean).length;
+        if(answeredCount === mcqData.length) {
+            mcqScoreDisplay.style.display = 'block';
+            mcqScoreDisplay.innerText = `Final Score: ${score} / ${mcqData.length} (${Math.round((score/mcqData.length)*100)}%)`;
+            mcqNextBtn.style.display = 'none';
+        }
+    }
+
+    function nextMCQ() {
+        if(currentMcq < mcqData.length - 1) {
+            document.getElementById(`mcq-${currentMcq}`).classList.remove('active');
+            currentMcq++;
+            document.getElementById(`mcq-${currentMcq}`).classList.add('active');
+            mcqPrevBtn.style.display = 'block';
+            if(currentMcq === mcqData.length - 1 && answered[currentMcq]) mcqNextBtn.style.display = 'none';
+            updateProgress();
+        }
+    }
+
+    function prevMCQ() {
+        if(currentMcq > 0) {
+            document.getElementById(`mcq-${currentMcq}`).classList.remove('active');
+            currentMcq--;
+            document.getElementById(`mcq-${currentMcq}`).classList.add('active');
+            mcqNextBtn.style.display = 'block';
+            if(currentMcq === 0) mcqPrevBtn.style.display = 'none';
+            updateProgress();
+        }
+    }
+
+    // Initialize MCQs on load
+    window.onload = initMCQs;
+
+</script>
+</body>
+</html>
