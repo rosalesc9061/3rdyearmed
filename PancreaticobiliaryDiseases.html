@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Reviewer: Diseases of the Gallbladder, Biliary Tree, and Pancreas</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1d4ed8;
+            --primary-light: #eff6ff;
+            --accent: #0f766e;
+            --accent-light: #f0fdfa;
+            --danger: #be123c;
+            --danger-light: #fff1f2;
+            --warning: #b45309;
+            --warning-light: #fffbeb;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #334155;
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'DM Sans', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
+        h1, h2, h3, h4, h5 { font-family: 'Syne', sans-serif; color: var(--text-dark); margin-bottom: 0.5rem; }
+        
+        /* Layout & Navigation */
+        .app-container { display: flex; flex-direction: column; min-height: 100vh; }
+        header { background-color: var(--primary); color: white; padding: 1rem 2rem; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center; }
+        header h1 { color: white; font-size: 1.5rem; margin: 0; }
+        .nav-tabs { display: flex; background: var(--surface); padding: 0.5rem 1rem 0; border-bottom: 2px solid var(--border); overflow-x: auto; position: sticky; top: 60px; z-index: 99; scrollbar-width: none; }
+        .nav-tabs::-webkit-scrollbar { display: none; }
+        .tab-btn { background: none; border: none; padding: 1rem 1.5rem; font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1rem; color: var(--text-light); cursor: pointer; border-bottom: 3px solid transparent; transition: var(--transition); white-space: nowrap; }
+        .tab-btn:hover { color: var(--primary); }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+        
+        main { padding: 2rem; max-width: 1400px; margin: 0 auto; width: 100%; flex-grow: 1; }
+        .tab-pane { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-pane.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Typography & Content Elements */
+        p { margin-bottom: 1rem; }
+        ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.5rem; }
+        .mono { font-family: 'Space Mono', monospace; }
+        
+        /* Concept Cards & Sections */
+        .section-card { background: var(--surface); border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow); border-left: 5px solid var(--primary); }
+        .section-card h2 { border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1.5rem; color: var(--primary); }
+        .concept-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1rem; }
+        .concept-card h3 { color: var(--accent); margin-top: 0; }
+        
+        /* Pedagogical Callouts */
+        .callout { padding: 1rem 1.5rem; border-radius: var(--radius); margin-bottom: 1rem; font-weight: 500; display: flex; gap: 1rem; align-items: flex-start; }
+        .callout::before { font-size: 1.5rem; }
+        .must-know { background-color: var(--primary-light); color: var(--primary); border-left: 4px solid var(--primary); }
+        .must-know::before { content: "⭐"; }
+        .pitfall { background-color: var(--danger-light); color: var(--danger); border-left: 4px solid var(--danger); }
+        .pitfall::before { content: "⚠️"; }
+        .pearl { background-color: var(--accent-light); color: var(--accent); border-left: 4px solid var(--accent); }
+        .pearl::before { content: "💡"; }
+        .exam-tip { background-color: var(--warning-light); color: var(--warning); border-left: 4px solid var(--warning); }
+        .exam-tip::before { content: "🧠"; }
+
+        /* Tables */
+        .table-wrapper { overflow-x: auto; margin-bottom: 1.5rem; border-radius: var(--radius); box-shadow: 0 0 0 1px var(--border); }
+        table { width: 100%; border-collapse: collapse; text-align: left; background: var(--surface); }
+        th, td { padding: 1rem; border-bottom: 1px solid var(--border); }
+        th { background-color: var(--primary); color: white; position: sticky; top: 0; font-family: 'Syne', sans-serif; }
+        tr:nth-child(even) { background-color: var(--bg); }
+        tr:hover { background-color: var(--primary-light); }
+        .badge { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .badge-blue { background: var(--primary-light); color: var(--primary); }
+        .badge-green { background: var(--accent-light); color: var(--accent); }
+        .badge-red { background: var(--danger-light); color: var(--danger); }
+
+        /* CSS Diagrams & Figures */
+        .figure-box { background: white; border: 2px dashed var(--border); padding: 1.5rem; text-align: center; border-radius: var(--radius); margin-bottom: 1.5rem; }
+        .figure-caption { font-size: 0.9rem; color: var(--text-light); margin-top: 0.5rem; font-style: italic; }
+        .diagram-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .diagram-node { background: var(--primary-light); padding: 1rem; border-radius: var(--radius); border: 1px solid var(--primary); text-align: center; font-weight: bold; }
+        .flow-arrow { text-align: center; font-size: 1.5rem; color: var(--primary); margin: 0.5rem 0; }
+
+        /* Interactive Elements: Flashcards */
+        .fc-container { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        .fc-stats { font-family: 'Space Mono', monospace; font-size: 1.1rem; font-weight: bold; color: var(--primary); }
+        .flashcard { width: 100%; max-width: 600px; height: 350px; perspective: 1000px; cursor: pointer; }
+        .fc-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flashcard.flipped .fc-inner { transform: rotateY(180deg); }
+        .fc-front, .fc-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); background: var(--surface); border: 2px solid var(--border); }
+        .fc-back { transform: rotateY(180deg); background: var(--primary-light); border-color: var(--primary); }
+        .fc-front h3 { font-size: 1.5rem; color: var(--text-dark); margin-bottom: 1rem; }
+        .fc-back p { font-size: 1.25rem; color: var(--primary); font-weight: 500; }
+        .fc-tag { position: absolute; top: 1rem; left: 1rem; font-size: 0.8rem; background: var(--bg); padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: bold; color: var(--text-light); }
+        .fc-controls { display: flex; gap: 1rem; }
+        .btn { padding: 0.75rem 1.5rem; border: none; border-radius: var(--radius); font-family: 'Syne', sans-serif; font-weight: bold; cursor: pointer; transition: var(--transition); }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #1e40af; }
+        .btn-secondary { background: var(--border); color: var(--text-dark); }
+        .btn-secondary:hover { background: #cbd5e1; }
+
+        /* Interactive Elements: MCQs */
+        .mcq-container { max-width: 800px; margin: 0 auto; }
+        .mcq-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .mcq-card { background: var(--surface); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .mcq-question { font-size: 1.2rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .mcq-options { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
+        .mcq-option { padding: 1rem; border: 2px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 1rem; }
+        .mcq-option:hover { background: var(--bg); border-color: var(--primary-light); }
+        .mcq-option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .mcq-option.correct { border-color: var(--accent); background: var(--accent-light); }
+        .mcq-option.incorrect { border-color: var(--danger); background: var(--danger-light); }
+        .mcq-explanation { display: none; padding: 1.5rem; background: var(--bg); border-left: 4px solid var(--primary); margin-top: 1.5rem; border-radius: 0 var(--radius) var(--radius) 0; }
+        .mcq-explanation.show { display: block; }
+        
+        /* Cram Sheet */
+        .cram-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .cram-box { background: var(--surface); padding: 1.5rem; border-radius: var(--radius); border-top: 4px solid var(--warning); box-shadow: var(--shadow); }
+        .cram-box h3 { color: var(--warning); }
+        .cram-item { padding: 0.5rem 0; border-bottom: 1px dashed var(--border); }
+        .cram-item:last-child { border-bottom: none; }
+        .cram-trigger { font-weight: bold; color: var(--danger); }
+        .cram-response { font-weight: bold; color: var(--accent); }
+
+        /* Utilities */
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 2rem; }
+        .scroll-top { position: fixed; bottom: 2rem; right: 2rem; background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000; border: none; font-size: 1.5rem; }
+        .scroll-top.visible { opacity: 1; pointer-events: auto; }
+        
+        @media print {
+            header, .nav-tabs, .fc-controls, .btn, .scroll-top { display: none !important; }
+            .tab-pane { display: block !important; opacity: 1 !important; page-break-after: always; }
+            body { background: white; }
+            .section-card { box-shadow: none; border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <header>
+        <h1>Diseases of the Gallbladder, Biliary Tree, and Pancreas</h1>
+        <div style="font-size: 0.9rem; opacity: 0.9;">Med2 LE3 - Complete Board Reviewer</div>
+    </header>
+
+    <div class="nav-tabs" id="navTabs">
+        <button class="tab-btn active" data-target="tab-overview">1. Overview</button>
+        <button class="tab-btn" data-target="tab-gb">2. Gallbladder & Biliary Tract</button>
+        <button class="tab-btn" data-target="tab-pancreas">3. Pancreatic Disorders</button>
+        <button class="tab-btn" data-target="tab-comparisons">4. Comparisons</button>
+        <button class="tab-btn" data-target="tab-flashcards">5. Flashcards</button>
+        <button class="tab-btn" data-target="tab-mcqs">6. Self-Assessment</button>
+        <button class="tab-btn" data-target="tab-cram">7. Cram Sheet</button>
+    </div>
+
+    <main>
+        <!-- TAB 1: OVERVIEW -->
+        <section id="tab-overview" class="tab-pane active">
+            <div class="section-card">
+                <h2>I. Bile & Biliary Anatomy / Physiology</h2>
+                
+                <div class="must-know callout">
+                    <strong>Core Concept:</strong> Bile facilitates intestinal absorption of dietary fats (especially cholesterol and fat-soluble vitamins) via micellar transport mechanisms.
+                </div>
+
+                <div class="concept-card">
+                    <h3>A. Hepatic Bile vs. Gallbladder Bile</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Hepatic Bile</th>
+                                    <th>Gallbladder Bile</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Formation/Location</strong></td>
+                                    <td>Hepatic lobules &rarr; canaliculi &rarr; bile ducts</td>
+                                    <td>Sequestered and concentrated in the GB on overnight fast</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tonicity</strong></td>
+                                    <td>Isotonic fluid like plasma</td>
+                                    <td>Isotonic but highly concentrated</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Solute Concentration</strong></td>
+                                    <td>3-4 g/dL</td>
+                                    <td>10-15 g/dL (Concentrated via transmucosal absorption of water/electrolytes)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Volume/Secretion</strong></td>
+                                    <td>Basal secretion: 500-600 mL / 24 hrs</td>
+                                    <td>~30 cc / 24 hr period</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Electrolytes</strong></td>
+                                    <td>Normal plasma-like</td>
+                                    <td>Less Cl⁻ and HCO3⁻</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>B. Major Solutes of Bile</h3>
+                    <ul>
+                        <li><strong>Bile acids (80%)</strong></li>
+                        <li><strong>Lecithin and other phospholipids (16%)</strong></li>
+                        <li><strong>Unesterified cholesterol (4%)</strong></li>
+                    </ul>
+                    <div class="pitfall callout">
+                        <strong>Pathophysiology of Lithogenic Bile:</strong> When unesterified cholesterol reaches >8 to 10%, it renders the bile lithogenic, predisposing to cholesterol stone formation. Solubility depends on total lipid concentration and the molar percentages of bile acids and lecithin forming solubilizing mixed micelles.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>C. Regulation of Bile Flow</h3>
+                    <ul>
+                        <li>Active transport of bile acids from hepatocytes into bile canaliculi.</li>
+                        <li>Active transport of other organic anions.</li>
+                        <li><strong>Cholangiocellular secretion:</strong> Secretin-mediated and cAMP-dependent &rarr; Secretion of Na⁺ and HCO3⁻ rich fluid in the bile ducts.</li>
+                    </ul>
+                </div>
+
+                <div class="concept-card">
+                    <h3>D. Bile Acids</h3>
+                    <div class="diagram-grid">
+                        <div class="diagram-node">
+                            <strong>Primary Bile Acids</strong><br>
+                            Synthesized from cholesterol in the liver.<br>
+                            Conjugated with glycine or taurine.<br>
+                            <em>Cholic acid, Chenodeoxycholic acid (CDCA)</em>
+                        </div>
+                        <div class="diagram-node">
+                            <strong>Secondary Bile Acids</strong><br>
+                            Formed in the colon as bacterial metabolites of primary bile acids.<br>
+                            <em>Deoxycholate, Lithocholate, Ursodeoxycholic acid (stereoisomer of CDCA)</em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: GALLBLADDER & BILIARY TRACT -->
+        <section id="tab-gb" class="tab-pane">
+            <div class="section-card">
+                <h2>Diseases of the Gallbladder & Biliary Tree</h2>
+
+                <div class="concept-card">
+                    <h3>1. Gallstones (Cholelithiasis)</h3>
+                    <p>Primary disease of the gallbladder. Formed because of abnormal bile composition.</p>
+                    
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Stone Type</th>
+                                    <th>Composition & Appearance</th>
+                                    <th>Predisposing Factors / Pathophysiology</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Cholesterol Stones</strong> (80%)</td>
+                                    <td>>50% cholesterol monohydrate. Radiotranslucent mostly. Accounts for >90% of stones in Western countries.</td>
+                                    <td>
+                                        <ul>
+                                            <li><strong>Obesity/Metabolic Syn:</strong> Increased biliary cholesterol secretion.</li>
+                                            <li><strong>Rapid weight loss:</strong> Tissue cholesterol mobilization, decreased enterohepatic circulation.</li>
+                                            <li><strong>Female sex hormones (Estrogen/OCPs/Pregnancy):</strong> Increases dietary cholesterol uptake & biliary secretion. Progesterone inhibits GB contractility.</li>
+                                            <li><strong>GB Hypomotility:</strong> Stasis (prolonged TPN, fasting, Octreotide).</li>
+                                            <li><strong>Genetics:</strong> Defect in CYP7A1 (decreased bile acid) or MDR3 (decreased phospholipid).</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Black Pigment Stones</strong> (20%)</td>
+                                    <td>Calcium bilirubinate or polymer-like complexes. <20% cholesterol. Black color.</td>
+                                    <td><strong>Chronic hemolysis</strong>, cirrhosis, pernicious anemia, cystic fibrosis, ileal disease/resection. Increased unconjugated bilirubin.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Brown Pigment Stones</strong></td>
+                                    <td>Calcium salts of unconjugated bilirubin + cholesterol + protein.</td>
+                                    <td><strong>Chronic biliary infection/parasites (Asia).</strong> Deconjugation of bilirubin by bacterial enzymes (beta-glucuronidase). Forms directly in bile ducts.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="pearl callout">
+                        <strong>Natural History of Asymptomatic Stones:</strong> 75-80% remain asymptomatic. Prophylactic cholecystectomy is NOT warranted for asymptomatic stones unless: high risk of GB cancer (porcelain GB), stones >3cm, anomalous GB, or sickle cell anemia.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>2. Clinical Presentations of Gallstones</h3>
+                    <div class="figure-box">
+                        <strong>Anatomical Progression of Gallstone Disease</strong>
+                        <ul style="text-align: left; margin-top: 1rem;">
+                            <li><strong>Asymptomatic (75%):</strong> Stone stays in GB lumen.</li>
+                            <li><strong>Biliary Pain / Colic (20%):</strong> Intermittent cystic duct obstruction. Steady, poorly localized RUQ/epigastric ache radiating to right scapula. Lasts 1-4 hours. Resolves when stone falls back. (Note: "Colic" is a misnomer, pain is steady).</li>
+                            <li><strong>Acute Cholecystitis (10%):</strong> Persistent cystic duct impaction >6 hours. GB distends & inflames.</li>
+                            <li><strong>Mirizzi's Syndrome (<0.1%):</strong> Impaction in GB neck/cystic duct compressing the common hepatic duct.</li>
+                            <li><strong>Choledocholithiasis (~5%):</strong> Stone in distal CBD. Causes jaundice, biliary pain, risk of cholangitis and gallstone pancreatitis.</li>
+                            <li><strong>Cholecystoenteric Fistula (<0.1%):</strong> Stone erodes through GB into bowel (usually duodenum). Can cause Gallstone Ileus or Bouveret's syndrome (gastric outlet obstruction).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>3. Acute Cholecystitis</h3>
+                    <p><strong>Pathophysiology:</strong> Mechanical obstruction &rarr; distention & ischemia &rarr; chemical inflammation (lysolecithin release) &rarr; secondary bacterial superinfection (50-85%, mainly <em>E. coli, Klebsiella, Enterococcus</em>).</p>
+                    
+                    <div class="must-know callout">
+                        <strong>Acute Cholecystitis Triad:</strong> Sudden onset RUQ tenderness (Murphy's sign) + Fever + Leukocytosis.
+                    </div>
+                    <div class="exam-tip callout">
+                        <strong>Diagnosis:</strong> Ultrasound is initial test (shows thickened wall, pericholecystic fluid, stones). <strong>HIDA scan</strong> is the gold standard (non-visualization of GB due to cystic duct obstruction).
+                    </div>
+
+                    <h4>Tokyo Guidelines 2018 Severity & Management</h4>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Grade</th>
+                                    <th>Criteria</th>
+                                    <th>Management</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Mild (Grade I)</strong></td>
+                                    <td>Healthy patient, mild inflammatory changes, no organ dysfunction.</td>
+                                    <td>Antibiotics + General supportive care &rarr; Early Laparoscopic Cholecystectomy (LC).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Moderate (Grade II)</strong></td>
+                                    <td>WBC >18,000, palpable tender mass, duration >72h, or marked local inflammation (gangrenous, emphysematous, abscess).</td>
+                                    <td>Antibiotics &rarr; Early LC (within 96h) OR Urgent/early GB drainage if failing therapy.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Severe (Grade III)</strong></td>
+                                    <td>Organ dysfunction (CVS req dopamine/dobutamine, Neuro change, PaO2/FiO2 <300, Creatinine >2.0, PT/INR >1.5, Plt <100k).</td>
+                                    <td>Antibiotics + Organ Support &rarr; <strong>Urgent GB drainage</strong> &rarr; Delayed elective LC.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>4. Acute Cholangitis</h3>
+                    <p><strong>Pathophysiology:</strong> Obstruction of bile duct + bacterial superinfection of stagnant bile. Early bacteremia.</p>
+                    <div class="must-know callout">
+                        <strong>Charcot's Triad (70%):</strong> RUQ Pain + Jaundice + Fever.<br>
+                        <strong>Reynold's Pentad (15%):</strong> Charcot's Triad + Hypotension + Mental Status Changes (indicates Gram-negative sepsis).
+                    </div>
+                    <p><strong>Treatment:</strong> General supportive care + Antibiotics + Biliary Drainage (ERCP with clearance/stenting is urgent, especially in Grade II/III).</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>5. Complications & Specific Syndromes</h3>
+                    <ul>
+                        <li><strong>Acalculous Cholecystitis:</strong> GB inflammation without stones. Seen in critically ill (major trauma, burns, TPN, prolonged fasting). Diagnose early, high mortality.</li>
+                        <li><strong>Emphysematous Cholecystitis:</strong> Ischemia/gangrene + gas-forming organisms (<em>C. perfringens, E. coli</em>). Elderly diabetic males. Plain film shows gas in GB wall. High mortality. Tx: IV antibiotics + Urgent cholecystectomy or percutaneous drainage.</li>
+                        <li><strong>Hydrops (Mucocele):</strong> Prolonged cystic duct obstruction. GB distends with sterile clear mucus/transudate.</li>
+                        <li><strong>Empyema:</strong> Persistent obstruction with superinfection resulting in a GB filled with pus.</li>
+                        <li><strong>Gallstone Ileus:</strong> Large stone (>25mm) erodes into bowel (cholecystoenteric fistula) and obstructs the narrowest part (Terminal Ileum). Present as SBO.</li>
+                        <li><strong>Bouveret's Syndrome:</strong> Gallstone impacts in duodenum causing gastric outlet obstruction.</li>
+                        <li><strong>Porcelain Gallbladder:</strong> Intramural calcification. Asymptomatic but carries <strong>20% risk of GB carcinoma</strong>. Requires prophylactic cholecystectomy.</li>
+                        <li><strong>Primary Sclerosing Cholangitis (PSC):</strong> Progressive stricturing of intra/extrahepatic ducts. 70-90% associated with IBD (Ulcerative Colitis). Pathognomonic: "narrowing and beading" on MRCP/ERCP. High risk for Cholangiocarcinoma.</li>
+                        <li><strong>Cholesterolosis:</strong> "Strawberry gallbladder" - lipid deposition in lamina propria macrophages.</li>
+                        <li><strong>Adenomyomatosis:</strong> Benign proliferation of epithelium with Rokitansky-Aschoff sinuses.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 3: PANCREAS -->
+        <section id="tab-pancreas" class="tab-pane">
+            <div class="section-card">
+                <h2>Pancreatic Disorders</h2>
+
+                <div class="concept-card">
+                    <h3>1. Acute Pancreatitis</h3>
+                    <p>Acute inflammation involving pancreas and peripancreatic tissues. Premature activation of trypsinogen causing autodigestion.</p>
+                    
+                    <h4>Etiologies:</h4>
+                    <p><strong>Gallstones (40-70%)</strong>, Alcohol (10-30%), Hypertriglyceridemia, Post-ERCP, Drugs (valproate, azathioprine, thiazides).</p>
+                    
+                    <div class="must-know callout">
+                        <strong>Diagnosis (Revised Atlanta Criteria - Need 2 of 3):</strong><br>
+                        1. Acute epigastric pain radiating to the back.<br>
+                        2. Serum amylase or lipase ≥ 3x Upper Limit of Normal (ULN).<br>
+                        3. Characteristic imaging findings (CECT, MRI, or US).
+                    </div>
+                    <div class="pitfall callout">
+                        Amylase and lipase levels DO NOT correlate with disease severity. Lipase is more sensitive and specific. Routine CECT on admission is NOT indicated unless diagnosis is uncertain. Best time for CT to assess necrosis is 3-5 days after admission.
+                    </div>
+
+                    <h4>Severity Classification (Revised Atlanta)</h4>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Severity</th>
+                                    <th>Definition</th>
+                                    <th>Prognosis & Management Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Mild</strong> (~80%)</td>
+                                    <td>No organ failure. No local/systemic complications.</td>
+                                    <td>Resolves in 1 week. Hydration, analgesia, early oral feeding.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Moderately Severe</strong></td>
+                                    <td>Transient organ failure (<48 hrs) OR local/systemic complications.</td>
+                                    <td>Requires longer stay. May develop fluid collections.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Severe</strong> (~5-10%)</td>
+                                    <td><strong>Persistent organ failure (>48 hrs)</strong> (SBP <90, PaO2 <60, Crea ≥2.0).</td>
+                                    <td>High mortality. Requires ICU, aggressive hydration, enteral nutrition (nasojejunal). Prophylactic antibiotics are NOT recommended for sterile necrosis.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>Management Principles</h4>
+                    <ul>
+                        <li><strong>Hydration:</strong> Ringer's lactate preferred. 250-500 mL/hr early.</li>
+                        <li><strong>Analgesia:</strong> Multimodal, opioids. Avoid NSAIDs if renal impairment.</li>
+                        <li><strong>Nutrition:</strong> Early enteral feeding (24-48h). Nasojejunal if severe. TPN only if absolutely necessary.</li>
+                        <li><strong>ERCP:</strong> Urgent (<24h) if severe acute biliary pancreatitis with cholangitis or persistent obstruction.</li>
+                    </ul>
+                </div>
+
+                <div class="concept-card">
+                    <h3>2. Chronic Pancreatitis</h3>
+                    <p>Irreversible damage, fibrosis, and stellate cell activation. 60-70% due to alcohol. Evaluated by the <strong>TIGAR-O</strong> classification (Toxic, Idiopathic, Genetic, Autoimmune, Recurrent, Obstructive).</p>
+                    
+                    <div class="pearl callout">
+                        <strong>Classic Triad (Late Advanced Disease):</strong> Pancreatic calcifications + Diabetes Mellitus + Steatorrhea (Maldigestion).
+                    </div>
+                    
+                    <h4>Diagnostic Tests</h4>
+                    <ul>
+                        <li><strong>Fecal pancreatic elastase-1 (FPE-1):</strong> <100 mcg/g indicates severe exocrine insufficiency.</li>
+                        <li><strong>Secretin Stimulation Test:</strong> Peak bicarbonate <80 mEq/L is consistent with chronic pancreatitis.</li>
+                        <li><strong>Imaging:</strong> ERCP/MRCP shows dilated ducts, calcifications, "chain of lakes".</li>
+                    </ul>
+                </div>
+
+                <div class="concept-card">
+                    <h3>3. Autoimmune Pancreatitis (AIP)</h3>
+                    <p>Presents with mild pain, obstructive jaundice (50-60%), diffuse "sausage-shaped" pancreatic enlargement.</p>
+                    <ul>
+                        <li><strong>Type 1:</strong> Lymphoplasmacytic sclerosing pancreatitis. <strong>Elevated IgG4</strong>. Associated with Sjogren's, PSC, UC, Retroperitoneal fibrosis. Responds dramatically to corticosteroids.</li>
+                        <li><strong>Type 2:</strong> Idiopathic duct-centric. Granulocytic epithelial lesions. No IgG4 elevation. Higher relapse rate, associated with IBD.</li>
+                    </ul>
+                </div>
+
+                <div class="concept-card">
+                    <h3>4. Pancreatic Cancer (Adenocarcinoma)</h3>
+                    <ul>
+                        <li><strong>Location:</strong> 70% in the Head. Arises from ductal cells.</li>
+                        <li><strong>Pathogenesis:</strong> <strong>K-ras mutation (90% - hallmark)</strong>, p53, DPC4/SMAD4, p16/CDKN2A.</li>
+                        <li><strong>Tumor Marker:</strong> CA 19-9 (Sialylated Lewis antigen).</li>
+                        <li><strong>Clinical:</strong> Painless jaundice + palpable nontender gallbladder (<strong>Courvoisier sign</strong>) suggests head of pancreas tumor. Body/tail tumors present late with weight loss, back pain, metastasis.</li>
+                        <li><strong>Imaging:</strong> Pancreatic protocol helical CT scan is the best initial modality for diagnosis and staging.</li>
+                    </ul>
+                </div>
+
+                <div class="concept-card">
+                    <h3>5. Cystic Neoplasms of the Pancreas</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Neoplasm</th>
+                                    <th>Demographics & Location</th>
+                                    <th>Characteristics</th>
+                                    <th>Malignant Potential</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Mucinous Cystic Neoplasm</strong></td>
+                                    <td>Middle-aged Women (>80%), Body/Tail</td>
+                                    <td>Viscous mucin, high CEA, ovarian-like stroma. Does NOT communicate with duct.</td>
+                                    <td>High (Premalignant). Needs resection.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Serous Cystadenoma</strong></td>
+                                    <td>Women (70%), Body/Tail</td>
+                                    <td>Clear, watery, high glycogen, low CEA.</td>
+                                    <td>Low. Often observed.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>IPMN</strong> (Intraductal Papillary Mucinous Neoplasm)</td>
+                                    <td>M=F, Median age 65, Head</td>
+                                    <td>Mucin hypersecretion. Communicates with main duct or side branches. DPC4 expressed.</td>
+                                    <td>Main duct: High (57-92%). Side branch: Lower (6-46%). Tx: Resection.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Solid Pseudopapillary Neoplasm</strong></td>
+                                    <td>Young women (20s-30s)</td>
+                                    <td>Large, well-circumscribed, solid/cystic.</td>
+                                    <td>Low malignant potential. Excellent prognosis post-resection.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 4: COMPARISONS -->
+        <section id="tab-comparisons" class="tab-pane">
+            <div class="section-card">
+                <h2>High-Yield Comparisons</h2>
+                
+                <div class="concept-card">
+                    <h3>Biliary Colic vs. Acute Cholecystitis vs. Cholangitis</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Biliary Pain (Colic)</th>
+                                    <th>Acute Cholecystitis</th>
+                                    <th>Acute Cholangitis</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Pathology</strong></td>
+                                    <td>Transient cystic duct obstruction</td>
+                                    <td>Persistent cystic duct obstruction + inflammation</td>
+                                    <td>CBD obstruction + bacterial superinfection</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pain Duration</strong></td>
+                                    <td>< 4-6 hours, resolves</td>
+                                    <td>> 6 hours, persistent</td>
+                                    <td>Variable, accompanied by severe systemic signs</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Fever / WBC</strong></td>
+                                    <td>Absent / Normal</td>
+                                    <td>Fever, Leukocytosis (Triad)</td>
+                                    <td>High fever, Chills, Leukocytosis</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Jaundice</strong></td>
+                                    <td>Absent</td>
+                                    <td>Mild (in 20%)</td>
+                                    <td>Present (Charcot's Triad)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Management</strong></td>
+                                    <td>Elective Cholecystectomy</td>
+                                    <td>Antibiotics + Early Cholecystectomy</td>
+                                    <td>Antibiotics + Urgent ERCP Drainage</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>Autoimmune Pancreatitis: Type 1 vs Type 2</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Type 1 AIP</th>
+                                    <th>Type 2 AIP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Histology</strong></td>
+                                    <td>Lymphoplasmacytic sclerosing</td>
+                                    <td>Idiopathic duct-centric (granulocytic epithelial lesions)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>IgG4 Levels</strong></td>
+                                    <td>Elevated</td>
+                                    <td>Normal</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Other Organ Involvement</strong></td>
+                                    <td>Yes (Sjogren's, PSC, Retroperitoneal fibrosis, nephritis)</td>
+                                    <td>Associated with IBD (Ulcerative Colitis)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Relapse Rate</strong></td>
+                                    <td>Lower</td>
+                                    <td>Higher</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: FLASHCARDS -->
+        <section id="tab-flashcards" class="tab-pane">
+            <div class="section-card">
+                <h2>Active Recall: Flashcards (50 Items)</h2>
+                <div class="fc-container">
+                    <div class="fc-stats">Card <span id="fc-current">1</span> of <span id="fc-total">50</span></div>
+                    
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="fc-inner">
+                            <div class="fc-front">
+                                <span class="fc-tag" id="fc-tag">Topic</span>
+                                <h3 id="fc-q">Question text here</h3>
+                                <p style="font-size:0.9rem; color:var(--text-light); margin-top:2rem;">(Click to flip)</p>
+                            </div>
+                            <div class="fc-back">
+                                <span class="fc-tag" style="background:var(--surface)">Answer</span>
+                                <p id="fc-a">Answer text here</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="fc-controls">
+                        <button class="btn btn-secondary" onclick="prevCard()">&larr; Previous</button>
+                        <button class="btn btn-secondary" onclick="shuffleCards()">🔀 Shuffle</button>
+                        <button class="btn btn-primary" onclick="nextCard()">Next &rarr;</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: SELF-ASSESSMENT -->
+        <section id="tab-mcqs" class="tab-pane">
+            <div class="section-card">
+                <h2>Self-Assessment: Board-Style MCQs</h2>
+                <div class="mcq-container">
+                    <div class="mcq-header">
+                        <span class="badge badge-blue">Question <span id="mcq-current">1</span> of 50</span>
+                        <span class="badge badge-green">Score: <span id="mcq-score">0</span></span>
+                    </div>
+                    
+                    <div class="mcq-card">
+                        <div class="mcq-question" id="mcq-q">Question text</div>
+                        <div class="mcq-options" id="mcq-options-container">
+                            <!-- Options injected via JS -->
+                        </div>
+                        <div class="mcq-explanation" id="mcq-exp">
+                            <strong>Explanation:</strong> <span id="mcq-exp-text"></span>
+                        </div>
+                        
+                        <div style="display:flex; justify-content:space-between; margin-top:1.5rem;">
+                            <button class="btn btn-secondary" id="mcq-submit" onclick="checkAnswer()">Submit Answer</button>
+                            <button class="btn btn-primary" id="mcq-next" onclick="nextMcq()" style="display:none;">Next Question &rarr;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: CRAM SHEET -->
+        <section id="tab-cram" class="tab-pane">
+            <div class="section-card">
+                <h2>Ultra-Condensed Cram Sheet</h2>
+                
+                <div class="cram-grid">
+                    <div class="cram-box">
+                        <h3>Diagnostic Buzzwords</h3>
+                        <div class="cram-item"><span class="cram-trigger">RUQ Pain + Fever + Jaundice</span> &rarr; <span class="cram-response">Charcot's Triad (Cholangitis)</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Charcot's + Shock + Altered Mental Status</span> &rarr; <span class="cram-response">Reynold's Pentad (Suppurative Cholangitis)</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Painless Jaundice + Palpable Nontender GB</span> &rarr; <span class="cram-response">Courvoisier Sign (Pancreatic Head Ca)</span></div>
+                        <div class="cram-item"><span class="cram-trigger">RUQ pain radiating to right scapula</span> &rarr; <span class="cram-response">Biliary Colic / Cholecystitis</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Epigastric pain radiating straight to back</span> &rarr; <span class="cram-response">Acute Pancreatitis</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Periumbilical / Flank Ecchymosis</span> &rarr; <span class="cram-response">Cullen's / Grey Turner's Sign (Severe Hemorrhagic Pancreatitis)</span></div>
+                    </div>
+
+                    <div class="cram-box">
+                        <h3>Pathology & Imaging Clues</h3>
+                        <div class="cram-item"><span class="cram-trigger">Narrowing and beading of bile ducts on MRCP</span> &rarr; <span class="cram-response">Primary Sclerosing Cholangitis (PSC)</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Porcelain Gallbladder</span> &rarr; <span class="cram-response">High risk for GB Carcinoma (20%)</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Strawberry Gallbladder</span> &rarr; <span class="cram-response">Cholesterolosis</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Gas in GB wall in diabetic male</span> &rarr; <span class="cram-response">Emphysematous Cholecystitis (Clostridium)</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Calcifications + Steatorrhea + Diabetes</span> &rarr; <span class="cram-response">Chronic Pancreatitis</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Elevated IgG4 + Sausage Pancreas</span> &rarr; <span class="cram-response">Autoimmune Pancreatitis Type 1</span></div>
+                    </div>
+
+                    <div class="cram-box">
+                        <h3>Genetics & Markers</h3>
+                        <div class="cram-item"><span class="cram-trigger">Pancreatic Adenocarcinoma</span> &rarr; <span class="cram-response">K-ras mutation (90%)</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Tumor Marker for Pancreatic Ca</span> &rarr; <span class="cram-response">CA 19-9</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Hereditary Pancreatitis</span> &rarr; <span class="cram-response">PRSS1 cationic trypsinogen mutation</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Cystic Fibrosis related pancreatitis</span> &rarr; <span class="cram-response">CFTR gene mutation</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Decreased exocrine function marker</span> &rarr; <span class="cram-response">Fecal Elastase-1 < 100 mcg/g</span></div>
+                    </div>
+                    
+                    <div class="cram-box">
+                        <h3>Management Rules</h3>
+                        <div class="cram-item"><span class="cram-trigger">Asymptomatic Gallstones</span> &rarr; <span class="cram-response">Expectant mgmt (No surgery unless risk factors)</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Acute Pancreatitis Hydration</span> &rarr; <span class="cram-response">Aggressive Ringer's Lactate in first 24h</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Prophylactic antibiotics in sterile necrotizing pancreatitis?</span> &rarr; <span class="cram-response">NO. Only if infected.</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Gallstone Pancreatitis</span> &rarr; <span class="cram-response">Cholecystectomy on same admission</span></div>
+                        <div class="cram-item"><span class="cram-trigger">Severe Biliary Pancreatitis with Cholangitis</span> &rarr; <span class="cram-response">Urgent ERCP (<24h)</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">&uarr;</button>
+</div>
+
+<script>
+    // Tab Navigation Logic
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panes = document.querySelectorAll('.tab-pane');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            panes.forEach(p => p.classList.remove('active'));
+            
+            tab.classList.add('active');
+            document.getElementById(tab.getAttribute('data-target')).classList.add('active');
+        });
+    });
+
+    // Scroll to Top Logic
+    const scrollBtn = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) scrollBtn.classList.add('visible');
+        else scrollBtn.classList.remove('visible');
+    });
+
+    // --- DATA: 50 FLASHCARDS ---
+    const fcData = [
+        {t:"Physiology", q:"What is the major solute of bile?", a:"Bile acids (80%)"},
+        {t:"Physiology", q:"Where are primary bile acids synthesized?", a:"In the liver from cholesterol (cholic and chenodeoxycholic acid)"},
+        {t:"Physiology", q:"How does unesterified cholesterol promote stone formation?", a:"If it reaches >8-10%, it renders bile lithogenic, precipitating crystals."},
+        {t:"Gallstones", q:"What is the most common type of gallstone?", a:"Cholesterol stone (80%, >50% cholesterol monohydrate)"},
+        {t:"Gallstones", q:"What conditions predispose to black pigment stones?", a:"Chronic hemolysis, cirrhosis, pernicious anemia, cystic fibrosis"},
+        {t:"Gallstones", q:"What conditions predispose to brown pigment stones?", a:"Chronic biliary tract infections/parasites (common in Asia)"},
+        {t:"Gallstones", q:"Why does pregnancy increase gallstone risk?", a:"Progesterone inhibits GB contractility; Estrogen increases biliary cholesterol"},
+        {t:"Gallstones", q:"What is the diagnostic procedure of choice for gallstones?", a:"Ultrasound (>95% sensitivity for stones >=1.5mm)"},
+        {t:"Gallstones", q:"Are prophylactic cholecystectomies recommended for asymptomatic stones?", a:"No, unless high risk (porcelain GB, stones >3cm)."},
+        {t:"Biliary Colic", q:"How does biliary pain typically present?", a:"Steady ache in RUQ/epigastric area radiating to right scapula, lasts < 4 hours."},
+        {t:"Acute Cholecystitis", q:"What is the triad of Acute Cholecystitis?", a:"Murphy's sign (RUQ tenderness w/ inspiratory arrest), Fever, Leukocytosis"},
+        {t:"Acute Cholecystitis", q:"What is the gold standard diagnostic test for acute cholecystitis?", a:"HIDA scan (non-visualization of GB)"},
+        {t:"Acute Cholecystitis", q:"According to Tokyo Guidelines, what defines Grade III (Severe) Cholecystitis?", a:"Presence of organ dysfunction (CVS, Neuro, Pulmo, Renal, Hepatic, Hema)"},
+        {t:"Acute Cholecystitis", q:"What is the recommended treatment for Grade I Cholecystitis?", a:"Antibiotics + early laparoscopic cholecystectomy"},
+        {t:"Complications", q:"What is Mirizzi's Syndrome?", a:"Impacted stone in GB neck/cystic duct causing extrinsic compression of the common hepatic duct."},
+        {t:"Complications", q:"What is Gallstone Ileus?", a:"Large stone erodes into bowel, usually causing obstruction at the terminal ileum."},
+        {t:"Complications", q:"What is Bouveret's syndrome?", a:"Gastric outlet obstruction caused by a gallstone (cholecystoduodenal fistula)."},
+        {t:"Complications", q:"What is Emphysematous Cholecystitis?", a:"Ischemia + gas-forming organisms (Clostridium, E. coli) in GB wall; common in elderly diabetic men."},
+        {t:"Complications", q:"What is Acalculous Cholecystitis?", a:"Acute GB inflammation without stones; seen in trauma, burns, TPN, critical illness."},
+        {t:"Complications", q:"What is a Porcelain Gallbladder?", a:"Intramural calcification of GB wall; carries 20% risk of GB carcinoma."},
+        {t:"Cholangitis", q:"What is Charcot's Triad?", a:"RUQ pain, Jaundice, Fever"},
+        {t:"Cholangitis", q:"What is Reynold's Pentad?", a:"Charcot's Triad + Hypotension + Mental Status Changes"},
+        {t:"Cholangitis", q:"What is the urgent treatment for severe acute cholangitis?", a:"Urgent biliary drainage (ERCP) + Organ support + Antibiotics"},
+        {t:"Cholangiopathy", q:"What is Primary Sclerosing Cholangitis (PSC) highly associated with?", a:"Inflammatory Bowel Disease (Ulcerative Colitis in 70-90%)"},
+        {t:"Cholangiopathy", q:"What is the pathognomonic imaging finding for PSC?", a:"Multifocal stricturing with 'narrowing and beading' of bile ducts on MRCP/ERCP"},
+        {t:"Cholangiocarcinoma", q:"What is a Bismuth-Corlette Type I tumor?", a:"Cholangiocarcinoma located below the confluence of the hepatic ducts."},
+        {t:"Pancreatitis", q:"What are the two most common causes of acute pancreatitis?", a:"Gallstones (40-70%) and Alcohol use (10-30%)"},
+        {t:"Pancreatitis", q:"What is the mechanism of alcoholic pancreatitis?", a:"Formation of fatty acid ethanol esters (FAEE) causing accumulation and injury."},
+        {t:"Pancreatitis", q:"What are the Revised Atlanta Criteria for Diagnosis?", a:"Need 2 of 3: Acute epigastric pain, Amylase/Lipase >= 3x ULN, Characteristic imaging."},
+        {t:"Pancreatitis", q:"What is Cullen's sign?", a:"Periumbilical ecchymosis (seen in severe acute pancreatitis)"},
+        {t:"Pancreatitis", q:"What is Grey Turner's sign?", a:"Flank ecchymosis"},
+        {t:"Pancreatitis", q:"When is Contrast-Enhanced CT indicated in acute pancreatitis?", a:"For diagnostic uncertainty, or clinical deterioration after 48-72 hours to check for necrosis."},
+        {t:"Pancreatitis", q:"What defines Severe Acute Pancreatitis (Atlanta Criteria)?", a:"Persistent organ failure (>48 hours)"},
+        {t:"Pancreatitis", q:"What is the preferred fluid for resuscitation in acute pancreatitis?", a:"Ringer's lactate solution (250-500 mL/hr early)"},
+        {t:"Pancreatitis", q:"Are prophylactic antibiotics recommended for severe acute pancreatitis?", a:"No, only indicated if infected necrosis, cholangitis, or extrapancreatic infection is documented."},
+        {t:"Pancreatitis", q:"When should cholecystectomy be done for gallstone pancreatitis?", a:"On the same admission, after clinical improvement."},
+        {t:"Chronic Panc", q:"What does TIGAR-O stand for?", a:"Toxic/Metabolic, Idiopathic, Genetic, Autoimmune, Recurrent/Severe, Obstructive"},
+        {t:"Chronic Panc", q:"What is the clinical triad of advanced chronic pancreatitis?", a:"Pancreatic calcifications, Diabetes mellitus, Steatorrhea/Maldigestion"},
+        {t:"Chronic Panc", q:"What fecal test indicates severe exocrine pancreatic insufficiency?", a:"Fecal pancreatic elastase-1 (FPE-1) < 100 mcg/g"},
+        {t:"Autoimmune Panc", q:"What serum marker is classic for Type 1 Autoimmune Pancreatitis?", a:"Elevated IgG4"},
+        {t:"Autoimmune Panc", q:"How is Autoimmune Pancreatitis typically treated?", a:"Corticosteroids (shows dramatic resolution/improvement)"},
+        {t:"Genetics", q:"What gene mutation is linked to Hereditary Pancreatitis?", a:"Cationic trypsinogen PRSS1 gene mutation"},
+        {t:"Pancreatic Ca", q:"What is the hallmark oncogene mutation in Pancreatic Adenocarcinoma?", a:"K-ras mutation (in 90%)"},
+        {t:"Pancreatic Ca", q:"Where do 70% of pancreatic ductal adenocarcinomas occur?", a:"Head of the pancreas"},
+        {t:"Pancreatic Ca", q:"What is Courvoisier sign?", a:"Painless jaundice + palpable nontender gallbladder (indicates pancreatic head tumor)"},
+        {t:"Pancreatic Ca", q:"What is the tumor marker for pancreatic cancer?", a:"CA 19-9 (Sialylated Lewis antigen)"},
+        {t:"Cystic Neoplasms", q:"Which cystic neoplasm has a high CEA, mucin, and predominantly affects middle-aged women?", a:"Mucinous Cystic Neoplasm"},
+        {t:"Cystic Neoplasms", q:"Which cystic neoplasm has clear watery fluid, high glycogen, and low malignant potential?", a:"Serous Cystadenoma"},
+        {t:"Cystic Neoplasms", q:"Which neoplasm arises from the pancreatic duct and secretes mucin?", a:"Intraductal Papillary Mucinous Neoplasm (IPMN)"},
+        {t:"Cystic Neoplasms", q:"Which IPMN type has the highest risk of malignancy?", a:"Main duct IPMN (57-92% risk)"}
+    ];
+
+    let fcIdx = 0;
+    const fcQ = document.getElementById('fc-q');
+    const fcA = document.getElementById('fc-a');
+    const fcTag = document.getElementById('fc-tag');
+    const fcCurr = document.getElementById('fc-current');
+    const fcCard = document.getElementById('flashcard');
+
+    function renderFC() {
+        fcCard.classList.remove('flipped');
+        setTimeout(() => {
+            fcQ.innerText = fcData[fcIdx].q;
+            fcA.innerText = fcData[fcIdx].a;
+            fcTag.innerText = fcData[fcIdx].t;
+            fcCurr.innerText = fcIdx + 1;
+        }, 150);
+    }
+    function flipCard() { fcCard.classList.toggle('flipped'); }
+    function nextCard() { fcIdx = (fcIdx + 1) % fcData.length; renderFC(); }
+    function prevCard() { fcIdx = (fcIdx - 1 + fcData.length) % fcData.length; renderFC(); }
+    function shuffleCards() {
+        for (let i = fcData.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [fcData[i], fcData[j]] = [fcData[j], fcData[i]];
+        }
+        fcIdx = 0;
+        renderFC();
+    }
+    renderFC();
+
+    // --- DATA: 50 MCQs ---
+    const mcqData = [
+        {q:"Which of the following is classified as a secondary bile acid formed by bacterial action in the colonic lumen?", o:["Taurocholic acid", "Cholic acid", "Chenodeoxycholic acid", "Deoxycholate"], a:3, e:"Deoxycholate and lithocholate are secondary bile acids formed in the colon as bacterial metabolites of primary bile acids."},
+        {q:"What is the primary initial pathophysiologic mechanism triggering acute calculous cholecystitis?", o:["Autoimmune destruction of mucosa", "Direct hematogenous bacterial seeding", "Persistent cystic duct obstruction causing distention, ischemia, and lysolecithin release", "Massive arterial thrombosis of celiac axis"], a:2, e:"Mechanical obstruction causes distention/ischemia, followed by chemical inflammation (lysolecithin). Bacteria are secondary."},
+        {q:"According to Tokyo Guidelines 2018 for acute cholecystitis, which parameter categorizes a patient as Grade III (Severe)?", o:["Duration >72 hours", "WBC >18,000 without organ failure", "Cardiovascular dysfunction requiring dopamine or renal dysfunction (crea >2.0)", "Palpable tender mass in RUQ"], a:2, e:"Grade III severe acute cholecystitis is defined strictly by the presence of organ dysfunction (CVS, neuro, resp, renal, hepatic, hema)."},
+        {q:"Emphysematous cholecystitis is most commonly encountered in which demographic?", o:["Pediatric patients with CF", "Young multiparous females", "Elderly male patients with diabetes mellitus", "Patients with ulcerative colitis"], a:2, e:"Ischemia and secondary infection by gas-forming organisms (like Clostridium) occur predominantly in elderly diabetic males."},
+        {q:"What is the most common anatomic site of mechanical intestinal obstruction in gallstone ileus?", o:["Duodenal bulb", "Terminal ileum", "Splenic flexure", "Hepatic flexure"], a:1, e:"Large gallstones eroding into the GI tract lodge in the narrowest portion of the small bowel, the terminal ileum."},
+        {q:"What is the most frequent overall cause of acute pancreatitis worldwide?", o:["Gallstones (biliary)", "Post-ERCP", "Alcohol abuse", "Hypertriglyceridemia"], a:0, e:"Gallstones account for 40-70% of acute pancreatitis episodes, making it the leading cause."},
+        {q:"Which stool biomarker serves as a sensitive indicator of exocrine pancreatic insufficiency?", o:["Fecal Pancreatic Elastase 1 (FPE-1) < 100 ug/g", "Fecal Calprotectin > 500", "Qualitative FOBT", "Stool osmotic gap < 50"], a:0, e:"FPE-1 passes through the gut without degradation. Levels below 100 ug/g indicate severe exocrine insufficiency."},
+        {q:"A patient presents with steady RUQ pain lasting 2 hours after eating a fatty meal, which then completely resolves. She has no fever and normal WBC. Diagnosis?", o:["Acute Cholecystitis", "Biliary Colic", "Acute Cholangitis", "Choledocholithiasis"], a:1, e:"Biliary pain (colic) is caused by transient cystic duct obstruction. It resolves when the stone dislodges. No systemic signs of inflammation."},
+        {q:"What is the hallmark presentation of Reynold's pentad?", o:["Murphy's sign + Fever + Leukocytosis", "RUQ pain, jaundice, fever, hypotension, and mental status changes", "Painless jaundice + palpable gallbladder", "Calcifications, steatorrhea, diabetes"], a:1, e:"Reynold's pentad adds hypotension and altered mental status to Charcot's triad, indicating severe gram-negative sepsis from cholangitis."},
+        {q:"Which component comprises 80% of the solutes in normal bile?", o:["Unesterified cholesterol", "Lecithin", "Bile acids", "Bilirubin"], a:2, e:"Major solutes of bile are Bile acids (80%), Lecithin/phospholipids (16%), and Unesterified cholesterol (4%)."},
+        {q:"Which of the following hormones impairs gallbladder emptying, increasing the risk of gallstones in pregnancy?", o:["Estrogen", "Progesterone", "Cholecystokinin", "Secretin"], a:1, e:"Progesterone inhibits smooth muscle contractility and impairs GB emptying, while Estrogen increases biliary cholesterol secretion."},
+        {q:"Brown pigment stones are most frequently associated with:", o:["Chronic hemolysis", "TPN", "Chronic biliary tract infections in Asia", "Clofibrate therapy"], a:2, e:"Brown stones form from deconjugation of bilirubin by bacterial enzymes (beta-glucuronidase) when bile is infected."},
+        {q:"Which diagnostic test is considered the gold standard for acute cholecystitis?", o:["Ultrasound", "HIDA scan", "ERCP", "CT scan"], a:1, e:"HIDA scan documents cystic duct obstruction via non-visualization of the gallbladder, making it the gold standard."},
+        {q:"In acute cholangitis, what is the sequence of management for a Grade III (Severe) case?", o:["Observation only", "Elective cholecystectomy in 6 weeks", "Antibiotics + Organ Support + Urgent biliary drainage", "Oral UDCA therapy"], a:2, e:"Severe cholangitis requires urgent biliary decompression (usually ERCP) alongside antibiotics and organ support."},
+        {q:"A patient critically ill on a ventilator in the ICU for 3 weeks develops unexplained fever, leukocytosis, and a thickened gallbladder wall without stones on ultrasound. Diagnosis?", o:["Gallstone ileus", "Acalculous cholecystitis", "Mirizzi syndrome", "Porcelain gallbladder"], a:1, e:"Acalculous cholecystitis occurs in the setting of severe underlying illness (trauma, burns, prolonged TPN)."},
+        {q:"A 65-year-old woman is incidentally found to have intramural calcification of the gallbladder on an abdominal X-ray. What is her major risk?", o:["Gallstone ileus", "Gallbladder carcinoma", "Acute pancreatitis", "Primary sclerosing cholangitis"], a:1, e:"Porcelain gallbladder carries a 20% late complication risk of gallbladder carcinoma. Prophylactic cholecystectomy is recommended."},
+        {q:"Primary Sclerosing Cholangitis (PSC) is strongly associated with which of the following conditions?", o:["Rheumatoid arthritis", "Ulcerative colitis", "Cystic fibrosis", "Type 1 Diabetes"], a:1, e:"70 to 90% of patients with PSC have Inflammatory Bowel Disease, most commonly ulcerative colitis."},
+        {q:"Which imaging finding is pathognomonic for Primary Sclerosing Cholangitis?", o:["Strawberry gallbladder", "Gas in the gallbladder wall", "Narrowing and beading of bile ducts", "Double duct sign"], a:2, e:"MRCP or ERCP shows multifocal stricturing with normal or dilated areas, creating a 'narrowing and beading' pattern."},
+        {q:"Under the Revised Atlanta Criteria, diagnosing acute pancreatitis requires 2 of 3 features. Which is NOT one of those criteria?", o:["Acute epigastric pain radiating to back", "Serum amylase/lipase >= 3x ULN", "Fecal elastase <100", "Characteristic imaging findings"], a:2, e:"Fecal elastase is for chronic pancreatitis. Atlanta requires Pain, Amylase/Lipase, and/or Imaging."},
+        {q:"According to the Revised Atlanta Criteria, Moderately Severe Acute Pancreatitis is characterized by:", o:["Persistent organ failure >48 hours", "Transient organ failure (<48h) or local complications", "No local complications", "Need for immediate surgery"], a:1, e:"Moderately severe involves transient organ failure (<48h) and/or local/systemic complications without persistent organ failure."},
+        {q:"When is a Contrast-Enhanced CT (CECT) scan most appropriate to evaluate for necrosis in acute pancreatitis?", o:["Immediately on admission", "12 hours after admission", "3-5 days into hospitalization", "Only prior to discharge"], a:2, e:"CECT is best used at 3-5 days when patients are not responding to supportive care, to accurately evaluate for necrosis."},
+        {q:"What is the initial fluid resuscitation management for Mild Acute Pancreatitis?", o:["Normal saline 50 mL/hr", "Ringer's lactate 250-500 mL/hr bolused, titrating to response", "Total parenteral nutrition", "D5W 100 mL/hr"], a:1, e:"Vigorous hydration with Ringer's lactate is preferred in the first 12-24 hours."},
+        {q:"Alcoholic acute pancreatitis is caused primarily by the accumulation of which toxic metabolite in the pancreas?", o:["Acetaldehyde", "Fatty acid ethanol esters (FAEE)", "Methanol", "Lysolecithin"], a:1, e:"The non-oxidative pathway in the pancreas forms FAEE, which accumulates and causes acinar injury."},
+        {q:"A patient with severe acute pancreatitis develops periumbilical ecchymoses. What is this sign called?", o:["Murphy's sign", "Grey Turner's sign", "Cullen sign", "Courvoisier sign"], a:2, e:"Cullen sign is periumbilical ecchymosis; Grey Turner is flank ecchymosis."},
+        {q:"Which genetic mutation is the hallmark of Pancreatic Adenocarcinoma (found in 90% of cases)?", o:["BRCA2", "DPC4", "p53", "K-ras"], a:3, e:"Mutations of K-ras occur in 90% of pancreatic adenocarcinomas and are a hallmark of the disease."},
+        {q:"A 70-year-old male presents with painless jaundice, weight loss, and a palpable, non-tender gallbladder. What is the most likely location of his primary disease?", o:["Body of pancreas", "Tail of pancreas", "Head of pancreas", "Gallbladder fundus"], a:2, e:"This is Courvoisier sign, classic for malignant obstruction of the distal CBD, typically from cancer in the pancreatic head."},
+        {q:"Which of the following is the most useful serum tumor marker for pancreatic cancer?", o:["CEA", "AFP", "CA 125", "CA 19-9"], a:3, e:"CA 19-9 (Sialylated Lewis antigen) is elevated in 80% of patients with pancreatic cancer."},
+        {q:"Which cystic neoplasm of the pancreas predominantly affects middle-aged women, is usually in the body/tail, and has a high malignant potential?", o:["Serous cystadenoma", "Mucinous cystic neoplasm", "Solid pseudopapillary neoplasm", "Intraductal Papillary Mucinous Neoplasm (IPMN)"], a:1, e:"Mucinous cystic neoplasms occur >80% in women, do not communicate with ducts, and are premalignant."},
+        {q:"Which of the following features best describes Serous Cystadenoma?", o:["High CEA, thick mucin", "Associated with K-ras mutation", "Low viscosity fluid, clear/watery, high glycogen", "Arises from the main pancreatic duct"], a:2, e:"Serous cystadenomas are benign, watery, glycogen-rich cysts with low CEA and low malignant potential."},
+        {q:"Type 1 Autoimmune Pancreatitis is characterized by the elevation of which immunoglobulin?", o:["IgM", "IgE", "IgA", "IgG4"], a:3, e:"Type 1 AIP is an IgG4-related systemic disease (IgG4 plasma cells)."},
+        {q:"Which gene mutation is associated with Hereditary Pancreatitis?", o:["CFTR", "PRSS1 (cationic trypsinogen)", "SPINK1", "All of the above"], a:3, e:"Hereditary causes include PRSS1 (autosomal dominant), CFTR, and SPINK1 mutations causing protease/inhibitor imbalance."},
+        {q:"A patient recovering from acute pancreatitis develops a well-circumscribed, encapsulated fluid collection outside the pancreas 5 weeks after onset. What is this called?", o:["Acute peripancreatic fluid collection", "Pancreatic pseudocyst", "Walled-off necrosis (WON)", "Pancreatic abscess"], a:1, e:"A mature encapsulated fluid collection lacking solid necrosis occurring >4 weeks after interstitial pancreatitis is a pseudocyst."},
+        {q:"What is the role of prophylactic antibiotics in severe acute necrotizing pancreatitis?", o:["Always indicated to prevent infection", "Indicated only for sterile necrosis", "NOT recommended routinely; only for documented infection", "Required prior to any imaging"], a:2, e:"There is no role for prophylactic antibiotics in sterile necrotizing pancreatitis."},
+        {q:"Which statement regarding asymptomatic gallstones is true?", o:["They require immediate laparoscopic cholecystectomy", "Cumulative risk of complications is high (>50% at 5 yrs)", "The yearly incidence of complications is 0.1-0.3%", "Morphine is the best drug for pain prevention"], a:2, e:"Most remain asymptomatic. Yearly complication risk is very low (0.1-0.3%). Prophylactic surgery is generally not recommended."},
+        {q:"A patient undergoes rapid weight loss after bariatric surgery. What medication can be given to prevent gallstone formation?", o:["Clofibrate", "Ursodeoxycholic acid (UDCA)", "Octreotide", "Pancrelipase"], a:1, e:"UDCA (600mg/day) reduces the risk of gallstone formation during rapid weight loss from 30% to 8%."},
+        {q:"Bismuth-Corlette Classification Type IIIa refers to a cholangiocarcinoma that:", o:["Involves the confluence of right and left ducts", "Is below the confluence", "Occludes common hepatic and RIGHT hepatic ducts", "Occludes common hepatic and LEFT hepatic ducts"], a:2, e:"Type III A occludes the common hepatic and right hepatic ducts. Type III B involves the left."},
+        {q:"A 45-year-old female undergoes ultrasound showing a 'strawberry gallbladder'. This is consistent with:", o:["Adenomyomatosis", "Cholesterolosis", "Acute Cholecystitis", "Gallbladder Carcinoma"], a:1, e:"Cholesterolosis features abnormal deposition of lipids in macrophages in the lamina propria, giving a speckled yellow on red appearance (strawberry)."},
+        {q:"What is the initial diagnostic modality of choice for staging a newly suspected pancreatic adenocarcinoma?", o:["Ultrasound", "ERCP", "Pancreatic protocol helical CT scan", "PET scan"], a:2, e:"Pancreatic protocol CT is the best initial modality for diagnosis and staging to determine resectability."},
+        {q:"Which of the following is an absolute prerequisite for the development of gallstone ileus?", o:["Chronic pancreatitis", "Cholecystoenteric fistula", "Porcelain gallbladder", "Emphysematous cholecystitis"], a:1, e:"A stone must erode through the GB wall into the bowel (fistula) to travel down and obstruct the terminal ileum."},
+        {q:"Which condition causes a 'double duct sign' (stricture of both CBD and pancreatic duct) on imaging?", o:["Chronic pancreatitis", "Pancreatic cancer (head)", "Autoimmune pancreatitis", "Choledochal cyst"], a:1, e:"A mass in the head of the pancreas will compress both the CBD and the main pancreatic duct, yielding the double duct sign."},
+        {q:"A patient has recurrent acute pancreatitis without an obvious cause (no gallstones, no alcohol). Which anatomic variant might be responsible?", o:["Choledochal cyst", "Pancreas divisum", "Phrygian cap", "Duodenal diverticulum"], a:1, e:"Pancreas divisum is an anatomic structural anomaly that can cause recurrent idiopathic acute pancreatitis."},
+        {q:"Which scoring system is utilized within the first 24 hours to predict severity and mortality of acute pancreatitis?", o:["TIGAR-O", "Bismuth-Corlette", "APACHE II", "Tokyo Guidelines"], a:2, e:"APACHE II score >15 in the first 24 hours predicts >30% mortality. BISAP is also used."},
+        {q:"What is the most effective therapy for a patient with symptomatic gallstones presenting with recurrent biliary colic?", o:["Extracorporeal Shockwave Lithotripsy", "Oral bile acid dissolution", "Elective Laparoscopic Cholecystectomy", "Observation"], a:2, e:"Symptomatic gallstones (biliary pain/colic) are a clear indication for elective cholecystectomy."},
+        {q:"Which of the following is NOT a risk factor for Gallbladder Carcinoma?", o:["Porcelain gallbladder", "Gallstones > 3cm", "Chronic Salmonella typhi carrier", "Alcohol abuse"], a:3, e:"Alcohol is a risk factor for pancreatitis, not GB carcinoma. Porcelain GB, large stones, and Salmonella typhi are GB cancer risks."},
+        {q:"A 60-year-old male with a history of alcohol abuse presents with severe steatorrhea. This symptom indicates that exocrine function is reduced by at least:", o:["25%", "50%", "75%", "90%"], a:3, e:"Protein malabsorption and fat deficiency (steatorrhea) do not clinically occur until >90% of pancreatic exocrine function is lost."},
+        {q:"In treating acute cholecystitis, which antibiotic regimen is appropriate for Grade I community-acquired disease?", o:["Ertapenem", "Cefazolin", "Piperacillin/Tazobactam", "Vancomycin"], a:1, e:"Per Tokyo Guidelines, basic cephalosporins (Cefazolin) or fluoroquinolones are fine for Grade 1. Broad spectrum (Zosyn/Carbapenems) are reserved for Grade II/III."},
+        {q:"A 30-year-old pregnant woman in her 3rd trimester presents with acute biliary colic. Why is she at increased risk?", o:["Progesterone causes GB hypermotility", "Estrogen increases biliary cholesterol secretion", "Fetal calcium depletes maternal bile salts", "Pregnancy induces hemolysis"], a:1, e:"Pregnancy increases risk because Estrogen increases biliary cholesterol (lithogenic bile) and Progesterone causes GB hypomotility."},
+        {q:"Which complication of acute pancreatitis presents as a completely encapsulated collection of solid necrosis and fluid >4 weeks after onset?", o:["Pseudocyst", "Acute necrotic collection", "Walled-off necrosis (WON)", "Abscess"], a:2, e:"Walled-off necrosis (WON) contains non-liquid necrosis and fluid with a defined wall, differentiating it from a pseudocyst which lacks solid necrosis."},
+        {q:"Which non-invasive test evaluates the effect of enzyme therapy on fat digestion in chronic pancreatitis?", o:["Secretin stimulation test", "13C Mixed Triglyceride Breath Test", "Fecal elastase", "Serum IgG4"], a:1, e:"The 13C mixed triglyceride breath test can be used to target enzyme therapy to improve maldigestion."},
+        {q:"An IPMN (Intraductal Papillary Mucinous Neoplasm) involving the main pancreatic duct has what risk of malignancy?", o:["<5%", "6-46%", "57-92%", "100%"], a:2, e:"Main duct IPMNs are more aggressive with a 57-92% risk of malignancy and warrant resection."}
+    ];
+
+    let mcqIdx = 0;
+    let score = 0;
+    let answered = false;
+    const mcqQ = document.getElementById('mcq-q');
+    const mcqOptCont = document.getElementById('mcq-options-container');
+    const mcqExp = document.getElementById('mcq-exp');
+    const mcqExpText = document.getElementById('mcq-exp-text');
+    const mcqSubmit = document.getElementById('mcq-submit');
+    const mcqNext = document.getElementById('mcq-next');
+    const mcqCurr = document.getElementById('mcq-current');
+    const mcqScore = document.getElementById('mcq-score');
+
+    function renderMCQ() {
+        answered = false;
+        mcqExp.classList.remove('show');
+        mcqSubmit.style.display = 'block';
+        mcqNext.style.display = 'none';
+        mcqCurr.innerText = mcqIdx + 1;
+        
+        const data = mcqData[mcqIdx];
+        mcqQ.innerText = data.q;
+        
+        mcqOptCont.innerHTML = '';
+        data.o.forEach((opt, idx) => {
+            const div = document.createElement('div');
+            div.className = 'mcq-option';
+            div.innerText = opt;
+            div.onclick = () => selectOption(div);
+            div.dataset.idx = idx;
+            mcqOptCont.appendChild(div);
+        });
+    }
+
+    function selectOption(el) {
+        if (answered) return;
+        document.querySelectorAll('.mcq-option').forEach(d => d.classList.remove('selected'));
+        el.classList.add('selected');
+    }
+
+    function checkAnswer() {
+        const selected = document.querySelector('.mcq-option.selected');
+        if (!selected) { alert("Please select an answer."); return; }
+        
+        answered = true;
+        mcqSubmit.style.display = 'none';
+        mcqNext.style.display = 'block';
+        
+        const ansIdx = parseInt(selected.dataset.idx);
+        const correctIdx = mcqData[mcqIdx].a;
+        
+        if (ansIdx === correctIdx) {
+            selected.classList.add('correct');
+            score++;
+            mcqScore.innerText = score;
+        } else {
+            selected.classList.add('incorrect');
+            document.querySelector(`.mcq-option[data-idx="${correctIdx}"]`).classList.add('correct');
+        }
+        
+        mcqExpText.innerText = mcqData[mcqIdx].e;
+        mcqExp.classList.add('show');
+    }
+
+    function nextMcq() {
+        if (mcqIdx < mcqData.length - 1) {
+            mcqIdx++;
+            renderMCQ();
+        } else {
+            mcqQ.innerText = `Quiz Complete! Your final score is ${score} out of ${mcqData.length}.`;
+            mcqOptCont.innerHTML = '';
+            mcqExp.classList.remove('show');
+            mcqNext.style.display = 'none';
+        }
+    }
+    renderMCQ();
+</script>
+</body>
+</html>

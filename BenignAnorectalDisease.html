@@ -1,0 +1,2591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UERM Surgery 2: Benign Anorectal Diseases - Interactive Board Reviewer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-subtle: #f1f5f9;
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            
+            --brand-primary: #0284c7; /* Medical Blue */
+            --brand-primary-hover: #0369a1;
+            --brand-light: #e0f2fe;
+            --brand-accent: #0d9488; /* Teal Accent */
+            
+            --badge-mustknow: #ef4444;
+            --badge-pitfall: #f59e0b;
+            --badge-pearl: #10b981;
+            --badge-tip: #8b5cf6;
+            
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        body.dark-mode {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --bg-subtle: #334155;
+            --border-color: #334155;
+            --border-hover: #475569;
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            
+            --brand-primary: #38bdf8;
+            --brand-primary-hover: #7dd3fc;
+            --brand-light: #1e3a8a;
+            --brand-accent: #2dd4bf;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 60px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* HEADER & TOP BAR */
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-title h1 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--brand-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .brand-title p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            width: 280px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.5rem 1rem 0.5rem 2.2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-subtle);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 3px var(--brand-light);
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            fill: var(--text-muted);
+        }
+
+        .btn-icon {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 0.85rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            background: var(--border-color);
+        }
+
+        /* NAVIGATION TABS */
+        .nav-tabs-wrapper {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .nav-tabs-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 1.5rem;
+        }
+
+        .tab-btn {
+            padding: 0.85rem 1.25rem;
+            border: none;
+            background: none;
+            color: var(--text-secondary);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn:hover {
+            color: var(--brand-primary);
+            background-color: var(--bg-subtle);
+        }
+
+        .tab-btn.active {
+            color: var(--brand-primary);
+            border-bottom-color: var(--brand-primary);
+            background-color: var(--bg-subtle);
+        }
+
+        /* MAIN CONTENT AREA */
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CARDS & SECTIONS */
+        .section-header {
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--brand-primary);
+            padding-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            color: var(--text-primary);
+        }
+
+        .section-header .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 1.5rem;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .card.accent-left {
+            border-left: 5px solid var(--brand-primary);
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* CALLOUT BADGES & BOXES */
+        .callout {
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-sm);
+            margin: 1rem 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            border-left: 4px solid;
+        }
+
+        .callout-mustknow {
+            background-color: rgba(239, 68, 68, 0.08);
+            border-color: var(--badge-mustknow);
+            color: var(--text-primary);
+        }
+
+        .callout-pitfall {
+            background-color: rgba(245, 158, 11, 0.08);
+            border-color: var(--badge-pitfall);
+            color: var(--text-primary);
+        }
+
+        .callout-pearl {
+            background-color: rgba(16, 185, 129, 0.08);
+            border-color: var(--badge-pearl);
+            color: var(--text-primary);
+        }
+
+        .callout-tip {
+            background-color: rgba(139, 92, 246, 0.08);
+            border-color: var(--badge-tip);
+            color: var(--text-primary);
+        }
+
+        .callout-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .callout-mustknow .callout-title { color: var(--badge-mustknow); }
+        .callout-pitfall .callout-title { color: var(--badge-pitfall); }
+        .callout-pearl .callout-title { color: var(--badge-pearl); }
+        .callout-tip .callout-title { color: var(--badge-tip); }
+
+        /* TABLES */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.25rem 0;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+            background-color: var(--bg-card);
+        }
+
+        th {
+            background-color: var(--bg-subtle);
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            padding: 0.85rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+
+        tr:nth-child(even) td {
+            background-color: rgba(0, 0, 0, 0.015);
+        }
+
+        tr:hover td {
+            background-color: var(--brand-light);
+            color: var(--text-primary);
+        }
+
+        /* KEYWORD BADGES */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-right: 0.3rem;
+        }
+
+        .badge-blue { background-color: rgba(2, 132, 199, 0.15); color: var(--brand-primary); }
+        .badge-green { background-color: rgba(16, 185, 129, 0.15); color: #059669; }
+        .badge-red { background-color: rgba(239, 68, 68, 0.15); color: #dc2626; }
+        .badge-amber { background-color: rgba(245, 158, 11, 0.15); color: #d97706; }
+
+        /* EXPANDABLE COLLAPSIBLE CARDS */
+        details {
+            background-color: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.75rem;
+            padding: 0.75rem 1rem;
+            transition: background-color 0.2s;
+        }
+
+        details[open] {
+            background-color: var(--bg-card);
+        }
+
+        summary {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        summary:hover {
+            color: var(--brand-primary);
+        }
+
+        .details-content {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* CSS DIAGRAMS & ILLUSTRATIONS */
+        .diagram-container {
+            background-color: var(--bg-subtle);
+            border: 1px dashed var(--brand-primary);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.25rem 0;
+            text-align: center;
+        }
+
+        .diagram-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--brand-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .diagram-caption {
+            font-size: 0.825rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            font-style: italic;
+        }
+
+        /* FLASHCARD STYLES */
+        .flashcard-wrapper {
+            max-width: 650px;
+            margin: 2rem auto;
+            perspective: 1000px;
+        }
+
+        .flashcard {
+            width: 100%;
+            min-height: 320px;
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background-color: var(--bg-card);
+            border: 2px solid var(--brand-primary);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            background: var(--brand-light);
+            color: var(--brand-primary);
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* MCQ STYLES */
+        .mcq-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .mcq-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .question-number {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            color: var(--brand-primary);
+            font-size: 0.9rem;
+        }
+
+        .mcq-text {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.25rem;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .option-btn {
+            background-color: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .option-btn:hover {
+            border-color: var(--brand-primary);
+            background-color: var(--brand-light);
+        }
+
+        .option-btn.correct {
+            background-color: rgba(16, 185, 129, 0.15) !important;
+            border-color: #10b981 !important;
+            color: #047857 !important;
+            font-weight: 700;
+        }
+
+        .option-btn.incorrect {
+            background-color: rgba(239, 68, 68, 0.15) !important;
+            border-color: #ef4444 !important;
+            color: #b91c1c !important;
+        }
+
+        .mcq-explanation {
+            display: none;
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            background-color: var(--bg-subtle);
+            border-left: 4px solid var(--brand-primary);
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+
+        .mcq-explanation.active {
+            display: block;
+        }
+
+        .distractor-analysis {
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.825rem;
+            color: var(--text-secondary);
+        }
+
+        /* CRAM SHEET STYLES */
+        .cram-item {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .cram-item:last-child {
+            border-bottom: none;
+        }
+
+        .cram-trigger {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            color: #dc2626;
+            background: rgba(239,68,68,0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .cram-thought {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.925rem;
+        }
+
+        /* PRINT FRIENDLY */
+        @media print {
+            header, .nav-tabs-wrapper, .flashcard-controls, .btn-icon, .search-box {
+                display: none !important;
+            }
+            .tab-content {
+                display: block !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                page-break-inside: avoid;
+            }
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .header-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER & TOP NAVIGATION -->
+    <header>
+        <div class="header-container">
+            <div class="brand-title">
+                <h1>🏥 UERM SURGERY 2: BENIGN ANORECTAL DISEASES</h1>
+                <p>Interactive Board Exam & PLE Reviewer | Lecturer: Dr. Raleigh Lean P. Rojas, MD, DPBS, FPSCRS</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-box">
+                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    <input type="text" id="globalSearch" placeholder="Search topics, terms, MCQs..." onkeyup="filterContent()">
+                </div>
+                <button class="btn-icon" onclick="toggleDarkMode()" title="Toggle Dark/Light Mode">🌙 Theme</button>
+                <button class="btn-icon" onclick="window.print()" title="Print Reviewer">🖨️ Print</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- TABS BAR -->
+    <div class="nav-tabs-wrapper">
+        <div class="nav-tabs-container">
+            <button class="tab-btn active" onclick="switchTab('overview')">📌 Overview</button>
+            <button class="tab-btn" onclick="switchTab('hemorrhoids')">🩺 Hemorrhoids</button>
+            <button class="tab-btn" onclick="switchTab('fissures')">⚡ Anal Fissures</button>
+            <button class="tab-btn" onclick="switchTab('sepsis')">🦠 Sepsis & Abscess</button>
+            <button class="tab-btn" onclick="switchTab('fistula')">🔀 Fistula-in-Ano</button>
+            <button class="tab-btn" onclick="switchTab('pilonidal_warts')">🌱 Pilonidal & Warts</button>
+            <button class="tab-btn" onclick="switchTab('comparisons')">📊 Side-by-Side Tables</button>
+            <button class="tab-btn" onclick="switchTab('flashcards')">🎴 Flashcards (50)</button>
+            <button class="tab-btn" onclick="switchTab('mcq')">📝 Self-Assessment (50 MCQs)</button>
+            <button class="tab-btn" onclick="switchTab('cram')">⚡ Cram Sheet (10-Min)</button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- TAB 1: OVERVIEW & CORE CONCEPTS -->
+        <div id="overview" class="tab-content active">
+            <div class="section-header">
+                <div>
+                    <h2>I. Overview & Core Anorectal Concepts</h2>
+                    <p class="subtitle">High-yield summary of anorectal anatomy, continent mechanisms, and foundational principles.</p>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card accent-left">
+                    <div class="card-title">🎯 Learning Objectives & Core Anatomy</div>
+                    <ul style="margin-left: 1.25rem; font-size: 0.925rem; color: var(--text-secondary);">
+                        <li><strong>Anatomical Boundaries:</strong> Master the <strong>Dentate (Pectinate) Line</strong> as the crucial watershed separating visceral/insensate mucosa (internal) from somatic/sensate epithelium (external).</li>
+                        <li><strong>Hemorrhoidal Cushions:</strong> Understand normal physiological vascular cushions (Left Lateral, Right Anterior, Right Posterior) vs pathological engorgement.</li>
+                        <li><strong>Sphincter Mechanism:</strong> Differentiate the involuntary <strong>Internal Anal Sphincter (IAS)</strong> from the voluntary <strong>External Anal Sphincter (EAS)</strong> and puborectalis.</li>
+                        <li><strong>Cryptoglandular Etiology:</strong> Recognize the anal crypts at the dentate line as the primary site of origin for anorectal suppurative disease and fistulas.</li>
+                        <li><strong>Goodsall's Rule & Parks' Classification:</strong> Apply predictive rules for fistula pathways and classify fistulas by sphincter involvement.</li>
+                    </ul>
+                </div>
+
+                <div class="card accent-left">
+                    <div class="card-title">📖 Essential Terminology & Abbreviations</div>
+                    <div class="table-responsive" style="margin: 0;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Abbreviation</th>
+                                    <th>Full Term</th>
+                                    <th>Clinical Context</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><span class="badge badge-blue">DGHAL</span></td><td>Doppler-Guided Hemorrhoidal Artery Ligation</td><td>Transanal dearterialization for internal hemorrhoids</td></tr>
+                                <tr><td><span class="badge badge-blue">LIS</span></td><td>Lateral Internal Sphincterotomy</td><td>Gold standard surgical treatment for chronic anal fissure</td></tr>
+                                <tr><td><span class="badge badge-blue">RBL</span></td><td>Rubber Band Ligation</td><td>Office procedure for Grade I-III internal hemorrhoids</td></tr>
+                                <tr><td><span class="badge badge-blue">PPH</span></td><td>Procedure for Prolapse and Hemorrhoids</td><td>Stapled hemorrhoidopexy for circumferential prolapse</td></tr>
+                                <tr><td><span class="badge badge-blue">ERAF</span></td><td>Endorectal Advancement Flap</td><td>Tissue-sparing flap repair for complex fistulas & RVF</td></tr>
+                                <tr><td><span class="badge badge-blue">LIFT</span></td><td>Ligation of Intersphincteric Fistula Tract</td><td>Sphincter-preserving ligation technique for FIA</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CSS DIAGRAM: ANORECTAL ANATOMY & WATERSHED -->
+            <div class="card">
+                <div class="card-title">📐 Diagram: Anorectal Anatomical Watershed (Dentate Line)</div>
+                <div class="diagram-container">
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 1rem; align-items: center;">
+                        <div style="background: var(--bg-card); border: 2px solid var(--brand-primary); padding: 1rem; border-radius: var(--radius-sm); width: 220px;">
+                            <h4 style="color: var(--brand-primary);">PROXIMAL TO DENTATE</h4>
+                            <p style="font-size: 0.85rem; margin-top: 0.5rem;"><strong>Visceral Mucosa</strong><br>Insensate (Autonomic)<br>Internal Hemorrhoids<br>Painless Bleeding / Prolapse</p>
+                        </div>
+                        <div style="font-family: var(--font-mono); font-weight: 700; color: #ef4444; font-size: 1.1rem; padding: 0.5rem; border: 2px dashed #ef4444; border-radius: 6px;">
+                            ⚡ DENTATE (PECTINATE) LINE ⚡
+                        </div>
+                        <div style="background: var(--bg-card); border: 2px solid var(--brand-accent); padding: 1rem; border-radius: var(--radius-sm); width: 220px;">
+                            <h4 style="color: var(--brand-accent);">DISTAL TO DENTATE</h4>
+                            <p style="font-size: 0.85rem; margin-top: 0.5rem;"><strong>Somatic Anoderm</strong><br>Richly Innervated (Pudendal)<br>External Hemorrhoids / Fissures<br>Exquisite Pain when Injured</p>
+                        </div>
+                    </div>
+                    <div class="diagram-caption">Figure 1.1: Anatomical watershed of the anal canal. Dentate line separates insensate visceral mucosa from somatic sensate anoderm.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: HEMORRHOIDS -->
+        <div id="hemorrhoids" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2>II. Hemorrhoidal Disease (Almoranas)</h2>
+                    <p class="subtitle">Anatomy, Goligher grading, medical, office-based, and surgical management strategies.</p>
+                </div>
+            </div>
+
+            <div class="callout callout-mustknow">
+                <div class="callout-title">⭐ MUST KNOW: Normal Function vs Disease</div>
+                Hemorrhoids are <strong>normal submucosal cushions</strong> containing venules, arterioles, and smooth muscle fibers located in 3 standard positions: <strong>Left Lateral, Right Anterior, Right Posterior</strong>. Their physiological role is to complete anal canal closure and maintain continence. Disease occurs only when straining, lack of fiber, or elevated intra-abdominal pressure causes pathological engorgement, distal displacement, and prolapse.
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">📊 Goligher Classification of Internal Hemorrhoids</div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Grade</th>
+                                    <th>Anatomical Description</th>
+                                    <th>Clinical Presentation</th>
+                                    <th>Primary Management</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Grade I</strong></td>
+                                    <td>Bulge into anal canal; no prolapse beyond dentate line.</td>
+                                    <td>Painless bright red bleeding (dripping into toilet), pruritus, mild soilage.</td>
+                                    <td>Medical / Fiber / RBL / Sclerotherapy</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Grade II</strong></td>
+                                    <td>Prolapse beyond anal verge on straining; <strong>spontaneously reduce</strong>.</td>
+                                    <td>Painless bleeding, sensation of marble-sized tissue that recedes spontaneously.</td>
+                                    <td>Medical / RBL / IRC / Sclerotherapy</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Grade III</strong></td>
+                                    <td>Prolapse beyond anal verge; <strong>require manual reduction</strong>.</td>
+                                    <td>Anal discomfort, painful defecation, soilage, patient must manually push back.</td>
+                                    <td>RBL (select) / Excisional Hemorrhoidectomy</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Grade IV</strong></td>
+                                    <td>Irreducible prolapse; persistent external displacement.</td>
+                                    <td>Chronic soilage, pain, high risk for strangulation, thrombosis & necrosis.</td>
+                                    <td>Surgical Excisional Hemorrhoidectomy</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">💉 Office-Based Procedures Comparison</div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Procedure</th>
+                                    <th>Mechanism & Technique</th>
+                                    <th>Indications & Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Rubber Band Ligation (RBL)</strong></td>
+                                    <td>Band applied 1-2 cm proximal to dentate line. Strangulates tissue → ischemic necrosis & scarring.</td>
+                                    <td>Grade I, II, select III. <strong>Most common office procedure</strong>. Warning: Never band below dentate line!</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Infrared Coagulation (IRC)</strong></td>
+                                    <td>Infrared heat probe coagulates tissue at apex of hemorrhoid plexus.</td>
+                                    <td>Small Grade I & II only. Non-prolapsing. All 3 quadrants in 1 visit. High recurrence.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Sclerotherapy</strong></td>
+                                    <td>Injection of 1-3 mL sclerosing agent (5% Phenol in olive oil, Sodium Morrhuate) into submucosa.</td>
+                                    <td>Grade I, II, select III. Ideal for <strong>anticoagulated / antiplatelet patients</strong>. No excision.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>DGHAL</strong></td>
+                                    <td>Doppler probe locates feeding hemorrhoidal arteries → tied off + mucopexy.</td>
+                                    <td>Grade II-III prolapse. Dearterialization shrinks piles without tissue excision.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SURGICAL COMPARISON CARD -->
+            <div class="card accent-left">
+                <div class="card-title">✂️ Surgical Hemorrhoidectomy Techniques</div>
+                <div class="grid-3">
+                    <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-sm);">
+                        <h4>1. Open (Milligan-Morgan)</h4>
+                        <p style="font-size: 0.875rem; margin-top: 0.5rem;">
+                            • Excision of hemorrhoid pedicle.<br>
+                            • <strong>Wounds left OPEN</strong> to heal by secondary intention.<br>
+                            • Post-op care: Rinse 3x/day. <strong>NO betadine, NO topical creams, NO anal packing</strong> (delays healing).
+                        </p>
+                    </div>
+                    <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-sm);">
+                        <h4>2. Closed (Ferguson / Parks)</h4>
+                        <p style="font-size: 0.875rem; margin-top: 0.5rem;">
+                            • Elliptical incision from verge to anorectal ring, avoiding internal sphincter.<br>
+                            • <strong>Wounds CLOSED</strong> with running absorbable suture.<br>
+                            • Faster wound healing, less post-op pain/bleeding, reduced stricture risk.
+                        </p>
+                    </div>
+                    <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-sm);">
+                        <h4>3. Whitehead's (ABANDONED)</h4>
+                        <p style="font-size: 0.875rem; margin-top: 0.5rem;">
+                            • Circumferential excision proximal to dentate line + advancing rectal mucosa.<br>
+                            • ⚠️ <strong>ABANDONED</strong> due to high risk of <strong>Whitehead deformity (ectropion)</strong> and severe anal stenosis.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout callout-pitfall">
+                <div class="callout-title">⚠️ COMMON EXAMINATION PITFALL: Post-Hemorrhoidectomy Pain & Urinary Retention</div>
+                Post-operative <strong>urinary retention</strong> (occurring within 6 hours) is directly driven by severe perianal pain inducing reflexive urinary sphincter spasm, exacerbated by overhydration during spinal anesthesia. Management requires <strong>round-the-clock multimodal analgesia</strong> (scheduled pain meds rather than PRN narcotics).
+            </div>
+
+            <div class="callout callout-pearl">
+                <div class="callout-title">💡 CLINICAL PEARL: Skin Tags vs Active External Hemorrhoids</div>
+                Skin tags represent redundant fibrotic skin at the anal verge—frequently the residual remnant of a previously thrombosed external hemorrhoid. They are a clinical indicator of <strong>chronic lack of dietary fiber</strong>. Asymptomatic skin tags require NO surgical intervention!
+            </div>
+        </div>
+
+        <!-- TAB 3: ANAL FISSURES -->
+        <div id="fissures" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2>III. Anal Fissures (Fissure-in-Ano)</h2>
+                    <p class="subtitle">Pathophysiology of ischemic tears, Brodie Triad, medical relaxation, and LIS surgery.</p>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card accent-left">
+                    <div class="card-title">🔄 The Vicious Cycle of Anal Fissure</div>
+                    <p style="font-size: 0.9rem; margin-bottom: 1rem;">
+                        Anal fissures are linear tears in the distal anoderm below the dentate line. <strong>90% occur in the posterior midline</strong> due to poor local blood perfusion (receives &lt;50% perfusion vs other quadrants) combined with internal sphincter hypertonia.
+                    </p>
+                    <div class="diagram-container">
+                        <div style="font-family: var(--font-heading); font-weight: 700; color: #dc2626;">
+                            Hard Stool Trauma → Anoderm Tear<br>
+                            ↓<br>
+                            Intense Pain During & After Defecation (2-3 hrs)<br>
+                            ↓<br>
+                            Internal Anal Sphincter Spasm (Hypertonia)<br>
+                            ↓<br>
+                            Local Anoderm Ischemia & Poor Healing<br>
+                            ↓<br>
+                            Persistent Chronic Ulceration (Cycle Repeats!)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🔺 The Brodie Triad (Chronic Fissure)</div>
+                    <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">
+                        A fissure lasting <strong>&gt;6-8 weeks</strong> develops chronic structural features known as the <strong>Brodie Triad</strong>:
+                    </p>
+                    <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid var(--badge-mustknow);">
+                        <ol style="margin-left: 1.25rem; font-size: 0.925rem;">
+                            <li><strong>Hypertrophic Anal Papilla:</strong> Enlarged papilla at the proximal margin (dentate line).</li>
+                            <li><strong>Exposed Internal Anal Sphincter Fibers:</strong> Visible transverse white muscle fibers at the base of the ulcer.</li>
+                            <li><strong>Sentinel Pile (Skin Tag):</strong> Swollen, redundant skin tag at the distal margin (posterior anal verge).</li>
+                        </ol>
+                    </div>
+                    <div class="callout callout-tip" style="margin-top: 1rem;">
+                        <div class="callout-title">🧠 EXAM TIP: Lateral Fissures</div>
+                        If an anal fissure is located <strong>off-midline (lateral)</strong>, suspect underlying systemic disease: <strong>Crohn's Disease / IBD, Tuberculosis, HIV/AIDS, Syphilis, or Malignancy</strong>.
+                    </div>
+                </div>
+            </div>
+
+            <!-- MEDICAL VS SURGICAL TREATMENT TABLE -->
+            <div class="card">
+                <div class="card-title">💊 Medical vs Surgical Management of Anal Fissure</div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Therapy Modality</th>
+                                <th>Mechanism / Agent</th>
+                                <th>Efficacy & Clinical Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>First-Line Conservative</strong></td>
+                                <td>High fiber diet (30-35g/day), warm sitz bath (reduces spasm), stool softeners (Lactulose, Psyllium), hydration (&gt;3L/day).</td>
+                                <td>Primary treatment for <strong>Acute Fissures (&lt;6 wks)</strong>. &gt;80% heal conservatively.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Topical Nitrates</strong></td>
+                                <td>0.2% Nitroglycerin ointment → Nitric Oxide donor → relaxes internal anal sphincter & restores blood flow.</td>
+                                <td>Medical sphincterotomy. Side effect: <strong>Headache</strong> (limiting compliance). Not readily available in PH.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Calcium Channel Blockers</strong></td>
+                                <td>Diltiazem 2% / Nifedipine cream → relaxes smooth muscle of internal sphincter.</td>
+                                <td>Similar efficacy to nitrates with lower incidence of headache. Not FDA approved in PH.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Botulinum Toxin (Botox)</strong></td>
+                                <td>Injection into internal sphincter → temporary chemical paralysis (lasts 2-3 months).</td>
+                                <td>Used for chronic fissures failing topicals before surgery. Provides temporary relief.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lateral Internal Sphincterotomy (LIS)</strong></td>
+                                <td>Division of lower 30% of internal anal sphincter on one side (usually left lateral).</td>
+                                <td><strong>GOLD STANDARD for Chronic Fissures (&gt;8 wks)</strong>. &gt;95% healing, &lt;5% recurrence. Risk: ~10% transient flatus incontinence.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: SEPSIS & ABSCESS -->
+        <div id="sepsis" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2>IV. Anorectal Sepsis & Suppurative Disease</h2>
+                    <p class="subtitle">Cryptoglandular origin, abscess anatomy, drainage principles, and Fournier's Gangrene emergency.</p>
+                </div>
+            </div>
+
+            <div class="callout callout-mustknow">
+                <div class="callout-title">⭐ MUST KNOW: Cryptoglandular Hypothesis</div>
+                Over <strong>90% of anorectal abscesses</strong> originate from infection of the anal glands opening into the <strong>anal crypts at the dentate line</strong>. Obstruction of these crypts leads to stasis, bacterial proliferation, and suppuration that spreads along predictable intersphincteric anatomical planes.
+            </div>
+
+            <!-- ABSCESS TYPES TABLE -->
+            <div class="card">
+                <div class="card-title">📍 Anorectal Abscess Classification & Surgical Drainage</div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Abscess Type</th>
+                                <th>Frequency</th>
+                                <th>Anatomical Location & Presentation</th>
+                                <th>Surgical Drainage Strategy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Perianal Abscess</strong></td>
+                                <td><span class="badge badge-red">Most Common (~60%)</span></td>
+                                <td>Subcutaneous tissue near anal verge. Erythematous, tender, fluctuant perianal swelling with low-grade fever.</td>
+                                <td>Simple Incision & Drainage (I&D). <strong>Excise a disk of skin</strong> to prevent premature skin closure. Can be done under local or regional anesthesia.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Intersphincteric Abscess</strong></td>
+                                <td>Moderate (~20%)</td>
+                                <td>Between internal & external anal sphincters. Deep anal pain worsened by coughing/sneezing. Minimal external signs.</td>
+                                <td>Drainage via <strong>internal sphincterotomy</strong> (posterior midline) to open intersphincteric space into anal canal.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ischiorectal Abscess</strong></td>
+                                <td>Moderate (~15%)</td>
+                                <td>Ischiorectal fossa lateral to sphincter complex. Diffuse induration, swelling, asymmetry, high fever.</td>
+                                <td>Wide external I&D in ischiorectal fossa. Avoid injuring sphincter muscles.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Horseshoe Abscess</strong></td>
+                                <td>Complex (~5%)</td>
+                                <td>Arises in <strong>deep postanal space</strong> and extends bilaterally into BOTH right and left ischiorectal fossae.</td>
+                                <td>Posterior midline drainage of deep postanal space + <strong>bilateral counter-drainage</strong> in ischiorectal fossae.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Supralevator Abscess</strong></td>
+                                <td><span class="badge badge-amber">Least Common (&lt;5%)</span></td>
+                                <td>Above levator ani muscle. Caused by intra-abdominal pelvic infection (PID, diverticulitis) or extension from below. DRE: mass above anorectal ring.</td>
+                                <td><strong>Treat primary pelvic cause!</strong> If pelvic origin, drain transrectally/transabdominally. ⚠️ NEVER drain pelvic supralevator abscess through ischiorectal fossa (causes complex fistula)!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- FOURNIER'S GANGRENE CARD -->
+            <div class="card accent-left" style="border-left-color: #ef4444;">
+                <div class="card-title" style="color: #ef4444;">🚨 Emergency Focus: Fournier's Gangrene</div>
+                <p style="font-size: 0.925rem; margin-bottom: 1rem;">
+                    <strong>Necrotizing Soft Tissue Infection of the Perineum (Fournier's Gangrene):</strong> A catastrophic, rapidly progressive polymicrobial necrotizing fasciitis originating from perianal, periurethral, or genital infections. High historical mortality (up to 50%).
+                </p>
+                <div class="grid-2">
+                    <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-sm);">
+                        <h4 style="color: var(--badge-mustknow);">High-Risk Patient Populations</h4>
+                        <ul style="margin-left: 1.25rem; font-size: 0.875rem; margin-top: 0.5rem;">
+                            <li>Uncontrolled <strong>Type 2 Diabetes Mellitus</strong> (most common risk factor).</li>
+                            <li>Immunocompromised status (HIV, chemotherapy, chronic steroids).</li>
+                            <li>Elderly patients & chronic alcohol abuse.</li>
+                        </ul>
+                    </div>
+                    <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-sm);">
+                        <h4 style="color: var(--brand-primary);">Multidisciplinary Management Strategy</h4>
+                        <ul style="margin-left: 1.25rem; font-size: 0.875rem; margin-top: 0.5rem;">
+                            <li><strong>EMERGENCY SURGICAL DEBRIDEMENT:</strong> Immediate extensive resection of necrotic tissue.</li>
+                            <li><strong>Broad-Spectrum IV Antibiotics:</strong> Coverage for aerobes, anaerobes, and Gram-negatives (ID Consult).</li>
+                            <li><strong>Multidisciplinary Team:</strong> General Surgery, Infectious Disease, Urology (scrotal involvement), Plastic Surgery (reconstruction), Psychiatry.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: FISTULA-IN-ANO -->
+        <div id="fistula" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2>V. Fistula-in-Ano (FIA) & Special Fistulas</h2>
+                    <p class="subtitle">Goodsall's Rule, Parks' Classification, seton therapy, LIFT, ERAF, and Rectovaginal Fistula.</p>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card accent-left">
+                    <div class="card-title">🧭 Goodsall's Rule (Predicting Fistula Tracts)</div>
+                    <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">
+                        Used to locate the internal opening based on the position of the external opening relative to an imaginary transverse line drawn through the anus:
+                    </p>
+                    <div class="diagram-container">
+                        <div style="font-family: var(--font-heading); font-weight: 700; color: var(--brand-primary); margin-bottom: 0.5rem;">
+                            ANTERIOR EXTERNAL OPENING
+                        </div>
+                        <p style="font-size: 0.85rem; margin-bottom: 0.5rem;">
+                            • <strong>&lt; 3 cm from verge:</strong> Direct, short, radial straight tract to anal canal.<br>
+                            • <strong>&gt; 3 cm from verge:</strong> Curves posteriorly to open in <strong>Posterior Midline</strong>.
+                        </p>
+                        <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 0.75rem 0;">
+                        <div style="font-family: var(--font-heading); font-weight: 700; color: #dc2626; margin-bottom: 0.5rem;">
+                            POSTERIOR EXTERNAL OPENING
+                        </div>
+                        <p style="font-size: 0.85rem;">
+                            • <strong>ALWAYS</strong> curves and tracks to open at the <strong>Posterior Midline</strong> (6 o'clock position).
+                        </p>
+                    </div>
+                    <div class="callout callout-tip">
+                        <div class="callout-title">🧠 Predictive Accuracy</div>
+                        Goodsall's rule is 70-80% accurate; exceptions occur in complex, recurrent, or Crohn's-associated fistulas (require Pelvic MRI with Fistula Protocol).
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🌲 Parks' Classification of Anal Fistulas</div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Parks Type</th>
+                                    <th>Anatomical Course</th>
+                                    <th>Surgical Approach</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Type 1: Intersphincteric</strong> (~70%)</td>
+                                    <td>Passes within intersphincteric space; spares external sphincter.</td>
+                                    <td><strong>Fistulotomy (Lay-Open)</strong>. Gold standard for simple type.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Type 2: Transsphincteric</strong> (~25%)</td>
+                                    <td>Traverses BOTH internal and external sphincters into ischiorectal fossa.</td>
+                                    <td>Fistulotomy if low (&lt;30% sphincter); Seton / LIFT / ERAF if high.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Type 3: Suprasphincteric</strong> (~5%)</td>
+                                    <td>Loops UP OVER levator ani / puborectalis before passing down to perineum.</td>
+                                    <td>Complex. <strong>Seton / LIFT / ERAF</strong>. Never perform fistulotomy!</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Type 4: Extrasphincteric</strong> (~1%)</td>
+                                    <td>Runs from rectum directly through levator ani to skin, bypassing sphincters.</td>
+                                    <td>Complex. Treat pelvic source; temporary stoma or ERAF.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMPLE VS COMPLEX MANAGEMENT TABLE -->
+            <div class="card">
+                <div class="card-title">⚖️ Simple vs Complex Fistula Management</div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Definition & Criteria</th>
+                                <th>Surgical Options & Goals</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Simple Fistula</strong></td>
+                                <td>Involves <strong>&lt;30% of sphincter complex</strong> (low intersphincteric or low transsphincteric). Single tract, no radiation, no Crohn's.</td>
+                                <td><strong>Fistulotomy (Lay Open)</strong> or Fistulectomy. Unroofs tract, allows secondary healing. High cure rate (~95%), minimal incontinence risk.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Complex Fistula</strong></td>
+                                <td>Involves <strong>&gt;30% of sphincter complex</strong>, high transsphincteric, suprasphincteric, anterior in females, recurrent, post-radiation, or Crohn's disease.</td>
+                                <td><strong>Goal: PRESERVE CONTINENCE!</strong><br>
+                                • <strong>Draining Seton:</strong> Elastic tube loop placed for 6-8 wks to drain sepsis & induce fibrosis.<br>
+                                • <strong>LIFT Procedure:</strong> Ligates intersphincteric tract without cutting muscle.<br>
+                                • <strong>ERAF:</strong> Full-thickness mucosal flap advanced over internal opening.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- RECTOVAGINAL FISTULA CARD -->
+            <div class="card accent-left">
+                <div class="card-title">♀️ Special Topic: Rectovaginal Fistula (RVF)</div>
+                <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">
+                    Abnormal epithelialized connection between rectum and vaginal canal. <strong>50% are caused by obstetric injury</strong> (3rd/4th degree perineal tears during labor).
+                </p>
+                <div class="grid-3">
+                    <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-sm);">
+                        <h4>Classification</h4>
+                        <p style="font-size: 0.85rem; margin-top: 0.3rem;">
+                            • <strong>Low:</strong> Vaginal opening at hymen/fourchette.<br>
+                            • <strong>Mid:</strong> Opening between fourchette & cervix.<br>
+                            • <strong>High:</strong> Opening at or near cervix.
+                        </p>
+                    </div>
+                    <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-sm);">
+                        <h4>Diagnostic Confirmation</h4>
+                        <p style="font-size: 0.85rem; margin-top: 0.3rem;">
+                            • Anoscopy & Vaginal Speculum exam.<br>
+                            • <strong>Methylene Blue Test:</strong> Rectal instillation of dye with vaginal tampon in prone position.
+                        </p>
+                    </div>
+                    <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-sm);">
+                        <h4>Surgical Principles</h4>
+                        <p style="font-size: 0.85rem; margin-top: 0.3rem;">
+                            • <strong>Wait 3-6 months</strong> post-injury (50% heal spontaneously!).<br>
+                            • Low/Mid: <strong>ERAF + Sphincteroplasty</strong>.<br>
+                            • High: Transabdominal repair.<br>
+                            • ⚠️ <strong>No coitus for 6-12 months!</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: PILONIDAL & WARTS -->
+        <div id="pilonidal_warts" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2>VI. Pilonidal Disease & Anal Warts</h2>
+                    <p class="subtitle">Intergluteal cleft hair sinus management and HPV condyloma diagnosis/excision.</p>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card accent-left">
+                    <div class="card-title">🦔 Pilonidal Disease (Pilonidal Sinus)</div>
+                    <p style="font-size: 0.925rem; margin-bottom: 0.75rem;">
+                        Infection of hair-containing sinus tracts located in the upper intergluteal cleft over the sacrococcygeal region. Commonly affects young, hirsute males with sedentary habits.
+                    </p>
+                    <div class="callout callout-pitfall">
+                        <div class="callout-title">⚠️ KEY DIFFERENTIATOR vs FISTULA-IN-ANO</div>
+                        Pilonidal disease is located in the natal cleft over the sacrum/coccyx, <strong>away from the anal verge</strong>, and contains broken hair shafts. It does NOT communicate with the anal canal or dentate line!
+                    </div>
+                    <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-sm); margin-top: 1rem;">
+                        <h4 style="color: var(--brand-primary); margin-bottom: 0.5rem;">Surgical Options & The Off-Midline Principle</h4>
+                        <ul style="margin-left: 1.25rem; font-size: 0.875rem;">
+                            <li><strong>Wide Excision & Secondary Healing:</strong> Simple excision left open to heal by secondary intention (slow, high dressing requirement).</li>
+                            <li><strong>Off-Midline Flap Reconstruction (Bascom, Karydakis, Limberg Rhomboid):</strong> Excises sinus and flattens natal cleft, placing suture line <strong>OFF THE MIDLINE</strong>. Recurrence &lt;5%.</li>
+                            <li>⚠️ <strong>NEVER CLOSE IN MIDLINE:</strong> Primary midline closures in the intergluteal cleft fail due to high tension, hair entrapment, and moisture, causing chronic non-healing wounds (3-6 months).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card accent-left" style="border-left-color: var(--badge-pearl);">
+                    <div class="card-title" style="color: var(--badge-pearl);">🦠 Anal Warts (Condyloma Acuminata)</div>
+                    <p style="font-size: 0.925rem; margin-bottom: 0.75rem;">
+                        Sexually transmitted perianal and intra-anal verrucous lesions caused by <strong>Human Papillomavirus (HPV)</strong> infection.
+                    </p>
+                    <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1rem;">
+                        <h4 style="color: var(--badge-tip);">HPV Subtypes & Risk Profile</h4>
+                        <p style="font-size: 0.875rem; margin-top: 0.3rem;">
+                            • <strong>Types 6 & 11:</strong> Low risk; cause benign condyloma acuminata.<br>
+                            • <strong>Types 16 & 18:</strong> High risk; strongly associated with dysplasia and <strong>Anal Squamous Cell Carcinoma (SCC)</strong>.
+                        </p>
+                    </div>
+                    <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-sm);">
+                        <h4 style="color: var(--brand-primary);">Treatment Modalities</h4>
+                        <ul style="margin-left: 1.25rem; font-size: 0.875rem; margin-top: 0.3rem;">
+                            <li><strong>Topical Therapy:</strong> Imiquimod, Podofilox, TCA for small isolated lesions (up to 4 months).</li>
+                            <li><strong>Electrocautery / Cryotherapy:</strong> For small lesions (&lt;0.5 cm).</li>
+                            <li><strong>Surgical Excision:</strong> For large or extensive confluent lesions.</li>
+                            <li>💡 <strong>MAJOR ADVANTAGE OF EXCISION:</strong> Provides tissue specimens for histopathological biopsy to rule out occult Anal Squamous Cell Carcinoma.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 7: SIDE-BY-SIDE COMPARISONS -->
+        <div id="comparisons" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2>VII. Master Side-by-Side Comparison Tables</h2>
+                    <p class="subtitle">High-yield comparative synthesis of commonly confused anorectal conditions and operations.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🔍 Master Differential Diagnosis of Benign Anorectal Diseases</div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Condition</th>
+                                <th>Primary Location</th>
+                                <th>Hallmark Clinical Symptoms</th>
+                                <th>Physical Exam Findings</th>
+                                <th>Gold Standard Management</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Internal Hemorrhoids</strong></td>
+                                <td>Proximal to Dentate Line</td>
+                                <td>Painless bright red bleeding, tissue prolapse, soilage.</td>
+                                <td>Bulging mucosa above dentate line; insensate.</td>
+                                <td>Medical / Fiber (I-II); Excisional Hemorrhoidectomy (III-IV).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>External Hemorrhoids</strong></td>
+                                <td>Distal to Dentate Line</td>
+                                <td>Severe pain when thrombosed, hygiene difficulty, itching.</td>
+                                <td>Richly innervated bluish perianal mass straddling verge.</td>
+                                <td>Excision within 72 hrs if thrombosed; symptomatic tx.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anal Fissure</strong></td>
+                                <td>Posterior Midline (90%)</td>
+                                <td>Sharp tearing pain during defecation + 2-3 hr spasms.</td>
+                                <td>Linear tear; <strong>Brodie Triad</strong> if chronic (&gt;8 wks). DRE contraindicated!</td>
+                                <td>Fiber/Sitz bath (Acute); <strong>Lateral Internal Sphincterotomy (LIS)</strong> (Chronic).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Perianal Abscess</strong></td>
+                                <td>Perianal Subcutaneous Fat</td>
+                                <td>Constant throbbing perianal pain, fever, swelling.</td>
+                                <td>Erythematous, tender, fluctuant mass near verge.</td>
+                                <td><strong>Incision & Drainage (I&D)</strong> with skin disk excision.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fistula-in-Ano</strong></td>
+                                <td>Intersphincteric Planes</td>
+                                <td>Chronic purulent drainage, perianal irritation, recurrent abscess.</td>
+                                <td>External opening discharging pus; palpable fibrous tract.</td>
+                                <td><strong>Fistulotomy</strong> (Simple &lt;30%); <strong>Seton / LIFT / ERAF</strong> (Complex &gt;30%).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pilonidal Sinus</strong></td>
+                                <td>Upper Intergluteal Cleft</td>
+                                <td>Recurrent sacrococcygeal pain, purulent discharge, sinus.</td>
+                                <td>Pits in natal cleft away from verge; contains hair.</td>
+                                <td>Excision with <strong>Off-Midline Flap Reconstruction</strong> (Limberg/Karydakis).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anal Warts</strong></td>
+                                <td>Perianal & Anal Canal</td>
+                                <td>Perianal flesh-colored growths, itching, mild bleeding.</td>
+                                <td>Verrucous cauliflower-like lesions (HPV 6/11/16/18).</td>
+                                <td>Topicals / Cautery (&lt;0.5cm); <strong>Excision + Biopsy</strong> (Large/extensive).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">✂️ Surgical Procedures Comparison Matrix</div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Procedure</th>
+                                <th>Target Condition</th>
+                                <th>Key Surgical Principle</th>
+                                <th>Major Advantages</th>
+                                <th>Major Disadvantages / Risks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Milligan-Morgan</strong></td>
+                                <td>Grade III-IV Hemorrhoids</td>
+                                <td>Excision leaving wounds OPEN for secondary healing.</td>
+                                <td>Gold standard; low cost; low recurrence.</td>
+                                <td>Post-op pain; prolonged wound healing.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ferguson / Parks</strong></td>
+                                <td>Grade III-IV Hemorrhoids</td>
+                                <td>Excision with primary CLOSED absorbable suture.</td>
+                                <td>Faster wound healing; less post-op pain.</td>
+                                <td>Suture dehiscence (~10%); stricture risk if over-excised.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PPH (Stapled)</strong></td>
+                                <td>Circumferential Int. Hemorrhoids</td>
+                                <td>Circular stapled mucosal resection proximal to dentate line.</td>
+                                <td>Less early pain; rapid recovery.</td>
+                                <td>Expensive; chronic pain, rectal perforation, rectovaginal fistula.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Whitehead</strong></td>
+                                <td>Hemorrhoids (Historical)</td>
+                                <td>Circumferential mucosa resection & mucosal advancement.</td>
+                                <td>Excision of all cushions.</td>
+                                <td>🚨 <strong>ABANDONED:</strong> Whitehead deformity (ectropion), severe stenosis.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>LIS</strong></td>
+                                <td>Chronic Anal Fissure</td>
+                                <td>Division of lower 30% of internal anal sphincter.</td>
+                                <td>&gt;95% fissure healing; immediate pain relief.</td>
+                                <td>~10% transient flatus incontinence.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>LIFT / ERAF</strong></td>
+                                <td>Complex Fistula-in-Ano</td>
+                                <td>Tissue-sparing repair without cutting sphincter muscle.</td>
+                                <td><strong>Preserves fecal continence!</strong></td>
+                                <td>Moderate success rate (~70%); technically demanding.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8: FLASHCARDS -->
+        <div id="flashcards" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2>🎴 Active-Recall Flashcards (50 Cards)</h2>
+                    <p class="subtitle">Test core knowledge proportionally across all lecture topics. Flip card to reveal answer.</p>
+                </div>
+                <div>
+                    <button class="btn-icon" onclick="shuffleFlashcards()">🔀 Shuffle</button>
+                </div>
+            </div>
+
+            <div class="flashcard-wrapper">
+                <div class="flashcard" id="flashcard" onclick="flipCard()">
+                    <div class="card-tag" id="cardTag">Topic Tag</div>
+                    <div class="flashcard-front">
+                        <div id="cardQuestion" style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">
+                            Question Loading...
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1.5rem;">(Click card or press SPACE to flip)</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <div id="cardAnswer" style="font-size: 1.05rem; font-weight: 600; color: var(--brand-primary);">
+                            Answer Loading...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-controls">
+                <button class="btn-icon" onclick="prevCard()">← Previous</button>
+                <span id="cardProgress" style="font-family: var(--font-mono); font-weight: 700;">Card 1 / 50</span>
+                <button class="btn-icon" onclick="nextCard()">Next →</button>
+            </div>
+        </div>
+
+        <!-- TAB 9: SELF-ASSESSMENT (50 MCQs) -->
+        <div id="mcq" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2>📝 Self-Assessment: Board-Style MCQs (50 Questions)</h2>
+                    <p class="subtitle">Board-exam quality questions with detailed distractor rationale and live score tracking.</p>
+                </div>
+                <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 0.5rem 1rem; border-radius: var(--radius-md);">
+                    <span style="font-family: var(--font-mono); font-weight: 700; color: var(--brand-primary);" id="scoreTracker">Score: 0 / 0 (0%)</span>
+                </div>
+            </div>
+
+            <div id="mcqContainer">
+                <!-- MCQs will be dynamically injected here via JS -->
+            </div>
+        </div>
+
+        <!-- TAB 10: CRAM SHEET -->
+        <div id="cram" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2>⚡ 10-Minute Ultra-Condensed Cram Sheet</h2>
+                    <p class="subtitle">Last-minute PLE & Long Exam revision: Clinical reasoning chains ("If you see X → think Y"), buzzwords, and rapid facts.</p>
+                </div>
+            </div>
+
+            <div class="card accent-left">
+                <div class="card-title">🔗 Clinical Reasoning Chains ("If You See X → Think Y")</div>
+                <div class="cram-item">
+                    <span class="cram-trigger">Painless bright red blood on toilet paper + reducible prolapse</span>
+                    <span class="cram-thought">→ Think Grade I or II Internal Hemorrhoids (proximal to insensate dentate line).</span>
+                </div>
+                <div class="cram-item">
+                    <span class="cram-trigger">Severe tearing anal pain during bowel movement + 2-3 hour post-defecation spasm</span>
+                    <span class="cram-thought">→ Think Anal Fissure (usually posterior midline due to &lt;50% perfusion).</span>
+                </div>
+                <div class="cram-item">
+                    <span class="cram-trigger">Hypertrophic papilla + Exposed internal sphincter fibers + Sentinel pile</span>
+                    <span class="cram-thought">→ Think Brodie Triad of Chronic Anal Fissure (&gt;8 weeks duration).</span>
+                </div>
+                <div class="cram-item">
+                    <span class="cram-trigger">Off-midline (lateral) anal fissure</span>
+                    <span class="cram-thought">→ Think Underlying Etiology: Crohn's Disease, Tuberculosis, HIV, or Malignancy.</span>
+                </div>
+                <div class="cram-item">
+                    <span class="cram-trigger">Anterior external fistula opening &lt;3 cm from anal verge</span>
+                    <span class="cram-thought">→ Think Short, straight radial tract to anal canal (Goodsall's Rule).</span>
+                </div>
+                <div class="cram-item">
+                    <span class="cram-trigger">Anterior external fistula opening &gt;3 cm from anal verge OR any posterior opening</span>
+                    <span class="cram-thought">→ Think Tract curves posteriorly to enter at the Posterior Midline (Goodsall's Rule).</span>
+                </div>
+                <div class="cram-item">
+                    <span class="cram-trigger">Deep postanal space infection spreading to BOTH ischiorectal fossae</span>
+                    <span class="cram-thought">→ Think Horseshoe Ischiorectal Abscess (requires deep postanal + bilateral counter-drainage).</span>
+                </div>
+                <div class="cram-item">
+                    <span class="cram-trigger">Severe perianal pain + fever + indurated mass above anorectal ring on DRE</span>
+                    <span class="cram-thought">→ Think Supralevator Abscess (investigate intra-abdominal pelvic cause like PID/diverticulitis!).</span>
+                </div>
+                <div class="cram-item">
+                    <span class="cram-trigger">Rapidly spreading perianal/genital necrotizing fasciitis in diabetic male</span>
+                    <span class="cram-thought">→ Think Fournier's Gangrene (EMERGENCY broad-spectrum IV antibiotics + surgical debridement).</span>
+                </div>
+                <div class="cram-item">
+                    <span class="cram-trigger">Feculent vaginal discharge + flatus per vaginam in primiparous female post-NSVD</span>
+                    <span class="cram-thought">→ Think Rectovaginal Fistula (Obstetric cause; wait 3-6 months for spontaneous healing!).</span>
+                </div>
+                <div class="cram-item">
+                    <span class="cram-trigger">Sacrococcygeal natal cleft hair-containing sinus, away from anal verge</span>
+                    <span class="cram-thought">→ Think Pilonidal Disease (Perform Off-Midline Flap closure; NEVER close in midline!).</span>
+                </div>
+                <div class="cram-item">
+                    <span class="cram-trigger">Excisional hemorrhoidectomy followed months later by narrow, pinhole anal lumen</span>
+                    <span class="cram-thought">→ Think Anal Stenosis (most common long-term complication from overzealous mucosal excision).</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        /* GLOBAL JAVASCRIPT DATA & LOGIC */
+
+        // 1. TAB NAVIGATION
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            const targetTab = document.getElementById(tabId);
+            if(targetTab) targetTab.classList.add('active');
+            
+            const btn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+            if(btn) btn.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 2. DARK MODE TOGGLE
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // 3. FLASHCARDS DATA (50 CARDS)
+        const flashcardsData = [
+            { tag: "Hemorrhoids", q: "What is the physiological function of normal hemorrhoidal cushions?", a: "To reinforce complete anal canal closure and aid in maintaining anal continence alongside sphincter muscles." },
+            { tag: "Hemorrhoids", q: "What anatomical landmark dictates whether hemorrhoids are internal or external?", a: "The Dentate (Pectinate) Line. Internal = proximal; External = distal." },
+            { tag: "Hemorrhoids", q: "What are the 3 standard anatomical locations of hemorrhoidal cushions?", a: "Left Lateral, Right Anterior, and Right Posterior." },
+            { tag: "Hemorrhoids", q: "Define Grade I Internal Hemorrhoids.", a: "Bulge into anal canal on straining; do NOT prolapse beyond dentate line. Present with painless bleeding." },
+            { tag: "Hemorrhoids", q: "Define Grade II Internal Hemorrhoids.", a: "Prolapse beyond anal verge upon defecation but REDUCE SPONTANEOUSLY." },
+            { tag: "Hemorrhoids", q: "Define Grade III Internal Hemorrhoids.", a: "Prolapse beyond anal verge and REQUIRE MANUAL REDUCTION by the patient." },
+            { tag: "Hemorrhoids", q: "Define Grade IV Internal Hemorrhoids.", a: "IRREDUCIBLE prolapse at risk for strangulation, thrombosis, and necrosis." },
+            { tag: "Hemorrhoids", q: "Why are internal hemorrhoids typically painless, whereas external hemorrhoids are painful?", a: "Internal = proximal to dentate line (insensate visceral mucosa). External = distal to dentate line (richly innervated somatic anoderm)." },
+            { tag: "Hemorrhoids", q: "What is the cornerstone conservative management for ALL hemorrhoidal disease?", a: "High fiber diet (30-35g/day), increased fluids (>3L/day), warm sitz baths, and avoiding defecation straining." },
+            { tag: "Hemorrhoids", q: "Where must a rubber band be placed during Rubber Band Ligation (RBL)?", a: "1 to 2 cm PROXIMAL to the dentate line in insensate mucosa. (Banding at/below dentate causes excruciating pain)." },
+            { tag: "Hemorrhoids", q: "Which patients are ideal candidates for Hemorrhoidal Sclerotherapy?", a: "Anticoagulated patients or those on antiplatelet therapy with Grade I-III bleeding internal hemorrhoids." },
+            { tag: "Hemorrhoids", q: "What is the Gold Standard surgical procedure for Grade III/IV internal hemorrhoids?", a: "Excisional Hemorrhoidectomy (Open Milligan-Morgan or Closed Ferguson)." },
+            { tag: "Hemorrhoids", q: "Why was Whitehead's Hemorrhoidectomy long abandoned by surgeons?", a: "High risk of Whitehead deformity (ectropion) and severe post-operative anal stenosis." },
+            { tag: "Hemorrhoids", q: "What is the primary cause of post-hemorrhoidectomy urinary retention?", a: "Severe perianal pain inducing reflexive urinary sphincter spasm, exacerbated by fluid overload during spinal anesthesia." },
+            { tag: "Hemorrhoids", q: "What is the most common long-term complication of excisional hemorrhoidectomy?", a: "Anal Stenosis / Stricture formation due to overzealous mucosal resection leaving exposed scarring sphincter." },
+            
+            { tag: "Anal Fissure", q: "Where do 90% of anal fissures occur anatomically, and why?", a: "Posterior midline. This area receives less than half the blood perfusion of other quadrants, causing local ischemia." },
+            { tag: "Anal Fissure", q: "What is the classic clinical symptom hallmark of an anal fissure?", a: "Sharp, tearing pain DURING defecation followed by intense burning spasms lasting 2 to 3 HOURS after defecation." },
+            { tag: "Anal Fissure", q: "What is the time cutoff defining an Acute vs Chronic Anal Fissure?", a: "Acute = < 6 to 8 weeks duration. Chronic = > 6 to 8 weeks duration (with structural changes)." },
+            { tag: "Anal Fissure", q: "List the 3 components of the Brodie Triad in chronic anal fissure.", a: "1. Hypertrophic anal papilla (proximal), 2. Exposed internal anal sphincter fibers (base), 3. Sentinel pile/skin tag (distal)." },
+            { tag: "Anal Fissure", q: "What does an off-midline (lateral) anal fissure strongly suggest?", a: "Underlying systemic disease: Crohn's Disease, Tuberculosis, HIV/AIDS, Syphilis, or Malignancy." },
+            { tag: "Anal Fissure", q: "Why is Digital Rectal Exam (DRE) contraindicated during acute anal fissure evaluation?", a: "It induces severe, excruciating anal pain and severe sphincter spasm. Diagnosis is made by gentle inspection." },
+            { tag: "Anal Fissure", q: "What is the mechanism of topical Nitroglycerin ointment in treating anal fissure?", a: "Acts as a Nitric Oxide donor to relax the internal anal sphincter, reducing hypertonia and restoring blood flow." },
+            { tag: "Anal Fissure", q: "What is the Gold Standard surgical treatment for chronic anal fissure failing conservative care?", a: "Lateral Internal Sphincterotomy (LIS) — dividing the distal 30% of the internal anal sphincter." },
+            { tag: "Anal Fissure", q: "What is the principal risk associated with Lateral Internal Sphincterotomy (LIS)?", a: "Transient flatus or fecal incontinence (~10% risk)." },
+
+            { tag: "Sepsis & Abscess", q: "Where do over 90% of anorectal abscesses originate anatomically?", a: "Cryptoglandular infection originating in the anal glands located at the anal crypts (dentate line)." },
+            { tag: "Sepsis & Abscess", q: "What is the most common type of anorectal abscess?", a: "Perianal Abscess (~60% of all anorectal abscesses)." },
+            { tag: "Sepsis & Abscess", q: "What key technical step prevents premature skin closure during perianal abscess I&D?", a: "Excising a small disk of perianal skin over the abscess apex." },
+            { tag: "Sepsis & Abscess", q: "What anatomical space connects both ischiorectal fossae to form a Horseshoe Abscess?", a: "The Deep Postanal Space (located in the posterior midline)." },
+            { tag: "Sepsis & Abscess", q: "How should a Supralevator Abscess originating from a pelvic intra-abdominal infection be drained?", a: "Transrectally or transabdominally. (NEVER drain through the ischiorectal fossa!)." },
+            { tag: "Sepsis & Abscess", q: "What is Fournier's Gangrene?", a: "A life-threatening, rapidly progressive polymicrobial necrotizing fasciitis of the perineum and genitalia." },
+            { tag: "Sepsis & Abscess", q: "What is the single most critical immediate treatment for Fournier's Gangrene?", a: "Emergency aggressive surgical debridement of all necrotic tissue + broad-spectrum IV antibiotics." },
+
+            { tag: "Fistula-in-Ano", q: "What is the definition of a Fistula-in-Ano (FIA)?", a: "An abnormal chronic granulating tract connecting an internal opening in the anal canal to an external opening on perianal skin." },
+            { tag: "Fistula-in-Ano", q: "What proportion of anorectal abscesses develop into a persistent Fistula-in-Ano?", a: "Approximately 50% of anorectal abscesses progress to an anal fistula." },
+            { tag: "Fistula-in-Ano", q: "State Goodsall's Rule for an anterior external fistula opening < 3 cm from the verge.", a: "Follows a short, straight radial tract directly into the anal canal." },
+            { tag: "Fistula-in-Ano", q: "State Goodsall's Rule for a posterior external fistula opening.", a: "Always curves posteriorly to open at the Posterior Midline (6 o'clock position)." },
+            { tag: "Fistula-in-Ano", q: "Which Parks' classification type is the most common anal fistula?", a: "Type 1: Intersphincteric Fistula (~70% of cases)." },
+            { tag: "Fistula-in-Ano", q: "Define a Simple Anal Fistula vs Complex Anal Fistula cutoff.", a: "Simple = involves <30% of sphincter complex. Complex = involves >30% of sphincter complex." },
+            { tag: "Fistula-in-Ano", q: "What is the Gold Standard procedure for a Simple Anal Fistula?", a: "Fistulotomy (laying open the tract)." },
+            { tag: "Fistula-in-Ano", q: "What is the primary objective when managing a Complex Anal Fistula?", a: "Preserving anal continence while eradicating sepsis and the internal opening." },
+            { tag: "Fistula-in-Ano", q: "What is the role of a Draining (Non-cutting) Seton in complex fistula care?", a: "Maintains tract patency to drain sepsis and induce surrounding fibrosis prior to definitive repair (ERAF/LIFT)." },
+            { tag: "Fistula-in-Ano", q: "Explain the LIFT procedure mechanism.", a: "Ligation of Intersphincteric Fistula Tract — isolates and ligates the tract in the intersphincteric plane without cutting sphincter muscle." },
+
+            { tag: "Rectovaginal Fistula", q: "What is the single most common etiology of Rectovaginal Fistula (RVF)?", a: "Obstetric trauma/injury (50% of cases) during difficult vaginal delivery." },
+            { tag: "Rectovaginal Fistula", q: "Why should surgical repair of an obstetric RVF be delayed for 3 to 6 months?", a: "Up to 50% of obstetric rectovaginal fistulas heal spontaneously as tissue inflammation subsides." },
+            { tag: "Rectovaginal Fistula", q: "What diagnostic test confirms a subtle rectovaginal fistula using dye?", a: "Methylene Blue Test (instill methylene blue into rectum with tampon in vagina; blue stain on tampon confirms defect)." },
+
+            { tag: "Pilonidal Disease", q: "Where is Pilonidal Disease located relative to the anus?", a: "In the upper intergluteal cleft over the sacrococcygeal region, AWAY from the anal verge." },
+            { tag: "Pilonidal Disease", q: "Why must primary midline closure be avoided in pilonidal sinus surgery?", a: "Midline wounds suffer high tension, hair trapping, and moisture, leading to non-healing wounds and high recurrence." },
+            { tag: "Pilonidal Disease", q: "Name two off-midline flap techniques for pilonidal sinus reconstruction.", a: "Karydakis flap and Limberg (Rhomboid) flap (or Bascom procedure)." },
+
+            { tag: "Anal Warts", q: "Which HPV subtypes cause benign condyloma acuminata vs malignant anal carcinoma?", a: "Types 6 & 11 cause benign warts. Types 16 & 18 are high-risk for Anal Squamous Cell Carcinoma." },
+            { tag: "Anal Warts", q: "What is a major advantage of surgical excision for extensive anal warts?", a: "Provides complete tissue specimens for histopathological biopsy to rule out occult malignancy." }
+        ];
+
+        let currentCardIndex = 0;
+        function updateCard() {
+            const card = flashcardsData[currentCardIndex];
+            document.getElementById('cardTag').innerText = card.tag;
+            document.getElementById('cardQuestion').innerText = card.q;
+            document.getElementById('cardAnswer').innerText = card.a;
+            document.getElementById('cardProgress').innerText = `Card ${currentCardIndex + 1} / ${flashcardsData.length}`;
+            document.getElementById('flashcard').classList.remove('flipped');
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            currentCardIndex = (currentCardIndex + 1) % flashcardsData.length;
+            updateCard();
+        }
+
+        function prevCard() {
+            currentCardIndex = (currentCardIndex - 1 + flashcardsData.length) % flashcardsData.length;
+            updateCard();
+        }
+
+        function shuffleFlashcards() {
+            for (let i = flashcardsData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [flashcardsData[i], flashcardsData[j]] = [flashcardsData[j], flashcardsData[i]];
+            }
+            currentCardIndex = 0;
+            updateCard();
+        }
+
+        // KEYBOARD SHORTCUTS FOR FLASHCARDS
+        document.addEventListener('keydown', (e) => {
+            const flashcardTab = document.getElementById('flashcards');
+            if (flashcardTab && flashcardTab.classList.contains('active')) {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    flipCard();
+                } else if (e.code === 'ArrowRight') {
+                    nextCard();
+                } else if (e.code === 'ArrowLeft') {
+                    prevCard();
+                }
+            }
+        });
+
+        // 4. MCQ DATA (50 BOARD-STYLE MCQS WITH FULL DISTRACTOR EXPLANATIONS)
+        const mcqData = [
+            {
+                q: "A 45-year-old male presents with painless bright red rectal bleeding occurring at the end of defecation, describing blood dripping into the toilet bowl. Anoscopy reveals mucosal bulges proximal to the dentate line that prolapse during straining but reduce spontaneously. What is the Goligher classification and initial management?",
+                options: [
+                    "Grade I; Open Hemorrhoidectomy",
+                    "Grade II; Dietary fiber, fluid intake, and lifestyle modification",
+                    "Grade III; Manual reduction and immediate lateral internal sphincterotomy",
+                    "Grade IV; Emergency rubber band ligation"
+                ],
+                correct: 1,
+                exp: "Grade II internal hemorrhoids prolapse beyond the anal verge on straining but reduce spontaneously. First-line management for Grade I and II is conservative (high dietary fiber 30-35g/day, hydration >3L/day, toileting habits).",
+                distractors: [
+                    "Option A is incorrect because Grade I does not prolapse beyond the dentate line, and surgery is not initial therapy.",
+                    "Option C is incorrect because Grade III requires manual reduction, and LIS is for anal fissures, not hemorrhoids.",
+                    "Option D is incorrect because Grade IV is irreducible, and RBL is contraindicated for irreducible/strangulated piles."
+                ]
+            },
+            {
+                q: "Which anatomical landmark defines whether a hemorrhoid is classified as internal or external, and dictates its sensory pain innervation?",
+                options: [
+                    "Anorectal Ring",
+                    "Dentate (Pectinate) Line",
+                    "Anal Verge",
+                    "White Line of Hilton"
+                ],
+                correct: 1,
+                exp: "The Dentate (Pectinate) Line is the anatomical watershed. Internal hemorrhoids are proximal to the dentate line (covered by insensate visceral mucosa), whereas external hemorrhoids are distal (covered by sensate anoderm).",
+                distractors: [
+                    "Option A is incorrect; the anorectal ring marks the upper boundary of the anal canal (puborectalis muscle).",
+                    "Option C is incorrect; the anal verge is the distal cutaneous margin of the anal canal.",
+                    "Option D is incorrect; Hilton's line is an anatomical groove between internal and external sphincters."
+                ]
+            },
+            {
+                q: "A 32-year-old female complains of severe, sharp, tearing anal pain during bowel movements, followed by intense burning perianal spasms lasting 2 to 3 hours. Inspection reveals a linear tear at the posterior midline. What is the primary underlying pathophysiology?",
+                options: [
+                    "Venous engorgement of the submucosal hemorrhoidal plexus",
+                    "Local ischemia at the posterior midline combined with internal anal sphincter hypertonia",
+                    "Cryptoglandular bacterial infection of the anal crypts",
+                    "Human Papillomavirus dysplasia of the anoderm"
+                ],
+                correct: 1,
+                exp: "Anal fissures occur predominantly at the posterior midline because this area receives less than half the blood perfusion of other quadrants, creating a vicious cycle of sphincter spasm, ischemia, and unhealing tear.",
+                distractors: [
+                    "Option A describes hemorrhoidal pathophysiology.",
+                    "Option C describes anorectal abscess/fistula etiology.",
+                    "Option D describes condyloma acuminata etiology."
+                ]
+            },
+            {
+                q: "Physical examination of a 38-year-old male with a 4-month history of severe defecatory anal pain demonstrates a hypertrophic anal papilla proximally, exposed horizontal white sphincter fibers at the ulcer base, and a sentinel skin tag distally. What is this constellation of findings called?",
+                options: [
+                    "Goodsall's Triad",
+                    "Brodie Triad",
+                    "Parks Classification",
+                    "Charcot Triad"
+                ],
+                correct: 1,
+                exp: "The Brodie Triad is pathognomonic for a chronic anal fissure (>8 weeks duration) and consists of: (1) Hypertrophic anal papilla, (2) Exposed internal anal sphincter fibers, and (3) Sentinel pile/tag.",
+                distractors: [
+                    "Option A is incorrect; Goodsall's rule predicts fistula anatomy, not a triad.",
+                    "Option C is incorrect; Parks classifies fistula-in-ano.",
+                    "Option D is incorrect; Charcot's triad is for acute cholangitis."
+                ]
+            },
+            {
+                q: "A 29-year-old patient is evaluated for an anal fissure located at the 3 o'clock (left lateral) position. What is the most appropriate next diagnostic step?",
+                options: [
+                    "Immediate Lateral Internal Sphincterotomy",
+                    "Workup for underlying etiology such as Crohn's disease, TB, HIV, or malignancy",
+                    "Reassurance and discharge on stool softeners alone",
+                    "Emergency Rubber Band Ligation"
+                ],
+                correct: 1,
+                exp: "Anal fissures located off-midline (lateral) are atypical and strongly suggest underlying systemic disease such as Crohn's disease, Tuberculosis, HIV, or Malignancy, requiring targeted investigation.",
+                distractors: [
+                    "Option A is incorrect; performing LIS on Crohn's fissure can cause catastrophic non-healing wounds.",
+                    "Option C is incorrect because lateral fissures require systemic investigation.",
+                    "Option D is incorrect; RBL is for hemorrhoids, not fissures."
+                ]
+            },
+            {
+                q: "What is the Gold Standard surgical treatment for a chronic anal fissure that has failed 8 weeks of optimal medical therapy?",
+                options: [
+                    "Open Milligan-Morgan Hemorrhoidectomy",
+                    "Lateral Internal Sphincterotomy (LIS)",
+                    "Fistulotomy with marsupialization",
+                    "Endorectal Advancement Flap (ERAF)"
+                ],
+                correct: 1,
+                exp: "Lateral Internal Sphincterotomy (LIS) is the gold standard for chronic anal fissures, dividing the distal 30% of the internal sphincter to relieve hypertonia and ischemia (>95% healing rate).",
+                distractors: [
+                    "Option A is for hemorrhoids.",
+                    "Option C is for simple fistula-in-ano.",
+                    "Option D is for complex fistulas or rectovaginal fistulas."
+                ]
+            },
+            {
+                q: "An office-based Rubber Band Ligation (RBL) is performed on a patient with Grade II internal hemorrhoids. Immediately after placement, the patient experiences excruciating, intolerable perianal pain. What technical error was made?",
+                options: [
+                    "The rubber band was placed proximal to the dentate line",
+                    "The rubber band was placed at or distal to the dentate line in somatic sensate anoderm",
+                    "The hemorrhoid pedicle was ligated with non-absorbable suture",
+                    "Suction pressure exceeded 100 mmHg"
+                ],
+                correct: 1,
+                exp: "Rubber bands MUST be placed 1-2 cm proximal to the dentate line in insensate visceral mucosa. Placing a band at or below the dentate line engages somatic pain fibers, causing severe pain requiring immediate band removal.",
+                distractors: [
+                    "Option A describes correct band placement (which is painless).",
+                    "Option C describes DGHAL suture technique, not RBL.",
+                    "Option D is incorrect; suction pressure does not cause instant somatic pain if placed in visceral mucosa."
+                ]
+            },
+            {
+                q: "Six hours following an uncomplicated closed excisional hemorrhoidectomy under spinal anesthesia, a 52-year-old male is unable to void and complains of severe suprapubic fullness. What is the primary mechanism and best preventive measure?",
+                options: [
+                    "Direct bladder muscular injury; perform immediate laparotomy",
+                    "Pain-induced urinary sphincter spasm & fluid overload; round-the-clock multimodal analgesia & fluid restriction",
+                    "Urethral stricture; perform emergency dilation",
+                    "Prostatic hypertrophy exacerbation; start lifelong finasteride"
+                ],
+                correct: 1,
+                exp: "Post-hemorrhoidectomy urinary retention is directly driven by severe perianal pain causing reflexive urinary sphincter spasm, exacerbated by perioperative fluid overload. Prevention involves scheduled multimodal analgesia.",
+                distractors: [
+                    "Option A is incorrect; hemorrhoidectomy does not injure the bladder.",
+                    "Option C is incorrect; acute retention post-op is functional/pain-related.",
+                    "Option D is incorrect; finasteride takes months and does not treat acute post-op retention."
+                ]
+            },
+            {
+                q: "What is the most common long-term complication of excisional hemorrhoidectomy resulting from overzealous resection of the anoderm and mucosa?",
+                options: [
+                    "Permanent fecal incontinence",
+                    "Anal Stenosis (Stricture)",
+                    "Rectovaginal fistula",
+                    "Pilonidal sinus formation"
+                ],
+                correct: 1,
+                exp: "Overzealous removal of hemorrhoidal tissue leaves bare internal anal sphincter without sufficient mucosal bridges, leading to circumferential scarring and severe anal stenosis/stricture.",
+                distractors: [
+                    "Option A is rare with modern techniques sparing sphincter muscles.",
+                    "Option C is a complication of PPH or obstetric injury, not standard excisional hemorrhoidectomy.",
+                    "Option D is an independent sacrococcygeal disease."
+                ]
+            },
+            {
+                q: "A 35-year-old male presents with a painful, fluctuant, erythematous swelling at the perianal verge accompanied by low-grade fever. What is the most appropriate definitive management?",
+                options: [
+                    "Oral broad-spectrum antibiotics alone for 14 days",
+                    "Incision and Drainage (I&D) with excision of a skin disk",
+                    "Lateral Internal Sphincterotomy",
+                    "Rubber Band Ligation"
+                ],
+                correct: 1,
+                exp: "Acute perianal abscess requires prompt Incision & Drainage. Excising a small disk of skin prevents premature closure of the skin edges and recurrence. Antibiotics alone are inadequate for un-drained pus.",
+                distractors: [
+                    "Option A is incorrect; antibiotics without drainage fail to cure an abscess.",
+                    "Option C is for anal fissure.",
+                    "Option D is for internal hemorrhoids."
+                ]
+            },
+            {
+                q: "In cryptoglandular anorectal suppurative disease, where do the offending anal glands open internally?",
+                options: [
+                    "At the Anal Verge",
+                    "At the Anal Crypts along the Dentate Line",
+                    "At the Anorectal Ring",
+                    "Into the Ischiorectal Fossa"
+                ],
+                correct: 1,
+                exp: "Anal glands originate in the intersphincteric space and open into the anal crypts located at the level of the dentate line. Crypt obstruction leads to infection and abscess formation.",
+                distractors: [
+                    "Option A is the external skin boundary.",
+                    "Option C is the upper puborectalis ring boundary.",
+                    "Option D is the lateral fat space where pus spreads secondarily."
+                ]
+            },
+            {
+                q: "A patient is diagnosed with a Horseshoe Ischiorectal Abscess. Anatomically, where did the primary infection cross between the left and right sides?",
+                options: [
+                    "Superficial Perineal Space",
+                    "Deep Postanal Space",
+                    "Supralevator Space",
+                    "Retroperitoneal Space"
+                ],
+                correct: 1,
+                exp: "Horseshoe abscesses originate from a posterior midline cryptoglandular infection that enters the deep postanal space, subsequently tracking bilaterally into both right and left ischiorectal fossae.",
+                distractors: [
+                    "Option A is anterior in the perineum.",
+                    "Option C is above the levator ani.",
+                    "Option D is abdominal."
+                ]
+            },
+            {
+                q: "A Digital Rectal Exam (DRE) reveals a tender, indurated, bulging mass above the anorectal ring in a patient with pelvic inflammatory disease. What type of abscess is present, and what is a critical surgical rule?",
+                options: [
+                    "Perianal Abscess; drain under local anesthesia at verge",
+                    "Supralevator Abscess; treat underlying pelvic cause and DO NOT drain through the ischiorectal fossa",
+                    "Intersphincteric Abscess; perform open fistulotomy",
+                    "Ischiorectal Abscess; perform rubber band ligation"
+                ],
+                correct: 1,
+                exp: "Supralevator abscesses lie above the levator ani. If secondary to intra-abdominal/pelvic pathology, they must be drained transrectally or transabdominally, and NEVER through the ischiorectal fossa to prevent creating a complex suprasphincteric fistula.",
+                distractors: [
+                    "Option A is below the levator ani at the verge.",
+                    "Option C is between sphincter layers.",
+                    "Option D is in the ischiorectal fat."
+                ]
+            },
+            {
+                q: "A 58-year-old diabetic male presents with rapidly progressive perianal skin necrosis, severe pain, systemic toxicity, and subcutaneous crepitus extending to the scrotum. What is the diagnosis and immediate required intervention?",
+                options: [
+                    "Grade IV Hemorrhoid strangulation; perform manual reduction",
+                    "Fournier's Gangrene; emergency surgical debridement + broad-spectrum IV antibiotics",
+                    "Pilonidal sinus infection; prescribe oral amoxicillin",
+                    "Chronic anal fissure; perform lateral internal sphincterotomy"
+                ],
+                correct: 1,
+                exp: "Fournier's gangrene is a life-threatening necrotizing fasciitis of the perineum/genitalia. Immediate emergency treatment consists of aggressive surgical debridement of necrotic tissue and broad-spectrum IV antibiotics.",
+                distractors: [
+                    "Option A does not cause subcutaneous crepitus and widespread tissue necrosis.",
+                    "Option C is inadequate for necrotizing infection.",
+                    "Option D is inappropriate for systemic necrotizing sepsis."
+                ]
+            },
+            {
+                q: "According to Goodsall's Rule, an external fistula opening located anteriorly, 2 cm from the anal verge, will have a tract that:",
+                options: [
+                    "Curves posteriorly to enter at the posterior midline",
+                    "Runs in a short, straight radial course directly to the anal canal",
+                    "Loops over the levator ani muscle",
+                    "Communicates directly with the vaginal fourchette"
+                ],
+                correct: 1,
+                exp: "Goodsall's rule states that anterior external openings < 3 cm from the anal verge follow a direct, short, straight radial tract to the anal canal.",
+                distractors: [
+                    "Option A describes posterior openings or anterior openings > 3 cm away.",
+                    "Option C describes suprasphincteric fistula.",
+                    "Option D describes rectovaginal fistula."
+                ]
+            },
+            {
+                q: "According to Goodsall's Rule, an external fistula opening located anteriorly, 5 cm from the anal verge, will have a tract that:",
+                options: [
+                    "Runs in a short, straight radial course to the anterior midline",
+                    "Curves posteriorly to enter at the posterior midline",
+                    "Drains directly into the urinary bladder",
+                    "Passes through the obturator foramen"
+                ],
+                correct: 1,
+                exp: "Anterior external openings situated EXCEEDING 3 cm from the anal verge are an exception to the straight rule: they curve posteriorly to open at the posterior midline.",
+                distractors: [
+                    "Option A applies only to anterior openings < 3 cm from verge.",
+                    "Options C and D are anatomically incorrect."
+                ]
+            },
+            {
+                q: "Which Parks' classification type describes an anal fistula that traverses BOTH the internal and external anal sphincters into the ischiorectal fossa?",
+                options: [
+                    "Type 1: Intersphincteric",
+                    "Type 2: Transsphincteric",
+                    "Type 3: Suprasphincteric",
+                    "Type 4: Extrasphincteric"
+                ],
+                correct: 1,
+                exp: "Type 2 Transsphincteric fistulas track through both internal and external anal sphincters into the ischiorectal space.",
+                distractors: [
+                    "Type 1 passes between sphincters (spares external).",
+                    "Type 3 loops over levator ani.",
+                    "Type 4 bypasses sphincters from rectum through levator ani."
+                ]
+            },
+            {
+                q: "What is the primary treatment goal when managing a complex fistula-in-ano involving >30% of the sphincter complex?",
+                options: [
+                    "Rapid total excision regardless of sphincter damage",
+                    "Eradication of fistula tract while strictly PRESERVING CONTINENCE",
+                    "Immediate division of all external sphincter muscles",
+                    "Permanent colostomy creation in all cases"
+                ],
+                correct: 1,
+                exp: "The cardinal rule of complex fistula surgery is preserving fecal continence. Cutting >30% of the sphincter mechanism leads to severe permanent incontinence; sphincter-sparing techniques (Seton, LIFT, ERAF) are mandatory.",
+                distractors: [
+                    "Option A and C result in catastrophic permanent incontinence.",
+                    "Option D is reserved only for intractable end-stage cases."
+                ]
+            },
+            {
+                q: "What is the primary function of a non-cutting (draining) seton in complex fistula management?",
+                options: [
+                    "To rapidly sever the sphincter muscle within 24 hours",
+                    "To maintain tract patency, drain sepsis, and induce fibrosis prior to definitive repair",
+                    "To permanently replace the internal anal sphincter",
+                    "To deliver topical chemotherapy into the rectum"
+                ],
+                correct: 1,
+                exp: "A draining seton maintains tract patency, prevents recurrent abscess formation, allows acute inflammation to subside, and induces peritract fibrosis, bridging the patient safely to definitive LIFT or ERAF repair.",
+                distractors: [
+                    "Option A describes a cutting seton (tightened over weeks, not 24 hours).",
+                    "Options C and D are incorrect."
+                ]
+            },
+            {
+                q: "What is the main technical step of the LIFT procedure for fistula-in-ano?",
+                options: [
+                    "Circumferential excision of the dentate line",
+                    "Isolation and ligation of the fistula tract within the intersphincteric plane without dividing sphincter muscle",
+                    "Division of the puborectalis muscle",
+                    "Wide open unroofing of the entire sphincter complex"
+                ],
+                correct: 1,
+                exp: "LIFT (Ligation of Intersphincteric Fistula Tract) accesses the intersphincteric space, isolates the fistula tract, and ligates both ends without cutting any sphincter muscle fibers.",
+                distractors: [
+                    "Option A describes Whitehead procedure.",
+                    "Option C would cause severe fecal incontinence.",
+                    "Option D describes aggressive fistulotomy causing incontinence."
+                ]
+            },
+            {
+                q: "A 26-year-old female (P1A0) presents 2 weeks after a difficult vacuum-assisted vaginal delivery with passage of flatus and feculent discharge per vaginam. Examination reveals a low rectovaginal fistula. What is the most appropriate initial management strategy?",
+                options: [
+                    "Perform immediate emergency transabdominal proctectomy",
+                    "Conservative observation for 3 to 6 months to allow potential spontaneous healing",
+                    "Immediate high-dose pelvic radiation therapy",
+                    "Cauterization with 100% silver nitrate"
+                ],
+                correct: 1,
+                exp: "Up to 50% of obstetric rectovaginal fistulas heal spontaneously as tissue edema and inflammation resolve. Surgical repair (ERAF) should be delayed for 3 to 6 months.",
+                distractors: [
+                    "Option A is overly aggressive for an acute obstetric defect.",
+                    "Option C is contraindicated and causes fistula formation.",
+                    "Option D is ineffective for epithelialized rectal defects."
+                ]
+            },
+            {
+                q: "What diagnostic bed-side test can confirm a subtle or questionable Rectovaginal Fistula?",
+                options: [
+                    "Methylene Blue Test (rectal dye instillation with vaginal tampon)",
+                    "Urine Dipstick test for leukocyte esterase",
+                    "Serum Alpha-Fetoprotein level",
+                    "Fecal Occult Blood Test (FOBT)"
+                ],
+                correct: 0,
+                exp: "The Methylene Blue test involves instilling dilute methylene blue into the rectum while a clean tampon is placed in the vagina. Staining of the tampon with blue dye confirms a rectovaginal communication.",
+                distractors: [
+                    "Option B detects urinary tract infection.",
+                    "Option C is a tumor marker.",
+                    "Option D detects microscopic GI bleeding, not gross fistula tract."
+                ]
+            },
+            {
+                q: "A 22-year-old male college athlete presents with recurrent painful drainage from a small opening located in the upper intergluteal cleft over the sacrococcygeal region. Hair shafts are visible protruding from the pit. The anus is completely normal. What is the diagnosis?",
+                options: [
+                    "Fistula-in-Ano (Parks Type 1)",
+                    "Pilonidal Disease (Pilonidal Sinus)",
+                    "Perianal Cryptoglandular Abscess",
+                    "Condyloma Acuminata"
+                ],
+                correct: 1,
+                exp: "Pilonidal disease occurs in the sacrococcygeal intergluteal cleft (natal cleft), away from the anal verge, and is characterized by hair-containing sinus tracts.",
+                distractors: [
+                    "Option A originates at dentate line and opens perianally.",
+                    "Option C occurs adjacent to anal verge.",
+                    "Option D presents as verrucous HPV warts."
+                ]
+            },
+            {
+                q: "When performing surgical excision for chronic pilonidal sinus disease, why is primary midline closure strongly discouraged?",
+                options: [
+                    "Midline closure damages the pudendal nerve",
+                    "Midline intergluteal cleft wounds experience high tension, friction, and moisture, leading to high recurrence and non-healing",
+                    "Midline closure causes fecal incontinence",
+                    "Midline closure prevents histological biopsy"
+                ],
+                correct: 1,
+                exp: "Primary midline suture lines in the intergluteal cleft suffer from depth, tension, moisture, and anaerobic conditions, leading to wound breakdown (3-6 month open wet wounds) and high recurrence. Off-midline flap techniques (Karydakis/Limberg) are preferred.",
+                distractors: [
+                    "Options A and C are incorrect; sacrococcygeal midline skin is away from sphincter and pudendal nerve.",
+                    "Option D is incorrect; excised tissue can always be sent for biopsy."
+                ]
+            },
+            {
+                q: "Which Human Papillomavirus (HPV) subtypes are classified as high-risk for the development of Anal Squamous Cell Carcinoma (SCC)?",
+                options: [
+                    "HPV Types 6 and 11",
+                    "HPV Types 16 and 18",
+                    "HPV Types 1 and 2",
+                    "HPV Types 5 and 8"
+                ],
+                correct: 1,
+                exp: "HPV types 16 and 18 are high-risk oncogenic strains associated with anal intraepithelial neoplasia and invasive Anal Squamous Cell Carcinoma. Types 6 and 11 cause benign condyloma acuminata.",
+                distractors: [
+                    "Option A causes benign genital/anal warts.",
+                    "Option C causes common cutaneous warts.",
+                    "Option D causes epidermodysplasia verruciformis."
+                ]
+            },
+            {
+                q: "What is a key diagnostic advantage of surgical excision over topical therapies for large perianal condyloma acuminata?",
+                options: [
+                    "Excision eliminates the need for safe sex counseling",
+                    "Excision provides tissue for histopathological examination to rule out occult anal squamous cell carcinoma",
+                    "Excision guarantees zero HPV recurrence",
+                    "Excision can be performed without any anesthesia"
+                ],
+                correct: 1,
+                exp: "Surgical excision provides full-thickness tissue specimens allowing pathologists to evaluate for dysplasia or occult malignant transformation to Anal Squamous Cell Carcinoma.",
+                distractors: [
+                    "Option A is false; safe sex is always necessary.",
+                    "Option C is false; viral recurrence can still occur in surrounding tissue.",
+                    "Option D is false; excision requires local/regional anesthesia."
+                ]
+            },
+            {
+                q: "A 50-year-old male with a history of bright red blood per rectum undergoes evaluation. Under what clinical scenario is a complete endoscopic evaluation (colonoscopy) strongly indicated per practice guidelines?",
+                options: [
+                    "Painless bleeding in any patient over 50 years of age or with family history of colorectal cancer",
+                    "Acute thrombosed external hemorrhoid of 12 hours duration in a 20-year-old",
+                    "Asymptomatic anal skin tag",
+                    "Acute posterior anal fissure in a 22-year-old"
+                ],
+                correct: 0,
+                exp: "Practice guidelines specify that patients presenting with lower GI bleeding who are >40-50 years old, have atypical symptoms, or have a family history of colorectal cancer must undergo colonoscopy to exclude proximal malignancy.",
+                distractors: [
+                    "Option B presents with obvious acute external thrombosis; colonoscopy is not urgently required.",
+                    "Option C is an asymptomatic benign remnant.",
+                    "Option D is a typical acute fissure in a young patient."
+                ]
+            },
+            {
+                q: "What is the recommended surgical management for a patient presenting with an acutely thrombosed external hemorrhoid within 72 hours of symptom onset?",
+                options: [
+                    "Simple needle aspiration of the clot",
+                    "Complete surgical excision of the thrombosed hemorrhoid under local anesthesia",
+                    "Rubber band ligation of the external mass",
+                    "Lateral internal sphincterotomy"
+                ],
+                correct: 1,
+                exp: "Early excision of thrombosed external hemorrhoids (within 3 days) provides rapid pain relief and lower recurrence. Simple I&D or aspiration is ineffective because the clot is multiloculated.",
+                distractors: [
+                    "Option A fails because clots are loculated.",
+                    "Option C is contraindicated on sensate external anoderm.",
+                    "Option D is for anal fissures."
+                ]
+            },
+            {
+                q: "During open Milligan-Morgan hemorrhoidectomy, how are the surgical wounds managed post-operatively?",
+                options: [
+                    "Closed with continuous 2-0 silk sutures",
+                    "Left open to heal by secondary intention, with sitz baths and NO topical betadine or anal packing",
+                    "Packed tightly with iodoform gauze changed twice daily",
+                    "Covered with waterproof occlusive dressings"
+                ],
+                correct: 1,
+                exp: "Open hemorrhoidectomy wounds are left open to heal by secondary intention. Post-op wound care emphasizes warm water sitz baths/rinsing. Topical antiseptics (betadine), creams, and anal packing delay healing and are not advised.",
+                distractors: [
+                    "Option A describes closed hemorrhoidectomy.",
+                    "Option C delays wound healing and causes severe pain upon removal.",
+                    "Option D is impossible and inappropriate for perianal wounds."
+                ]
+            },
+            {
+                q: "A 60-year-old female complains of fecal soiling and severe perianal pruritus at night. Anoscopy demonstrates internal hemorrhoids bulge into anal canal but do not prolapse out. What grade is this?",
+                options: [
+                    "Grade I",
+                    "Grade II",
+                    "Grade III",
+                    "Grade IV"
+                ],
+                correct: 0,
+                exp: "Grade I internal hemorrhoids bulge into the anal lumen on straining but do not prolapse beyond the dentate line. Symptoms include painless bleeding, pruritus, and soilage.",
+                distractors: [
+                    "Grade II prolapses but spontaneously reduces.",
+                    "Grade III requires manual reduction.",
+                    "Grade IV is irreducible."
+                ]
+            },
+            {
+                q: "Which medication used topically for anal fissures works by donating Nitric Oxide to relax the internal anal sphincter, but is frequently limited by severe headaches?",
+                options: [
+                    "0.2% Nitroglycerin Ointment",
+                    "2% Lidocaine Jelly",
+                    "10% Povidone-Iodine Cream",
+                    "Hydrocortisone 1% Cream"
+                ],
+                correct: 0,
+                exp: "Nitroglycerin ointment is a nitric oxide donor that relaxes internal sphincter hypertonia. Systemic absorption frequently causes vascular headaches as a major side effect.",
+                distractors: [
+                    "Option B provides local anesthesia only.",
+                    "Option C is an antiseptic.",
+                    "Option D is a mild anti-inflammatory."
+                ]
+            },
+            {
+                q: "What is the primary mechanism of action of warm sitz baths in managing acute anorectal conditions like fissures and hemorrhoids?",
+                options: [
+                    "Sterilizes the perianal skin",
+                    "Reduces internal anal sphincter spasm and improves local blood circulation",
+                    "Dissolves thrombosed blood clots",
+                    "Spherically shrinks skin tags"
+                ],
+                correct: 1,
+                exp: "Warm sitz baths (15-30 minutes in warm non-scalding water 2-3x/day) relax internal anal sphincter tone, relieve painful spasm, and enhance microvascular blood flow.",
+                distractors: [
+                    "Option A is incorrect; water does not sterilize normal skin flora.",
+                    "Options C and D are mechanically incorrect."
+                ]
+            },
+            {
+                q: "A patient presenting with an anorectal abscess undergoes evaluation. Anoscopy reveals pus exuding from an anal crypt at the 6 o'clock position. What type of abscess is located between the internal and external sphincter layers?",
+                options: [
+                    "Intersphincteric Abscess",
+                    "Perianal Abscess",
+                    "Ischiorectal Abscess",
+                    "Supralevator Abscess"
+                ],
+                correct: 0,
+                exp: "An intersphincteric abscess lies in the intersphincteric plane between the internal and external sphincter muscles.",
+                distractors: [
+                    "Perianal is subcutaneous.",
+                    "Ischiorectal is lateral in the ischiorectal fat.",
+                    "Supralevator is above levator ani."
+                ]
+            },
+            {
+                q: "Which procedure for hemorrhoids utilizes a circular stapling device to excise a circumferential ring of redundant mucosa/submucosa proximal to the dentate line?",
+                options: [
+                    "Procedure for Prolapse and Hemorrhoids (PPH) / Stapled Hemorrhoidopexy",
+                    "Milligan-Morgan Excisional Hemorrhoidectomy",
+                    "Lateral Internal Sphincterotomy",
+                    "Ligation of Intersphincteric Fistula Tract"
+                ],
+                correct: 0,
+                exp: "PPH (Stapled Hemorrhoidopexy) uses a circular stapler to excise circumferential submucosa proximal to the dentate line, reducing prolapse and re-establishing anatomical fixation.",
+                distractors: [
+                    "Option B is open excision.",
+                    "Option C is for fissure.",
+                    "Option D is for fistula."
+                ]
+            },
+            {
+                q: "What post-operative instruction regarding sexual activity is mandatory following surgical repair of a Rectovaginal Fistula?",
+                options: [
+                    "Avoid coitus for 6 to 12 months",
+                    "Resume coitus immediately on post-op day 1",
+                    "Avoid coitus for 7 days only",
+                    "Coitus is encouraged to prevent tissue stenosis"
+                ],
+                correct: 0,
+                exp: "Patients must strictly avoid vaginal intercourse (coitus) for 6 to 12 months post-repair to allow complete healing and prevent flap dehiscence or fistula recurrence.",
+                distractors: [
+                    "Options B, C, and D risk immediate repair failure and cross-infection."
+                ]
+            },
+            {
+                q: "A 40-year-old male presents with deep perianal pain exacerbated by coughing or sneezing. Physical inspection shows normal perianal skin with no fluctuance. DRE reveals tenderness along the rectal wall. What abscess should be suspected?",
+                options: [
+                    "Intersphincteric Abscess",
+                    "Superficial Perianal Abscess",
+                    "Pilonidal Abscess",
+                    "Thrombosed External Hemorrhoid"
+                ],
+                correct: 0,
+                exp: "Intersphincteric abscesses present with deep internal pain exacerbated by increased intra-abdominal pressure (coughing/sneezing) and frequently lack external skin changes.",
+                distractors: [
+                    "Option B shows obvious perianal erythema and swelling.",
+                    "Option C is in the natal cleft over sacrum.",
+                    "Option D is a visible external bluish mass."
+                ]
+            },
+            {
+                q: "In Parks' classification, which fistula type passes UP above the puborectalis / levator ani muscle before descending through the ischiorectal fossa to the skin?",
+                options: [
+                    "Type 1: Intersphincteric",
+                    "Type 2: Transsphincteric",
+                    "Type 3: Suprasphincteric",
+                    "Type 4: Extrasphincteric"
+                ],
+                correct: 2,
+                exp: "Type 3 Suprasphincteric fistulas extend superiorly above the levator ani / puborectalis muscle before looping downward through the ischiorectal fossa.",
+                distractors: [
+                    "Type 1 stays between sphincters.",
+                    "Type 2 crosses both sphincters below puborectalis.",
+                    "Type 4 arises from rectum directly through levator ani."
+                ]
+            },
+            {
+                q: "What is the recommended daily intake of dietary fiber to increase fecal bulk and prevent hemorrhoidal engorgement?",
+                options: [
+                    "5 to 10 grams/day",
+                    "30 to 35 grams/day",
+                    "70 to 100 grams/day",
+                    "Fiber should be strictly eliminated"
+                ],
+                correct: 1,
+                exp: "Recommended daily fiber intake is 30 to 35 grams/day to bulk stools, soften fecal consistency, and eliminate straining.",
+                distractors: [
+                    "Option A is inadequate.",
+                    "Option C causes severe bloating/flatulence.",
+                    "Option D exacerbates constipation."
+                ]
+            },
+            {
+                q: "Which of the following is a known disadvantage and potential severe complication of Procedure for Prolapse and Hemorrhoids (PPH)?",
+                options: [
+                    "High risk of severe facial paralysis",
+                    "Rectal perforation, rectovaginal fistula, and chronic pelvic pain",
+                    "Immediate hair loss",
+                    "Development of gallstones"
+                ],
+                correct: 1,
+                exp: "Complications of PPH stapled hemorrhoidopexy include chronic rectal pain, rectovaginal fistula, rectal stricture, bacteremia, and rectal perforation.",
+                distractors: [
+                    "Options A, C, and D are unrelated systemic conditions."
+                ]
+            },
+            {
+                q: "What is the cornerstone surgical management for a simple, low intersphincteric fistula-in-ano (<30% sphincter involvement)?",
+                options: [
+                    "Fistulotomy (Lay-Open technique)",
+                    "Total pelvic exenteration",
+                    "Abdominoperineal Resection (APR)",
+                    "Dermal skin grafting"
+                ],
+                correct: 0,
+                exp: "Fistulotomy (laying open the tract) is the gold standard treatment for simple low anal fistulas, yielding a ~95% cure rate with minimal incontinence risk.",
+                distractors: [
+                    "Options B and C are radical cancer surgeries.",
+                    "Option D is unnecessary."
+                ]
+            },
+            {
+                q: "What physical finding represents redundant fibrotic tissue at the anal verge remaining after resolution of a thrombosed external hemorrhoid?",
+                options: [
+                    "Anal Skin Tag",
+                    "Hypertrophic Anal Papilla",
+                    "Sentinel Pile of fissure",
+                    "Condyloma Acuminata"
+                ],
+                correct: 0,
+                exp: "An anal skin tag is redundant fibrotic skin at the verge left behind after a thrombosed external hemorrhoid resolves.",
+                distractors: [
+                    "Option B is located proximally at the dentate line.",
+                    "Option C is specifically paired with an anal fissure tear.",
+                    "Option D is an HPV viral wart."
+                ]
+            },
+            {
+                q: "Which surgical option for Pilonidal Sinus disease utilizes an elliptical excision and transposes a vascularized pedicle flap off the midline (e.g., Limberg / Karydakis)?",
+                options: [
+                    "Off-Midline Flap Reconstruction",
+                    "Open Milligan-Morgan technique",
+                    "Whitehead Procedure",
+                    "Lateral Internal Sphincterotomy"
+                ],
+                correct: 0,
+                exp: "Off-midline flap techniques (Limberg rhomboid, Karydakis) transpose skin flaps to flatten the natal cleft and relocate incision lines off the midline, reducing recurrence to <5%.",
+                distractors: [
+                    "Option B is for hemorrhoids.",
+                    "Option C is abandoned hemorrhoidectomy.",
+                    "Option D is for fissure."
+                ]
+            },
+            {
+                q: "A 24-year-old female presents with multiple painless, soft, verrucous perianal lesions. Biopsy confirms Condyloma Acuminata. What is the primary cause?",
+                options: [
+                    "Human Papillomavirus (HPV) infection",
+                    "Mycobacterium tuberculosis",
+                    "Treponema pallidum",
+                    "Entamoeba histolytica"
+                ],
+                correct: 0,
+                exp: "Condyloma acuminata (anal warts) are sexually transmitted verrucous lesions caused by Human Papillomavirus (HPV, most commonly types 6 and 11).",
+                distractors: [
+                    "Option B causes anal TB.",
+                    "Option C causes condyloma lata of syphilis.",
+                    "Option D causes amebic dysentery."
+                ]
+            },
+            {
+                q: "What is the primary management recommendation for a patient with an ACUTE anal fissure (<4 weeks duration)?",
+                options: [
+                    "Immediate Lateral Internal Sphincterotomy",
+                    "Conservative medical management (fiber, sitz baths, stool softeners)",
+                    "Endorectal Advancement Flap",
+                    "Excisional Hemorrhoidectomy"
+                ],
+                correct: 1,
+                exp: "Acute anal fissures (<6 weeks) respond favorably to conservative non-operative management in >80% of cases.",
+                distractors: [
+                    "Option A is reserved for chronic fissures failing 8 weeks of conservative care.",
+                    "Options C and D are inappropriate."
+                ]
+            },
+            {
+                q: "Why is anal packing discouraged after hemorrhoidectomy?",
+                options: [
+                    "It causes severe post-operative pain and delays wound healing",
+                    "It increases systemic blood pressure",
+                    "It causes instant anal stenosis",
+                    "It induces immediate diarrhea"
+                ],
+                correct: 0,
+                exp: "Anal packing causes severe post-operative pain, urinary retention, and delays wound healing; modern guidelines advise against packing.",
+                distractors: [
+                    "Options B, C, and D are incorrect mechanisms."
+                ]
+            },
+            {
+                q: "Which statement regarding Goodsall's rule accuracy is TRUE?",
+                options: [
+                    "It is 100% accurate in all clinical situations",
+                    "It is 70-80% accurate, with exceptions occurring in complex, recurrent, or Crohn's fistulas",
+                    "It only applies to rectovaginal fistulas",
+                    "It has been completely disproven and abandoned"
+                ],
+                correct: 1,
+                exp: "Goodsall's rule has a predictive accuracy of ~70-80%. Complex, recurrent, or IBD fistulas frequently deviate and require MRI mapping.",
+                distractors: [
+                    "Option A is false (not 100%).",
+                    "Options C and D are false."
+                ]
+            },
+            {
+                q: "An Endorectal Advancement Flap (ERAF) is primarily indicated for which condition?",
+                options: [
+                    "Complex high fistula-in-ano or low/mid rectovaginal fistula",
+                    "Grade I internal hemorrhoids",
+                    "Acute posterior anal fissure",
+                    "Simple perianal abscess"
+                ],
+                correct: 0,
+                exp: "ERAF is a sphincter-sparing procedure designed for complex fistulas and rectovaginal fistulas, advancing a mucosal flap over the internal defect.",
+                distractors: [
+                    "Option B is treated conservatively.",
+                    "Option C is treated conservatively.",
+                    "Option D is treated with simple I&D."
+                ]
+            },
+            {
+                q: "What clinical symptom hallmark differentiates internal hemorrhoids from thrombosed external hemorrhoids?",
+                options: [
+                    "Internal = Painless bleeding; External = Severe constant pain",
+                    "Internal = Severe pain; External = Painless bleeding",
+                    "Both are completely painless",
+                    "Both cause identical severe pain"
+                ],
+                correct: 0,
+                exp: "Internal hemorrhoids are covered by insensate mucosa (presenting with painless bleeding), whereas thrombosed external hemorrhoids involve somatic anoderm (presenting with acute severe pain).",
+                distractors: [
+                    "Options B, C, and D misstate sensory innervation."
+                ]
+            },
+            {
+                q: "Which sclerosing agent is commonly injected into the submucosa for hemorrhoid sclerotherapy?",
+                options: [
+                    "5% Phenol in Olive Oil",
+                    "100% Hydrochloric Acid",
+                    "Sterile Normal Saline",
+                    "Liquid Nitrogen"
+                ],
+                correct: 0,
+                exp: "Common sclerosing solutions for hemorrhoid sclerotherapy include 5% Phenol in vegetable/olive oil, Sodium Morrhuate, or Quinine Urea.",
+                distractors: [
+                    "Option B is corrosive.",
+                    "Option C is non-sclerosing.",
+                    "Option D is for cryotherapy."
+                ]
+            },
+            {
+                q: "A patient presents with recurrent anorectal sepsis. Examination under anesthesia reveals an internal opening at the dentate line connected to an external opening. What is the diagnosis?",
+                options: [
+                    "Fistula-in-Ano",
+                    "Anal Fissure",
+                    "Pilonidal Sinus",
+                    "Grade IV Hemorrhoid"
+                ],
+                correct: 0,
+                exp: "A Fistula-in-Ano is defined as a chronic granulating tract connecting an internal opening in the anal canal (dentate line) to an external perianal opening.",
+                distractors: [
+                    "Fissure is a tear.",
+                    "Pilonidal sinus is in sacrococcygeal cleft without internal opening.",
+                    "Hemorrhoid is a prolapsed vascular cushion."
+                ]
+            }
+        ];
+
+        // DYNAMICALLY RENDER MCQS WITH DISTRACTOR RATIONALE
+        let userAnswers = {};
+        function renderMCQs() {
+            const container = document.getElementById('mcqContainer');
+            container.innerHTML = '';
+            
+            mcqData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'mcq-card';
+                card.id = `mcq-${index}`;
+                
+                let optionsHTML = '';
+                item.options.forEach((opt, optIndex) => {
+                    optionsHTML += `
+                        <button class="option-btn" onclick="selectOption(${index}, ${optIndex})">
+                            <strong>${String.fromCharCode(65 + optIndex)}.</strong> ${opt}
+                        </button>
+                    `;
+                });
+                
+                card.innerHTML = `
+                    <div class="mcq-header">
+                        <span class="question-number">QUESTION ${index + 1} OF 50</span>
+                    </div>
+                    <div class="mcq-text">${item.q}</div>
+                    <div class="options-list">${optionsHTML}</div>
+                    <div class="mcq-explanation" id="exp-${index}">
+                        <strong style="color: #047857;">✓ CORRECT ANSWER: ${String.fromCharCode(65 + item.correct)}</strong>
+                        <p style="margin-top: 0.4rem;">${item.exp}</p>
+                        <div class="distractor-analysis">
+                            <strong>Distractor Analysis:</strong>
+                            <ul style="margin-left: 1.25rem; margin-top: 0.3rem;">
+                                ${item.distractors.map(d => `<li>${d}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function selectOption(qIndex, optIndex) {
+            if (userAnswers[qIndex] !== undefined) return; // Prevent changing answer
+            
+            userAnswers[qIndex] = optIndex;
+            const qData = mcqData[qIndex];
+            const qCard = document.getElementById(`mcq-${qIndex}`);
+            const buttons = qCard.querySelectorAll('.option-btn');
+            
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === qData.correct) {
+                    btn.classList.add('correct');
+                } else if (idx === optIndex) {
+                    btn.classList.add('incorrect');
+                }
+            });
+            
+            document.getElementById(`exp-${qIndex}`).classList.add('active');
+            updateScore();
+        }
+
+        function updateScore() {
+            const totalAnswered = Object.keys(userAnswers).length;
+            let correctCount = 0;
+            Object.keys(userAnswers).forEach(qIdx => {
+                if (userAnswers[qIdx] === mcqData[qIdx].correct) correctCount++;
+            });
+            const pct = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
+            document.getElementById('scoreTracker').innerText = `Score: ${correctCount} / ${totalAnswered} (${pct}%)`;
+        }
+
+        // 5. GLOBAL SEARCH / FILTER LOGIC
+        function filterContent() {
+            const query = document.getElementById('globalSearch').value.toLowerCase();
+            if(!query) {
+                document.querySelectorAll('.card, .cram-item').forEach(el => el.style.display = '');
+                return;
+            }
+            
+            document.querySelectorAll('.card').forEach(card => {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(query) ? '' : 'none';
+            });
+        }
+
+        // INITIALIZE ON LOAD
+        window.onload = function() {
+            updateCard();
+            renderMCQs();
+        };
+    </script>
+</body>
+</html>

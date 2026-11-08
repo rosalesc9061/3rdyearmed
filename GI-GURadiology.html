@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gastrointestinal and Genitourinary Radiology Reviewer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-sidebar: #e2e8f0;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --accent-primary: #0284c7;
+            --accent-secondary: #0369a1;
+            --accent-hover: #bae6fd;
+            --border-color: #cbd5e1;
+            
+            --card-red: #ef4444;
+            --card-blue: #3b82f6;
+            --card-gold: #f59e0b;
+            --card-green: #10b981;
+            --card-purple: #8b5cf6;
+
+            --font-head: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        [data-theme="dark"] {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --bg-sidebar: #020617;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-primary: #38bdf8;
+            --accent-secondary: #7dd3fc;
+            --accent-hover: #0c4a6e;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1, h2, h3, h4, h5 { font-family: var(--font-head); font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem; }
+        p { margin-bottom: 1rem; }
+        ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; }
+        
+        /* Navbar & Navigation */
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-controls { display: flex; gap: 1rem; align-items: center; }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            background-color: var(--bg-sidebar);
+            padding: 0.5rem 2rem;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 73px;
+            z-index: 999;
+        }
+        
+        .tab-btn {
+            padding: 0.5rem 1.25rem;
+            border: none;
+            background: transparent;
+            font-family: var(--font-head);
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 0.5rem;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        
+        .tab-btn:hover { background-color: var(--accent-hover); color: var(--accent-primary); }
+        .tab-btn.active { background-color: var(--accent-primary); color: #fff; }
+
+        /* Content Areas */
+        .tab-content { display: none; padding: 2rem; max-width: 1400px; margin: 0 auto; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+
+        /* Cards & Layout */
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        
+        .concept-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--accent-primary);
+            transition: transform 0.2s;
+        }
+        .concept-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        
+        .border-red { border-left-color: var(--card-red); }
+        .border-blue { border-left-color: var(--card-blue); }
+        .border-gold { border-left-color: var(--card-gold); }
+        .border-green { border-left-color: var(--card-green); }
+        .border-purple { border-left-color: var(--card-purple); }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            background-color: var(--accent-hover);
+            color: var(--accent-secondary);
+            margin-bottom: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Figures */
+        .figure-box {
+            background-color: var(--bg-sidebar);
+            border: 1px dashed var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+        .figure-caption { font-family: var(--font-body); font-style: italic; margin-top: 0.5rem; color: var(--text-muted); }
+
+        /* Tables */
+        .table-wrapper { overflow-x: auto; margin-bottom: 2rem; border-radius: 0.5rem; border: 1px solid var(--border-color); }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 1rem; border-bottom: 1px solid var(--border-color); }
+        th { background-color: var(--bg-sidebar); font-family: var(--font-head); position: sticky; top: 0; }
+        tr:nth-child(even) { background-color: var(--bg-main); }
+        tr:hover { background-color: var(--accent-hover); }
+
+        /* Interactive Elements */
+        .collapsible {
+            background-color: var(--bg-sidebar);
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 1rem;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-family: var(--font-head);
+            font-weight: 600;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        .active-col { background-color: var(--accent-hover); border-radius: 0.5rem 0.5rem 0 0; }
+        .content-col {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 0.5rem 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Flashcards */
+        .fc-container { perspective: 1000px; width: 100%; max-width: 600px; height: 350px; margin: 2rem auto; }
+        .fc-card {
+            width: 100%; height: 100%; position: relative;
+            transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;
+        }
+        .fc-card.is-flipped { transform: rotateY(180deg); }
+        .fc-face {
+            width: 100%; height: 100%; position: absolute; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 2rem; border-radius: 1rem; border: 2px solid var(--border-color);
+            background-color: var(--bg-card); text-align: center; font-size: 1.25rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        .fc-back { transform: rotateY(180deg); background-color: var(--accent-hover); color: var(--text-main); }
+        .fc-controls { display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; }
+        .btn {
+            padding: 0.5rem 1rem; border: none; border-radius: 0.25rem; cursor: pointer;
+            background-color: var(--accent-primary); color: #fff; font-family: var(--font-head); font-weight: 600;
+        }
+        .btn:hover { background-color: var(--accent-secondary); }
+
+        /* MCQs */
+        .mcq-container { max-width: 800px; margin: 0 auto; }
+        .mcq-question { font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; }
+        .mcq-option {
+            display: block; width: 100%; text-align: left; padding: 1rem; margin-bottom: 0.5rem;
+            background-color: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 0.5rem; cursor: pointer; transition: all 0.2s; font-family: var(--font-body);
+        }
+        .mcq-option:hover { background-color: var(--accent-hover); }
+        .mcq-option.correct { background-color: var(--card-green); color: #fff; border-color: var(--card-green); }
+        .mcq-option.wrong { background-color: var(--card-red); color: #fff; border-color: var(--card-red); }
+        .mcq-explanation {
+            background-color: var(--bg-sidebar); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;
+            border-left: 4px solid var(--accent-primary); display: none;
+        }
+
+        /* Cram Sheet */
+        .cram-sheet { column-count: 2; column-gap: 2rem; }
+        .cram-item { break-inside: avoid; background-color: var(--bg-card); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; border: 1px solid var(--border-color); }
+        
+        /* Utils */
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        
+        #searchInput { padding: 0.5rem; border-radius: 0.25rem; border: 1px solid var(--border-color); font-family: var(--font-mono); }
+        #darkModeToggle { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .cram-sheet { column-count: 1; }
+            .nav-tabs { top: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>Gastrointestinal & Genitourinary Radiology</h1>
+            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">Comprehensive Reviewer | Med 2 - LE 3 | Dr. Mercedes C. Onagan</p>
+        </div>
+        <div class="header-controls">
+            <input type="text" id="searchInput" placeholder="Search concepts...">
+            <button id="darkModeToggle" title="Toggle Dark Mode">🌓</button>
+        </div>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="openTab('tab-overview')">1. Overview & Terminology</button>
+        <button class="tab-btn" onclick="openTab('tab-xray')">2. Abdominal X-Ray & Signs</button>
+        <button class="tab-btn" onclick="openTab('tab-contrast')">3. Contrast Studies & GIT</button>
+        <button class="tab-btn" onclick="openTab('tab-solid')">4. Solid Organs (Liver, GB, Pancreas, Spleen)</button>
+        <button class="tab-btn" onclick="openTab('tab-gut')">5. GUT, Retroperitoneum & Others</button>
+        <button class="tab-btn" onclick="openTab('tab-comparisons')">6. Comparisons</button>
+        <button class="tab-btn" onclick="openTab('tab-flashcards')">7. Flashcards</button>
+        <button class="tab-btn" onclick="openTab('tab-mcqs')">8. Self-Assessment (MCQs)</button>
+        <button class="tab-btn" onclick="openTab('tab-cram')">9. Cram Sheet</button>
+    </div>
+
+    <!-- TAB 1: OVERVIEW -->
+    <div id="tab-overview" class="tab-content active searchable">
+        <h2>Overview & Core Concepts</h2>
+        <p>This section covers the fundamental terminology and modalities utilized in abdominal and genitourinary radiology, critical for selecting the appropriate diagnostic approach.</p>
+        
+        <div class="grid-2">
+            <div class="concept-card border-blue">
+                <span class="badge">Must Know</span>
+                <h3>Radiologic Terminologies</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <tr><th>Modality</th><th>Black Appearance</th><th>White Appearance</th></tr>
+                        <tr><td>X-ray</td><td>Radiolucent</td><td>Radiopaque</td></tr>
+                        <tr><td>CT Scan</td><td>Hypodense</td><td>Hyperdense</td></tr>
+                        <tr><td>Ultrasound</td><td>Hypoechoic</td><td>Hyperechoic</td></tr>
+                        <tr><td>MRI</td><td>Hypointense (T1/T2 context)</td><td>Hyperintense</td></tr>
+                        <tr><td>Nuclear Scintigraphy</td><td>Hot (tracer uptake)</td><td>Cold (no uptake)</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="concept-card border-gold">
+                <span class="badge">Exam Tip</span>
+                <h3>Ultrasound Specifics</h3>
+                <ul>
+                    <li><strong>Anechoic:</strong> Purely black (e.g., bile, simple fluid, urinary bladder, blood vessels).</li>
+                    <li><strong>Hypoechoic:</strong> Black-appearing (complex fluid or solid lesion reference to surrounding).</li>
+                    <li><strong>Hyperechoic:</strong> Echogenic / White (structures like stones).</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>Strengths & Weaknesses of Modalities</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr>
+                    <th>Modality</th>
+                    <th>Strengths</th>
+                    <th>Weaknesses</th>
+                </tr>
+                <tr>
+                    <td><strong>X-ray</strong></td>
+                    <td>Bones (fractures), Air-containing structures (bowel gas pattern). Readily available.</td>
+                    <td>Cartilage, soft tissue.</td>
+                </tr>
+                <tr>
+                    <td><strong>CT Scan</strong></td>
+                    <td>Good soft tissue contrast. Best for extent of lesions beyond organ involved. Preferred first for complex abdominal evaluation due to MRI cost.</td>
+                    <td>Cartilage. Ionizing radiation.</td>
+                </tr>
+                <tr>
+                    <td><strong>Ultrasound</strong></td>
+                    <td>Solid organs, superficial small parts, real-time vascular (Doppler). No radiation. Best for ascites.</td>
+                    <td>Air (number one enemy). Cannot visualize bowel loops unless fluid-filled.</td>
+                </tr>
+                <tr>
+                    <td><strong>MRI</strong></td>
+                    <td>Superior soft tissue contrast. Best option when CT is equivocal.</td>
+                    <td>Motion artifact (lesser in new models), High cost, bone encased structures.</td>
+                </tr>
+                <tr>
+                    <td><strong>PET-CT (Nuclear)</strong></td>
+                    <td>Functional (metabolic/biochemical activity). Combines precise anatomic localization with functional imaging (Fusion image). Good for metastasis.</td>
+                    <td>Anatomic weakness of conventional scanner solved by PET-CT combo.</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="concept-card border-red">
+            <span class="badge">Common Pitfall</span>
+            <p><strong>Do not request UTZ for bowel evaluation</strong> unless you suspect fluid-filled loops, as the air in the intestines completely impedes the sound waves.</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: PLAIN RADIOGRAPHY & SIGNS -->
+    <div id="tab-xray" class="tab-content searchable">
+        <h2>Abdominal X-Ray & Common Signs</h2>
+        <p>The plain abdominal X-ray is the primary study requested for abdominal pain/enlargement because it provides an immediate overview of the bowel gas pattern.</p>
+
+        <div class="grid-2">
+            <div class="concept-card border-blue">
+                <h3>Routine Positions</h3>
+                <ul>
+                    <li><strong>Upright:</strong> Best for visualizing fluid levels (e.g., gastric bubble at left subdiaphragmatic region).</li>
+                    <li><strong>Supine:</strong> Shows radiolucency outlining the stomach due to gas shift to the non-dependent aspect.</li>
+                </ul>
+                <div class="figure-box">
+                    <p><strong>[Figure 1 & 2 Placeholder]</strong> <em>Routine X-ray Positions:</em> Shows Upright view (gastric fluid level) vs Supine view. Anatomically, Small intestines are centrally located (mucosal folds = valvulae conniventes). Large intestines are peripherally located (haustrations).</p>
+                </div>
+            </div>
+
+            <div class="concept-card border-gold">
+                <h3>Normal Bowel Calibers</h3>
+                <ul>
+                    <li><strong>Small Intestine:</strong> Up to 3 cm</li>
+                    <li><strong>Large Intestine:</strong> Up to 4 cm</li>
+                </ul>
+            </div>
+        </div>
+
+        <button class="collapsible">Calcifications on X-ray</button>
+        <div class="content-col">
+            <p>Calcifications appear <strong>radiopaque</strong>. Their anatomical location infers the involved organ.</p>
+            <ul>
+                <li><strong>RUQ Calcification:</strong> Likely Gallbladder stones (cluster, rounded, outside renal shadow). <em>Next step: Ultrasound to confirm.</em></li>
+                <li><strong>Overlying Renal Outline:</strong> Likely Kidney stone.</li>
+                <li><strong>RLQ (overlapping iliac wing):</strong> Appendicolith (stone within appendix).</li>
+                <li><strong>Along Paraspinal/Sacral Wing:</strong> Ureteral stones.</li>
+            </ul>
+        </div>
+
+        <button class="collapsible">Mass Evaluation via X-ray</button>
+        <div class="content-col">
+            <p>Masses are identified by <strong>inference</strong> (displacement of bowel loops).</p>
+            <ul>
+                <li>Upper abdominal density displacing bowels inferiorly: Enlarged liver/spleen.</li>
+                <li>Left hemi-abdominal density displacing bowels rightward: Mass from left kidney or spleen.</li>
+                <li>Mass displacing transverse colon superiorly: Pelvo-abdominal mass.</li>
+            </ul>
+        </div>
+
+        <h3>Bowel Gas Patterns: Ileus vs Obstruction</h3>
+        <div class="grid-2">
+            <div class="concept-card border-purple">
+                <span class="badge">Pathophysiology</span>
+                <h3>Adynamic (Paralytic) Ileus</h3>
+                <ul>
+                    <li><strong>Definition:</strong> "Lazy bowel", generalized lack of peristalsis. Common in sedentary lifestyle or post-op (should resolve by 4th post-op day).</li>
+                    <li><strong>X-ray Findings:</strong> Normal caliber gas-containing small and large bowel loops. Disorganized pattern.</li>
+                    <li><strong>Rectal Gas:</strong> Present.</li>
+                    <li><strong>Air-Fluid Levels:</strong> Non-differential (air fluid is on the same level in a loop due to absent peristalsis).</li>
+                </ul>
+            </div>
+            
+            <div class="concept-card border-purple">
+                <span class="badge">Pathology</span>
+                <h3>Segmental Ileus (Sentinel Loop)</h3>
+                <ul>
+                    <li><strong>Definition:</strong> Focal, gas-filled, localized distended loop responding to acute intra-abdominal inflammation.</li>
+                    <li><strong>Location correlates to inflammation:</strong>
+                        <ul>
+                            <li>RLQ: Appendicitis</li>
+                            <li>RUQ: Cholecystitis</li>
+                            <li>Upper/Central: Pancreatitis (Hallmark by X-ray)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="concept-card border-red">
+            <span class="badge">Must Know</span>
+            <h3>Bowel Obstruction</h3>
+            <p><strong>Radiographic Features:</strong></p>
+            <ul>
+                <li><strong>Disproportionate bowel loop dilatation:</strong> Proximal to obstruction is dilated (>3cm SB, >4cm LB), distal is normal/collapsed.</li>
+                <li><strong>Organized Pattern:</strong> Helps locate obstruction site (always distal to the distended loops).
+                    <ul>
+                        <li>Obstruction at distal ileum → multiple dilated proximal small intestines.</li>
+                        <li>Obstruction at sigmoid → proximal descending/transverse dilated.</li>
+                    </ul>
+                </li>
+                <li><strong>Rectal Gas:</strong> Negative if complete; Present if incomplete.</li>
+                <li><strong>Air-Fluid Level:</strong> Differential air-fluid level in a loop (due to intact peristalsis fighting the obstruction).</li>
+            </ul>
+            <p><strong>Specific Signs:</strong></p>
+            <ul>
+                <li><em>Stack of coins:</em> Separation of plicae circulares.</li>
+                <li><em>Stepladder sign:</em> Shows number of dilated loops (more loops = more distal obstruction).</li>
+                <li><em>String-of-beads sign:</em> Lateral decubitus view. Large fluid in small intestine; gas accumulates in non-dependent separated plicae.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 3: CONTRAST STUDIES & GIT -->
+    <div id="tab-contrast" class="tab-content searchable">
+        <h2>Contrast Studies & GIT Pathologies</h2>
+        
+        <div class="grid-3">
+            <div class="concept-card border-blue">
+                <h3>Esophagogram / Barium Swallow</h3>
+                <p>Investigates pharynx down to esophagus in real-time. Indications: dysphagia, sensation of lump, vomiting.</p>
+                <p><strong>Normal:</strong> Smooth mucosal outline, visible esophageal peristalsis. Cervical osteophytes can cause anterior indentations.</p>
+            </div>
+            <div class="concept-card border-blue">
+                <h3>UGIS with Small Bowel Series</h3>
+                <p>Extends to Stomach & Small Intestine (down to ligament of Treitz). Feathery appearance = Jejunum. Less defined = Ileum. Imaginary line from RUQ to LLQ separates Jejunum (top left) from Ileum (bottom right).</p>
+            </div>
+            <div class="concept-card border-blue">
+                <h3>Barium Enema</h3>
+                <p>Infused retrogradely via rectum. Evaluates colon (rectum to cecum). Identifies haustrations.</p>
+            </div>
+        </div>
+
+        <h3>Specific GIT Pathologies</h3>
+        <button class="collapsible">Esophageal Pathologies</button>
+        <div class="content-col">
+            <table style="margin-top: 1rem;">
+                <tr><th>Condition</th><th>Details & Radiographic Findings</th></tr>
+                <tr>
+                    <td><strong>Esophageal Stricture</strong></td>
+                    <td><strong>Benign (Inflammation/GERD):</strong> Tapered, smooth, circumferential narrowing.<br><strong>Malignant:</strong> Abrupt, concentric/eccentric narrowing, irregular nodular mucosa.</td>
+                </tr>
+                <tr>
+                    <td><strong>Achalasia</strong></td>
+                    <td>Failure of LES relaxation (Auerbach plexus destruction). <strong>Bird's beak deformity:</strong> Tapered narrowing at LES with proximal dilatation.</td>
+                </tr>
+                <tr>
+                    <td><strong>Esophageal Carcinoma</strong></td>
+                    <td>Best seen on CT. Eccentric, irregular wall thickening. Serosal irregularity indicates extension beyond muscularis.</td>
+                </tr>
+            </table>
+        </div>
+
+        <button class="collapsible">Stomach & Duodenum Pathologies</button>
+        <div class="content-col">
+            <ul>
+                <li><strong>Gastrointestinal Stromal Tumor (GIST):</strong> Most common mesenchymal tumor. Long asymptomatic growth. Submucosal/Extraluminal mass indenting gastric lumen. Well-defined border.</li>
+                <li><strong>Gastric Carcinoma:</strong> 95% Adenocarcinoma. Types: Polypoid (filling defect), Ulcerative, Infiltrating. <strong>Linitis Plastica:</strong> Leather-bottle configuration, diffuse infiltration causing stiff, narrowed lumen.</li>
+                <li><strong>Duodenal Ulcer:</strong> 95% H. pylori. Ulcer crater fills with contrast, thickened mucosal folds radiate from crater.</li>
+                <li><strong>Duodenal Diverticulum:</strong> Common in 2nd segment. Saccular outpouching with visible stalk. Change in configuration during peristalsis.</li>
+                <li><strong>Widened Duodenal C-Loop:</strong> Highly suggestive of Pancreatic head mass (Malignancy or Pancreatic Pseudocyst).</li>
+            </ul>
+        </div>
+
+        <button class="collapsible">Colonic Pathologies</button>
+        <div class="content-col">
+            <ul>
+                <li><strong>Colonic Carcinoma:</strong> Most common abdominal malignancy. 50% in rectosigmoid. Presents with changed bowel habits. <strong>Apple Core Appearance:</strong> Short abrupt narrowing with overhanging edges on barium enema. PET-CT shows "Light Bulb" sign (hypermetabolic).</li>
+                <li><strong>Diverticulosis:</strong> Outward herniation of mucosa/submucosa due to smooth muscle weakness (low-residue diet). Multiple thin-walled air-containing outpouchings, most common in Sigmoid.</li>
+                <li><strong>Diverticulitis:</strong> Inflamed diverticula. CT shows thickened dense walls, pericolic fat stranding. Can perforate into a paracolic abscess (intralesional gas, luminal fluid).</li>
+                <li><strong>Large Bowel Obstruction (LBO):</strong> 
+                    <ul>
+                        <li><em>Competent Ileocecal Valve (ICV):</em> Colonic distension increases rapidly, limited backflow.</li>
+                        <li><em>Incompetent ICV:</em> Retrograde gas flow into small intestine, centralized normal-caliber SB loops.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <button class="collapsible">Pneumoperitoneum & Hernias</button>
+        <div class="content-col">
+            <p><strong>Pneumoperitoneum:</strong> Free air in peritoneal cavity (bowel perforation, trauma). Resolves in 3-4 days post-op.</p>
+            <ul>
+                <li><strong>Upright CXR:</strong> Subdiaphragmatic gas (crescent lucency).</li>
+                <li><strong>Left Lateral Decubitus:</strong> For bedridden. Parahepatic air.</li>
+                <li><strong>Signs:</strong> Double wall (Rigler) sign, Football sign.</li>
+                <li><strong>CT:</strong> Air collects at non-dependent anterior portion (patient is supine).</li>
+            </ul>
+            <p><strong>Hernias:</strong> Organ pushes through defect.</p>
+            <ul>
+                <li><strong>Diaphragmatic:</strong> Congenital/acquired. Bowel/stomach in thorax. Bochdalek (Left), Morgagni (Right).</li>
+                <li><strong>Umbilical:</strong> Common post-lap cholecystectomy. Reducible mass with fat attenuation (mesenteric tear).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 4: SOLID ORGANS -->
+    <div id="tab-solid" class="tab-content searchable">
+        <h2>Solid Organs (Liver, GB, Pancreas, Spleen)</h2>
+        <p>Evaluated best via Ultrasound and CT. MRI utilized when CT is equivocal.</p>
+
+        <div class="grid-2">
+            <div class="concept-card border-gold">
+                <h3>Gallbladder (GB) & Biliary Pathologies</h3>
+                <ul>
+                    <li><strong>Cholelithiasis:</strong> GB Stones. <em>UTZ:</em> Hyperechoic focus with posterior acoustic shadowing. <em>X-ray:</em> Multifaceted RUQ calcifications.</li>
+                    <li><strong>Biliary Sludge:</strong> Medium-level echoes, mixture of particulate matter/bile.</li>
+                    <li><strong>Sludge Ball:</strong> Mobile, intraluminal, hyperechoic, non-shadowing, non-vascular focus.</li>
+                    <li><strong>GB Polyp:</strong> Isoechoic, non-shadowing, immobile soft tissue focus attached to wall. >1cm = premalignant risk.</li>
+                    <li><strong>Cholecystitis:</strong> GB wall >2mm, pericholecystic fluid, fat stranding on CT (subacute/chronic).</li>
+                    <li><strong>Gangrenous Cholecystitis:</strong> Necrosis due to ischemia. Striated thickened wall, intraluminal membranes.</li>
+                    <li><strong>Emphysematous Cholecystitis:</strong> Gas in GB wall. Hyperechoic with dirty shadowing (UTZ), hypodense gas (CT).</li>
+                    <li><strong>Choledocholithiasis:</strong> CBD stones causing dilated intrahepatic ducts. Filling defect on ERCP.</li>
+                </ul>
+            </div>
+
+            <div class="concept-card border-red">
+                <span class="badge">Triphasic CT of Liver</span>
+                <h3>Hepatic Nodules & Masses</h3>
+                <p>Used to differentiate benign vs malignant liver lesions. Normal liver gets 80% blood from portal vein; tumors get 100% from hepatic artery.</p>
+                <ul>
+                    <li><strong>Arterial Phase (18 sec):</strong> Lesions begin to enhance.</li>
+                    <li><strong>Venous Phase (35 sec):</strong> Nodules enhance fully (solid nature, hypervascular).</li>
+                    <li><strong>Delayed/Equilibrium (5-10 min):</strong> Contrast washes out of tumors. (If retained = Hemangioma).</li>
+                </ul>
+            </div>
+        </div>
+
+        <button class="collapsible">Liver Pathologies (Hepatomegaly, Steatosis, Cirrhosis)</button>
+        <div class="content-col">
+            <ul>
+                <li><strong>Hepatomegaly:</strong> Span >15.5cm (midclavicular). Rounded inferior edge extending past lower pole of right kidney. <em>Normal variants:</em> Riedel's Lobe (elongated right tip), Beaver Tail (elongated left lobe wrapping spleen).</li>
+                <li><strong>Hepatic Steatosis (Fatty Liver):</strong> Excess fat. <em>UTZ:</em> Increased echogenicity obscures portal vein walls, far-field becomes hypoechoic. <em>CT:</em> Liver attenuation is lower than spleen (Normal: Liver ~ Spleen).</li>
+                <li><strong>Hepatic Cysts:</strong> Well-defined, smooth. Anechoic on UTZ (posterior acoustic enhancement). Hypodense on CT.</li>
+                <li><strong>Hepatic Abscess:</strong> Irregular complex fluid. Doppler shows perilesional (not intralesional) vascularity due to inflammation. CT shows septal/rim enhancement.</li>
+                <li><strong>Metastases:</strong> Multiple nodularities (hypo/hyperechoic).</li>
+                <li><strong>Liver Cirrhosis:</strong> Small liver, lobulated margin, coarse parenchyma, associated with ascites. Pathogenesis: repetitive injury → excess collagen → fibrosis → cirrhosis.</li>
+                <li><strong>Ultrasound Elastography:</strong> Best non-invasive alternative to biopsy to measure tissue stiffness and stage hepatic fibrosis before it becomes cirrhosis.</li>
+            </ul>
+        </div>
+
+        <button class="collapsible">Pancreas & Spleen</button>
+        <div class="content-col">
+            <p><strong>Pancreas:</strong></p>
+            <ul>
+                <li><strong>Pancreatitis:</strong> Enlarged due to edema. Heterogeneously hypoechoic (UTZ) / hypodense (CT). Sentinel loop on X-ray.</li>
+                <li><strong>Pseudocyst:</strong> Common benign fluid collection, can widen duodenal loop.</li>
+                <li><strong>Solid Mass:</strong> Markedly irregular, obstructs pancreatic duct, encroaches on SMA/SMV.</li>
+            </ul>
+            <p><strong>Spleen:</strong></p>
+            <ul>
+                <li><strong>Splenomegaly:</strong> Length >12cm. Splenic index >480. Often due to hematopoietic abnormalities or portal hypertension (look for tortuous dilated splenic vessels).</li>
+                <li><strong>Splenic Calcifications:</strong> Hyperechoic (UTZ), Hyperdense (CT). Post-infectious.</li>
+                <li><strong>Splenic Abscess:</strong> Complex mass fluid collection.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 5: GUT & OTHERS -->
+    <div id="tab-gut" class="tab-content searchable">
+        <h2>Genitourinary Tract, Retroperitoneum & Others</h2>
+        
+        <div class="grid-2">
+            <div class="concept-card border-green">
+                <h3>Kidney & Ureter</h3>
+                <ul>
+                    <li><strong>Medical Renal Parenchymal Disease:</strong> Non-specific for nephritis. Cortex becomes hyperechoic relative to liver.</li>
+                    <li><strong>Acute Nephritis:</strong> CT shows perirenal soft tissue fat stranding.</li>
+                    <li><strong>Staghorn Calculus:</strong> Large stone conforming to pelvocaliceal system. Best seen on X-ray/CT (Not UTZ).</li>
+                    <li><strong>Nephrolithiasis:</strong>
+                        <ul>
+                            <li><em>Non-obstructing:</em> Cortical, no calyx dilation.</li>
+                            <li><em>Obstructing:</em> Intraluminal, causes pelvocaliceal dilation (hydronephrosis).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Ureterolithiasis:</strong> Diagnosed via CT Stonogram (Modality of choice). Can cause severe upstream hydronephrosis.</li>
+                    <li><strong>Renal Mass:</strong> CT Urogram to assess enhancing/non-enhancing masses pre- and post-op.</li>
+                </ul>
+            </div>
+
+            <div class="concept-card border-green">
+                <h3>Bladder & Prostate</h3>
+                <ul>
+                    <li><strong>Cystolithiasis (Bladder Stones):</strong> Radiopaque (X-ray), Echogenic with strong shadow (UTZ), Hyperdense (CT).</li>
+                    <li><strong>Cystitis:</strong> Bladder wall > 3mm. (UTZ requires >150cc fluid for eval). CT shows nodular thickening.</li>
+                    <li><strong>Bladder Mass:</strong> Presents with hematuria. If near UVJ, obstructs distal ureter. If at bladder neck, causes urinary retention.</li>
+                    <li><strong>Prostate:</strong>
+                        <ul>
+                            <li><em>Trans-abdominal UTZ:</em> Requires full bladder. Pre/post-void to check retention.</li>
+                            <li><em>Transrectal UTZ:</em> Modality of choice for enlarged prostate (BPH vs nodules).</li>
+                            <li><em>MRI:</em> Definitive for prostate carcinoma staging and radiotherapy planning.</li>
+                            <li><em>Prostatomegaly:</em> Causes chronic bladder outlet obstruction → chronic cystitis.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <button class="collapsible">Ascites, Aorta & Lymphoma</button>
+        <div class="content-col">
+            <p><strong>Ascites:</strong> Fluid in peritoneal cavity. Best confirmed via UTZ (sensitive to small amounts in Morrison pouch / pelvis). X-ray shows diffuse haziness, central floating bowels.</p>
+            <ul>
+                <li><strong>Serous:</strong> Cirrhosis, CHF, Hypoproteinemia. Anechoic (UTZ), -10 to +10 HU (CT).</li>
+                <li><strong>Exudative:</strong> Infection/inflammation. Low-level echoes (UTZ), ≥ +15 HU (CT).</li>
+                <li><strong>Hemoperitoneum:</strong> Trauma/Surgery. Medium echoes (UTZ), ≥ +45 HU (CT).</li>
+                <li><strong>Neoplastic:</strong> Intraperitoneal tumors. Bloody fluid.</li>
+            </ul>
+            <p><strong>Aortic Aneurysm:</strong> Strong pulsatile mid-abdomen mass. CT shows fusion dilatation proximal to common iliac bifurcation, calcifications.</p>
+            <p><strong>Hodgkin's Lymphoma:</strong> CT shows matted retroperitoneal masses (multiple focal lymphadenopathies).</p>
+            <p><strong>Abdominal Wall Lipoma:</strong> Hypodense fat-attenuating mass in muscular layer, non-enhancing on contrast.</p>
+        </div>
+    </div>
+
+    <!-- TAB 6: COMPARISONS -->
+    <div id="tab-comparisons" class="tab-content searchable">
+        <h2>Side-by-Side Comparisons</h2>
+        
+        <div class="table-wrapper">
+            <h3>Bowel Obstruction vs. Ileus</h3>
+            <table>
+                <tr><th>Feature</th><th>Bowel Obstruction</th><th>Adynamic Ileus</th></tr>
+                <tr><td>Bowel Loop Caliber</td><td>Disproportionate dilatation (Proximal dilated, Distal collapsed)</td><td>Normal caliber, diffusely distended</td></tr>
+                <tr><td>Gas Pattern</td><td>Organized pattern</td><td>Disorganized pattern</td></tr>
+                <tr><td>Rectal Gas</td><td>Absent (if complete obstruction)</td><td>Present</td></tr>
+                <tr><td>Air-Fluid Level</td><td>Differential (different heights in same loop)</td><td>Non-differential (same height)</td></tr>
+            </table>
+        </div>
+
+        <div class="table-wrapper">
+            <h3>Gallbladder Stone vs. GB Polyp vs. Cholecystitis</h3>
+            <table>
+                <tr><th>Feature</th><th>Gallbladder Stone (Cholesterol)</th><th>Gallbladder Polyp</th><th>Cholecystitis</th></tr>
+                <tr><td>Mobility</td><td>Mobile (Dependent portion or floating)</td><td>Immobile (Attached to wall)</td><td>N/A</td></tr>
+                <tr><td>Echogenicity</td><td>Hyperechoic (Pure cholesterol = Isoechoic)</td><td>Isoechoic soft tissue</td><td>N/A</td></tr>
+                <tr><td>Shadowing</td><td>Posterior acoustic shadowing (Cholesterol = Non-shadowing)</td><td>Non-shadowing</td><td>N/A</td></tr>
+                <tr><td>Wall finding</td><td>Normal wall</td><td>Normal wall</td><td>Wall >2mm, striated, pericholecystic fluid</td></tr>
+            </table>
+        </div>
+
+        <div class="table-wrapper">
+            <h3>Benign vs Malignant GI Strictures</h3>
+            <table>
+                <tr><th>Feature</th><th>Benign (e.g. GERD/Inflammation)</th><th>Malignant (e.g. Carcinoma)</th></tr>
+                <tr><td>Morphology</td><td>Tapered, smooth, concentric narrowing</td><td>Abrupt, concentric/eccentric, irregular nodular mucosa</td></tr>
+                <tr><td>Length of segment</td><td>Usually longer, gradual</td><td>Short segment ("Apple core" in colon)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB 7: FLASHCARDS -->
+    <div id="tab-flashcards" class="tab-content">
+        <h2>Active-Recall Flashcards</h2>
+        <p class="text-center" style="color:var(--text-muted);">Press <kbd>Space</kbd> to flip, <kbd>Left</kbd> or <kbd>Right</kbd> to navigate.</p>
+        <div class="text-center mb-1">
+            <span id="fc-progress" class="badge">Card 1 / 50</span>
+        </div>
+        
+        <div class="fc-container">
+            <div class="fc-card" id="fc-card" onclick="flipCard()">
+                <div class="fc-face fc-front" id="fc-front">Front</div>
+                <div class="fc-face fc-back" id="fc-back">Back</div>
+            </div>
+        </div>
+        <div class="fc-controls">
+            <button class="btn" onclick="prevCard()">Prev</button>
+            <button class="btn" onclick="shuffleCards()">Shuffle</button>
+            <button class="btn" onclick="nextCard()">Next</button>
+        </div>
+    </div>
+
+    <!-- TAB 8: MCQs -->
+    <div id="tab-mcqs" class="tab-content">
+        <h2>Self-Assessment (MCQs)</h2>
+        <div class="mcq-container">
+            <div class="text-center mb-1">
+                <span id="mcq-progress" class="badge">Question 1 / 50</span>
+                <span id="mcq-score" class="badge border-green">Score: 0</span>
+            </div>
+            <div id="mcq-box">
+                <div class="mcq-question" id="mcq-q">Question text goes here</div>
+                <div id="mcq-options"></div>
+                <div class="mcq-explanation" id="mcq-exp"></div>
+                <button class="btn mt-2" id="mcq-next-btn" onclick="nextMCQ()" style="display:none;">Next Question</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 9: CRAM SHEET -->
+    <div id="tab-cram" class="tab-content searchable">
+        <h2>Cram Sheet (Rapid Review)</h2>
+        <div class="cram-sheet">
+            <div class="cram-item"><strong>If you see "Sentinel Loop" →</strong> Think localized acute inflammation (Pancreatitis if upper/central, Appendicitis if RLQ, Cholecystitis if RUQ).</div>
+            <div class="cram-item"><strong>If you see "Disproportionate bowel dilation" →</strong> Think Bowel Obstruction.</div>
+            <div class="cram-item"><strong>If you see "Differential air-fluid levels" →</strong> Think Bowel Obstruction (intact peristalsis fighting blockage).</div>
+            <div class="cram-item"><strong>If you see "Non-differential air-fluid levels" →</strong> Think Paralytic Ileus (lazy bowel).</div>
+            <div class="cram-item"><strong>If you see "Bird's Beak" on Barium Swallow →</strong> Think Achalasia.</div>
+            <div class="cram-item"><strong>If you see "Apple Core" lesion on Barium Enema →</strong> Think Colonic Carcinoma.</div>
+            <div class="cram-item"><strong>If you see "Stack of Coins" or "Stepladder" →</strong> Think Small Bowel Obstruction.</div>
+            <div class="cram-item"><strong>If you see "String of Beads" on lateral decubitus →</strong> Think Small Bowel Obstruction.</div>
+            <div class="cram-item"><strong>If you see "Light Bulb" on PET-CT →</strong> Think Hypermetabolic Malignancy (e.g., Colonic CA).</div>
+            <div class="cram-item"><strong>If you see "Leather-bottle" stomach →</strong> Think Linitis Plastica (Gastric Carcinoma).</div>
+            <div class="cram-item"><strong>If you see "Anechoic focus with posterior enhancement" →</strong> Think Simple Cyst.</div>
+            <div class="cram-item"><strong>If you see "Hyperechoic focus with posterior shadowing" →</strong> Think Calculus/Stone.</div>
+            <div class="cram-item"><strong>If you see "Crescent subdiaphragmatic gas" →</strong> Think Pneumoperitoneum (Perforation).</div>
+            <div class="cram-item"><strong>If you see "Widened Duodenal C-Loop" →</strong> Think Pancreatic Head Mass or Pseudocyst.</div>
+            <div class="cram-item"><strong>If you see "Triphasic CT Contrast Retention in Delayed Phase" →</strong> Think Hepatic Hemangioma.</div>
+            <div class="cram-item"><strong>X-Ray Black/White →</strong> Radiolucent / Radiopaque.</div>
+            <div class="cram-item"><strong>CT Scan Black/White →</strong> Hypodense / Hyperdense.</div>
+            <div class="cram-item"><strong>Ultrasound Black/White →</strong> Anechoic (or Hypoechoic) / Hyperechoic.</div>
+            <div class="cram-item"><strong>Modality for Cartilage →</strong> MRI (X-ray & CT are weak for cartilage).</div>
+            <div class="cram-item"><strong>Modality for Suspected Ureteral Stone →</strong> CT Stonogram (replaces IVP).</div>
+            <div class="cram-item"><strong>US Elastography →</strong> Used to stage hepatic fibrosis / monitor progression to cirrhosis.</div>
+            <div class="cram-item"><strong>Gallbladder Wall >2mm + fluid →</strong> Acute Cholecystitis.</div>
+            <div class="cram-item"><strong>Gas in GB Wall →</strong> Emphysematous Cholecystitis.</div>
+            <div class="cram-item"><strong>Beaver Tail Liver →</strong> Normal variant, elongated left lobe touching spleen.</div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Tab Navigation
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Dark Mode
+        const toggleBtn = document.getElementById('darkModeToggle');
+        toggleBtn.addEventListener('click', () => {
+            const html = document.documentElement;
+            if(html.getAttribute('data-theme') === 'light') {
+                html.setAttribute('data-theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+            }
+        });
+
+        // Search
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            document.querySelectorAll('.searchable').forEach(section => {
+                if(section.classList.contains('active')) {
+                    const cards = section.querySelectorAll('.concept-card, .content-col li, .cram-item, tr');
+                    cards.forEach(card => {
+                        if(card.textContent.toLowerCase().includes(term)) {
+                            card.style.display = '';
+                        } else {
+                            if(card.tagName !== 'TH') card.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+
+        // Collapsibles
+        document.querySelectorAll('.collapsible').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('active-col');
+                const content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        });
+
+        // Flashcards Data (50 minimum)
+        const fcData = [
+            {f:"X-ray: Black / White", b:"Radiolucent / Radiopaque"},
+            {f:"CT Scan: Black / White", b:"Hypodense / Hyperdense"},
+            {f:"Ultrasound: Black / White", b:"Hypoechoic (or Anechoic) / Hyperechoic"},
+            {f:"MRI: Black / White", b:"Hypointense / Hyperintense"},
+            {f:"Nuclear Scintigraphy: Black / White", b:"Hot / Cold"},
+            {f:"Number one enemy of Ultrasound", b:"Air (gas in bowel)"},
+            {f:"Best modality for extent of lesion beyond organ involved", b:"CT Scan (or MRI)"},
+            {f:"Routine Abdominal X-Ray positions", b:"Upright (for fluid levels) and Supine (for gas shift)"},
+            {f:"Normal caliber of Small vs Large Intestine", b:"Small: up to 3cm, Large: up to 4cm"},
+            {f:"RUQ Calcification on X-ray indicates?", b:"Likely Gallbladder Stones (Need UTZ to confirm)"},
+            {f:"Appendicolith location", b:"RLQ overlapping the iliac wing"},
+            {f:"Adynamic (Paralytic) Ileus presentation", b:"Normal caliber, disorganized gas pattern, non-differential air-fluid level, rectal gas present"},
+            {f:"Sentinel Loop", b:"Focal localized distended bowel loop indicating adjacent acute inflammation"},
+            {f:"Hallmark X-ray sign of Pancreatitis", b:"Upper/central Sentinel Loop"},
+            {f:"Bowel Obstruction hallmark", b:"Disproportionate bowel loop dilatation (proximal dilated, distal collapsed)"},
+            {f:"Air-fluid level in Bowel Obstruction vs Ileus", b:"Obstruction = Differential; Ileus = Non-differential"},
+            {f:"String of beads sign", b:"Small bowel obstruction seen on lateral decubitus view"},
+            {f:"Most common cause of esophageal stricture", b:"Reflux esophagitis secondary to GERD"},
+            {f:"Bird's Beak deformity on Barium Swallow", b:"Achalasia"},
+            {f:"Serosal irregularity in Esophageal CA indicates?", b:"Invasion beyond the muscularis layer"},
+            {f:"Linitis Plastica", b:"Diffuse infiltration of gastric wall by carcinoma (Leather-bottle stomach)"},
+            {f:"Widened duodenal C-loop indicates?", b:"Mass in the pancreatic head or pancreatic pseudocyst"},
+            {f:"Apple Core Appearance on Barium Enema", b:"Colonic Carcinoma"},
+            {f:"Light Bulb sign on PET-CT", b:"Increased metabolic uptake (Malignancy, e.g. Colon CA)"},
+            {f:"Diverticulosis most common location", b:"Sigmoid colon"},
+            {f:"Pneumoperitoneum classic X-ray finding", b:"Crescent-shaped lucency at subdiaphragmatic space (Upright CXR)"},
+            {f:"Rigler Sign / Football Sign", b:"Radiographic signs of pneumoperitoneum"},
+            {f:"Parahepatic air on left lateral decubitus", b:"Pneumoperitoneum in a bed-ridden patient"},
+            {f:"Bochdalek vs Morgagni Hernia", b:"Bochdalek = Left-sided, Morgagni = Right-sided diaphragmatic hernia"},
+            {f:"Gallbladder Stone on UTZ", b:"Hyperechoic focus with posterior acoustic shadowing"},
+            {f:"Gallbladder Polyp on UTZ", b:"Isoechoic, non-shadowing, attached to GB wall"},
+            {f:"Acute Cholecystitis hallmark on UTZ", b:"GB Wall > 2mm, pericholecystic fluid"},
+            {f:"Emphysematous Cholecystitis", b:"Gas in GB wall (dirty shadowing on UTZ, hypodense on CT)"},
+            {f:"Triphasic CT Liver: Arterial Phase", b:"18 seconds post-IV. Lesions begin to enhance (tumors get 100% blood from hepatic artery)"},
+            {f:"Triphasic CT Liver: Delayed Phase Retention", b:"Contrast retained in nodule = Hepatic Hemangioma"},
+            {f:"Beaver Tail Liver", b:"Normal variant: Elongated left liver lobe surrounding the spleen"},
+            {f:"Hepatic Steatosis (Fatty Liver) on UTZ", b:"Increased echogenicity obscures portal vein walls, far-field becomes dark"},
+            {f:"Hepatic Cyst on UTZ", b:"Anechoic, well-circumscribed, with posterior acoustic enhancement"},
+            {f:"Best alternative to liver biopsy for staging fibrosis", b:"Ultrasound Elastography"},
+            {f:"Splenic Index threshold for Splenomegaly", b:"> 480 mL (or Length > 12cm)"},
+            {f:"Tortuous dilated splenic vessels indicates?", b:"Portal Hypertension"},
+            {f:"Anechoic fluid in Morrison pouch", b:"Ascites (in supine position)"},
+            {f:"Hemoperitoneum CT density", b:"≥ +45 HU"},
+            {f:"Aortic Aneurysm location", b:"Distal end before the common iliac bifurcation"},
+            {f:"Staghorn Calculus best modality", b:"X-ray and CT (Not UTZ)"},
+            {f:"Imaging of choice for Ureterolithiasis", b:"CT Stonogram"},
+            {f:"Cystitis UTZ requirement", b:"Bladder wall >3mm with at least 150cc of urine in bladder"},
+            {f:"Modality of choice for enlarged prostate / nodules", b:"Transrectal Ultrasound"},
+            {f:"Definitive modality for prostate CA staging", b:"MRI"},
+            {f:"Matted retroperitoneal masses on CT", b:"Hodgkin's Lymphoma"}
+        ];
+
+        let fcIndex = 0;
+        const fcCard = document.getElementById('fc-card');
+        const fcFront = document.getElementById('fc-front');
+        const fcBack = document.getElementById('fc-back');
+        const fcProgress = document.getElementById('fc-progress');
+
+        function loadCard(index) {
+            fcCard.classList.remove('is-flipped');
+            setTimeout(() => {
+                fcFront.innerHTML = `<strong>${fcData[index].f}</strong>`;
+                fcBack.innerHTML = `<span>${fcData[index].b}</span>`;
+                fcProgress.innerText = `Card ${index + 1} / ${fcData.length}`;
+            }, 150);
+        }
+
+        function flipCard() { fcCard.classList.toggle('is-flipped'); }
+        function nextCard() { fcIndex = (fcIndex + 1) % fcData.length; loadCard(fcIndex); }
+        function prevCard() { fcIndex = (fcIndex - 1 + fcData.length) % fcData.length; loadCard(fcIndex); }
+        function shuffleCards() {
+            for (let i = fcData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [fcData[i], fcData[j]] = [fcData[j], fcData[i]];
+            }
+            fcIndex = 0; loadCard(fcIndex);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if(!document.getElementById('tab-flashcards').classList.contains('active')) return;
+            if(e.code === 'Space') { e.preventDefault(); flipCard(); }
+            if(e.code === 'ArrowRight') nextCard();
+            if(e.code === 'ArrowLeft') prevCard();
+        });
+        
+        loadCard(0);
+
+        // MCQs Data (50 questions: 20 from text + 30 custom)
+        const mcqData = [
+            // From Source Exam
+            {q: "Abdominal ultrasound of a 55-year old male with increasing abdominal girth. Shows anechoic fluid surrounding the liver. What is the correct diagnosis?", opts: ["Bowel Obstruction", "Pneumoperitoneum", "Ascites", "Hepatic Mass"], ans: 2, exp: "Anechoic fluid surrounding the liver (Morrison's pouch) indicates intraperitoneal fluid accumulation, known as ascites."},
+            {q: "Which of the following renal stones is radiolucent?", opts: ["Uric Acid", "Calcium Oxalate", "Brushite", "Struvite"], ans: 0, exp: "Uric acid stones do not contain calcium and are therefore radiolucent on X-ray."},
+            {q: "What is the appearance of a simple cyst on ultrasound?", opts: ["Hyperechoic", "Anechoic", "Isoechoic", "Hypoechoic"], ans: 1, exp: "A simple cyst is fluid-filled and appears purely black (anechoic) on ultrasound."},
+            {q: "Ultrasound of kidneys shows hyperechoic solid mass. CT shows hypodense mass at -100 HU. Diagnosis?", opts: ["Angiomyolipoma", "Renal Cell Carcinoma", "Renal Stone", "Simple Cyst"], ans: 0, exp: "Angiomyolipoma contains fat, which is hyperechoic on UTZ but highly hypodense (-70 to -100 HU) on CT."},
+            {q: "A 66/M with colorectal CA needs staging. Has cardiac pacemaker. Best imaging?", opts: ["X-ray", "MRI", "CT Scan", "Ultrasound"], ans: 2, exp: "MRI is contraindicated due to the metal pacemaker. CT scan is the best alternative for staging."},
+            {q: "78/M bedridden. Lateral decubitus X-ray shows 'string of pearls'. Diagnosis?", opts: ["Pneumoperitoneum", "Large Bowel Obstruction", "Small Bowel Obstruction", "Sigmoid Volvulus"], ans: 2, exp: "The 'string of beads/pearls' sign is indicative of small bowel obstruction, caused by gas trapped between plicae circulares in a fluid-filled bowel."},
+            {q: "CT of 42/F shows hyperdense masses in the dependent portion of the gallbladder. Diagnosis?", opts: ["Appendicolith", "Choledocholithiasis", "Cystolithiasis", "Cholecystolithiasis"], ans: 3, exp: "Hyperdense masses in the gallbladder lumen are gallstones (cholecystolithiasis)."},
+            {q: "CT scan of liver shows lower attenuation (16 HU) compared to spleen (40 HU). Diagnosis?", opts: ["Normal Liver", "Cirrhosis", "Hepatocellular Carcinoma", "Steatosis"], ans: 3, exp: "Hepatic steatosis (fatty liver) lowers the attenuation density of the liver below that of the spleen."},
+            {q: "Pneumoperitoneum CANNOT be demonstrated in which modality?", opts: ["Abdominal X-ray", "Chest X-ray", "CT Scan", "Ultrasound"], ans: 3, exp: "Ultrasound cannot demonstrate pneumoperitoneum well because air reflects sound waves, obscuring the image. CXR is best."},
+            {q: "Specific position for bed-ridden patient to confirm pneumoperitoneum?", opts: ["Left Lateral Decubitus", "Right Lateral Decubitus", "Supine", "Upright"], ans: 0, exp: "Left lateral decubitus allows free air to rise between the liver and lateral abdominal wall (parahepatic air)."},
+            {q: "Lamellated calcifications at RUQ on X-ray. Best test to confirm origin?", opts: ["CT Scan", "ERCP", "MRI", "Ultrasound"], ans: 3, exp: "Ultrasound is the primary, best next step to confirm gallstones identified on X-ray."},
+            {q: "Barium enema shows multiple saccular outpouchings at rectosigmoid. Diagnosis?", opts: ["Carcinoma", "Diverticulosis", "Polyps", "Ulcerative Colitis"], ans: 1, exp: "Mucosal outpouchings are diverticula. Rectosigmoid/sigmoid is the most common site for diverticulosis."},
+            {q: "KUB X-ray shows radiopaque mass within the urinary bladder area. Diagnosis?", opts: ["Cholecystolithiasis", "Appendicolith", "Choledocholithiasis", "Cystolithiasis"], ans: 3, exp: "Radiopaque mass in the bladder is a bladder stone (cystolithiasis)."},
+            {q: "UTZ of kidney shows dilated calyces and thinned cortex. Diagnosis?", opts: ["Staghorn Calculus", "Renal Cell Carcinoma", "Hydronephrosis", "Angiomyolipoma"], ans: 2, exp: "Dilated calyces (pelvocaliectasis) with thinned cortex defines hydronephrosis."},
+            {q: "24/F, RUQ pain to scapula, positive Murphy's. Best imaging?", opts: ["CT Scan", "MRI", "Ultrasound", "X-ray"], ans: 2, exp: "Ultrasound is the imaging modality of choice for suspected acute cholecystitis."},
+            {q: "Patient with flank pain. X-ray normal. UTZ shows 4 kidney stones. Most likely stone type?", opts: ["Uric Acid Stones", "Calcium Phosphate Stones", "Struvite Stones", "Calcium Oxalate"], ans: 0, exp: "Since they are not seen on X-ray (normal), they are radiolucent. Uric acid stones are radiolucent."},
+            {q: "2-wks post-appendectomy, abdominal enlargement, SBO signs. Most likely cause?", opts: ["Stricture", "Foreign Body", "Polyp", "Adhesion"], ans: 3, exp: "Adhesions are the most common cause of small bowel obstruction, especially post-surgery."},
+            {q: "Hallmark ultrasound findings of gallbladder stone?", opts: ["Floating low-level echoes", "Strong shadowing mobile echoes", "Echoes with comet tail", "Non-shadowing echoes attached to wall"], ans: 1, exp: "Stones are mobile, hyperechoic, and cast a posterior acoustic shadow."},
+            {q: "How are abdominal calcifications described in ultrasound?", opts: ["Hypodense", "Hyperechoic", "Hypoechoic", "Hyperdense"], ans: 1, exp: "Calcifications reflect sound strongly, appearing white or hyperechoic."},
+            {q: "KUB X-ray shows stone in bladder. This is called?", opts: ["Cholelithiasis", "Nephrolithiasis", "Ureterolithiasis", "Cystolithiasis"], ans: 3, exp: "Stone in the urinary bladder is cystolithiasis."},
+            
+            // Custom Questions 21-50
+            {q: "What does anechoic mean in ultrasound imaging?", opts: ["Appears white", "Appears purely black", "Appears grey", "Appears as a shadow"], ans: 1, exp: "Anechoic means without echoes, appearing purely black, typical of simple fluids like bile or urine."},
+            {q: "Which modality relies on radioactive tracer uptake (Hot/Cold)?", opts: ["MRI", "CT Scan", "Nuclear Scintigraphy", "Fluoroscopy"], ans: 2, exp: "Nuclear scintigraphy evaluates metabolic activity based on tracer uptake (hot = black, cold = white)."},
+            {q: "What is the primary weakness of CT Scan?", opts: ["Air-containing structures", "Bone", "Cartilage", "Real-time vascular flow"], ans: 2, exp: "CT is weak for cartilage and uses ionizing radiation. UTZ is weak for air."},
+            {q: "A non-differential air-fluid level on X-ray indicates:", opts: ["Bowel Obstruction", "Perforation", "Paralytic Ileus", "Normal bowel"], ans: 2, exp: "In adynamic (paralytic) ileus, lack of peristalsis causes fluid to pool at the same level across the loop."},
+            {q: "An RLQ sentinel loop on abdominal X-ray is highly suspicious for:", opts: ["Pancreatitis", "Cholecystitis", "Appendicitis", "Diverticulitis"], ans: 2, exp: "A sentinel loop forms adjacent to inflamed organs. RLQ correlates with the appendix."},
+            {q: "Which sign indicates a complete bowel obstruction?", opts: ["Differential air-fluid levels", "Presence of rectal gas", "Absence of rectal gas", "String of beads sign"], ans: 2, exp: "If obstruction is complete, no gas passes the blockage, resulting in negative (absent) rectal gas."},
+            {q: "A tapered, smooth, concentric narrowing of the esophagus indicates:", opts: ["Esophageal Carcinoma", "Benign Stricture", "Achalasia", "GIST"], ans: 1, exp: "Benign strictures (usually from GERD) are smooth and tapered, whereas malignant ones are abrupt and irregular."},
+            {q: "Achalasia presents with which classic sign on Barium Swallow?", opts: ["Apple core", "Bird's beak", "Stack of coins", "String of beads"], ans: 1, exp: "Bird's beak deformity shows a tapered LES with proximal esophageal dilatation due to failure of relaxation."},
+            {q: "Linitis plastica is associated with which condition?", opts: ["Gastrointestinal Stromal Tumor", "Gastric Carcinoma", "Colonic Carcinoma", "Duodenal Ulcer"], ans: 1, exp: "Linitis plastica (leather-bottle stomach) is caused by diffuse infiltration of the gastric wall by adenocarcinoma."},
+            {q: "Widening of the duodenal C-loop on UGIS strongly suggests pathology in the:", opts: ["Liver", "Gallbladder", "Pancreatic Head", "Spleen"], ans: 2, exp: "The pancreatic head sits within the duodenal C-loop; a mass or pseudocyst here widens the loop."},
+            {q: "An 'apple core' lesion on a Barium Enema is characteristic of:", opts: ["Diverticulitis", "Colonic Carcinoma", "Crohn's Disease", "Ulcerative Colitis"], ans: 1, exp: "Colonic carcinoma causes an abrupt, short segment narrowing with overhanging edges resembling an apple core."},
+            {q: "On PET-CT, what does the 'light bulb' sign indicate in the colon?", opts: ["Normal stool", "Hypermetabolic malignant lesion", "Diverticulum", "Benign polyp"], ans: 1, exp: "Cancer cells have high metabolic activity, causing intense tracer uptake that lights up like a bulb."},
+            {q: "Free air under the diaphragm on an upright CXR indicates:", opts: ["Ileus", "Bowel Obstruction", "Pneumoperitoneum", "Ascites"], ans: 2, exp: "Pneumoperitoneum (free air) rises to the subdiaphragmatic space when upright, indicating GI perforation."},
+            {q: "A diaphragmatic hernia on the right side is called:", opts: ["Bochdalek", "Morgagni", "Umbilical", "Inguinal"], ans: 1, exp: "Morgagni hernia is right-sided, whereas Bochdalek is left-sided."},
+            {q: "Biliary sludge appears on ultrasound as:", opts: ["Anechoic fluid", "Medium level echoes without shadowing", "Hyperechoic with strong shadow", "Hyperdense mass"], ans: 1, exp: "Sludge is particulate debris that creates medium level echoes but does not cast an acoustic shadow like stones do."},
+            {q: "A gallbladder polyp differs from a stone on UTZ because a polyp is:", opts: ["Mobile and shadowing", "Mobile and non-shadowing", "Immobile and shadowing", "Immobile and non-shadowing"], ans: 3, exp: "Polyps are fixed to the wall (immobile) and do not cast acoustic shadows."},
+            {q: "Thickened, striated gallbladder wall with pericholecystic fluid defines:", opts: ["Cholelithiasis", "Acute Cholecystitis", "Cholangiocarcinoma", "Choledocholithiasis"], ans: 1, exp: "These are the hallmark inflammatory signs of acute cholecystitis."},
+            {q: "Gas in the gallbladder wall on UTZ (dirty shadowing) indicates:", opts: ["Gangrenous Cholecystitis", "Emphysematous Cholecystitis", "Acalculous Cholecystitis", "Choledocholithiasis"], ans: 1, exp: "Gas-producing organisms in the wall cause emphysematous cholecystitis."},
+            {q: "Triphasic CT of the liver differentiates masses based on:", opts: ["Bile content", "Arterial vs Portal blood supply", "Fat content", "Water attenuation"], ans: 1, exp: "Normal liver gets 80% supply from portal vein, while tumors get 100% from the hepatic artery, causing early arterial enhancement."},
+            {q: "If contrast is retained in a liver nodule during the delayed phase (5-10 mins) of a triphasic CT, it suggests:", opts: ["Hepatocellular Carcinoma", "Hepatic Abscess", "Hepatic Hemangioma", "Hepatic Cyst"], ans: 2, exp: "Malignant tumors wash out, but hemangiomas retain contrast in the equilibrium/delayed phase."},
+            {q: "Beaver Tail Liver refers to:", opts: ["Cirrhosis", "Elongated right liver lobe", "Elongated left liver lobe surrounding the spleen", "Hepatomegaly from heart failure"], ans: 2, exp: "It is a normal anatomical variant where the left lobe extends to contact/surround the spleen."},
+            {q: "A simple hepatic cyst on CT scan appears:", opts: ["Hyperdense", "Hypodense (Water density)", "Iso-dense", "Calcified"], ans: 1, exp: "Simple fluid has water attenuation, appearing hypodense (dark) on CT without enhancement."},
+            {q: "Doppler ultrasound of a hepatic abscess typically shows:", opts: ["Intense intralesional vascularity", "Increased perilesional vascularity only", "No vascularity anywhere", "Arterial-venous shunting"], ans: 1, exp: "Abscesses have fluid/pus centers (no intralesional flow) but inflamed walls (increased perilesional vascularity)."},
+            {q: "Which modality is the best non-invasive alternative to biopsy for staging hepatic fibrosis?", opts: ["CT Scan", "MRI", "Ultrasound Elastography", "PET Scan"], ans: 2, exp: "US Elastography measures tissue stiffness, correlating well with histologic fibrosis grades."},
+            {q: "A splenic index greater than what value indicates splenomegaly?", opts: ["100 mL", "250 mL", "480 mL", "1000 mL"], ans: 2, exp: "Normal splenic index is ~480 mL. Values >480 mL or length >12 cm denote splenomegaly."},
+            {q: "Ascites with an attenuation value of -10 to +10 HU on CT is likely:", opts: ["Serous", "Exudative", "Hemoperitoneum", "Neoplastic"], ans: 0, exp: "Serous fluid (e.g., from cirrhosis/CHF) has attenuation near water (0 HU). Exudative is >+15, blood is >+45."},
+            {q: "The 'football sign' is a radiographic indicator of:", opts: ["Aortic Aneurysm", "Ascites", "Pneumoperitoneum", "Splenomegaly"], ans: 2, exp: "The football sign represents massive free air outlining the entire peritoneal cavity."},
+            {q: "Non-obstructing nephrolithiasis is typically located in the:", opts: ["Ureter", "Renal Pelvis", "Cortex of the kidney", "Bladder neck"], ans: 2, exp: "Stones in the cortex do not block urine flow, hence they do not cause pelvocaliceal dilation (hydronephrosis)."},
+            {q: "The modality of choice for evaluating an enlarged prostate is:", opts: ["Trans-abdominal UTZ", "Transrectal UTZ", "CT Scan", "KUB X-ray"], ans: 1, exp: "Transrectal UTZ provides the best close-up resolution for prostate evaluation and guiding biopsies."},
+            {q: "An abdominal aortic aneurysm typically occurs:", opts: ["Above the renal arteries", "At the level of the diaphragm", "Distal end before common iliac bifurcation", "In the thoracic aorta"], ans: 2, exp: "Most AAAs are infrarenal, located at the distal end just before bifurcating into the common iliac arteries."}
+        ];
+
+        let currentMcq = 0;
+        let score = 0;
+        let answered = false;
+
+        const mcqQ = document.getElementById('mcq-q');
+        const mcqOpts = document.getElementById('mcq-options');
+        const mcqExp = document.getElementById('mcq-exp');
+        const mcqNext = document.getElementById('mcq-next-btn');
+        const mcqProgress = document.getElementById('mcq-progress');
+        const mcqScore = document.getElementById('mcq-score');
+
+        function loadMCQ() {
+            answered = false;
+            mcqExp.style.display = 'none';
+            mcqNext.style.display = 'none';
+            mcqProgress.innerText = `Question ${currentMcq + 1} / ${mcqData.length}`;
+            
+            const qData = mcqData[currentMcq];
+            mcqQ.innerText = qData.q;
+            mcqOpts.innerHTML = '';
+            
+            qData.opts.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'mcq-option';
+                btn.innerText = opt;
+                btn.onclick = () => selectMCQ(idx, btn);
+                mcqOpts.appendChild(btn);
+            });
+        }
+
+        function selectMCQ(idx, btn) {
+            if(answered) return;
+            answered = true;
+            const qData = mcqData[currentMcq];
+            const allBtns = mcqOpts.children;
+            
+            if(idx === qData.ans) {
+                btn.classList.add('correct');
+                score++;
+                mcqScore.innerText = `Score: ${score}`;
+            } else {
+                btn.classList.add('wrong');
+                allBtns[qData.ans].classList.add('correct');
+            }
+            
+            mcqExp.innerHTML = `<strong>Explanation:</strong> ${qData.exp}`;
+            mcqExp.style.display = 'block';
+            
+            if(currentMcq < mcqData.length - 1) {
+                mcqNext.style.display = 'inline-block';
+            } else {
+                mcqNext.innerText = "Review Complete!";
+                mcqNext.style.display = 'inline-block';
+                mcqNext.disabled = true;
+            }
+        }
+
+        function nextMCQ() {
+            currentMcq++;
+            if(currentMcq < mcqData.length) {
+                loadMCQ();
+            }
+        }
+
+        // Initialize MCQ
+        loadMCQ();
+    </script>
+</body>
+</html>
