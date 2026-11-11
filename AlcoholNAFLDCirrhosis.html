@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Reviewer: Fatty Liver & Cirrhosis</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@500;700;800&display=swap');
+
+        :root {
+            --bg-color: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --primary: #0284c7;
+            --primary-light: #e0f2fe;
+            --accent: #0ea5e9;
+            --secondary: #3b82f6;
+            --danger: #ef4444;
+            --danger-bg: #fef2f2;
+            --warning: #f59e0b;
+            --warning-bg: #fffbeb;
+            --success: #10b981;
+            --success-bg: #ecfdf5;
+            --pearl: #8b5cf6;
+            --pearl-bg: #f5f3ff;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --font-head: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --radius: 8px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+        
+        /* Layout */
+        .app-container { display: flex; height: 100vh; overflow: hidden; }
+        .sidebar { width: 280px; background: var(--white); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+        .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); background: var(--primary-light); }
+        .sidebar-header h1 { font-family: var(--font-head); font-size: 1.2rem; color: var(--primary); }
+        .nav-list { list-style: none; padding: 10px 0; overflow-y: auto; flex: 1; }
+        .nav-item { padding: 12px 20px; cursor: pointer; transition: all 0.2s; font-weight: 500; display: flex; align-items: center; border-left: 4px solid transparent; }
+        .nav-item:hover { background: var(--primary-light); }
+        .nav-item.active { background: var(--primary-light); border-left-color: var(--primary); color: var(--primary); }
+        
+        .main-content { flex: 1; overflow-y: auto; padding: 40px; position: relative; scroll-behavior: smooth; }
+        .tab-pane { display: none; animation: fadeIn 0.3s ease-in-out; max-width: 1000px; margin: 0 auto; }
+        .tab-pane.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Typography */
+        h1, h2, h3, h4 { font-family: var(--font-head); margin-bottom: 1rem; color: var(--text-main); }
+        h1 { font-size: 2.5rem; border-bottom: 2px solid var(--primary-light); padding-bottom: 10px; margin-bottom: 20px; }
+        h2 { font-size: 1.8rem; margin-top: 2rem; color: var(--primary); }
+        h3 { font-size: 1.3rem; margin-top: 1.5rem; }
+        p { margin-bottom: 1rem; }
+        ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        strong { color: #0f172a; }
+
+        /* Components */
+        .card { background: var(--white); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .callout { padding: 15px 20px; border-left: 5px solid; border-radius: 4px; margin-bottom: 20px; background: var(--white); box-shadow: var(--shadow); }
+        .callout-title { font-family: var(--font-head); font-weight: 700; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+        
+        .must-know { border-color: var(--danger); background: var(--danger-bg); }
+        .must-know .callout-title { color: var(--danger); }
+        
+        .pitfall { border-color: var(--warning); background: var(--warning-bg); }
+        .pitfall .callout-title { color: var(--warning); }
+        
+        .pearl { border-color: var(--pearl); background: var(--pearl-bg); }
+        .pearl .callout-title { color: var(--pearl); }
+        
+        .exam-tip { border-color: var(--success); background: var(--success-bg); }
+        .exam-tip .callout-title { color: var(--success); }
+
+        .definition { border-color: var(--primary); background: var(--primary-light); }
+        .definition .callout-title { color: var(--primary); }
+
+        /* Tables */
+        .table-responsive { overflow-x: auto; margin-bottom: 20px; border-radius: var(--radius); box-shadow: var(--shadow); }
+        table { width: 100%; border-collapse: collapse; background: var(--white); text-align: left; }
+        th, td { padding: 12px 15px; border-bottom: 1px solid var(--border); }
+        th { background: var(--primary); color: var(--white); font-family: var(--font-head); font-weight: 700; position: sticky; top: 0; }
+        tr:nth-child(even) { background-color: #f1f5f9; }
+        tr:hover { background-color: var(--primary-light); }
+        .table-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; background: var(--primary-light); color: var(--primary); }
+
+        /* Diagrams & Algorithms */
+        .algorithm { font-family: var(--font-mono); font-size: 0.9rem; background: #1e293b; color: #e2e8f0; padding: 20px; border-radius: var(--radius); overflow-x: auto; margin-bottom: 20px; }
+        .algorithm-node { padding: 8px 12px; background: #334155; border-radius: 4px; display: inline-block; margin: 4px 0; border: 1px solid #475569; }
+        .algorithm-arrow { color: var(--accent); margin: 0 10px; font-weight: bold; }
+
+        /* Flashcards */
+        .fc-container { perspective: 1000px; width: 100%; max-width: 600px; margin: 0 auto 20px; height: 300px; }
+        .fc-card { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
+        .fc-card.is-flipped { transform: rotateY(180deg); }
+        .fc-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; border: 2px solid var(--primary-light); }
+        .fc-front { background: var(--white); color: var(--primary); }
+        .fc-front::before { content: 'Question'; position: absolute; top: 15px; left: 15px; font-size: 0.8rem; font-weight: bold; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .fc-back { background: var(--primary); color: var(--white); transform: rotateY(180deg); }
+        .fc-back::before { content: 'Answer'; position: absolute; top: 15px; left: 15px; font-size: 0.8rem; font-weight: bold; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; }
+        .fc-content { font-size: 1.3rem; font-family: var(--font-head); font-weight: 500; }
+        .fc-controls { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+        .btn { padding: 10px 20px; border: none; border-radius: 4px; background: var(--primary); color: var(--white); font-family: var(--font-head); font-weight: bold; cursor: pointer; transition: background 0.2s; }
+        .btn:hover { background: var(--secondary); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-outline:hover { background: var(--primary-light); }
+
+        /* MCQs */
+        .mcq-container { background: var(--white); border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 20px; }
+        .mcq-question { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; font-family: var(--font-head); }
+        .mcq-options { list-style: none; padding: 0; }
+        .mcq-option { padding: 12px 15px; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 10px; cursor: pointer; transition: all 0.2s; display: flex; gap: 10px; align-items: center; }
+        .mcq-option:hover { background: var(--primary-light); border-color: var(--primary); }
+        .mcq-option.selected { background: var(--primary); color: var(--white); border-color: var(--primary); }
+        .mcq-option.correct { background: var(--success-bg); border-color: var(--success); color: #065f46; font-weight: bold; }
+        .mcq-option.wrong { background: var(--danger-bg); border-color: var(--danger); color: #991b1b; }
+        .mcq-explanation { display: none; margin-top: 20px; padding: 15px; background: var(--pearl-bg); border-left: 4px solid var(--pearl); border-radius: 0 4px 4px 0; }
+        .mcq-explanation.visible { display: block; animation: fadeIn 0.3s; }
+        .mcq-nav { display: flex; justify-content: space-between; margin-top: 20px; align-items: center; }
+        .mcq-progress { font-family: var(--font-mono); font-size: 0.9rem; font-weight: bold; color: var(--text-muted); }
+
+        /* Utilities */
+        .badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; background: var(--text-main); color: var(--white); }
+        .text-center { text-align: center; }
+        .mt-4 { margin-top: 1.5rem; }
+        .flex-between { display: flex; justify-content: space-between; align-items: center; }
+        
+        /* Search */
+        .search-bar { padding: 15px; border-bottom: 1px solid var(--border); }
+        .search-input { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 4px; font-family: var(--font-body); }
+
+        /* Print friendly */
+        @media print {
+            .sidebar, .search-bar { display: none; }
+            .app-container { display: block; height: auto; overflow: visible; }
+            .main-content { padding: 0; }
+            .tab-pane { display: block !important; page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1>MedRev: Liver</h1>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">LE 3 | Trans 4</p>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search keywords..." onkeyup="handleSearch()">
+        </div>
+        <ul class="nav-list" id="navList">
+            <li class="nav-item active" data-target="tab-overview">1. Overview & Definitions</li>
+            <li class="nav-item" data-target="tab-ald">2. Alcohol-Associated LD (ALD)</li>
+            <li class="nav-item" data-target="tab-masld">3. MASLD & MASH</li>
+            <li class="nav-item" data-target="tab-cirrhosis">4. Liver Cirrhosis</li>
+            <li class="nav-item" data-target="tab-complications">5. Portal HTN & Complications</li>
+            <li class="nav-item" data-target="tab-comparisons">6. Comparisons</li>
+            <li class="nav-item" data-target="tab-flashcards">7. Flashcards</li>
+            <li class="nav-item" data-target="tab-mcqs">8. Self-Assessment</li>
+            <li class="nav-item" data-target="tab-cram">9. Cram Sheet</li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="mainContent">
+        
+        <!-- TAB 1: OVERVIEW -->
+        <section id="tab-overview" class="tab-pane active">
+            <h1>Fatty Liver and Cirrhosis (Alcohol, NAFLD, Cirrhosis)</h1>
+            
+            <div class="callout exam-tip">
+                <div class="callout-title">🎯 Learning Objectives</div>
+                <ul>
+                    <li>Describe the spectrum of fatty liver disease.</li>
+                    <li>Describe common etiologies of fatty liver, pathophysiology, clinical signs/symptoms, and treatment.</li>
+                    <li>Describe causes of liver cirrhosis, its complications, and management.</li>
+                </ul>
+            </div>
+
+            <h2>Definition of Terms: Steatotic Liver Disease (SLD)</h2>
+            <p><strong>Steatotic Liver Disease (SLD)</strong> encompasses several disease entities based on their cause.</p>
+            
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Disease Entity</th>
+                            <th>Description & Criteria</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Alcohol-Associated Liver Disease (ALD)</strong></td>
+                            <td>Patients consuming higher amounts of alcohol, irrespective of metabolic risk factors.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MASLD / MASH</strong><br>(previously NAFLD/NASH)</td>
+                            <td>Metabolic Dysfunction-associated Steatotic Liver Disease.<br><strong>Criteria:</strong> Hepatic steatosis + Drink a small amount of alcohol (Women: <20 g/day, Men: <30 g/day) + ≥1 cardiometabolic risk factor (obesity, HTN, dyslipidemia, insulin resistance/DM2).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MetALD</strong></td>
+                            <td>Metabolic and Alcohol-associated Liver Disease. <br><strong>Criteria:</strong> (1) Evidence of metabolic dysfunction AND (2) Consume social amounts of alcohol (Women: 20-50 g/day; Men: 30-60 g/day).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>One Drink Equivalents & Binge Drinking</h3>
+                <p><strong>14g of ethanol</strong> = 1 oz of 80% spirits = 4 oz of wine = 1 bottle of beer.</p>
+                <ul>
+                    <li><strong>Binge Drinking:</strong> Men: ≥5 drinks w/in 2 hours. Women: ≥4 drinks w/in 2 hours.</li>
+                    <li><strong>Alcohol Use Disorder:</strong> Impaired ability to stop/control alcohol use despite harmful consequences.</li>
+                </ul>
+            </div>
+            
+            <div class="callout pearl">
+                <div class="callout-title">💡 Clinical Pearl</div>
+                <p>48% of cases of cirrhosis are attributed to alcohol. ALD presents as a spectrum ranging from fatty liver/steatohepatitis to advanced fibrosis and cirrhosis.</p>
+            </div>
+        </section>
+
+        <!-- TAB 2: ALD -->
+        <section id="tab-ald" class="tab-pane">
+            <h1>Alcohol-Associated Liver Disease (ALD) & AH</h1>
+            
+            <div class="card">
+                <h3>Pathogenesis of ALD</h3>
+                <ul>
+                    <li>Alcohol is primarily metabolized in the liver (via portal vein).</li>
+                    <li><strong>ADH1 (Alcohol dehydrogenase):</strong> Oxidizes alcohol into <strong>acetaldehyde</strong>.</li>
+                    <li><strong>Acetaldehyde toxicity:</strong> Causes direct cellular toxicity and generation of <strong>Reactive Oxygen Species (ROS)</strong> → lipid peroxidation & DNA damage.</li>
+                    <li><strong>ALDH (Acetaldehyde dehydrogenase):</strong> Converts acetaldehyde to acetate. Deficiency of ALDH → Acetaldehyde accumulation (nausea, cutaneous flushing).</li>
+                    <li>Acetate → Acetyl-CoA → <strong>Fatty acid & triglyceride synthesis</strong> (Steatosis).</li>
+                    <li><strong>CYP2E1:</strong> Induced by chronic alcohol consumption.</li>
+                    <li><strong>Kupffer cell activation:</strong> Gut-derived endotoxin from increased gut permeability triggers Kupffer cells → release cytokines (TNF) → liver injury.</li>
+                </ul>
+            </div>
+
+            <div class="callout pitfall">
+                <div class="callout-title">⚠️ Female Susceptibility</div>
+                <p>Females have a lower activity of gastric ADH. Therefore, more unmetabolized ethanol enters the bloodstream, increasing the risk of ALD at lower consumption levels.</p>
+            </div>
+
+            <h2>Clinical Features</h2>
+            <ul>
+                <li><strong>General:</strong> Tiredness, malnutrition, sarcopenia.</li>
+                <li><strong>Abdominal:</strong> Discomfort, hepatosplenomegaly, caput medusae, ascites.</li>
+                <li><strong>Skin/Eyes:</strong> Spider angiomata, palmar erythema, scleral icterus, rhinophyma.</li>
+                <li><strong>Hands:</strong> Dupuytren contracture (due to microvascular injury; acetaldehyde activates fibroblasts → excess collagen → nodular thickened palmar fascia).</li>
+                <li><strong>Reproductive:</strong> Gynecomastia, testicular atrophy (hypogonadism: decreased testosterone, increased estrogen).</li>
+                <li><strong>Neurologic:</strong> Encephalopathy (asterixis), Wernicke-Korsakoff (B1 deficiency).</li>
+            </ul>
+
+            <div class="callout must-know">
+                <div class="callout-title">⭐ Alcohol-associated Hepatitis (AH)</div>
+                <p>Heavy alcohol consumption for >6 months, with <60 days abstinence before symptoms.<br>
+                <strong>S/Sx:</strong> Rapid-onset jaundice, malaise, fever, tender hepatomegaly, hepatic decompensation. Can be accompanied by SIRS and AKI.<br>
+                <strong>Lab Profile:</strong> AST and ALT < 400 IU/L, <strong>AST/ALT ratio > 1.5</strong>, Serum bilirubin > 3 mg/dL.</p>
+            </div>
+
+            <h2>Diagnosis & Elastography (VCTE)</h2>
+            <ul>
+                <li>Exclude other diseases. Identify fat via Ultrasound, CT, MRI, MR-PDFF.</li>
+                <li><strong>Vibration-Controlled Transient Elastography (VCTE):</strong> Evaluates liver stiffness.
+                    <ul>
+                        <li><strong><6 kPa:</strong> Normal</li>
+                        <li><strong>>8 kPa:</strong> Advanced fibrosis (F3)</li>
+                        <li><strong>>12.5 kPa:</strong> Cirrhosis (F4)</li>
+                    </ul>
+                </li>
+                <li><strong>Biopsy Findings:</strong> Macrovesicular steatosis, hepatocyte ballooning with <strong>Mallory-Denk bodies</strong>, lobular inflammation (neutrophils).</li>
+            </ul>
+
+            <div class="card">
+                <h3>Algorithm: Treatment of Alcoholic Hepatitis</h3>
+                <div class="algorithm">
+                    <strong>1. Classify Severity:</strong><br>
+                    <span class="algorithm-node">Moderate AH</span> MDF <32 or MELD ≤20 → Alcohol abstinence + Nutritional support<br>
+                    <span class="algorithm-node">Severe AH</span> MDF ≥32 or MELD >20 → Check for Steroid Contraindications<br>
+                    <br>
+                    <strong>2. Treatment for Severe AH (if no contraindications):</strong><br>
+                    Start <span class="algorithm-node">Prednisolone 40 mg/day PO</span> (or Methylprednisolone 32 mg/d IV)<br>
+                    <br>
+                    <strong>3. Reassessment at Day 7 (Lille Score):</strong><br>
+                    <span class="algorithm-node">Lille <0.45 (Responder)</span> → Continue for 28 days total.<br>
+                    <span class="algorithm-node">Lille ≥0.45 (Non-responder)</span> → Stop prednisolone → Consider early Liver Transplant or Palliative care.
+                </div>
+                <p><strong>Note:</strong> Enteral nutrition (35-40 kcal/kg/day) + Zinc + Vit B & K are essential.</p>
+            </div>
+
+            <div class="callout exam-tip">
+                <div class="callout-title">🧠 Formulas to Know</div>
+                <p><strong>Maddrey Discriminant Function (MDF):</strong> 4.6 x (Patient PT - Control PT) + Serum bilirubin (mg/dL)</p>
+                <p><strong>Zieve's Syndrome:</strong> Triad of Hemolytic anemia + Hyperlipidemia + Jaundice in severe AH.</p>
+            </div>
+        </section>
+
+        <!-- TAB 3: MASLD -->
+        <section id="tab-masld" class="tab-pane">
+            <h1>MASLD and MASH</h1>
+            <p>Metabolic Dysfunction-Associated Steatotic Liver Disease. Commonly in overweight/obese, but also in lean individuals (truncal obesity, Asian ethnicity). Diabetes is the strongest risk factor.</p>
+
+            <h2>Histopathologic Spectrum</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Stage</th>
+                            <th>Description</th>
+                            <th>Fibrosis Progression</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Simple Steatosis</strong></td>
+                            <td>Absence of overt liver injury/inflammation. Usually benign.</td>
+                            <td>1 stage per 14 years</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MASH</strong></td>
+                            <td>Lipotoxicity. Accumulation of inflammatory cells and injured/dying hepatocytes. High risk for primary liver cancer.</td>
+                            <td>1 stage per 7 years</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cirrhosis (F4)</strong></td>
+                            <td>Hepatocytes succumb to lipotoxicity → defective regenerative response → fibrous scar.</td>
+                            <td>HCC incidence 1-2% per year</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>Staging & Risk Stratification</h2>
+            <p>Targeted screening only (not for the general population). High-risk groups: T2DM, Obesity, Family Hx of Cirrhosis.</p>
+            
+            <div class="card">
+                <h3>Algorithm: MASLD Staging</h3>
+                <ol>
+                    <li><strong>Primary Risk Assessment: FIB-4 Score</strong> (Age, AST, ALT, Platelets)
+                        <ul>
+                            <li><strong><1.3 (Low Risk):</strong> PCP follow-up.</li>
+                            <li><strong>≥1.3:</strong> Proceed to secondary assessment.</li>
+                            <li><strong>>2.67 or persistent elevated AST/ALT:</strong> Refer to Gastro/Hepatology.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Secondary Assessment (Non-invasive tests):</strong>
+                        <ul>
+                            <li><strong>VCTE (kPa):</strong> <8 (Low), 8-12 (Intermediate), >12 (High).</li>
+                            <li><strong>ELF Blood test:</strong> Measures hyaluronic acid, TIMP-1, PIIINP. <7.7 (Low), >9.8 (High).</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="callout pitfall">
+                <div class="callout-title">⚠️ Diagnostic Pitfall</div>
+                <p>Normal liver enzymes do NOT automatically exclude MASLD. True Normal ALT is 29-33 U/L (Men) and 19-25 U/L (Women).</p>
+            </div>
+
+            <h2>Treatment of MASLD</h2>
+            <ul>
+                <li><strong>Weight Loss:</strong> 3-5% improves steatosis. <strong>>10% improves MASH and fibrosis.</strong></li>
+                <li><strong>Diet & Exercise:</strong> Mediterranean diet; Brewed coffee (≥3 cups daily) shows benefit. Exercise 150 mins/week.</li>
+                <li><strong>Pharmacologic:</strong>
+                    <ul>
+                        <li><strong>Pioglitazone:</strong> Improves insulin resistance. (AE: weight gain, bone loss, heart failure).</li>
+                        <li><strong>GLP-1 RAs (Semaglutide):</strong> Weight loss, improves lipids/glucose.</li>
+                        <li><strong>Dual Incretin (Tirzepatide):</strong> Significant weight loss up to 20.9%.</li>
+                        <li><strong>Statins:</strong> Safe across MASLD spectrum. Long term use decreases cirrhosis/HCC risk and portal pressure.</li>
+                    </ul>
+                </li>
+                <li><strong>No Benefits:</strong> UDCA, Betaine, Silymarin.</li>
+                <li><strong>Bariatric Surgery:</strong> Indicated if BMI ≥ 40, or BMI ≥ 35 with comorbidities. Improves MASH and fibrosis.</li>
+            </ul>
+        </section>
+
+        <!-- TAB 4: CIRRHOSIS -->
+        <section id="tab-cirrhosis" class="tab-pane">
+            <h1>Liver Cirrhosis</h1>
+            <p>Previously thought irreversible, but can be reversible if the underlying insult is removed. Categorized as compensated or decompensated (presence of ascites, encephalopathy, or variceal bleeding).</p>
+
+            <div class="callout definition">
+                <div class="callout-title">Pathogenesis of Fibrosis</div>
+                <p>Activation of <strong>Hepatic Stellate Cells</strong> (in the space of Disse). Result of epithelial injury → release of cytokines by Kupffer cells → paracrine molecules from sinusoidal endothelial cells → collagen deposition.</p>
+            </div>
+
+            <h2>Causes & Specifics</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Etiology</th>
+                            <th>Key Features & Treatment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Alcohol</strong></td>
+                            <td>Micronodular. AST>ALT 2:1. Tx: Abstinence, nutrition.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chronic Viral (HBV, HCV)</strong></td>
+                            <td>Dominant cause in PH. HBV: Perinatal transmission. HCV: Blood-borne. Tx: Antivirals (Tenofovir for HBV; Direct Acting Antivirals for HCV).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Autoimmune Hepatitis (AIH)</strong></td>
+                            <td>Diagnosis: ANA, ASMA (+). Tx: Immunosuppression (steroids, azathioprine).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cardiac Cirrhosis</strong></td>
+                            <td>Long-standing right-sided CHF → central venous pressure backup → hepatic vein congestion → necrosis.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>General Features of Cirrhosis</h2>
+            <ul>
+                <li><strong>Malnutrition:</strong> Sarcopenia. Requires 35 kcal/kg/day, 1.2-1.5g protein/kg/day. Multiple small meals including a <strong>late evening snack</strong> to prevent overnight catabolism.</li>
+                <li><strong>Coagulation Abnormalities:</strong>
+                    <ul>
+                        <li>Decreased pro- and anti-coagulant factors (balanced state).</li>
+                        <li><strong>Deranged PT/INR does NOT predict bleeding risk.</strong></li>
+                        <li>FFP not routinely required unless active bleeding. Transfuse platelets if <50,000 before procedures.</li>
+                    </ul>
+                </li>
+                <li><strong>Bone Disease:</strong> Osteoporosis (DEXA scan → Bisphosphonates).</li>
+            </ul>
+        </section>
+
+        <!-- TAB 5: COMPLICATIONS -->
+        <section id="tab-complications" class="tab-pane">
+            <h1>Portal Hypertension & Complications</h1>
+            
+            <div class="callout must-know">
+                <div class="callout-title">⭐ Portal Hypertension Basics</div>
+                <p>Elevation of Hepatic Venous Pressure Gradient (HVPG) > 5 mmHg. <strong>Clinically significant: ≥10 mmHg.</strong><br>
+                Caused by: Increased intrahepatic resistance (collagen in space of Disse) + Increased splanchnic blood flow (vasodilation driven by Nitric Oxide).</p>
+            </div>
+
+            <h2>1. Gastroesophageal Varices</h2>
+            <ul>
+                <li>Location: Distal 2-3 cm of esophagus (left gastric/coronary vein connects to azygos vein).</li>
+                <li><strong>Endoscopy signs:</strong> Red wale sign, cherry red spots, diffuse erythema.</li>
+                <li><strong>Primary Prophylaxis:</strong> Medium/large varices. Use <strong>Nonselective Beta Blockers (NSBB)</strong> (Nadolol, Carvedilol). Goal HR 55-60 bpm, SBP >90. Alternative: Endoscopic Variceal Ligation (EVL).</li>
+                <li><strong>Acute Hemorrhage Management:</strong>
+                    <ul>
+                        <li>Restrict transfusion (Goal Hgb 7-9 g/dL).</li>
+                        <li><strong>Pharmacologic:</strong> Octreotide/Somatostatin (splanchnic vasoconstriction) + Ceftriaxone (prevent SBP).</li>
+                        <li><strong>Endoscopy:</strong> EVL for esophageal, injection for gastric.</li>
+                        <li><strong>Salvage:</strong> TIPS (Transjugular Intrahepatic Portosystemic Shunt).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h2>2. Ascites & SBP</h2>
+            <p>Pathogenesis: Portal HTN → Splanchnic vasodilation → RAAS activation → Na/H2O retention. Hypoalbuminemia → fluid shifts to peritoneum.</p>
+            <ul>
+                <li><strong>Diagnosis:</strong> Paracentesis → <strong>SAAG > 1.1 g/dL</strong> indicates portal hypertension.</li>
+                <li><strong>Treatment:</strong> Na restriction (80-120 mEq/day), Spironolactone + Furosemide (100mg:40mg ratio).</li>
+                <li><strong>Refractory Ascites:</strong> Large-volume paracentesis (LVP) + IV Albumin (6-8 g/L for every liter removed >5L) to prevent circulatory dysfunction.</li>
+            </ul>
+            <div class="callout must-know">
+                <div class="callout-title">⭐ Spontaneous Bacterial Peritonitis (SBP)</div>
+                <p>Diagnosis: Ascitic fluid <strong>ANC > 250 / μL</strong>. Most common bug: E. coli.<br>
+                Treatment: 3rd-gen cephalosporin (Ceftriaxone) for 5 days + <strong>IV Albumin</strong> (1.5g/kg day 1, 1g/kg day 3 to reduce renal failure risk).</p>
+            </div>
+
+            <h2>3. Hepatorenal Syndrome (HRS)</h2>
+            <p>Functional renal failure without renal structural pathology. Caused by severe splanchnic vasodilation → extreme renal vasoconstriction.</p>
+            <ul>
+                <li><strong>AKI-HRS (Type 1):</strong> Rapid progression. 0.3 mg/dL rise in 48hrs or 50% rise from baseline.</li>
+                <li><strong>CKD-HRS (Type 2):</strong> Slower progression, stable.</li>
+                <li><strong>Treatment:</strong> Vasoconstrictor (Terlipressin or low-dose NE) + IV Albumin. Liver transplant is the only cure.</li>
+            </ul>
+
+            <h2>4. Hepatic Encephalopathy (HE)</h2>
+            <p>Gut-derived neurotoxins (ammonia) reach the brain due to shunting. S/Sx: Asterixis, confusion, altered sleep.</p>
+            <ul>
+                <li><strong>Treatment:</strong> Identify triggers (Infection, GI bleed, constipation).</li>
+                <li>First-line: <strong>Lactulose</strong> (acidifies colon, catharsis). Goal: 2-3 soft stools/day.</li>
+                <li>Adjunctive: <strong>Rifaximin</strong> (decreases ammonia-producing bacteria).</li>
+            </ul>
+
+            <h2>5. Liver-Lung Syndromes</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hepatopulmonary Syndrome (HPS)</th>
+                            <th>Portopulmonary Hypertension (PPHT)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Intrapulmonary vascular <strong>dilations</strong> → shunting.</td>
+                            <td>Pulmonary <strong>vasoconstriction</strong> due to serotonin/endothelin-1.</td>
+                        </tr>
+                        <tr>
+                            <td>Arterial hypoxemia. Dyspnea, platypnea.</td>
+                            <td>Pulmonary hypertension. Dyspnea, fatigue.</td>
+                        </tr>
+                        <tr>
+                            <td>Tx: O2 supplementation, Transplant.</td>
+                            <td>Tx: Vasodilators, Transplant.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 6: COMPARISONS -->
+        <section id="tab-comparisons" class="tab-pane">
+            <h1>High-Yield Comparisons</h1>
+
+            <h3>Primary Biliary Cholangitis (PBC) vs Primary Sclerosing Cholangitis (PSC)</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>PBC</th>
+                            <th>PSC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Demographics</strong></td>
+                            <td>Middle-aged women (median 50)</td>
+                            <td>Men, highly associated with IBD (Ulcerative Colitis 60-80%)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pathology</strong></td>
+                            <td>Small/medium intrahepatic ducts</td>
+                            <td>Intrahepatic and extrahepatic biliary tree</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Antibody Marker</strong></td>
+                            <td><strong>AMA</strong> (Antimitochondrial) in 95%</td>
+                            <td><strong>pANCA</strong> positive in ~65%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Key Imaging/Skin</strong></td>
+                            <td>Xanthelasma, hyperpigmentation</td>
+                            <td>"Beading" on MRCP/ERCP (strictures + dilation)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Treatment</strong></td>
+                            <td><strong>UDCA (Ursodeoxycholic acid)</strong></td>
+                            <td>No specific medical Tx; ERCP dilation, Transplant</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Moderate vs Severe Alcoholic Hepatitis</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Moderate AH</th>
+                            <th>Severe AH</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MDF Score</strong></td>
+                            <td>< 32</td>
+                            <td>≥ 32</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MELD Score</strong></td>
+                            <td>≤ 20</td>
+                            <td>> 20</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Management</strong></td>
+                            <td>Abstinence, nutrition</td>
+                            <td>Prednisolone 40 mg/day (if no contraindications)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mortality Risk</strong></td>
+                            <td>20% at 1 year</td>
+                            <td>30% at 3 months</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Ascites Fluid: SAAG Interpretation</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SAAG ≥ 1.1 g/dL (Portal HTN)</th>
+                            <th>SAAG < 1.1 g/dL (Non-Portal HTN)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cirrhosis</td>
+                            <td>Peritoneal carcinomatosis</td>
+                        </tr>
+                        <tr>
+                            <td>Alcoholic hepatitis</td>
+                            <td>Tuberculous peritonitis</td>
+                        </tr>
+                        <tr>
+                            <td>Cardiac ascites (RHF)</td>
+                            <td>Pancreatic ascites</td>
+                        </tr>
+                        <tr>
+                            <td>Budd-Chiari syndrome</td>
+                            <td>Nephrotic syndrome</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 7: FLASHCARDS -->
+        <section id="tab-flashcards" class="tab-pane">
+            <h1>Active Recall Flashcards</h1>
+            <p class="text-center" style="margin-bottom: 20px;">Test your knowledge. Click the card to flip.</p>
+            
+            <div class="fc-container">
+                <div class="fc-card" id="flashcard" onclick="flipCard()">
+                    <div class="fc-face fc-front">
+                        <div class="fc-content" id="fc-q">Loading...</div>
+                    </div>
+                    <div class="fc-face fc-back">
+                        <div class="fc-content" id="fc-a">Loading...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="fc-controls">
+                <button class="btn btn-outline" onclick="prevCard()">← Previous</button>
+                <span id="fc-counter" style="display:flex; align-items:center; font-weight:bold; font-family:var(--font-mono);">1 / 50</span>
+                <button class="btn" onclick="nextCard()">Next →</button>
+            </div>
+        </section>
+
+        <!-- TAB 8: MCQS -->
+        <section id="tab-mcqs" class="tab-pane">
+            <h1>Board-Style Self-Assessment</h1>
+            
+            <div class="flex-between" style="margin-bottom: 15px;">
+                <h3 style="margin:0;">Question <span id="mcq-num">1</span> of 50</h3>
+                <div class="mcq-progress">Score: <span id="mcq-score">0</span></div>
+            </div>
+            
+            <div class="mcq-container">
+                <div class="mcq-question" id="mcq-q">Loading question...</div>
+                <ul class="mcq-options" id="mcq-options">
+                    <!-- Options injected via JS -->
+                </ul>
+                <div class="mcq-explanation" id="mcq-exp">
+                    <strong>Explanation:</strong> <span id="mcq-exp-text"></span>
+                </div>
+                <div class="mcq-nav">
+                    <button class="btn btn-outline" id="btn-mcq-check" onclick="checkAnswer()">Check Answer</button>
+                    <button class="btn" id="btn-mcq-next" onclick="nextMCQ()" style="display:none;">Next Question →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 9: CRAM SHEET -->
+        <section id="tab-cram" class="tab-pane">
+            <h1>Cram Sheet: Last-Minute Reviewer</h1>
+            
+            <div class="card">
+                <h3>Buzzwords & Rapid Associations</h3>
+                <ul>
+                    <li><strong>AST:ALT ratio > 1.5 or 2:1</strong> → Alcohol-associated Liver Disease.</li>
+                    <li><strong>MDF ≥ 32</strong> → Severe Alcoholic Hepatitis (Start Prednisolone 40mg).</li>
+                    <li><strong>True normal ALT</strong> → Men 29-33, Women 19-25. Normal labs don't rule out MASLD!</li>
+                    <li><strong>FIB-4 Score</strong> → First-line non-invasive test to exclude advanced fibrosis in MASLD.</li>
+                    <li><strong>Weight Loss >10%</strong> → Required to improve MASH and fibrosis.</li>
+                    <li><strong>Antimitochondrial Antibody (AMA)</strong> → Primary Biliary Cholangitis (PBC).</li>
+                    <li><strong>pANCA + Ulcerative Colitis</strong> → Primary Sclerosing Cholangitis (PSC).</li>
+                    <li><strong>Beading of bile ducts on MRCP</strong> → PSC.</li>
+                    <li><strong>Tx for PBC</strong> → Ursodeoxycholic Acid (UDCA).</li>
+                    <li><strong>Dupuytren's Contracture</strong> → Microvascular injury; acetaldehyde activates fibroblasts.</li>
+                    <li><strong>Zieve's Syndrome</strong> → Hemolytic anemia + hyperlipidemia + jaundice (in severe AH).</li>
+                    <li><strong>SAAG > 1.1</strong> → Portal Hypertension (Cirrhosis, cardiac ascites).</li>
+                    <li><strong>Ascitic fluid ANC > 250</strong> → Spontaneous Bacterial Peritonitis (SBP). Tx: Ceftriaxone + IV Albumin.</li>
+                    <li><strong>Hepatorenal Syndrome (HRS)</strong> → Functional renal failure (vasoconstriction). Tx: Terlipressin + Albumin.</li>
+                    <li><strong>Late evening snack</strong> → Recommended for cirrhotics to prevent overnight catabolism/sarcopenia.</li>
+                    <li><strong>Lactulose</strong> → First line for Hepatic Encephalopathy (goal 2-3 soft stools/day).</li>
+                    <li><strong>Goal for variceal prophylaxis (NSBB)</strong> → HR 55-60 bpm, SBP > 90.</li>
+                </ul>
+            </div>
+            
+            <div class="callout exam-tip">
+                <div class="callout-title">"If You See X → Think Y"</div>
+                <ul>
+                    <li>If you see <strong>Asterixis</strong> → Think <strong>Hepatic Encephalopathy</strong>.</li>
+                    <li>If you see <strong>Platypnea (dyspnea worse upright)</strong> → Think <strong>Hepatopulmonary Syndrome</strong>.</li>
+                    <li>If you see <strong>Cost-effective, no radiation risk imaging to confirm ascites</strong> → Think <strong>Ultrasound</strong>.</li>
+                    <li>If you see <strong>VCTE > 12.5 kPa</strong> → Think <strong>Cirrhosis (F4)</strong>.</li>
+                    <li>If you see <strong>Deranged PT in cirrhosis with bleeding</strong> → Think <strong>Transfuse FFP ONLY if actively bleeding (PT doesn't predict risk)</strong>.</li>
+                </ul>
+            </div>
+        </section>
+        
+    </main>
+</div>
+
+<script>
+    // --- NAVIGATION LOGIC ---
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            
+            this.classList.add('active');
+            const target = this.getAttribute('data-target');
+            document.getElementById(target).classList.add('active');
+            document.getElementById('mainContent').scrollTop = 0;
+        });
+    });
+
+    // --- SEARCH LOGIC ---
+    function handleSearch() {
+        const input = document.getElementById("searchInput").value.toLowerCase();
+        // A very simple search that unhides tabs if they contain text, or just use built-in browser find.
+        // For a single page app, window.find is better but restricted. We will just highlight.
+        if(input.length > 2) {
+            window.find(input);
+        }
+    }
+
+    // --- DATA: FLASHCARDS (50) ---
+    const fcData = [
+        {q: "What defines Binge Drinking for men and women?", a: "Men: ≥5 drinks/2 hours. Women: ≥4 drinks/2 hours."},
+        {q: "What is the true normal ALT for men and women?", a: "Men: 29-33 U/L. Women: 19-25 U/L."},
+        {q: "What enzyme oxidizes alcohol into acetaldehyde?", a: "Alcohol Dehydrogenase (ADH1)"},
+        {q: "Accumulation of what substance causes nausea and cutaneous flushing in ALD?", a: "Acetaldehyde (due to ALDH deficiency)"},
+        {q: "What is the classic AST/ALT ratio in Alcohol-associated Hepatitis?", a: "AST/ALT > 1.5 (AST rarely > 300)"},
+        {q: "What is Zieve's Syndrome?", a: "Triad of hemolytic anemia, hyperlipidemia, and jaundice in severe AH."},
+        {q: "What MDF score defines severe alcoholic hepatitis?", a: "MDF ≥ 32"},
+        {q: "What MELD score indicates severe alcoholic hepatitis?", a: "MELD > 20"},
+        {q: "What is the first-line pharmacologic treatment for severe AH without contraindications?", a: "Prednisolone 40 mg/day (or IV Methylprednisolone 32mg/d)"},
+        {q: "What score is used at Day 7 to determine if steroids should be continued for AH?", a: "Lille Score (<0.45 = continue)"},
+        {q: "What VCTE (elastography) value indicates Cirrhosis (F4)?", a: "> 12.5 kPa"},
+        {q: "What is the strongest risk factor for MASLD, fibrosis progression, and HCC?", a: "Type 2 Diabetes Mellitus"},
+        {q: "How much weight loss is required to improve MASH and fibrosis?", a: "Weight loss of > 10%"},
+        {q: "What is the initial screening tool/score to assess risk of advanced fibrosis in MASLD?", a: "FIB-4 Score"},
+        {q: "What cellular inclusion is classically seen on biopsy in ALD?", a: "Mallory-Denk bodies"},
+        {q: "What dietary modification specific to a beverage has shown benefit in MASLD?", a: "Brewed coffee (≥3 cups daily)"},
+        {q: "What defines clinically significant portal hypertension?", a: "HVPG ≥ 10 mmHg"},
+        {q: "Which cells are responsible for collagen deposition and fibrosis in cirrhosis?", a: "Hepatic Stellate Cells (in the space of Disse)"},
+        {q: "What causes Dupuytren's contracture in ALD?", a: "Microvascular injury; acetaldehyde activates fibroblasts causing excess collagen in palmar fascia."},
+        {q: "What is the treatment for osteoporosis in cirrhotic patients?", a: "Bisphosphonates (after DEXA scan diagnosis)"},
+        {q: "Why are late evening snacks recommended for cirrhotics?", a: "To prevent overnight fasting catabolism and worsening sarcopenia."},
+        {q: "Does a prolonged PT/INR predict bleeding risk in cirrhosis?", a: "No. Routine FFP correction is not required unless actively bleeding."},
+        {q: "What is the preferred primary prophylaxis for gastroesophageal varices?", a: "Nonselective Beta Blockers (Nadolol, Carvedilol)"},
+        {q: "What is the heart rate goal when using NSBB for variceal prophylaxis?", a: "55-60 bpm (with SBP >90 mmHg)"},
+        {q: "What hemoglobin level should trigger transfusion in acute variceal hemorrhage?", a: "Restrictive strategy: start at Hgb < 7 g/dL (Goal: 7-9 g/dL)"},
+        {q: "What pharmacologic agents are given in acute variceal hemorrhage to lower portal pressure?", a: "Somatostatin or Octreotide"},
+        {q: "What antibiotic is routinely given during acute variceal bleeding to prevent SBP?", a: "Ceftriaxone"},
+        {q: "What SAAG value indicates portal hypertension as the cause of ascites?", a: "SAAG > 1.1 g/dL"},
+        {q: "What is the recommended dietary sodium restriction for ascites management?", a: "80-120 mEq/day (4.6-6.9 g/day) - 'no added salt'"},
+        {q: "What ratio of diuretics is typically used for cirrhotic ascites?", a: "Spironolactone 100 mg to Furosemide 40 mg"},
+        {q: "What must be given when removing >5L during large-volume paracentesis?", a: "IV Albumin (6-8 g per Liter removed)"},
+        {q: "What ascetic fluid ANC count diagnoses Spontaneous Bacterial Peritonitis (SBP)?", a: "ANC > 250 / μL"},
+        {q: "What two agents are required for the treatment of SBP?", a: "3rd-gen cephalosporin (Ceftriaxone) + IV Albumin (reduces renal failure)"},
+        {q: "What is Hepatorenal Syndrome?", a: "Functional renal failure due to severe splanchnic vasodilation causing renal vasoconstriction."},
+        {q: "What defines Type 1 (AKI) Hepatorenal Syndrome?", a: "0.3 mg/dL rise in creatinine over 48 hrs OR 50% rise from baseline."},
+        {q: "What are the first-line pharmacotherapies for Hepatorenal Syndrome?", a: "Vasoconstrictors (Terlipressin) + IV Albumin"},
+        {q: "What physical exam finding is classic for Hepatic Encephalopathy?", a: "Asterixis (liver flap)"},
+        {q: "What is the first-line medical therapy for Hepatic Encephalopathy?", a: "Lactulose (goal 2-3 soft stools/day)"},
+        {q: "What antibiotic is used as an adjunctive treatment for recurrent Hepatic Encephalopathy?", a: "Rifaximin"},
+        {q: "What syndrome presents with hypoxemia and platypnea in a cirrhotic patient?", a: "Hepatopulmonary Syndrome (HPS)"},
+        {q: "What antibody is positive in 95% of patients with Primary Biliary Cholangitis (PBC)?", a: "Antimitochondrial Antibodies (AMA)"},
+        {q: "What is the first-line treatment for Primary Biliary Cholangitis (PBC)?", a: "Ursodeoxycholic acid (UDCA)"},
+        {q: "What biliary disease is strongly associated with Ulcerative Colitis?", a: "Primary Sclerosing Cholangitis (PSC)"},
+        {q: "What endoscopic/imaging finding is classic for PSC?", a: "'Beading' appearance (alternating strictures and dilatations)"},
+        {q: "What antibody is frequently positive in Autoimmune Hepatitis (AIH)?", a: "ANA and Anti-Smooth-Muscle Antibody (ASMA)"},
+        {q: "At what platelet count is transfusion recommended before procedures in cirrhosis?", a: "< 50,000 / μL"},
+        {q: "What diabetes medication is approved to treat MASLD by improving insulin resistance?", a: "Pioglitazone"},
+        {q: "True or False: Statin use is contraindicated in MASLD.", a: "False. Statins are safe across the MASLD spectrum and reduce long-term risks."},
+        {q: "What is MetALD?", a: "Metabolic and Alcohol-associated Liver Disease (Metabolic dysfunction + social alcohol use)"},
+        {q: "What virus is the dominant cause of cirrhosis in the Philippines?", a: "Hepatitis B Virus (HBV)"}
+    ];
+
+    let currentFc = 0;
+    const fcQ = document.getElementById('fc-q');
+    const fcA = document.getElementById('fc-a');
+    const fcCard = document.getElementById('flashcard');
+    const fcCounter = document.getElementById('fc-counter');
+
+    function loadCard(index) {
+        fcCard.classList.remove('is-flipped');
+        setTimeout(() => {
+            fcQ.innerText = fcData[index].q;
+            fcA.innerText = fcData[index].a;
+            fcCounter.innerText = `${index + 1} / ${fcData.length}`;
+        }, 150); // wait for flip animation half-way
+    }
+
+    function flipCard() { fcCard.classList.toggle('is-flipped'); }
+    function nextCard() { currentFc = (currentFc + 1) % fcData.length; loadCard(currentFc); }
+    function prevCard() { currentFc = (currentFc - 1 + fcData.length) % fcData.length; loadCard(currentFc); }
+
+    // --- DATA: MCQS (50) ---
+    // Minimal footprint, dense data.
+    const mcqData = [
+        {q: "A 48/M heavy drinker presents with jaundice. Labs: AST 180, ALT 60, Bilirubin 12 mg/dL. MDF is 38. What is the next best step?", o: ["Start Pentoxifylline", "Liver biopsy immediately", "Start N-acetylcysteine", "Start prednisolone (if no infection)"], a: 3, e: "MDF ≥32 indicates severe alcoholic hepatitis. Oral prednisolone 40 mg/d is the treatment of choice after ruling out contraindications (like infection)."},
+        {q: "Which enzyme is directly responsible for converting alcohol to the toxic metabolite acetaldehyde?", o: ["CYP2E1", "Acetaldehyde Dehydrogenase", "Alcohol Dehydrogenase", "Catalase"], a: 2, e: "Alcohol Dehydrogenase (ADH1) oxidizes ethanol to acetaldehyde. CYP2E1 is induced by chronic alcohol but ADH is primary."},
+        {q: "Why are women more susceptible to alcohol-associated liver disease?", o: ["Higher total body water", "Higher activity of CYP2E1", "Lower gastric alcohol dehydrogenase activity", "Slower renal clearance of ethanol"], a: 2, e: "Women have lower gastric ADH activity, meaning less first-pass metabolism in the stomach and more unmetabolized ethanol entering the bloodstream."},
+        {q: "A 55/F presents with pruritus and fatigue. Labs: ALP 420, AST 48, ALT 52, Bilirubin 1.8. AMA is positive. Next best step?", o: ["Start prednisolone", "Start ursodeoxycholic acid", "Perform ERCP", "Mandatory liver biopsy"], a: 1, e: "Classic presentation of Primary Biliary Cholangitis (middle-aged female, pruritus, elevated ALP, AMA+). First-line Tx is UDCA."},
+        {q: "Which parameter is NOT part of the FIB-4 score calculation?", o: ["Age", "AST", "Platelet count", "BMI"], a: 3, e: "FIB-4 is calculated using Age, AST, ALT, and Platelet count. BMI is not part of this specific formula."},
+        {q: "What AST/ALT pattern is highly suggestive of alcoholic hepatitis?", o: ["ALT > AST > 1000", "ALT > AST > 300", "AST > ALT with AST rarely > 300", "AST > ALT with AST usually > 500"], a: 2, e: "In AH, the AST/ALT ratio is typically > 1.5 or 2:1, and absolute values rarely exceed 300-400 IU/L."},
+        {q: "A 45/M with cirrhosis presents with ascites. Paracentesis shows a SAAG of 1.4 g/dL. What is the most likely cause?", o: ["Portal hypertension", "Tuberculous peritonitis", "Pancreatic ascites", "Peritoneal carcinomatosis"], a: 0, e: "SAAG > 1.1 g/dL indicates portal hypertension (such as from cirrhosis or right heart failure). SAAG < 1.1 indicates non-portal hypertensive causes."},
+        {q: "In a patient with severe alcoholic hepatitis given prednisolone, what tool is used at Day 7 to assess response?", o: ["Maddrey Discriminant Function", "MELD Score", "Child-Pugh Score", "Lille Score"], a: 3, e: "The Lille score is calculated at day 7. A score < 0.45 indicates the patient is a responder and should complete 28 days of steroids."},
+        {q: "A patient with cirrhosis has an acute variceal bleed. What is the target hemoglobin for restrictive transfusion?", o: ["> 10 g/dL", "7 - 9 g/dL", "12 g/dL", "> 9 g/dL"], a: 1, e: "Restrictive transfusion starts at Hgb < 7 g/dL with a goal of 7-9 g/dL to avoid volume overload which worsens portal pressure."},
+        {q: "Which medication should be administered empirically during an acute variceal bleed to prevent a common complication?", o: ["Lactulose", "Ceftriaxone", "Spironolactone", "Prednisolone"], a: 1, e: "Prophylactic antibiotics (Ceftriaxone) are given to prevent Spontaneous Bacterial Peritonitis (SBP) in cirrhotic patients with GI bleeding."},
+        {q: "Which medication is preferred for primary prophylaxis of gastroesophageal varices?", o: ["Propranolol or Nadolol", "Spironolactone", "Terlipressin", "Lisinopril"], a: 0, e: "Nonselective beta-blockers (Nadolol, Carvedilol, Propranolol) are used for primary prophylaxis to reduce splanchnic blood flow."},
+        {q: "A patient with cirrhosis develops ascites. Ascitic fluid analysis shows ANC 350 / μL. What is the diagnosis?", o: ["Secondary peritonitis", "Malignant ascites", "Spontaneous bacterial peritonitis", "Uncomplicated ascites"], a: 2, e: "An Absolute Neutrophil Count (ANC) > 250 / μL in the ascitic fluid is diagnostic of Spontaneous Bacterial Peritonitis (SBP)."},
+        {q: "What adjunctive therapy MUST be given alongside Ceftriaxone for the treatment of SBP?", o: ["Lactulose", "IV Albumin", "Terlipressin", "Spironolactone"], a: 1, e: "IV Albumin is given (1.5g/kg on Day 1, 1g/kg on Day 3) to reduce the risk of renal failure, improving survival in SBP."},
+        {q: "Which condition causes microvascular injury in the palmar fascia due to acetaldehyde and ROS activating fibroblasts?", o: ["Spider angiomata", "Caput medusae", "Asterixis", "Dupuytren contracture"], a: 3, e: "Dupuytren's contracture is a fixed flexion deformity caused by thickened palmar fascia, common in alcohol-associated liver disease."},
+        {q: "What defines 'MetALD'?", o: ["Alcohol use disorder without MASLD", "Metabolic dysfunction + >60g/day alcohol", "Metabolic dysfunction + 20-50g/day (W) or 30-60g/day (M) alcohol", "MASLD + 0 alcohol"], a: 2, e: "MetALD is a combination of metabolic dysfunction AND consumption of social amounts of alcohol (20-50g for women, 30-60g for men)."},
+        {q: "A 35/M with ulcerative colitis presents with fatigue. ERCP shows alternating strictures and dilatations of the biliary tree. Diagnosis?", o: ["Primary Biliary Cholangitis", "Primary Sclerosing Cholangitis", "Autoimmune Hepatitis", "Alcoholic Hepatitis"], a: 1, e: "PSC is highly associated with IBD (especially ulcerative colitis), affects men, and shows 'beading' (strictures/dilations) on imaging."},
+        {q: "What is the primary mechanism of Hepatorenal Syndrome (HRS)?", o: ["Immune complex deposition in glomeruli", "Direct toxicity of ammonia to renal tubules", "Extreme splanchnic vasodilation leading to renal vasoconstriction", "Bacterial seeding of the kidneys"], a: 2, e: "HRS is a functional renal failure caused by portal HTN-induced splanchnic vasodilation, which underfills the arterial system and triggers extreme renal vasoconstriction."},
+        {q: "How is Type 1 (AKI) Hepatorenal Syndrome characterized?", o: ["Slow, stable decline in GFR over months", "Rapid 0.3 mg/dL rise in creatinine in 48 hrs", "Normal creatinine but oliguria", "Always accompanied by SBP"], a: 1, e: "AKI-HRS (formerly Type 1) is a rapid, progressive impairment (0.3 mg/dL rise in 48hrs or 50% rise)."},
+        {q: "Which therapy is FDA approved to improve insulin resistance in MASLD/MASH, especially in T2DM?", o: ["Silymarin", "Pioglitazone", "Ursodeoxycholic acid", "Betaine"], a: 1, e: "Pioglitazone improves insulin resistance and serum lipids. UDCA and Silymarin have no proven benefit in MASLD."},
+        {q: "A patient with cirrhosis has a prolonged PT/INR (2.2). He is scheduled for a diagnostic paracentesis. What blood product is indicated?", o: ["FFP", "Cryoprecipitate", "Platelets", "None, proceed with procedure"], a: 3, e: "Deranged PT/INR does NOT predict bleeding risk in cirrhosis. Routine FFP is not indicated before procedures unless there is active bleeding."},
+        {q: "At what liver stiffness measurement on VCTE is Cirrhosis (F4) typically diagnosed?", o: ["< 6 kPa", "> 8 kPa", "> 12.5 kPa", "> 20 kPa"], a: 2, e: "VCTE > 12.5 kPa indicates Cirrhosis (F4). >8 kPa is advanced fibrosis (F3)."},
+        {q: "What is the target frequency of bowel movements when treating hepatic encephalopathy with lactulose?", o: ["1 solid stool/day", "2-3 soft stools/day", "5-6 watery stools/day", "No specific target"], a: 1, e: "The goal of lactulose therapy for HE is colonic acidification and catharsis aiming for 2-3 soft stools per day."},
+        {q: "Which nutritional intervention prevents overnight fasting catabolism and worsening sarcopenia in cirrhotics?", o: ["Fasting for 12 hours", "High protein breakfast", "Late evening snack", "Strict sodium free diet"], a: 2, e: "A late evening snack is heavily recommended for patients with cirrhosis to bridge the fasting gap and prevent muscle breakdown."},
+        {q: "What is the classic triad of Zieve's Syndrome?", o: ["Hemolytic anemia, hyperlipidemia, jaundice", "Asterixis, ascites, jaundice", "Fever, RUQ pain, jaundice", "Pruritus, fatigue, xanthelasma"], a: 0, e: "Zieve's syndrome is a transient metabolic complication of severe alcoholic hepatitis consisting of hemolytic anemia, hyperlipidemia, and jaundice."},
+        {q: "Which of the following is TRUE regarding true normal ALT?", o: ["It is < 40 U/L for everyone", "Men: 29-33 U/L, Women: 19-25 U/L", "It is higher in women", "It must be > 50 to suspect MASLD"], a: 1, e: "True normal ALT is strictly defined as 29-33 U/L for men and 19-25 U/L for women. Many 'normal' lab reference ranges miss mild MASLD."},
+        {q: "Which class of medications causes significant weight loss (up to 20.9%) and is highly beneficial for MASLD in T2DM?", o: ["Statins", "NSBBs", "Dual Incretin Agonists (Tirzepatide)", "Sulfonylureas"], a: 2, e: "Tirzepatide (GLP/GIP agonist) is approved for T2DM and causes profound weight loss, significantly improving MASLD."},
+        {q: "What is the mechanism of action of Lactulose in hepatic encephalopathy?", o: ["Destroys ammonia-producing bacteria", "Colonic acidification and catharsis", "Increases renal excretion of ammonia", "Reverses splanchnic vasodilation"], a: 1, e: "Lactulose is a non-absorbable disaccharide that acidifies the colon (trapping NH3 as NH4+) and causes catharsis to eliminate nitrogenous products."},
+        {q: "Which adjunctive medication is a poorly absorbed antibiotic used to decrease ammonia-producing gut bacteria?", o: ["Ceftriaxone", "Neomycin", "Rifaximin", "Metronidazole"], a: 2, e: "Rifaximin is a poorly absorbed antibiotic used primarily for recurrent Hepatic Encephalopathy to reduce gut flora that produce ammonia."},
+        {q: "A cirrhotic patient presents with dyspnea and platypnea (worse when upright). Echo shows a shunt. Diagnosis?", o: ["Portopulmonary Hypertension", "Hepatorenal Syndrome", "Spontaneous Bacterial Empyema", "Hepatopulmonary Syndrome"], a: 3, e: "Hepatopulmonary Syndrome (HPS) involves intrapulmonary vascular dilations leading to shunting, causing hypoxemia and platypnea."},
+        {q: "How does Portopulmonary Hypertension (PPHT) differ pathophysiologically from HPS?", o: ["It involves vascular dilations", "It involves pulmonary vasoconstriction", "It is caused by ammonia", "It is treated with oxygen alone"], a: 1, e: "PPHT is caused by vasoconstrictor substances (serotonin, endothelin-1) leading to pulmonary vasoconstriction and hypertension, unlike the dilations of HPS."},
+        {q: "Which of the following describes the 'Red Wale Sign'?", o: ["A skin finding on the palms", "An endoscopic stigmata of high-risk esophageal varices", "A vascular spider on the chest", "A sign of spontaneous bacterial peritonitis"], a: 1, e: "Red wale signs, cherry red spots, and hemocystic spots are endoscopic signs indicating a high risk of variceal hemorrhage."},
+        {q: "If a patient with refractory ascites requires removal of 6 Liters of fluid via LVP, what is indicated?", o: ["IV Furosemide", "IV Albumin", "TIPS placement immediately", "Antibiotics"], a: 1, e: "For Large Volume Paracentesis (≥5 L), IV Albumin (6-8 g/L removed) must be given to prevent post-paracentesis circulatory dysfunction."},
+        {q: "What is the most common monobacterium causing Spontaneous Bacterial Peritonitis?", o: ["Staphylococcus aureus", "Streptococcus viridans", "Escherichia coli", "Enterococcus spp."], a: 2, e: "E. coli is the most common organism responsible for SBP due to bacterial translocation from the gut."},
+        {q: "Which non-invasive test measures hyaluronic acid, TIMP-1, and PIIINP for MASLD staging?", o: ["VCTE", "FIB-4", "Enhanced Liver Fibrosis (ELF) test", "MR-PDFF"], a: 2, e: "The ELF blood test measures these three markers to stratify the risk of advanced fibrosis."},
+        {q: "According to the algorithm for MASLD, a FIB-4 score of 1.2 in a primary care setting implies:", o: ["Referral to Hepatology", "Secondary risk assessment with VCTE", "Low risk, continue primary care follow up", "Immediate Liver Biopsy"], a: 2, e: "A FIB-4 score < 1.3 is considered Low Risk, and the patient can be followed periodically in primary care."},
+        {q: "Which of the following is true regarding weight loss and MASLD?", o: ["3-5% weight loss improves fibrosis", ">10% weight loss is needed to improve MASH and fibrosis", "Weight loss has no effect on fibrosis", "Only bariatric surgery improves steatosis"], a: 1, e: "A 3-5% weight loss improves steatosis, but a >10% weight loss is required to improve MASH and underlying fibrosis."},
+        {q: "Which antibody is most specific for Autoimmune Hepatitis (AIH)?", o: ["Anti-mitochondrial Antibody (AMA)", "pANCA", "Anti-Smooth-Muscle Antibody (ASMA)", "Anti-HBs"], a: 2, e: "AIH is typically diagnosed by positive ANA and Anti-Smooth-Muscle Antibody (ASMA)."},
+        {q: "Which surgical procedure is considered a salvage therapy for refractory variceal bleeding?", o: ["Liver biopsy", "Endoscopic Variceal Ligation (EVL)", "Transjugular Intrahepatic Portosystemic Shunt (TIPS)", "Paracentesis"], a: 2, e: "TIPS is a salvage therapy for variceal hemorrhage that fails endoscopic and pharmacologic control."},
+        {q: "What is the recommended protein intake for a malnourished patient with cirrhosis?", o: ["0.5 g/kg/day", "0.8 g/kg/day", "1.2 - 1.5 g/kg/day", "2.5 g/kg/day"], a: 2, e: "Cirrhotics are often in a catabolic state and require 1.2 - 1.5 g/kg/day of protein to counteract sarcopenia."},
+        {q: "Which of the following cells are activated by gut-derived endotoxin and release TNF to cause liver injury in ALD?", o: ["Sinusoidal endothelial cells", "Kupffer cells", "Hepatic stellate cells", "Cholangiocytes"], a: 1, e: "Increased gut permeability in ALD allows endotoxin to activate Kupffer cells (liver macrophages), which release TNF and other cytokines."},
+        {q: "In the pathogenesis of ALD, what does the increased NADH/NAD+ ratio cause?", o: ["Increased mitochondrial beta-oxidation", "Decreased fatty acid mobilization", "Decreased mitochondrial beta-oxidation and increased lipogenesis", "Direct activation of stellate cells"], a: 2, e: "Alcohol metabolism increases NADH, which suppresses beta-oxidation and promotes lipogenesis, leading to steatosis."},
+        {q: "What defines 'moderate' alcoholic hepatitis?", o: ["MDF < 32 or MELD ≤ 20", "MDF > 32", "AST > 400", "Lille score > 0.45"], a: 0, e: "Moderate AH is defined as an MDF score < 32 or a MELD score ≤ 20, managed primarily with abstinence and nutrition."},
+        {q: "A patient with cirrhosis has asterixis, time disorientation, lethargy, and personality changes. According to the West Haven criteria, what grade is this?", o: ["Grade 1", "Grade 2", "Grade 3", "Grade 4"], a: 1, e: "Grade 2 HE features lethargy, time disorientation, personality changes, and asterixis (Overt HE)."},
+        {q: "Which medication is contraindicated as primary prophylaxis for variceal bleeding in a patient with severe asthma?", o: ["Carvedilol", "Lactulose", "Spironolactone", "Terlipressin"], a: 0, e: "Nonselective beta blockers (like Carvedilol, Nadolol) can cause bronchospasm and are generally contraindicated in severe asthma/COPD."},
+        {q: "What is the primary mode of transmission for Hepatitis B that causes high rates of chronic carriage?", o: ["Fecal-oral", "Blood transfusion", "Perinatal", "Aerosol"], a: 2, e: "Perinatal transmission (during childbirth) is the primary mode for HBV; 95% of perinatally infected infants become chronic carriers."},
+        {q: "A patient presents with snakeskin-like mosaic pattern of gastric mucosa on endoscopy. Diagnosis?", o: ["Gastric varices", "Portal Hypertensive Gastropathy", "Gastric ulcer", "Ménétrier's disease"], a: 1, e: "A snakeskin-like mosaic pattern is pathognomonic for Portal Hypertensive Gastropathy. Treated with NSBBs."},
+        {q: "Which physical exam finding is specific to cirrhosis due to chronic passive congestion from Right Heart Failure?", o: ["Asterixis", "Elevated JVP and CHF signs", "Xanthelasma", "Beading of bile ducts"], a: 1, e: "Cardiac cirrhosis presents with prominent signs of CHF, including elevated JVP, due to back-up of central venous pressure."},
+        {q: "True or False: Statin use decreases the risk of hepatic decompensation in MASLD.", o: ["True, they decrease portal pressure", "False, they are hepatotoxic", "False, they only improve cholesterol", "True, they cure the disease instantly"], a: 0, e: "Statins decrease portal pressure, thereby decreasing the risk for hepatic decompensation and lowering long-term HCC risk."},
+        {q: "What is the recommended dose of Terlipressin used for?", o: ["Primary prophylaxis of varices", "Treatment of Hepatorenal Syndrome", "Treatment of Hepatic Encephalopathy", "Resolution of gallstones"], a: 1, e: "Terlipressin is a splanchnic vasoconstrictor used alongside IV albumin as a first-line treatment for Hepatorenal Syndrome (HRS)."},
+        {q: "Which score accurately predicts the 28-day response to steroids in Severe Alcoholic Hepatitis?", o: ["MELD", "MDF", "FIB-4", "Lille Score"], a: 3, e: "The Lille Score is calculated on Day 7 of steroid therapy to predict response; <0.45 means the patient is responding and should continue."}
+    ];
+
+    let currentMCQ = 0;
+    let score = 0;
+    let answered = false;
+
+    const elMcqQ = document.getElementById('mcq-q');
+    const elMcqOpts = document.getElementById('mcq-options');
+    const elMcqExp = document.getElementById('mcq-exp');
+    const elMcqExpText = document.getElementById('mcq-exp-text');
+    const btnCheck = document.getElementById('btn-mcq-check');
+    const btnNext = document.getElementById('btn-mcq-next');
+
+    function loadMCQ(index) {
+        answered = false;
+        elMcqExp.classList.remove('visible');
+        btnNext.style.display = 'none';
+        btnCheck.style.display = 'inline-block';
+        document.getElementById('mcq-num').innerText = index + 1;
+        
+        elMcqQ.innerText = mcqData[index].q;
+        elMcqOpts.innerHTML = '';
+        
+        mcqData[index].o.forEach((optText, i) => {
+            const li = document.createElement('li');
+            li.className = 'mcq-option';
+            li.innerText = optText;
+            li.onclick = () => selectOption(li);
+            elMcqOpts.appendChild(li);
+        });
+    }
+
+    function selectOption(selectedLi) {
+        if (answered) return;
+        document.querySelectorAll('.mcq-option').forEach(li => li.classList.remove('selected'));
+        selectedLi.classList.add('selected');
+    }
+
+    function checkAnswer() {
+        if (answered) return;
+        const selected = document.querySelector('.mcq-option.selected');
+        if (!selected) {
+            alert("Please select an option first.");
+            return;
+        }
+        
+        answered = true;
+        const options = document.querySelectorAll('.mcq-option');
+        const correctIndex = mcqData[currentMCQ].a;
+        let selectedIndex = Array.from(options).indexOf(selected);
+        
+        if (selectedIndex === correctIndex) {
+            selected.classList.add('correct');
+            score++;
+            document.getElementById('mcq-score').innerText = score;
+        } else {
+            selected.classList.add('wrong');
+            options[correctIndex].classList.add('correct');
+        }
+        
+        elMcqExpText.innerText = mcqData[currentMCQ].e;
+        elMcqExp.classList.add('visible');
+        
+        btnCheck.style.display = 'none';
+        btnNext.style.display = 'inline-block';
+    }
+
+    function nextMCQ() {
+        if (currentMCQ < mcqData.length - 1) {
+            currentMCQ++;
+            loadMCQ(currentMCQ);
+        } else {
+            elMcqQ.innerText = `Quiz Complete! You scored ${score} out of ${mcqData.length}.`;
+            elMcqOpts.innerHTML = '';
+            elMcqExp.classList.remove('visible');
+            btnNext.style.display = 'none';
+        }
+    }
+
+    // Initialize
+    window.onload = () => {
+        loadCard(0);
+        loadMCQ(0);
+    };
+
+</script>
+</body>
+</html>
